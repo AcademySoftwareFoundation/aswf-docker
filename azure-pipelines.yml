@@ -1,5 +1,57 @@
-pool:
-  vmImage: 'Ubuntu 16.04'
-steps:
-- script: echo Hello, world!
-  displayName: 'Hello World'
+
+jobs:
+  - job: build_docker_images
+    displayName: Build Docker Images
+    condition: not(eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - script: docker build -t aswfstaging/aswf-vfx-base:2019 -f aswf-vfx-base/Dockerfile .
+      displayName: Build aswf-vfx-base
+    - script: docker build -t aswfstaging/aswf-ocio-build:2019 -f aswf-ocio-build/Dockerfile .
+      displayName: Build aswf-ocio-build
+    - script: docker build -t aswfstaging/aswf-openvdb-build:2019 -f aswf-openvdb-build/Dockerfile .
+      displayName: Build aswf-openvdb-build
+
+  - job: build_and_push_docker_images
+    displayName: Build and Push Docker Images
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: Docker@2
+      displayName: Build aswf-vfx-base
+      inputs:
+        command: buildAndPush
+        repository: aswfstaging/aswf-vfx-base
+        Dockerfile: aswf-vfx-base/Dockerfile
+        buildContext: .
+        containerRegistry: dockerHubConnection
+        tags: |
+          latest
+          2019
+          2019.0
+    - task: Docker@2
+      displayName: Build aswf-ocio-build
+      inputs:
+        command: buildAndPush
+        repository: aswfstaging/aswf-ocio-build
+        Dockerfile: aswf-ocio-build/Dockerfile
+        buildContext: .
+        containerRegistry: dockerHubConnection
+        tags: |
+          latest
+          2019
+          2019.0
+    - task: Docker@2
+      displayName: Build aswf-openvdb-build
+      inputs:
+        command: buildAndPush
+        repository: aswfstaging/aswf-openvdb-build
+        Dockerfile: aswf-openvdb-build/Dockerfile
+        buildContext: .
+        containerRegistry: dockerHubConnection
+        tags: |
+          latest
+          2019
+          2019.0
