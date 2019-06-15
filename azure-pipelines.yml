@@ -5,7 +5,7 @@ jobs:
     condition: not(eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     pool:
       vmImage: 'ubuntu-16.04'
-    timeoutInMinutes: 180
+    timeoutInMinutes: 360
     steps:
     - script: docker build -t aswfstaging/ci-base:2019 -f ci-base/Dockerfile .
       displayName: Build ci-base
@@ -19,7 +19,7 @@ jobs:
   - job: build_and_push_docker_images
     displayName: Build and Push Docker Images
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-    timeoutInMinutes: 180
+    timeoutInMinutes: 360
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
