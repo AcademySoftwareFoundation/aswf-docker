@@ -14,7 +14,7 @@ fi
 mkdir build
 cd build
 cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm
-make
+make -j4
 make install
 
 cd ../..
