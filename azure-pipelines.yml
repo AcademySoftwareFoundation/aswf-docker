@@ -6,12 +6,14 @@ jobs:
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-    - script: docker build -t aswfstaging/aswf-vfx-base:2019 -f aswf-vfx-base/Dockerfile .
-      displayName: Build aswf-vfx-base
-    - script: docker build -t aswfstaging/aswf-ocio-build:2019 -f aswf-ocio-build/Dockerfile .
-      displayName: Build aswf-ocio-build
-    - script: docker build -t aswfstaging/aswf-openvdb-build:2019 -f aswf-openvdb-build/Dockerfile .
-      displayName: Build aswf-openvdb-build
+    - script: docker build -t aswfstaging/ci-base:2019 -f ci-base/Dockerfile .
+      displayName: Build ci-base
+    - script: docker build -t aswfstaging/ci-ocio:2019 -f ci-ocio/Dockerfile .
+      displayName: Build ci-ocio
+    - script: docker build -t aswfstaging/ci-openvdb:2019 -f ci-openvdb/Dockerfile .
+      displayName: Build ci-openvdb
+    - script: docker build -t aswfstaging/ci-openexr:2019 -f ci-openexr/Dockerfile .
+      displayName: Build ci-openexr
 
   - job: build_and_push_docker_images
     displayName: Build and Push Docker Images
@@ -20,11 +22,11 @@ jobs:
       vmImage: 'ubuntu-16.04'
     steps:
     - task: Docker@2
-      displayName: Build aswf-vfx-base
+      displayName: Build ci-base
       inputs:
         command: buildAndPush
-        repository: aswfstaging/aswf-vfx-base
-        Dockerfile: aswf-vfx-base/Dockerfile
+        repository: aswfstaging/ci-base
+        Dockerfile: ci-base/Dockerfile
         buildContext: .
         containerRegistry: dockerHubConnection
         tags: |
@@ -32,11 +34,11 @@ jobs:
           2019
           2019.0
     - task: Docker@2
-      displayName: Build aswf-ocio-build
+      displayName: Build ci-ocio
       inputs:
         command: buildAndPush
-        repository: aswfstaging/aswf-ocio-build
-        Dockerfile: aswf-ocio-build/Dockerfile
+        repository: aswfstaging/ci-ocio
+        Dockerfile: ci-ocio/Dockerfile
         buildContext: .
         containerRegistry: dockerHubConnection
         tags: |
@@ -44,11 +46,23 @@ jobs:
           2019
           2019.0
     - task: Docker@2
-      displayName: Build aswf-openvdb-build
+      displayName: Build ci-openvdb
       inputs:
         command: buildAndPush
-        repository: aswfstaging/aswf-openvdb-build
-        Dockerfile: aswf-openvdb-build/Dockerfile
+        repository: aswfstaging/ci-openvdb
+        Dockerfile: ci-openvdb/Dockerfile
+        buildContext: .
+        containerRegistry: dockerHubConnection
+        tags: |
+          latest
+          2019
+          2019.0
+    - task: Docker@2
+      displayName: Build ci-openexr
+      inputs:
+        command: buildAndPush
+        repository: aswfstaging/ci-openexr
+        Dockerfile: ci-openexr/Dockerfile
         buildContext: .
         containerRegistry: dockerHubConnection
         tags: |

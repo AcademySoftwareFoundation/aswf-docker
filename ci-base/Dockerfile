@@ -58,6 +58,10 @@ RUN yum install -y \
     fam \
     wget \
     patch \
+    csh \
+    java-1.8.0-openjdk \
+    doxygen \
+    pkgconfig \
     && \
     yum clean all
 
@@ -65,11 +69,12 @@ RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" &&\
     python get-pip.py
 
 RUN pip install \
-    nose
+    nose \
+    epydoc
 
 COPY scripts/* /tmp/
 
 RUN /tmp/install_numpy.sh 1.14 && \
     /tmp/install_ninja.sh 1.9.0 && \
-    /tmp/install_cmake.sh 3.14.4 && \
+    /tmp/install_cmake.sh 3.11.4 && \
     /tmp/install_sonar.sh 3.3.0.1492

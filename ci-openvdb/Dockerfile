@@ -1,4 +1,4 @@
-FROM aswfstaging/aswf-vfx-base:2019
+FROM aswfstaging/ci-base:2019
 
 COPY scripts/* /tmp/
 
