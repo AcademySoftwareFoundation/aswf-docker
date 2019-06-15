@@ -77,4 +77,5 @@ COPY scripts/* /tmp/
 RUN /tmp/install_numpy.sh 1.14 && \
     /tmp/install_ninja.sh 1.9.0 && \
     /tmp/install_cmake.sh 3.11.4 && \
+    /tmp/install_clang.sh 7.0.1 && \
     /tmp/install_sonar.sh 3.3.0.1492
