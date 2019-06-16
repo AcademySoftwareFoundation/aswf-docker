@@ -15,6 +15,7 @@ mkdir build
 cd build
 cmake -DLLVM_ENABLE_PROJECTS=clang \
       -DCMAKE_BUILD_TYPE=Release \
+      -DLLVM_TARGETS_TO_BUILD=host \
       ../llvm
 make -j2
 make install
