@@ -74,8 +74,14 @@ RUN pip install \
 
 COPY scripts/* /tmp/
 
-RUN /tmp/install_numpy.sh 1.14 && \
-    /tmp/install_ninja.sh 1.9.0 && \
+# Install base build toolset
+RUN /tmp/install_ninja.sh 1.9.0 && \
     /tmp/install_cmake.sh 3.11.4 && \
     /tmp/install_clang.sh 7.0.1 && \
     /tmp/install_sonar.sh 3.3.0.1492
+
+# Install most common dependencies
+RUN /tmp/install_boost.sh 1.66.0 && \
+    /tmp/install_tbb.sh 2018 && \
+    /tmp/install_numpy.sh 1.14 && \
+    /tmp/install_cppunit.sh 1.14.0
