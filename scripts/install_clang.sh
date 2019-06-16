@@ -13,7 +13,9 @@ fi
 
 mkdir build
 cd build
-cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm
+cmake -DLLVM_ENABLE_PROJECTS=clang \
+      -DCMAKE_BUILD_TYPE=Release \
+      ../llvm
 make -j4
 make install
 
