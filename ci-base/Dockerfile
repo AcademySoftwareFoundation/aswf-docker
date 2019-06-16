@@ -12,7 +12,6 @@ RUN yum install -y \
     zlib-devel \
     git \
     ca-certificates \
-    ssh \
     sudo \
     openssl-devel \
     libxcb libxcb-devel \
@@ -62,6 +61,7 @@ RUN yum install -y \
     java-1.8.0-openjdk \
     doxygen \
     pkgconfig \
+    automake autoconf \
     && \
     yum clean all
 
@@ -72,15 +72,25 @@ RUN pip install \
     nose \
     epydoc
 
-COPY scripts/* /tmp/
-
 # Install base build toolset
+COPY scripts/install_ninja.sh \
+     scripts/install_cmake.sh \
+     scripts/install_clang.sh \
+     scripts/install_sonar.sh \
+     /tmp/
+
 RUN /tmp/install_ninja.sh 1.9.0 && \
     /tmp/install_cmake.sh 3.11.4 && \
     /tmp/install_clang.sh 7.0.1 && \
     /tmp/install_sonar.sh 3.3.0.1492
 
 # Install most common dependencies
+COPY scripts/install_boost.sh \
+     scripts/install_tbb.sh \
+     scripts/install_numpy.sh \
+     scripts/install_cppunit.sh \
+     /tmp/
+
 RUN /tmp/install_boost.sh 1.66.0 && \
     /tmp/install_tbb.sh 2018 && \
     /tmp/install_numpy.sh 1.14 && \

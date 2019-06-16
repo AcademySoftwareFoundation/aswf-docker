@@ -8,7 +8,6 @@ wget http://dev-www.libreoffice.org/src/cppunit-${CPPUNIT_VERSION}.tar.gz
 tar xf cppunit-${CPPUNIT_VERSION}.tar.gz
 cd cppunit-${CPPUNIT_VERSION}
 
-./autogen.sh
 ./configure --prefix=/usr/local
 make -j4
 make install
