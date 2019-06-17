@@ -89,9 +89,11 @@ COPY scripts/install_boost.sh \
      scripts/install_tbb.sh \
      scripts/install_numpy.sh \
      scripts/install_cppunit.sh \
+     scripts/install_glew.sh \
      /tmp/
 
 RUN /tmp/install_boost.sh 1.66.0 && \
     /tmp/install_tbb.sh 2018 && \
     /tmp/install_numpy.sh 1.14 && \
-    /tmp/install_cppunit.sh 1.14.0
+    /tmp/install_cppunit.sh 1.14.0 && \
+    /tmp/install_glew.sh 2.1.0
