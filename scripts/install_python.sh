@@ -11,9 +11,10 @@ cd Python-${PYTHON_VERSION_FULL}
 ./configure \
     --prefix=/usr/local \
     --enable-unicode=ucs4 \
-    --enable-shared
+    --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
 make -j4
-make install
+
+sudo make install
 
 cd ../..
 rm -rf Python-${PYTHON_VERSION_FULL}
