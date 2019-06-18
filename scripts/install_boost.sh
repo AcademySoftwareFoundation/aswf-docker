@@ -27,6 +27,10 @@ sh bootstrap.sh
     --with-filesystem \
     --with-thread \
     --with-python \
+    --with-atomic \
+    --with-chrono \
+    --with-date_time \
+    --with-iostreams \
     --prefix=/usr/local
 
 cd ../..
