@@ -8,7 +8,10 @@ wget https://www.python.org/ftp/python/${PYTHON_VERSION_FULL}/Python-${PYTHON_VE
 tar xf Python-${PYTHON_VERSION_FULL}.tgz
 cd Python-${PYTHON_VERSION_FULL}
 
-./configure --prefix=/usr/local
+./configure \
+    --prefix=/usr/local \
+    --enable-unicode=ucs4 \
+    --enable-shared
 make -j4
 make install
 
