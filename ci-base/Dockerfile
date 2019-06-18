@@ -7,7 +7,6 @@ RUN yum install -y \
     bzip2-devel \
     file \
     make \
-    python-devel \
     which \
     zlib-devel \
     git \
@@ -65,13 +64,6 @@ RUN yum install -y \
     && \
     yum clean all
 
-RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" &&\
-    python get-pip.py
-
-RUN pip install \
-    nose \
-    epydoc
-
 # Install base build toolset
 COPY scripts/install_ninja.sh \
      scripts/install_cmake.sh \
@@ -83,6 +75,14 @@ RUN /tmp/install_ninja.sh 1.9.0 && \
     /tmp/install_cmake.sh 3.11.4 && \
     /tmp/install_clang.sh 7.0.1 && \
     /tmp/install_sonar.sh 3.3.0.1492
+
+ENV PYTHON_VERSION=2.7 \
+    PYTHON_VERSION_FULL=2.7.15 \
+    PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH} \
+    LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:${LD_LIBRARY_PATH}
+
+COPY scripts/install_python.sh /tmp/
+RUN /tmp/install_python.sh ${PYTHON_VERSION_FULL}
 
 # Install most common dependencies
 COPY scripts/install_boost.sh \
