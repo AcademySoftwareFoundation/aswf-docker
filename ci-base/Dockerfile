@@ -34,6 +34,7 @@ RUN yum install -y \
     libXcomposite libXcomposite-devel \
     libXcursor libXcursor-devel \
     libXi libXi-devel \
+    libXinerama libXinerama-devel \
     libxml2 libxml2-devel \
     libXmu libXmu-devel \
     libXp libXp-devel \
