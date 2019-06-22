@@ -1,5 +1,15 @@
-pool:
-  vmImage: 'Ubuntu 16.04'
-steps:
-- script: echo Hello, world!
-  displayName: 'Hello World'
+
+jobs:
+  - job: build_docker_images
+    displayName: Build Docker Images
+    condition: not(eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    pool:
+      vmImage: 'ubuntu-16.04'
+    timeoutInMinutes: 360
+    steps:
+    - script: docker build -t aswfstaging/ci-base:2019 -f ci-base/Dockerfile .
+      displayName: Build ci-base
+    - script: docker build -t aswfstaging/ci-ocio:2019 -f ci-ocio/Dockerfile .
+      displayName: Build ci-ocio
+    - script: docker build -t aswfstaging/ci-openvdb:2019 -f ci-openvdb/Dockerfile .
+      displayName: Build ci-openvdb
