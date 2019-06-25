@@ -2,8 +2,6 @@
 
 set -ex
 
-OIIO_VERSION="$1"
-
 git clone https://github.com/OpenImageIO/oiio.git
 cd oiio
 

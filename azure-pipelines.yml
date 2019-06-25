@@ -1,15 +1,37 @@
+variables:
+  CI_COMMON_VERSION: "1.0"
 
-jobs:
-  - job: build_docker_images
-    displayName: Build Docker Images
-    condition: not(eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+stages:
+- stage: build_common_docker_images
+  displayName: Build Common Docker Images
+  condition: always()
+  jobs:
+  - job:
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    timeoutInMinutes: 360
     pool:
       vmImage: 'ubuntu-16.04'
-    timeoutInMinutes: 360
     steps:
-    - script: docker build -t aswfstaging/ci-base:2019 -f ci-base/Dockerfile .
-      displayName: Build ci-base
-    - script: docker build -t aswfstaging/ci-ocio:2019 -f ci-ocio/Dockerfile .
-      displayName: Build ci-ocio
-    - script: docker build -t aswfstaging/ci-openvdb:2019 -f ci-openvdb/Dockerfile .
-      displayName: Build ci-openvdb
+      - script: docker login -u $(dockerhub.username) -p $(dockerhub.password)
+        displayName: Docker login
+      - bash: docker build -t $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} -f ci-common/Dockerfile --build-arg CI_COMMON_VERSION=${CI_COMMON_VERSION} --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') .
+        displayName: Build Docker Images
+      - bash: docker push $(dockerhub.org)/ci-common:${CI_COMMON_VERSION}
+        displayName: Push Docker Images
+
+- stage: build_vfx_docker_images
+  displayName: Build VFX Platform Docker Images
+  condition: always()
+  jobs:
+  - template: .azure/build-linux-docker-images.yml
+    parameters:
+      vfxplatform_version: 2018
+      aswf_version: 2018
+  - template: .azure/build-linux-docker-images.yml
+    parameters:
+      vfxplatform_version: 2019
+      aswf_version: 2019
+  - template: .azure/build-linux-docker-images.yml
+    parameters:
+      vfxplatform_version: 2020
+      aswf_version: 2020

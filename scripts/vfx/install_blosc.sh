@@ -2,8 +2,6 @@
 
 set -ex
 
-BLOSC_VERSION="$1"
-
 git clone https://github.com/Blosc/c-blosc.git
 cd c-blosc
 

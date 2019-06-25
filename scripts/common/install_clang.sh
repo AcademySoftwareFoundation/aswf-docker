@@ -2,10 +2,8 @@
 
 set -ex
 
-CLANG_VERSION="$1"
-
-wget https://github.com/llvm/llvm-project/archive/llvmorg-${CLANG_VERSION}.tar.gz
-tar xf llvmorg-${CLANG_VERSION}.tar.gz
+curl --location https://github.com/llvm/llvm-project/archive/llvmorg-${CLANG_VERSION}.tar.gz -o llvm.tar.gz
+tar xf llvm.tar.gz && rm llvm.tar.gz
 cd llvm-project-llvmorg-${CLANG_VERSION}
 
 mkdir build

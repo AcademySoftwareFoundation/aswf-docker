@@ -2,7 +2,6 @@
 
 set -ex
 
-LOG4CPLUS_VERSION="$1"
 LOG4CPLUS_MAJOR_MINOR=$(echo "${LOG4CPLUS_VERSION}" | cut -d. -f-2)
 LOG4CPLUS_MAJOR=$(echo "${LOG4CPLUS_VERSION}" | cut -d. -f-1)
 LOG4CPLUS_MINOR=$(echo "${LOG4CPLUS_MAJOR_MINOR}" | cut -d. -f2-)

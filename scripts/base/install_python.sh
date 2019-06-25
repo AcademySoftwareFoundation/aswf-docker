@@ -2,10 +2,8 @@
 
 set -ex
 
-PYTHON_VERSION_FULL="$1"
-
-wget https://www.python.org/ftp/python/${PYTHON_VERSION_FULL}/Python-${PYTHON_VERSION_FULL}.tgz
-tar xf Python-${PYTHON_VERSION_FULL}.tgz
+curl --location https://www.python.org/ftp/python/${PYTHON_VERSION_FULL}/Python-${PYTHON_VERSION_FULL}.tgz -o Python.tgz
+tar xf Python.tgz && rm Python.tgz
 cd Python-${PYTHON_VERSION_FULL}
 
 ./configure \

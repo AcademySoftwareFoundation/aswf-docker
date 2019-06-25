@@ -1,8 +1,28 @@
-FROM aswfstaging/ci-base:2019
+ARG ASWF_ORG=aswfstaging
+ARG VFXPLATFORM_VERSION=2019
+FROM $ASWF_ORG/ci-base:$VFXPLATFORM_VERSION
 
-COPY scripts/* /tmp/
+ARG BUILD_DATE
+ARG VCS_REF
 
-RUN /tmp/install_openexr.sh 2.3.0 && \
-    /tmp/install_log4cplus.sh 1.1.2 && \
-    /tmp/install_glfw.sh 3.1.2 && \
-    /tmp/install_blosc.sh 1.5.0
+LABEL maintainer="aloys.baillet@gmail.com"
+LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION
+LABEL org.label-schema.schema-version="1.0"
+LABEL org.label-schema.build-date=$BUILD_DATE
+LABEL org.label-schema.name="$ASWF_ORG/base-openvdb"
+LABEL org.label-schema.description="Base CI Docker Image"
+LABEL org.label-schema.url="http://aswf.io/"
+LABEL org.label-schema.vcs-url="https://github.com/AcademySoftwareFoundation/aswf-docker"
+LABEL org.label-schema.vcs-ref=$VCS_REF
+LABEL org.label-schema.vendor="AcademySoftwareFoundation"
+LABEL org.label-schema.version=$VFXPLATFORM_VERSION
+LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/base-openvdb bash"
+
+
+COPY scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
+     scripts/vfx/*.sh \
+     /tmp/
+
+RUN source /tmp/versions_vfx.sh && \
+    /tmp/install_openexr.sh && \
+    /tmp/install_blosc.sh 
