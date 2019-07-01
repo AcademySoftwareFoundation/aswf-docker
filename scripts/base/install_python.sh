@@ -14,6 +14,11 @@ make -j4
 
 sudo make install
 
+if [[ $PYTHON_VERSION == 3* ]]; then
+    # Create symlink from python3 to python
+    ln -s /usr/local/bin/python3 /usr/local/bin/python
+fi
+
 cd ../..
 rm -rf Python-${PYTHON_VERSION_FULL}
 

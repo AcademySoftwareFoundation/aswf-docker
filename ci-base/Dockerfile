@@ -26,6 +26,7 @@ ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH
     VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION
 
 COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
+     scripts/$VFXPLATFORM_VERSION/patchup.sh \
      scripts/base/*.sh \
      /tmp/
 
@@ -35,4 +36,5 @@ RUN source /tmp/versions_base.sh && \
     /tmp/install_tbb.sh && \
     /tmp/install_numpy.sh && \
     /tmp/install_cppunit.sh && \
-    /tmp/install_glew.sh
+    /tmp/install_glew.sh && \
+    /tmp/patchup.sh
