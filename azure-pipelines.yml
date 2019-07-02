@@ -37,7 +37,7 @@ stages:
       aswf_version: '2018.0'
       python_version: '2.7'
       cicommon_version: '1.0'
-      images: ['ci-base', 'ci-openexr', 'ci-openvdb', 'ci-ocio']
+      images: ['base', 'openexr', 'openvdb', 'ocio']
 
   - template: .azure/build-linux-docker-images.yml
     parameters:
@@ -45,7 +45,7 @@ stages:
       aswf_version: '2019.0'
       python_version: '2.7'
       cicommon_version: '1.0'
-      images: ['ci-base', 'ci-openexr', 'ci-openvdb', 'ci-ocio']
+      images: ['base', 'openexr', 'openvdb', 'ocio']
 
   - template: .azure/build-linux-docker-images.yml
     parameters:
@@ -53,4 +53,4 @@ stages:
       aswf_version: '2020.0'
       python_version: '3.7'
       cicommon_version: '1.0'
-      images: ['ci-base', 'ci-openexr']
+      images: ['base', 'openexr']
