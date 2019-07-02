@@ -9,18 +9,16 @@ ARG PYTHON_VERSION=2.7
 
 LABEL maintainer="aloys.baillet@gmail.com"
 LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION
-
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
-LABEL org.label-schema.name="$ASWF_ORG/base-ci"
-LABEL org.label-schema.description="Base CI Docker Image"
+LABEL org.label-schema.name="$ASWF_ORG/base-openexr"
+LABEL org.label-schema.description="OpenEXR CI Docker Image"
 LABEL org.label-schema.url="http://aswf.io/"
 LABEL org.label-schema.vcs-url="https://github.com/AcademySoftwareFoundation/aswf-docker"
 LABEL org.label-schema.vcs-ref=$VCS_REF
 LABEL org.label-schema.vendor="AcademySoftwareFoundation"
 LABEL org.label-schema.version=$VFXPLATFORM_VERSION
-LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/base-ci bash"
-
+LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/base-openexr bash"
 
 ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH} \
     VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION
@@ -33,8 +31,5 @@ COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
 RUN source /tmp/versions_base.sh && \
     /tmp/install_python.sh && \
     /tmp/install_boost.sh && \
-    /tmp/install_tbb.sh && \
     /tmp/install_numpy.sh && \
-    /tmp/install_cppunit.sh && \
-    /tmp/install_glew.sh && \
     /tmp/patchup.sh

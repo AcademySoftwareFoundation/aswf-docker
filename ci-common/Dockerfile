@@ -2,8 +2,8 @@ ARG CUDA_VERSION=10.1
 FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7
 
 ARG ASWF_ORG=aswfstaging
-ARG BUILD_DATE
-ARG VCS_REF
+ARG BUILD_DATE=dev
+ARG VCS_REF=dev
 
 LABEL maintainer="aloys.baillet@gmail.com"
 
