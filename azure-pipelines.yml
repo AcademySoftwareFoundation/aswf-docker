@@ -1,4 +1,7 @@
 trigger:
+  branches:
+    include:
+    - '*'
   paths:
     exclude:
     - README.md
