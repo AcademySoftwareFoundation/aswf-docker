@@ -46,6 +46,7 @@ stages:
       python_version: '2.7'
       cicommon_version: '1.0'
       images: ['base', 'openexr', 'openvdb', 'ocio']
+      tags: ['latest']
 
   - template: .azure/build-linux-docker-images.yml
     parameters:
