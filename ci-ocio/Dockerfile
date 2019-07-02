@@ -33,6 +33,7 @@ RUN source /tmp/versions_base.sh && \
     /tmp/install_boost.sh && \
     /tmp/install_tbb.sh && \
     /tmp/install_numpy.sh && \
+    /tmp/install_glew.sh && \
     /tmp/patchup.sh
 
 COPY scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
