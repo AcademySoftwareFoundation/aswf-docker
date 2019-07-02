@@ -15,7 +15,7 @@ stages:
   condition: always()
   jobs:
   - job:
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master-ci-common')
     timeoutInMinutes: 360
     pool:
       vmImage: 'ubuntu-16.04'
