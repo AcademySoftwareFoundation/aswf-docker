@@ -17,8 +17,7 @@ stages:
   condition: always()
   jobs:
   - job:
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master-ci-common')
-    timeoutInMinutes: 360
+    timeoutInMinutes: 0
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
@@ -33,8 +32,11 @@ stages:
         env:
           DOCKER_PASSWORD: $(dockerhub.password)
 
-      - publish: /var/lib/docker
-        artifact: DockerCache
+      - task: PublishPipelineArtifact@0
+        displayName: Publish Docker cache artifact
+        inputs:
+          targetPath: /var/lib/docker
+          artifactName: DockerCache
 
 - stage: build_vfx_docker_images
   displayName: Build VFX Platform Docker Images
