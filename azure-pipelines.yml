@@ -22,12 +22,19 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-      - script: docker login -u $(dockerhub.username) -p $(dockerhub.password)
-        displayName: Docker login
       - bash: docker build -t $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} -f ci-common/Dockerfile --build-arg CI_COMMON_VERSION=${CI_COMMON_VERSION} --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') .
         displayName: Build Docker Images
-      - bash: docker push $(dockerhub.org)/ci-common:${CI_COMMON_VERSION}
-        displayName: Push Docker Images
+
+      - bash: |
+          echo "$DOCKER_PASSWORD" | docker login -u $(dockerhub.username) --password-stdin
+          docker push $(dockerhub.org)/ci-common:${CI_COMMON_VERSION}
+        displayName: Docker login and push
+        condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+        env:
+          DOCKER_PASSWORD: $(dockerhub.password)
+
+      - publish: /var/lib/docker
+        artifact: DockerCache
 
 - stage: build_vfx_docker_images
   displayName: Build VFX Platform Docker Images
