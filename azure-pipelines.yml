@@ -32,11 +32,14 @@ stages:
         env:
           DOCKER_PASSWORD: $(dockerhub.password)
 
-      - task: PublishPipelineArtifact@0
+      - bash: docker save $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} | gzip -c > ci-common.tar.gz
+        displayName: Save Docker Image
+        condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
+      - publish: ci-common.tar.gz
+        artifact: ci-common-image
         displayName: Publish Docker cache artifact
-        inputs:
-          targetPath: /var/lib/docker
-          artifactName: DockerCache
+        condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - stage: build_vfx_docker_images
   displayName: Build VFX Platform Docker Images
