@@ -2,10 +2,8 @@
 
 set -ex
 
-CPPUNIT_VERSION="$1"
-
-wget http://dev-www.libreoffice.org/src/cppunit-${CPPUNIT_VERSION}.tar.gz
-tar xf cppunit-${CPPUNIT_VERSION}.tar.gz
+curl --location http://dev-www.libreoffice.org/src/cppunit-${CPPUNIT_VERSION}.tar.gz -o cppunit.tar.gz
+tar xf cppunit.tar.gz && rm cppunit.tar.gz
 cd cppunit-${CPPUNIT_VERSION}
 
 ./configure --prefix=/usr/local

@@ -2,8 +2,6 @@
 
 set -ex
 
-TBB_VERSION="$1"
-
 git clone https://github.com/01org/tbb.git
 cd tbb
 

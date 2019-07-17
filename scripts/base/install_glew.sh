@@ -2,10 +2,9 @@
 
 set -ex
 
-GLEW_VERSION="$1"
+curl --location https://github.com/nigels-com/glew/releases/download/glew-${GLEW_VERSION}/glew-${GLEW_VERSION}.tgz -o glew.tgz
+tar xf glew.tgz && rm glew.tgz
 
-wget https://github.com/nigels-com/glew/releases/download/glew-${GLEW_VERSION}/glew-${GLEW_VERSION}.tgz
-tar xf glew-${GLEW_VERSION}.tgz
 cd glew-${GLEW_VERSION}/build
 cmake ./cmake -DCMAKE_INSTALL_PREFIX=/usr/local
 make -j4
