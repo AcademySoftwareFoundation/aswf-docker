@@ -4,7 +4,7 @@ set -ex
 
 export BOOST_VERSION=1.66.0
 export CLANG_VERSION=7.0.1
-export CMAKE_VERSION=3.11.4
+export CMAKE_VERSION=3.12.4
 export CPPUNIT_VERSION=1.14.0
 export GLEW_VERSION=2.1.0
 export GLFW_VERSION=3.1.2
