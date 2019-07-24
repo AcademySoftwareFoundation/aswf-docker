@@ -108,5 +108,4 @@ COPY scripts/common/*.sh \
 RUN source /tmp/versions_common.sh && \
     /tmp/install_ninja.sh && \
     /tmp/install_sonar.sh && \
-    /tmp/install_cmake.sh && \
     /tmp/install_clang.sh

@@ -30,6 +30,7 @@ COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
 
 RUN source /tmp/versions_base.sh && \
     /tmp/install_python.sh && \
+    /tmp/install_cmake.sh && \
     /tmp/install_boost.sh && \
     /tmp/install_numpy.sh && \
     /tmp/patchup.sh
