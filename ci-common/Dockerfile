@@ -1,9 +1,10 @@
 ARG CUDA_VERSION=10.1
 FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7
 
-ARG ASWF_ORG=aswfstaging
+ARG ASWF_ORG=aswf
 ARG BUILD_DATE=dev
 ARG VCS_REF=dev
+ARG CI_COMMON_VERSION=1.0
 
 LABEL maintainer="aloys.baillet@gmail.com"
 
@@ -100,7 +101,8 @@ RUN mkdir /opt/aswf
 WORKDIR /opt/aswf
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/devtoolset-6/root/usr/lib64:/opt/rh/devtoolset-6/root/usr/lib:${LD_LIBRARY_PATH} \
-    PATH=/usr/local/bin:/opt/rh/devtoolset-6/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-6/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+    PATH=/usr/local/bin:/opt/rh/devtoolset-6/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-6/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
+    CI_COMMON_VERSION=${CI_COMMON_VERSION}
 
 COPY scripts/common/*.sh \
      /tmp/
