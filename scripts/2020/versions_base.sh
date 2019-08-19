@@ -3,6 +3,7 @@
 set -ex
 
 export BOOST_VERSION=1.70.0
+export CMAKE_VERSION=3.15.0
 export CPPUNIT_VERSION=1.14.0
 export GLEW_VERSION=2.1.0
 export GLFW_VERSION=3.1.2

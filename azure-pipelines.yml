@@ -52,6 +52,7 @@ stages:
       python_version: '2.7'
       cicommon_version: '1.0'
       images: ['base', 'openexr', 'openvdb', 'ocio']
+      tags: ['2018']
 
   - template: .azure/build-linux-docker-images.yml
     parameters:
@@ -60,7 +61,7 @@ stages:
       python_version: '2.7'
       cicommon_version: '1.0'
       images: ['base', 'openexr', 'openvdb', 'ocio']
-      tags: ['latest']
+      tags: ['2019', 'latest']
 
   - template: .azure/build-linux-docker-images.yml
     parameters:
@@ -69,3 +70,4 @@ stages:
       python_version: '3.7'
       cicommon_version: '1.0'
       images: ['base', 'openexr']
+      tags: ['2020', 'draft']
