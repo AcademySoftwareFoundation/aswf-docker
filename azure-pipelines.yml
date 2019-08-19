@@ -9,7 +9,7 @@ trigger:
 variables:
   - name: CI_COMMON_VERSION
     value: "1.0"
-  - group: dockerhub-staging
+  - group: dockerhub-release
 
 stages:
 - stage: build_common_docker_images
