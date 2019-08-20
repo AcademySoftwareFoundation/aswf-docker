@@ -11,63 +11,96 @@ variables:
     value: "1.0"
   - group: dockerhub-release
 
-stages:
-- stage: build_common_docker_images
-  displayName: Build Common Docker Images
-  condition: always()
-  jobs:
-  - job:
-    timeoutInMinutes: 0
-    pool:
-      vmImage: 'ubuntu-16.04'
-    steps:
-      - bash: docker build -t $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} -f ci-common/Dockerfile --build-arg CI_COMMON_VERSION=${CI_COMMON_VERSION} --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') .
-        displayName: Build Docker Images
+jobs:
+- job: build_common_docker_images
+  displayName: Build ci-common
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+    - bash: |
+        echo '##vso[task.setvariable variable=docker_build_date]`date -u +\'%Y-%m-%dT%H:%M:%SZ\'`' && \
+        echo '##vso[task.setvariable variable=docker_vcs_ref]`git rev-parse --short HEAD`'
+      displayName: Configure additional docker variables for master
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-      - bash: |
-          echo "$DOCKER_PASSWORD" | docker login -u $(dockerhub.username) --password-stdin
-          docker push $(dockerhub.org)/ci-common:${CI_COMMON_VERSION}
-        displayName: Docker login and push
-        condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-        env:
-          DOCKER_PASSWORD: $(dockerhub.password)
+    - bash: |
+        echo '##vso[task.setvariable variable=docker_build_date]dev' && \
+        echo '##vso[task.setvariable variable=docker_vcs_ref]dev'
+      displayName: Configure additional docker variables for caching
+      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
 
-      - bash: docker save $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} | gzip -c > ci-common.tar.gz
-        displayName: Save Docker Image
-        condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+    - bash: |
+        echo '##vso[task.setvariable variable=out_docker_build_date;isOutput=true]$(docker_build_date)' && \
+        echo '##vso[task.setvariable variable=out_docker_vcs_ref;isOutput=true]$(docker_vcs_ref)'
+      displayName: Configure additional docker variables for downstream jobs
+      name: setVariables
 
-      - publish: ci-common.tar.gz
-        artifact: ci-common-image
-        displayName: Publish Docker cache artifact
-        condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+    - bash: mkdir -p $(Pipeline.Workspace)/cache/ci-common-$(CI_COMMON_VERSION)
+      displayName: Prepare Docker Cache
+    
+    - task: CacheBeta@0
+      inputs:
+        key: docker-cache-ci-common-v1 | "ci-common-$(CI_COMMON_VERSION)" | ci-common/Dockerfile | scripts/common/*.sh
+        path: $(Pipeline.Workspace)/cache/ci-common-$(CI_COMMON_VERSION)
+        cacheHitVar: CACHE_RESTORED
+      displayName: Cache Docker history
 
-- stage: build_vfx_docker_images
-  displayName: Build VFX Platform Docker Images
-  condition: always()
-  jobs:
-  - template: .azure/build-linux-docker-images.yml
-    parameters:
-      vfxplatform_version: '2018'
-      aswf_version: '2018.0'
-      python_version: '2.7'
-      cicommon_version: '1.0'
-      images: ['base', 'openexr', 'openvdb', 'ocio']
-      tags: ['2018']
+    - bash: docker load < $(Pipeline.Workspace)/cache/ci-common-${CI_COMMON_VERSION}/cache.tar
+      displayName: Load ci-common history from cache
+      condition: eq(variables.CACHE_RESTORED, 'true')
 
-  - template: .azure/build-linux-docker-images.yml
-    parameters:
-      vfxplatform_version: '2019'
-      aswf_version: '2019.0'
-      python_version: '2.7'
-      cicommon_version: '1.0'
-      images: ['base', 'openexr', 'openvdb', 'ocio']
-      tags: ['2019', 'latest']
+    - bash: |
+        docker build . -t $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} -f ci-common/Dockerfile \
+          --build-arg BUILD_DATE=$(docker_build_date) \
+          --build-arg VCS_REF=$(docker_vcs_ref) \
+          --build-arg CI_COMMON_VERSION=${CI_COMMON_VERSION}
+      displayName: Build Docker Images
 
-  - template: .azure/build-linux-docker-images.yml
-    parameters:
-      vfxplatform_version: '2020'
-      aswf_version: '2020.0'
-      python_version: '3.7'
-      cicommon_version: '1.0'
-      images: ['base', 'openexr']
-      tags: ['2020', 'draft']
+    - bash: |
+        echo "$DOCKER_PASSWORD" | docker login -u $(dockerhub.username) --password-stdin
+        docker push $(dockerhub.org)/ci-common:${CI_COMMON_VERSION}
+      displayName: Docker login and push
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      env:
+        DOCKER_PASSWORD: $(dockerhub.password)
+
+    - bash: docker save $(docker history -q $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} | tr '\n' ' ' | tr -d '<missing>') > $(Pipeline.Workspace)/cache/ci-common-${CI_COMMON_VERSION}/cache.tar
+      displayName: Save Docker cache with history
+      condition: ne(variables.CACHE_RESTORED, 'true')
+
+    - bash: docker save $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} | gzip -c > ci-common.tar.gz
+      displayName: Save Docker Image
+      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
+    - publish: ci-common.tar.gz
+      artifact: ci-common-image
+      displayName: Publish Docker image artifact
+      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
+- template: .azure/build-linux-docker-images.yml
+  parameters:
+    vfxplatform_version: '2018'
+    aswf_version: '2018.0'
+    python_version: '2.7'
+    cicommon_version: '1.0'
+    images: ['base', 'openexr', 'openvdb', 'ocio']
+    tags: ['2018']
+
+- template: .azure/build-linux-docker-images.yml
+  parameters:
+    vfxplatform_version: '2019'
+    aswf_version: '2019.0'
+    python_version: '2.7'
+    cicommon_version: '1.0'
+    images: ['base', 'openexr', 'openvdb', 'ocio']
+    tags: ['2019', 'latest']
+
+- template: .azure/build-linux-docker-images.yml
+  parameters:
+    vfxplatform_version: '2020'
+    aswf_version: '2020.0'
+    python_version: '3.7'
+    cicommon_version: '1.0'
+    images: ['base', 'openexr']
+    tags: ['2020', 'draft']
