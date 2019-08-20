@@ -41,7 +41,7 @@ jobs:
     
     - task: CacheBeta@0
       inputs:
-        key: docker-cache-ci-common-v1 | "ci-common-$(CI_COMMON_VERSION)"
+        key: docker-cache-ci-common-v1 | "ci-common-$(CI_COMMON_VERSION)" | ci-common/Dockerfile | scripts/common/*.sh
         path: $(Pipeline.Workspace)/cache/ci-common-$(CI_COMMON_VERSION)
         cacheHitVar: CACHE_RESTORED
       displayName: Cache Docker history
