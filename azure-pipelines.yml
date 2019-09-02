@@ -102,5 +102,5 @@ jobs:
     aswf_version: '2020.0'
     python_version: '3.7'
     cicommon_version: '1.0'
-    images: ['base', 'openexr']
+    images: ['base', 'openexr', 'openvdb']
     tags: ['2020', 'draft']

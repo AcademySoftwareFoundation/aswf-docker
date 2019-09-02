@@ -26,10 +26,23 @@ if [[ $OPENEXR_VERSION == 2.2* ]]; then
     make -j4
     make install
 else
+
+    # TODO: add support for python-3 PyIlmBase when it works...
+    if [[ $OPENEXR_VERSION == 2.3.0 ]]; then
+        if [[ $PYTHON_VERSION == 2.7* ]]; then
+            BUILD_PYILMBASE=on
+        else
+            BUILD_PYILMBASE=off
+        fi
+    else
+        BUILD_PYILMBASE=on
+    fi
+
     mkdir build
     cd build
     cmake \
         -DCMAKE_INSTALL_PREFIX=/usr/local \
+        -DOPENEXR_BUILD_PYTHON_LIBS=${BUILD_PYILMBASE} \
         ..
     make -j4
     make install
