@@ -19,21 +19,57 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
     - bash: |
-        echo "##vso[task.setvariable variable=docker_build_date]`date -u +'%Y-%m-%dT%H:%M:%SZ'`" && \
-        echo "##vso[task.setvariable variable=docker_vcs_ref]`git rev-parse --short HEAD`"
-      displayName: Configure additional docker variables for master
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+        echo '##vso[task.setvariable variable=docker_build_date]`date -u +'%Y-%m-%dT%H:%M:%SZ'`'
+        echo '##vso[task.setvariable variable=docker_vcs_ref]`git rev-parse --short HEAD`'
+        echo '##vso[task.setvariable variable=docker_org]aswf'
+        echo '##vso[task.setvariable variable=push_images]true'
+      displayName: Configure additional docker variables for master on official repo
+      condition: |
+        and(
+          startsWith(variables['Build.Repository.Uri'], 'https://github.com/AcademySoftwareFoundation/aswf-docker'), 
+          eq(variables['Build.SourceBranch'], 'refs/heads/master')
+        )
 
     - bash: |
-        echo '##vso[task.setvariable variable=docker_build_date]dev' && \
+        echo '##vso[task.setvariable variable=docker_build_date]`date -u +'%Y-%m-%dT%H:%M:%SZ'`'
+        echo '##vso[task.setvariable variable=docker_vcs_ref]`git rev-parse --short HEAD`'
+        echo '##vso[task.setvariable variable=docker_org]aswfstaging'
+        echo '##vso[task.setvariable variable=push_images]true'
+      displayName: Configure additional docker variables for staging on official repo
+      condition: |
+        and(
+          startsWith(variables['Build.Repository.Uri'], 'https://github.com/AcademySoftwareFoundation/aswf-docker'),
+          eq(variables['Build.SourceBranch'], 'refs/heads/staging')
+        )
+
+    - bash: |
+        echo '##vso[task.setvariable variable=docker_build_date]`date -u +'%Y-%m-%dT%H:%M:%SZ'`'
+        echo '##vso[task.setvariable variable=docker_vcs_ref]`git rev-parse --short HEAD`'
+        echo '##vso[task.setvariable variable=docker_org]aswfstaging'
+        echo '##vso[task.setvariable variable=push_images]true'
+      displayName: Configure additional docker variables for testing on any repo
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/testing')
+
+    - bash: |
+        echo '##vso[task.setvariable variable=docker_build_date]dev'
         echo '##vso[task.setvariable variable=docker_vcs_ref]dev'
-      displayName: Configure additional docker variables for caching
-      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+        echo '##vso[task.setvariable variable=docker_org]aswftesting'
+        echo '##vso[task.setvariable variable=push_images]false'
+      displayName: Configure additional docker variables for normal jobs
+      condition: |
+        and(
+          not(startsWith(variables['Build.Repository.Uri'], 'https://github.com/AcademySoftwareFoundation/aswf-docker')),
+          ne(variables['Build.SourceBranch'], 'refs/heads/master'),
+          ne(variables['Build.SourceBranch'], 'refs/heads/staging'),
+          ne(variables['Build.SourceBranch'], 'refs/heads/testing')
+        )
 
     - bash: |
-        echo '##vso[task.setvariable variable=out_docker_build_date;isOutput=true]$(docker_build_date)' && \
+        echo '##vso[task.setvariable variable=out_docker_build_date;isOutput=true]$(docker_build_date)'
         echo '##vso[task.setvariable variable=out_docker_vcs_ref;isOutput=true]$(docker_vcs_ref)'
-      displayName: Configure additional docker variables for downstream jobs
+        echo '##vso[task.setvariable variable=out_docker_org;isOutput=true]$(docker_org)'
+        echo '##vso[task.setvariable variable=out_push_images;isOutput=true]$(push_images)'
+      displayName: Configure docker variables for downstream jobs
       name: setVariables
 
     - bash: mkdir -p $(Pipeline.Workspace)/cache/ci-common-$(CI_COMMON_VERSION)
@@ -51,7 +87,7 @@ jobs:
       condition: eq(variables.CACHE_RESTORED, 'true')
 
     - bash: |
-        docker build . -t $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} -f ci-common/Dockerfile \
+        docker build . -t $(docker_org)/ci-common:${CI_COMMON_VERSION} -f ci-common/Dockerfile \
           --build-arg BUILD_DATE=$(docker_build_date) \
           --build-arg VCS_REF=$(docker_vcs_ref) \
           --build-arg CI_COMMON_VERSION=${CI_COMMON_VERSION}
@@ -59,24 +95,24 @@ jobs:
 
     - bash: |
         echo "$DOCKER_PASSWORD" | docker login -u $(dockerhub.username) --password-stdin
-        docker push $(dockerhub.org)/ci-common:${CI_COMMON_VERSION}
+        docker push $(docker_org)/ci-common:${CI_COMMON_VERSION}
       displayName: Docker login and push
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      condition: eq(variables['push_images'], 'true')
       env:
         DOCKER_PASSWORD: $(dockerhub.password)
 
-    - bash: docker save $(docker history -q $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} | tr '\n' ' ' | tr -d '<missing>') > $(Pipeline.Workspace)/cache/ci-common-${CI_COMMON_VERSION}/cache.tar
+    - bash: docker save $(docker history -q $(docker_org)/ci-common:${CI_COMMON_VERSION} | tr '\n' ' ' | tr -d '<missing>') > $(Pipeline.Workspace)/cache/ci-common-${CI_COMMON_VERSION}/cache.tar
       displayName: Save Docker cache with history
       condition: ne(variables.CACHE_RESTORED, 'true')
 
-    - bash: docker save $(dockerhub.org)/ci-common:${CI_COMMON_VERSION} | gzip -c > ci-common.tar.gz
+    - bash: docker save $(docker_org)/ci-common:${CI_COMMON_VERSION} | gzip -c > ci-common.tar.gz
       displayName: Save Docker Image
-      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+      condition: eq(variables['push_images'], 'false')
 
     - publish: ci-common.tar.gz
       artifact: ci-common-image
-      displayName: Publish Docker image artifact
-      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+      displayName: Publish Docker image artifact for downstream jobs
+      condition: eq(variables['push_images'], 'false')
 
 - template: .azure/build-linux-docker-images.yml
   parameters:
