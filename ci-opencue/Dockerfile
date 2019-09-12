@@ -50,4 +50,3 @@ RUN yum -y install \
 # This is needed for Xvfb to function properly.
 RUN dbus-uuidgen > /etc/machine-id
 
-RUN pip install coverage
