@@ -84,7 +84,7 @@ jobs:
     aswf_version: '2018.0'
     python_version: '2.7'
     cicommon_version: '1.0'
-    images: ['base', 'openexr', 'openvdb', 'ocio']
+    images: ['base', 'openexr', 'openvdb', 'ocio', 'opencue']
     tags: ['2018']
 
 - template: .azure/build-linux-docker-images.yml
@@ -93,7 +93,7 @@ jobs:
     aswf_version: '2019.0'
     python_version: '2.7'
     cicommon_version: '1.0'
-    images: ['base', 'openexr', 'openvdb', 'ocio']
+    images: ['base', 'openexr', 'openvdb', 'ocio', 'opencue']
     tags: ['2019', 'latest']
 
 - template: .azure/build-linux-docker-images.yml
