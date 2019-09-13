@@ -56,12 +56,19 @@ jobs:
         echo '##vso[task.setvariable variable=docker_org]aswftesting'
         echo '##vso[task.setvariable variable=push_images]false'
       displayName: Configure additional docker variables for normal jobs
-      condition: |
-        and(
-          not(startsWith(variables['Build.Repository.Uri'], 'https://github.com/AcademySoftwareFoundation/aswf-docker')),
-          ne(variables['Build.SourceBranch'], 'refs/heads/master'),
-          ne(variables['Build.SourceBranch'], 'refs/heads/staging'),
-          ne(variables['Build.SourceBranch'], 'refs/heads/testing')
+      condition: | # This is the "else" of the 3 previous expressions...
+        not(
+            or(
+                and(
+                    startsWith(variables['Build.Repository.Uri'], 'https://github.com/AcademySoftwareFoundation/aswf-docker'), 
+                    eq(variables['Build.SourceBranch'], 'refs/heads/master')
+                ),
+                and(
+                    startsWith(variables['Build.Repository.Uri'], 'https://github.com/AcademySoftwareFoundation/aswf-docker'),
+                    eq(variables['Build.SourceBranch'], 'refs/heads/staging')
+                )
+                ,eq(variables['Build.SourceBranch'], 'refs/heads/testing')
+            )
         )
 
     - bash: |
