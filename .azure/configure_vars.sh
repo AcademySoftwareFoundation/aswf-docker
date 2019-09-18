@@ -13,12 +13,6 @@ then
     docker_vcs_ref=`git rev-parse --short HEAD`
     docker_org=aswf
     push_images=true
-elif [ $2 = refs/heads/staging ] && [ $1 = https://github.com/AcademySoftwareFoundation/aswf-docker ]
-then
-    docker_build_date=`date -u +'%Y-%m-%dT%H:%M:%SZ'`
-    docker_vcs_ref=`git rev-parse --short HEAD`
-    docker_org=aswfstaging
-    push_images=true
 elif [ $2 = refs/heads/testing ]
 then
     docker_build_date=`date -u +'%Y-%m-%dT%H:%M:%SZ'`
