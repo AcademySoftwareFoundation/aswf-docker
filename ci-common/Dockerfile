@@ -19,7 +19,6 @@ LABEL org.label-schema.vendor="AcademySoftwareFoundation"
 LABEL org.label-schema.version="1.0"
 LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/common-ci bash"
 
-
 USER root
 
 RUN yum install -y \
@@ -93,7 +92,8 @@ RUN yum install -y \
     && \
     yum -y groupinstall "Development Tools" && \
     yum install -y --setopt=tsflags=nodocs centos-release-scl-rh && \
-    yum install -y --setopt=tsflags=nodocs devtoolset-6-toolchain && \
+    sed -i 's/7/7.6.1810/g; s/^#.*baseurl/baseurl/; /mirrorlist/d' /etc/yum.repos.d/CentOS-SCLo-*.repo && \
+    yum install -y --setopt=tsflags=nodocs devtoolset-6-toolchain --nogpgcheck && \
     yum clean all -y &&\
     rm -rf /var/cache/yum/*
 
