@@ -90,17 +90,3 @@ jobs:
     cicommon_version: '1.0'
     images: ['base', 'openexr', 'openvdb']
     tags: ['2020', 'draft']
-
-- job: openvdb_test
-  displayName: Test an OpenVDB build
-  pool:
-    vmImage: 'ubuntu-16.04'
-  container: $(docker_org)/ci-openvdb:2019
-  timeoutInMinutes: 0
-  dependsOn: build_openvdb_2019
-  steps:
-  - bash: |
-      git clone https://github.com/AcademySoftwareFoundation/openvdb 
-      cd openvdb && git checkout b5af82007f869a29f6fa1af729f14763e99f85be # Known working at that commit...
-      cd openvdb && ci/build.sh clang++ Release 6 ON
-  condition: eq(variables['push_images'], 'true')
