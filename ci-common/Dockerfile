@@ -91,8 +91,8 @@ RUN yum install -y \
     zlib-devel \
     && \
     yum -y groupinstall "Development Tools" && \
-    yum install -y --setopt=tsflags=nodocs centos-release-scl-rh && \
-    sed -i 's/7/7.6.1810/g; s/^#.*baseurl/baseurl/; /mirrorlist/d' /etc/yum.repos.d/CentOS-SCLo-*.repo && \
+    yum install -y --setopt=tsflags=nodocs centos-release-scl-rh yum-utils && \
+    yum-config-manager --setopt=centos-sclo-rh.baseurl=http://vault.centos.org/centos/7.6.1810/sclo/\$basearch/rh/ --save && \
     yum install -y --setopt=tsflags=nodocs devtoolset-6-toolchain --nogpgcheck && \
     yum clean all -y &&\
     rm -rf /var/cache/yum/*
