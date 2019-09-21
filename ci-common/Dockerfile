@@ -39,6 +39,7 @@ RUN yum install -y \
     gdbm-devel \
     git \
     glut-devel \
+    glx-utils \
     gperf \
     java-1.8.0-openjdk \
     libcap-devel \
