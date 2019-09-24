@@ -30,7 +30,7 @@ tar -xzf boost.tar.gz
 
 cd boost_${BOOST_VERSION_U}
 sh bootstrap.sh ${BOOTSTRAP_ARGS}
-./b2 install -j4 variant=release toolset=gcc \
+./b2 install -j4 variant=release toolset=gcc link=shared \
     --with-atomic \
     --with-chrono \
     --with-container \
