@@ -19,7 +19,6 @@ LABEL org.label-schema.vendor="AcademySoftwareFoundation"
 LABEL org.label-schema.version="1.0"
 LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/common-ci bash"
 
-
 USER root
 
 RUN yum install -y \
@@ -40,6 +39,7 @@ RUN yum install -y \
     gdbm-devel \
     git \
     glut-devel \
+    glx-utils \
     gperf \
     java-1.8.0-openjdk \
     libcap-devel \
@@ -92,8 +92,9 @@ RUN yum install -y \
     zlib-devel \
     && \
     yum -y groupinstall "Development Tools" && \
-    yum install -y --setopt=tsflags=nodocs centos-release-scl-rh && \
-    yum install -y --setopt=tsflags=nodocs devtoolset-6-toolchain && \
+    yum install -y --setopt=tsflags=nodocs centos-release-scl-rh yum-utils && \
+    yum-config-manager --setopt=centos-sclo-rh.baseurl=http://vault.centos.org/centos/7.6.1810/sclo/\$basearch/rh/ --save && \
+    yum install -y --setopt=tsflags=nodocs devtoolset-6-toolchain --nogpgcheck && \
     yum clean all -y &&\
     rm -rf /var/cache/yum/*
 

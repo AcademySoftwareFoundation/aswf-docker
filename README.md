@@ -1,6 +1,10 @@
-[![Build Status](https://dev.azure.com/academysoftwarefoundation/Academy%20Software%20Foundation/_apis/build/status/AZP%20aswf-docker?branchName=master)](https://dev.azure.com/academysoftwarefoundation/Academy%20Software%20Foundation/_build/latest?definitionId=2&branchName=master)
-
 # Docker Images for the Academy Software Foundation
+
+| Docker Images | Build Status |
+| ---:         |     :---      |
+| `aswf/ci-*`        | [![Build Status - aswf](https://dev.azure.com/academysoftwarefoundation/Academy%20Software%20Foundation/_apis/build/status/AZP%20aswf-docker?branchName=master)](https://dev.azure.com/academysoftwarefoundation/Academy%20Software%20Foundation/_build/latest?definitionId=2&branchName=master)
+| `aswftesting/ci-*` | [![Build Status - aswf](https://dev.azure.com/academysoftwarefoundation/Academy%20Software%20Foundation/_apis/build/status/AZP%20aswf-docker?branchName=testing)](https://dev.azure.com/academysoftwarefoundation/Academy%20Software%20Foundation/_build/latest?definitionId=2&branchName=testing)
+
 
 More information:
 * [VFXPlatform](https://vfxplatform.com)
@@ -31,5 +35,11 @@ The most precise version tag is the `ASWF_VERSION` of the image, e.g. `aswf/ci-b
 The `latest` tag is pointing to the current VFX Platorm year images, e.g. `aswf/ci-openexr:latest` points to `aswf/ci-openexr:2019.0` but will be updated to point to `aswf/ci-openexr:2020.0` in the calendar year 2020.
 
 
+## Testing Images
+
+There is another dockerhub organisations with copies of the `aswf` docker images `aswftesting`: Images published there are for general testing and experimentations. Images can be pushed by any fork of the official repo as long as the branch is called `testing`. Images in this org will change without notice and could be broken in many unexpected ways!
+
+To get write access to the `aswftesting` dockerhub organisation you can open a jira issue [there](jira.aswf.io).
+
 ### Status
-As of June 2019 there are 2018 and 2019 VFX Platform. The 2020 version only contains base packages (such as python-3.7 and boost).
+As of September 2019 there are 2018 and 2019 VFX Platform. The 2020 version are experimental and mostly only contains base packages (such as python-3.7 and boost).
