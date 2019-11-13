@@ -11,7 +11,8 @@ fi
 
 mkdir build
 cd build
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local ..
+
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} ..
 make -j4
 make install
 

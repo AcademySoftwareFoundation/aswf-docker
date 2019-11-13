@@ -11,7 +11,7 @@ fi
 
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local \
+cmake -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
       -DOIIO_BUILD_TOOLS=OFF \
       -DOIIO_BUILD_TESTS=OFF \
       -DVERBOSE=ON \

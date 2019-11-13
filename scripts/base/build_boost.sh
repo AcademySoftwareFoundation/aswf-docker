@@ -14,23 +14,26 @@ else
     BOOST_EXTRA_ARGS=""
 fi
 
+BOOTSTRAP_ARGS="--with-python=${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_VERSION} --with-python-version=${PYTHON_VERSION} --with-python-root=${ASWF_INSTALL_PREFIX}/lib/python${PYTHON_VERSION}"
 if [[ $PYTHON_VERSION == 3* ]]; then
     # The unfortunate trick is the "m" in the python include path...
-    echo "using python : ${PYTHON_VERSION} : /usr/local/bin/python${PYTHON_VERSION} : /usr/local/include/python${PYTHON_VERSION}m : /usr/local/lib ;" > ~/user-config.jam
-    BOOTSTRAP_ARGS="--with-python=/usr/local/bin/python${PYTHON_VERSION} --with-python-version=${PYTHON_VERSION} --with-python-root=/usr/local/lib/python${PYTHON_VERSION}"
+    echo "using python : ${PYTHON_VERSION} : ${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_VERSION} : ${ASWF_INSTALL_PREFIX}/include/python${PYTHON_VERSION}m : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
 else
-    BOOTSTRAP_ARGS=""
+    echo "using python : ${PYTHON_VERSION} : ${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_VERSION} : ${ASWF_INSTALL_PREFIX}/include/python${PYTHON_VERSION} : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
 fi
 
-mkdir _boost
-cd _boost
+mkdir boost
+cd boost
 
-curl --location https://sourceforge.net/projects/boost/files/boost/${BOOST_VERSION}/boost_${BOOST_VERSION_U}.tar.gz -o boost.tar.gz
-tar -xzf boost.tar.gz
+if [ ! -f $DOWNLOADS_DIR/boost-${BOOST_VERSION}.tar.gz ]; then
+    curl --location https://sourceforge.net/projects/boost/files/boost/${BOOST_VERSION}/boost_${BOOST_VERSION_U}.tar.gz -o $DOWNLOADS_DIR/boost-${BOOST_VERSION}.tar.gz
+fi
+
+tar -xzf $DOWNLOADS_DIR/boost-${BOOST_VERSION}.tar.gz
 
 cd boost_${BOOST_VERSION_U}
 sh bootstrap.sh ${BOOTSTRAP_ARGS}
-./b2 install -j4 variant=release toolset=gcc link=shared \
+./b2 install -j2 variant=release toolset=gcc link=shared \
     --with-atomic \
     --with-chrono \
     --with-container \
@@ -56,9 +59,9 @@ sh bootstrap.sh ${BOOTSTRAP_ARGS}
     --with-timer \
     --with-type_erasure \
     --with-wave \
-    --prefix=/usr/local \
+    --prefix=${ASWF_INSTALL_PREFIX} \
     --with-python \
     ${BOOST_EXTRA_ARGS}
 
 cd ../..
-rm -rf _boost
+rm -rf boost

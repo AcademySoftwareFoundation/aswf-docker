@@ -19,7 +19,10 @@ Each image (apart from `ci-common`) is available for multiple VFX Platform Years
 * `aswf/ci-base:20XX`: Based on `aswf/ci-common` with most most VFX Platform requirements pre-installed.
 * `aswf/ci-openexr:20XX`: Based on `aswf/ci-common`, comes with all OpenEXR upstream dependencies pre-installed.
 * `aswf/ci-ocio:20XX`: Based on `aswf/ci-common`, comes with all OpenColorIO upstream dependencies pre-installed.
+* `aswf/ci-opencue:20XX`: Based on `aswf/ci-common`, comes with all OpenCue upstream dependencies pre-installed.
 * `aswf/ci-openvdb:20XX`: Based on `aswf/ci-common`, comes with all OpenVDB upstream dependencies pre-installed.
+* `aswf/ci-usd:20XX`: Based on `aswf/ci-common`, comes with all USD upstream dependencies pre-installed.
+* `aswf/ci-all:20XX`: Based on `aswf/ci-common`, comes with most VFX packages pre-installed.
 
 ### Versions
 

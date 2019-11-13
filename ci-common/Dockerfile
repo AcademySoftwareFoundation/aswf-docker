@@ -1,10 +1,19 @@
+# "Global" ARGs
 ARG CUDA_VERSION=10.1
-FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7
-
-ARG ASWF_ORG=aswf
+ARG ASWF_ORG=aswftesting
+ARG CI_COMMON_VERSION=1
 ARG BUILD_DATE=dev
 ARG VCS_REF=dev
-ARG CI_COMMON_VERSION=1.0
+
+# ARGS are not accepted in "COPY --from" directives so this alias is necessary
+FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
+
+FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-common
+
+ARG ASWF_ORG
+ARG CI_COMMON_VERSION
+ARG BUILD_DATE
+ARG VCS_REF
 
 LABEL maintainer="aloys.baillet@gmail.com"
 
@@ -21,82 +30,10 @@ LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_OR
 
 USER root
 
-RUN yum install -y \
-    alsa-lib alsa-lib-devel \
-    automake autoconf \
-    bison \
-    bzip2-devel \
-    ca-certificates \
-    csh \
-    db4-devel \
-    dbus dbus-devel \
-    doxygen \
-    expat-devel \
-    fam \
-    file \
-    fontconfig fontconfig-devel \
-    freetype freetype-devel \
-    gdbm-devel \
-    git \
-    glut-devel \
-    glx-utils \
-    gperf \
-    java-1.8.0-openjdk \
-    libcap-devel \
-    libcap-devel \
-    libffi-devel \
-    libjpeg libjpeg-devel \
-    libpcap-devel \
-    libpng libpng-devel \
-    libtiff libtiff-devel \
-    libv4l libv4l-devel \
-    libxcb libxcb-devel \
-    libXcomposite libXcomposite-devel \
-    libXcursor libXcursor-devel \
-    libXi libXi-devel \
-    libXinerama libXinerama-devel \
-    libxml2 libxml2-devel \
-    libXmu libXmu-devel \
-    libXp libXp-devel \
-    libXpm libXpm-devel \
-    libXrandr libXrandr-devel \
-    libXrender libXrender-devel \
-    libXScrnSaver libXScrnSaver-devel \
-    libxslt libxslt-devel \
-    libXtst-devel \
-    make \
-    mesa-libEGL-devel \
-    mesa-libGL-devel \
-    ncurses ncurses-devel \
-    nss nss-devel \
-    openssl-devel \
-    patch \
-    pciutils-devel \
-    pkgconfig \
-    pulseaudio-libs pulseaudio-libs-devel \
-    pulseaudio-libs-devel \
-    readline readline-devel \
-    ruby \
-    sqlite-devel \
-    sudo \
-    tcsh \
-    tk-devel \
-    unzip \
-    wget \
-    which \
-    xcb-util xcb-util-devel \
-    xcb-util-image xcb-util-image-devel \
-    xcb-util-keysyms xcb-util-keysyms-devel \
-    xcb-util-wm xcb-util-wm-devel \
-    xz-devel \
-    zlib-devel \
-    && \
-    yum -y groupinstall "Development Tools" && \
-    yum install -y --setopt=tsflags=nodocs centos-release-scl-rh yum-utils && \
-    yum-config-manager --setopt=centos-sclo-rh.baseurl=http://vault.centos.org/centos/7.6.1810/sclo/\$basearch/rh/ --save && \
-    yum install -y --setopt=tsflags=nodocs devtoolset-6-toolchain --nogpgcheck && \
-    yum clean all -y &&\
-    rm -rf /var/cache/yum/*
+COPY scripts/common/install_yumpackages.sh \
+     /tmp/
+
+RUN /tmp/install_yumpackages.sh
 
 RUN mkdir /opt/aswf
 WORKDIR /opt/aswf
@@ -105,10 +42,21 @@ ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/devtoolset-6/root/us
     PATH=/usr/local/bin:/opt/rh/devtoolset-6/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-6/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
     CI_COMMON_VERSION=${CI_COMMON_VERSION}
 
-COPY scripts/common/*.sh \
+COPY scripts/${CI_COMMON_VERSION}/versions_common.sh \
+     scripts/common/install_ninja.sh \
+     scripts/common/install_sonar.sh \
+     scripts/common/install_ccache.sh \
      /tmp/
 
-RUN source /tmp/versions_common.sh && \
+COPY --from=ci-package-clang /. /usr/local/
+
+ENV CI_COMMON_VERSION=${CI_COMMON_VERSION} \
+    ASWF_ORG=${ASWF_ORG}
+
+RUN export DOWNLOADS_DIR=/tmp/downloads && \
+    mkdir /tmp/downloads && \
+    source /tmp/versions_common.sh && \
     /tmp/install_ninja.sh && \
     /tmp/install_sonar.sh && \
-    /tmp/install_clang.sh
+    /tmp/install_ccache.sh && \
+    rm -rf /tmp/downloads
