@@ -2,17 +2,9 @@ target "settings" {
 	args {
 		BUILD_DATE = "dev"
         VCS_REF = "dev"
+		ASWF_ORG = "aswftesting"
+		ASWF_PKG_ORG = "aswftesting"
 	}
-}
-
-target "settings-nopush" {
-	args {
-		BUILD_DATE = "dev"
-        VCS_REF = "dev"
-	}
-	output = [
-		"type=registry,push=false"
-	]
 }
 
 target "settings-2018" {

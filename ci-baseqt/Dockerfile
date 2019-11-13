@@ -1,16 +1,17 @@
 ARG ASWF_ORG=aswftesting
+ARG ASWF_PKG_ORG=aswftesting
 ARG CI_COMMON_VERSION=1
 ARG VFXPLATFORM_VERSION=2019
 
-FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
-FROM ${ASWF_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION} as ci-package-tbb
-FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
-FROM ${ASWF_ORG}/ci-package-cppunit:${VFXPLATFORM_VERSION} as ci-package-cppunit
-FROM ${ASWF_ORG}/ci-package-log4cplus:${VFXPLATFORM_VERSION} as ci-package-log4cplus
-FROM ${ASWF_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
-FROM ${ASWF_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
-FROM ${ASWF_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
-FROM ${ASWF_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
+FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
+FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION} as ci-package-tbb
+FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
+FROM ${ASWF_PKG_ORG}/ci-package-cppunit:${VFXPLATFORM_VERSION} as ci-package-cppunit
+FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:${VFXPLATFORM_VERSION} as ci-package-log4cplus
+FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
+FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
+FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
+FROM ${ASWF_PKG_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
 
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-baseqt
 

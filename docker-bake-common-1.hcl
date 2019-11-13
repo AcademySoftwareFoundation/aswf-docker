@@ -10,7 +10,7 @@ target "ci-common-1" {
 	dockerfile = "ci-common/Dockerfile"
 	tags = [
 		"docker.io/aswftesting/ci-common:1",
-		"docker.io/aswftesting/ci-common:1.0",
+		"docker.io/aswftesting/ci-common:1.1",
 		"docker.io/aswftesting/ci-common:latest",
 	]
 }

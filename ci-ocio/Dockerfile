@@ -1,15 +1,16 @@
 ARG ASWF_ORG=aswftesting
+ARG ASWF_PKG_ORG=aswftesting
 ARG CI_COMMON_VERSION=1
 ARG VFXPLATFORM_VERSION=2019
 
-FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
-FROM ${ASWF_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION} as ci-package-tbb
-FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
-FROM ${ASWF_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
-FROM ${ASWF_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
+FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
+FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION} as ci-package-tbb
+FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
+FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
+FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
 
-FROM ${ASWF_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
-FROM ${ASWF_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION} as ci-package-oiio
+FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
+FROM ${ASWF_PKG_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION} as ci-package-oiio
 
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-ocio
 

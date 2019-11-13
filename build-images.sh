@@ -34,17 +34,31 @@ then
     sed -i --expression="s/aswftesting/${docker_org}/g" docker-bake-${image_name}-${image_version}.hcl
 fi
 
+# All images (except common) need ci-common prebuilt locally
+if [ "${image_name}" != "common" ] && [ "${push_images}" != "true" ]
+then
+    docker buildx build \
+        --build-arg CI_COMMON_VERSION=1 \
+        --build-arg ASWF_ORG=${docker_org} \
+        --build-arg ASWF_PKG_ORG=${packages_docker_org} \
+        -f ci-common/Dockerfile \
+        --load \
+        --tag ${docker_org}/ci-common:1 \
+        .
+fi
+
 # Configure docker arguments depending if push is required
 BUILDX_ARGS="-f docker-bake-settings.hcl \
     -f docker-bake-${image_name}-${image_version}.hcl \
-    --set settings.args.ASWF_ORG=${packages_docker_org}"
+    --set settings.args.ASWF_ORG=${docker_org} \
+    --set settings.args.ASWF_PKG_ORG=${packages_docker_org}"
 
 if [ "${push_images}" = "true" ]
 then
     BUILDX_ARGS="${BUILDX_ARGS} \
         --set settings.args.BUILD_DATE=${docker_build_date} \
         --set settings.args.VCS_REF=${docker_vcs_ref} \
-        --set settings.output=type=registry,push=true"
+        --set settings.output=type=image,push=true"
 else
     BUILDX_ARGS="${BUILDX_ARGS} \
         --set settings.output=type=docker"

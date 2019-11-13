@@ -1,8 +1,9 @@
 ARG CUDA_VERSION=10.1
 ARG ASWF_ORG=aswftesting
+ARG ASWF_PKG_ORG=aswftesting
 ARG CI_COMMON_VERSION=1
 
-FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
+FROM ${ASWF_PKG_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
 
 FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-common
 

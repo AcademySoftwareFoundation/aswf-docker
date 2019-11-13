@@ -140,7 +140,6 @@ jobs:
             in(dependencies.build_package_group_vfx_2018.result, 'Succeeded', 'Skipped')
           )
         tests:
-          - base
           - openvdb
       -
         name: vfx
@@ -160,7 +159,6 @@ jobs:
             in(dependencies.build_package_group_vfx_2019.result, 'Succeeded', 'Skipped')
           )
         tests:
-          - base
           - openvdb
       -
         name: vfx
@@ -179,5 +177,4 @@ jobs:
             in(dependencies.build_package_group_baseqt_2020.result, 'Succeeded', 'Skipped'),
             in(dependencies.build_package_group_vfx_2020.result, 'Succeeded', 'Skipped')
           )
-        tests:
-          - base
+        tests: []

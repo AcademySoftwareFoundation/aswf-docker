@@ -1,17 +1,7 @@
 group "default" {
 	targets = [
-		"ci-common",
 		"ci-base",
 		"ci-baseqt",
-	]
-}
-
-target "ci-common" {
-	inherits = ["settings-nopush", "settings-2018"]
-	target = "ci-common"
-	dockerfile = "ci-common/Dockerfile"
-	tags = [
-		"docker.io/aswftesting/ci-common:1"
 	]
 }
 
@@ -20,8 +10,8 @@ target "ci-base" {
 	target = "ci-base"
 	dockerfile = "ci-base/Dockerfile"
 	tags = [
-		"docker.io/aswftesting/ci-base:2018",
-		"docker.io/aswftesting/ci-base:2018.0",
+		"docker.io/aswflocaltesting/ci-base:2018",
+		"docker.io/aswflocaltesting/ci-base:2018.1",
 	]
 }
 
@@ -30,7 +20,7 @@ target "ci-baseqt" {
 	target = "ci-baseqt"
 	dockerfile = "ci-baseqt/Dockerfile"
 	tags = [
-		"docker.io/aswftesting/ci-baseqt:2018",
-		"docker.io/aswftesting/ci-baseqt:2018.0",
+		"docker.io/aswflocaltesting/ci-baseqt:2018",
+		"docker.io/aswflocaltesting/ci-baseqt:2018.1",
 	]
 }
