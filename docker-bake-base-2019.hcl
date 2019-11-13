@@ -16,21 +16,21 @@ target "ci-common" {
 }
 
 target "ci-base" {
-	inherits = ["settings", "settings-2018"]
+	inherits = ["settings", "settings-2019"]
 	target = "ci-base"
 	dockerfile = "ci-base/Dockerfile"
 	tags = [
-		"docker.io/aswftesting/ci-base:2018",
-		"docker.io/aswftesting/ci-base:2018.0",
+		"docker.io/aswftesting/ci-base:2019",
+		"docker.io/aswftesting/ci-base:2019.0",
 	]
 }
 
 target "ci-baseqt" {
-	inherits = ["settings", "settings-2018"]
+	inherits = ["settings", "settings-2019"]
 	target = "ci-baseqt"
 	dockerfile = "ci-baseqt/Dockerfile"
 	tags = [
-		"docker.io/aswftesting/ci-baseqt:2018",
-		"docker.io/aswftesting/ci-baseqt:2018.0",
+		"docker.io/aswftesting/ci-baseqt:2019",
+		"docker.io/aswftesting/ci-baseqt:2019.0",
 	]
 }

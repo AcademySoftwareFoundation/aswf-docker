@@ -1,11 +1,7 @@
-# "Global" ARGs
-ARG CUDA_VERSION=10.1
 ARG ASWF_ORG=aswftesting
 ARG CI_COMMON_VERSION=1
-ARG BUILD_DATE=dev
-ARG VCS_REF=dev
+ARG VFXPLATFORM_VERSION=2019
 
-# ARGS are not accepted in "COPY --from" directives so these aliases are necessary
 FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
 FROM ${ASWF_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION} as ci-package-tbb
 FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
@@ -19,9 +15,9 @@ FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-base
 ARG ASWF_ORG
 ARG VFXPLATFORM_VERSION
 ARG ASWF_VERSION
-ARG BUILD_DATE
-ARG VCS_REF
-ARG PYTHON_VERSION
+ARG PYTHON_VERSION=2.7
+ARG BUILD_DATE=dev
+ARG VCS_REF=dev
 
 LABEL maintainer="aloys.baillet@gmail.com"
 LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION

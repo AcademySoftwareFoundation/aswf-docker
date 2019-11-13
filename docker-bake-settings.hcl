@@ -5,6 +5,16 @@ target "settings" {
 	}
 }
 
+target "settings-nopush" {
+	args {
+		BUILD_DATE = "dev"
+        VCS_REF = "dev"
+	}
+	output = [
+		"type=registry,push=false"
+	]
+}
+
 target "settings-2018" {
 	args {
 		CI_COMMON_VERSION = "1"

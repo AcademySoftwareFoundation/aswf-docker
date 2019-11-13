@@ -1,19 +1,15 @@
-# "Global" ARGs
 ARG CUDA_VERSION=10.1
 ARG ASWF_ORG=aswftesting
 ARG CI_COMMON_VERSION=1
-ARG BUILD_DATE=dev
-ARG VCS_REF=dev
 
-# ARGS are not accepted in "COPY --from" directives so this alias is necessary
 FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
 
 FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-common
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
-ARG BUILD_DATE
-ARG VCS_REF
+ARG BUILD_DATE=dev
+ARG VCS_REF=dev
 
 LABEL maintainer="aloys.baillet@gmail.com"
 

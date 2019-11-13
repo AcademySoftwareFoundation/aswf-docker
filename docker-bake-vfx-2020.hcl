@@ -1,6 +1,6 @@
 group "default" {
 	targets = [
-		"ci-base",
+		"ci-common",
 		"ci-openexr",
 		"ci-openvdb",
 		# "ci-ocio",
@@ -10,12 +10,12 @@ group "default" {
 	]
 }
 
-target "ci-base" {
-	inherits = ["settings", "settings-2020"]
-	target = "ci-base"
+target "ci-common" {
+	inherits = ["settings-nopush", "settings-2018"]
+	target = "ci-common"
+	dockerfile = "ci-common/Dockerfile"
 	tags = [
-		"docker.io/aswftesting/ci-base:2020",
-		"docker.io/aswftesting/ci-base:2020.0",
+		"docker.io/aswftesting/ci-common:1"
 	]
 }
 
