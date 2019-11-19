@@ -99,6 +99,7 @@ jobs:
         cache_key_version: "4.11"
         dependsOn: 
           - build_package_group_common_1
+          - build_common_1
         condition: in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped')
         tests:
           - base
@@ -109,6 +110,7 @@ jobs:
         cache_key_version: "4.11"
         dependsOn: 
           - build_package_group_common_1
+          - build_common_1
         condition: in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped')
         tests:
           - base
@@ -119,6 +121,7 @@ jobs:
         cache_key_version: "4.11"
         dependsOn: 
           - build_package_group_common_1
+          - build_common_1
         condition: in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped')
         tests:
           - base
@@ -132,6 +135,7 @@ jobs:
           - build_package_group_base_2018
           - build_package_group_baseqt_2018
           - build_package_group_vfx_2018
+          - build_common_1
         condition: |
           and(
             in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped'),
@@ -151,6 +155,7 @@ jobs:
           - build_package_group_base_2019
           - build_package_group_baseqt_2019
           - build_package_group_vfx_2019
+          - build_common_1
         condition: |
           and(
             in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped'),
@@ -170,6 +175,7 @@ jobs:
           - build_package_group_base_2020
           - build_package_group_baseqt_2020
           - build_package_group_vfx_2020
+          - build_common_1
         condition: |
           and(
             in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped'),

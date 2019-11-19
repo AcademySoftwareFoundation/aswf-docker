@@ -34,6 +34,12 @@ then
     sed -i --expression="s/aswftesting/${docker_org}/g" docker-bake-${image_name}-${image_version}.hcl
 fi
 
+if [ "${push_images}" = "true" ]
+then
+    # Ensure we create a docker-container builder that can auto-push images
+    docker buildx create --name pushable --use --driver docker-container
+fi
+
 # All images (except common) need ci-common prebuilt locally
 if [ "${image_name}" != "common" ] && [ "${push_images}" != "true" ]
 then

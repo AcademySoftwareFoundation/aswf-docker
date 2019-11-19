@@ -10,8 +10,8 @@ target "ci-base" {
 	target = "ci-base"
 	dockerfile = "ci-base/Dockerfile"
 	tags = [
-		"docker.io/aswflocaltesting/ci-base:2018",
-		"docker.io/aswflocaltesting/ci-base:2018.1",
+		"docker.io/aswftesting/ci-base:2018",
+		"docker.io/aswftesting/ci-base:2018.1",
 	]
 }
 
@@ -20,7 +20,7 @@ target "ci-baseqt" {
 	target = "ci-baseqt"
 	dockerfile = "ci-baseqt/Dockerfile"
 	tags = [
-		"docker.io/aswflocaltesting/ci-baseqt:2018",
-		"docker.io/aswflocaltesting/ci-baseqt:2018.1",
+		"docker.io/aswftesting/ci-baseqt:2018",
+		"docker.io/aswftesting/ci-baseqt:2018.1",
 	]
 }

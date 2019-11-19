@@ -25,7 +25,7 @@ ln -s /usr/local/bin/ccache /usr/local/bin/_ccache/clang++
 ln -s /usr/local/bin/ccache /usr/local/bin/_ccache/clang
 
 # Create activate_ccache.sh script
-cat <<EOF > ${ASWF_INSTALL_PREFIX}/bin/activate_ccache.sh
+cat <<EOF > /usr/local/bin/activate_ccache.sh
 #!/usr/bin/env bash
 export PATH=/usr/local/bin/_ccache:$PATH
 if [ -z "$CCACHE_DIR"]
@@ -33,7 +33,7 @@ then
     export CCACHE_DIR=/tmp/ccache
 fi
 EOF
-chmod a+x ${ASWF_INSTALL_PREFIX}/bin/activate_ccache.sh
+chmod a+x /usr/local/bin/activate_ccache.sh
 
 
 cd ../..

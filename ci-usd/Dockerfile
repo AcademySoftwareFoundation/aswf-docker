@@ -82,5 +82,5 @@ RUN export DOWNLOADS_DIR=/tmp/downloads && \
     source /tmp/versions_base.sh && \
     /tmp/install_cmake.sh && \
     /tmp/patchup.sh && \
+    sudo pip install jinja2 PyOpenGL && \
     rm -rf /tmp/downloads
-
