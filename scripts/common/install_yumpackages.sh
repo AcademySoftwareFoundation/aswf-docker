@@ -9,33 +9,60 @@ yum install -y \
     bzip2-devel \
     ca-certificates \
     csh \
+    cubs cups-devel \
     db4-devel \
     dbus dbus-devel \
     doxygen \
     expat-devel \
     fam \
     file \
+    flex \
     fontconfig fontconfig-devel \
+    freeglut freeglut-devel \
     freetype freetype-devel \
+    frei0r-devel \
     gdbm-devel \
     git \
+    glib2-devel \
     glut-devel \
     glx-utils \
     gperf \
+    gstreamer1 gstreamer1-devel \
+    gstreamer1-plugins-bad-free gstreamer1-plugins-bad-free-devel \
+    gtk2-devel \
+    harfbuzz-devel \
     java-1.8.0-openjdk \
+    lame-devel \
+    libbluray-devel \
+    libcaca-devel \
     libcap-devel \
+    libcdio-paranoia-devel \
+    libcurl-devel \
+    libdc1394-devel \
     libffi-devel \
+    libgcrypt-devel \
+    libgudev1-devel \
+    libicu-devel \
     libjpeg libjpeg-devel \
+    libmng-devel \
     libpcap-devel \
     libpng libpng-devel \
+    LibRaw-devel \
+    libtheora-devel \
     libtiff libtiff-devel \
     libv4l libv4l-devel \
+    libvdpau-devel \
+    libvorbis-devel \
+    libvpx-devel \
+    libwebp-devel \
     libxcb libxcb-devel \
     libXcomposite libXcomposite-devel \
     libXcursor libXcursor-devel \
     libXi libXi-devel \
     libXinerama libXinerama-devel \
     libxkbcommon libxkbcommon-devel \
+    libxkbcommon-x11-devel \
+    libXm libXm-devel \
     libxml2 libxml2-devel \
     libXmu libXmu-devel \
     libXp libXp-devel \
@@ -48,20 +75,26 @@ yum install -y \
     make \
     mesa-libEGL-devel \
     mesa-libGL-devel \
+    mesa-libGLU-devel \
     ncurses ncurses-devel \
     nss nss-devel \
+    openjpeg-devel \
     openssl-devel \
+    opus-devel \
     patch \
     pciutils-devel \
     pkgconfig \
+    procps-ng-devel \
     pulseaudio-libs pulseaudio-libs-devel \
-    pulseaudio-libs-devel \
     readline readline-devel \
     rsync \
     ruby \
+    speex-devel \
     sqlite-devel \
     sudo \
+    systemd-devel \
     tcsh \
+    texinfo \
     tk-devel \
     unzip \
     wget \
@@ -70,10 +103,13 @@ yum install -y \
     xcb-util-image xcb-util-image-devel \
     xcb-util-keysyms xcb-util-keysyms-devel \
     xcb-util-wm xcb-util-wm-devel \
+    xkeyboard-config-devel \
     xorg-x11-xkb-utils xorg-x11-xkb-utils-devel \
     Xvfb Xvfb-devel \
     xz-devel \
-    zlib-devel
+    yasm-devel \
+    zlib-devel \
+    zvbi-devel
 
 # This is needed for Xvfb to function properly.
 dbus-uuidgen > /etc/machine-id
