@@ -15,3 +15,10 @@ then
     echo "Wrong python version: $pyversion"
     exit 1
 fi
+
+numpyversion=$(python -c "import numpy; print(numpy.__version__)")
+if [[ $numpyversion != 1.14* ]]
+then
+    echo "Wrong numpy version: $numpyversion"
+    exit 1
+fi
