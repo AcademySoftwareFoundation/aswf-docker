@@ -48,6 +48,9 @@ run-with-system-python make install
 if [[ $PYTHON_VERSION == 3* ]]; then
     # Create symlink from python3 to python
     ln -s python3 ${ASWF_INSTALL_PREFIX}/bin/python
+    export PIP=pip3
+else
+    export PIP=pip
 fi
 
 cd ../..
@@ -57,7 +60,7 @@ curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 python get-pip.py
 rm get-pip.py
 
-pip install \
+$PIP install \
     nose \
     coverage \
     docutils \
