@@ -7,7 +7,7 @@ cd ocio
 
 
 if [ ! -f $DOWNLOADS_DIR/ocio-${OCIO_VERSION}.tar.gz ]; then
-    curl --location https://github.com/imageworks/OpenColorIO/archive/v${OCIO_VERSION}.tar.gz -o $DOWNLOADS_DIR/ocio-${OCIO_VERSION}.tar.gz
+    curl --location https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v${OCIO_VERSION}.tar.gz -o $DOWNLOADS_DIR/ocio-${OCIO_VERSION}.tar.gz
 fi
 tar -zxf $DOWNLOADS_DIR/ocio-${OCIO_VERSION}.tar.gz
 cd OpenColorIO-${OCIO_VERSION}
@@ -26,7 +26,7 @@ make install
 
 cd ../..
 
-curl --location http://github.com/imageworks/OpenColorIO-Configs/archive/v${OCIO_CONFIGS_VERSION}.tar.gz -o ocio-configs.tar.gz
+curl --location https://github.com/imageworks/OpenColorIO-Configs/archive/v${OCIO_CONFIGS_VERSION}.tar.gz -o ocio-configs.tar.gz
 tar -zxf ocio-configs.tar.gz
 cd OpenColorIO-Configs-${OCIO_CONFIGS_VERSION}
 

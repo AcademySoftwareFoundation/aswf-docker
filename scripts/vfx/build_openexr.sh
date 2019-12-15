@@ -3,7 +3,7 @@
 set -ex
 
 if [ ! -f $DOWNLOADS_DIR/openexr-${OPENEXR_VERSION}.tar.gz ]; then
-    curl --location https://github.com/openexr/openexr/archive/v${OPENEXR_VERSION}.tar.gz -o $DOWNLOADS_DIR/openexr-${OPENEXR_VERSION}.tar.gz
+    curl --location https://github.com/AcademySoftwareFoundation/openexr/archive/v${OPENEXR_VERSION}.tar.gz -o $DOWNLOADS_DIR/openexr-${OPENEXR_VERSION}.tar.gz
 fi
 
 tar xf $DOWNLOADS_DIR/openexr-${OPENEXR_VERSION}.tar.gz
