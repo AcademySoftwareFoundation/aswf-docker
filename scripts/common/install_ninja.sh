@@ -2,9 +2,8 @@
 
 set -ex
 
-curl --location https://github.com/ninja-build/ninja/releases/download/v${NINJA_VERSION}/ninja-linux.zip -o /tmp/ninja.zip
-
-unzip /tmp/ninja.zip -d /usr/bin
-chmod a+x /usr/bin/ninja
-
-rm /tmp/ninja.zip
+if [ ! -f $DOWNLOADS_DIR/ninja-${NINJA_VERSION}.zip ]; then
+    curl --location https://github.com/ninja-build/ninja/releases/download/v${NINJA_VERSION}/ninja-linux.zip -o $DOWNLOADS_DIR/ninja-${NINJA_VERSION}.zip
+fi
+unzip $DOWNLOADS_DIR/ninja-${NINJA_VERSION}.zip -d /usr/local/bin
+chmod a+x /usr/local/bin/ninja

@@ -1,11 +1,18 @@
-ARG CI_COMMON_VERSION=1.0
 ARG ASWF_ORG=aswftesting
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}
-
+ARG ASWF_PKG_ORG=aswftesting
+ARG CI_COMMON_VERSION=1
 ARG VFXPLATFORM_VERSION=2019
+
+FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
+
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-opencue
+
+ARG ASWF_ORG
+ARG VFXPLATFORM_VERSION
+ARG ASWF_VERSION
+ARG PYTHON_VERSION=2.7
 ARG BUILD_DATE=dev
 ARG VCS_REF=dev
-ARG PYTHON_VERSION=2.7
 
 LABEL maintainer="aloys.baillet@gmail.com"
 LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION
@@ -20,33 +27,27 @@ LABEL org.label-schema.vendor="AcademySoftwareFoundation"
 LABEL org.label-schema.version=$VFXPLATFORM_VERSION
 LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/base-opencue bash"
 
+
 ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH} \
-    VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION
+    VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION \
+    ASWF_VERSION=${ASWF_VERSION} \
+    ASWF_ORG=${ASWF_ORG}
 
 COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
+     scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
      scripts/$VFXPLATFORM_VERSION/patchup.sh \
-     scripts/base/*.sh \
+     scripts/base/install_cmake.sh \
      /tmp/
 
-RUN source /tmp/versions_base.sh && \
-    /tmp/install_python.sh && \
-    /tmp/patchup.sh
+COPY --from=ci-package-python /. /usr/local/
 
-COPY scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
-     scripts/vfx/*.sh \
-     /tmp/
-
-RUN source /tmp/versions_vfx.sh
+RUN export DOWNLOADS_DIR=/tmp/downloads && \
+    mkdir /tmp/downloads && \
+    source /tmp/versions_base.sh && \
+    /tmp/install_cmake.sh && \
+    /tmp/patchup.sh && \
+    rm -rf /tmp/downloads
 
 RUN yum -y install \
-    fontconfig \
-    freetype \
     java-1.8.0-openjdk.x86_64 \
-    java-1.8.0-openjdk-devel.x86_64 \
-    libXi \
-    libXrender \
-    Xvfb
-
-# This is needed for Xvfb to function properly.
-RUN dbus-uuidgen > /etc/machine-id
-
+    java-1.8.0-openjdk-devel.x86_64

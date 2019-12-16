@@ -6,87 +6,181 @@ trigger:
     exclude:
     - README.md
 
+
 variables:
   - name: CI_COMMON_VERSION
     value: "1.0"
   - group: dockerhub-release
+  - name: DOCKER_CLI_EXPERIMENTAL
+    value: enabled
+  - name: DOCKER_BUILDKIT
+    value: '1'
+
 
 jobs:
-- job: build_common_docker_images
-  displayName: Build ci-common
-  timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-    - bash: .azure/configure_vars.sh $(Build.Repository.Uri) $(Build.SourceBranch)
-      displayName: Configure docker variables according to branch and repo
-      name: setVariables
 
-    - bash: mkdir -p $(Pipeline.Workspace)/cache/ci-common-$(CI_COMMON_VERSION)
-      displayName: Prepare Docker Cache
-    
-    - task: CacheBeta@0
-      inputs:
-        key: docker-cache-ci-common-v1 | "ci-common-$(CI_COMMON_VERSION)" | ci-common/Dockerfile | scripts/common/*.sh
-        path: $(Pipeline.Workspace)/cache/ci-common-$(CI_COMMON_VERSION)
-        cacheHitVar: CACHE_RESTORED
-      displayName: Cache Docker history
-
-    - bash: docker load < $(Pipeline.Workspace)/cache/ci-common-${CI_COMMON_VERSION}/cache.tar
-      displayName: Load ci-common history from cache
-      condition: eq(variables.CACHE_RESTORED, 'true')
-
-    - bash: |
-        docker build . -t $(docker_org)/ci-common:${CI_COMMON_VERSION} -f ci-common/Dockerfile \
-          --build-arg BUILD_DATE=$(docker_build_date) \
-          --build-arg VCS_REF=$(docker_vcs_ref) \
-          --build-arg CI_COMMON_VERSION=${CI_COMMON_VERSION}
-      displayName: Build Docker Images
-
-    - bash: |
-        echo "$DOCKER_PASSWORD" | docker login -u $(dockerhub.username) --password-stdin
-        docker push $(docker_org)/ci-common:${CI_COMMON_VERSION}
-      displayName: Docker login and push
-      condition: eq(variables['push_images'], 'true')
-      env:
-        DOCKER_PASSWORD: $(dockerhub.password)
-
-    - bash: docker save $(docker history -q $(docker_org)/ci-common:${CI_COMMON_VERSION} | tr '\n' ' ' | tr -d '<missing>') > $(Pipeline.Workspace)/cache/ci-common-${CI_COMMON_VERSION}/cache.tar
-      displayName: Save Docker cache with history
-      condition: ne(variables.CACHE_RESTORED, 'true')
-
-    - bash: docker save $(docker_org)/ci-common:${CI_COMMON_VERSION} | gzip -c > ci-common.tar.gz
-      displayName: Save Docker Image
-      condition: eq(variables['push_images'], 'false')
-
-    - publish: ci-common.tar.gz
-      artifact: ci-common-image
-      displayName: Publish Docker image artifact for downstream jobs
-      condition: eq(variables['push_images'], 'false')
-
-- template: .azure/build-linux-docker-images.yml
+- template: .azure/build-linux-packages.yml
   parameters:
-    vfxplatform_version: '2018'
-    aswf_version: '2018.0'
-    python_version: '2.7'
-    cicommon_version: '1.0'
-    images: ['base', 'openexr', 'openvdb', 'ocio', 'opencue']
-    tags: ['2018']
+    groups:
+      -
+        name: common
+        scripts_folder: common
+        versions: ['1']
+        cache_key_version: "4.11"
+        condition: eq(variables['Build.SourceBranch'], 'refs/heads/master-packages')
+        dependsOn: []
+      -
+        name: base
+        versions: ['2018', '2019', '2020']
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        condition: eq(variables['Build.SourceBranch'], 'refs/heads/master-packages')
+        dependsOn: []
+      -
+        name: baseqt
+        versions: ['2018', '2019', '2020']
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        condition: eq(variables['Build.SourceBranch'], 'refs/heads/master-packages-qt')
+        dependsOn: []
+      -
+        name: basepyside
+        versions: ['2018', '2019', '2020']
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        dependsOn: 
+          - build_package_group_common_1
+          - build_package_group_baseqt_2018
+          - build_package_group_baseqt_2019
+          - build_package_group_baseqt_2020
+        condition: |
+          and(
+            in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_baseqt_2018.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_baseqt_2019.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_baseqt_2020.result, 'Succeeded', 'Skipped'),
+            eq(variables['Build.SourceBranch'], 'refs/heads/master-packages-qt')
+          )
+      -
+        name: vfx
+        versions: ['2018', '2019', '2020']
+        condition:  |
+          and(
+            in(dependencies.build_package_group_basepyside_2018.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_basepyside_2019.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_basepyside_2020.result, 'Succeeded', 'Skipped'),
+            eq(variables['Build.SourceBranch'], 'refs/heads/master-packages')
+          )
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        dependsOn: 
+          - build_package_group_baseqt_2018
+          - build_package_group_baseqt_2019
+          - build_package_group_baseqt_2020
 
-- template: .azure/build-linux-docker-images.yml
-  parameters:
-    vfxplatform_version: '2019'
-    aswf_version: '2019.0'
-    python_version: '2.7'
-    cicommon_version: '1.0'
-    images: ['base', 'openexr', 'openvdb', 'ocio', 'opencue']
-    tags: ['2019', 'latest']
 
-- template: .azure/build-linux-docker-images.yml
+- template: .azure/build-linux-images.yml
   parameters:
-    vfxplatform_version: '2020'
-    aswf_version: '2020.0'
-    python_version: '3.7'
-    cicommon_version: '1.0'
-    images: ['base', 'openexr', 'openvdb']
-    tags: ['2020', 'draft']
+    images:
+      -
+        name: common
+        version: '1'
+        scripts_folder: 'common'
+        cache_key_version: "4.11"
+        dependsOn: 
+          - build_package_group_common_1
+        condition: in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped')
+        tests:
+          - common
+      -
+        name: base
+        version: '2018'
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        dependsOn: 
+          - build_package_group_common_1
+          - build_common_1
+        condition: in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped')
+        tests:
+          - base
+      -
+        name: base
+        version: '2019'
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        dependsOn: 
+          - build_package_group_common_1
+          - build_common_1
+        condition: in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped')
+        tests:
+          - base
+      -
+        name: base
+        version: '2020'
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        dependsOn: 
+          - build_package_group_common_1
+          - build_common_1
+        condition: in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped')
+        tests:
+          - base
+      -
+        name: vfx
+        version: '2018'
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        dependsOn: 
+          - build_package_group_common_1
+          - build_package_group_base_2018
+          - build_package_group_baseqt_2018
+          - build_package_group_vfx_2018
+          - build_common_1
+        condition: |
+          and(
+            in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_base_2018.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_baseqt_2018.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_vfx_2018.result, 'Succeeded', 'Skipped')
+          )
+        tests:
+          - openvdb
+      -
+        name: vfx
+        version: '2019'
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        dependsOn: 
+          - build_package_group_common_1
+          - build_package_group_base_2019
+          - build_package_group_baseqt_2019
+          - build_package_group_vfx_2019
+          - build_common_1
+        condition: |
+          and(
+            in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_base_2019.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_baseqt_2019.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_vfx_2019.result, 'Succeeded', 'Skipped')
+          )
+        tests:
+          - openvdb
+      -
+        name: vfx
+        version: '2020'
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        dependsOn: 
+          - build_package_group_common_1
+          - build_package_group_base_2020
+          - build_package_group_baseqt_2020
+          - build_package_group_vfx_2020
+          - build_common_1
+        condition: |
+          and(
+            in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_base_2020.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_baseqt_2020.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_vfx_2020.result, 'Succeeded', 'Skipped')
+          )
+        tests: []

@@ -19,7 +19,10 @@ Each image (apart from `ci-common`) is available for multiple VFX Platform Years
 * `aswf/ci-base:20XX`: Based on `aswf/ci-common` with most most VFX Platform requirements pre-installed.
 * `aswf/ci-openexr:20XX`: Based on `aswf/ci-common`, comes with all OpenEXR upstream dependencies pre-installed.
 * `aswf/ci-ocio:20XX`: Based on `aswf/ci-common`, comes with all OpenColorIO upstream dependencies pre-installed.
+* `aswf/ci-opencue:20XX`: Based on `aswf/ci-common`, comes with all OpenCue upstream dependencies pre-installed.
 * `aswf/ci-openvdb:20XX`: Based on `aswf/ci-common`, comes with all OpenVDB upstream dependencies pre-installed.
+* `aswf/ci-usd:20XX`: Based on `aswf/ci-common`, comes with all USD upstream dependencies pre-installed.
+* `aswf/ci-vfxall:20XX`: Based on `aswf/ci-common`, comes with most VFX packages pre-installed.
 
 ### Versions
 
@@ -43,3 +46,12 @@ To get write access to the `aswftesting` dockerhub organisation you can open a j
 
 ### Status
 As of September 2019 there are 2018 and 2019 VFX Platform. The 2020 version are experimental and mostly only contains base packages (such as python-3.7 and boost).
+
+
+## CI Packages
+
+In order to decouple the building of packages (which can take a lot of time, such as clang, Qt and USD) from the management of the CI Images, the packages are built and stored into "scratch" docker images that can be "copied" into the CI images at image build time by Docker.
+Storing these CI packages into docker images has the additional benefit of being completely free to store on the docker hub repository.
+The main negative point about this way of storing build artifacts is that tarballs are not available directly to download. It is very trivial to generate one and the provided `download-package.sh` script can be used to generate a local tarball from any package.
+
+Also, CI packages are built using experimental docker syntax that allows cache folders to be mounted at build time, and is built with `docker buildx`. The new Docker BuildKit system allows the building of many packages in parralel in effecient way with support for ccache.
