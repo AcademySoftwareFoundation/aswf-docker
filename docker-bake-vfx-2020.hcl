@@ -3,7 +3,7 @@ group "default" {
 		"ci-openexr",
 		"ci-openvdb",
 		# "ci-ocio",
-		# "ci-opencue",
+		"ci-opencue",
 		# "ci-usd",
 		# "ci-vfxall",
 	]
