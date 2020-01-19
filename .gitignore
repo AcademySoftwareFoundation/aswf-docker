@@ -2,6 +2,6 @@ packages/*/*.tar.gz
 packages/*.json
 .pytest_cache/
 *.egg-info/
-*.pyc
 __pycache__/
 .vscode/
+.mypy_cache/

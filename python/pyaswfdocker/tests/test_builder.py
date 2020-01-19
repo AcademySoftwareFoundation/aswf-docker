@@ -1,11 +1,16 @@
 import unittest
-import json
-from pyaswfdocker import builder
+from pyaswfdocker import builder, buildinfo
 
 
 class TestBuilder(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
+        self.buildInfo = buildinfo.BuildInfo(
+            dockerOrg="aswftesting",
+            pkgOrg="aswf",
+            aswfVersion="2019.0",
+            ciCommonVersion="1",
+        )
         self.baseqt2019Dict = {
             "group": {"default": {"targets": ["package-qt"]}},
             "target": {
@@ -33,14 +38,7 @@ class TestBuilder(unittest.TestCase):
         }
 
     def test_baseqt_2019_dict(self):
-        b = builder.Builder(
-            groupName="baseqt",
-            groupVersion="2019",
-            dockerOrg="aswftesting",
-            pkgOrg="aswf",
-            aswfVersion="2019.0",
-            ciCommonVersion="1",
-        )
+        b = builder.Builder(self.buildInfo, groupName="baseqt", groupVersion="2019",)
         self.assertEqual(
             b.make_bake_dict(), self.baseqt2019Dict,
         )
