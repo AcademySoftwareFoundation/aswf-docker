@@ -3,7 +3,7 @@ import subprocess
 import json
 import os
 
-from pyaswfdocker import constants, buildinfo
+from . import constants, buildinfo
 
 logger = logging.getLogger("build-packages")
 
@@ -45,7 +45,9 @@ class Builder:
                         f"docker.io/{self.buildInfo.dockerOrg}/ci-package-{pkg}:{self.buildInfo.aswfVersion}",
                     ],
                     "target": f"ci-base-{pkg}-package",
-                    "output": ["type=docker"],
+                    "output": [
+                        "type=registry,push=true" if self.push else "type=docker"
+                    ],
                 }
                 targets[f"package-{pkg}"] = target
         root = {}

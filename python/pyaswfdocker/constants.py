@@ -39,3 +39,8 @@ PACKAGE_GROUPS = {
 }
 
 PYTHON_VERSIONS = {"2018": "2.7", "2019": "2.7", "2020": "3.7"}
+
+PUBLISH_DOCKER_ORG = "aswf"
+TESTING_DOCKER_ORG = "aswftesting"
+# this org is not valid, but this ensures that the test will not accidently pull an existing image
+FAKE_DOCKER_ORG = "aswflocaltesting"

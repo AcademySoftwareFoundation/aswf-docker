@@ -23,6 +23,7 @@ setuptools.setup(
         "console_scripts": [
             "build-packages=pyaswfdocker.cli.buildpackages:main",
             "migrate-packages=pyaswfdocker.cli.migratepackages:main",
+            "get-docker-org=pyaswfdocker.cli.getdockerorg:main",
         ],
     },
 )

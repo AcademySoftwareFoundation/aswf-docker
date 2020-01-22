@@ -6,8 +6,8 @@ class TestBuilder(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.buildInfo = buildinfo.BuildInfo(
-            dockerOrg="aswftesting",
-            pkgOrg="aswf",
+            repoUri="notauri",
+            sourceBranch="testing",
             aswfVersion="2019.0",
             ciCommonVersion="1",
         )
@@ -18,8 +18,8 @@ class TestBuilder(unittest.TestCase):
                     "context": ".",
                     "dockerfile": "packages/Dockerfile",
                     "args": {
-                        "ASWF_ORG": "aswftesting",
-                        "ASWF_PKG_ORG": "aswf",
+                        "ASWF_ORG": "aswflocaltesting",
+                        "ASWF_PKG_ORG": "aswftesting",
                         "ASWF_VERSION": "2019.0",
                         "BUILD_DATE": "dev",
                         "CI_COMMON_VERSION": "1",
@@ -28,8 +28,8 @@ class TestBuilder(unittest.TestCase):
                         "VFXPLATFORM_VERSION": "2019",
                     },
                     "tags": [
-                        "docker.io/aswftesting/ci-package-qt:2019",
-                        "docker.io/aswftesting/ci-package-qt:2019.0",
+                        "docker.io/aswflocaltesting/ci-package-qt:2019",
+                        "docker.io/aswflocaltesting/ci-package-qt:2019.0",
                     ],
                     "target": "ci-base-qt-package",
                     "output": ["type=docker"],
