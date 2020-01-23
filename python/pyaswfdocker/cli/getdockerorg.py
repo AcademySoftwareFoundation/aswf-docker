@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
-from pyaswfdocker import utils
+from .. import utils
 
 
 def main():

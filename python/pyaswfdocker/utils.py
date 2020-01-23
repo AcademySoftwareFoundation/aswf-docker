@@ -2,6 +2,7 @@ import subprocess
 import datetime
 from . import constants
 
+
 def get_current_branch() -> str:
     return subprocess.check_output("git rev-parse --abbrev-ref HEAD", encoding="UTF-8")
 

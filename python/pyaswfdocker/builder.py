@@ -16,40 +16,60 @@ class Builder:
         groupName: str = "",
         groupVersion: str = "",
         push: bool = False,
+        imageType: str = "",
     ):
         self.dryRun = dryRun
         self.groupName = groupName
         self.groupVersion = groupVersion
         self.push = push
         self.buildInfo = buildInfo
+        self.imageType = imageType
 
     def make_bake_dict(self) -> dict:
         targets = {}
-        for pkg in constants.PACKAGE_GROUPS[self.groupName]:
-            if self.groupVersion in constants.PACKAGES[pkg]:
-                target = {
+        for img in constants.GROUPS[self.imageType][self.groupName]:
+            if self.imageType == "packages":
+                dockerFile = "packages/Dockerfile"
+                target = f"ci-{img}-package"
+            else:
+                dockerFile = f"{img}/Dockerfile"
+                target = f"ci-{img}"
+
+            if self.groupVersion in constants.VERSIONS[self.imageType][img]:
+                versionInfo = constants.VERSION_INFO[self.groupVersion]
+                tags = [
+                    versionInfo.version,
+                    versionInfo.aswfVersion,
+                ]
+                if versionInfo.label:
+                    tags.append(versionInfo.label)
+                tags = list(
+                    map(
+                        lambda tag: f"docker.io/{self.buildInfo.dockerOrg}/ci-package-{img}:{tag}",
+                        tags,
+                    )
+                )
+
+                targetDict = {
                     "context": ".",
-                    "dockerfile": "packages/Dockerfile",
+                    "dockerfile": dockerFile,
                     "args": {
                         "ASWF_ORG": self.buildInfo.dockerOrg,
                         "ASWF_PKG_ORG": self.buildInfo.pkgOrg,
-                        "ASWF_VERSION": self.buildInfo.aswfVersion,
-                        "CI_COMMON_VERSION": self.buildInfo.ciCommonVersion,
-                        "PYTHON_VERSION": constants.PYTHON_VERSIONS[self.groupVersion],
+                        "ASWF_VERSION": versionInfo.aswfVersion,
+                        "CI_COMMON_VERSION": versionInfo.ciCommonVersion,
+                        "PYTHON_VERSION": versionInfo.pythonVersion,
                         "BUILD_DATE": "dev",
                         "VCS_REF": "dev",
                         "VFXPLATFORM_VERSION": self.groupVersion,
                     },
-                    "tags": [
-                        f"docker.io/{self.buildInfo.dockerOrg}/ci-package-{pkg}:{self.groupVersion}",
-                        f"docker.io/{self.buildInfo.dockerOrg}/ci-package-{pkg}:{self.buildInfo.aswfVersion}",
-                    ],
-                    "target": f"ci-base-{pkg}-package",
+                    "tags": tags,
+                    "target": target,
                     "output": [
                         "type=registry,push=true" if self.push else "type=docker"
                     ],
                 }
-                targets[f"package-{pkg}"] = target
+                targets[f"package-{img}"] = targetDict
         root = {}
         root["target"] = targets
         root["group"] = {"default": {"targets": list(targets.keys())}}

@@ -21,7 +21,7 @@ setuptools.setup(
     python_requires=">=3.6",
     entry_points={
         "console_scripts": [
-            "build-packages=pyaswfdocker.cli.buildpackages:main",
+            "build-images=pyaswfdocker.cli.buildimages:main",
             "migrate-packages=pyaswfdocker.cli.migratepackages:main",
             "get-docker-org=pyaswfdocker.cli.getdockerorg:main",
         ],
