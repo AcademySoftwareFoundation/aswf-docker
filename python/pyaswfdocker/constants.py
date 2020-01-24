@@ -26,13 +26,12 @@ VERSIONS = {
     "images": {
         "common": ["1"],
         "base": ["2018", "2019", "2020"],
-        "baseqt": ["2018", "2019", "2020"],
-        "ci-openexr": ["2018", "2019", "2020"],
-        "ci-openvdb": ["2018", "2019", "2020"],
-        "ci-ocio": ["2018", "2019"],
-        "ci-opencue": ["2018", "2019", "2020"],
-        "ci-usd": ["2019"],
-        "ci-vfxall": ["2019"],
+        "openexr": ["2018", "2019", "2020"],
+        "openvdb": ["2018", "2019", "2020"],
+        "ocio": ["2018", "2019"],
+        "opencue": ["2018", "2019", "2020"],
+        "usd": ["2019"],
+        "vfxall": ["2019"],
     },
 }
 
@@ -54,7 +53,11 @@ GROUPS = {
             "usd",
         ],
     },
-    "images": {"common": ["common"], "base": ["base", "baseqt"], "vfx": ["vfx"]},
+    "images": {
+        "common": ["common"],
+        "base": ["base"],
+        "vfx": ["openexr", "openvdb", "ocio", "opencue", "usd", "vfxall"],
+    },
 }
 
 VERSION_INFO = {

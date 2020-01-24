@@ -2,6 +2,7 @@ import logging
 import subprocess
 import json
 import os
+import tempfile
 
 from . import constants, buildinfo
 
@@ -29,11 +30,15 @@ class Builder:
         targets = {}
         for img in constants.GROUPS[self.imageType][self.groupName]:
             if self.imageType == "packages":
+                dockerName = f"ci-package-{img}"
                 dockerFile = "packages/Dockerfile"
                 target = f"ci-{img}-package"
+                targetName = f"package-{img}"
             else:
-                dockerFile = f"{img}/Dockerfile"
-                target = f"ci-{img}"
+                dockerName = f"ci-{img}"
+                dockerFile = f"{dockerName}/Dockerfile"
+                target = ""
+                targetName = f"image-{img}"
 
             if self.groupVersion in constants.VERSIONS[self.imageType][img]:
                 versionInfo = constants.VERSION_INFO[self.groupVersion]
@@ -45,7 +50,7 @@ class Builder:
                     tags.append(versionInfo.label)
                 tags = list(
                     map(
-                        lambda tag: f"docker.io/{self.buildInfo.dockerOrg}/ci-package-{img}:{tag}",
+                        lambda tag: f"docker.io/{self.buildInfo.dockerOrg}/{dockerName}:{tag}",
                         tags,
                     )
                 )
@@ -64,12 +69,14 @@ class Builder:
                         "VFXPLATFORM_VERSION": self.groupVersion,
                     },
                     "tags": tags,
-                    "target": target,
                     "output": [
                         "type=registry,push=true" if self.push else "type=docker"
                     ],
                 }
-                targets[f"package-{img}"] = targetDict
+                if target:
+                    targetDict["target"] = target
+                targets[targetName] = targetDict
+
         root = {}
         root["target"] = targets
         root["group"] = {"default": {"targets": list(targets.keys())}}
@@ -78,7 +85,7 @@ class Builder:
     def make_bake_jsonfile(self) -> str:
         d = self.make_bake_dict()
         path = os.path.join(
-            "packages", f"docker-bake-{self.groupName}-{self.groupVersion}.json"
+            tempfile.gettempdir(), f"docker-bake-{self.imageType}-{self.groupName}-{self.groupVersion}.json"
         )
         with open(path, "w") as f:
             json.dump(d, f, indent=4, sort_keys=True)
