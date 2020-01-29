@@ -10,6 +10,8 @@ More information:
 * [VFXPlatform](https://vfxplatform.com)
 * [ASWF](https://aswf.io)
 
+Changes are documented [here](CHANGELOG.md)
+
 ## CI Images
 
 These images are for Continuous Integration testing of various project managed by the ASWF.
