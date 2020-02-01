@@ -5,3 +5,5 @@ packages/*.json
 __pycache__/
 .vscode/
 .mypy_cache/
+build/
+dist/
