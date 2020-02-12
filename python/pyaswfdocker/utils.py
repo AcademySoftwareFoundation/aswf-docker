@@ -17,12 +17,14 @@ def get_current_date() -> str:
 
 
 def get_docker_org(repoUri: str, sourceBranch: str) -> str:
-    if (
+    if not sourceBranch and not repoUri:
+        return constants.TESTING_DOCKER_ORG
+    elif (
         sourceBranch == "refs/heads/master"
         and repoUri == "https://github.com/AcademySoftwareFoundation/aswf-docker"
     ):
         dockerOrg = constants.PUBLISH_DOCKER_ORG
-    elif sourceBranch == "refs/heads/testing":
+    elif sourceBranch == "refs/heads/testing" or sourceBranch == "":
         dockerOrg = constants.TESTING_DOCKER_ORG
     else:
         dockerOrg = constants.FAKE_DOCKER_ORG

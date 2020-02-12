@@ -18,6 +18,8 @@ class Builder:
         groupVersion: str = "",
         push: bool = False,
         imageType: str = "",
+        target: str = "",
+        verbose: bool = False,
     ):
         self.dryRun = dryRun
         self.groupName = groupName
@@ -25,10 +27,15 @@ class Builder:
         self.push = push
         self.buildInfo = buildInfo
         self.imageType = imageType
+        self.target = target
+        self.verbose = verbose
 
     def make_bake_dict(self) -> dict:
         targets = {}
         for img in constants.GROUPS[self.imageType][self.groupName]:
+            if self.target and img != self.target:
+                logger.debug("Skipping target %s", img)
+                continue
             if self.imageType == "packages":
                 dockerName = f"ci-package-{img}"
                 dockerFile = "packages/Dockerfile"
@@ -42,9 +49,13 @@ class Builder:
 
             if self.groupVersion in constants.VERSIONS[self.imageType][img]:
                 versionInfo = constants.VERSION_INFO[self.groupVersion]
+                if self.buildInfo.aswfVersion:
+                    aswfVersion = self.buildInfo.aswfVersion
+                else:
+                    aswfVersion = versionInfo.aswfVersion
                 tags = [
                     versionInfo.version,
-                    versionInfo.aswfVersion,
+                    aswfVersion,
                 ]
                 if versionInfo.label:
                     tags.append(versionInfo.label)
@@ -61,7 +72,7 @@ class Builder:
                     "args": {
                         "ASWF_ORG": self.buildInfo.dockerOrg,
                         "ASWF_PKG_ORG": self.buildInfo.pkgOrg,
-                        "ASWF_VERSION": versionInfo.aswfVersion,
+                        "ASWF_VERSION": aswfVersion,
                         "CI_COMMON_VERSION": versionInfo.ciCommonVersion,
                         "PYTHON_VERSION": versionInfo.pythonVersion,
                         "BUILD_DATE": "dev",
@@ -94,6 +105,8 @@ class Builder:
     def build(self) -> None:
         path = self.make_bake_jsonfile()
         cmd = f"docker buildx bake -f {path}"
+        if self.verbose:
+            cmd += " --progress plain"
         logger.info("Building %r", cmd)
         subprocess.run(
             cmd, shell=True, check=True,

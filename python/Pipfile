@@ -5,9 +5,15 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+prospector = "*"
+pyaswfdocker = {editable = true,path = "."}
+black = "*"
+mypy = "*"
 
 [packages]
-pyaswfdocker = {editable = true,path = "."}
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
