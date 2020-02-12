@@ -3,7 +3,7 @@ from . import utils, constants
 
 class BuildInfo:
     def __init__(
-        self, repoUri: str = "", sourceBranch: str = "",aswfVersion: str = "",
+        self, repoUri: str = "", sourceBranch: str = "", aswfVersion: str = "",
     ):
         self.aswfVersion = aswfVersion
         self.repoUri = repoUri

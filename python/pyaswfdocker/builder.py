@@ -13,11 +13,11 @@ class Builder:
     def __init__(
         self,
         buildInfo: buildinfo.BuildInfo,
+        imageType: constants.IMAGE_TYPE,
         dryRun: bool = False,
         groupName: str = "",
         groupVersion: str = "",
         push: bool = False,
-        imageType: str = "",
         target: str = "",
         verbose: bool = False,
     ):
@@ -36,7 +36,7 @@ class Builder:
             if self.target and img != self.target:
                 logger.debug("Skipping target %s", img)
                 continue
-            if self.imageType == "packages":
+            if self.imageType == constants.IMAGE_TYPE.PACKAGE:
                 dockerName = f"ci-package-{img}"
                 dockerFile = "packages/Dockerfile"
                 target = f"ci-{img}-package"
@@ -47,12 +47,11 @@ class Builder:
                 target = ""
                 targetName = f"image-{img}"
 
-            if self.groupVersion in constants.VERSIONS[self.imageType][img]:
+            fullVersions = constants.VERSIONS[self.imageType][img]
+            majorVersions = [v.split(".")[0] for v in fullVersions]
+            if self.groupVersion in majorVersions:
                 versionInfo = constants.VERSION_INFO[self.groupVersion]
-                if self.buildInfo.aswfVersion:
-                    aswfVersion = self.buildInfo.aswfVersion
-                else:
-                    aswfVersion = versionInfo.aswfVersion
+                aswfVersion = fullVersions[majorVersions.index(self.groupVersion)]
                 tags = [
                     versionInfo.version,
                     aswfVersion,
@@ -96,7 +95,8 @@ class Builder:
     def make_bake_jsonfile(self) -> str:
         d = self.make_bake_dict()
         path = os.path.join(
-            tempfile.gettempdir(), f"docker-bake-{self.imageType}-{self.groupName}-{self.groupVersion}.json"
+            tempfile.gettempdir(),
+            f"docker-bake-{self.imageType}-{self.groupName}-{self.groupVersion}.json",
         )
         with open(path, "w") as f:
             json.dump(d, f, indent=4, sort_keys=True)

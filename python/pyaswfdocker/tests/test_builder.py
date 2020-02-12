@@ -1,18 +1,20 @@
 import unittest
-from pyaswfdocker import builder, buildinfo
+from pyaswfdocker import builder, buildinfo, constants
 
 
 class TestBuilder(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
-        self.buildInfo = buildinfo.BuildInfo(repoUri="notauri", sourceBranch="testing", aswfVersion="2019.123")
+        self.buildInfo = buildinfo.BuildInfo(
+            repoUri="notauri", sourceBranch="testing", aswfVersion="2019.123"
+        )
 
     def test_package_baseqt_2019_dict(self):
         b = builder.Builder(
             self.buildInfo,
             groupName="baseqt",
             groupVersion="2019",
-            imageType="packages",
+            imageType=constants.IMAGE_TYPE.PACKAGE,
         )
         self.assertEqual(
             b.make_bake_dict(),
@@ -25,7 +27,7 @@ class TestBuilder(unittest.TestCase):
                         "args": {
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": "2019.123",
+                            "ASWF_VERSION": constants.VERSIONS[constants.IMAGE_TYPE.PACKAGE]["qt"][1],
                             "BUILD_DATE": "dev",
                             "CI_COMMON_VERSION": "1",
                             "PYTHON_VERSION": "2.7",
@@ -34,7 +36,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             "docker.io/aswflocaltesting/ci-package-qt:2019",
-                            "docker.io/aswflocaltesting/ci-package-qt:2019.123",
+                            f"docker.io/aswflocaltesting/ci-package-qt:{constants.VERSIONS[constants.IMAGE_TYPE.PACKAGE]['qt'][1]}",
                             "docker.io/aswflocaltesting/ci-package-qt:latest",
                         ],
                         "target": "ci-qt-package",
@@ -46,7 +48,10 @@ class TestBuilder(unittest.TestCase):
 
     def test_image_base_2019_dict(self):
         b = builder.Builder(
-            self.buildInfo, groupName="base", groupVersion="2019", imageType="images",
+            self.buildInfo,
+            groupName="base",
+            groupVersion="2019",
+            imageType=constants.IMAGE_TYPE.IMAGE,
         )
         self.assertEqual(
             b.make_bake_dict(),
@@ -59,7 +64,7 @@ class TestBuilder(unittest.TestCase):
                         "args": {
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": "2019.123",
+                            "ASWF_VERSION": constants.VERSIONS[constants.IMAGE_TYPE.IMAGE]["base"][1],
                             "BUILD_DATE": "dev",
                             "CI_COMMON_VERSION": "1",
                             "PYTHON_VERSION": "2.7",
@@ -68,7 +73,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             "docker.io/aswflocaltesting/ci-base:2019",
-                            "docker.io/aswflocaltesting/ci-base:2019.123",
+                            f"docker.io/aswflocaltesting/ci-base:{constants.VERSIONS[constants.IMAGE_TYPE.IMAGE]['base'][1]}",
                             "docker.io/aswflocaltesting/ci-base:latest",
                         ],
                         "output": ["type=docker"],
