@@ -9,7 +9,7 @@ class IMAGE_TYPE(enum.Enum):
 
 VERSIONS = {
     IMAGE_TYPE.PACKAGE: {
-        "clang": ["1"],
+        "clang": ["1.1"],
         "python": ["2018.1", "2019.1", "2020.1"],
         "boost": ["2018.1", "2019.1", "2020.1"],
         "tbb": ["2018.1", "2019.1", "2020.1"],
@@ -67,6 +67,9 @@ GROUPS = {
 }
 
 VERSION_INFO = {
+    "1": versioninfo.VersionInfo(
+        version="1", label="latest", ciCommonVersion="1", pythonVersion="2.7",
+    ),
     "2018": versioninfo.VersionInfo(
         version="2018", label=None, ciCommonVersion="1", pythonVersion="2.7",
     ),
