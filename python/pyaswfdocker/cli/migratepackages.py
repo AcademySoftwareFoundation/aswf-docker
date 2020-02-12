@@ -12,7 +12,7 @@ logger = logging.getLogger("migrate-packages")
 def migrate(args):
     fromOrg = args.fromOrg
     toOrg = args.toOrg
-    for pkg, versions in constants.PACKAGES.items():
+    for pkg, versions in constants.VERSIONS["packages"].items():
         for version in versions:
             fromPkg = f"{fromOrg}/ci-package-{pkg}:{version}"
             toPkg = f"{toOrg}/ci-package-{pkg}:{version}"

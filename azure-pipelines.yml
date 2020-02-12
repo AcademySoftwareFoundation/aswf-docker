@@ -18,6 +18,22 @@ variables:
 
 
 jobs:
+- job: test_pyaswfdocker
+  displayName: Test pyaswfdocker
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-18.04'
+  steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.7'
+
+    - bash: cd python && python3 setup.py install && pip install pytest
+      displayName: Install pyaswfdocker utilities
+
+    - bash: cd python && pytest
+      displayName: Run pytest
+
 
 - template: .azure/build-linux-packages.yml
   parameters:

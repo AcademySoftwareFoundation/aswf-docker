@@ -5,7 +5,7 @@ from pyaswfdocker import builder, buildinfo
 class TestBuilder(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
-        self.buildInfo = buildinfo.BuildInfo(repoUri="notauri", sourceBranch="testing",)
+        self.buildInfo = buildinfo.BuildInfo(repoUri="notauri", sourceBranch="testing", aswfVersion="2019.123")
 
     def test_package_baseqt_2019_dict(self):
         b = builder.Builder(
@@ -25,7 +25,7 @@ class TestBuilder(unittest.TestCase):
                         "args": {
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": "2019.1",
+                            "ASWF_VERSION": "2019.123",
                             "BUILD_DATE": "dev",
                             "CI_COMMON_VERSION": "1",
                             "PYTHON_VERSION": "2.7",
@@ -34,7 +34,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             "docker.io/aswflocaltesting/ci-package-qt:2019",
-                            "docker.io/aswflocaltesting/ci-package-qt:2019.1",
+                            "docker.io/aswflocaltesting/ci-package-qt:2019.123",
                             "docker.io/aswflocaltesting/ci-package-qt:latest",
                         ],
                         "target": "ci-qt-package",
@@ -59,7 +59,7 @@ class TestBuilder(unittest.TestCase):
                         "args": {
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": "2019.1",
+                            "ASWF_VERSION": "2019.123",
                             "BUILD_DATE": "dev",
                             "CI_COMMON_VERSION": "1",
                             "PYTHON_VERSION": "2.7",
@@ -68,7 +68,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             "docker.io/aswflocaltesting/ci-base:2019",
-                            "docker.io/aswflocaltesting/ci-base:2019.1",
+                            "docker.io/aswflocaltesting/ci-base:2019.123",
                             "docker.io/aswflocaltesting/ci-base:latest",
                         ],
                         "output": ["type=docker"],
