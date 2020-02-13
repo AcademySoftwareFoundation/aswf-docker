@@ -5,16 +5,16 @@ from pyaswfdocker import builder, buildinfo, constants
 class TestBuilder(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
-        self.buildInfo = buildinfo.BuildInfo(
-            repoUri="notauri", sourceBranch="testing", aswfVersion="2019.123"
+        self.build_info = buildinfo.BuildInfo(
+            repo_uri="notauri", source_branch="testing", aswf_version="2019.123"
         )
 
     def test_package_baseqt_2019_dict(self):
         b = builder.Builder(
-            self.buildInfo,
-            groupName="baseqt",
-            groupVersion="2019",
-            imageType=constants.IMAGE_TYPE.PACKAGE,
+            self.build_info,
+            group_name="baseqt",
+            group_version="2019",
+            image_type=constants.IMAGE_TYPE.PACKAGE,
         )
         self.assertEqual(
             b.make_bake_dict(),
@@ -48,10 +48,10 @@ class TestBuilder(unittest.TestCase):
 
     def test_image_base_2019_dict(self):
         b = builder.Builder(
-            self.buildInfo,
-            groupName="base",
-            groupVersion="2019",
-            imageType=constants.IMAGE_TYPE.IMAGE,
+            self.build_info,
+            group_name="base",
+            group_version="2019",
+            image_type=constants.IMAGE_TYPE.IMAGE,
         )
         self.assertEqual(
             b.make_bake_dict(),

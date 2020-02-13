@@ -18,12 +18,13 @@ setuptools.setup(
         "License :: OSI Approved :: Apache 2 License",
         "Operating System :: OS Independent",
     ],
+    install_requires=[
+        'Click',
+    ],
     python_requires=">=3.6",
     entry_points={
         "console_scripts": [
-            "build-images=pyaswfdocker.cli.buildimages:main",
-            "migrate-packages=pyaswfdocker.cli.migratepackages:main",
-            "get-docker-org=pyaswfdocker.cli.getdockerorg:main",
+            "aswfdocker=pyaswfdocker.cli.aswfdocker:cli",
         ],
     },
 )

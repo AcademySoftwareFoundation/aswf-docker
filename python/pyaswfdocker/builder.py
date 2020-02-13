@@ -12,31 +12,31 @@ logger = logging.getLogger("build-packages")
 class Builder:
     def __init__(
         self,
-        buildInfo: buildinfo.BuildInfo,
-        imageType: constants.IMAGE_TYPE,
-        dryRun: bool = False,
-        groupName: str = "",
-        groupVersion: str = "",
+        build_info: buildinfo.BuildInfo,
+        image_type: constants.IMAGE_TYPE,
+        dry_run: bool = False,
+        group_name: str = "",
+        group_version: str = "",
         push: bool = False,
         target: str = "",
-        verbose: bool = False,
+        progress: bool = "",
     ):
-        self.dryRun = dryRun
-        self.groupName = groupName
-        self.groupVersion = groupVersion
+        self.dry_run = dry_run
+        self.group_name = group_name
+        self.group_version = group_version
         self.push = push
-        self.buildInfo = buildInfo
-        self.imageType = imageType
+        self.build_info = build_info
+        self.image_type = image_type
         self.target = target
-        self.verbose = verbose
+        self.progress = progress
 
     def make_bake_dict(self) -> dict:
         targets = {}
-        for img in constants.GROUPS[self.imageType][self.groupName]:
+        for img in constants.GROUPS[self.image_type][self.group_name]:
             if self.target and img != self.target:
                 logger.debug("Skipping target %s", img)
                 continue
-            if self.imageType == constants.IMAGE_TYPE.PACKAGE:
+            if self.image_type == constants.IMAGE_TYPE.PACKAGE:
                 dockerName = f"ci-package-{img}"
                 dockerFile = "packages/Dockerfile"
                 target = f"ci-{img}-package"
@@ -47,20 +47,20 @@ class Builder:
                 target = ""
                 targetName = f"image-{img}"
 
-            fullVersions = constants.VERSIONS[self.imageType][img]
+            fullVersions = constants.VERSIONS[self.image_type][img]
             majorVersions = [v.split(".")[0] for v in fullVersions]
-            if self.groupVersion in majorVersions:
-                versionInfo = constants.VERSION_INFO[self.groupVersion]
-                aswfVersion = fullVersions[majorVersions.index(self.groupVersion)]
+            if self.group_version in majorVersions:
+                versionInfo = constants.VERSION_INFO[self.group_version]
+                aswf_version = fullVersions[majorVersions.index(self.group_version)]
                 tags = [
                     versionInfo.version,
-                    aswfVersion,
+                    aswf_version,
                 ]
                 if versionInfo.label:
                     tags.append(versionInfo.label)
                 tags = list(
                     map(
-                        lambda tag: f"docker.io/{self.buildInfo.dockerOrg}/{dockerName}:{tag}",
+                        lambda tag: f"docker.io/{self.build_info.dockerOrg}/{dockerName}:{tag}",
                         tags,
                     )
                 )
@@ -69,14 +69,14 @@ class Builder:
                     "context": ".",
                     "dockerfile": dockerFile,
                     "args": {
-                        "ASWF_ORG": self.buildInfo.dockerOrg,
-                        "ASWF_PKG_ORG": self.buildInfo.pkgOrg,
-                        "ASWF_VERSION": aswfVersion,
+                        "ASWF_ORG": self.build_info.dockerOrg,
+                        "ASWF_PKG_ORG": self.build_info.pkgOrg,
+                        "ASWF_VERSION": aswf_version,
                         "CI_COMMON_VERSION": versionInfo.ciCommonVersion,
                         "PYTHON_VERSION": versionInfo.pythonVersion,
                         "BUILD_DATE": "dev",
                         "VCS_REF": "dev",
-                        "VFXPLATFORM_VERSION": self.groupVersion,
+                        "VFXPLATFORM_VERSION": self.group_version,
                     },
                     "tags": tags,
                     "output": [
@@ -96,7 +96,7 @@ class Builder:
         d = self.make_bake_dict()
         path = os.path.join(
             tempfile.gettempdir(),
-            f"docker-bake-{self.imageType}-{self.groupName}-{self.groupVersion}.json",
+            f"docker-bake-{self.image_type.name}-{self.group_name}-{self.group_version}.json",
         )
         with open(path, "w") as f:
             json.dump(d, f, indent=4, sort_keys=True)
@@ -104,10 +104,12 @@ class Builder:
 
     def build(self) -> None:
         path = self.make_bake_jsonfile()
-        cmd = f"docker buildx bake -f {path}"
-        if self.verbose:
-            cmd += " --progress plain"
-        logger.info("Building %r", cmd)
-        subprocess.run(
-            cmd, shell=True, check=True,
-        )
+        cmd = f"docker buildx bake -f {path} --progress {self.progress}"
+        logger.debug("Repo root: %s", self.build_info.repo_root)
+        if self.dry_run:
+            logger.info("Would build: %r", cmd)
+        else:
+            logger.info("Building: %r", cmd)
+            subprocess.run(
+                cmd, shell=True, check=True, cwd=self.build_info.repo_root
+            )
