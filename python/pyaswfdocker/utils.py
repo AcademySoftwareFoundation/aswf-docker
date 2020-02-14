@@ -33,3 +33,12 @@ def get_docker_org(repo_uri: str, source_branch: str) -> str:
 
 def get_repo_root_path(repo_rootPath):
     return repo_rootPath
+
+
+def get_docker_push(repo_uri: str, source_branch: str) -> str:
+    if (
+        source_branch == "refs/heads/master"
+        and repo_uri == "https://github.com/AcademySoftwareFoundation/aswf-docker"
+    ) or source_branch == "refs/heads/testing":
+        return "true"
+    return "false"

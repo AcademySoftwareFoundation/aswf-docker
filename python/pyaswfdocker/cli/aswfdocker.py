@@ -109,3 +109,8 @@ def migrate(from_org, to_org, dry_run):
 @pass_build_info
 def getdockerorg(build_info):
     click.echo(utils.get_docker_org(build_info.repo_uri, build_info.source_branch))
+
+@cli.command()
+@pass_build_info
+def getdockerpush(build_info):
+    click.echo(utils.get_docker_push(build_info.repo_uri, build_info.source_branch))
