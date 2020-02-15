@@ -4,7 +4,7 @@ import json
 import os
 import tempfile
 
-from . import constants, buildinfo
+from aswfdocker import constants, buildinfo
 
 logger = logging.getLogger("build-packages")
 

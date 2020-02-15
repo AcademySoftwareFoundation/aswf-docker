@@ -1,4 +1,4 @@
-from . import utils, constants
+from aswfdocker import utils, constants
 
 
 class BuildInfo:

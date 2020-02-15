@@ -18,8 +18,8 @@ variables:
 
 
 jobs:
-- job: test_pyaswfdocker
-  displayName: Test pyaswfdocker
+- job: test_aswfdocker
+  displayName: Test aswfdocker
   timeoutInMinutes: 0
   pool:
     vmImage: 'ubuntu-18.04'
@@ -29,7 +29,7 @@ jobs:
         versionSpec: '3.7'
 
     - bash: cd python && python3 setup.py install && pip install pytest
-      displayName: Install pyaswfdocker utilities
+      displayName: Install aswfdocker utilities
 
     - bash: cd python && pytest
       displayName: Run pytest

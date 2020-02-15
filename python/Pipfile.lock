@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "aa48acc2b840928b60b6e92be912f7e12e5c2f530d5d0a7210bbbd41fa4245a6"
+            "sha256": "ddb8a3a76249b90da0b48908b6a3fbe9a24576c8715dbf7edeffcc81d4acd7f5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,10 @@
         ]
     },
     "default": {
+        "aswfdocker": {
+            "editable": true,
+            "path": "."
+        },
         "click": {
             "hashes": [
                 "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13",
@@ -23,10 +27,6 @@
             ],
             "index": "pypi",
             "version": "==7.0"
-        },
-        "pyaswfdocker": {
-            "editable": true,
-            "path": "."
         }
     },
     "develop": {
@@ -43,6 +43,10 @@
                 "sha256:840947ebfa8b58f318d42301cf8c0a20fd794a33b61cc4638e28e9e61ba32f42"
             ],
             "version": "==2.3.3"
+        },
+        "aswfdocker": {
+            "editable": true,
+            "path": "."
         },
         "attrs": {
             "hashes": [
@@ -197,10 +201,6 @@
                 "sha256:c20fdd83a5dbc0af9efd622bee9a5564e278f6380fffcacc43ba6f43db2813b0"
             ],
             "version": "==1.8.1"
-        },
-        "pyaswfdocker": {
-            "editable": true,
-            "path": "."
         },
         "pycodestyle": {
             "hashes": [

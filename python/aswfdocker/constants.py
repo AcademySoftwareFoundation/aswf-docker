@@ -1,5 +1,5 @@
 import enum
-from . import versioninfo
+from aswfdocker import versioninfo
 
 
 class IMAGE_TYPE(enum.Enum):

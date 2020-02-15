@@ -1,6 +1,6 @@
 import subprocess
 import datetime
-from . import constants
+from aswfdocker import constants
 
 
 def get_current_branch() -> str:

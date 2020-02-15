@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pyaswfdocker",
+    name="aswfdocker",
     version="0.1.0",
     author="Aloys Baillet",
     author_email="aloys.baillet+github@gmail.com",
@@ -24,7 +24,7 @@ setuptools.setup(
     python_requires=">=3.6",
     entry_points={
         "console_scripts": [
-            "aswfdocker=pyaswfdocker.cli.aswfdocker:cli",
+            "aswfdocker=aswfdocker.cli.aswfdocker:cli",
         ],
     },
 )

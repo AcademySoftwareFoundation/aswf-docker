@@ -1,5 +1,5 @@
 import unittest
-from pyaswfdocker import builder, buildinfo, constants
+from aswfdocker import builder, buildinfo, constants
 
 
 class TestBuilder(unittest.TestCase):
