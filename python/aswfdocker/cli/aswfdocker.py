@@ -3,7 +3,7 @@ import logging
 import subprocess
 import click
 
-from aswfdocker import builder, buildinfo, constants, utils
+from aswfdocker import builder, migrater, buildinfo, constants, utils
 
 
 logger = logging.getLogger("build-images")
@@ -78,45 +78,35 @@ def build(
         group_version=group_version,
         target=target,
         push=push,
-        dry_run=dry_run,
-        progress=progress,
     )
-    b.build()
+    b.build(dry_run=dry_run, progress=progress)
 
 
 @cli.command()
 @click.option("--from", "-f", "from_org", default="aswftesting")
 @click.option("--to", "-t", "to_org", default="aswf")
-@click.option("--package", "-p", help="Optional package name to migrate (all packages are migrated by default)")
-@click.option("--version", "-v", help="Version of the package to migrate (all versions are migrated by default)")
+@click.option(
+    "--package",
+    "-p",
+    help="Optional package name to migrate (all packages are migrated by default)",
+)
+@click.option(
+    "--version",
+    "-v",
+    help="Version of the package to migrate (all versions are migrated by default)",
+)
 @click.option("--dry-run", "-d", is_flag=True)
 def migrate(from_org, to_org, package, version, dry_run):
-    migrationList = []
-    for pkg, versions in constants.VERSIONS[constants.IMAGE_TYPE.PACKAGE].items():
-        if not package or package == pkg:
-            for v in versions:
-                if not version or version == v:
-                    fromPkg = f"{from_org}/ci-package-{pkg}:{v}"
-                    toPkg = f"{to_org}/ci-package-{pkg}:{v}"
-                    migrationList.append((fromPkg, toPkg))
+    m = migrater.Migrater(from_org, to_org)
+    m.gather(package, version)
     if not click.confirm(
         "Are you sure you want to migrate the following {} packages?\n{}\n".format(
-            len(migrationList), "\n".join("{} -> {}".format(f, t) for f, t in migrationList)
+            len(m.migration_list),
+            "\n".join("{} -> {}".format(f, t) for f, t in m.migration_list),
         )
     ):
         return
-    for fromPkg, toPkg in migrationList:
-        logger.info("Migrating %s -> %s", fromPkg, toPkg)
-        if not dry_run:
-            subprocess.run(
-                f"docker pull {fromPkg}", shell=True, check=True,
-            )
-            subprocess.run(
-                f"docker tag {fromPkg} {toPkg}", shell=True, check=True,
-            )
-            subprocess.run(
-                f"docker push {toPkg}", shell=True, check=True,
-            )
+    m.migrate(dry_run)
 
 
 @cli.command()

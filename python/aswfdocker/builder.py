@@ -4,9 +4,9 @@ import json
 import os
 import tempfile
 
-from aswfdocker import constants, buildinfo
+from aswfdocker import constants, buildinfo, utils
 
-logger = logging.getLogger("build-packages")
+logger = logging.getLogger(__name__)
 
 
 class Builder:
@@ -14,21 +14,17 @@ class Builder:
         self,
         build_info: buildinfo.BuildInfo,
         image_type: constants.IMAGE_TYPE,
-        dry_run: bool = False,
         group_name: str = "",
         group_version: str = "",
-        push: bool = False,
         target: str = "",
-        progress: bool = "",
+        push: bool = False,
     ):
-        self.dry_run = dry_run
         self.group_name = group_name
         self.group_version = group_version
         self.push = push
         self.build_info = build_info
         self.image_type = image_type
         self.target = target
-        self.progress = progress
 
     def make_bake_dict(self) -> dict:
         targets = {}
@@ -48,23 +44,13 @@ class Builder:
                 targetName = f"image-{img}"
 
             fullVersions = constants.VERSIONS[self.image_type][img]
-            majorVersions = [v.split(".")[0] for v in fullVersions]
+            majorVersions = [utils.get_major_version(v) for v in fullVersions]
             if self.group_version in majorVersions:
                 versionInfo = constants.VERSION_INFO[self.group_version]
                 aswf_version = fullVersions[majorVersions.index(self.group_version)]
-                tags = [
-                    versionInfo.version,
-                    aswf_version,
-                ]
-                if versionInfo.label:
-                    tags.append(versionInfo.label)
-                tags = list(
-                    map(
-                        lambda tag: f"docker.io/{self.build_info.dockerOrg}/{dockerName}:{tag}",
-                        tags,
-                    )
+                tags = versionInfo.get_tags(
+                    aswf_version, self.build_info.dockerOrg, dockerName
                 )
-
                 targetDict = {
                     "context": ".",
                     "dockerfile": dockerFile,
@@ -72,8 +58,8 @@ class Builder:
                         "ASWF_ORG": self.build_info.dockerOrg,
                         "ASWF_PKG_ORG": self.build_info.pkgOrg,
                         "ASWF_VERSION": aswf_version,
-                        "CI_COMMON_VERSION": versionInfo.ciCommonVersion,
-                        "PYTHON_VERSION": versionInfo.pythonVersion,
+                        "CI_COMMON_VERSION": versionInfo.ci_common_version,
+                        "PYTHON_VERSION": versionInfo.python_version,
                         "BUILD_DATE": "dev",
                         "VCS_REF": "dev",
                         "VFXPLATFORM_VERSION": self.group_version,
@@ -102,14 +88,12 @@ class Builder:
             json.dump(d, f, indent=4, sort_keys=True)
         return path
 
-    def build(self) -> None:
+    def build(self, dry_run: bool = False, progress: bool = "") -> None:
         path = self.make_bake_jsonfile()
-        cmd = f"docker buildx bake -f {path} --progress {self.progress}"
+        cmd = f"docker buildx bake -f {path} --progress {progress}"
         logger.debug("Repo root: %s", self.build_info.repo_root)
-        if self.dry_run:
+        if dry_run:
             logger.info("Would build: %r", cmd)
         else:
             logger.info("Building: %r", cmd)
-            subprocess.run(
-                cmd, shell=True, check=True, cwd=self.build_info.repo_root
-            )
+            subprocess.run(cmd, shell=True, check=True, cwd=self.build_info.repo_root)

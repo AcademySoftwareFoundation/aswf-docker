@@ -42,3 +42,7 @@ def get_docker_push(repo_uri: str, source_branch: str) -> str:
     ) or source_branch == "refs/heads/testing":
         return "true"
     return "false"
+
+
+def get_major_version(version: str) -> str:
+    return version.split(".")[0]
