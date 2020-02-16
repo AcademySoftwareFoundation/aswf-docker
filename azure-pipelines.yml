@@ -28,11 +28,23 @@ jobs:
       inputs:
         versionSpec: '3.7'
 
-    - bash: cd python && python3 setup.py install && pip install pytest
-      displayName: Install aswfdocker utilities
+    - bash: pip3 install pipenv
+      displayName: Install pipenv
 
-    - bash: cd python && pytest
+    - bash: cd python && pipenv install -d -e .
+      displayName: Install aswfdocker
+
+    - bash: cd python && pipenv run "pytest aswfdocker --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html"
       displayName: Run pytest
+
+    - bash: cd python && pipenv run "mypy aswfdocker"
+      displayName: Run mypy
+
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFiles: '**/test-*.xml'
+        testRunTitle: 'Publish test results for python aswfdocker package'
 
 
 - template: .azure/build-linux-packages.yml

@@ -4,15 +4,16 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pytest = "*"
-prospector = "*"
 aswfdocker = {editable = true,path = "."}
+pytest = "*"
+pytest-cov = "*"
+prospector = "*"
 black = "*"
 mypy = "*"
 
 [packages]
 click = "*"
-aswfdocker = {editable = true,path = "."}
+aswfdocker = {path = "."}
 
 [requires]
 python_version = "3.7"

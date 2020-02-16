@@ -88,7 +88,7 @@ class Builder:
             json.dump(d, f, indent=4, sort_keys=True)
         return path
 
-    def build(self, dry_run: bool = False, progress: bool = "") -> None:
+    def build(self, dry_run: bool = False, progress: str = "") -> None:
         path = self.make_bake_jsonfile()
         cmd = f"docker buildx bake -f {path} --progress {progress}"
         logger.debug("Repo root: %s", self.build_info.repo_root)

@@ -1,17 +1,26 @@
 import logging
 import subprocess
+import typing
 
 from aswfdocker import constants, utils
 
 logger = logging.getLogger(__name__)
 
 
+class MigrateInfo:
+    def __init__(self, image, version, source, destination):
+        self.image = image
+        self.version = version
+        self.source = source
+        self.destination = destination
+
+
 class Migrater:
     def __init__(self, from_org: str, to_org: str):
         self.from_org = from_org
         self.to_org = to_org
-        self.migration_list = []
-        self.cmds = []
+        self.migration_list: typing.List[MigrateInfo] = []
+        self.cmds: typing.List[str] = []
 
     def gather(self, package: str, version: str):
         for pkg, versions in constants.VERSIONS[constants.IMAGE_TYPE.PACKAGE].items():
@@ -20,29 +29,34 @@ class Migrater:
                 for v in versions:
                     major_version = v.split(".")[0]
                     if not version or version == major_version:
-                        from_pkg = f"docker.io/{self.from_org}/{image}:{v}"
-                        to_pkg = f"docker.io/{self.to_org}/{image}:{v}"
-                        self.migration_list.append((image, v, from_pkg, to_pkg))
+                        self.migration_list.append(
+                            MigrateInfo(
+                                image,
+                                v,
+                                f"docker.io/{self.from_org}/{image}:{v}",
+                                f"docker.io/{self.to_org}/{image}:{v}",
+                            )
+                        )
 
     def migrate(self, dry_run: bool):
-        for image, version, from_pkg, to_pkg in self.migration_list:
+        for minfo in self.migration_list:
             if dry_run:
-                logger.info("Migrating %s -> %s", from_pkg, to_pkg)
+                logger.info("Migrating %s -> %s", minfo.source, minfo.destination)
             else:
-                logger.info("Would migrate %s -> %s", from_pkg, to_pkg)
+                logger.info("Would migrate %s -> %s", minfo.source, minfo.destination)
 
-            self.cmds.append(f"docker pull {from_pkg}")
-            self.cmds.append(f"docker tag {from_pkg} {to_pkg}")
+            self.cmds.append(f"docker pull {minfo.source}")
+            self.cmds.append(f"docker tag {minfo.source} {minfo.destination}")
 
-            major_version = utils.get_major_version(version)
+            major_version = utils.get_major_version(minfo.version)
             version_info = constants.VERSION_INFO[major_version]
-            tags = version_info.get_tags(version, self.to_org, image)
+            tags = version_info.get_tags(minfo.version, self.to_org, minfo.image)
             if len(tags) > 1:
                 for tag in tags:
-                    if tag != to_pkg:
-                        self.cmds.append(f"docker tag {to_pkg} {tag}")
+                    if tag != minfo.destination:
+                        self.cmds.append(f"docker tag {minfo.destination} {tag}")
 
-            self.cmds.append(f"docker push {to_pkg}")
+            self.cmds.append(f"docker push {minfo.destination}")
 
         if logger.isEnabledFor(logging.DEBUG):
             list(map(logger.debug, self.cmds))
