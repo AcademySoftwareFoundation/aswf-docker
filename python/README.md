@@ -1,13 +1,15 @@
 # ASWF Python Utilities
 
-`build-packages` builds packages
+`aswfdocker` is available to help with package and image building and manipulations.
+
+`aswfdocker build` builds images:
 Example use:
 ```bash
 # Build and push USD package to aswftesting
-build-images --image-type PACKAGE --group-name vfx --group-version 2019 --target usd --verbose --push
+aswfdocker --verbose build -t PACKAGE --group-name vfx --group-version 2019 --target usd --push
 # Build and push ci-vfxall image to aswftesting
-build-images --image-type IMAGE --group-name vfx --group-version 2019 --target vfxall --verbose --push
+aswfdocker --verbose build -t IMAGE --group-name vfx --group-version 2019 --target vfxall --push
 ```
 
-`migrate-packages` can migrate packages between docker organisations
+`aswfdocker migrate` can migrate packages between docker organisations
 
