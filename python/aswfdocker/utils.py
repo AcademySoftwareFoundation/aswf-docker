@@ -23,12 +23,12 @@ def get_docker_org(repo_uri: str, source_branch: str) -> str:
         source_branch == "refs/heads/master"
         and repo_uri == "https://github.com/AcademySoftwareFoundation/aswf-docker"
     ):
-        dockerOrg = constants.PUBLISH_DOCKER_ORG
+        docker_org = constants.PUBLISH_DOCKER_ORG
     elif source_branch in ("refs/heads/testing", ""):
-        dockerOrg = constants.TESTING_DOCKER_ORG
+        docker_org = constants.TESTING_DOCKER_ORG
     else:
-        dockerOrg = constants.FAKE_DOCKER_ORG
-    return dockerOrg
+        docker_org = constants.FAKE_DOCKER_ORG
+    return docker_org
 
 
 def get_repo_root_path(repo_rootPath):

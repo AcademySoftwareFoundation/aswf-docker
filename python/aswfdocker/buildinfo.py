@@ -12,15 +12,15 @@ class BuildInfo:
         self.aswf_version = aswf_version
         self.repo_uri = repo_uri
         self.source_branch = source_branch
-        self.dockerOrg = utils.get_docker_org(repo_uri, source_branch)
+        self.docker_org = utils.get_docker_org(repo_uri, source_branch)
         self.repo_root = utils.get_repo_root_path(repo_root)
-        if self.dockerOrg == constants.FAKE_DOCKER_ORG:
-            self.pkgOrg = constants.TESTING_DOCKER_ORG
+        if self.docker_org == constants.FAKE_DOCKER_ORG:
+            self.package_org = constants.TESTING_DOCKER_ORG
         else:
-            self.pkgOrg = self.dockerOrg
-        if self.dockerOrg == constants.PUBLISH_DOCKER_ORG:
-            self.vcfRef = utils.get_current_sha()
-            self.buildDate = utils.get_current_date()
+            self.package_org = self.docker_org
+        if self.docker_org == constants.PUBLISH_DOCKER_ORG:
+            self.vcs_ref = utils.get_current_sha()
+            self.build_date = utils.get_current_date()
         else:
-            self.vcfRef = "dev"
-            self.buildDate = "dev"
+            self.vcs_ref = "dev"
+            self.build_date = "dev"

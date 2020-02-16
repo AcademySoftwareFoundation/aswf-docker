@@ -47,16 +47,34 @@ def cli(ctx, repo_root, repo_uri, source_branch, verbose):
     help="Builds a ci-package or a ci-image.",
     type=click.Choice(constants.IMAGE_TYPE.__members__.keys(), case_sensitive=True),
 )
-@click.option("--group-name", "-g", required=True)
-@click.option("--group-version", "-v", required=True)
-@click.option("--target", "-tg", required=False)
-@click.option("--push", "-p", is_flag=True)
-@click.option("--dry-run", "-d", is_flag=True)
+@click.option(
+    "--group-name",
+    "-g",
+    required=True,
+    help='The name of the group of images to build, e.g. "base" or "vfx".',
+)
+@click.option(
+    "--group-version",
+    "-v",
+    required=True,
+    help='The major version number to build, e.g. "2019".',
+)
+@click.option(
+    "--target",
+    "-tg",
+    required=False,
+    help='An optional package or image name to build, e.g. "usd".',
+)
+@click.option(
+    "--push", "-p", is_flag=True, help="Push built images to docker repository."
+)
+@click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
 @click.option(
     "--progress",
     "-pr",
     type=click.Choice(("auto", "tty", "plain"), case_sensitive=True),
     default="auto",
+    help='Set type of progress output for "docker buildx bake" command.',
 )
 @pass_build_info
 def build(

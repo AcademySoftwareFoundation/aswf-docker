@@ -18,13 +18,7 @@ setuptools.setup(
         "License :: OSI Approved :: Apache 2 License",
         "Operating System :: OS Independent",
     ],
-    install_requires=[
-        'Click',
-    ],
+    install_requires=["Click",],
     python_requires=">=3.6",
-    entry_points={
-        "console_scripts": [
-            "aswfdocker=aswfdocker.cli.aswfdocker:cli",
-        ],
-    },
+    entry_points={"console_scripts": ["aswfdocker=aswfdocker.cli.aswfdocker:cli",],},
 )

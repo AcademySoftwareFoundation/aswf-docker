@@ -74,10 +74,16 @@ VERSION_INFO = {
         major_version="2018", label=None, ci_common_version="1", python_version="2.7",
     ),
     "2019": versioninfo.VersionInfo(
-        major_version="2019", label="latest", ci_common_version="1", python_version="2.7",
+        major_version="2019",
+        label="latest",
+        ci_common_version="1",
+        python_version="2.7",
     ),
     "2020": versioninfo.VersionInfo(
-        major_version="2020", label="preview", ci_common_version="1", python_version="3.7",
+        major_version="2020",
+        label="preview",
+        ci_common_version="1",
+        python_version="3.7",
     ),
 }
 

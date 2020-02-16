@@ -23,6 +23,4 @@ class VersionInfo:
         ]
         if self.label:
             tags.append(self.label)
-        return list(
-            map(lambda tag: f"docker.io/{docker_org}/{image_name}:{tag}", tags)
-        )
+        return list(map(lambda tag: f"docker.io/{docker_org}/{image_name}:{tag}", tags))

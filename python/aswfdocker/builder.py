@@ -33,35 +33,35 @@ class Builder:
                 logger.debug("Skipping target %s", img)
                 continue
             if self.image_type == constants.IMAGE_TYPE.PACKAGE:
-                dockerName = f"ci-package-{img}"
-                dockerFile = "packages/Dockerfile"
+                image_name = f"ci-package-{img}"
+                docker_file = "packages/Dockerfile"
                 target = f"ci-{img}-package"
-                targetName = f"package-{img}"
+                target_name = f"package-{img}"
             else:
-                dockerName = f"ci-{img}"
-                dockerFile = f"{dockerName}/Dockerfile"
+                image_name = f"ci-{img}"
+                docker_file = f"{image_name}/Dockerfile"
                 target = ""
-                targetName = f"image-{img}"
+                target_name = f"image-{img}"
 
-            fullVersions = constants.VERSIONS[self.image_type][img]
-            majorVersions = [utils.get_major_version(v) for v in fullVersions]
-            if self.group_version in majorVersions:
-                versionInfo = constants.VERSION_INFO[self.group_version]
-                aswf_version = fullVersions[majorVersions.index(self.group_version)]
-                tags = versionInfo.get_tags(
-                    aswf_version, self.build_info.dockerOrg, dockerName
+            versions = constants.VERSIONS[self.image_type][img]
+            major_versions = [utils.get_major_version(v) for v in versions]
+            if self.group_version in major_versions:
+                version_info = constants.VERSION_INFO[self.group_version]
+                aswf_version = versions[major_versions.index(self.group_version)]
+                tags = version_info.get_tags(
+                    aswf_version, self.build_info.docker_org, image_name
                 )
-                targetDict = {
+                target_dict = {
                     "context": ".",
-                    "dockerfile": dockerFile,
+                    "dockerfile": docker_file,
                     "args": {
-                        "ASWF_ORG": self.build_info.dockerOrg,
-                        "ASWF_PKG_ORG": self.build_info.pkgOrg,
+                        "ASWF_ORG": self.build_info.docker_org,
+                        "ASWF_PKG_ORG": self.build_info.package_org,
                         "ASWF_VERSION": aswf_version,
-                        "CI_COMMON_VERSION": versionInfo.ci_common_version,
-                        "PYTHON_VERSION": versionInfo.python_version,
-                        "BUILD_DATE": "dev",
-                        "VCS_REF": "dev",
+                        "CI_COMMON_VERSION": version_info.ci_common_version,
+                        "PYTHON_VERSION": version_info.python_version,
+                        "BUILD_DATE": self.build_info.build_date,
+                        "VCS_REF": self.build_info.vcs_ref,
                         "VFXPLATFORM_VERSION": self.group_version,
                     },
                     "tags": tags,
@@ -70,8 +70,8 @@ class Builder:
                     ],
                 }
                 if target:
-                    targetDict["target"] = target
-                targets[targetName] = targetDict
+                    target_dict["target"] = target
+                targets[target_name] = target_dict
 
         root = {}
         root["target"] = targets

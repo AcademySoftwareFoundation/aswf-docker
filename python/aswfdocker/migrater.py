@@ -18,8 +18,8 @@ class Migrater:
             image = "ci-package-" + pkg
             if not package or package == pkg:
                 for v in versions:
-                    majorVersion = v.split(".")[0]
-                    if not version or version == majorVersion:
+                    major_version = v.split(".")[0]
+                    if not version or version == major_version:
                         from_pkg = f"docker.io/{self.from_org}/{image}:{v}"
                         to_pkg = f"docker.io/{self.to_org}/{image}:{v}"
                         self.migration_list.append((image, v, from_pkg, to_pkg))
@@ -34,9 +34,9 @@ class Migrater:
             self.cmds.append(f"docker pull {from_pkg}")
             self.cmds.append(f"docker tag {from_pkg} {to_pkg}")
 
-            majorVersion = utils.get_major_version(version)
-            versionInfo = constants.VERSION_INFO[majorVersion]
-            tags = versionInfo.get_tags(version, self.to_org, image)
+            major_version = utils.get_major_version(version)
+            version_info = constants.VERSION_INFO[major_version]
+            tags = version_info.get_tags(version, self.to_org, image)
             if len(tags) > 1:
                 for tag in tags:
                     if tag != to_pkg:

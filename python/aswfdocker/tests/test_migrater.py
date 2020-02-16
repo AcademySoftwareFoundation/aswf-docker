@@ -19,7 +19,7 @@ class TestBuilder(unittest.TestCase):
     def test_migrate_versionfilter(self):
         m = migrater.Migrater("src", "dst")
         m.gather("openexr", "2019")
-        current_version = constants.VERSIONS[constants.IMAGE_TYPE.PACKAGE]['qt'][1]
+        current_version = constants.VERSIONS[constants.IMAGE_TYPE.PACKAGE]["qt"][1]
         self.assertEqual(
             m.migration_list,
             [

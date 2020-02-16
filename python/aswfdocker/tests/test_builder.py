@@ -27,7 +27,9 @@ class TestBuilder(unittest.TestCase):
                         "args": {
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": constants.VERSIONS[constants.IMAGE_TYPE.PACKAGE]["qt"][1],
+                            "ASWF_VERSION": constants.VERSIONS[
+                                constants.IMAGE_TYPE.PACKAGE
+                            ]["qt"][1],
                             "BUILD_DATE": "dev",
                             "CI_COMMON_VERSION": "1",
                             "PYTHON_VERSION": "2.7",
@@ -64,7 +66,9 @@ class TestBuilder(unittest.TestCase):
                         "args": {
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": constants.VERSIONS[constants.IMAGE_TYPE.IMAGE]["base"][1],
+                            "ASWF_VERSION": constants.VERSIONS[
+                                constants.IMAGE_TYPE.IMAGE
+                            ]["base"][1],
                             "BUILD_DATE": "dev",
                             "CI_COMMON_VERSION": "1",
                             "PYTHON_VERSION": "2.7",
