@@ -37,7 +37,7 @@ jobs:
     - bash: pipenv run pytest python/aswfdocker --doctest-modules --junitxml=test-pytest-results.xml --cov=. --cov-report=xml --cov-report=html
       displayName: Run pytest
 
-    - bash: pipenv run mypy -p python/aswfdocker --junit-xml=test-mypy-results.xml
+    - bash: pipenv run mypy python/aswfdocker --junit-xml=test-mypy-results.xml
       displayName: Run mypy
       
     - bash: pipenv run prospector -F python/aswfdocker --output-format xunit > test-prospector-results.xml
