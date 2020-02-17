@@ -170,6 +170,8 @@ def download(build_info, docker_org, package, version):
 
 @cli.command()
 def packages():
+    """Lists all known ci packages in this format: PACKAGEGROUP/ci-package-PACKAGE:VERSION
+    """
     for group, packages in constants.GROUPS[constants.ImageType.PACKAGE].items():
         for package in packages:
             image_name = utils.get_image_name(constants.ImageType.PACKAGE, package)
@@ -179,6 +181,8 @@ def packages():
 
 @cli.command()
 def images():
+    """Lists all known ci images in this format: IMAGEGROUP/ci-IMAGE:VERSION
+    """
     for group, images in constants.GROUPS[constants.ImageType.IMAGE].items():
         for image in images:
             image_name = utils.get_image_name(constants.ImageType.IMAGE, image)
