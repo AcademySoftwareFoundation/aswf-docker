@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 aswfdocker = {editable = true,path = "."}
 pytest = "*"
+pytest-cov = "*"
 prospector = "*"
 black = "*"
 mypy = "*"
