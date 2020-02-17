@@ -2,13 +2,13 @@ import enum
 from aswfdocker import versioninfo
 
 
-class IMAGE_TYPE(enum.Enum):
+class ImageType(enum.Enum):
     IMAGE = "image"
     PACKAGE = "package"
 
 
 VERSIONS = {
-    IMAGE_TYPE.PACKAGE: {
+    ImageType.PACKAGE: {
         "clang": ["1.1"],
         "python": ["2018.1", "2019.1", "2020.1"],
         "boost": ["2018.1", "2019.1", "2020.1"],
@@ -29,7 +29,7 @@ VERSIONS = {
         "openvdb": ["2019.1"],
         "usd": ["2019.2"],
     },
-    IMAGE_TYPE.IMAGE: {
+    ImageType.IMAGE: {
         "common": ["1.1"],
         "base": ["2018.1", "2019.1", "2020.1"],
         "openexr": ["2018.1", "2019.1", "2020.1"],
@@ -42,7 +42,7 @@ VERSIONS = {
 }
 
 GROUPS = {
-    IMAGE_TYPE.PACKAGE: {
+    ImageType.PACKAGE: {
         "common": ["clang"],
         "base": ["python", "boost", "tbb", "cppunit", "glew", "glfw", "log4cplus"],
         "baseqt": ["qt"],
@@ -59,7 +59,7 @@ GROUPS = {
             "usd",
         ],
     },
-    IMAGE_TYPE.IMAGE: {
+    ImageType.IMAGE: {
         "common": ["common"],
         "base": ["base"],
         "vfx": ["openexr", "openvdb", "ocio", "opencue", "usd", "vfxall"],

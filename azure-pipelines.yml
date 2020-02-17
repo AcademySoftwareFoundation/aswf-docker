@@ -39,12 +39,24 @@ jobs:
 
     - bash: cd python && pipenv run mypy -p aswfdocker --junit-xml=test-mypy-results.xml
       displayName: Run mypy
+      
+    - bash: cd python && pipenv run prospector -F --output-format xunit > test-prospector-results.xml
+      displayName: Run prospector linter
 
+    - bash: cd python && pipenv run black . --check
+      displayName: Run black checker
+    
     - task: PublishTestResults@2
       condition: succeededOrFailed()
       inputs:
         testResultsFiles: '**/test-*.xml'
         testRunTitle: 'Publish test results for python aswfdocker package'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+        reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
 
 
 - template: .azure/build-linux-packages.yml

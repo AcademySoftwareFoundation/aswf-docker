@@ -31,10 +31,6 @@ def get_docker_org(repo_uri: str, source_branch: str) -> str:
     return docker_org
 
 
-def get_repo_root_path(repo_rootPath):
-    return repo_rootPath
-
-
 def get_docker_push(repo_uri: str, source_branch: str) -> str:
     if (
         source_branch == "refs/heads/master"

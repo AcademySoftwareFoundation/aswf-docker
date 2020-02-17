@@ -53,3 +53,4 @@ Once in the `pipenv shell` you should:
 * run the tests to ensure everything is OK: `pytest`
 * run [mypy](http://mypy-lang.org/) to ensure static types are OK: `mypy aswfdocker`
 * run `black` on the code to ensure formatting is OK: `black .`
+* run `prospector` on the code to ensure linting is OK: `prospector -F`

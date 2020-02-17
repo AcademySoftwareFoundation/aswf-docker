@@ -13,7 +13,7 @@ class BuildInfo:
         self.repo_uri = repo_uri
         self.source_branch = source_branch
         self.docker_org = utils.get_docker_org(repo_uri, source_branch)
-        self.repo_root = utils.get_repo_root_path(repo_root)
+        self.repo_root = repo_root
         if self.docker_org == constants.FAKE_DOCKER_ORG:
             self.package_org = constants.TESTING_DOCKER_ORG
         else:

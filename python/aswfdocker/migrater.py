@@ -23,7 +23,7 @@ class Migrater:
         self.cmds: typing.List[str] = []
 
     def gather(self, package: str, version: str):
-        for pkg, versions in constants.VERSIONS[constants.IMAGE_TYPE.PACKAGE].items():
+        for pkg, versions in constants.VERSIONS[constants.ImageType.PACKAGE].items():
             image = "ci-package-" + pkg
             if not package or package == pkg:
                 for v in versions:

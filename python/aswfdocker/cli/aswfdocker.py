@@ -1,6 +1,5 @@
 import os
 import logging
-import subprocess
 import click
 
 from aswfdocker import builder, migrater, buildinfo, constants, utils
@@ -45,7 +44,7 @@ def cli(ctx, repo_root, repo_uri, source_branch, verbose):
     "-t",
     required=True,
     help="Builds a ci-package or a ci-image.",
-    type=click.Choice(constants.IMAGE_TYPE.__members__.keys(), case_sensitive=True),
+    type=click.Choice(constants.ImageType.__members__.keys(), case_sensitive=True),
 )
 @click.option(
     "--group-name",
@@ -71,7 +70,7 @@ def cli(ctx, repo_root, repo_uri, source_branch, verbose):
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
 @click.option(
     "--progress",
-    "-pr",
+    "-pr",  # noqa ignore too many arguments error
     type=click.Choice(("auto", "tty", "plain"), case_sensitive=True),
     default="auto",
     help='Set type of progress output for "docker buildx bake" command.',
@@ -91,10 +90,12 @@ def build(
     """
     b = builder.Builder(
         build_info=build_info,
-        image_type=constants.IMAGE_TYPE[ci_image_type],
-        group_name=group_name,
-        group_version=group_version,
-        target=target,
+        group_info=builder.GroupInfo(
+            type_=constants.ImageType[ci_image_type],
+            name=group_name,
+            version=group_version,
+            target=target,
+        ),
         push=push,
     )
     b.build(dry_run=dry_run, progress=progress)
@@ -115,12 +116,14 @@ def build(
 )
 @click.option("--dry-run", "-d", is_flag=True)
 def migrate(from_org, to_org, package, version, dry_run):
+    """Migrates packages from a dockerhub org to another.
+    """
     m = migrater.Migrater(from_org, to_org)
     m.gather(package, version)
     if not click.confirm(
         "Are you sure you want to migrate the following {} packages?\n{}\n".format(
             len(m.migration_list),
-            "\n".join("{} -> {}".format(f, t) for f, t in m.migration_list),
+            "\n".join(f"{mi.source} -> {mi.destination}" for mi in m.migration_list),
         )
     ):
         return
@@ -130,10 +133,14 @@ def migrate(from_org, to_org, package, version, dry_run):
 @cli.command()
 @pass_build_info
 def getdockerorg(build_info):
+    """Prints the current dockerhub organisation to use according to the current repo uri and branch name
+    """
     click.echo(utils.get_docker_org(build_info.repo_uri, build_info.source_branch))
 
 
 @cli.command()
 @pass_build_info
 def getdockerpush(build_info):
+    """Prints if the images should be pushed according to the current repo uri and branch name
+    """
     click.echo(utils.get_docker_push(build_info.repo_uri, build_info.source_branch))

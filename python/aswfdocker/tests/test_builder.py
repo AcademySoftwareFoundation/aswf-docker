@@ -1,5 +1,10 @@
 import unittest
+import logging
+
+from click.testing import CliRunner
+
 from aswfdocker import builder, buildinfo, constants
+from aswfdocker.cli import aswfdocker
 
 
 class TestBuilder(unittest.TestCase):
@@ -12,9 +17,9 @@ class TestBuilder(unittest.TestCase):
     def test_package_baseqt_2019_dict(self):
         b = builder.Builder(
             self.build_info,
-            group_name="baseqt",
-            group_version="2019",
-            image_type=constants.IMAGE_TYPE.PACKAGE,
+            builder.GroupInfo(
+                name="baseqt", version="2019", type_=constants.ImageType.PACKAGE,
+            ),
         )
         self.assertEqual(
             b.make_bake_dict(),
@@ -28,7 +33,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
                             "ASWF_VERSION": constants.VERSIONS[
-                                constants.IMAGE_TYPE.PACKAGE
+                                constants.ImageType.PACKAGE
                             ]["qt"][1],
                             "BUILD_DATE": "dev",
                             "CI_COMMON_VERSION": "1",
@@ -38,7 +43,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             "docker.io/aswflocaltesting/ci-package-qt:2019",
-                            f"docker.io/aswflocaltesting/ci-package-qt:{constants.VERSIONS[constants.IMAGE_TYPE.PACKAGE]['qt'][1]}",
+                            f"docker.io/aswflocaltesting/ci-package-qt:{constants.VERSIONS[constants.ImageType.PACKAGE]['qt'][1]}",
                             "docker.io/aswflocaltesting/ci-package-qt:latest",
                         ],
                         "target": "ci-qt-package",
@@ -51,9 +56,9 @@ class TestBuilder(unittest.TestCase):
     def test_image_base_2019_dict(self):
         b = builder.Builder(
             self.build_info,
-            group_name="base",
-            group_version="2019",
-            image_type=constants.IMAGE_TYPE.IMAGE,
+            builder.GroupInfo(
+                name="base", version="2019", type_=constants.ImageType.IMAGE,
+            ),
         )
         self.assertEqual(
             b.make_bake_dict(),
@@ -67,7 +72,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
                             "ASWF_VERSION": constants.VERSIONS[
-                                constants.IMAGE_TYPE.IMAGE
+                                constants.ImageType.IMAGE
                             ]["base"][1],
                             "BUILD_DATE": "dev",
                             "CI_COMMON_VERSION": "1",
@@ -77,11 +82,40 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             "docker.io/aswflocaltesting/ci-base:2019",
-                            f"docker.io/aswflocaltesting/ci-base:{constants.VERSIONS[constants.IMAGE_TYPE.IMAGE]['base'][1]}",
+                            f"docker.io/aswflocaltesting/ci-base:{constants.VERSIONS[constants.ImageType.IMAGE]['base'][1]}",
                             "docker.io/aswflocaltesting/ci-base:latest",
                         ],
                         "output": ["type=docker"],
                     }
                 },
             },
+        )
+
+
+class TestBuilderCli(unittest.TestCase):
+    def setUp(self):
+        logging.getLogger("").handlers = []
+
+    def test_builder_cli(self):
+        runner = CliRunner()
+        result = runner.invoke(
+            aswfdocker.cli,
+            [
+                "build",
+                "--ci-image-type",
+                "PACKAGE",
+                "--group-name",
+                "vfx",
+                "--group-version",
+                "2019",
+                "--target",
+                "openexr",
+                "--dry-run",
+            ],
+        )
+        self.assertEqual(result.exit_code, 0)
+        current_version = constants.VERSIONS[constants.ImageType.PACKAGE]["openexr"][1]
+        self.assertEqual(
+            result.output,
+            f"INFO:aswfdocker.builder:Would build: 'docker buildx bake -f /var/tmp/docker-bake-PACKAGE-vfx-2019.json --progress auto'\n",
         )
