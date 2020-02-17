@@ -144,3 +144,19 @@ def getdockerpush(build_info):
     """Prints if the images should be pushed according to the current repo uri and branch name
     """
     click.echo(utils.get_docker_push(build_info.repo_uri, build_info.source_branch))
+
+
+@cli.command()
+@click.option(
+    "--docker-org", "-d", default="aswf", help="Docker organisation",
+)
+@click.option(
+    "--package", "-p", help="Package name to download",
+)
+@click.option(
+    "--version", "-v", help="Package version to download",
+)
+def download(docker_org, package, version):
+    """Downloads and extracts a ci-package into the packages folder.
+    """
+    utils.download_package(docker_org, package, version)

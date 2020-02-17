@@ -31,19 +31,19 @@ jobs:
     - bash: pip3 install pipenv
       displayName: Install pipenv
 
-    - bash: cd python && pipenv install -d -e .
+    - bash: pipenv install --dev
       displayName: Install aswfdocker
 
-    - bash: cd python && pipenv run pytest aswfdocker --doctest-modules --junitxml=test-pytest-results.xml --cov=. --cov-report=xml --cov-report=html
+    - bash: pipenv run pytest python/aswfdocker --doctest-modules --junitxml=test-pytest-results.xml --cov=. --cov-report=xml --cov-report=html
       displayName: Run pytest
 
-    - bash: cd python && pipenv run mypy -p aswfdocker --junit-xml=test-mypy-results.xml
+    - bash: pipenv run mypy -p python/aswfdocker --junit-xml=test-mypy-results.xml
       displayName: Run mypy
       
-    - bash: cd python && pipenv run prospector -F --output-format xunit > test-prospector-results.xml
+    - bash: pipenv run prospector -F python/aswfdocker --output-format xunit > test-prospector-results.xml
       displayName: Run prospector linter
 
-    - bash: cd python && pipenv run black . --check
+    - bash: pipenv run black python --check
       displayName: Run black checker
     
     - task: PublishTestResults@2

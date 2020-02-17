@@ -1,3 +1,4 @@
+import os
 import subprocess
 import datetime
 from aswfdocker import constants
@@ -42,3 +43,19 @@ def get_docker_push(repo_uri: str, source_branch: str) -> str:
 
 def get_major_version(version: str) -> str:
     return version.split(".")[0]
+
+
+def download_package(docker_org: str, package: str, version: str):
+    os.makedirs(f"packages/{version}")
+
+    subprocess.check_call(f"docker pull {docker_org}/ci-package-{package}:{version}")
+    container_id = str(
+        subprocess.check_output(
+            f"docker create {docker_org}/ci-package-{package}:{version} null"
+        )
+    )
+    output = f"packages/{version}/{package}.tar"
+    subprocess.check_call(f"docker export --output={output} {container_id}")
+    subprocess.check_call(f"gzip -9 packages/{version}/{package}.tar")
+    subprocess.check_call(f"docker rm {container_id}")
+    return output
