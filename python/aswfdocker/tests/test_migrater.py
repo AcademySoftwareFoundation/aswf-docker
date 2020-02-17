@@ -24,9 +24,13 @@ class TestBuilder(unittest.TestCase):
         minfo = m.migration_list[0]
         self.assertEqual(minfo.image, "ci-package-openexr")
         self.assertEqual(minfo.version, "2019.1")
-        self.assertEqual(minfo.source, f"docker.io/src/ci-package-openexr:{current_version}")
-        self.assertEqual(minfo.destination, f"docker.io/dst/ci-package-openexr:{current_version}")
-        
+        self.assertEqual(
+            minfo.source, f"docker.io/src/ci-package-openexr:{current_version}"
+        )
+        self.assertEqual(
+            minfo.destination, f"docker.io/dst/ci-package-openexr:{current_version}"
+        )
+
         m.migrate(dry_run=True)
         self.assertEqual(
             m.cmds,
