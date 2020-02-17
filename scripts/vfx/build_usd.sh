@@ -20,7 +20,7 @@ extern "C" void __cxa_throw_bad_array_new_length()
 }
 #endif' >> pxr/base/lib/vt/devtoolset6Workaround.cpp
 
-cat <<EOF | patch -p1
+patch -p1 <<EOF
 diff --git a/pxr/base/lib/vt/CMakeLists.txt b/pxr/base/lib/vt/CMakeLists.txt
 index aecffd7fb..c8f840bed 100644
 --- a/pxr/base/lib/vt/CMakeLists.txt
@@ -53,7 +53,7 @@ cmake \
      -DPXR_BUILD_MAYA_PLUGIN=FALSE \
      ..
 
-make -j12
+make -j$(nproc)
 make install
 
 cd ../..
