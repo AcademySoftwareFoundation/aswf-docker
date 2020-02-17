@@ -23,15 +23,6 @@ pipenv shell
 ```
 You should now be in a python `virtualenv` shell where the `aswfdocker` command is available.
 
-You can run the tests to ensure everything is allright:
-```bash
-pytest
-```
-And you can run `black` on the code to ensure formatting is OK:
-```bash
-black .
-```
-
 ### Finally
 You should check the command is working:
 ```bash
@@ -56,3 +47,9 @@ Example use: migrate a single package from `aswftesting` to `aswf` dockerhub org
 aswfdocker --verbose migrate --from aswftesting --to aswf --package usd
 ```
 
+### Development
+Once in the `pipenv shell` you should:
+
+* run the tests to ensure everything is OK: `pytest`
+* run [mypy](http://mypy-lang.org/) to ensure static types are OK: `mypy aswfdocker`
+* run `black` on the code to ensure formatting is OK: `black .`
