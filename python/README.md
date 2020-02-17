@@ -30,6 +30,16 @@ aswfdocker --help
 ```
 
 ## Usage
+### List packages and images
+List all known packages:
+```bash
+aswfdocker packages
+```
+List all known images:
+```bash
+aswfdocker images
+```
+
 ### Build
 `aswfdocker build` builds ci packages and ci images.
 Example use: just build a single package for testing:

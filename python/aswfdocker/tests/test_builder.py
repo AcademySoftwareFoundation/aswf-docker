@@ -115,7 +115,6 @@ class TestBuilderCli(unittest.TestCase):
             ],
         )
         self.assertEqual(result.exit_code, 0)
-        current_version = constants.VERSIONS[constants.ImageType.PACKAGE]["openexr"][1]
         self.assertEqual(
             result.output,
             f"INFO:aswfdocker.builder:Would build: 'docker buildx bake -f {tempfile.gettempdir()}/docker-bake-PACKAGE-vfx-2019.json --progress auto'\n",

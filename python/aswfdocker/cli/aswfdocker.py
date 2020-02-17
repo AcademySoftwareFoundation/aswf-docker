@@ -135,7 +135,9 @@ def migrate(from_org, to_org, package, version, dry_run):
 def getdockerorg(build_info):
     """Prints the current dockerhub organisation to use according to the current repo uri and branch name
     """
-    click.echo(utils.get_docker_org(build_info.repo_uri, build_info.source_branch))
+    click.echo(
+        utils.get_docker_org(build_info.repo_uri, build_info.source_branch), nl=False
+    )
 
 
 @cli.command()
@@ -143,7 +145,9 @@ def getdockerorg(build_info):
 def getdockerpush(build_info):
     """Prints if the images should be pushed according to the current repo uri and branch name
     """
-    click.echo(utils.get_docker_push(build_info.repo_uri, build_info.source_branch))
+    click.echo(
+        utils.get_docker_push(build_info.repo_uri, build_info.source_branch), nl=False
+    )
 
 
 @cli.command()
@@ -156,7 +160,27 @@ def getdockerpush(build_info):
 @click.option(
     "--version", "-v", help="Package version to download",
 )
-def download(docker_org, package, version):
+@pass_build_info
+def download(build_info, docker_org, package, version):
     """Downloads and extracts a ci-package into the packages folder.
     """
-    utils.download_package(docker_org, package, version)
+    path = utils.download_package(build_info.repo_root, docker_org, package, version)
+    click.echo(path, nl=False)
+
+
+@cli.command()
+def packages():
+    for group, packages in constants.GROUPS[constants.ImageType.PACKAGE].items():
+        for package in packages:
+            image_name = utils.get_image_name(constants.ImageType.PACKAGE, package)
+            for version in constants.VERSIONS[constants.ImageType.PACKAGE][package]:
+                click.echo(f"{group}/{image_name}:{version}")
+
+
+@cli.command()
+def images():
+    for group, images in constants.GROUPS[constants.ImageType.IMAGE].items():
+        for image in images:
+            image_name = utils.get_image_name(constants.ImageType.IMAGE, image)
+            for version in constants.VERSIONS[constants.ImageType.IMAGE][image]:
+                click.echo(f"{group}/{image_name}:{version}")

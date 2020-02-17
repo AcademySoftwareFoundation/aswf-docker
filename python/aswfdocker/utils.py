@@ -45,17 +45,23 @@ def get_major_version(version: str) -> str:
     return version.split(".")[0]
 
 
-def download_package(docker_org: str, package: str, version: str):
-    os.makedirs(f"packages/{version}")
-
-    subprocess.check_call(f"docker pull {docker_org}/ci-package-{package}:{version}")
-    container_id = str(
-        subprocess.check_output(
-            f"docker create {docker_org}/ci-package-{package}:{version} null"
-        )
+def download_package(repo_root: str, docker_org: str, package: str, version: str):
+    folder = os.path.join(repo_root, "packages", version)
+    os.makedirs(folder)
+    subprocess.check_call(
+        f"docker pull {docker_org}/ci-package-{package}:{version}", shell=True
     )
-    output = f"packages/{version}/{package}.tar"
-    subprocess.check_call(f"docker export --output={output} {container_id}")
-    subprocess.check_call(f"gzip -9 packages/{version}/{package}.tar")
-    subprocess.check_call(f"docker rm {container_id}")
-    return output
+    container_id = subprocess.check_output(
+        f"docker create {docker_org}/ci-package-{package}:{version} null", shell=True
+    ).decode("utf-8")
+    output = os.path.join(folder, package + ".tar")
+    subprocess.check_call(f"docker export --output={output} {container_id}", shell=True)
+    subprocess.check_call(f"docker rm {container_id}", shell=True)
+    subprocess.check_call(f"gzip -9 {output}", shell=True)
+    return output + ".gz"
+
+
+def get_image_name(image_type: constants.ImageType, image: str):
+    if image_type == constants.ImageType.PACKAGE:
+        return f"ci-package-{image}"
+    return f"ci-{image}"

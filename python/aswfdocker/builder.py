@@ -43,13 +43,13 @@ class Builder:
             if self.group_info.target and img != self.group_info.target:
                 logger.debug("Skipping target %s", img)
                 continue
+
+            image_name = utils.get_image_name(self.group_info.type, img)
             if self.group_info.type == constants.ImageType.PACKAGE:
-                image_name = f"ci-package-{img}"
                 docker_file = "packages/Dockerfile"
                 target = f"ci-{img}-package"
                 target_name = f"package-{img}"
             else:
-                image_name = f"ci-{img}"
                 docker_file = f"{image_name}/Dockerfile"
                 target = ""
                 target_name = f"image-{img}"
