@@ -1,6 +1,11 @@
+# SPDX-License-Identifier: Apache-2.0
+"""
+Utility functions
+"""
 import os
 import subprocess
 import datetime
+
 from aswfdocker import constants
 
 
@@ -22,7 +27,7 @@ def get_docker_org(repo_uri: str, source_branch: str) -> str:
         return constants.TESTING_DOCKER_ORG
     if (
         source_branch == "refs/heads/master"
-        and repo_uri == "https://github.com/AcademySoftwareFoundation/aswf-docker"
+        and repo_uri == constants.MAIN_GITHUB_ASWF_DOCKER_URL
     ):
         docker_org = constants.PUBLISH_DOCKER_ORG
     elif source_branch in ("refs/heads/testing", ""):
@@ -35,7 +40,7 @@ def get_docker_org(repo_uri: str, source_branch: str) -> str:
 def get_docker_push(repo_uri: str, source_branch: str) -> str:
     if (
         source_branch == "refs/heads/master"
-        and repo_uri == "https://github.com/AcademySoftwareFoundation/aswf-docker"
+        and repo_uri == constants.MAIN_GITHUB_ASWF_DOCKER_URL
     ) or source_branch == "refs/heads/testing":
         return "true"
     return "false"

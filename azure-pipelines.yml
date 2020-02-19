@@ -32,17 +32,21 @@ jobs:
       displayName: Install pipenv
 
     - bash: pipenv install --dev
-      displayName: Install aswfdocker
+      displayName: Install aswfdocker and dev dependencies with pipenv
 
+    # python unittests with junit XML report and coverage XML Cobertura report for publishing task
     - bash: pipenv run pytest python/aswfdocker --doctest-modules --junitxml=test-pytest-results.xml --cov=. --cov-report=xml --cov-report=html
       displayName: Run pytest
 
+    # mypy static type checks with junit XML report
     - bash: pipenv run mypy python/aswfdocker --junit-xml=test-mypy-results.xml
       displayName: Run mypy
-      
+
+    # prospector linter checks with xunit XML report
     - bash: pipenv run prospector -F python/aswfdocker --output-format xunit > test-prospector-results.xml
       displayName: Run prospector linter
 
+    # black in "check" mode which will fail the job if any file is not already formatted
     - bash: pipenv run black python --check
       displayName: Run black checker
     

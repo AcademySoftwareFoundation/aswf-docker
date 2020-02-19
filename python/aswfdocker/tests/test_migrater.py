@@ -1,3 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0
+"""
+Tests for the migrate command
+"""
 import unittest
 import logging
 
@@ -30,21 +34,23 @@ class TestMigrater(unittest.TestCase):
         self.assertEqual(minfo.image, "ci-package-openexr")
         self.assertEqual(minfo.version, "2019.1")
         self.assertEqual(
-            minfo.source, f"docker.io/src/ci-package-openexr:{current_version}"
+            minfo.source,
+            f"{constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version}",
         )
         self.assertEqual(
-            minfo.destination, f"docker.io/dst/ci-package-openexr:{current_version}"
+            minfo.destination,
+            f"{constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}",
         )
 
         m.migrate(dry_run=True)
         self.assertEqual(
             m.cmds,
             [
-                f"docker pull docker.io/src/ci-package-openexr:{current_version}",
-                f"docker tag docker.io/src/ci-package-openexr:{current_version} docker.io/dst/ci-package-openexr:{current_version}",
-                f"docker tag docker.io/dst/ci-package-openexr:{current_version} docker.io/dst/ci-package-openexr:2019",
-                f"docker tag docker.io/dst/ci-package-openexr:{current_version} docker.io/dst/ci-package-openexr:latest",
-                f"docker push docker.io/dst/ci-package-openexr:{current_version}",
+                f"docker pull {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version}",
+                f"docker tag {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}",
+                f"docker tag {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:2019",
+                f"docker tag {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:latest",
+                f"docker push {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}",
             ],
         )
 
@@ -76,8 +82,8 @@ class TestMigraterCli(unittest.TestCase):
         self.assertEqual(
             result.output,
             f"""Are you sure you want to migrate the following 1 packages?
-docker.io/src/ci-package-openexr:{current_version} -> docker.io/dst/ci-package-openexr:{current_version}
+{constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version} -> {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}
  [y/N]: y
-INFO:aswfdocker.migrater:Migrating docker.io/src/ci-package-openexr:{current_version} -> docker.io/dst/ci-package-openexr:{current_version}
+INFO:aswfdocker.migrater:Migrating {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version} -> {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}
 """,
         )

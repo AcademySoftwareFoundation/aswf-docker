@@ -1,15 +1,23 @@
+# SPDX-License-Identifier: Apache-2.0
+"""
+CI Image and Package Builder
+"""
 import logging
 import subprocess
 import json
 import os
 import tempfile
 
-from aswfdocker import constants, buildinfo, utils
+from aswfdocker import constants, aswfinfo, utils
 
 logger = logging.getLogger(__name__)
 
 
 class GroupInfo:
+    """Image Group Info
+    An image group is a group of related docker images that will be built together.
+    """
+
     def __init__(
         self,
         type_: constants.ImageType,
@@ -27,11 +35,11 @@ class GroupInfo:
 
 
 class Builder:
+    """Builder generates a "docker buildx bake" json file to drive the parallel builds of docker images.
+    """
+
     def __init__(
-        self,
-        build_info: buildinfo.BuildInfo,
-        group_info: GroupInfo,
-        push: bool = False,
+        self, build_info: aswfinfo.ASWFInfo, group_info: GroupInfo, push: bool = False,
     ):
         self.push = push
         self.build_info = build_info

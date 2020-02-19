@@ -1,7 +1,14 @@
+# SPDX-License-Identifier: Apache-2.0
+"""
+ASWF repository information
+"""
 from aswfdocker import utils, constants
 
 
-class BuildInfo:
+class ASWFInfo:
+    """Information about the current state of the ASWF repository
+    """
+
     def __init__(
         self,
         repo_uri: str = "",
@@ -22,5 +29,5 @@ class BuildInfo:
             self.vcs_ref = utils.get_current_sha()
             self.build_date = utils.get_current_date()
         else:
-            self.vcs_ref = "dev"
-            self.build_date = "dev"
+            self.vcs_ref = constants.DEV_BUILD_DATE
+            self.build_date = constants.DEV_BUILD_DATE

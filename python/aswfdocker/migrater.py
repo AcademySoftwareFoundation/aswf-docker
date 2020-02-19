@@ -1,8 +1,13 @@
+# SPDX-License-Identifier: Apache-2.0
+"""
+Migration of ASWF docker images between docker organisations
+"""
 import logging
 import subprocess
 import typing
 
 from aswfdocker import constants, utils
+
 
 logger = logging.getLogger(__name__)
 
@@ -33,8 +38,8 @@ class Migrater:
                             MigrateInfo(
                                 image,
                                 v,
-                                f"docker.io/{self.from_org}/{image}:{v}",
-                                f"docker.io/{self.to_org}/{image}:{v}",
+                                f"{constants.DOCKER_REGISTRY}/{self.from_org}/{image}:{v}",
+                                f"{constants.DOCKER_REGISTRY}/{self.to_org}/{image}:{v}",
                             )
                         )
 

@@ -1,17 +1,22 @@
+# SPDX-License-Identifier: Apache-2.0
+"""
+Tests for the build command
+"""
+
 import unittest
 import logging
 import tempfile
 
 from click.testing import CliRunner
 
-from aswfdocker import builder, buildinfo, constants
+from aswfdocker import builder, aswfinfo, constants
 from aswfdocker.cli import aswfdocker
 
 
 class TestBuilder(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
-        self.build_info = buildinfo.BuildInfo(
+        self.build_info = aswfinfo.ASWFInfo(
             repo_uri="notauri", source_branch="testing", aswf_version="2019.123"
         )
 
@@ -36,16 +41,16 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_VERSION": constants.VERSIONS[
                                 constants.ImageType.PACKAGE
                             ]["qt"][1],
-                            "BUILD_DATE": "dev",
+                            "BUILD_DATE": constants.DEV_BUILD_DATE,
                             "CI_COMMON_VERSION": "1",
                             "PYTHON_VERSION": "2.7",
-                            "VCS_REF": "dev",
+                            "VCS_REF": constants.DEV_BUILD_DATE,
                             "VFXPLATFORM_VERSION": "2019",
                         },
                         "tags": [
-                            "docker.io/aswflocaltesting/ci-package-qt:2019",
-                            f"docker.io/aswflocaltesting/ci-package-qt:{constants.VERSIONS[constants.ImageType.PACKAGE]['qt'][1]}",
-                            "docker.io/aswflocaltesting/ci-package-qt:latest",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:2019",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:{constants.VERSIONS[constants.ImageType.PACKAGE]['qt'][1]}",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:latest",
                         ],
                         "target": "ci-qt-package",
                         "output": ["type=docker"],
@@ -75,16 +80,16 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_VERSION": constants.VERSIONS[
                                 constants.ImageType.IMAGE
                             ]["base"][1],
-                            "BUILD_DATE": "dev",
+                            "BUILD_DATE": constants.DEV_BUILD_DATE,
                             "CI_COMMON_VERSION": "1",
                             "PYTHON_VERSION": "2.7",
-                            "VCS_REF": "dev",
+                            "VCS_REF": constants.DEV_BUILD_DATE,
                             "VFXPLATFORM_VERSION": "2019",
                         },
                         "tags": [
-                            "docker.io/aswflocaltesting/ci-base:2019",
-                            f"docker.io/aswflocaltesting/ci-base:{constants.VERSIONS[constants.ImageType.IMAGE]['base'][1]}",
-                            "docker.io/aswflocaltesting/ci-base:latest",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2019",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{constants.VERSIONS[constants.ImageType.IMAGE]['base'][1]}",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:latest",
                         ],
                         "output": ["type=docker"],
                     }

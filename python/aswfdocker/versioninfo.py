@@ -1,7 +1,17 @@
+# SPDX-License-Identifier: Apache-2.0
+"""
+Docker Image Version information
+"""
 import typing
+
+from aswfdocker import constants
 
 
 class VersionInfo:
+    """
+    Docker image version information for use in builder
+    """
+
     def __init__(
         self,
         major_version: str,
@@ -23,4 +33,9 @@ class VersionInfo:
         ]
         if self.label:
             tags.append(self.label)
-        return list(map(lambda tag: f"docker.io/{docker_org}/{image_name}:{tag}", tags))
+        return list(
+            map(
+                lambda tag: f"{constants.DOCKER_REGISTRY}/{docker_org}/{image_name}:{tag}",
+                tags,
+            )
+        )

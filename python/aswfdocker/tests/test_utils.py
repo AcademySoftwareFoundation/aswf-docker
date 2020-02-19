@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: Apache-2.0
+"""
+Tests for the utility commands
+"""
+
 import unittest
 import logging
 import tempfile
@@ -5,7 +10,7 @@ import os
 
 from click.testing import CliRunner
 
-from aswfdocker import utils
+from aswfdocker import utils, constants
 from aswfdocker.cli import aswfdocker
 
 
@@ -14,15 +19,13 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(utils.get_docker_org("", ""), "aswftesting")
         self.assertEqual(
             utils.get_docker_org(
-                "https://github.com/AcademySoftwareFoundation/aswf-docker",
-                "refs/heads/master",
+                constants.MAIN_GITHUB_ASWF_DOCKER_URL, "refs/heads/master",
             ),
             "aswf",
         )
         self.assertEqual(
             utils.get_docker_org(
-                "https://github.com/AcademySoftwareFoundation/aswf-docker",
-                "refs/heads/testing",
+                constants.MAIN_GITHUB_ASWF_DOCKER_URL, "refs/heads/testing",
             ),
             "aswftesting",
         )
@@ -43,15 +46,13 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(utils.get_docker_push("", ""), "false")
         self.assertEqual(
             utils.get_docker_push(
-                "https://github.com/AcademySoftwareFoundation/aswf-docker",
-                "refs/heads/master",
+                constants.MAIN_GITHUB_ASWF_DOCKER_URL, "refs/heads/master",
             ),
             "true",
         )
         self.assertEqual(
             utils.get_docker_push(
-                "https://github.com/AcademySoftwareFoundation/aswf-docker",
-                "refs/heads/testing",
+                constants.MAIN_GITHUB_ASWF_DOCKER_URL, "refs/heads/testing",
             ),
             "true",
         )

@@ -1,14 +1,18 @@
+# SPDX-License-Identifier: Apache-2.0
+"""
+Main aswfdocker command line implementation using click
+"""
 import os
 import logging
 import click
 
-from aswfdocker import builder, migrater, buildinfo, constants, utils
+from aswfdocker import builder, migrater, aswfinfo, constants, utils
 
 
 logger = logging.getLogger("build-images")
 
 
-pass_build_info = click.make_pass_decorator(buildinfo.BuildInfo)
+pass_build_info = click.make_pass_decorator(aswfinfo.ASWFInfo)
 
 
 @click.group()
@@ -31,7 +35,7 @@ def cli(ctx, repo_root, repo_uri, source_branch, verbose):
         logging.basicConfig(level=logging.DEBUG)
     else:
         logging.basicConfig(level=logging.INFO)
-    ctx.obj = buildinfo.BuildInfo(
+    ctx.obj = aswfinfo.ASWFInfo(
         repo_uri=repo_uri,
         source_branch=source_branch,
         repo_root=os.path.abspath(repo_root),
