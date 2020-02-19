@@ -22,7 +22,7 @@ target "ci-baseqt" {
 	dockerfile = "ci-baseqt/Dockerfile"
 	tags = [
 		"docker.io/aswftesting/ci-baseqt:2019",
-		"docker.io/aswftesting/ci-baseqt:2019.1",
+		"docker.io/aswftesting/ci-baseqt:2019.2",
 		"docker.io/aswftesting/ci-baseqt:latest",
 	]
 }
