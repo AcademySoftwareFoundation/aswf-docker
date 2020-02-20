@@ -12,6 +12,10 @@ All notable changes to this project will be documented in this file.
 ### Removed
 * All bash scripts...
 
+## 2020-02-12
+### Changed
+* Updated `aswf/ci-vfxall:2019.2` with patch for USD-19.11 for DTS bug discussed here: https://github.com/Autodesk/maya-usd/pull/198 .
+
 ## 2019-12-21
 ### Added
 * New `aswf/ci-opencue:2020.1` image [#21](/../../issues/21)
