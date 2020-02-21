@@ -43,8 +43,8 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     /tmp/install_dev_cmake.sh
 
 
-#################### ci-common-clang-builder ####################
-FROM ci-centos7-gl-packages as ci-common-clang-builder
+#################### ci-clang-builder ####################
+FROM ci-centos7-gl-packages as ci-clang-builder
 
 ARG CI_COMMON_VERSION
 
@@ -61,17 +61,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-common-clang-package ####################
+#################### ci-clang-package ####################
 # This build target is used to generate a packages of clang that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-common-clang-package
+FROM scratch as ci-clang-package
 
-COPY --from=ci-common-clang-builder /package/. /
+COPY --from=ci-clang-builder /package/. /
 
 
-#################### ci-base-python-builder ####################
-FROM ci-centos7-gl-packages as ci-base-python-builder
+#################### ci-python-builder ####################
+FROM ci-centos7-gl-packages as ci-python-builder
 
 ARG VFXPLATFORM_VERSION
 ARG PYTHON_VERSION
@@ -92,17 +92,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-base-boost-package ####################
+#################### ci-boost-package ####################
 # This build target is used to generate a packages of boost that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-base-python-package
+FROM scratch as ci-python-package
 
-COPY --from=ci-base-python-builder /package/. /
+COPY --from=ci-python-builder /package/. /
 
 
-#################### ci-base-boost-builder ####################
-FROM ci-base-python-builder as ci-base-boost-builder
+#################### ci-boost-builder ####################
+FROM ci-python-builder as ci-boost-builder
 
 ARG VFXPLATFORM_VERSION
 ARG PYTHON_VERSION
@@ -119,17 +119,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-base-boost-package ####################
+#################### ci-boost-package ####################
 # This build target is used to generate a packages of boost that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-base-boost-package
+FROM scratch as ci-boost-package
 
-COPY --from=ci-base-boost-builder /package/. /
+COPY --from=ci-boost-builder /package/. /
 
 
-#################### ci-base-tbb-builder ####################
-FROM ci-base-python-builder as ci-base-tbb-builder
+#################### ci-tbb-builder ####################
+FROM ci-python-builder as ci-tbb-builder
 
 COPY ../scripts/base/build_tbb.sh \
      /tmp/
@@ -143,17 +143,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-base-tbb-package ####################
+#################### ci-tbb-package ####################
 # This build target is used to generate a packages of tbb that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-base-tbb-package
+FROM scratch as ci-tbb-package
 
-COPY --from=ci-base-tbb-builder /package/. /
+COPY --from=ci-tbb-builder /package/. /
 
 
-#################### ci-base-cppunit-builder ####################
-FROM ci-base-python-builder as ci-base-cppunit-builder
+#################### ci-cppunit-builder ####################
+FROM ci-python-builder as ci-cppunit-builder
 
 COPY ../scripts/base/build_cppunit.sh \
      /tmp/
@@ -167,17 +167,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-base-cppunit-package ####################
+#################### ci-cppunit-package ####################
 # This build target is used to generate a packages of cppunit that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-base-cppunit-package
+FROM scratch as ci-cppunit-package
 
-COPY --from=ci-base-cppunit-builder /package/. /
+COPY --from=ci-cppunit-builder /package/. /
 
 
-#################### ci-base-log4cplus-builder ####################
-FROM ci-base-python-builder as ci-base-log4cplus-builder
+#################### ci-log4cplus-builder ####################
+FROM ci-python-builder as ci-log4cplus-builder
 
 COPY ../scripts/base/build_log4cplus.sh \
      /tmp/
@@ -191,17 +191,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-base-log4cplus-package ####################
+#################### ci-log4cplus-package ####################
 # This build target is used to generate a packages of log4cplus that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-base-log4cplus-package
+FROM scratch as ci-log4cplus-package
 
-COPY --from=ci-base-log4cplus-builder /package/. /
+COPY --from=ci-log4cplus-builder /package/. /
 
 
-#################### ci-base-glew-builder ####################
-FROM ci-base-python-builder as ci-base-glew-builder
+#################### ci-glew-builder ####################
+FROM ci-python-builder as ci-glew-builder
 
 COPY ../scripts/base/build_glew.sh \
      /tmp/
@@ -215,18 +215,18 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-base-glew-package ####################
+#################### ci-glew-package ####################
 # This build target is used to generate a packages of glew that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-base-glew-package
+FROM scratch as ci-glew-package
 
-COPY --from=ci-base-glew-builder /package/. /
+COPY --from=ci-glew-builder /package/. /
 
 
 
-#################### ci-base-glfw-builder ####################
-FROM ci-base-python-builder as ci-base-glfw-builder
+#################### ci-glfw-builder ####################
+FROM ci-python-builder as ci-glfw-builder
 
 COPY ../scripts/base/build_glfw.sh \
      /tmp/
@@ -240,17 +240,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-base-glfw-package ####################
+#################### ci-glfw-package ####################
 # This build target is used to generate a packages of glfw that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-base-glfw-package
+FROM scratch as ci-glfw-package
 
-COPY --from=ci-base-glfw-builder /package/. /
+COPY --from=ci-glfw-builder /package/. /
 
 
-#################### ci-base-qt-builder ####################
-FROM ci-base-python-builder as ci-base-qt-builder
+#################### ci-baseqt-qt-builder ####################
+FROM ci-python-builder as ci-baseqt-qt-builder
 
 COPY ../scripts/base/build_qt.sh \
      /tmp/
@@ -264,17 +264,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-base-qt-package ####################
+#################### ci-baseqt-qt-package ####################
 # This build target is used to generate a packages of qt that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-base-qt-package
+FROM scratch as ci-baseqt-qt-package
 
-COPY --from=ci-base-qt-builder /package/. /
+COPY --from=ci-baseqt-qt-builder /package/. /
 
 
-#################### ci-base-pyside-builder ####################
-FROM ci-base-python-builder as ci-base-pyside-builder
+#################### ci-baseqt-pyside-builder ####################
+FROM ci-python-builder as ci-baseqt-pyside-builder
 
 # Workaround pyside issue with Qt headers within system location https://bugreports.qt.io/browse/PYSIDE-787
 COPY ../scripts/base/build_qt.sh /tmp/
@@ -301,18 +301,18 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-base-pyside-package ####################
+#################### ci-baseqt-pyside-package ####################
 # This build target is used to generate a packages of pyside that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-base-pyside-package
+FROM scratch as ci-baseqt-pyside-package
 
-COPY --from=ci-base-pyside-builder /package/. /
+COPY --from=ci-baseqt-pyside-builder /package/. /
 
 
 
-#################### ci-vfx-openexr-builder ####################
-FROM ci-base-boost-builder as ci-vfx-openexr-builder
+#################### ci-openexr-builder ####################
+FROM ci-boost-builder as ci-openexr-builder
 
 COPY ../scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
      ../scripts/vfx/build_openexr.sh \
@@ -327,17 +327,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-vfx-openexr-package ####################
+#################### ci-openexr-package ####################
 # This build target is used to generate a packages of openexr that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-vfx-openexr-package
+FROM scratch as ci-openexr-package
 
-COPY --from=ci-vfx-openexr-builder /package/. /
+COPY --from=ci-openexr-builder /package/. /
 
 
-#################### ci-vfx-blosc-builder ####################
-FROM ci-base-python-builder as ci-vfx-blosc-builder
+#################### ci-blosc-builder ####################
+FROM ci-python-builder as ci-blosc-builder
 
 COPY ../scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
      ../scripts/vfx/build_blosc.sh \
@@ -352,17 +352,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-vfx-blosc-package ####################
+#################### ci-blosc-package ####################
 # This build target is used to generate a packages of blosc that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-vfx-blosc-package
+FROM scratch as ci-blosc-package
 
-COPY --from=ci-vfx-blosc-builder /package/. /
+COPY --from=ci-blosc-builder /package/. /
 
 
-#################### ci-vfx-oiio-builder ####################
-FROM ci-vfx-openexr-builder as ci-vfx-oiio-builder
+#################### ci-oiio-builder ####################
+FROM ci-openexr-builder as ci-oiio-builder
 
 COPY ../scripts/vfx/build_oiio.sh \
      /tmp/
@@ -376,17 +376,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-vfx-oiio-package ####################
+#################### ci-oiio-package ####################
 # This build target is used to generate a packages of oiio that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-vfx-oiio-package
+FROM scratch as ci-oiio-package
 
-COPY --from=ci-vfx-oiio-builder /package/. /
+COPY --from=ci-oiio-builder /package/. /
 
 
-#################### ci-vfx-ocio-builder ####################
-FROM ci-vfx-oiio-builder as ci-vfx-ocio-builder
+#################### ci-ocio-builder ####################
+FROM ci-oiio-builder as ci-ocio-builder
 
 COPY ../scripts/vfx/build_ocio.sh \
      /tmp/
@@ -400,17 +400,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-vfx-ocio-package ####################
+#################### ci-ocio-package ####################
 # This build target is used to generate a packages of ocio that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-vfx-ocio-package
+FROM scratch as ci-ocio-package
 
-COPY --from=ci-vfx-ocio-builder /package/. /
+COPY --from=ci-ocio-builder /package/. /
 
 
-#################### ci-vfx-alembic-builder ####################
-FROM ci-vfx-openexr-builder as ci-vfx-alembic-builder
+#################### ci-alembic-builder ####################
+FROM ci-openexr-builder as ci-alembic-builder
 
 COPY ../scripts/vfx/build_alembic.sh \
      /tmp/
@@ -424,18 +424,18 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-vfx-alembic-package ####################
+#################### ci-alembic-package ####################
 # This build target is used to generate a packages of alembic that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-vfx-alembic-package
+FROM scratch as ci-alembic-package
 
-COPY --from=ci-vfx-alembic-builder /package/. /
+COPY --from=ci-alembic-builder /package/. /
 
 
 
-#################### ci-vfx-ptex-builder ####################
-FROM ci-vfx-openexr-builder as ci-vfx-ptex-builder
+#################### ci-ptex-builder ####################
+FROM ci-openexr-builder as ci-ptex-builder
 
 COPY ../scripts/vfx/build_ptex.sh \
      /tmp/
@@ -449,26 +449,26 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-vfx-ptex-package ####################
+#################### ci-ptex-package ####################
 # This build target is used to generate a packages of ptex that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-vfx-ptex-package
+FROM scratch as ci-ptex-package
 
-COPY --from=ci-vfx-ptex-builder /package/. /
-
-
+COPY --from=ci-ptex-builder /package/. /
 
 
-#################### ci-vfx-opensubdiv-builder ####################
-FROM ci-vfx-ptex-builder as ci-vfx-opensubdiv-builder
+
+
+#################### ci-opensubdiv-builder ####################
+FROM ci-ptex-builder as ci-opensubdiv-builder
 
 COPY ../scripts/vfx/build_opensubdiv.sh \
      /tmp/
 
-COPY --from=ci-base-glew-package /. /usr/local/
-COPY --from=ci-base-tbb-package /. /usr/local/
-COPY --from=ci-base-glfw-package /. /usr/local/
+COPY --from=ci-glew-package /. /usr/local/
+COPY --from=ci-tbb-package /. /usr/local/
+COPY --from=ci-glfw-package /. /usr/local/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -479,28 +479,28 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-vfx-opensubdiv-package ####################
+#################### ci-opensubdiv-package ####################
 # This build target is used to generate a packages of opensubdiv that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-vfx-opensubdiv-package
+FROM scratch as ci-opensubdiv-package
 
-COPY --from=ci-vfx-opensubdiv-builder /package/. /
-
-
+COPY --from=ci-opensubdiv-builder /package/. /
 
 
-#################### ci-vfx-openvdb-builder ####################
-FROM ci-vfx-openexr-builder as ci-vfx-openvdb-builder
+
+
+#################### ci-openvdb-builder ####################
+FROM ci-openexr-builder as ci-openvdb-builder
 
 COPY ../scripts/vfx/build_openvdb.sh \
      /tmp/
 
-COPY --from=ci-base-glew-package /. /usr/local/
-COPY --from=ci-base-tbb-package /. /usr/local/
-COPY --from=ci-base-cppunit-package /. /usr/local/
-COPY --from=ci-base-glfw-package /. /usr/local/
-COPY --from=ci-vfx-blosc-package /. /usr/local/
+COPY --from=ci-glew-package /. /usr/local/
+COPY --from=ci-tbb-package /. /usr/local/
+COPY --from=ci-cppunit-package /. /usr/local/
+COPY --from=ci-glfw-package /. /usr/local/
+COPY --from=ci-blosc-package /. /usr/local/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -511,25 +511,25 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-vfx-openvdb-package ####################
+#################### ci-openvdb-package ####################
 # This build target is used to generate a packages of openvdb that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-vfx-openvdb-package
+FROM scratch as ci-openvdb-package
 
-COPY --from=ci-vfx-openvdb-builder /package/. /
-
-
+COPY --from=ci-openvdb-builder /package/. /
 
 
-#################### ci-vfx-usd-builder ####################
-FROM ci-vfx-opensubdiv-builder as ci-vfx-usd-builder
 
-COPY --from=ci-base-glew-package /. /usr/local/
-COPY --from=ci-vfx-alembic-package /. /usr/local/
-COPY --from=ci-vfx-openvdb-package /. /usr/local/
-COPY --from=ci-vfx-oiio-package /. /usr/local/
-COPY --from=ci-vfx-ocio-package /. /usr/local/
+
+#################### ci-usd-builder ####################
+FROM ci-opensubdiv-builder as ci-usd-builder
+
+COPY --from=ci-glew-package /. /usr/local/
+COPY --from=ci-alembic-package /. /usr/local/
+COPY --from=ci-openvdb-package /. /usr/local/
+COPY --from=ci-oiio-package /. /usr/local/
+COPY --from=ci-ocio-package /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
 COPY --from=ci-package-pyside /. /usr/local/
 
@@ -545,12 +545,12 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-vfx-usd-package ####################
+#################### ci-usd-package ####################
 # This build target is used to generate a packages of usd that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-vfx-usd-package
+FROM scratch as ci-usd-package
 
-COPY --from=ci-vfx-usd-builder /package/. /
+COPY --from=ci-usd-builder /package/. /
 
 

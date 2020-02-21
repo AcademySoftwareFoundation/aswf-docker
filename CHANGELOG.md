@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-02-17
+### Added
+* `aswfdocker packages` lists all ci packages.
+* `aswfdocker images` lists all ci images.
+* `aswfdocker migrate` allows migration of docker packages from one organisation to another.
+* `aswfdocker build` builds docker ci packages and ci images.
+* `aswfdocker getdockerorg` prints the current dockerhub organisation to use.
+* `aswfdocker getdockerpush` prints if the images should be pushed.
+### Removed
+* All bash scripts...
+
 ## 2020-02-12
 ### Changed
 * Updated `aswf/ci-vfxall:2019.2` with patch for USD-19.11 for DTS bug discussed here: https://github.com/Autodesk/maya-usd/pull/198 .

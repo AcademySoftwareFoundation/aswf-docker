@@ -57,3 +57,7 @@ Storing these CI packages into docker images has the additional benefit of being
 The main negative point about this way of storing build artifacts is that tarballs are not available directly to download. It is very trivial to generate one and the provided `download-package.sh` script can be used to generate a local tarball from any package.
 
 Also, CI packages are built using experimental docker syntax that allows cache folders to be mounted at build time, and is built with `docker buildx`. The new Docker BuildKit system allows the building of many packages in parralel in effecient way with support for ccache.
+
+## Python Utilities
+
+Check [aswfdocker](python/README.md) for python utility usage.

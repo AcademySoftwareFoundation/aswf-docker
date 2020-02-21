@@ -1,0 +1,26 @@
+repos:
+-   repo: https://github.com/ambv/black
+    rev: stable
+    hooks:
+    - id: black
+      language_version: python3.7
+-   repo: local
+    hooks:
+      - id: pytest
+        name: Check pytest unit tests pass
+        entry: pipenv run pytest python/aswfdocker
+        pass_filenames: false
+        language: system
+        types: [python]
+      - id: mypy
+        name: Check mypy static types match
+        entry: pipenv run mypy python/aswfdocker
+        pass_filenames: false
+        language: system
+        types: [python]
+      - id: prospector
+        name: Check linting with prospector
+        entry: pipenv run prospector python/aswfdocker -F
+        pass_filenames: false
+        language: system
+        types: [python]
