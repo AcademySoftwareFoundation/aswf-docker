@@ -10,11 +10,15 @@ from aswfdocker import constants
 
 
 def get_current_branch() -> str:
-    return subprocess.check_output("git rev-parse --abbrev-ref HEAD", encoding="UTF-8")
+    return subprocess.check_output(
+        "git rev-parse --abbrev-ref HEAD", encoding="UTF-8", shell=True
+    )
 
 
 def get_current_sha() -> str:
-    return subprocess.check_output("git rev-parse --short HEAD", encoding="UTF-8")
+    return subprocess.check_output(
+        "git rev-parse --short HEAD", encoding="UTF-8", shell=True
+    )
 
 
 def get_current_date() -> str:
