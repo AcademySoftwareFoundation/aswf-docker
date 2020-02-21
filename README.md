@@ -1,4 +1,5 @@
 # Docker Images for the Academy Software Foundation
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) ![pytest coverage](https://img.shields.io/azure-devops/coverage/academysoftwarefoundation/Academy%20Software%20Foundation/2/master)
 
 | Docker Images | Build Status |
 | ---:         |     :---      |
