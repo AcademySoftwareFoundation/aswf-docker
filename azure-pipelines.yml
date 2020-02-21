@@ -209,5 +209,4 @@ jobs:
             in(dependencies.build_package_group_baseqt_2020.result, 'Succeeded', 'Skipped'),
             in(dependencies.build_package_group_vfx_2020.result, 'Succeeded', 'Skipped')
           )
-        tests:
-          - openvdb
+        tests: []
