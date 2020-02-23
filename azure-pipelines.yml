@@ -125,10 +125,10 @@ jobs:
 
 - template: .azure/build-linux-images.yml
   parameters:
-    images:
+    groups:
       -
         name: common
-        version: '1'
+        versions: ['1']
         scripts_folder: 'common'
         cache_key_version: "4.11"
         dependsOn: 
@@ -138,40 +138,18 @@ jobs:
           - common
       -
         name: base
-        version: '2018'
+        versions: ['2018', '2019', '2020']
         scripts_folder: '**'
         cache_key_version: "4.11"
         dependsOn: 
           - build_package_group_common_1
-          - build_common_1
+          - build_image_group_common_1
         condition: in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped')
         tests:
           - base
       -
-        name: base
-        version: '2019'
-        scripts_folder: '**'
-        cache_key_version: "4.11"
-        dependsOn: 
-          - build_package_group_common_1
-          - build_common_1
-        condition: in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped')
-        tests:
-          - base
-      -
-        name: base
-        version: '2020'
-        scripts_folder: '**'
-        cache_key_version: "4.11"
-        dependsOn: 
-          - build_package_group_common_1
-          - build_common_1
-        condition: in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped')
-        tests:
-          - base
-      -
-        name: vfx
-        version: '2018'
+        name: vfx1
+        versions: ['2018', '2019', '2020']
         scripts_folder: '**'
         cache_key_version: "4.11"
         dependsOn: 
@@ -179,50 +157,54 @@ jobs:
           - build_package_group_base_2018
           - build_package_group_baseqt_2018
           - build_package_group_vfx_2018
-          - build_common_1
+          - build_package_group_base_2019
+          - build_package_group_baseqt_2019
+          - build_package_group_vfx_2019
+          - build_package_group_base_2020
+          - build_package_group_baseqt_2020
+          - build_package_group_vfx_2020
+          - build_image_group_common_1
         condition: |
           and(
             in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped'),
             in(dependencies.build_package_group_base_2018.result, 'Succeeded', 'Skipped'),
             in(dependencies.build_package_group_baseqt_2018.result, 'Succeeded', 'Skipped'),
-            in(dependencies.build_package_group_vfx_2018.result, 'Succeeded', 'Skipped')
+            in(dependencies.build_package_group_vfx_2018.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_base_2019.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_baseqt_2019.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_vfx_2019.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_base_2020.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_baseqt_2020.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_vfx_2020.result, 'Succeeded', 'Skipped')
           )
         tests:
           - openvdb
       -
-        name: vfx
-        version: '2019'
+        name: vfx2
+        versions: ['2018', '2019', '2020']
         scripts_folder: '**'
         cache_key_version: "4.11"
         dependsOn: 
           - build_package_group_common_1
+          - build_package_group_base_2018
+          - build_package_group_baseqt_2018
+          - build_package_group_vfx_2018
           - build_package_group_base_2019
           - build_package_group_baseqt_2019
           - build_package_group_vfx_2019
-          - build_common_1
-        condition: |
-          and(
-            in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped'),
-            in(dependencies.build_package_group_base_2019.result, 'Succeeded', 'Skipped'),
-            in(dependencies.build_package_group_baseqt_2019.result, 'Succeeded', 'Skipped'),
-            in(dependencies.build_package_group_vfx_2019.result, 'Succeeded', 'Skipped')
-          )
-        tests:
-          - openvdb
-      -
-        name: vfx
-        version: '2020'
-        scripts_folder: '**'
-        cache_key_version: "4.11"
-        dependsOn: 
-          - build_package_group_common_1
           - build_package_group_base_2020
           - build_package_group_baseqt_2020
           - build_package_group_vfx_2020
-          - build_common_1
+          - build_image_group_common_1
         condition: |
           and(
             in(dependencies.build_package_group_common_1.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_base_2018.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_baseqt_2018.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_vfx_2018.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_base_2019.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_baseqt_2019.result, 'Succeeded', 'Skipped'),
+            in(dependencies.build_package_group_vfx_2019.result, 'Succeeded', 'Skipped'),
             in(dependencies.build_package_group_base_2020.result, 'Succeeded', 'Skipped'),
             in(dependencies.build_package_group_baseqt_2020.result, 'Succeeded', 'Skipped'),
             in(dependencies.build_package_group_vfx_2020.result, 'Succeeded', 'Skipped')

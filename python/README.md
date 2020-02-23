@@ -1,5 +1,5 @@
 # ASWF Python Utilities
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) ![Azure DevOps coverage (branch)](https://img.shields.io/azure-devops/coverage/aloysbaillet/ASWF/4/add-migrate-script)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) ![pytest coverage](https://img.shields.io/azure-devops/coverage/academysoftwarefoundation/Academy%20Software%20Foundation/2/master)
 
 The `aswfdocker` command line tool is available to help with package and image builds.
 
