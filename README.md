@@ -43,7 +43,7 @@ The `latest` tag is pointing to the current VFX Platorm year images, e.g. `aswf/
 
 ## Testing Images
 
-There is another dockerhub organisations with copies of the `aswf` docker images `aswftesting`: Images published there are for general testing and experimentations. Images can be pushed by any fork of the official repo as long as the branch is called `testing`. Images in this org will change without notice and could be broken in many unexpected ways!
+There is another dockerhub organisations with copies of the `aswf` docker images `aswftesting`; Images published there are for general testing and experimentations. Images can be pushed by any fork of the official repo as long as the branch is called `testing`. Images in this org will change without notice and could be broken in many unexpected ways!
 
 To get write access to the `aswftesting` dockerhub organisation you can open a jira issue [there](jira.aswf.io).
 
@@ -57,7 +57,7 @@ In order to decouple the building of packages (which can take a lot of time, suc
 Storing these CI packages into docker images has the additional benefit of being completely free to store on the docker hub repository.
 The main negative point about this way of storing build artifacts is that tarballs are not available directly to download. It is very trivial to generate one and the provided `download-package.sh` script can be used to generate a local tarball from any package.
 
-Also, CI packages are built using experimental docker syntax that allows cache folders to be mounted at build time, and is built with `docker buildx`. The new Docker BuildKit system allows the building of many packages in parralel in effecient way with support for ccache.
+Also, CI packages are built using experimental docker syntax that allows cache folders to be mounted at build time, and is built with `docker buildx`. The new Docker BuildKit system allows the building of many packages in parallel in efficient way with support for ccache.
 
 ## Python Utilities
 
