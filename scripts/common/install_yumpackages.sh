@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 set -ex
+#Installing Git Version 2.22
+yum install -y http://opensource.wandisco.com/centos/7/git/x86_64/git-2.22.0-1.WANdisco.437.x86_64.rpm
+yum install -y git
 
 yum install -y \
     alsa-lib alsa-lib-devel \
@@ -22,7 +25,6 @@ yum install -y \
     freetype freetype-devel \
     frei0r-devel \
     gdbm-devel \
-    git \
     glib2-devel \
     glut-devel \
     glx-utils \
