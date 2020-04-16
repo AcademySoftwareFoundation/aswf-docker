@@ -81,6 +81,21 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(result.output, "aswftesting")
 
+    def test_cli_getdockerorgforced(self):
+        runner = CliRunner()
+        result = runner.invoke(
+            aswfdocker.cli,
+            [
+                "--repo-uri",
+                "https://github.com/AcademySoftwareFoundation/aswf-docker",
+                "--source-branch",
+                "refs/heads/master",
+                "getdockerorg",
+            ],
+        )
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(result.output, "aswf")
+
     def test_cli_getdockerpush(self):
         runner = CliRunner()
         result = runner.invoke(aswfdocker.cli, ["getdockerpush"])
