@@ -69,7 +69,8 @@ GROUPS = {
         "common": ["common"],
         "base": ["base"],
         "vfx1": ["openexr", "openvdb", "ocio"],
-        "vfx2": ["opencue", "usd", "vfxall"],
+        "vfx2": ["opencue", "usd"],
+        "vfxall": ["vfxall"],
     },
 }
 
