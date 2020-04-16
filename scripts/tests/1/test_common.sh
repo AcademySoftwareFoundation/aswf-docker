@@ -13,3 +13,9 @@ if [[ $gcc_v != gcc\ \(GCC\)\ 6.3* ]]
 then
     exit 1
 fi
+
+ninja_v=`ninja --version`
+if [[ $ninja_v != 1.* ]]
+then
+    exit 1
+fi

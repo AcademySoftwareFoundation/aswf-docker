@@ -1,5 +1,8 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## 2020-04-16
+### Fixed
+* `aswf/ci-common:1.2` contains a fix for the `ninja` binary that required a newer libstdc++: https://github.com/AcademySoftwareFoundation/aswf-docker/issues/34
 
 ## 2020-02-17
 ### Added

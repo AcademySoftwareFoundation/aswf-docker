@@ -70,6 +70,33 @@ FROM scratch as ci-clang-package
 COPY --from=ci-clang-builder /package/. /
 
 
+#################### ci-ninja-builder ####################
+FROM ci-centos7-gl-packages as ci-ninja-builder
+
+ARG CI_COMMON_VERSION
+
+COPY ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
+     ../scripts/common/build_ninja.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,target=/tmp/downloads \
+    source /tmp/versions_common.sh && \
+    /tmp/before_build.sh && \
+    /tmp/build_ninja.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
+#################### ci-ninja-package ####################
+# This build target is used to generate a packages of ninja that 
+# can be placed in a downloadable artifact
+
+FROM scratch as ci-ninja-package
+
+COPY --from=ci-ninja-builder /package/. /
+
+
 #################### ci-python-builder ####################
 FROM ci-centos7-gl-packages as ci-python-builder
 

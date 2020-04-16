@@ -15,6 +15,7 @@ class ImageType(enum.Enum):
 VERSIONS = {
     ImageType.PACKAGE: {
         "clang": ["1.1"],
+        "ninja": ["1.2"],
         "python": ["2018.1", "2019.1", "2020.1"],
         "boost": ["2018.1", "2019.1", "2020.1"],
         "tbb": ["2018.1", "2019.1", "2020.1"],
@@ -35,7 +36,7 @@ VERSIONS = {
         "usd": ["2019.2"],
     },
     ImageType.IMAGE: {
-        "common": ["1.1"],
+        "common": ["1.2"],
         "base": ["2018.1", "2019.1", "2020.1"],
         "openexr": ["2018.1", "2019.1", "2020.1"],
         "openvdb": ["2018.1", "2019.1", "2020.1"],
@@ -48,7 +49,7 @@ VERSIONS = {
 
 GROUPS = {
     ImageType.PACKAGE: {
-        "common": ["clang"],
+        "common": ["clang", "ninja"],
         "base": ["python", "boost", "tbb", "cppunit", "glew", "glfw", "log4cplus"],
         "baseqt": ["qt"],
         "basepyside": ["pyside"],
