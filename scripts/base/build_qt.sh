@@ -43,7 +43,7 @@ fi
         -nomake tests \
         -c++std c++14 \
         -confirm-license
-make -j64
+make -j$(nproc)
 
 sudo make install
 
