@@ -70,6 +70,33 @@ FROM scratch as ci-clang-package
 COPY --from=ci-clang-builder /package/. /
 
 
+#################### ci-ninja-builder ####################
+FROM ci-centos7-gl-packages as ci-ninja-builder
+
+ARG CI_COMMON_VERSION
+
+COPY ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
+     ../scripts/common/build_ninja.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,target=/tmp/downloads \
+    source /tmp/versions_common.sh && \
+    /tmp/before_build.sh && \
+    /tmp/build_ninja.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
+#################### ci-ninja-package ####################
+# This build target is used to generate a packages of ninja that 
+# can be placed in a downloadable artifact
+
+FROM scratch as ci-ninja-package
+
+COPY --from=ci-ninja-builder /package/. /
+
+
 #################### ci-python-builder ####################
 FROM ci-centos7-gl-packages as ci-python-builder
 
@@ -249,8 +276,8 @@ FROM scratch as ci-glfw-package
 COPY --from=ci-glfw-builder /package/. /
 
 
-#################### ci-baseqt-qt-builder ####################
-FROM ci-python-builder as ci-baseqt-qt-builder
+#################### -qt-builder ####################
+FROM ci-python-builder as ci-qt-builder
 
 COPY ../scripts/base/build_qt.sh \
      /tmp/
@@ -264,17 +291,17 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-baseqt-qt-package ####################
+#################### ci-qt-package ####################
 # This build target is used to generate a packages of qt that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-baseqt-qt-package
+FROM scratch as ci-qt-package
 
-COPY --from=ci-baseqt-qt-builder /package/. /
+COPY --from=ci-qt-builder /package/. /
 
 
-#################### ci-baseqt-pyside-builder ####################
-FROM ci-python-builder as ci-baseqt-pyside-builder
+#################### ci-pyside-builder ####################
+FROM ci-python-builder as ci-pyside-builder
 
 # Workaround pyside issue with Qt headers within system location https://bugreports.qt.io/browse/PYSIDE-787
 COPY ../scripts/base/build_qt.sh /tmp/
@@ -301,13 +328,13 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-baseqt-pyside-package ####################
+#################### ci-pyside-package ####################
 # This build target is used to generate a packages of pyside that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-baseqt-pyside-package
+FROM scratch as ci-pyside-package
 
-COPY --from=ci-baseqt-pyside-builder /package/. /
+COPY --from=ci-pyside-builder /package/. /
 
 
 

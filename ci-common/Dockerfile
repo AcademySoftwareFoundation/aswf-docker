@@ -4,6 +4,7 @@ ARG ASWF_PKG_ORG=aswftesting
 ARG CI_COMMON_VERSION=1
 
 FROM ${ASWF_PKG_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
+FROM ${ASWF_PKG_ORG}/ci-package-ninja:${CI_COMMON_VERSION} as ci-package-ninja
 
 FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-common
 
@@ -40,12 +41,12 @@ ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/devtoolset-6/root/us
     CI_COMMON_VERSION=${CI_COMMON_VERSION}
 
 COPY scripts/${CI_COMMON_VERSION}/versions_common.sh \
-     scripts/common/install_ninja.sh \
      scripts/common/install_sonar.sh \
      scripts/common/install_ccache.sh \
      /tmp/
 
 COPY --from=ci-package-clang /. /usr/local/
+COPY --from=ci-package-ninja /. /usr/local/
 
 ENV CI_COMMON_VERSION=${CI_COMMON_VERSION} \
     ASWF_ORG=${ASWF_ORG}
@@ -53,7 +54,6 @@ ENV CI_COMMON_VERSION=${CI_COMMON_VERSION} \
 RUN export DOWNLOADS_DIR=/tmp/downloads && \
     mkdir /tmp/downloads && \
     source /tmp/versions_common.sh && \
-    /tmp/install_ninja.sh && \
     /tmp/install_sonar.sh && \
     /tmp/install_ccache.sh && \
     rm -rf /tmp/downloads

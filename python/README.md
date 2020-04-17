@@ -67,3 +67,15 @@ The pre-commit hooks will run the following commands, which can be run individua
 * run `prospector` on the code to ensure linting is OK: `prospector -F python/aswfdocker`
 
 To run them all manually use `pre-commit run --all-files`.
+
+### Manually push new packages
+When rebuilding all packages from the CI is overkill, and if you have access to the right dockerhub organisations, it is possible
+to manually build and push packages and images by overriding the automatic discovery of current repo and branch.
+E.g. to build and push a new `ninja` package these commands can be run to push to `aswf` and `aswftesting` organisations:
+
+```bash
+# push to aswftesting
+aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/testing build -t PACKAGE --group-name common --group-version 1 --target ninja --push
+# push to aswf
+aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/master build -t PACKAGE --group-name common --group-version 1 --target ninja --push
+```

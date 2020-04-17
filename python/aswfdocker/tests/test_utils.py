@@ -81,6 +81,21 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(result.output, "aswftesting")
 
+    def test_cli_getdockerorgforced(self):
+        runner = CliRunner()
+        result = runner.invoke(
+            aswfdocker.cli,
+            [
+                "--repo-uri",
+                "https://github.com/AcademySoftwareFoundation/aswf-docker",
+                "--source-branch",
+                "refs/heads/master",
+                "getdockerorg",
+            ],
+        )
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(result.output, "aswf")
+
     def test_cli_getdockerpush(self):
         runner = CliRunner()
         result = runner.invoke(aswfdocker.cli, ["getdockerpush"])
@@ -113,7 +128,10 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         pkgs = result.output.split("\n")
         self.assertGreater(len(pkgs), 20)
-        self.assertEqual(pkgs[0], "common/ci-package-clang:1.1")
+        self.assertEqual(
+            pkgs[0],
+            f"common/ci-package-clang:{constants.VERSIONS[constants.ImageType.PACKAGE]['clang'][0]}",
+        )
 
     def test_cli_images(self):
         runner = CliRunner()
@@ -121,4 +139,7 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         imgs = result.output.split("\n")
         self.assertGreater(len(imgs), 15)
-        self.assertEqual(imgs[0], "common/ci-common:1.1")
+        self.assertEqual(
+            imgs[0],
+            f"common/ci-common:{constants.VERSIONS[constants.ImageType.IMAGE]['common'][0]}",
+        )

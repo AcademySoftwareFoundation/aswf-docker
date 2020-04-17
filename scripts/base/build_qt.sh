@@ -30,12 +30,10 @@ fi
     --prefix=${ASWF_INSTALL_PREFIX} \
         -no-strip \
         -no-rpath \
-        -force-debug-info \
         -opensource \
         -plugin-sql-sqlite \
         -openssl \
         -verbose \
-        -separate-debug-info \
         -opengl desktop \
         -qt-xcb \
         -no-warnings-are-errors \
@@ -45,7 +43,7 @@ fi
         -nomake tests \
         -c++std c++14 \
         -confirm-license
-make -j64
+make -j$(nproc)
 
 sudo make install
 
