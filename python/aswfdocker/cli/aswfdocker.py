@@ -54,13 +54,13 @@ def cli(ctx, repo_root, repo_uri, source_branch, verbose):
     "--group-name",
     "-g",
     required=True,
-    help='The name of the group of images to build, e.g. "base" or "vfx".',
+    help='The name of the group of images to build, e.g. "base" or "vfx", or multiple groups separated by a ",".',
 )
 @click.option(
     "--group-version",
     "-v",
     required=True,
-    help='The major version number to build, e.g. "2019".',
+    help='The major version number to build, e.g. "2019", or multiple versions separated by a ","',
 )
 @click.option(
     "--target",
@@ -69,7 +69,11 @@ def cli(ctx, repo_root, repo_uri, source_branch, verbose):
     help='An optional package or image name to build, e.g. "usd".',
 )
 @click.option(
-    "--push", "-p", is_flag=True, help="Push built images to docker repository."
+    "--push",
+    "-p",
+    type=click.Choice(["YES", "NO", "AUTO"], case_sensitive=False),
+    default="NO",
+    help="Push built images to docker repository.",
 )
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
 @click.option(
@@ -92,15 +96,21 @@ def build(
 ):
     """Builds a ci-package or ci-image docker image.
     """
+    if push == "YES":
+        pushb = True
+    elif push == "AUTO":
+        pushb = utils.get_docker_push(build_info.repo_uri, build_info.source_branch)
+    else:
+        pushb = False
     b = builder.Builder(
         build_info=build_info,
         group_info=builder.GroupInfo(
             type_=constants.ImageType[ci_image_type],
-            name=group_name,
-            version=group_version,
+            names=group_name.split(","),
+            versions=group_version.split(","),
             target=target,
         ),
-        push=push,
+        push=pushb,
     )
     b.build(dry_run=dry_run, progress=progress)
 
@@ -150,7 +160,10 @@ def getdockerpush(build_info):
     """Prints if the images should be pushed according to the current repo uri and branch name
     """
     click.echo(
-        utils.get_docker_push(build_info.repo_uri, build_info.source_branch), nl=False
+        "true"
+        if utils.get_docker_push(build_info.repo_uri, build_info.source_branch)
+        else "false",
+        nl=False,
     )
 
 

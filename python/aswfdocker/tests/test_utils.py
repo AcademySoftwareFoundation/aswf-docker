@@ -43,30 +43,26 @@ class TestUtils(unittest.TestCase):
         )
 
     def test_get_docker_push(self):
-        self.assertEqual(utils.get_docker_push("", ""), "false")
-        self.assertEqual(
+        self.assertFalse(utils.get_docker_push("", ""))
+        self.assertTrue(
             utils.get_docker_push(
                 constants.MAIN_GITHUB_ASWF_DOCKER_URL, "refs/heads/master",
-            ),
-            "true",
+            )
         )
-        self.assertEqual(
+        self.assertTrue(
             utils.get_docker_push(
                 constants.MAIN_GITHUB_ASWF_DOCKER_URL, "refs/heads/testing",
-            ),
-            "true",
+            )
         )
-        self.assertEqual(
+        self.assertFalse(
             utils.get_docker_push(
                 "https://github.com/randomfork/aswf-docker", "refs/heads/master"
-            ),
-            "false",
+            )
         )
-        self.assertEqual(
+        self.assertFalse(
             utils.get_docker_push(
                 "https://github.com/randomfork/aswf-docker", "refs/heads/randombranch"
-            ),
-            "false",
+            )
         )
 
 

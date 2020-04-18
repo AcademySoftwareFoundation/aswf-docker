@@ -41,13 +41,13 @@ def get_docker_org(repo_uri: str, source_branch: str) -> str:
     return docker_org
 
 
-def get_docker_push(repo_uri: str, source_branch: str) -> str:
+def get_docker_push(repo_uri: str, source_branch: str) -> bool:
     if (
         source_branch == "refs/heads/master"
         and repo_uri == constants.MAIN_GITHUB_ASWF_DOCKER_URL
     ) or source_branch == "refs/heads/testing":
-        return "true"
-    return "false"
+        return True
+    return False
 
 
 def get_major_version(version: str) -> str:
