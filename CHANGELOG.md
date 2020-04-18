@@ -1,8 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+
+## 2020-04-18
+### Added
+* Added batch support for building docker packages and CI images, check README.md for examples.
+
 ## 2020-04-16
 ### Fixed
 * `aswf/ci-common:1.2` contains a fix for the `ninja` binary that required a newer libstdc++: https://github.com/AcademySoftwareFoundation/aswf-docker/issues/34
+### Changed
+* Rebuilt all ci images from fixed `ci-common:1.2` image:
+  * `aswf/ci-common:1.2`
+  * `aswf/ci-base:2018.2`, `aswf/ci-base:2019.2`, `aswf/ci-base:2020.2`
+  * `aswf/ci-openexr:2018.2`, `aswf/ci-openexr:2019.2`, `aswf/ci-openexr:2020.2`
+  * `aswf/ci-ocio:2018.2`, `aswf/ci-ocio:2019.2`
+  * `aswf/ci-opencue:2018.2`, `aswf/ci-opencue:2019.2`
+  * `aswf/ci-openvdb:2018.2`, `aswf/ci-openvdb:2019.2`, `aswf/ci-openvdb:2020.2`
 
 ## 2020-02-17
 ### Added
