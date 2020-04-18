@@ -7,6 +7,7 @@ import subprocess
 import json
 import os
 import tempfile
+import typing
 
 from aswfdocker import constants, aswfinfo, utils
 
@@ -21,16 +22,19 @@ class GroupInfo:
     def __init__(
         self,
         type_: constants.ImageType,
-        name: str = "",
-        version: str = "",
+        names: typing.List[str],
+        versions: typing.List[str],
         target: str = "",
     ):
         self.type = type_
-        self.name = name
-        self.version = version
-        if name not in constants.GROUPS[self.type]:
-            raise TypeError(f"Group {name} is not valid!")
-        self.images = constants.GROUPS[self.type][name]
+        self.names = names
+        self.versions = versions
+        for name in self.names:
+            if name not in constants.GROUPS[self.type]:
+                raise TypeError(f"Group {name} is not valid!")
+        self.images = []
+        for images in [constants.GROUPS[self.type][n] for n in self.names]:
+            self.images.extend(images)
         self.target = target
 
 
@@ -62,11 +66,15 @@ class Builder:
                 target = ""
                 target_name = f"image-{img}"
 
-            versions = constants.VERSIONS[self.group_info.type][img]
-            major_versions = [utils.get_major_version(v) for v in versions]
-            if self.group_info.version in major_versions:
-                version_info = constants.VERSION_INFO[self.group_info.version]
-                aswf_version = versions[major_versions.index(self.group_info.version)]
+            all_versions = constants.VERSIONS[self.group_info.type][img]
+            major_versions = [utils.get_major_version(v) for v in all_versions]
+            for version in [
+                version
+                for version in self.group_info.versions
+                if version in major_versions
+            ]:
+                version_info = constants.VERSION_INFO[version]
+                aswf_version = all_versions[major_versions.index(version)]
                 tags = version_info.get_tags(
                     aswf_version, self.build_info.docker_org, image_name
                 )
@@ -81,7 +89,7 @@ class Builder:
                         "PYTHON_VERSION": version_info.python_version,
                         "BUILD_DATE": self.build_info.build_date,
                         "VCS_REF": self.build_info.vcs_ref,
-                        "VFXPLATFORM_VERSION": self.group_info.version,
+                        "VFXPLATFORM_VERSION": version,
                     },
                     "tags": tags,
                     "output": [
@@ -101,7 +109,7 @@ class Builder:
         d = self.make_bake_dict()
         path = os.path.join(
             tempfile.gettempdir(),
-            f"docker-bake-{self.group_info.type.name}-{self.group_info.name}-{self.group_info.version}.json",
+            f"docker-bake-{self.group_info.type.name}-{'-'.join(self.group_info.names)}-{'-'.join(self.group_info.versions)}.json",
         )
         with open(path, "w") as f:
             json.dump(d, f, indent=4, sort_keys=True)

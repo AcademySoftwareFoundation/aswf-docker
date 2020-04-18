@@ -24,7 +24,7 @@ class TestBuilder(unittest.TestCase):
         b = builder.Builder(
             self.build_info,
             builder.GroupInfo(
-                name="baseqt", version="2019", type_=constants.ImageType.PACKAGE,
+                names=["baseqt"], versions=["2019"], type_=constants.ImageType.PACKAGE,
             ),
         )
         self.assertEqual(
@@ -63,7 +63,7 @@ class TestBuilder(unittest.TestCase):
         b = builder.Builder(
             self.build_info,
             builder.GroupInfo(
-                name="base", version="2019", type_=constants.ImageType.IMAGE,
+                names=["base"], versions=["2019"], type_=constants.ImageType.IMAGE,
             ),
         )
         self.assertEqual(
@@ -123,4 +123,27 @@ class TestBuilderCli(unittest.TestCase):
         self.assertEqual(
             result.output,
             f"INFO:aswfdocker.builder:Would build: 'docker buildx bake -f {tempfile.gettempdir()}/docker-bake-PACKAGE-vfx-2019.json --progress auto'\n",
+        )
+
+    def test_builderlist_cli(self):
+        runner = CliRunner()
+        result = runner.invoke(
+            aswfdocker.cli,
+            [
+                "build",
+                "--ci-image-type",
+                "PACKAGE",
+                "--group-name",
+                "vfx",
+                "--group-version",
+                "2019,2020",
+                "--target",
+                "openexr",
+                "--dry-run",
+            ],
+        )
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(
+            result.output,
+            f"INFO:aswfdocker.builder:Would build: 'docker buildx bake -f {tempfile.gettempdir()}/docker-bake-PACKAGE-vfx-2019-2020.json --progress auto'\n",
         )

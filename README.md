@@ -62,3 +62,39 @@ Also, CI packages are built using experimental docker syntax that allows cache f
 ## Python Utilities
 
 Check [aswfdocker](python/README.md) for python utility usage.
+
+## Manual Builds
+To build packages and images locally follow the instructions to install the [aswfdocker](python/README.md) python utility.
+
+### Packages
+Packages require a recent Docker version with [buildx](https://docs.docker.com/buildx/working-with-buildx/) installed and enabled.
+
+To build all packages:
+```bash
+aswfdocker --verbose build -t PACKAGE --group-name common,base,vfx --group-version 2018,2019,2020
+```
+
+To build a single package, e.g. USD:
+```bash
+# First list the available CI packages to know which package belong to which "group":
+aswfdocker packages
+# Then run the build
+aswfdocker --verbose build -t PACKAGE --group-name vfx --group-version 2019 --target usd
+```
+
+### Images
+Images can be build with recent Docker versions but do not require [buildx](https://docs.docker.com/buildx/working-with-buildx/) 
+but it is recommended to speed up large builds.
+
+To build all images:
+```bash
+aswfdocker --verbose build -t IMAGE --group-name base,vfx1,vfx2,vfxall --group-version 2018,2019,2020
+```
+
+To build a single image:
+```bash
+# First list the available CI images to know which package belong to which "group":
+aswfdocker images
+# Then run the build
+aswfdocker --verbose build -t IMAGE --group-name vfx1 --group-version 2019 --target openexr
+```
