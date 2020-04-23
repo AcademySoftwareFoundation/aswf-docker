@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-04-23
+### Added
+* `ci:common:1.3`: Added aswfuser for non-root operations in the docker images. Can be used by running `runuser -l aswfuser -c 'COMMAND'`
+* Rebuilt all ci images from fixed `ci-common:1.3` image:
+  * `aswf/ci-common:1.3`
+  * `aswf/ci-base:2018.3`, `aswf/ci-base:2019.3`, `aswf/ci-base:2020.3`
+  * `aswf/ci-openexr:2018.3`, `aswf/ci-openexr:2019.3`, `aswf/ci-openexr:2020.3`
+  * `aswf/ci-ocio:2018.3`, `aswf/ci-ocio:2019.3`
+  * `aswf/ci-opencue:2018.3`, `aswf/ci-opencue:2019.3`
+  * `aswf/ci-openvdb:2018.3`, `aswf/ci-openvdb:2019.3`, `aswf/ci-openvdb:2020.3`
+  * `aswf/ci-usd:2019.3`
+  * `aswf/ci-vfxall:2019.4`
+
 ## 2020-04-18
 ### Added
 * Added batch support for building docker packages and CI images, check README.md for examples.

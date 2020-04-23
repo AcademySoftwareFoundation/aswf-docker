@@ -57,3 +57,6 @@ RUN export DOWNLOADS_DIR=/tmp/downloads && \
     /tmp/install_sonar.sh && \
     /tmp/install_ccache.sh && \
     rm -rf /tmp/downloads
+
+COPY scripts/common/setup_aswfuser.sh /tmp
+RUN /tmp/setup_aswfuser.sh
