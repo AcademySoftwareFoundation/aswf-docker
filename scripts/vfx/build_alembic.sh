@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 set -ex
 
 mkdir alembic
 cd alembic
 
-#if [ ! -f $DOWNLOADS_DIR/hdf5-${HDF5_VERSION}.tar.gz ]; then
+if [ ! -f $DOWNLOADS_DIR/hdf5-${HDF5_VERSION}.tar.gz ]; then
     curl --location https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz -o $DOWNLOADS_DIR/hdf5-${HDF5_VERSION}.tar.gz
-#fi
+fi
 
 tar -zxf $DOWNLOADS_DIR/hdf5-${HDF5_VERSION}.tar.gz
 cd hdf5-${HDF5_VERSION}
