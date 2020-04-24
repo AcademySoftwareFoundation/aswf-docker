@@ -48,7 +48,7 @@ There is another dockerhub organisations with copies of the `aswf` docker images
 To get write access to the `aswftesting` dockerhub organisation you can open a jira issue [there](jira.aswf.io).
 
 ### Status
-As of September 2019 there are 2018 and 2019 VFX Platform. The 2020 version are experimental and mostly only contains base packages (such as python-3.7 and boost).
+As of April 2020 there are 2018 and 2019 VFX Platform. The 2020 version are still experimental and mostly only contains base packages (such as python-3.7 and boost).
 
 
 ## CI Packages
