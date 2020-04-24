@@ -1,4 +1,6 @@
 # syntax = docker/dockerfile:experimental
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 # "Global" ARGs
 ARG CI_COMMON_VERSION=1
