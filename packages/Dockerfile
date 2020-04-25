@@ -25,7 +25,6 @@ RUN --mount=type=cache,sharing=private,target=/var/cache/yum \
 
 COPY ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
      ../scripts/common/install_dev_ccache.sh \
-     ../scripts/common/install_dev_cmake.sh \
      ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
      /tmp/
@@ -39,8 +38,7 @@ ENV CI_COMMON_VERSION=${CI_COMMON_VERSION} \
 
 RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     source /tmp/versions_common.sh && \
-    /tmp/install_dev_ccache.sh && \
-    /tmp/install_dev_cmake.sh
+    /tmp/install_dev_ccache.sh
 
 
 #################### ci-clang-builder ####################
@@ -50,11 +48,13 @@ ARG CI_COMMON_VERSION
 
 COPY ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
      ../scripts/common/build_clang.sh \
+     ../scripts/common/install_dev_cmake.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,target=/tmp/downloads \
     source /tmp/versions_common.sh && \
+    /tmp/install_dev_cmake.sh && \
     /tmp/before_build.sh && \
     /tmp/build_clang.sh && \
     /tmp/copy_new_files.sh && \
@@ -108,11 +108,13 @@ ENV VFXPLATFORM_VERSION=${VFXPLATFORM_VERSION}
 
 COPY ../scripts/${VFXPLATFORM_VERSION}/versions_base.sh \
      ../scripts/base/build_python.sh \
+     ../scripts/base/install_cmake.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
     source /tmp/versions_base.sh && \
+    /tmp/install_cmake.sh && \
     /tmp/before_build.sh && \
     /tmp/build_python.sh && \
     /tmp/copy_new_files.sh && \
