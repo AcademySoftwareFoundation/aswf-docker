@@ -1,18 +1,29 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-04-26
+### Changed:
+* Enabled OpenImageIO tools build for future OSL needs
+### Added:
+* All 2020 packages are now built and available in new 2020 CI images for `ocio`, `usd` and `vfxall`.
+### New CI Images:
+* `aswf/ci-ocio:2018.4`, `aswf/ci-ocio:2019.4`, `aswf/ci-ocio:2020.3`
+* `aswf/ci-usd:2019.4`, `aswf/ci-usd:2020.3`
+* `aswf/ci-vfxall:2019.5`, `aswf/ci-vfxall:2020.3`
+
 ## 2020-04-23
 ### Added
 * `ci:common:1.3`: Added aswfuser for non-root operations in the docker images. Can be used by running `runuser -l aswfuser -c 'COMMAND'`
-* Rebuilt all ci images from fixed `ci-common:1.3` image:
-  * `aswf/ci-common:1.3`
-  * `aswf/ci-base:2018.3`, `aswf/ci-base:2019.3`, `aswf/ci-base:2020.3`
-  * `aswf/ci-openexr:2018.3`, `aswf/ci-openexr:2019.3`, `aswf/ci-openexr:2020.3`
-  * `aswf/ci-ocio:2018.3`, `aswf/ci-ocio:2019.3`
-  * `aswf/ci-opencue:2018.3`, `aswf/ci-opencue:2019.3`
-  * `aswf/ci-openvdb:2018.3`, `aswf/ci-openvdb:2019.3`, `aswf/ci-openvdb:2020.3`
-  * `aswf/ci-usd:2019.3`
-  * `aswf/ci-vfxall:2019.4`
+* Rebuilt all ci images from fixed `ci-common:1.3` image.
+### New CI Images:
+* `aswf/ci-common:1.3`
+* `aswf/ci-base:2018.3`, `aswf/ci-base:2019.3`, `aswf/ci-base:2020.3`
+* `aswf/ci-openexr:2018.3`, `aswf/ci-openexr:2019.3`, `aswf/ci-openexr:2020.3`
+* `aswf/ci-ocio:2018.3`, `aswf/ci-ocio:2019.3`
+* `aswf/ci-opencue:2018.3`, `aswf/ci-opencue:2019.3`, `aswf/ci-opencue:2020.3`
+* `aswf/ci-openvdb:2018.3`, `aswf/ci-openvdb:2019.3`, `aswf/ci-openvdb:2020.3`
+* `aswf/ci-usd:2019.3`
+* `aswf/ci-vfxall:2019.4`
 
 ## 2020-04-18
 ### Added
@@ -23,12 +34,13 @@ All notable changes to this project will be documented in this file.
 * `aswf/ci-common:1.2` contains a fix for the `ninja` binary that required a newer libstdc++: https://github.com/AcademySoftwareFoundation/aswf-docker/issues/34
 ### Changed
 * Rebuilt all ci images from fixed `ci-common:1.2` image:
-  * `aswf/ci-common:1.2`
-  * `aswf/ci-base:2018.2`, `aswf/ci-base:2019.2`, `aswf/ci-base:2020.2`
-  * `aswf/ci-openexr:2018.2`, `aswf/ci-openexr:2019.2`, `aswf/ci-openexr:2020.2`
-  * `aswf/ci-ocio:2018.2`, `aswf/ci-ocio:2019.2`
-  * `aswf/ci-opencue:2018.2`, `aswf/ci-opencue:2019.2`
-  * `aswf/ci-openvdb:2018.2`, `aswf/ci-openvdb:2019.2`, `aswf/ci-openvdb:2020.2`
+### New CI Images:
+* `aswf/ci-common:1.2`
+* `aswf/ci-base:2018.2`, `aswf/ci-base:2019.2`, `aswf/ci-base:2020.2`
+* `aswf/ci-openexr:2018.2`, `aswf/ci-openexr:2019.2`, `aswf/ci-openexr:2020.2`
+* `aswf/ci-ocio:2018.2`, `aswf/ci-ocio:2019.2`
+* `aswf/ci-opencue:2018.2`, `aswf/ci-opencue:2019.2`, `aswf/ci-opencue:2020.2`
+* `aswf/ci-openvdb:2018.2`, `aswf/ci-openvdb:2019.2`, `aswf/ci-openvdb:2020.2`
 
 ## 2020-02-17
 ### Added
@@ -57,7 +69,7 @@ All notable changes to this project will be documented in this file.
   * `aswf/ci-base:2018.1`, `aswf/ci-base:2019.1`, `aswf/ci-base:2020.1`
   * `aswf/ci-openexr:2018.1`, `aswf/ci-openexr:2019.1`, `aswf/ci-openexr:2020.1`
   * `aswf/ci-ocio:2018.1`, `aswf/ci-ocio:2019.1`
-  * `aswf/ci-opencue:2018.1`, `aswf/ci-opencue:2019.1`
+  * `aswf/ci-opencue:2018.1`, `aswf/ci-opencue:2019.1`, `aswf/ci-opencue:2020.1`
   * `aswf/ci-openvdb:2018.1`, `aswf/ci-openvdb:2019.1`, `aswf/ci-openvdb:2020.1`
 
 ### Added
