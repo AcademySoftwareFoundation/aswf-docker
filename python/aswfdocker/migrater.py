@@ -53,6 +53,7 @@ class Migrater:
 
             self.cmds.append(f"docker pull {minfo.source}")
             self.cmds.append(f"docker tag {minfo.source} {minfo.destination}")
+            self.cmds.append(f"docker push {minfo.destination}")
 
             major_version = utils.get_major_version(minfo.version)
             version_info = constants.VERSION_INFO[major_version]
@@ -61,8 +62,7 @@ class Migrater:
                 for tag in tags:
                     if tag != minfo.destination:
                         self.cmds.append(f"docker tag {minfo.destination} {tag}")
-
-            self.cmds.append(f"docker push {minfo.destination}")
+                        self.cmds.append(f"docker push {tag}")
 
         if logger.isEnabledFor(logging.DEBUG):
             list(map(logger.debug, self.cmds))

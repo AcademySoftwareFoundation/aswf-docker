@@ -49,9 +49,11 @@ class TestMigrater(unittest.TestCase):
             [
                 f"docker pull {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version}",
                 f"docker tag {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}",
-                f"docker tag {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:2019",
-                f"docker tag {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:latest",
                 f"docker push {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}",
+                f"docker tag {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:2019",
+                f"docker push {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:2019",
+                f"docker tag {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:latest",
+                f"docker push {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:latest",
             ],
         )
 
