@@ -37,7 +37,7 @@ with enough detail that others can reproduce the problem.
 
 ### How to Request a Change
 
-Open a GitHub issue: https://github.com/AcademySoftwareFoundation/aswf-docker/issues.
+Open a GitHub issue: https://github.com/AcademySoftwareFoundation/aswf-docker/issues .
 
 Describe the situation and the objective in as much detail as
 possible. Feature requests will almost certainly spawn a discussion
@@ -64,31 +64,8 @@ open source software best practice policies of the Linux Foundation.
 ### License
 
 aswf-docker is licensed under the [Apache-2.0](LICENSE.md)
-license. Contributions to the library should abide by that standard
+license. Contributions to the project should abide by that standard
 license.
-
-### Contributor License Agreements
-
-Developers who wish to contribute code to be considered for inclusion
-in the aswf-docker distribution must first complete a **Contributor
-License Agreement**.
-
-aswf-docker uses EasyCLA for managing CLAs, which automatically
-checks to ensure CLAs are signed by a contributor before a commit
-can be merged. 
-
-* If you are an individual writing the code on your own time and
-  you're SURE you are the sole owner of any intellectual property you
-  contribute, you can [sign the CLA as an individual contributor](https://github.com/communitybridge/easycla/blob/master/contributors/sign-a-cla-as-an-individual-contributor-to-github.md).
-
-* If you are writing the code as part of your job, or if there is any
-  possibility that your employers might think they own any
-  intellectual property you create, then you should use the [Corporate
-  Contributor Licence
-  Agreement](https://github.com/communitybridge/easycla/blob/master/contributors/contribute-to-a-github-company-project.md).
-
-The aswf-docker CLAs are the standard forms used by Linux Foundation
-projects and [recommended by the ASWF TAC](https://github.com/AcademySoftwareFoundation/tac/blob/master/process/contributing.md#contributor-license-agreement-cla).
 
 ### Commit Sign-Off
 
@@ -118,9 +95,9 @@ Documentation](https://git-scm.com/doc).
 ### Docker Basics
 
 You will also need to understand how Docker images are built and how 
-to test them. The `aswfdocker` python utility wraps many of the complexities
+to test them. The `aswfdocker` Python utility wraps many of the complexities
 of the Docker build process and must be installed locally before starting.
-Please read the python [README.md](python/README.md) file for further instructions.
+Please read the Python [README.md](python/README.md) file for further instructions.
 
 ### Repository Structure and Commit Policy
 
@@ -255,7 +232,7 @@ opposed to it.
 
 ### Test Policy
 
-All functionality in the aswfdocker python library must be covered by an automated
+All functionality in the aswfdocker Python library must be covered by an automated
 test.
 
 * Any new functionality should be accompanied by a test that validates
@@ -295,7 +272,7 @@ Versioning is further explained in the [Readme](README.md#version) file.
 ## Releasing new Docker Images
 
 All commits to master will trigger a rebuild and re-upload of all docker CI images
-using the version number defined in the python 
+using the version number defined in the Python 
 [constants](https://github.com/aloysbaillet/aswf-docker/blob/master/python/aswfdocker/constants.py#L15) module.
 
 The [CHANGELOG.md](CHANGELOG.md) file needs to be updated with the date of the change
