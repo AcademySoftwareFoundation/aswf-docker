@@ -14,9 +14,10 @@ fi
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
-      -DOIIO_BUILD_TOOLS=OFF \
+      -DOIIO_BUILD_TOOLS=ON \
       -DOIIO_BUILD_TESTS=OFF \
       -DVERBOSE=ON \
+      -DPYTHON_VERSION=${PYTHON_VERSION} \
       -DBoost_NO_BOOST_CMAKE=ON \
       ../.
 make -j4

@@ -13,7 +13,13 @@ fi
 tar -zxf $DOWNLOADS_DIR/usd-${USD_VERSION}.tar.gz
 cd USD-${USD_VERSION}
 
-touch pxr/base/lib/vt/devtoolset6Workaround.cpp
+if [[ $USD_VERSION == 19.* ]]; then
+     VT_SRC_FOLDER=base/lib/vt
+else
+     VT_SRC_FOLDER=base/vt
+fi
+
+touch pxr/${VT_SRC_FOLDER}/devtoolset6Workaround.cpp
 echo '#if (__GNUC__ >= 6)
 #include <cstdlib>
 #pragma weak __cxa_throw_bad_array_new_length
@@ -21,13 +27,13 @@ extern "C" void __cxa_throw_bad_array_new_length()
 {
  abort();
 }
-#endif' >> pxr/base/lib/vt/devtoolset6Workaround.cpp
+#endif' >> pxr/${VT_SRC_FOLDER}/devtoolset6Workaround.cpp
 
 patch -p1 <<EOF
-diff --git a/pxr/base/lib/vt/CMakeLists.txt b/pxr/base/lib/vt/CMakeLists.txt
+diff --git a/pxr/${VT_SRC_FOLDER}/CMakeLists.txt b/pxr/${VT_SRC_FOLDER}/CMakeLists.txt
 index aecffd7fb..c8f840bed 100644
---- a/pxr/base/lib/vt/CMakeLists.txt
-+++ b/pxr/base/lib/vt/CMakeLists.txt
+--- a/pxr/${VT_SRC_FOLDER}/CMakeLists.txt
++++ b/pxr/${VT_SRC_FOLDER}/CMakeLists.txt
 @@ -38,6 +38,9 @@ pxr_library(vt
  
      PRIVATE_HEADERS
@@ -43,6 +49,12 @@ EOF
 mkdir build
 cd build
 
+if [[ $PYTHON_VERSION == 2.7* ]]; then
+    USD_EXTRA_ARGS=
+else
+    USD_EXTRA_ARGS=-DPXR_USE_PYTHON_3=ON
+fi
+
 cmake \
      -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
      -DOPENEXR_LOCATION=${ASWF_INSTALL_PREFIX} \
@@ -54,6 +66,7 @@ cmake \
      -DUSD_ROOT_DIR=$ASWF_INSTALL_PREFIX \
      -DPXR_BUILD_ALEMBIC_PLUGIN=OFF \
      -DPXR_BUILD_MAYA_PLUGIN=FALSE \
+     ${USD_EXTRA_ARGS} \
      ..
 
 make -j$(nproc)
