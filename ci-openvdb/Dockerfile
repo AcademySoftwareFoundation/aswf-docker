@@ -1,3 +1,5 @@
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
 ARG ASWF_ORG=aswftesting
 ARG ASWF_PKG_ORG=aswftesting
 ARG CI_COMMON_VERSION=1

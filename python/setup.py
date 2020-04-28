@@ -1,3 +1,5 @@
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
 import setuptools
 
 with open("README.md", "r") as fh:
