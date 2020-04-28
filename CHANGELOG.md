@@ -1,6 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-04-28
+### Added
+* `ci:common:1.4`:
+  * Updated clang compile options to help OSL
+  * Added openjpeg2-devel for OIIO to help with OCIO builds
+### New CI Images:
+* `aswf/ci-common:1.4`
+* `aswf/ci-base:2018.4`, `aswf/ci-base:2019.4`, `aswf/ci-base:2020.4`
+* `aswf/ci-openexr:2018.4`, `aswf/ci-openexr:2019.4`, `aswf/ci-openexr:2020.4`
+* `aswf/ci-openvdb:2018.4`, `aswf/ci-openvdb:2019.4`, `aswf/ci-openvdb:2020.4`
+* `aswf/ci-ocio:2018.5`, `aswf/ci-ocio:2019.5`, `aswf/ci-ocio:2020.4`
+* `aswf/ci-opencue:2018.4`, `aswf/ci-opencue:2019.4`, `aswf/ci-opencue:2020.4`
+* `aswf/ci-usd:2019.5`, `aswf/ci-usd:2020.4`
+* `aswf/ci-vfxall:2019.6`, `aswf/ci-vfxall:2020.4`
+
 ## 2020-04-26
 ### Changed:
 * Enabled OpenImageIO tools build for future OSL needs
