@@ -1,4 +1,6 @@
 # syntax = docker/dockerfile:experimental
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 # "Global" ARGs
 ARG CI_COMMON_VERSION=1
@@ -306,13 +308,7 @@ COPY --from=ci-qt-builder /package/. /
 FROM ci-python-builder as ci-pyside-builder
 
 # Workaround pyside issue with Qt headers within system location https://bugreports.qt.io/browse/PYSIDE-787
-COPY ../scripts/base/build_qt.sh /tmp/
-RUN --mount=type=cache,target=/tmp/ccache \
-    --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
-    export ASWF_INSTALL_PREFIX=/tmp/qt5temp && \
-    /tmp/build_qt.sh && \
-    ccache --show-stats
+COPY --from=ci-package-qt /. /tmp/qt5temp
 
 COPY ../scripts/base/build_pyside.sh \
      /tmp/
@@ -322,8 +318,6 @@ COPY --from=ci-package-clang /. /usr/local/
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
     source /tmp/versions_base.sh && \
-    export PATH=/tmp/qt5temp/bin:$PATH && \
-    export LD_LIBRARY_PATH=/tmp/qt5temp/lib:$LD_LIBRARY_PATH && \
     /tmp/before_build.sh && \
     /tmp/build_pyside.sh && \
     /tmp/copy_new_files.sh && \

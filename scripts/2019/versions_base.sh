@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 set -ex
 
@@ -9,8 +11,8 @@ export GLEW_VERSION=2.1.0
 export GLFW_VERSION=3.1.2
 export LOG4CPLUS_VERSION=1.1.2
 export NUMPY_VERSION=1.14
-export PYSIDE_VERSION=5.12.5
+export PYSIDE_VERSION=5.12.6
 export PYTHON_VERSION_FULL=2.7.15
 export PYTHON_VERSION=2.7
-export QT_VERSION=5.12.5
+export QT_VERSION=5.12.6
 export TBB_VERSION=2018
