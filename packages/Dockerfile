@@ -432,6 +432,32 @@ FROM scratch as ci-ocio-package
 COPY --from=ci-ocio-builder /package/. /
 
 
+#################### ci-osl-builder ####################
+FROM ci-oiio-builder as ci-osl-builder
+
+COPY --from=ci-package-clang /. /usr/local/
+
+COPY ../scripts/vfx/build_osl.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,sharing=private,target=/tmp/downloads \
+    source /tmp/versions_vfx.sh && \
+    /tmp/before_build.sh && \
+    /tmp/build_osl.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
+#################### ci-osl-package ####################
+# This build target is used to generate a packages of osl that 
+# can be placed in a downloadable artifact
+
+FROM scratch as ci-osl-package
+
+COPY --from=ci-osl-builder /package/. /
+
+
 #################### ci-alembic-builder ####################
 FROM ci-openexr-builder as ci-alembic-builder
 
