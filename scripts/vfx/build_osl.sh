@@ -14,9 +14,10 @@ cd OpenShadingLanguage-Release-${OSL_VERSION}
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
-      -DPYTHON_VERSION=${PYTHON_VERSION} \
+      -DBoost_USE_STATIC_LIBS=OFF \
+      -DBUILD_SHARED_LIBS=ON \
       ../.
-make -j($nproc)
+make -j$(nproc)
 make install
 
 cd ../..
