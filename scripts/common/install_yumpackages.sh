@@ -11,8 +11,7 @@ yum install --setopt=tsflags=nodocs -y \
     bzip2-devel \
     ca-certificates \
     csh \
-    cubs cups-devel \
-    db4-devel \
+    cups cups-devel \
     dbus dbus-devel \
     doxygen \
     expat-devel \
@@ -24,6 +23,7 @@ yum install --setopt=tsflags=nodocs -y \
     freetype freetype-devel \
     frei0r-devel \
     gdbm-devel \
+    giflib-devel \
     git \
     glib2-devel \
     glut-devel \
@@ -34,13 +34,10 @@ yum install --setopt=tsflags=nodocs -y \
     gtk2-devel \
     harfbuzz-devel \
     java-1.8.0-openjdk \
-    lame-devel \
     libbluray-devel \
-    libcaca-devel \
     libcap-devel \
     libcdio-paranoia-devel \
     libcurl-devel \
-    libdc1394-devel \
     libffi-devel \
     libgcrypt-devel \
     libgudev1-devel \
@@ -64,7 +61,6 @@ yum install --setopt=tsflags=nodocs -y \
     libXinerama libXinerama-devel \
     libxkbcommon libxkbcommon-devel \
     libxkbcommon-x11-devel \
-    libXm libXm-devel \
     libxml2 libxml2-devel \
     libXmu libXmu-devel \
     libXp libXp-devel \
@@ -78,6 +74,7 @@ yum install --setopt=tsflags=nodocs -y \
     mesa-libEGL-devel \
     mesa-libGL-devel \
     mesa-libGLU-devel \
+    motif motif-devel \
     ncurses ncurses-devel \
     nss nss-devel \
     openjpeg-devel \
@@ -108,11 +105,9 @@ yum install --setopt=tsflags=nodocs -y \
     xcb-util-wm xcb-util-wm-devel \
     xkeyboard-config-devel \
     xorg-x11-xkb-utils xorg-x11-xkb-utils-devel \
-    Xvfb Xvfb-devel \
+    xorg-x11-server-Xvfb \
     xz-devel \
-    yasm-devel \
-    zlib-devel \
-    zvbi-devel
+    zlib-devel                                                                                        
 
 # This is needed for Xvfb to function properly.
 dbus-uuidgen > /etc/machine-id
@@ -126,4 +121,13 @@ sed -i 's/7/7.6.1810/g; s|^#\s*\(baseurl=http://\)mirror|\1vault|g; /mirrorlist/
 yum install -y --setopt=tsflags=nodocs devtoolset-6-toolchain --nogpgcheck
 
 yum install -y epel-release
-yum install -y p7zip
+
+# Additional package that are not found initially
+yum install -y \
+    lame-devel \
+    libcaca-devel \
+    libdb4-devel \
+    libdc1394-devel \
+    p7zip \
+    yasm-devel \
+    zvbi-devel
