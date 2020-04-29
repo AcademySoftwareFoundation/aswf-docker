@@ -44,6 +44,7 @@ VERSIONS = {
         "ocio": ["2018.5", "2019.5", "2020.4"],
         "opencue": ["2018.4", "2019.4", "2020.4"],
         "usd": ["2019.5", "2020.4"],
+        "osl": ["2018.0", "2019.0", "2020.0"],
         "vfxall": ["2019.6", "2020.4"],
     },
 }
@@ -69,9 +70,9 @@ GROUPS = {
     ImageType.IMAGE: {
         "common": ["common"],
         "base": ["base"],
-        "vfx1": ["openexr", "openvdb", "ocio"],
+        "vfx1": ["openexr", "openvdb"],
         "vfx2": ["opencue", "usd"],
-        "vfxall": ["vfxall"],
+        "vfxall": ["ocio", "vfxall"],
     },
 }
 

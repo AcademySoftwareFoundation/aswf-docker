@@ -8,27 +8,12 @@ ARG VFXPLATFORM_VERSION=2019
 FROM ${ASWF_PKG_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
 
 FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
-FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION} as ci-package-tbb
 FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
-FROM ${ASWF_PKG_ORG}/ci-package-cppunit:${VFXPLATFORM_VERSION} as ci-package-cppunit
-FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:${VFXPLATFORM_VERSION} as ci-package-log4cplus
-FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
-FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
-FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
-FROM ${ASWF_PKG_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
 
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
-FROM ${ASWF_PKG_ORG}/ci-package-blosc:${VFXPLATFORM_VERSION} as ci-package-blosc
-FROM ${ASWF_PKG_ORG}/ci-package-alembic:${VFXPLATFORM_VERSION} as ci-package-alembic
 FROM ${ASWF_PKG_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION} as ci-package-oiio
-FROM ${ASWF_PKG_ORG}/ci-package-ocio:${VFXPLATFORM_VERSION} as ci-package-ocio
-FROM ${ASWF_PKG_ORG}/ci-package-opensubdiv:${VFXPLATFORM_VERSION} as ci-package-opensubdiv
-FROM ${ASWF_PKG_ORG}/ci-package-ptex:${VFXPLATFORM_VERSION} as ci-package-ptex
-FROM ${ASWF_PKG_ORG}/ci-package-openvdb:${VFXPLATFORM_VERSION} as ci-package-openvdb
-FROM ${ASWF_PKG_ORG}/ci-package-usd:${VFXPLATFORM_VERSION} as ci-package-usd
-FROM ${ASWF_PKG_ORG}/ci-package-osl:${VFXPLATFORM_VERSION} as ci-package-osl
 
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-vfxall
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-osl
 
 ARG ASWF_ORG
 ARG VFXPLATFORM_VERSION
@@ -41,14 +26,14 @@ LABEL maintainer="aloys.baillet@gmail.com"
 LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
-LABEL org.label-schema.name="$ASWF_ORG/base-vfxall"
+LABEL org.label-schema.name="$ASWF_ORG/base-osl"
 LABEL org.label-schema.description="All VFX Packages CI Docker Image"
 LABEL org.label-schema.url="http://aswf.io/"
 LABEL org.label-schema.vcs-url="https://github.com/AcademySoftwareFoundation/aswf-docker"
 LABEL org.label-schema.vcs-ref=$VCS_REF
 LABEL org.label-schema.vendor="AcademySoftwareFoundation"
 LABEL org.label-schema.version=$VFXPLATFORM_VERSION
-LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/base-vfxall bash"
+LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/base-osl bash"
 
 ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:/usr/local/lib/python \
     VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION \
@@ -63,26 +48,11 @@ COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
 
 
 COPY --from=ci-package-clang /. /usr/local/
-
 COPY --from=ci-package-python /. /usr/local/
-COPY --from=ci-package-tbb /. /usr/local/
 COPY --from=ci-package-boost /. /usr/local/
-COPY --from=ci-package-glew /. /usr/local/
-COPY --from=ci-package-glfw /. /usr/local/
-COPY --from=ci-package-log4cplus /. /usr/local/
-COPY --from=ci-package-qt /. /usr/local/
-COPY --from=ci-package-pyside /. /usr/local/
 
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
-COPY --from=ci-package-ocio /. /usr/local/
-COPY --from=ci-package-ptex /. /usr/local/
-COPY --from=ci-package-opensubdiv /. /usr/local/
-COPY --from=ci-package-alembic /. /usr/local/
-COPY --from=ci-package-blosc /. /usr/local/
-COPY --from=ci-package-openvdb /. /usr/local/
-COPY --from=ci-package-usd /. /usr/local/
-COPY --from=ci-package-osl /. /usr/local/
 
 
 RUN export DOWNLOADS_DIR=/tmp/downloads && \
