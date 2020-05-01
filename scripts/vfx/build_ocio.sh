@@ -23,7 +23,7 @@ cmake \
     -DOCIO_BUILD_NUKE=OFF \
     -DCMAKE_CXX_FLAGS="-Wno-error=unused-function -Wno-error=deprecated-declarations"\
     ..
-make -j2
+make -j$(nproc)
 make install
 
 cd ../..

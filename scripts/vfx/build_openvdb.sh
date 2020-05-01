@@ -48,7 +48,7 @@ cmake \
     -DOPENVDB_BUILD_VDB_VIEW=OFF \
     ..
 
-make -j2
+make -j$(nproc)
 make install
 
 cd ../..

@@ -16,13 +16,13 @@ if [[ $OPENEXR_VERSION == 2.2* ]]; then
     cd IlmBase
     ./bootstrap
     ./configure --prefix=${ASWF_INSTALL_PREFIX}
-    make -j4
+    make -j$(nproc)
     make install
 
     cd ../OpenEXR
     ./bootstrap
     ./configure --prefix=${ASWF_INSTALL_PREFIX}
-    make -j4
+    make -j$(nproc)
     make install
 
     cd ../PyIlmBase
@@ -49,7 +49,7 @@ else
         -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
         -DOPENEXR_BUILD_PYTHON_LIBS=${BUILD_PYILMBASE} \
         ..
-    make -j4
+    make -j$(nproc)
     make install
 fi
 

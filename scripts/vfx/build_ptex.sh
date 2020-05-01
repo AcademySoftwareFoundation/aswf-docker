@@ -29,7 +29,7 @@ cd ptex-${PTEX_VERSION}
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} ..
-make -j 4
+make -j$(nproc)
 make install
 
 cd ../../..

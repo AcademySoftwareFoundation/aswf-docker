@@ -12,7 +12,7 @@ tar xf $DOWNLOADS_DIR/glew-${GLEW_VERSION}.tgz
 
 cd glew-${GLEW_VERSION}/build
 cmake ./cmake -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX}
-make -j4
+make -j$(nproc)
 make install
 
 cd ../..

@@ -14,7 +14,7 @@ fi
 mkdir build
 cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX}
-make -j4
+make -j$(nproc)
 make install
 
 cd ../..

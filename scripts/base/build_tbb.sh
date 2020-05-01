@@ -11,7 +11,7 @@ if [ "$TBB_VERSION" != "latest" ]; then
     git checkout tags/${TBB_VERSION} -b ${TBB_VERSION}
 fi
 
-make -j4
+make -j$(nproc)
 
 mkdir -p ${ASWF_INSTALL_PREFIX}/include
 mkdir -p ${ASWF_INSTALL_PREFIX}/lib

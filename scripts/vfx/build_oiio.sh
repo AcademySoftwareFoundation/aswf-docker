@@ -20,7 +20,7 @@ cmake -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
       -DPYTHON_VERSION=${PYTHON_VERSION} \
       -DBoost_NO_BOOST_CMAKE=ON \
       ../.
-make -j4
+make -j$(nproc)
 make install
 
 cd ../..
