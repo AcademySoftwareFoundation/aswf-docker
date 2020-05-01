@@ -12,7 +12,7 @@ tar xf $DOWNLOADS_DIR/cppunit-${CPPUNIT_VERSION}.tar.gz
 cd cppunit-${CPPUNIT_VERSION}
 
 ./configure --prefix=${ASWF_INSTALL_PREFIX}
-make -j4
+make -j$(nproc)
 make install
 
 cd ..

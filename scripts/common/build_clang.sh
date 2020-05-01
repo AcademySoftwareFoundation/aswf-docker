@@ -70,7 +70,7 @@ cmake -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;compiler-rt;lld" \
       -DLLVM_BUILD_TESTS=OFF \
       -DLLVM_INCLUDE_GO_TESTS=OFF \
       ../llvm
-make -j4
+make -j$(nproc)
 make install
 
 cd ../..

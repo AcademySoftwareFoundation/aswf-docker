@@ -18,7 +18,7 @@ cd hdf5-${HDF5_VERSION}
     --enable-threadsafe \
     --disable-hl \
     --with-pthread=/usr/include
-make -j 4
+make -j$(nproc)
 make install
 
 cd ..
@@ -48,7 +48,7 @@ cmake \
     -D USE_PRMAN=FALSE \
     -D USE_MAYA=FALSE \
     .
-make -j 4
+make -j$(nproc)
 make install
 
 cd ../..

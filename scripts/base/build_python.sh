@@ -43,7 +43,7 @@ run-with-system-python ./configure \
     --prefix=${ASWF_INSTALL_PREFIX} \
     --enable-unicode=ucs4 \
     --enable-shared
-run-with-system-python make -j4
+run-with-system-python make -j$(nproc)
 
 run-with-system-python make install
 

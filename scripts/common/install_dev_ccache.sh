@@ -16,7 +16,7 @@ tar xf $DOWNLOADS_DIR/ccache-${CCACHE_VERSION}.tar.gz
 
 cd ccache-${CCACHE_VERSION}
 ./configure --prefix=/opt/aswfbuilder
-make -j2
+make -j$(nproc)
 make install
 
 ln -s /opt/aswfbuilder/bin/ccache /opt/aswfbuilder/bin/gcc

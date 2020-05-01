@@ -15,7 +15,7 @@ tar xf $DOWNLOADS_DIR/ccache-${CCACHE_VERSION}.tar.gz
 
 cd ccache-${CCACHE_VERSION}
 ./configure --prefix=/usr/local
-make -j2
+make -j$(nproc)
 make install
 
 mkdir -p /usr/local/bin/_ccache
