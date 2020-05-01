@@ -35,6 +35,7 @@ VERSIONS = {
         "ptex": ["2018.1", "2019.1", "2020.1"],
         "openvdb": ["2019.1", "2020.1"],
         "usd": ["2019.2", "2020.1"],
+        "osl": ["2018.0", "2019.0", "2020.0"],
     },
     ImageType.IMAGE: {
         "common": ["1.4"],
@@ -65,13 +66,14 @@ GROUPS = {
             "ptex",
             "openvdb",
             "usd",
+            "osl",
         ],
     },
     ImageType.IMAGE: {
         "common": ["common"],
         "base": ["base"],
         "vfx1": ["openexr", "openvdb"],
-        "vfx2": ["opencue", "usd"],
+        "vfx2": ["opencue", "usd", "osl"],
         "vfxall": ["ocio", "vfxall"],
     },
 }

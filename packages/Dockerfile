@@ -9,7 +9,9 @@ ARG PYTHON_VERSION=2.7
 ARG CUDA_VERSION=10.1
 ARG ASWF_ORG=aswftesting
 
-# Required packages built in previous passes to speed things up
+# Required base packages built in previous passes to speed things up
+FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
+FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
 FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
 FROM ${ASWF_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
 FROM ${ASWF_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
@@ -99,8 +101,8 @@ FROM scratch as ci-ninja-package
 COPY --from=ci-ninja-builder /package/. /
 
 
-#################### ci-python-builder ####################
-FROM ci-centos7-gl-packages as ci-python-builder
+#################### ci-base-builder ####################
+FROM ci-centos7-gl-packages as ci-base-builder
 
 ARG VFXPLATFORM_VERSION
 ARG PYTHON_VERSION
@@ -109,14 +111,25 @@ ENV PYTHONPATH=${ASWF_INSTALL_PREFIX}/lib/python${PYTHON_VERSION}/site-packages:
 ENV VFXPLATFORM_VERSION=${VFXPLATFORM_VERSION}
 
 COPY ../scripts/${VFXPLATFORM_VERSION}/versions_base.sh \
-     ../scripts/base/build_python.sh \
      ../scripts/base/install_cmake.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
     source /tmp/versions_base.sh && \
-    /tmp/install_cmake.sh && \
+    /tmp/install_cmake.sh
+
+
+#################### ci-python-builder ####################
+FROM ci-base-builder as ci-python-builder
+
+COPY ../scripts/${VFXPLATFORM_VERSION}/versions_base.sh \
+     ../scripts/base/build_python.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,sharing=private,target=/tmp/downloads \
+    source /tmp/versions_base.sh && \
     /tmp/before_build.sh && \
     /tmp/build_python.sh && \
     /tmp/copy_new_files.sh && \
@@ -280,7 +293,7 @@ FROM scratch as ci-glfw-package
 COPY --from=ci-glfw-builder /package/. /
 
 
-#################### -qt-builder ####################
+#################### ci-qt-builder ####################
 FROM ci-python-builder as ci-qt-builder
 
 COPY ../scripts/base/build_qt.sh \
@@ -335,7 +348,10 @@ COPY --from=ci-pyside-builder /package/. /
 
 
 #################### ci-openexr-builder ####################
-FROM ci-boost-builder as ci-openexr-builder
+FROM ci-base-builder as ci-openexr-builder
+
+COPY --from=ci-package-python /. /usr/local/
+COPY --from=ci-package-boost /. /usr/local/
 
 COPY ../scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
      ../scripts/vfx/build_openexr.sh \
@@ -436,6 +452,7 @@ COPY --from=ci-ocio-builder /package/. /
 FROM ci-oiio-builder as ci-osl-builder
 
 COPY --from=ci-package-clang /. /usr/local/
+COPY --from=ci-package-qt /. /usr/local/
 
 COPY ../scripts/vfx/build_osl.sh \
      /tmp/
