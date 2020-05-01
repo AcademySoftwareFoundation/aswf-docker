@@ -72,9 +72,13 @@ GROUPS = {
     ImageType.IMAGE: {
         "common": ["common"],
         "base": ["base"],
-        "vfx1": ["openexr", "openvdb", "osl"],
-        "vfx2": ["opencue", "usd"],
-        "vfxall": ["ocio", "vfxall"],
+        "openexr": ["openexr"],
+        "openvdb": ["openvdb"],
+        "osl": ["osl"],
+        "opencue": ["opencue"],
+        "ocio": ["ocio"],
+        "usd": ["usd"],
+        "vfxall": ["vfxall"],
     },
 }
 
