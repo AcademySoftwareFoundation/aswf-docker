@@ -400,6 +400,31 @@ FROM scratch as ci-blosc-package
 COPY --from=ci-blosc-builder /package/. /
 
 
+#################### ci-partio-builder ####################
+FROM ci-python-builder as ci-partio-builder
+
+COPY ../scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
+     ../scripts/vfx/build_partio.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,sharing=private,target=/tmp/downloads \
+    source /tmp/versions_vfx.sh && \
+    /tmp/before_build.sh && \
+    /tmp/build_partio.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
+#################### ci-partio-package ####################
+# This build target is used to generate a packages of partio that 
+# can be placed in a downloadable artifact
+
+FROM scratch as ci-partio-package
+
+COPY --from=ci-partio-builder /package/. /
+
+
 #################### ci-oiio-builder ####################
 FROM ci-openexr-builder as ci-oiio-builder
 
@@ -453,6 +478,7 @@ FROM ci-oiio-builder as ci-osl-builder
 
 COPY --from=ci-package-clang /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
+COPY --from=ci-partio-package /. /usr/local/
 
 COPY ../scripts/vfx/build_osl.sh \
      /tmp/

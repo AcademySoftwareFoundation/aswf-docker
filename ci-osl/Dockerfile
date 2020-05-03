@@ -13,6 +13,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
 
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
 FROM ${ASWF_PKG_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION} as ci-package-oiio
+FROM ${ASWF_PKG_ORG}/ci-package-partio:${VFXPLATFORM_VERSION} as ci-package-partio
 
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-osl
 
@@ -55,6 +56,7 @@ COPY --from=ci-package-qt /. /usr/local/
 
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
+COPY --from=ci-package-partio /. /usr/local/
 
 
 RUN export DOWNLOADS_DIR=/tmp/downloads && \
