@@ -50,8 +50,9 @@ class Builder:
         self.build_info = build_info
         self.group_info = group_info
 
-    def make_bake_dict(self) -> dict:
-        targets = {}
+    def make_bake_dict(self) -> typing.Dict[str, dict]:
+        root: typing.Dict[str, dict] = {}
+        root["target"] = {}
         for img in self.group_info.images:
             if self.group_info.target and img != self.group_info.target:
                 logger.debug("Skipping target %s", img)
@@ -99,11 +100,9 @@ class Builder:
                 }
                 if target:
                     target_dict["target"] = target
-                targets[target_name] = target_dict
+                root["target"][f"{target_name}-{version}"] = target_dict
 
-        root = {}
-        root["target"] = targets
-        root["group"] = {"default": {"targets": list(targets.keys())}}
+        root["group"] = {"default": {"targets": list(root["target"].keys())}}
         return root
 
     def make_bake_jsonfile(self) -> str:

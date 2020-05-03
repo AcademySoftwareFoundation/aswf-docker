@@ -31,9 +31,9 @@ class TestBuilder(unittest.TestCase):
         self.assertEqual(
             b.make_bake_dict(),
             {
-                "group": {"default": {"targets": ["package-qt"]}},
+                "group": {"default": {"targets": ["package-qt-2019"]}},
                 "target": {
-                    "package-qt": {
+                    "package-qt-2019": {
                         "context": ".",
                         "dockerfile": "packages/Dockerfile",
                         "args": {
@@ -70,9 +70,9 @@ class TestBuilder(unittest.TestCase):
         self.assertEqual(
             b.make_bake_dict(),
             {
-                "group": {"default": {"targets": ["image-base"]}},
+                "group": {"default": {"targets": ["image-base-2019"]}},
                 "target": {
-                    "image-base": {
+                    "image-base-2019": {
                         "context": ".",
                         "dockerfile": "ci-base/Dockerfile",
                         "args": {
@@ -94,6 +94,70 @@ class TestBuilder(unittest.TestCase):
                         ],
                         "output": ["type=docker"],
                     }
+                },
+            },
+        )
+
+    def test_image_base_2019_2020_dict(self):
+        b = builder.Builder(
+            self.build_info,
+            builder.GroupInfo(
+                names=["base"],
+                versions=["2019", "2020"],
+                type_=constants.ImageType.IMAGE,
+            ),
+        )
+        self.assertEqual(
+            b.make_bake_dict(),
+            {
+                "group": {
+                    "default": {"targets": ["image-base-2019", "image-base-2020"]}
+                },
+                "target": {
+                    "image-base-2020": {
+                        "context": ".",
+                        "dockerfile": "ci-base/Dockerfile",
+                        "args": {
+                            "ASWF_ORG": "aswflocaltesting",
+                            "ASWF_PKG_ORG": "aswftesting",
+                            "ASWF_VERSION": constants.VERSIONS[
+                                constants.ImageType.IMAGE
+                            ]["base"][2],
+                            "BUILD_DATE": constants.DEV_BUILD_DATE,
+                            "CI_COMMON_VERSION": "1",
+                            "PYTHON_VERSION": "3.7",
+                            "VCS_REF": constants.DEV_BUILD_DATE,
+                            "VFXPLATFORM_VERSION": "2020",
+                        },
+                        "tags": [
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2020",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{constants.VERSIONS[constants.ImageType.IMAGE]['base'][2]}",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:preview",
+                        ],
+                        "output": ["type=docker"],
+                    },
+                    "image-base-2019": {
+                        "context": ".",
+                        "dockerfile": "ci-base/Dockerfile",
+                        "args": {
+                            "ASWF_ORG": "aswflocaltesting",
+                            "ASWF_PKG_ORG": "aswftesting",
+                            "ASWF_VERSION": constants.VERSIONS[
+                                constants.ImageType.IMAGE
+                            ]["base"][1],
+                            "BUILD_DATE": constants.DEV_BUILD_DATE,
+                            "CI_COMMON_VERSION": "1",
+                            "PYTHON_VERSION": "2.7",
+                            "VCS_REF": constants.DEV_BUILD_DATE,
+                            "VFXPLATFORM_VERSION": "2019",
+                        },
+                        "tags": [
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2019",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{constants.VERSIONS[constants.ImageType.IMAGE]['base'][1]}",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:latest",
+                        ],
+                        "output": ["type=docker"],
+                    },
                 },
             },
         )
