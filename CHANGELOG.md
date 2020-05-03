@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-05-01
+### Added
+* New `aswf/ci-osl` images for Open Shading Language
+### Changed
+* Added OSL into `aswf/ci-vfxall`
+* Simplified ci image build system
+
 ## 2020-04-28
 ### Added
 * `ci:common:1.4`:
