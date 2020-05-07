@@ -1,12 +1,20 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 2020-05-01
+## 2020-05-08
 ### Added
 * New `aswf/ci-osl` images for Open Shading Language
+* New `aswf/ci-package-partio` package
+* New `aswf/ci-package-osl` package
 ### Changed
-* Added OSL into `aswf/ci-vfxall`
+* Added OSL and clang into `aswf/ci-vfxall`
 * Simplified ci image build system
+* Free up space during build of docker images
+### Fixed
+* Fixed bug in python `aswfdocker build` command when build multiple versions simultaneously
+### New CI Images:
+* `aswf/ci-osl:2018.0`, `aswf/ci-osl:2019.0`, `aswf/ci-osl:2020.0`
+* `aswf/ci-vfxall:2019.6`, `aswf/ci-vfxall:2020.4`
 
 ## 2020-04-28
 ### Added
