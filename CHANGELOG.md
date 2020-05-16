@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## 2020-05-16
+### Fixed
+* Missing cppunit in `aswf/vfxall` ([#51](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/51))
+### New CI Images:
+* `aswf/ci-vfxall:2019.7`, `aswf/ci-vfxall:2020.5`
 
 ## 2020-05-08
 ### Added
