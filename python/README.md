@@ -79,3 +79,9 @@ aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/asw
 # push to aswf
 aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/master build -t PACKAGE --group-name common --group-version 1 --target ninja --push
 ```
+
+## New Image Release
+* Generate a GitHub token to allow `aswfdocker release` to create GitHub releases: [GitHub Settings](https://github.com/settings/tokens) with **"repo"** permissions.
+* Configure the token in the `aswfdocker` settings by running:
+    `aswfdocker settings --github-access-token MYTOKEN`.
+* 

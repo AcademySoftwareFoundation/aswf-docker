@@ -7,7 +7,14 @@ import os
 import logging
 import click
 
-from aswfdocker import builder, migrater, aswfinfo, constants, utils
+from aswfdocker import (
+    builder,
+    migrater,
+    aswfinfo,
+    constants,
+    utils,
+    settings as aswf_settings,
+)
 
 
 logger = logging.getLogger("build-images")
@@ -206,3 +213,20 @@ def images():
             image_name = utils.get_image_name(constants.ImageType.IMAGE, image)
             for version in constants.VERSIONS[constants.ImageType.IMAGE][image]:
                 click.echo(f"{group}/{image_name}:{version}")
+
+
+@cli.command()
+@click.option(
+    "--settings-path", "-p", default="~/.aswfdocker", help="User settings file path.",
+)
+@click.option(
+    "--github-access-token",
+    "-g",
+    help="GitHub access token generated from https://github.com/settings/tokens",
+)
+def settings(settings_path, github_access_token):
+    """Sets user settings
+    """
+    s = aswf_settings.Settings(settings_path=settings_path)
+    s.github_access_token = github_access_token
+    s.save()
