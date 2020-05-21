@@ -12,6 +12,7 @@ from aswfdocker import (
     migrater,
     aswfinfo,
     constants,
+    index,
     utils,
     settings as aswf_settings,
 )
@@ -200,7 +201,9 @@ def packages():
     for group, packages in constants.GROUPS[constants.ImageType.PACKAGE].items():
         for package in packages:
             image_name = utils.get_image_name(constants.ImageType.PACKAGE, package)
-            for version in constants.VERSIONS[constants.ImageType.PACKAGE][package]:
+            for version in index.Index().iter_versions(
+                constants.ImageType.PACKAGE, package
+            ):
                 click.echo(f"{group}/{image_name}:{version}")
 
 
@@ -211,7 +214,9 @@ def images():
     for group, images in constants.GROUPS[constants.ImageType.IMAGE].items():
         for image in images:
             image_name = utils.get_image_name(constants.ImageType.IMAGE, image)
-            for version in constants.VERSIONS[constants.ImageType.IMAGE][image]:
+            for version in index.Index().iter_versions(
+                constants.ImageType.IMAGE, image
+            ):
                 click.echo(f"{group}/{image_name}:{version}")
 
 
