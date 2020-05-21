@@ -8,7 +8,7 @@ import logging
 
 from click.testing import CliRunner
 
-from aswfdocker import migrater, constants
+from aswfdocker import migrater, index, constants
 from aswfdocker.cli import aswfdocker
 
 
@@ -29,7 +29,9 @@ class TestMigrater(unittest.TestCase):
     def test_migrate_versionfilter(self):
         m = migrater.Migrater("src", "dst")
         m.gather("openexr", "2019")
-        current_version = constants.VERSIONS[constants.ImageType.PACKAGE]["openexr"][1]
+        current_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "openexr")
+        )[1]
         self.assertEqual(len(m.migration_list), 1)
         minfo = m.migration_list[0]
         self.assertEqual(minfo.image, "ci-package-openexr")
@@ -81,7 +83,9 @@ class TestMigraterCli(unittest.TestCase):
             input="y\n",
         )
         self.assertEqual(result.exit_code, 0)
-        current_version = constants.VERSIONS[constants.ImageType.PACKAGE]["openexr"][1]
+        current_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "openexr")
+        )[1]
         self.assertEqual(
             result.output,
             f"""Are you sure you want to migrate the following 1 packages?
