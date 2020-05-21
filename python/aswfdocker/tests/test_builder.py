@@ -10,7 +10,7 @@ import tempfile
 
 from click.testing import CliRunner
 
-from aswfdocker import builder, aswfinfo, constants
+from aswfdocker import builder, aswfinfo, index, constants
 from aswfdocker.cli import aswfdocker
 
 
@@ -28,6 +28,9 @@ class TestBuilder(unittest.TestCase):
                 names=["baseqt"], versions=["2019"], type_=constants.ImageType.PACKAGE,
             ),
         )
+        qt_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "qt")
+        )[1]
         self.assertEqual(
             b.make_bake_dict(),
             {
@@ -39,9 +42,7 @@ class TestBuilder(unittest.TestCase):
                         "args": {
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": constants.VERSIONS[
-                                constants.ImageType.PACKAGE
-                            ]["qt"][1],
+                            "ASWF_VERSION": qt_version,
                             "BUILD_DATE": constants.DEV_BUILD_DATE,
                             "CI_COMMON_VERSION": "1",
                             "DTS_VERSION": "6",
@@ -51,7 +52,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:2019",
-                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:{constants.VERSIONS[constants.ImageType.PACKAGE]['qt'][1]}",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:{qt_version}",
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:latest",
                         ],
                         "target": "ci-qt-package",
@@ -68,6 +69,9 @@ class TestBuilder(unittest.TestCase):
                 names=["base"], versions=["2019"], type_=constants.ImageType.IMAGE,
             ),
         )
+        base_version = list(
+            index.Index().iter_versions(constants.ImageType.IMAGE, "base")
+        )[1]
         self.assertEqual(
             b.make_bake_dict(),
             {
@@ -79,9 +83,7 @@ class TestBuilder(unittest.TestCase):
                         "args": {
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": constants.VERSIONS[
-                                constants.ImageType.IMAGE
-                            ]["base"][1],
+                            "ASWF_VERSION": base_version,
                             "BUILD_DATE": constants.DEV_BUILD_DATE,
                             "CI_COMMON_VERSION": "1",
                             "DTS_VERSION": "6",
@@ -91,7 +93,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2019",
-                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{constants.VERSIONS[constants.ImageType.IMAGE]['base'][1]}",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_version}",
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:latest",
                         ],
                         "output": ["type=docker"],
@@ -109,6 +111,9 @@ class TestBuilder(unittest.TestCase):
                 type_=constants.ImageType.IMAGE,
             ),
         )
+        base_versions = list(
+            index.Index().iter_versions(constants.ImageType.IMAGE, "base")
+        )
         self.assertEqual(
             b.make_bake_dict(),
             {
@@ -122,9 +127,7 @@ class TestBuilder(unittest.TestCase):
                         "args": {
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": constants.VERSIONS[
-                                constants.ImageType.IMAGE
-                            ]["base"][2],
+                            "ASWF_VERSION": base_versions[2],
                             "BUILD_DATE": constants.DEV_BUILD_DATE,
                             "CI_COMMON_VERSION": "1",
                             "DTS_VERSION": "6",
@@ -134,7 +137,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2020",
-                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{constants.VERSIONS[constants.ImageType.IMAGE]['base'][2]}",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[2]}",
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:preview",
                         ],
                         "output": ["type=docker"],
@@ -145,9 +148,7 @@ class TestBuilder(unittest.TestCase):
                         "args": {
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": constants.VERSIONS[
-                                constants.ImageType.IMAGE
-                            ]["base"][1],
+                            "ASWF_VERSION": base_versions[1],
                             "BUILD_DATE": constants.DEV_BUILD_DATE,
                             "CI_COMMON_VERSION": "1",
                             "DTS_VERSION": "6",
@@ -157,7 +158,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2019",
-                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{constants.VERSIONS[constants.ImageType.IMAGE]['base'][1]}",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[1]}",
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:latest",
                         ],
                         "output": ["type=docker"],

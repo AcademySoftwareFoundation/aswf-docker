@@ -10,7 +10,7 @@ import os
 import tempfile
 import typing
 
-from aswfdocker import constants, aswfinfo, utils
+from aswfdocker import constants, aswfinfo, index, utils
 
 logger = logging.getLogger(__name__)
 
@@ -49,6 +49,7 @@ class Builder:
         self.push = push
         self.build_info = build_info
         self.group_info = group_info
+        self.index = index.Index()
 
     def make_bake_dict(self) -> typing.Dict[str, dict]:
         root: typing.Dict[str, dict] = {}
@@ -68,7 +69,7 @@ class Builder:
                 target = ""
                 target_name = f"image-{img}"
 
-            all_versions = constants.VERSIONS[self.group_info.type][img]
+            all_versions = list(self.index.iter_versions(self.group_info.type, img))
             major_versions = [utils.get_major_version(v) for v in all_versions]
             for version in [
                 version

@@ -7,7 +7,7 @@ import logging
 import subprocess
 import typing
 
-from aswfdocker import constants, utils
+from aswfdocker import constants, index, utils
 
 
 logger = logging.getLogger(__name__)
@@ -27,12 +27,13 @@ class Migrater:
         self.to_org = to_org
         self.migration_list: typing.List[MigrateInfo] = []
         self.cmds: typing.List[str] = []
+        self.index = index.Index()
 
     def gather(self, package: str, version: str):
-        for pkg, versions in constants.VERSIONS[constants.ImageType.PACKAGE].items():
-            image = "ci-package-" + pkg
+        for pkg in self.index.iter_images(constants.ImageType.PACKAGE):
+            image = utils.get_image_name(constants.ImageType.PACKAGE, pkg)
             if not package or package == pkg:
-                for v in versions:
+                for v in self.index.iter_versions(constants.ImageType.PACKAGE, pkg):
                     major_version = v.split(".")[0]
                     if not version or version == major_version:
                         self.migration_list.append(

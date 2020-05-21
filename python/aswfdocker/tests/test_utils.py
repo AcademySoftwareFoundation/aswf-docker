@@ -11,7 +11,7 @@ import os
 
 from click.testing import CliRunner
 
-from aswfdocker import utils, constants
+from aswfdocker import utils, index, constants
 from aswfdocker.cli import aswfdocker
 
 
@@ -125,9 +125,11 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         pkgs = result.output.split("\n")
         self.assertGreater(len(pkgs), 20)
+        clang_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "clang")
+        )[0]
         self.assertEqual(
-            pkgs[0],
-            f"common/ci-package-clang:{constants.VERSIONS[constants.ImageType.PACKAGE]['clang'][0]}",
+            pkgs[0], f"common/ci-package-clang:{clang_version}",
         )
 
     def test_cli_images(self):
@@ -136,7 +138,9 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         imgs = result.output.split("\n")
         self.assertGreater(len(imgs), 15)
+        common_version = list(
+            index.Index().iter_versions(constants.ImageType.IMAGE, "common")
+        )[0]
         self.assertEqual(
-            imgs[0],
-            f"common/ci-common:{constants.VERSIONS[constants.ImageType.IMAGE]['common'][0]}",
+            imgs[0], f"common/ci-common:{common_version}",
         )
