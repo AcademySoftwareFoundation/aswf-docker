@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import os
-from yaml import load, dump
+import yaml
 
 
 class Settings:
@@ -14,10 +14,10 @@ class Settings:
     def load(self):
         if os.path.exists(self.settings_path):
             with open(self.settings_path) as f:
-                data = load(f)
+                data = yaml.load(f, Loader=yaml.FullLoader)
                 self.github_access_token = data.get("github_access_token", "")
 
     def save(self):
         data = {"github_access_token": self.github_access_token}
         with open(self.settings_path, "w") as f:
-            dump(data, f)
+            yaml.dump(data, f)

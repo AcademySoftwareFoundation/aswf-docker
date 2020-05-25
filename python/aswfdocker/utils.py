@@ -4,6 +4,7 @@
 Utility functions
 """
 import os
+import re
 import subprocess
 import datetime
 
@@ -81,3 +82,30 @@ def get_image_name(image_type: constants.ImageType, image: str):
     if image_type == constants.ImageType.PACKAGE:
         return f"ci-package-{image}"
     return f"ci-{image}"
+
+
+IMAGE_NAME_REGEXC = re.compile(constants.IMAGE_NAME_REGEX)
+
+
+def get_image_spec(name: str):
+    m = IMAGE_NAME_REGEXC.match(name)
+    if not m:
+        raise RuntimeError(
+            f"Image name does not conform to expected format: {constants.IMAGE_NAME_REGEX}"
+        )
+    org = m.group(1)
+    if m.group(2):
+        image_type = constants.ImageType.PACKAGE
+    else:
+        image_type = constants.ImageType.IMAGE
+    image_name = m.group(3)
+    version = m.group(4)
+    return org, image_type, image_name, version
+
+
+def get_group_from_image(image_type: constants.ImageType, image: str):
+    for group, images in constants.GROUPS[image_type].items():
+        for img in images:
+            if img == image:
+                return group
+    raise RuntimeError(f"Cannot find group for image {image}")
