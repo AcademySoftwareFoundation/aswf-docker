@@ -51,25 +51,42 @@ def cli(ctx, repo_root, repo_uri, source_branch, verbose):
     )
 
 
+def validate_image_name(ctx, param, value):  # noqa unused arguments error
+    if value is None:
+        return None
+    try:
+        return utils.get_image_spec(value)
+    except RuntimeError as e:
+        raise click.BadParameter(e.message)
+
+
 @cli.command()
 @click.option(
     "--ci-image-type",
     "-t",
-    required=True,
+    required=False,
     help="Builds a ci-package or a ci-image.",
     type=click.Choice(constants.ImageType.__members__.keys(), case_sensitive=True),
 )
 @click.option(
     "--group-name",
     "-g",
-    required=True,
+    required=False,
     help='The name of the group of images to build, e.g. "base" or "vfx", or multiple groups separated by a ",".',
 )
 @click.option(
     "--group-version",
     "-v",
-    required=True,
+    required=False,
     help='The major version number to build, e.g. "2019", or multiple versions separated by a ","',
+)
+@click.option(
+    "--image-name",
+    "-v",
+    "image_spec",
+    callback=validate_image_name,
+    required=False,
+    help="The full image name, e.g. aswftesting/ci-common:1 or aswf/ci-package-openexr:2019",
 )
 @click.option(
     "--target",
@@ -86,8 +103,8 @@ def cli(ctx, repo_root, repo_uri, source_branch, verbose):
 )
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
 @click.option(
-    "--progress",
-    "-pr",  # noqa ignore too many arguments error
+    "--progress",  # noqa ignore too many arguments error
+    "-pr",
     type=click.Choice(("auto", "tty", "plain"), case_sensitive=True),
     default="auto",
     help='Set type of progress output for "docker buildx bake" command.',
@@ -98,6 +115,7 @@ def build(
     ci_image_type,
     group_name,
     group_version,
+    image_spec,
     target,
     push,
     dry_run,
@@ -111,10 +129,18 @@ def build(
         pushb = utils.get_docker_push(build_info.repo_uri, build_info.source_branch)
     else:
         pushb = False
+
+    if image_spec:
+        org, image_type, target, group_version = image_spec
+        group_name = utils.get_group_from_image(image_type, target)
+        build_info.set_org(org)
+    else:
+        image_type = constants.ImageType[ci_image_type]
+
     b = builder.Builder(
         build_info=build_info,
         group_info=builder.GroupInfo(
-            type_=constants.ImageType[ci_image_type],
+            type_=image_type,
             names=group_name.split(","),
             versions=group_version.split(","),
             target=target,

@@ -66,6 +66,23 @@ class TestUtils(unittest.TestCase):
             )
         )
 
+    def test_image_def_from_name(self):
+        with self.assertRaises(RuntimeError):
+            utils.get_image_spec("aswf/ci-package-openexr_2018")
+        self.assertEqual(
+            utils.get_image_spec("aswftesting/ci-common:1"),
+            ("aswftesting", constants.ImageType.IMAGE, "common", "1"),
+        )
+        self.assertEqual(
+            utils.get_image_spec("aswf/ci-package-openexr:2018"),
+            ("aswf", constants.ImageType.PACKAGE, "openexr", "2018"),
+        )
+
+    def test_group_from_image(self):
+        self.assertEqual(
+            utils.get_group_from_image(constants.ImageType.PACKAGE, "clang"), "common"
+        )
+
 
 class TestUtilsCli(unittest.TestCase):
     def setUp(self):

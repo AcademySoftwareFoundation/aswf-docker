@@ -5,8 +5,6 @@ Docker Image Version information
 """
 import typing
 
-from aswfdocker import constants
-
 
 class VersionInfo:
     """
@@ -36,6 +34,9 @@ class VersionInfo:
         ]
         if self.label:
             tags.append(self.label)
+
+        from aswfdocker import constants  # noqa avoid cyclic import
+
         return list(
             map(
                 lambda tag: f"{constants.DOCKER_REGISTRY}/{docker_org}/{image_name}:{tag}",

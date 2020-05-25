@@ -78,3 +78,5 @@ DEV_BUILD_DATE = "dev"
 DEV_VCS_REF = "dev"
 
 MAIN_GITHUB_ASWF_DOCKER_URL = "https://github.com/AcademySoftwareFoundation/aswf-docker"
+
+IMAGE_NAME_REGEX = r"([a-z]+)/ci-(package\-)?([a-z0-9]+):([0-9]+)"
