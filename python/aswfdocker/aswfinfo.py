@@ -32,3 +32,7 @@ class ASWFInfo:
         else:
             self.vcs_ref = constants.DEV_BUILD_DATE
             self.build_date = constants.DEV_BUILD_DATE
+
+    def set_org(self, org):
+        self.docker_org = org
+        self.package_org = org

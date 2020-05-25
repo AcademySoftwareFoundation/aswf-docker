@@ -5,7 +5,7 @@ Index of docker images and versions.
 """
 import os
 
-from yaml import load
+import yaml
 
 from aswfdocker import constants, utils
 
@@ -19,7 +19,7 @@ class Index:
     def __init__(self):
         versions_file_path = os.path.join(utils.get_git_top_level(), "versions.yaml")
         with open(versions_file_path) as f:
-            self._versions = load(f)
+            self._versions = yaml.load(f, Loader=yaml.FullLoader)
 
     def _get_key(self, image_type: constants.ImageType):
         if image_type == constants.ImageType.PACKAGE:

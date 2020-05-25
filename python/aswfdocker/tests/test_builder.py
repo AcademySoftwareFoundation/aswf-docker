@@ -189,11 +189,23 @@ class TestBuilderCli(unittest.TestCase):
                 "--dry-run",
             ],
         )
-        self.assertEqual(result.exit_code, 0)
         self.assertEqual(
             result.output,
             f"INFO:aswfdocker.builder:Would build: 'docker buildx bake -f {tempfile.gettempdir()}/docker-bake-PACKAGE-vfx-2019.json --progress auto'\n",
         )
+        self.assertEqual(result.exit_code, 0)
+
+    def test_builder_cli_fromtag(self):
+        runner = CliRunner()
+        result = runner.invoke(
+            aswfdocker.cli,
+            ["build", "--image-name", "aswftesting/ci-common:1", "--dry-run",],
+        )
+        self.assertEqual(
+            result.output,
+            f"INFO:aswfdocker.builder:Would build: 'docker buildx bake -f {tempfile.gettempdir()}/docker-bake-IMAGE-common-1.json --progress auto'\n",
+        )
+        self.assertEqual(result.exit_code, 0)
 
     def test_builderlist_cli(self):
         runner = CliRunner()
@@ -212,8 +224,8 @@ class TestBuilderCli(unittest.TestCase):
                 "--dry-run",
             ],
         )
-        self.assertEqual(result.exit_code, 0)
         self.assertEqual(
             result.output,
             f"INFO:aswfdocker.builder:Would build: 'docker buildx bake -f {tempfile.gettempdir()}/docker-bake-PACKAGE-vfx-2019-2020.json --progress auto'\n",
         )
+        self.assertEqual(result.exit_code, 0)
