@@ -92,6 +92,7 @@ class Builder:
                         "BUILD_DATE": self.build_info.build_date,
                         "VCS_REF": self.build_info.vcs_ref,
                         "VFXPLATFORM_VERSION": version,
+                        "DTS_VERSION": version_info.dts_version,
                     },
                     "tags": tags,
                     "output": [

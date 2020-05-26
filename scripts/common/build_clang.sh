@@ -9,12 +9,13 @@ if [ ! -f $DOWNLOADS_DIR/llvmorg-${CLANG_VERSION}.tar.gz ]; then
 fi
 
 tar xf $DOWNLOADS_DIR/llvmorg-${CLANG_VERSION}.tar.gz
-cd llvm-project-llvmorg-${CLANG_VERSION}
+cd llvm-project-llvmorg-${CLANG_VERSION}/llvm
 
 mkdir build
 cd build
 cmake -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;compiler-rt;lld" \
       -DCMAKE_BUILD_TYPE=Release \
+      -G "Unix Makefiles" \
       -DLLVM_TARGETS_TO_BUILD="host;NVPTX" \
       -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
       -DCLANG_INCLUDE_DOCS=OFF \
@@ -37,7 +38,6 @@ cmake -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;compiler-rt;lld" \
       -DLLVM_TOOL_LLVM_DSYMUTIL_BUILD=OFF \
       -DLLVM_TOOL_LLVM_LLC_BUILD=OFF \
       -DLLVM_TOOL_LLVM_LLI_BUILD=OFF \
-      -DLLVM_TOOL_LLVM_DWARFDUMP_BUILD=OFF \
       -DLLVM_TOOL_LLVM_DIS_BUILD=OFF \
       -DLLVM_TOOL_LLVM_EXTRACT_BUILD=OFF \
       -DLLVM_TOOL_LLVM_C_TEST_BUILD=OFF \
@@ -69,9 +69,10 @@ cmake -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;compiler-rt;lld" \
       -DLLVM_INCLUDE_EXAMPLES=OFF \
       -DLLVM_BUILD_TESTS=OFF \
       -DLLVM_INCLUDE_GO_TESTS=OFF \
-      ../llvm
+      ..
+
 make -j$(nproc)
 make install
 
-cd ../..
+cd ../../..
 rm -rf llvm-project-llvmorg-${CLANG_VERSION}

@@ -6,13 +6,14 @@
 ARG CI_COMMON_VERSION=1
 ARG VFXPLATFORM_VERSION=2019
 ARG PYTHON_VERSION=2.7
-ARG CUDA_VERSION=10.1
+ARG CUDA_VERSION=10.2
+ARG DTS_VERSION=6
 ARG ASWF_ORG=aswftesting
 
 # Required base packages built in previous passes to speed things up
+FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
 FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
 FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
-FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
 FROM ${ASWF_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
 FROM ${ASWF_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
 
@@ -20,25 +21,25 @@ FROM ${ASWF_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
 FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-centos7-gl-packages
 
 ARG CI_COMMON_VERSION
+ARG DTS_VERSION
 
 COPY ../scripts/common/install_yumpackages.sh \
-     /tmp/
-
-RUN --mount=type=cache,sharing=private,target=/var/cache/yum \
-    /tmp/install_yumpackages.sh
-
-COPY ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
+     ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
      ../scripts/common/install_dev_ccache.sh \
      ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
      /tmp/
 
+RUN --mount=type=cache,sharing=private,target=/var/cache/yum \
+    source /tmp/versions_common.sh && \
+    /tmp/install_yumpackages.sh
+
 ENV CI_COMMON_VERSION=${CI_COMMON_VERSION} \
     DOWNLOADS_DIR=/tmp/downloads \
     CCACHE_DIR=/tmp/ccache \
     ASWF_INSTALL_PREFIX=/usr/local \
-    LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/devtoolset-6/root/usr/lib64:/opt/rh/devtoolset-6/root/usr/lib:${LD_LIBRARY_PATH} \
-    PATH=/opt/aswfbuilder/bin:/usr/local/bin:/opt/rh/devtoolset-6/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-6/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+    LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/lib64:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
+    PATH=/opt/aswfbuilder/bin:/usr/local/bin:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
 
 RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     source /tmp/versions_common.sh && \
