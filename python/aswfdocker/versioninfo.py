@@ -13,17 +13,19 @@ class VersionInfo:
     Docker image version information for use in builder
     """
 
-    def __init__(
+    def __init__(  # noqa too many arguments
         self,
         major_version: str,
         label: typing.Optional[str],
         ci_common_version: str,
         python_version: str,
+        dts_version: str,
     ):
         self.major_version = major_version
         self.ci_common_version = ci_common_version
         self.label = label
         self.python_version = python_version
+        self.dts_version = dts_version
 
     def get_tags(
         self, aswf_version: str, docker_org: str, image_name: str

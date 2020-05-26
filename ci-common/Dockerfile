@@ -1,9 +1,10 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
-ARG CUDA_VERSION=10.1
+ARG CUDA_VERSION=10.2
 ARG ASWF_ORG=aswftesting
 ARG ASWF_PKG_ORG=aswftesting
 ARG CI_COMMON_VERSION=1
+ARG DTS_VERSION=6
 
 FROM ${ASWF_PKG_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
 FROM ${ASWF_PKG_ORG}/ci-package-ninja:${CI_COMMON_VERSION} as ci-package-ninja
@@ -30,20 +31,22 @@ LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_OR
 
 USER root
 
-COPY scripts/common/install_yumpackages.sh \
+COPY scripts/${CI_COMMON_VERSION}/versions_common.sh \
+     scripts/common/install_yumpackages.sh \
      /tmp/
 
-RUN /tmp/install_yumpackages.sh
+RUN source /tmp/versions_common.sh && \
+    /tmp/install_yumpackages.sh
 
 RUN mkdir /opt/aswf
 WORKDIR /opt/aswf
 
-ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/devtoolset-6/root/usr/lib64:/opt/rh/devtoolset-6/root/usr/lib:${LD_LIBRARY_PATH} \
-    PATH=/usr/local/bin:/opt/rh/devtoolset-6/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-6/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
-    CI_COMMON_VERSION=${CI_COMMON_VERSION}
+ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/lib64:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
+    PATH=/usr/local/bin:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
+    CI_COMMON_VERSION=${CI_COMMON_VERSION} \
+    DTS_VERSION=${DTS_VERSION}
 
-COPY scripts/${CI_COMMON_VERSION}/versions_common.sh \
-     scripts/common/install_sonar.sh \
+COPY scripts/common/install_sonar.sh \
      scripts/common/install_ccache.sh \
      /tmp/
 
