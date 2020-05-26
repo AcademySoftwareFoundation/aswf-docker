@@ -44,7 +44,8 @@ fi
         -nomake examples \
         -nomake tests \
         -c++std c++14 \
-        -confirm-license
+        -confirm-license \
+        -no-use-gold-linker
 make -j$(nproc)
 
 sudo make install
