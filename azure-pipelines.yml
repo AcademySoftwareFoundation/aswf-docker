@@ -67,14 +67,14 @@ jobs:
     groups:
       -
         name: common
-        versions: ['1']
+        versions: ['1', '2']
         scripts_folder: 'common'
         cache_key_version: "4.11"
         tests:
           - common
       -
         name: base
-        versions: ['2018', '2019', '2020']
+        versions: ['2018', '2019', '2020', '2021']
         scripts_folder: '**'
         cache_key_version: "4.11"
         dependsOn: 
@@ -83,14 +83,14 @@ jobs:
           - base
       -
         name: openexr
-        versions: ['2018', '2019', '2020']
+        versions: ['2018', '2019', '2020', '2021']
         scripts_folder: '**'
         cache_key_version: "4.11"
         dependsOn: 
           - build_image_group_common_1
       -
         name: openvdb
-        versions: ['2018', '2019', '2020']
+        versions: ['2018', '2019', '2020', '2021']
         scripts_folder: '**'
         cache_key_version: "4.11"
         dependsOn: 
@@ -106,14 +106,14 @@ jobs:
           - build_image_group_common_1
       -
         name: opencue
-        versions: ['2018', '2019', '2020']
+        versions: ['2018', '2019', '2020', '2021']
         scripts_folder: '**'
         cache_key_version: "4.11"
         dependsOn: 
           - build_image_group_common_1
       -
         name: ocio
-        versions: ['2018', '2019', '2020']
+        versions: ['2018', '2019', '2020', '2021']
         scripts_folder: '**'
         cache_key_version: "4.11"
         dependsOn: 
