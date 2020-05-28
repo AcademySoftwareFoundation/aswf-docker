@@ -117,11 +117,12 @@ yum -y groupinstall "Development Tools"
 yum install -y --setopt=tsflags=nodocs centos-release-scl-rh yum-utils
 
 if [[ $DTS_VERSION == 6 ]]; then
+    # Use the centos vault as the original devtoolset-6 is not part of CentOS-7 anymore
     sed -i 's/7/7.6.1810/g; s|^#\s*\(baseurl=http://\)mirror|\1vault|g; /mirrorlist/d' /etc/yum.repos.d/CentOS-SCLo-*.repo
-    yum install -y --setopt=tsflags=nodocs devtoolset-6-toolchain --nogpgcheck
-else
-    yum install -y --setopt=tsflags=nodocs devtoolset-$DTS_VERSION-toolchain --nogpgcheck
 fi
+
+yum install -y --setopt=tsflags=nodocs \
+    devtoolset-$DTS_VERSION-toolchain
 
 yum install -y epel-release
 
