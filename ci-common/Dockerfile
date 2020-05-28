@@ -13,6 +13,8 @@ FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-common
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
+ARG DTS_VERSION
+
 ARG BUILD_DATE=dev
 ARG VCS_REF=dev
 
