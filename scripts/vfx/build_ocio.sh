@@ -13,6 +13,13 @@ if [ ! -f $DOWNLOADS_DIR/ocio-${OCIO_VERSION}.tar.gz ]; then
 fi
 tar -zxf $DOWNLOADS_DIR/ocio-${OCIO_VERSION}.tar.gz
 cd OpenColorIO-${OCIO_VERSION}
+
+if [[ $DTS_VERSION == 9 && $OCIO_VERSION == 1.* ]]; then
+    # Disable warning treated as errors
+    sed -i 's/-Werror//g' src/core/CMakeLists.txt
+    sed -i 's/-Werror//g' src/pyglue/CMakeLists.txt
+fi
+
 mkdir build
 cd build
 cmake \
