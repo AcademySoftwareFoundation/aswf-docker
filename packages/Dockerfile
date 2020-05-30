@@ -22,6 +22,7 @@ FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-centos7-gl-packages
 
 ARG CI_COMMON_VERSION
 ARG DTS_VERSION
+ARG CUDA_VERSION
 
 COPY ../scripts/common/install_yumpackages.sh \
      ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
@@ -39,7 +40,8 @@ ENV CI_COMMON_VERSION=${CI_COMMON_VERSION} \
     CCACHE_DIR=/tmp/ccache \
     ASWF_INSTALL_PREFIX=/usr/local \
     LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/lib64:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
-    PATH=/opt/aswfbuilder/bin:/usr/local/bin:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+    PATH=/opt/aswfbuilder/bin:/usr/local/bin:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
+    CUDA_VERSION=${CUDA_VERSION}
 
 RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     source /tmp/versions_common.sh && \
