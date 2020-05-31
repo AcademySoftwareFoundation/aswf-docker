@@ -7,7 +7,7 @@ set -ex
 mkdir ccache
 cd ccache
 
-CCACHE_VERSION=3.7.4
+CCACHE_VERSION=3.7.9
 if [ ! -f $DOWNLOADS_DIR/ccache-${CCACHE_VERSION}.tar.gz ]; then
     curl --location https://github.com/ccache/ccache/releases/download/v${CCACHE_VERSION}/ccache-${CCACHE_VERSION}.tar.gz -o $DOWNLOADS_DIR/ccache-${CCACHE_VERSION}.tar.gz
 fi
