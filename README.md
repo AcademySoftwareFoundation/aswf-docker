@@ -19,7 +19,7 @@ These images are for Continuous Integration testing of various project managed b
 Each image (apart from `ci-common`) is available for multiple VFX Platform Years.
 
 * `aswf/ci-common:1`: A base CentOS-7 image with devtoolset-6 (GCC-6.3.1), clang-7 and cuda.
-* `aswf/ci-common:2`: A base CentOS-7 image with devtoolset-9 (GCC-9.3.1), clang-9 and cuda.
+* `aswf/ci-common:2`: A base CentOS-7 image with devtoolset-9 (GCC-9.1.1), clang-9 and cuda.
 * `aswf/ci-base:20XX`: Based on `aswf/ci-common` with most most VFX Platform requirements pre-installed.
 * `aswf/ci-openexr:20XX`: Based on `aswf/ci-common`, comes with all OpenEXR upstream dependencies pre-installed.
 * `aswf/ci-ocio:20XX`: Based on `aswf/ci-common`, comes with all OpenColorIO upstream dependencies pre-installed.
