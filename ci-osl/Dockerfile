@@ -5,8 +5,6 @@ ARG ASWF_PKG_ORG=aswftesting
 ARG CI_COMMON_VERSION=1
 ARG VFXPLATFORM_VERSION=2019
 
-FROM ${ASWF_PKG_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
-
 FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
 FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
 FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
@@ -49,7 +47,6 @@ COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
      /tmp/
 
 
-COPY --from=ci-package-clang /. /usr/local/
 COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-boost /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
