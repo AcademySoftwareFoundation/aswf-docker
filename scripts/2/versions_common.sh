@@ -5,7 +5,7 @@
 set -ex
 
 export DTS_VERSION=9
-export CCACHE_VERSION=3.7.4
+export CCACHE_VERSION=3.7.9
 export CLANG_VERSION=10.0.0
 export NINJA_VERSION=1.10.0
 export SONAR_VERSION=3.3.0.1492
