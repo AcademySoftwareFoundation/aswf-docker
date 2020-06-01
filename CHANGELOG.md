@@ -1,5 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+
+## 2020-06-01
+### New CI Images:
+* `aswf/ci-common:2.0`: A base CentOS-7 image with devtoolset-9.1 (GCC-9.3.1), clang-10.0 and cuda.
+* `aswf/ci-base:2021.0`
+* `aswf/ci-openexr:2021.0`
+* `aswf/ci-openvdb:2021.0`
+* `aswf/ci-ocio:2021.0`
+* `aswf/ci-opencue:2021.0`
+* `aswf/ci-usd:2021.0`
+* `aswf/ci-vfxall:2021.0`
+
+
 ## 2020-05-16
 ### Fixed
 * Missing cppunit in `aswf/vfxall` ([#51](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/51))
