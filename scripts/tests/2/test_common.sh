@@ -11,7 +11,7 @@ then
 fi
 
 gcc_v=`gcc --version`
-if [[ $gcc_v != gcc\ \(GCC\)\ 9.1* ]]
+if [[ $gcc_v != gcc\ \(GCC\)\ 9.3* ]]
 then
     exit 1
 fi
