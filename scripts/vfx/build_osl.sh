@@ -13,13 +13,13 @@ cd OpenShadingLanguage-Release-${OSL_VERSION}
 
 mkdir build
 cd build
-export CC=`which clang`
-export CXX=`which clang++`
+
 cmake -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
       -DBoost_USE_STATIC_LIBS=OFF \
       -DBUILD_SHARED_LIBS=ON \
       -DCMAKE_CXX_STANDARD=14 \
       ../.
+
 make -j$(nproc)
 make install
 
