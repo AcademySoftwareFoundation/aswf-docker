@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 * `aswf/ci-ocio:2021.0`
 * `aswf/ci-opencue:2021.0`
 * `aswf/ci-usd:2021.0`
+* `aswf/ci-osl:2021.0`
 * `aswf/ci-vfxall:2021.0`
 
 
