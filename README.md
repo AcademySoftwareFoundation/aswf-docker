@@ -26,6 +26,7 @@ Each image (apart from `ci-common`) is available for multiple VFX Platform Years
 * `aswf/ci-opencue:20XX`: Based on `aswf/ci-common`, comes with all OpenCue upstream dependencies pre-installed.
 * `aswf/ci-openvdb:20XX`: Based on `aswf/ci-common`, comes with all OpenVDB upstream dependencies pre-installed.
 * `aswf/ci-usd:20XX`: Based on `aswf/ci-common`, comes with all USD upstream dependencies pre-installed.
+* `aswf/ci-osl:20XX`: Based on `aswf/ci-common`, comes with all OpenShadingLanguage upstream dependencies pre-installed.
 * `aswf/ci-vfxall:20XX`: Based on `aswf/ci-common`, comes with most VFX packages pre-installed.
 
 ### Versions
@@ -49,7 +50,9 @@ There is another dockerhub organisation with copies of the `aswf` docker images 
 To get write access to the `aswftesting` dockerhub organisation you can open a jira issue [there](jira.aswf.io).
 
 ### Status
-As of April 2020 there are full 2018, 2019 and 2020 [VFX Platform](https://vfxplatform.com) compliant images.
+As of June 2020 there are full 2018, 2019 and 2020 [VFX Platform](https://vfxplatform.com) compliant images. And a preview of 2021
+with devtoolset-9.1 (GCC-9.3.1) and clang-10, N.B. that the built-in CUDA-10.2 is currently incompatible with GCC-9, hoping to update to
+CUDA-11 as soon as possible to restore CUDA support in 2021 images.
 
 
 ## CI Packages
