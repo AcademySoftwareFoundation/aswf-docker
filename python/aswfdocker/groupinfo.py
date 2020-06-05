@@ -4,7 +4,11 @@
 GroupInfo
 """
 import typing
-from aswfdocker import constants
+import logging
+
+from aswfdocker import constants, utils, index
+
+logger = logging.getLogger(__name__)
 
 
 class GroupInfo:
@@ -19,6 +23,7 @@ class GroupInfo:
         versions: typing.List[str],
         target: str = "",
     ):
+        self.index = index.Index()
         self.type = type_
         self.names = names
         self.versions = versions
@@ -29,3 +34,16 @@ class GroupInfo:
         for images in [constants.GROUPS[self.type][n] for n in self.names]:
             self.images.extend(images)
         self.target = target
+
+    def iter_images_versions(self):
+        for image in self.images:
+            if self.target and image != self.target:
+                logger.debug("Skipping target %s", image)
+                continue
+            logger.debug("release image=%s", image)
+            all_versions = list(self.index.iter_versions(self.type, image))
+            major_versions = [utils.get_major_version(v) for v in all_versions]
+            for version in [v for v in self.versions if v in major_versions]:
+                logger.debug("release version=%s", version)
+                version = all_versions[major_versions.index(version)]
+                yield image, version
