@@ -10,7 +10,7 @@ import os
 import tempfile
 import typing
 
-from aswfdocker import constants, aswfinfo, index, utils, groupinfo
+from aswfdocker import constants, aswfinfo, utils, groupinfo
 
 logger = logging.getLogger(__name__)
 
@@ -28,60 +28,47 @@ class Builder:
         self.push = push
         self.build_info = build_info
         self.group_info = group_info
-        self.index = index.Index()
 
     def make_bake_dict(self) -> typing.Dict[str, dict]:
         root: typing.Dict[str, dict] = {}
         root["target"] = {}
-        for img in self.group_info.images:
-            if self.group_info.target and img != self.group_info.target:
-                logger.debug("Skipping target %s", img)
-                continue
+        for image, version in self.group_info.iter_images_versions():
 
-            image_name = utils.get_image_name(self.group_info.type, img)
+            image_name = utils.get_image_name(self.group_info.type, image)
             if self.group_info.type == constants.ImageType.PACKAGE:
                 docker_file = "packages/Dockerfile"
-                target = f"ci-{img}-package"
-                target_name = f"package-{img}"
+                target = f"ci-{image}-package"
+                target_name = f"package-{image}"
             else:
                 docker_file = f"{image_name}/Dockerfile"
                 target = ""
-                target_name = f"image-{img}"
+                target_name = f"image-{image}"
 
-            all_versions = list(self.index.iter_versions(self.group_info.type, img))
-            major_versions = [utils.get_major_version(v) for v in all_versions]
-            for version in [
-                version
-                for version in self.group_info.versions
-                if version in major_versions
-            ]:
-                version_info = constants.VERSION_INFO[version]
-                aswf_version = all_versions[major_versions.index(version)]
-                tags = version_info.get_tags(
-                    aswf_version, self.build_info.docker_org, image_name
-                )
-                target_dict = {
-                    "context": ".",
-                    "dockerfile": docker_file,
-                    "args": {
-                        "ASWF_ORG": self.build_info.docker_org,
-                        "ASWF_PKG_ORG": self.build_info.package_org,
-                        "ASWF_VERSION": aswf_version,
-                        "CI_COMMON_VERSION": version_info.ci_common_version,
-                        "PYTHON_VERSION": version_info.python_version,
-                        "BUILD_DATE": self.build_info.build_date,
-                        "VCS_REF": self.build_info.vcs_ref,
-                        "VFXPLATFORM_VERSION": version,
-                        "DTS_VERSION": version_info.dts_version,
-                    },
-                    "tags": tags,
-                    "output": [
-                        "type=registry,push=true" if self.push else "type=docker"
-                    ],
-                }
-                if target:
-                    target_dict["target"] = target
-                root["target"][f"{target_name}-{version}"] = target_dict
+            major_version = version.split(".")[0]
+            version_info = constants.VERSION_INFO[major_version]
+            tags = version_info.get_tags(
+                version, self.build_info.docker_org, image_name
+            )
+            target_dict = {
+                "context": ".",
+                "dockerfile": docker_file,
+                "args": {
+                    "ASWF_ORG": self.build_info.docker_org,
+                    "ASWF_PKG_ORG": self.build_info.package_org,
+                    "ASWF_VERSION": version,
+                    "CI_COMMON_VERSION": version_info.ci_common_version,
+                    "PYTHON_VERSION": version_info.python_version,
+                    "BUILD_DATE": self.build_info.build_date,
+                    "VCS_REF": self.build_info.vcs_ref,
+                    "VFXPLATFORM_VERSION": major_version,
+                    "DTS_VERSION": version_info.dts_version,
+                },
+                "tags": tags,
+                "output": ["type=registry,push=true" if self.push else "type=docker"],
+            }
+            if target:
+                target_dict["target"] = target
+            root["target"][f"{target_name}-{major_version}"] = target_dict
 
         root["group"] = {"default": {"targets": list(root["target"].keys())}}
         return root
