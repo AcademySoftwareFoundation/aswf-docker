@@ -40,17 +40,17 @@ class Releaser:
         self.group_info = group_info
         self.gh = GitHub()
 
-    def get_message(self):
-        return "Inspect released docker image here: https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019.4"
-
     def release(self, dry_run=True):
         logger.debug("Releaser.release(dry_run=%s)", dry_run)
         for image, version in self.group_info.iter_images_versions():
             tag = f"{self.build_info.docker_org}/{image}:{version}"
+            message = f"Inspect released docker image here: https://hub.docker.com/r/{self.build_info.docker_org}/{image}/tags?name={version}"
             prerelease = self.build_info.docker_org == constants.TESTING_DOCKER_ORG
             if dry_run:
                 logger.info(
                     "Would create this GitHub release on current commit: %s", tag
                 )
             else:
-                self.gh.create_release(tag, release_message="", prerelease=prerelease)
+                self.gh.create_release(
+                    tag, release_message=message, prerelease=prerelease
+                )
