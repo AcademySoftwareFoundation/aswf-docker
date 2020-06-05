@@ -4,7 +4,7 @@ import logging
 
 from github import Github
 
-from aswfdocker import settings, constants, aswfinfo, groupinfo, index, utils
+from aswfdocker import settings, constants, aswfinfo, groupinfo, utils
 
 logger = logging.getLogger(__name__)
 
@@ -38,29 +38,19 @@ class Releaser:
     ):
         self.build_info = build_info
         self.group_info = group_info
-        self.index = index.Index()
         self.gh = GitHub()
+
+    def get_message(self):
+        return "Inspect released docker image here: https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019.4"
 
     def release(self, dry_run=True):
         logger.debug("Releaser.release(dry_run=%s)", dry_run)
-        for img in self.group_info.images:
-            logger.debug("release img=%s", img)
-            all_versions = list(self.index.iter_versions(self.group_info.type, img))
-            major_versions = [utils.get_major_version(v) for v in all_versions]
-            for version in [
-                version
-                for version in self.group_info.versions
-                if version in major_versions
-            ]:
-                logger.debug("release version=%s", version)
-                aswf_version = all_versions[major_versions.index(version)]
-                tag = f"{self.build_info.docker_org}/{img}:{aswf_version}"
-                prerelease = self.build_info.docker_org == constants.TESTING_DOCKER_ORG
-                if dry_run:
-                    logger.info(
-                        "Would create this GitHub release on current commit: %s", tag
-                    )
-                else:
-                    self.gh.create_release(
-                        tag, release_message="", prerelease=prerelease
-                    )
+        for image, version in self.group_info.iter_images_versions():
+            tag = f"{self.build_info.docker_org}/{image}:{version}"
+            prerelease = self.build_info.docker_org == constants.TESTING_DOCKER_ORG
+            if dry_run:
+                logger.info(
+                    "Would create this GitHub release on current commit: %s", tag
+                )
+            else:
+                self.gh.create_release(tag, release_message="", prerelease=prerelease)

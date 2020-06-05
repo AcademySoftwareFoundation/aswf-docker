@@ -6,6 +6,7 @@ Main aswfdocker command line implementation using click
 import os
 import logging
 import click
+import warnings
 
 from aswfdocker import (
     builder,
@@ -279,6 +280,12 @@ def release(  # noqa ignore too many arguments error
 ):
     """Creates a GitHub release for a ci-package or ci-image docker image.
     """
+
+    # Disable SSL unclosed ResourceWarning coming from GitHub
+    warnings.filterwarnings(
+        action="ignore", message="unclosed", category=ResourceWarning
+    )
+
     if image_spec:
         org, image_type, target, group_version = image_spec
         group_name = utils.get_group_from_image(image_type, target)
