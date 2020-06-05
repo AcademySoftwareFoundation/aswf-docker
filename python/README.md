@@ -81,6 +81,17 @@ aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/asw
 ```
 
 ## New Image Release
+
+### Manual GitHub release creation
+* Create a new release in [GitHub New Release](https://github.com/AcademySoftwareFoundation/aswf-docker/releases/new)
+    * Use the following tag format: `ci-NAME:X.Y` (e.g. `ci-common:1.4`)
+    * Use the following release name format: `aswf/ci-NAME:X.Y` (e.g. `aswf/ci-common:1.4`)
+    * Enter the release notes for that particular image
+    * Click Create
+* Run a manual build in Azure on the specific tagged commit created before
+
+### Automatic GitHub release creation
+* 
 * Generate a GitHub token to allow `aswfdocker release` to create GitHub releases: [GitHub Settings](https://github.com/settings/tokens) with **"repo"** permissions.
 * Configure the token in the `aswfdocker` settings by running:
     `aswfdocker settings --github-access-token MYTOKEN`.
