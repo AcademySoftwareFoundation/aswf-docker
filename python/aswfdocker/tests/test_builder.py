@@ -10,7 +10,7 @@ import tempfile
 
 from click.testing import CliRunner
 
-from aswfdocker import builder, aswfinfo, index, constants
+from aswfdocker import builder, aswfinfo, index, constants, groupinfo
 from aswfdocker.cli import aswfdocker
 
 
@@ -24,7 +24,7 @@ class TestBuilder(unittest.TestCase):
     def test_package_baseqt_2019_dict(self):
         b = builder.Builder(
             self.build_info,
-            builder.GroupInfo(
+            groupinfo.GroupInfo(
                 names=["baseqt"], versions=["2019"], type_=constants.ImageType.PACKAGE,
             ),
         )
@@ -65,7 +65,7 @@ class TestBuilder(unittest.TestCase):
     def test_image_base_2019_dict(self):
         b = builder.Builder(
             self.build_info,
-            builder.GroupInfo(
+            groupinfo.GroupInfo(
                 names=["base"], versions=["2019"], type_=constants.ImageType.IMAGE,
             ),
         )
@@ -105,7 +105,7 @@ class TestBuilder(unittest.TestCase):
     def test_image_base_2019_2020_dict(self):
         b = builder.Builder(
             self.build_info,
-            builder.GroupInfo(
+            groupinfo.GroupInfo(
                 names=["base"],
                 versions=["2019", "2020"],
                 type_=constants.ImageType.IMAGE,

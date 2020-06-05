@@ -11,9 +11,11 @@ from aswfdocker import (
     builder,
     migrater,
     aswfinfo,
+    groupinfo,
     constants,
     index,
     utils,
+    releaser,
     settings as aswf_settings,
 )
 
@@ -60,40 +62,45 @@ def validate_image_name(ctx, param, value):  # noqa unused arguments error
         raise click.BadParameter(e.message)
 
 
+def common_image_options(function):
+    function = click.option(
+        "--ci-image-type",
+        "-t",
+        required=False,
+        help="Builds a ci-package or a ci-image.",
+        type=click.Choice(constants.ImageType.__members__.keys(), case_sensitive=True),
+    )(function)
+    function = click.option(
+        "--group-name",
+        "-g",
+        required=False,
+        help='The name of the group of images to build, e.g. "base" or "vfx", or multiple groups separated by a ",".',
+    )(function)
+    function = click.option(
+        "--group-version",
+        "-v",
+        required=False,
+        help='The major version number to build, e.g. "2019", or multiple versions separated by a ","',
+    )(function)
+    function = click.option(
+        "--image-name",
+        "-n",
+        "image_spec",
+        callback=validate_image_name,
+        required=False,
+        help="The full image name, e.g. aswftesting/ci-common:1 or aswf/ci-package-openexr:2019",
+    )(function)
+    function = click.option(
+        "--target",
+        "-tg",
+        required=False,
+        help='An optional package or image name to build, e.g. "usd".',
+    )(function)
+    return function
+
+
 @cli.command()
-@click.option(
-    "--ci-image-type",
-    "-t",
-    required=False,
-    help="Builds a ci-package or a ci-image.",
-    type=click.Choice(constants.ImageType.__members__.keys(), case_sensitive=True),
-)
-@click.option(
-    "--group-name",
-    "-g",
-    required=False,
-    help='The name of the group of images to build, e.g. "base" or "vfx", or multiple groups separated by a ",".',
-)
-@click.option(
-    "--group-version",
-    "-v",
-    required=False,
-    help='The major version number to build, e.g. "2019", or multiple versions separated by a ","',
-)
-@click.option(
-    "--image-name",
-    "-v",
-    "image_spec",
-    callback=validate_image_name,
-    required=False,
-    help="The full image name, e.g. aswftesting/ci-common:1 or aswf/ci-package-openexr:2019",
-)
-@click.option(
-    "--target",
-    "-tg",
-    required=False,
-    help='An optional package or image name to build, e.g. "usd".',
-)
+@common_image_options
 @click.option(
     "--push",
     "-p",
@@ -103,12 +110,12 @@ def validate_image_name(ctx, param, value):  # noqa unused arguments error
 )
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
 @click.option(
-    "--progress",  # noqa ignore too many arguments error
+    "--progress",
     "-pr",
     type=click.Choice(("auto", "tty", "plain"), case_sensitive=True),
     default="auto",
     help='Set type of progress output for "docker buildx bake" command.',
-)
+)  # noqa ignore too many arguments error
 @pass_build_info
 def build(
     build_info,
@@ -139,7 +146,7 @@ def build(
 
     b = builder.Builder(
         build_info=build_info,
-        group_info=builder.GroupInfo(
+        group_info=groupinfo.GroupInfo(
             type_=image_type,
             names=group_name.split(","),
             versions=group_version.split(","),
@@ -261,3 +268,31 @@ def settings(settings_path, github_access_token):
     s = aswf_settings.Settings(settings_path=settings_path)
     s.github_access_token = github_access_token
     s.save()
+
+
+@cli.command()
+@common_image_options
+@click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
+@pass_build_info
+def release(  # noqa ignore too many arguments error
+    build_info, ci_image_type, group_name, group_version, image_spec, target, dry_run,
+):
+    """Creates a GitHub release for a ci-package or ci-image docker image.
+    """
+    if image_spec:
+        org, image_type, target, group_version = image_spec
+        group_name = utils.get_group_from_image(image_type, target)
+        build_info.set_org(org)
+    else:
+        image_type = constants.ImageType[ci_image_type]
+
+    r = releaser.Releaser(
+        build_info=build_info,
+        group_info=groupinfo.GroupInfo(
+            type_=image_type,
+            names=group_name.split(","),
+            versions=group_version.split(","),
+            target=target,
+        ),
+    )
+    r.release(dry_run=dry_run)
