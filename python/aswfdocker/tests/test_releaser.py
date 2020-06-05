@@ -37,7 +37,7 @@ class TestReleaser(unittest.TestCase):
             draft=False,
             object=utils.get_current_sha(),
             prerelease=False,
-            release_message="",
+            release_message="Inspect released docker image here: https://hub.docker.com/r/aswflocaltesting/boost/tags?name=2019.1",
             release_name="aswflocaltesting/boost:2019.1",
             tag_message="",
             type="commit",
