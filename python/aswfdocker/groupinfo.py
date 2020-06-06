@@ -40,10 +40,11 @@ class GroupInfo:
             if self.target and image != self.target:
                 logger.debug("Skipping target %s", image)
                 continue
-            logger.debug("release image=%s", image)
+            logger.debug("iter image=%s", image)
+            ci_image = utils.get_image_name(self.type, image)
             all_versions = list(self.index.iter_versions(self.type, image))
             major_versions = [utils.get_major_version(v) for v in all_versions]
             for version in [v for v in self.versions if v in major_versions]:
-                logger.debug("release version=%s", version)
+                logger.debug("iter version=%s", version)
                 version = all_versions[major_versions.index(version)]
-                yield image, version
+                yield ci_image, version

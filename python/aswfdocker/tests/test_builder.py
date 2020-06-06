@@ -34,9 +34,9 @@ class TestBuilder(unittest.TestCase):
         self.assertEqual(
             b.make_bake_dict(),
             {
-                "group": {"default": {"targets": ["package-qt-2019"]}},
+                "group": {"default": {"targets": ["ci-package-qt-2019"]}},
                 "target": {
-                    "package-qt-2019": {
+                    "ci-package-qt-2019": {
                         "context": ".",
                         "dockerfile": "packages/Dockerfile",
                         "args": {
@@ -55,7 +55,7 @@ class TestBuilder(unittest.TestCase):
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:{qt_version}",
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:latest",
                         ],
-                        "target": "ci-qt-package",
+                        "target": "ci-package-qt",
                         "output": ["type=docker"],
                     }
                 },
@@ -75,9 +75,9 @@ class TestBuilder(unittest.TestCase):
         self.assertEqual(
             b.make_bake_dict(),
             {
-                "group": {"default": {"targets": ["image-base-2019"]}},
+                "group": {"default": {"targets": ["ci-base-2019"]}},
                 "target": {
-                    "image-base-2019": {
+                    "ci-base-2019": {
                         "context": ".",
                         "dockerfile": "ci-base/Dockerfile",
                         "args": {
@@ -117,11 +117,9 @@ class TestBuilder(unittest.TestCase):
         self.assertEqual(
             b.make_bake_dict(),
             {
-                "group": {
-                    "default": {"targets": ["image-base-2019", "image-base-2020"]}
-                },
+                "group": {"default": {"targets": ["ci-base-2019", "ci-base-2020"]}},
                 "target": {
-                    "image-base-2020": {
+                    "ci-base-2020": {
                         "context": ".",
                         "dockerfile": "ci-base/Dockerfile",
                         "args": {
@@ -142,7 +140,7 @@ class TestBuilder(unittest.TestCase):
                         ],
                         "output": ["type=docker"],
                     },
-                    "image-base-2019": {
+                    "ci-base-2019": {
                         "context": ".",
                         "dockerfile": "ci-base/Dockerfile",
                         "args": {
