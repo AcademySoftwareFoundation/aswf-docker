@@ -62,7 +62,11 @@ class TestMigrater(unittest.TestCase):
 
 class TestMigraterCli(unittest.TestCase):
     def setUp(self):
+        self._log_handlers = logging.getLogger("").handlers
         logging.getLogger("").handlers = []
+
+    def tearDown(self):
+        logging.getLogger("").handlers = self._log_handlers
 
     def test_migrate_cli(self):
         runner = CliRunner()
@@ -92,5 +96,6 @@ class TestMigraterCli(unittest.TestCase):
 {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version} -> {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}
  [y/N]: y
 INFO:aswfdocker.migrater:Migrating {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version} -> {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}
+Migration done.
 """,
         )

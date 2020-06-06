@@ -168,7 +168,11 @@ class TestBuilder(unittest.TestCase):
 
 class TestBuilderCli(unittest.TestCase):
     def setUp(self):
+        self._log_handlers = logging.getLogger("").handlers
         logging.getLogger("").handlers = []
+
+    def tearDown(self):
+        logging.getLogger("").handlers = self._log_handlers
 
     def test_builder_cli(self):
         runner = CliRunner()
