@@ -20,7 +20,7 @@ class GitHub:
         logger.debug("GitHub.create_release(tag=%s)", tag)
         self.repo.create_git_tag_and_release(
             tag.replace(":", "/"),
-            tag_message="",
+            tag_message=tag,
             release_name=tag,
             release_message=release_message,
             object=sha,
