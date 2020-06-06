@@ -183,8 +183,10 @@ def migrate(from_org, to_org, package, version, dry_run):
             "\n".join(f"{mi.source} -> {mi.destination}" for mi in m.migration_list),
         )
     ):
+        click.echo("Migration cancelled.")
         return
     m.migrate(dry_run)
+    click.echo("Migration done.")
 
 
 @cli.command()
@@ -273,10 +275,22 @@ def settings(settings_path, github_access_token):
 
 @cli.command()
 @common_image_options
+@click.option(
+    "--sha",
+    "-s",
+    help="The sha to create the release tag on, defaults to current sha.",
+)
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
-@pass_build_info
-def release(  # noqa ignore too many arguments error
-    build_info, ci_image_type, group_name, group_version, image_spec, target, dry_run,
+@pass_build_info  # noqa ignore too many arguments error
+def release(
+    build_info,
+    ci_image_type,
+    group_name,
+    group_version,
+    image_spec,
+    target,
+    sha,
+    dry_run,
 ):
     """Creates a GitHub release for a ci-package or ci-image docker image.
     """
@@ -293,6 +307,15 @@ def release(  # noqa ignore too many arguments error
     else:
         image_type = constants.ImageType[ci_image_type]
 
+    if not sha:
+        if utils.get_current_branch() != "master":
+            click.secho(
+                "Cannot release from non-master branch! Specify --sha to create a release on a given commit.",
+                fg="red",
+            )
+            return 1
+        sha = utils.get_current_sha()
+
     r = releaser.Releaser(
         build_info=build_info,
         group_info=groupinfo.GroupInfo(
@@ -301,5 +324,15 @@ def release(  # noqa ignore too many arguments error
             versions=group_version.split(","),
             target=target,
         ),
+        sha=sha,
     )
+    r.gather()
+    if not click.confirm(
+        "Are you sure you want to create the following {} release on sha={}?\n{}\n".format(
+            len(r.release_list), r.sha, "\n".join(tag for _, _, tag in r.release_list),
+        )
+    ):
+        click.echo("Release cancelled.")
+        return
     r.release(dry_run=dry_run)
+    click.echo("Release done.")
