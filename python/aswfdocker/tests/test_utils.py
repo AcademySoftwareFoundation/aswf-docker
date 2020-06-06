@@ -86,8 +86,12 @@ class TestUtils(unittest.TestCase):
 
 class TestUtilsCli(unittest.TestCase):
     def setUp(self):
+        self._log_handlers = logging.getLogger("").handlers
         logging.getLogger("").handlers = []
         self.maxDiff = None
+
+    def tearDown(self):
+        logging.getLogger("").handlers = self._log_handlers
 
     def test_cli_getdockerorg(self):
         runner = CliRunner()

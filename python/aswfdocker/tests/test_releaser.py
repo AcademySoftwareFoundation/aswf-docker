@@ -29,8 +29,10 @@ class TestReleaser(unittest.TestCase):
                 type_=constants.ImageType.PACKAGE,
                 target="boost",
             ),
+            sha=utils.get_current_sha(),
         )
         r.gh.repo.create_git_tag_and_release = mock.MagicMock()
+        r.gather()
         r.release(dry_run=False)
         boost_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "boost")
@@ -44,4 +46,41 @@ class TestReleaser(unittest.TestCase):
             release_name=f"aswflocaltesting/ci-package-boost:{boost_version}",
             tag_message="",
             type="commit",
+        )
+
+
+class TestReleaserCli(unittest.TestCase):
+    def setUp(self):
+        self._log_handlers = logging.getLogger("").handlers
+        logging.getLogger("").handlers = []
+
+    def tearDown(self):
+        logging.getLogger("").handlers = self._log_handlers
+
+    def test_migrate_cli(self):
+        current_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "boost")
+        )[1]
+        runner = CliRunner()
+        result = runner.invoke(
+            aswfdocker.cli,
+            [
+                "release",
+                "-n",
+                f"aswf/ci-package-boost:{current_version}",
+                "--sha",
+                utils.get_current_sha(),
+                "--dry-run",
+            ],
+            input="y\n",
+        )
+        # self.assertEqual(result.exit_code, 0)
+        self.assertEqual(
+            result.output,
+            f"""Are you sure you want to create the following 1 release on sha={utils.get_current_sha()}?
+aswf/ci-package-boost:{current_version}
+ [y/N]: y
+INFO:aswfdocker.releaser:Would create this GitHub release on current commit: aswf/ci-package-boost:{current_version}
+Release done.
+""",
         )
