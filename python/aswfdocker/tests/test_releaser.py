@@ -32,13 +32,16 @@ class TestReleaser(unittest.TestCase):
         )
         r.gh.repo.create_git_tag_and_release = mock.MagicMock()
         r.release(dry_run=False)
+        boost_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "boost")
+        )[1]
         r.gh.repo.create_git_tag_and_release.assert_called_with(
-            "aswflocaltesting/boost/2019.1",
+            "aswflocaltesting/ci-package-boost/2019.1",
             draft=False,
             object=utils.get_current_sha(),
             prerelease=False,
-            release_message="Inspect released docker image here: https://hub.docker.com/r/aswflocaltesting/boost/tags?name=2019.1",
-            release_name="aswflocaltesting/boost:2019.1",
+            release_message=f"Inspect released docker image here: https://hub.docker.com/r/aswflocaltesting/ci-package-boost/tags?name={boost_version}",
+            release_name=f"aswflocaltesting/ci-package-boost:{boost_version}",
             tag_message="",
             type="commit",
         )
