@@ -33,22 +33,14 @@ class Builder:
         root: typing.Dict[str, dict] = {}
         root["target"] = {}
         for image, version in self.group_info.iter_images_versions():
-
-            image_name = utils.get_image_name(self.group_info.type, image)
             if self.group_info.type == constants.ImageType.PACKAGE:
                 docker_file = "packages/Dockerfile"
-                target = f"ci-{image}-package"
-                target_name = f"package-{image}"
             else:
-                docker_file = f"{image_name}/Dockerfile"
-                target = ""
-                target_name = f"image-{image}"
+                docker_file = f"{image}/Dockerfile"
 
-            major_version = version.split(".")[0]
+            major_version = utils.get_major_version(version)
             version_info = constants.VERSION_INFO[major_version]
-            tags = version_info.get_tags(
-                version, self.build_info.docker_org, image_name
-            )
+            tags = version_info.get_tags(version, self.build_info.docker_org, image)
             target_dict = {
                 "context": ".",
                 "dockerfile": docker_file,
@@ -66,9 +58,9 @@ class Builder:
                 "tags": tags,
                 "output": ["type=registry,push=true" if self.push else "type=docker"],
             }
-            if target:
-                target_dict["target"] = target
-            root["target"][f"{target_name}-{major_version}"] = target_dict
+            if self.group_info.type == constants.ImageType.PACKAGE:
+                target_dict["target"] = image
+            root["target"][f"{image}-{major_version}"] = target_dict
 
         root["group"] = {"default": {"targets": list(root["target"].keys())}}
         return root

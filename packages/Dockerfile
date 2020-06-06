@@ -11,11 +11,11 @@ ARG DTS_VERSION=6
 ARG ASWF_ORG=aswftesting
 
 # Required base packages built in previous passes to speed things up
-FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang
-FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
-FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
-FROM ${ASWF_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
-FROM ${ASWF_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
+FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang-external
+FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python-external
+FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost-external
+FROM ${ASWF_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt-external
+FROM ${ASWF_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside-external
 
 #################### ci-centos7-gl-packages ####################
 FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-centos7-gl-packages
@@ -68,11 +68,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-clang-package ####################
+#################### ci-package-clang ####################
 # This build target is used to generate a packages of clang that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-clang-package
+FROM scratch as ci-package-clang
 
 COPY --from=ci-clang-builder /package/. /
 
@@ -95,11 +95,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-ninja-package ####################
+#################### ci-package-ninja ####################
 # This build target is used to generate a packages of ninja that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-ninja-package
+FROM scratch as ci-package-ninja
 
 COPY --from=ci-ninja-builder /package/. /
 
@@ -139,11 +139,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-boost-package ####################
+#################### ci-package-boost ####################
 # This build target is used to generate a packages of boost that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-python-package
+FROM scratch as ci-package-python
 
 COPY --from=ci-python-builder /package/. /
 
@@ -166,11 +166,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-boost-package ####################
+#################### ci-package-boost ####################
 # This build target is used to generate a packages of boost that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-boost-package
+FROM scratch as ci-package-boost
 
 COPY --from=ci-boost-builder /package/. /
 
@@ -190,11 +190,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-tbb-package ####################
+#################### ci-package-tbb ####################
 # This build target is used to generate a packages of tbb that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-tbb-package
+FROM scratch as ci-package-tbb
 
 COPY --from=ci-tbb-builder /package/. /
 
@@ -214,11 +214,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-cppunit-package ####################
+#################### ci-package-cppunit ####################
 # This build target is used to generate a packages of cppunit that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-cppunit-package
+FROM scratch as ci-package-cppunit
 
 COPY --from=ci-cppunit-builder /package/. /
 
@@ -262,11 +262,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-glew-package ####################
+#################### ci-package-glew ####################
 # This build target is used to generate a packages of glew that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-glew-package
+FROM scratch as ci-package-glew
 
 COPY --from=ci-glew-builder /package/. /
 
@@ -287,11 +287,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-glfw-package ####################
+#################### ci-package-glfw ####################
 # This build target is used to generate a packages of glfw that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-glfw-package
+FROM scratch as ci-package-glfw
 
 COPY --from=ci-glfw-builder /package/. /
 
@@ -311,11 +311,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-qt-package ####################
+#################### ci-package-qt ####################
 # This build target is used to generate a packages of qt that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-qt-package
+FROM scratch as ci-package-qt
 
 COPY --from=ci-qt-builder /package/. /
 
@@ -324,12 +324,12 @@ COPY --from=ci-qt-builder /package/. /
 FROM ci-python-builder as ci-pyside-builder
 
 # Workaround pyside issue with Qt headers within system location https://bugreports.qt.io/browse/PYSIDE-787
-COPY --from=ci-package-qt /. /tmp/qt5temp
+COPY --from=ci-package-qt-external /. /tmp/qt5temp
 
 COPY ../scripts/base/build_pyside.sh \
      /tmp/
 
-COPY --from=ci-package-clang /. /usr/local/
+COPY --from=ci-package-clang-external /. /usr/local/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -340,11 +340,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-pyside-package ####################
+#################### ci-package-pyside ####################
 # This build target is used to generate a packages of pyside that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-pyside-package
+FROM scratch as ci-package-pyside
 
 COPY --from=ci-pyside-builder /package/. /
 
@@ -353,8 +353,8 @@ COPY --from=ci-pyside-builder /package/. /
 #################### ci-openexr-builder ####################
 FROM ci-base-builder as ci-openexr-builder
 
-COPY --from=ci-package-python /. /usr/local/
-COPY --from=ci-package-boost /. /usr/local/
+COPY --from=ci-package-python-external /. /usr/local/
+COPY --from=ci-package-boost-external /. /usr/local/
 
 COPY ../scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
      ../scripts/vfx/build_openexr.sh \
@@ -369,11 +369,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-openexr-package ####################
+#################### ci-package-openexr ####################
 # This build target is used to generate a packages of openexr that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-openexr-package
+FROM scratch as ci-package-openexr
 
 COPY --from=ci-openexr-builder /package/. /
 
@@ -394,11 +394,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-blosc-package ####################
+#################### ci-package-blosc ####################
 # This build target is used to generate a packages of blosc that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-blosc-package
+FROM scratch as ci-package-blosc
 
 COPY --from=ci-blosc-builder /package/. /
 
@@ -419,11 +419,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-partio-package ####################
+#################### ci-package-partio ####################
 # This build target is used to generate a packages of partio that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-partio-package
+FROM scratch as ci-package-partio
 
 COPY --from=ci-partio-builder /package/. /
 
@@ -443,11 +443,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-oiio-package ####################
+#################### ci-package-oiio ####################
 # This build target is used to generate a packages of oiio that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-oiio-package
+FROM scratch as ci-package-oiio
 
 COPY --from=ci-oiio-builder /package/. /
 
@@ -467,11 +467,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-ocio-package ####################
+#################### ci-package-ocio ####################
 # This build target is used to generate a packages of ocio that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-ocio-package
+FROM scratch as ci-package-ocio
 
 COPY --from=ci-ocio-builder /package/. /
 
@@ -479,9 +479,9 @@ COPY --from=ci-ocio-builder /package/. /
 #################### ci-osl-builder ####################
 FROM ci-oiio-builder as ci-osl-builder
 
-COPY --from=ci-package-clang /. /usr/local/
-COPY --from=ci-package-qt /. /usr/local/
-COPY --from=ci-partio-package /. /usr/local/
+COPY --from=ci-package-clang-external /. /usr/local/
+COPY --from=ci-package-qt-external /. /usr/local/
+COPY --from=ci-package-partio /. /usr/local/
 
 COPY ../scripts/vfx/build_osl.sh \
      /tmp/
@@ -495,11 +495,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-osl-package ####################
+#################### ci-package-osl ####################
 # This build target is used to generate a packages of osl that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-osl-package
+FROM scratch as ci-package-osl
 
 COPY --from=ci-osl-builder /package/. /
 
@@ -519,11 +519,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-alembic-package ####################
+#################### ci-package-alembic ####################
 # This build target is used to generate a packages of alembic that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-alembic-package
+FROM scratch as ci-package-alembic
 
 COPY --from=ci-alembic-builder /package/. /
 
@@ -544,11 +544,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-ptex-package ####################
+#################### ci-package-ptex ####################
 # This build target is used to generate a packages of ptex that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-ptex-package
+FROM scratch as ci-package-ptex
 
 COPY --from=ci-ptex-builder /package/. /
 
@@ -561,9 +561,9 @@ FROM ci-ptex-builder as ci-opensubdiv-builder
 COPY ../scripts/vfx/build_opensubdiv.sh \
      /tmp/
 
-COPY --from=ci-glew-package /. /usr/local/
-COPY --from=ci-tbb-package /. /usr/local/
-COPY --from=ci-glfw-package /. /usr/local/
+COPY --from=ci-package-glew /. /usr/local/
+COPY --from=ci-package-tbb /. /usr/local/
+COPY --from=ci-package-glfw /. /usr/local/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -574,11 +574,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-opensubdiv-package ####################
+#################### ci-package-opensubdiv ####################
 # This build target is used to generate a packages of opensubdiv that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-opensubdiv-package
+FROM scratch as ci-package-opensubdiv
 
 COPY --from=ci-opensubdiv-builder /package/. /
 
@@ -591,11 +591,11 @@ FROM ci-openexr-builder as ci-openvdb-builder
 COPY ../scripts/vfx/build_openvdb.sh \
      /tmp/
 
-COPY --from=ci-glew-package /. /usr/local/
-COPY --from=ci-tbb-package /. /usr/local/
-COPY --from=ci-cppunit-package /. /usr/local/
-COPY --from=ci-glfw-package /. /usr/local/
-COPY --from=ci-blosc-package /. /usr/local/
+COPY --from=ci-package-glew /. /usr/local/
+COPY --from=ci-package-tbb /. /usr/local/
+COPY --from=ci-package-cppunit /. /usr/local/
+COPY --from=ci-package-glfw /. /usr/local/
+COPY --from=ci-package-blosc /. /usr/local/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -606,11 +606,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-openvdb-package ####################
+#################### ci-package-openvdb ####################
 # This build target is used to generate a packages of openvdb that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-openvdb-package
+FROM scratch as ci-package-openvdb
 
 COPY --from=ci-openvdb-builder /package/. /
 
@@ -620,13 +620,13 @@ COPY --from=ci-openvdb-builder /package/. /
 #################### ci-usd-builder ####################
 FROM ci-opensubdiv-builder as ci-usd-builder
 
-COPY --from=ci-glew-package /. /usr/local/
-COPY --from=ci-alembic-package /. /usr/local/
-COPY --from=ci-openvdb-package /. /usr/local/
-COPY --from=ci-oiio-package /. /usr/local/
-COPY --from=ci-ocio-package /. /usr/local/
-COPY --from=ci-package-qt /. /usr/local/
-COPY --from=ci-package-pyside /. /usr/local/
+COPY --from=ci-package-glew /. /usr/local/
+COPY --from=ci-package-alembic /. /usr/local/
+COPY --from=ci-package-openvdb /. /usr/local/
+COPY --from=ci-package-oiio /. /usr/local/
+COPY --from=ci-package-ocio /. /usr/local/
+COPY --from=ci-package-qt-external /. /usr/local/
+COPY --from=ci-package-pyside-external /. /usr/local/
 
 COPY ../scripts/vfx/build_usd.sh \
      /tmp/
@@ -640,11 +640,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-usd-package ####################
+#################### ci-package-usd ####################
 # This build target is used to generate a packages of usd that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-usd-package
+FROM scratch as ci-package-usd
 
 COPY --from=ci-usd-builder /package/. /
 
