@@ -13,7 +13,10 @@ logger = logging.getLogger(__name__)
 class GitHub:
     def __init__(self):
         s = settings.Settings()
-        self.github = Github(s.github_access_token)
+        if s.github_access_token:
+            self.github = Github(s.github_access_token)
+        else:
+            self.github = Github()
         self.repo = self.github.get_repo(constants.GITHUB_REPO)
 
     def create_release(self, sha, tag, release_message, prerelease):
