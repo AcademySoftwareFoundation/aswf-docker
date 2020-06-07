@@ -10,6 +10,7 @@ prospector = "*"
 black = "*"
 mypy = "*"
 pre-commit = "*"
+pipenv-setup = "*"
 
 [packages]
 click = "*"
