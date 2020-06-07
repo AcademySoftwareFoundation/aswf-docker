@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "26b9a3c3dd53c350a5de281ebbc7ecca3922cbd3ad926c6702d222e5b790e2b9"
+            "sha256": "37fd326a7f6f231c53e923ec569b753c8cc0147a3e6a63a55c8ee1fe27a8f5ad"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,7 +18,7 @@
     "default": {
         "aswfdocker": {
             "editable": true,
-            "path": "python"
+            "path": "."
         },
         "certifi": {
             "hashes": [
