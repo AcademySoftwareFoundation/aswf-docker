@@ -74,7 +74,8 @@ class TestReleaserCli(unittest.TestCase):
             ],
             input="y\n",
         )
-        # self.assertEqual(result.exit_code, 0)
+        self.assertFalse(result.exception)
+        self.assertEqual(result.exit_code, 0)
         self.assertEqual(
             result.output,
             f"""Are you sure you want to create the following 1 release on sha={utils.get_current_sha()}?
