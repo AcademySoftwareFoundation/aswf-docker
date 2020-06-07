@@ -24,10 +24,10 @@ class TestReleaser(unittest.TestCase):
         r = releaser.Releaser(
             self.build_info,
             groupinfo.GroupInfo(
-                names=["base"],
+                names=["base1"],
                 versions=["2019"],
                 type_=constants.ImageType.PACKAGE,
-                target="boost",
+                targets=["boost"],
             ),
             sha=utils.get_current_sha(),
         )
@@ -53,6 +53,7 @@ class TestReleaserCli(unittest.TestCase):
     def setUp(self):
         self._log_handlers = logging.getLogger("").handlers
         logging.getLogger("").handlers = []
+        self.maxDiff = None
 
     def tearDown(self):
         logging.getLogger("").handlers = self._log_handlers
