@@ -35,7 +35,10 @@ class VersionInfo:
         if self.label:
             tags.append(self.label)
 
-        from aswfdocker import constants  # noqa avoid cyclic import
+        # @TODO nicer tag generation without cyclic import
+        # pylint: disable=cyclic-import
+        # pylint: disable=import-outside-toplevel
+        from aswfdocker import constants
 
         return list(
             map(
