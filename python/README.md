@@ -68,6 +68,10 @@ The pre-commit hooks will run the following commands, which can be run individua
 
 To run them all manually use `pre-commit run --all-files`.
 
+#### Adding new pip dependencies
+* Run `pipenv install xyz`
+* Run `pipenv-setup sync` to update `setup.py` with added dependency (`pipenv-setup` is a "dev" dependency already declared in `PipFile`)
+
 ### Manually push new packages
 When rebuilding all packages from the CI is overkill, and if you have access to the right dockerhub organisations, it is possible
 to manually build and push packages and images by overriding the automatic discovery of current repo and branch.
