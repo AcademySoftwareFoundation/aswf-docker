@@ -75,7 +75,7 @@ Packages require a recent Docker version with [buildx](https://docs.docker.com/b
 
 To build all packages:
 ```bash
-aswfdocker --verbose build -t PACKAGE --group-name common,base,vfx --group-version 2018,2019,2020
+aswfdocker --verbose build -t PACKAGE --group common,base,vfx --version 2018,2019,2020
 ```
 
 To build a single package, e.g. USD:
@@ -83,7 +83,7 @@ To build a single package, e.g. USD:
 # First list the available CI packages to know which package belong to which "group":
 aswfdocker packages
 # Then run the build
-aswfdocker --verbose build -t PACKAGE --group-name vfx --group-version 2019 --target usd
+aswfdocker --verbose build -t PACKAGE --group vfx --version 2019 --target usd
 ```
 
 ### Images
@@ -92,7 +92,7 @@ but it is recommended to speed up large builds.
 
 To build all images:
 ```bash
-aswfdocker --verbose build -t IMAGE --group-name base,vfx1,vfx2,vfxall --group-version 2018,2019,2020
+aswfdocker --verbose build -t IMAGE --group base,vfx1,vfx2,vfxall --version 2018,2019,2020
 ```
 
 To build a single image:
@@ -100,5 +100,5 @@ To build a single image:
 # First list the available CI images to know which package belong to which "group":
 aswfdocker images
 # Then run the build
-aswfdocker --verbose build -t IMAGE --group-name vfx1 --group-version 2019 --target openexr
+aswfdocker --verbose build -t IMAGE --group vfx1 --version 2019 --target openexr
 ```

@@ -21,23 +21,31 @@ class GroupInfo:
         type_: constants.ImageType,
         names: typing.List[str],
         versions: typing.List[str],
-        target: str = "",
+        targets: typing.List[str],
     ):
         self.index = index.Index()
         self.type = type_
         self.names = names
-        self.versions = versions
+        self.versions = [utils.get_major_version(v) for v in versions]
         for name in self.names:
             if name not in constants.GROUPS[self.type]:
                 raise TypeError(f"Group {name} is not valid!")
         self.images = []
         for images in [constants.GROUPS[self.type][n] for n in self.names]:
             self.images.extend(images)
-        self.target = target
+        self.targets = targets
+        logger.debug(
+            "GroupInfo: type=%s names=%s versions=%s images=%s targets=%s",
+            self.type,
+            self.names,
+            self.versions,
+            self.images,
+            self.targets,
+        )
 
     def iter_images_versions(self):
         for image in self.images:
-            if self.target and image != self.target:
+            if self.targets and image not in self.targets:
                 logger.debug("Skipping target %s", image)
                 continue
             logger.debug("iter image=%s", image)

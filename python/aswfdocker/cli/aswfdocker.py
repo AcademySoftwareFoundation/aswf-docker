@@ -72,21 +72,22 @@ def common_image_options(function):
         type=click.Choice(constants.ImageType.__members__.keys(), case_sensitive=True),
     )(function)
     function = click.option(
-        "--group-name",
+        "--group",
         "-g",
         required=False,
-        help='The name of the group of images to build, e.g. "base" or "vfx", or multiple groups separated by a ",".',
+        multiple=True,
+        help='The name of the group of images to build, e.g. "base" or "vfx", can be specified multiple times.',
     )(function)
     function = click.option(
-        "--group-version",
+        "--version",
         "-v",
         required=False,
-        help='The major version number to build, e.g. "2019", or multiple versions separated by a ","',
+        multiple=True,
+        help='The major version number to build, e.g. "2019", can be specified multiple times.',
     )(function)
     function = click.option(
-        "--image-name",
+        "--full-name",
         "-n",
-        "image_spec",
         callback=validate_image_name,
         required=False,
         help="The full image name, e.g. aswftesting/ci-common:1 or aswf/ci-package-openexr:2019",
@@ -95,9 +96,32 @@ def common_image_options(function):
         "--target",
         "-tg",
         required=False,
-        help='An optional package or image name to build, e.g. "usd".',
+        multiple=True,
+        help='An optional package or image name to build, e.g. "usd", can be specified multiple times.',
     )(function)
     return function
+
+
+def get_group_info(  # noqa ignore too many arguments error
+    build_info, ci_image_type, groups, versions, full_name, targets
+):
+    if full_name:
+        org, image_type, target, version = full_name
+        versions = [version]
+        targets = [target]
+        try:
+            groups = [utils.get_group_from_image(image_type, target)]
+        except RuntimeError as e:
+            raise click.BadOptionUsage(option_name="--full-name", message=e.message)
+        build_info.set_org(org)
+    else:
+        image_type = constants.ImageType[ci_image_type]
+        if not groups and targets:
+            groups = [utils.get_group_from_image(image_type, targets[0])]
+    group_info = groupinfo.GroupInfo(
+        type_=image_type, names=groups, versions=versions, targets=targets,
+    )
+    return group_info
 
 
 @cli.command()
@@ -121,9 +145,9 @@ def common_image_options(function):
 def build(
     build_info,
     ci_image_type,
-    group_name,
-    group_version,
-    image_spec,
+    group,
+    version,
+    full_name,
     target,
     push,
     dry_run,
@@ -138,23 +162,10 @@ def build(
     else:
         pushb = False
 
-    if image_spec:
-        org, image_type, target, group_version = image_spec
-        group_name = utils.get_group_from_image(image_type, target)
-        build_info.set_org(org)
-    else:
-        image_type = constants.ImageType[ci_image_type]
-
-    b = builder.Builder(
-        build_info=build_info,
-        group_info=groupinfo.GroupInfo(
-            type_=image_type,
-            names=group_name.split(","),
-            versions=group_version.split(","),
-            target=target,
-        ),
-        push=pushb,
+    group_info = get_group_info(
+        build_info, ci_image_type, group, version, full_name, target
     )
+    b = builder.Builder(build_info=build_info, group_info=group_info, push=pushb)
     b.build(dry_run=dry_run, progress=progress)
 
 
@@ -283,14 +294,7 @@ def settings(settings_path, github_access_token):
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
 @pass_build_info  # noqa ignore too many arguments error
 def release(
-    build_info,
-    ci_image_type,
-    group_name,
-    group_version,
-    image_spec,
-    target,
-    sha,
-    dry_run,
+    build_info, ci_image_type, group, version, full_name, target, sha, dry_run,
 ):
     """Creates a GitHub release for a ci-package or ci-image docker image.
     """
@@ -299,13 +303,6 @@ def release(
     warnings.filterwarnings(
         action="ignore", message="unclosed", category=ResourceWarning
     )
-
-    if image_spec:
-        org, image_type, target, group_version = image_spec
-        group_name = utils.get_group_from_image(image_type, target)
-        build_info.set_org(org)
-    else:
-        image_type = constants.ImageType[ci_image_type]
 
     if not sha:
         if utils.get_current_branch() != "master":
@@ -316,16 +313,11 @@ def release(
             return 1
         sha = utils.get_current_sha()
 
-    r = releaser.Releaser(
-        build_info=build_info,
-        group_info=groupinfo.GroupInfo(
-            type_=image_type,
-            names=group_name.split(","),
-            versions=group_version.split(","),
-            target=target,
-        ),
-        sha=sha,
+    group_info = get_group_info(
+        build_info, ci_image_type, group, version, full_name, target
     )
+
+    r = releaser.Releaser(build_info=build_info, group_info=group_info, sha=sha)
     r.gather()
     if not click.confirm(
         "Are you sure you want to create the following {} release on sha={}?\n{}\n".format(

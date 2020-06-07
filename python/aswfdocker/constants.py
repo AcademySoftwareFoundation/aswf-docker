@@ -13,36 +13,23 @@ class ImageType(enum.Enum):
     PACKAGE = "package"
 
 
+# Groups try to split builds into reasonable blocks of build time
 GROUPS = {
     ImageType.PACKAGE: {
         "common": ["clang", "ninja"],
-        "base": ["python", "boost", "tbb", "cppunit", "glew", "glfw", "log4cplus"],
-        "baseqt": ["qt"],
-        "basepyside": ["pyside"],
-        "vfx": [
-            "blosc",
-            "openexr",
-            "alembic",
-            "ocio",
-            "oiio",
-            "opensubdiv",
-            "ptex",
-            "openvdb",
-            "usd",
-            "partio",
-            "osl",
-        ],
+        "base1": ["python", "boost", "tbb", "cppunit", "glew", "glfw", "log4cplus"],
+        "base2": ["qt"],
+        "base3": ["pyside"],
+        "vfx1": ["blosc", "openexr", "alembic", "ocio", "oiio"],
+        "vfx2": ["opensubdiv", "ptex", "openvdb", "usd"],
+        "vfx3": ["partio", "osl"],
     },
     ImageType.IMAGE: {
         "common": ["common"],
         "base": ["base"],
-        "openexr": ["openexr"],
-        "openvdb": ["openvdb"],
-        "osl": ["osl"],
-        "opencue": ["opencue"],
-        "ocio": ["ocio"],
-        "usd": ["usd"],
-        "vfxall": ["vfxall"],
+        "vfx1": ["openexr", "openvdb", "opencue"],
+        "vfx2": ["ocio", "osl"],
+        "vfx3": ["usd", "vfxall"],
     },
 }
 
@@ -104,4 +91,4 @@ DEV_VCS_REF = "dev"
 GITHUB_REPO = "AcademySoftwareFoundation/aswf-docker"
 MAIN_GITHUB_ASWF_DOCKER_URL = "https://github.com/" + GITHUB_REPO
 
-IMAGE_NAME_REGEX = r"([a-z]+)/ci-(package\-)?([a-z0-9]+):([0-9]+)"
+IMAGE_NAME_REGEX = r"(refs/tags/)?(?P<org>[a-z]+)/ci-(?P<package>package\-)?(?P<image>[a-z0-9]+)[:/](?P<version>[0-9\.]+)"

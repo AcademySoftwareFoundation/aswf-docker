@@ -86,7 +86,7 @@ jobs:
         tests:
           - base
       -
-        name: openexr
+        name: vfx1
         versions: ['2018', '2019', '2020', '2021']
         scripts_folder: '**'
         cache_key_version: "4.11"
@@ -94,7 +94,7 @@ jobs:
           - build_image_group_common_1
           - build_image_group_common_2
       -
-        name: openvdb
+        name: vfx2
         versions: ['2018', '2019', '2020', '2021']
         scripts_folder: '**'
         cache_key_version: "4.11"
@@ -104,39 +104,7 @@ jobs:
         tests:
           - openvdb
       -
-        name: osl
-        versions: ['2018', '2019', '2020', '2021']
-        scripts_folder: '**'
-        cache_key_version: "4.11"
-        dependsOn: 
-          - build_image_group_common_1
-          - build_image_group_common_2
-      -
-        name: opencue
-        versions: ['2018', '2019', '2020', '2021']
-        scripts_folder: '**'
-        cache_key_version: "4.11"
-        dependsOn: 
-          - build_image_group_common_1
-          - build_image_group_common_2
-      -
-        name: ocio
-        versions: ['2018', '2019', '2020', '2021']
-        scripts_folder: '**'
-        cache_key_version: "4.11"
-        dependsOn: 
-          - build_image_group_common_1
-          - build_image_group_common_2
-      -
-        name: usd
-        versions: ['2018', '2019', '2020', '2021']
-        scripts_folder: '**'
-        cache_key_version: "4.11"
-        dependsOn: 
-          - build_image_group_common_1
-          - build_image_group_common_2
-      -
-        name: vfxall
+        name: vfx3
         versions: ['2018', '2019', '2020', '2021']
         scripts_folder: '**'
         cache_key_version: "4.11"
