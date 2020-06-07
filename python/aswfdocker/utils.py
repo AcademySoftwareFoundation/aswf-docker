@@ -7,8 +7,11 @@ import os
 import re
 import subprocess
 import datetime
+import logging
 
 from aswfdocker import constants
+
+logger = logging.getLogger(__name__)
 
 
 def get_current_branch() -> str:
@@ -91,14 +94,15 @@ def get_image_spec(name: str):
         raise RuntimeError(
             f"Image name does not conform to expected format: {constants.IMAGE_NAME_REGEX}"
         )
-    org = m.group(1)
-    if m.group(2):
+    org = m.group("org")
+    if m.group("package"):
         image_type = constants.ImageType.PACKAGE
     else:
         image_type = constants.ImageType.IMAGE
-    image_name = m.group(3)
-    version = m.group(4)
-    return org, image_type, image_name, version
+    image = m.group("image")
+    version = m.group("version")
+    logger.debug("get_image_spec found %s: %s/%s:%s", image_type, org, image, version)
+    return org, image_type, image, version
 
 
 def get_group_from_image(image_type: constants.ImageType, image: str):
