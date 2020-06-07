@@ -13,8 +13,8 @@ pre-commit = "*"
 pipenv-setup = "*"
 
 [packages]
+aswfdocker = {editable = true,path = "."}
 click = "*"
-aswfdocker = {editable = true,path = "python"}
 pygithub = "*"
 pyyaml = "*"
 
