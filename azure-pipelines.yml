@@ -33,7 +33,7 @@ jobs:
       displayName: Install aswfdocker and dev dependencies with pipenv
 
     # python unittests with junit XML report and coverage XML Cobertura report for publishing task
-    - bash: pipenv run pytest python/aswfdocker --doctest-modules --junitxml=test-pytest-results.xml --cov=. --cov-report=xml --cov-report=html
+    - bash: pipenv run pytest python/aswfdocker --doctest-modules --junitxml=test-pytest-results.xml --cov=. --cov-report=xml
       displayName: Run pytest
 
     # mypy static type checks with junit XML report
