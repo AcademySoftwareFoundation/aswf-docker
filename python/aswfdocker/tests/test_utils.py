@@ -77,6 +77,10 @@ class TestUtils(unittest.TestCase):
             utils.get_image_spec("aswf/ci-package-openexr:2018"),
             ("aswf", constants.ImageType.PACKAGE, "openexr", "2018"),
         )
+        self.assertEqual(
+            utils.get_image_spec("refs/tags/aswf/ci-package-openexr/2018"),
+            ("aswf", constants.ImageType.PACKAGE, "openexr", "2018"),
+        )
 
     def test_group_from_image(self):
         self.assertEqual(
