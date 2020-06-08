@@ -44,7 +44,7 @@ VERSION_INFO = {
     ),
     "2": versioninfo.VersionInfo(
         major_version="2",
-        label="latest",
+        label="preview",
         ci_common_version="2",
         python_version="3.7",
         dts_version="9",
@@ -72,7 +72,7 @@ VERSION_INFO = {
     ),
     "2021": versioninfo.VersionInfo(
         major_version="2021",
-        label="preview",
+        label="alpha",
         ci_common_version="2",
         python_version="3.7",
         dts_version="9",
