@@ -11,13 +11,17 @@ logger = logging.getLogger(__name__)
 
 
 class GitHub:
-    def __init__(self):
+    def __init__(self, github_org: str):
         s = settings.Settings()
         if s.github_access_token:
             self.github = Github(s.github_access_token)
         else:
             self.github = Github()
-        self.repo = self.github.get_repo(constants.GITHUB_REPO)
+        if not github_org:
+            github_org = constants.MAIN_GITHUB_ASWF_ORG
+        self.repo = self.github.get_repo(
+            f"{github_org}/{constants.MAIN_GITHUB_REPO_NAME}"
+        )
 
     def create_release(self, sha, tag, release_message, prerelease):
         logger.debug("GitHub.create_release(tag=%s)", tag)
@@ -38,12 +42,17 @@ class Releaser:
     """
 
     def __init__(
-        self, build_info: aswfinfo.ASWFInfo, group_info: groupinfo.GroupInfo, sha: str
+        self,
+        build_info: aswfinfo.ASWFInfo,
+        group_info: groupinfo.GroupInfo,
+        sha: str,
+        github_org="",
     ):
+        self.github_org = github_org
         self.build_info = build_info
         self.group_info = group_info
         self.sha = sha
-        self.gh = GitHub()
+        self.gh = GitHub(github_org)
         self.release_list: typing.List[typing.Tuple[str]] = []
 
     def gather(self):
