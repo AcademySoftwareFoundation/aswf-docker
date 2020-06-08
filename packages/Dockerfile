@@ -238,11 +238,11 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-log4cplus-package ####################
+#################### ci-package-log4cplus ####################
 # This build target is used to generate a packages of log4cplus that 
 # can be placed in a downloadable artifact
 
-FROM scratch as ci-log4cplus-package
+FROM scratch as ci-package-log4cplus
 
 COPY --from=ci-log4cplus-builder /package/. /
 
