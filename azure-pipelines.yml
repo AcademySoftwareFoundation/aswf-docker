@@ -93,6 +93,8 @@ jobs:
         dependsOn: 
           - build_image_group_common_1
           - build_image_group_common_2
+        tests:
+          - openvdb
       -
         name: vfx2
         versions: ['2018', '2019', '2020', '2021']
@@ -101,11 +103,17 @@ jobs:
         dependsOn: 
           - build_image_group_common_1
           - build_image_group_common_2
-        tests:
-          - openvdb
       -
-        name: vfx3
-        versions: ['2018', '2019', '2020', '2021']
+        name: usd
+        versions: ['2019', '2020', '2021']
+        scripts_folder: '**'
+        cache_key_version: "4.11"
+        dependsOn: 
+          - build_image_group_common_1
+          - build_image_group_common_2
+      -
+        name: vfxall
+        versions: ['2019', '2020', '2021']
         scripts_folder: '**'
         cache_key_version: "4.11"
         dependsOn: 
