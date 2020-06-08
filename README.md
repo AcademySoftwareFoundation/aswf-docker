@@ -73,9 +73,9 @@ To build packages and images locally follow the instructions to install the [asw
 ### Packages
 Packages require a recent Docker version with [buildx](https://docs.docker.com/buildx/working-with-buildx/) installed and enabled.
 
-To build all packages:
+To build all packages (very unlikely to succeed unless run on a very very powerful machine!):
 ```bash
-aswfdocker --verbose build -t PACKAGE --group common,base,vfx --version 2018,2019,2020
+aswfdocker --verbose build -t PACKAGE
 ```
 
 To build a single package, e.g. USD:
@@ -90,9 +90,9 @@ aswfdocker --verbose build -t PACKAGE --group vfx --version 2019 --target usd
 Images can be build with recent Docker versions but do not require [buildx](https://docs.docker.com/buildx/working-with-buildx/) 
 but it is recommended to speed up large builds.
 
-To build all images:
+To build all images (very unlikely to succeed unless run on a very very powerful machine!):
 ```bash
-aswfdocker --verbose build -t IMAGE --group base,vfx1,vfx2,vfxall --version 2018,2019,2020
+aswfdocker --verbose build -t IMAGE
 ```
 
 To build a single image:
