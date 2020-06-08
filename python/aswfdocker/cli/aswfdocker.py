@@ -4,6 +4,7 @@
 Main aswfdocker command line implementation using click
 """
 import os
+import sys
 import logging
 import click
 import warnings
@@ -20,6 +21,8 @@ from aswfdocker import (
     settings as aswf_settings,
 )
 
+# Avoid pylint giving us grief for complex command lines
+# pylint: disable=too-many-arguments
 
 logger = logging.getLogger("build-images")
 
@@ -60,7 +63,7 @@ def validate_image_name(ctx, param, value):  # noqa unused arguments error
     try:
         return utils.get_image_spec(value)
     except RuntimeError as e:
-        raise click.BadParameter(e.message)
+        raise click.BadParameter(e.args[0])
 
 
 def common_image_options(function):
@@ -102,9 +105,7 @@ def common_image_options(function):
     return function
 
 
-def get_group_info(  # noqa ignore too many arguments error
-    build_info, ci_image_type, groups, versions, full_name, targets
-):
+def get_group_info(build_info, ci_image_type, groups, versions, full_name, targets):
     if full_name:
         org, image_type, target, version = full_name
         versions = [version]
@@ -112,7 +113,7 @@ def get_group_info(  # noqa ignore too many arguments error
         try:
             groups = [utils.get_group_from_image(image_type, target)]
         except RuntimeError as e:
-            raise click.BadOptionUsage(option_name="--full-name", message=e.message)
+            raise click.BadOptionUsage(option_name="--full-name", message=e.args[0])
         build_info.set_org(org)
     else:
         image_type = constants.ImageType[ci_image_type]
@@ -140,7 +141,7 @@ def get_group_info(  # noqa ignore too many arguments error
     type=click.Choice(("auto", "tty", "plain"), case_sensitive=True),
     default="auto",
     help='Set type of progress output for "docker buildx bake" command.',
-)  # noqa ignore too many arguments error
+)
 @pass_build_info
 def build(
     build_info,
@@ -291,10 +292,24 @@ def settings(settings_path, github_access_token):
     "-s",
     help="The sha to create the release tag on, defaults to current sha.",
 )
+@click.option(
+    "--github-org",
+    "-o",
+    default=constants.MAIN_GITHUB_ASWF_ORG,
+    help=f"The GitHub organisation/username to create the release on, defaults to {constants.MAIN_GITHUB_ASWF_ORG}.",
+)
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
-@pass_build_info  # noqa ignore too many arguments error
+@pass_build_info
 def release(
-    build_info, ci_image_type, group, version, full_name, target, sha, dry_run,
+    build_info,
+    ci_image_type,
+    group,
+    version,
+    full_name,
+    target,
+    sha,
+    github_org,
+    dry_run,
 ):
     """Creates a GitHub release for a ci-package or ci-image docker image.
     """
@@ -310,14 +325,16 @@ def release(
                 "Cannot release from non-master branch! Specify --sha to create a release on a given commit.",
                 fg="red",
             )
-            return 1
+            sys.exit(1)
         sha = utils.get_current_sha()
 
     group_info = get_group_info(
         build_info, ci_image_type, group, version, full_name, target
     )
 
-    r = releaser.Releaser(build_info=build_info, group_info=group_info, sha=sha)
+    r = releaser.Releaser(
+        github_org=github_org, build_info=build_info, group_info=group_info, sha=sha
+    )
     r.gather()
     if not click.confirm(
         "Are you sure you want to create the following {} release on sha={}?\n{}\n".format(
