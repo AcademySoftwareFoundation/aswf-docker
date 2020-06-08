@@ -29,7 +29,8 @@ GROUPS = {
         "base": ["base"],
         "vfx1": ["openexr", "openvdb", "opencue"],
         "vfx2": ["ocio", "osl"],
-        "vfx3": ["usd", "vfxall"],
+        "usd": ["usd"],
+        "vfxall": ["vfxall"],
     },
 }
 
