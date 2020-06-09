@@ -27,52 +27,52 @@ jobs:
             type: PACKAGE
             name: common
             version: 1
-            tests: common
+            test: common
           - group: pkg-common-2
             type: PACKAGE
             name: common
             version: 2
-            tests: common
+            test: common
           - group: img-common-v1
             type: IMAGE
             name: common
             version: 1
-            tests: common
+            test: common
           - group: img-common-v2
             type: IMAGE
             name: common
             version: 2
-            tests: common
+            test: common
           - group: img-base-2021
             type: IMAGE
             name: base
             common_version: 2
             version: 2021
-            tests: base
+            test: base
           - group: img-vfx1-2021
             type: IMAGE
             name: vfx1
             common_version: 2
             version: 2021
-            tests: openvdb
+            test: openvdb
           - group: img-vfx2-2021
             type: IMAGE
             name: vfx2
             common_version: 2
             version: 2021
-            tests: ""
+            test: ""
           - group: img-usd-2021
             type: IMAGE
             name: usd
             common_version: 2
             version: 2021
-            tests: ""
+            test: ""
           - group: img-vfxall-2021
             type: IMAGE
             name: vfxall
             common_version: 2
             version: 2021
-            tests: ""
+            test: ""
 
     steps:
     - uses: actions/checkout@v2
@@ -114,11 +114,11 @@ jobs:
           --source-branch $GITHUB_REF \
           --verbose \
           build \
-          --ci-image-type ${{ matrix.type }} \
+          --ci-image-type IMAGE \
           --group common \
           --version ${{ matrix.common_version }}
-      name: Optionally build local ci-common Docker Image
-      if: ${{ matrix.name != 'common' }}
+      name: Optionally build local ci-common Docker Image for downstream images
+      if: ${{ matrix.name != 'common' && matrix.type == 'IMAGE' }}
 
     - run: |
         set -ex
@@ -136,7 +136,7 @@ jobs:
     - run: |
         set -ex
         export DOCKER_ORG=`aswfdocker --repo-uri $GITHUB_REPOSITORY --source-branch $GITHUB_REF getdockerorg`
-        test_script=scripts/tests/${{ matrix.version }}/test_${{ matrix.test }}.sh
+        test_script=scripts/test/${{ matrix.version }}/test_${{ matrix.test }}.sh
         if [ -f $test_script ]
         then
           echo "Going to run ${test_script}"
