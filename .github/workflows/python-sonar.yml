@@ -1,0 +1,48 @@
+name: Test Python aswfdocker Library
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+      types: [opened, synchronize, reopened]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+    - run: pip3 install pipenv
+      name: Install pipenv
+
+    - run: pipenv install --dev
+      name: Install aswfdocker and dev dependencies with pipenv
+
+    # python unittests with junit XML report and coverage XML Cobertura report for publishing task
+    - run: pipenv run pytest python/aswfdocker --doctest-modules --junitxml=test-pytest-results.xml --cov=. --cov-report=xml
+      name: Run pytest
+
+    # mypy static type checks with junit XML report
+    - run: pipenv run mypy python/aswfdocker --junit-xml=test-mypy-results.xml
+      name: Run mypy
+
+    # prospector linter checks with xunit XML report
+    - run: pipenv run prospector -F python/aswfdocker --output-format xunit > test-prospector-results.xml
+      name: Run prospector linter
+
+    # black in "check" mode which will fail the job if any file is not already formatted
+    - run: pipenv run black python --check
+      name: Run black checker
+
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
