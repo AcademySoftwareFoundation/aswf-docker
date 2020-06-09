@@ -1,0 +1,151 @@
+name: Test Build Docker Images
+
+on:
+  push:
+    branches:
+      - '*'
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches:
+      - '*'
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_CLI_EXPERIMENTAL: enabled
+      DOCKER_BUILDKIT: '1'
+
+    strategy:
+      matrix:
+        group: [pkg-common-1] # Extra groups come from the include next
+        include:
+          - group: pkg-common-1
+            type: PACKAGE
+            name: common
+            version: 1
+            tests: common
+          - group: pkg-common-2
+            type: PACKAGE
+            name: common
+            version: 2
+            tests: common
+          - group: img-common-v1
+            type: IMAGE
+            name: common
+            version: 1
+            tests: common
+          - group: img-common-v2
+            type: IMAGE
+            name: common
+            version: 2
+            tests: common
+          - group: img-base-2021
+            type: IMAGE
+            name: base
+            common_version: 2
+            version: 2021
+            tests: base
+          - group: img-vfx1-2021
+            type: IMAGE
+            name: vfx1
+            common_version: 2
+            version: 2021
+            tests: openvdb
+          - group: img-vfx2-2021
+            type: IMAGE
+            name: vfx2
+            common_version: 2
+            version: 2021
+            tests: ""
+          - group: img-usd-2021
+            type: IMAGE
+            name: usd
+            common_version: 2
+            version: 2021
+            tests: ""
+          - group: img-vfxall-2021
+            type: IMAGE
+            name: vfxall
+            common_version: 2
+            version: 2021
+            tests: ""
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Activate Docker buildx
+      run: |
+        mkdir -p ~/.docker/cli-plugins
+        curl --location https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
+        chmod a+x ~/.docker/cli-plugins/docker-buildx
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+    - name: Install aswfdocker
+      run: python3 setup.py install
+
+    - name: Free up disk space
+      run: |
+        sudo apt-get remove -y '^ghc-8.*'
+        sudo apt-get remove -y '^dotnet-.*'
+        sudo apt-get remove -y '^llvm-.*'
+        sudo apt-get remove -y 'php.*'
+        sudo apt-get remove -y '^cpp.*'
+        sudo apt-get remove -y '^g\+\+.*'
+        sudo apt-get remove -y '^clang.*'
+        sudo apt-get remove -y '^gfortran.*'
+        sudo apt-get remove -y google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+        sudo apt-get autoremove -y
+        sudo apt-get clean
+        rm -rf /usr/share/dotnet/
+        df -h
+
+    - run: |
+        set -ex
+        aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type ${{ matrix.type }} \
+          --group common \
+          --version ${{ matrix.common_version }}
+      name: Optionally build local ci-common Docker Image
+      if: ${{ matrix.name != 'common' }}
+
+    - run: |
+        set -ex
+        aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type ${{ matrix.type }} \
+          --group ${{ matrix.name }} \
+          --version ${{ matrix.version }} \
+          --push NO
+      name: Build Docker Images
+
+    - run: |
+        set -ex
+        export DOCKER_ORG=`aswfdocker --repo-uri $GITHUB_REPOSITORY --source-branch $GITHUB_REF getdockerorg`
+        test_script=scripts/tests/${{ matrix.version }}/test_${{ matrix.test }}.sh
+        if [ -f $test_script ]
+        then
+          echo "Going to run ${test_script}"
+          echo "docker run -i --rm ${DOCKER_ORG}/ci-${{ matrix.test }}:${{ matrix.version }} run < ${test_script}"
+          docker run -i --rm \
+            -v $(Pipeline.Workspace)/cache/ci-image_${{ matrix.name }}_${{ matrix.version }}/ccache:/tmp/ccache \
+            ${DOCKER_ORG}/ci-${{ matrix.test }}:${{ matrix.version }} run < ${test_script}
+        else
+          echo "No test script found $test_script"
+        fi
+      name: Run test script ${{ matrix.version }}/test_${{ matrix.test }}.sh to check docker image
+      if: ${{ matrix.test != '' }}
