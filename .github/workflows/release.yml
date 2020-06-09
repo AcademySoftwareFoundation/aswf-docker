@@ -1,0 +1,45 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_CLI_EXPERIMENTAL: enabled
+      DOCKER_BUILDKIT: '1'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+    - name: Activate Docker buildx
+      run: |
+        mkdir -p ~/.docker/cli-plugins
+        curl --location https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
+        chmod a+x ~/.docker/cli-plugins/docker-buildx
+        docker buildx create --name forpushing --use
+        docker buildx inspect --bootstrap
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+    - name: Install aswfdocker
+      run: python3 setup.py install
+
+    - name: Build and Push Docker image
+      run: |
+        aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --verbose \
+          build \
+          --full-name $GITHUB_REF \
+          --push YES
