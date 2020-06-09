@@ -1,10 +1,5 @@
 # Docker Images for the Academy Software Foundation
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) ![pytest coverage](https://img.shields.io/azure-devops/coverage/academysoftwarefoundation/Academy%20Software%20Foundation/2/master)
-
-| Docker Images | Build Status |
-| ---:         |     :---      |
-| `aswf/ci-*`        | [![Build Status - aswf](https://dev.azure.com/academysoftwarefoundation/Academy%20Software%20Foundation/_apis/build/status/AZP%20aswf-docker?branchName=master)](https://dev.azure.com/academysoftwarefoundation/Academy%20Software%20Foundation/_build/latest?definitionId=2&branchName=master)
-| `aswftesting/ci-*` | [![Build Status - aswf](https://dev.azure.com/academysoftwarefoundation/Academy%20Software%20Foundation/_apis/build/status/AZP%20aswf-docker?branchName=testing)](https://dev.azure.com/academysoftwarefoundation/Academy%20Software%20Foundation/_build/latest?definitionId=2&branchName=testing)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=aswf-docker&metric=coverage)](https://sonarcloud.io/dashboard?id=aswf-docker) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=aswf-docker&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=aswf-docker) ![Test Python aswfdocker Library](https://github.com/aloysbaillet/aswf-docker/workflows/Test%20Python%20aswfdocker%20Library/badge.svg) ![Test Build Docker Images](https://github.com/aloysbaillet/aswf-docker/workflows/Test%20Build%20Docker%20Images/badge.svg)
 
 
 More information:

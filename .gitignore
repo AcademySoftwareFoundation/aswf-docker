@@ -9,5 +9,6 @@ build/
 dist/
 *.log
 test-*-results.xml
-cov.xml
+cov*.xml
 .coverage
+.scannerwork
