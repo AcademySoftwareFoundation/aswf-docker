@@ -271,9 +271,59 @@ Versioning is further explained in the [Readme](README.md#version) file.
 
 ## Releasing new Docker Images
 
-All commits to master will trigger a rebuild and re-upload of all docker CI images
-using the version number defined in the Python 
-[constants](https://github.com/aloysbaillet/aswf-docker/blob/master/python/aswfdocker/constants.py#L15) module.
-
 The [CHANGELOG.md](CHANGELOG.md) file needs to be updated with the date of the change
 and the list of new docker image versions that will be built by the CI infrastructure.
+
+GitHub releases will trigger a `Release` GitHub action that will build the corresponding
+image and push it to dockerhub.
+
+### Build
+`aswfdocker build` builds ci packages and ci images.
+Example use: just build a single package for testing:
+```bash
+# Build and push USD package to aswftesting
+aswfdocker --verbose build -t PACKAGE --group vfx --version 2019 --target usd --push
+# Build and push ci-vfxall image to aswftesting
+aswfdocker --verbose build -t IMAGE --group vfx --version 2019 --target vfxall --push
+```
+
+### Migrate
+`aswfdocker migrate` can migrate images between docker organisations, should only be used on package images
+that are very heavy to build such as clang or qt.
+Example use: migrate a single package from `aswftesting` to `aswf` dockerhub organisation.
+```bash
+aswfdocker --verbose migrate --from aswftesting --to aswf --package usd
+```
+
+### Manually push new packages
+When rebuilding all packages from the CI is overkill, and if you have access to the right dockerhub organisations, it is possible
+to manually build and push packages and images by overriding the automatic discovery of current repo and branch.
+E.g. to build and push a new `ninja` package these commands can be run to push to `aswf` and `aswftesting` organisations:
+
+```bash
+# push to aswftesting
+aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/testing build -t PACKAGE --group common --version 1 --target ninja --push
+# push to aswf
+aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/master build -t PACKAGE --group common --version 1 --target ninja --push
+```
+
+### Manual GitHub release creation
+* Create a new release in [GitHub New Release](https://github.com/AcademySoftwareFoundation/aswf-docker/releases/new)
+    * Use the following tag format: `ci-NAME:X.Y` (e.g. `ci-common:1.4`)
+    * Use the following release name format: `aswf/ci-NAME:X.Y` (e.g. `aswf/ci-common:1.4`)
+    * Enter the release notes for that particular image
+    * Click Create
+* Run a manual build in Azure on the specific tagged commit created before
+
+### Automatic GitHub release creation
+* Generate a GitHub token to allow `aswfdocker release` to create GitHub releases: [GitHub Settings](https://github.com/settings/tokens) with **"repo"** permissions.
+* Configure the token in the `aswfdocker` settings by running:
+    `aswfdocker settings --github-access-token MYTOKEN`.
+* Run the `release` command for a given image:
+```bash
+aswfdocker release -n aswftesting/ci-base:2021
+```
+or for a whole group of images:
+```bash
+aswfdocker release -t PACKAGE -g base1 -v 2018
+```
