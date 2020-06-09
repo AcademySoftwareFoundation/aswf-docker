@@ -1,4 +1,4 @@
-name: Test Python aswfdocker Library
+name: Test Python aswfdocker Library - Sonar
 
 on:
   push:
