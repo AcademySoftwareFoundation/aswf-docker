@@ -40,7 +40,7 @@ def get_docker_org(repo_uri: str, source_branch: str) -> str:
         return constants.TESTING_DOCKER_ORG
     if (
         source_branch == "refs/heads/master"
-        and repo_uri == constants.MAIN_GITHUB_ASWF_DOCKER_URL
+        and constants.MAIN_GITHUB_ASWF_DOCKER_URL.endswith(repo_uri)
     ):
         docker_org = constants.PUBLISH_DOCKER_ORG
     elif source_branch in ("refs/heads/testing", ""):
