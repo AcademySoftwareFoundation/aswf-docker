@@ -176,7 +176,7 @@ COPY --from=ci-boost-builder /package/. /
 
 
 #################### ci-tbb-builder ####################
-FROM ci-python-builder as ci-tbb-builder
+FROM ci-base-builder as ci-tbb-builder
 
 COPY ../scripts/base/build_tbb.sh \
      /tmp/
