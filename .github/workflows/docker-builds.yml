@@ -23,12 +23,12 @@ jobs:
       matrix:
         group: [img-common-1] # Extra groups come from the include next
         include:
-          - group: img-common-v1
+          - group: img-common-1
             type: IMAGE
             name: common
             version: 1
             test: common
-          - group: img-common-v2
+          - group: img-common-2
             type: IMAGE
             name: common
             version: 2
