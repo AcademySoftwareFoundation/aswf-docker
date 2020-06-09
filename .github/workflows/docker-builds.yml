@@ -21,18 +21,8 @@ jobs:
 
     strategy:
       matrix:
-        group: [pkg-common-1] # Extra groups come from the include next
+        group: [img-common-1] # Extra groups come from the include next
         include:
-          - group: pkg-common-1
-            type: PACKAGE
-            name: common
-            version: 1
-            test: common
-          - group: pkg-common-2
-            type: PACKAGE
-            name: common
-            version: 2
-            test: common
           - group: img-common-v1
             type: IMAGE
             name: common
@@ -43,6 +33,18 @@ jobs:
             name: common
             version: 2
             test: common
+          - group: pkg-base-2018
+            type: PACKAGE
+            name: base1
+            common_version: 1
+            version: 2018
+            test: ""
+          - group: pkg-base-2021
+            type: PACKAGE
+            name: base1
+            common_version: 2
+            version: 2021
+            test: ""
           - group: img-base-2021
             type: IMAGE
             name: base
