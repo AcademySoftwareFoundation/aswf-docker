@@ -15,21 +15,15 @@ ARG ASWF_ORG
 ARG CI_COMMON_VERSION
 ARG DTS_VERSION
 
-ARG BUILD_DATE=dev
-ARG VCS_REF=dev
 
 LABEL maintainer="aloys.baillet@gmail.com"
 
-LABEL org.label-schema.schema-version="1.0"
-LABEL org.label-schema.build-date=$BUILD_DATE
-LABEL org.label-schema.name="$ASWF_ORG/base-ci"
-LABEL org.label-schema.description="Common CI Docker Image"
-LABEL org.label-schema.url="http://aswf.io/"
-LABEL org.label-schema.vcs-url="https://github.com/AcademySoftwareFoundation/aswf-docker"
-LABEL org.label-schema.vcs-ref=$VCS_REF
-LABEL org.label-schema.vendor="AcademySoftwareFoundation"
-LABEL org.label-schema.version="1.0"
-LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/common-ci bash"
+LABEL org.opencontainers.image.name="$ASWF_ORG/base-ci"
+LABEL org.opencontainers.image.description="Common CI Docker Image"
+LABEL org.opencontainers.image.url="http://aswf.io/"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker"
+LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
+LABEL org.opencontainers.image.version="1.0"
 
 USER root
 
