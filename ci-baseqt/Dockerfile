@@ -21,22 +21,16 @@ ARG ASWF_ORG
 ARG VFXPLATFORM_VERSION
 ARG ASWF_VERSION
 ARG PYTHON_VERSION=2.7
-ARG BUILD_DATE=dev
-ARG VCS_REF=dev
 
 LABEL maintainer="aloys.baillet@gmail.com"
 LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION
 
-LABEL org.label-schema.schema-version="1.0"
-LABEL org.label-schema.build-date=$BUILD_DATE
-LABEL org.label-schema.name="$ASWF_ORG/baseqt-ci"
-LABEL org.label-schema.description="Base with Qt and PySide CI Docker Image"
-LABEL org.label-schema.url="http://aswf.io/"
-LABEL org.label-schema.vcs-url="https://github.com/AcademySoftwareFoundation/aswf-docker"
-LABEL org.label-schema.vcs-ref=$VCS_REF
-LABEL org.label-schema.vendor="AcademySoftwareFoundation"
-LABEL org.label-schema.version=$VFXPLATFORM_VERSION
-LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/baseqt-ci bash"
+LABEL org.opencontainers.image.name="$ASWF_ORG/baseqt-ci"
+LABEL org.opencontainers.image.description="Base with Qt and PySide CI Docker Image"
+LABEL org.opencontainers.image.url="http://aswf.io/"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker"
+LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
+LABEL org.opencontainers.image.version=$VFXPLATFORM_VERSION
 
 ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH} \
     VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION \
