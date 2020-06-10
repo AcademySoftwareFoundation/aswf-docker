@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-06-10
+### Added
+* New `aswfdocker` version 0.2 with new `aswfdocker release` command line utility to create GitHub releases in batch.
+* New release process based on GitHub Releases and GitHub Actions.
+### Changed
+* Next image releases will contain newer [OCI Annotations](https://github.com/opencontainers/image-spec/blob/master/annotations.md)
+
 ## 2020-06-01
 ### New CI Images:
 * `aswf/ci-common:2.0`: A base CentOS-7 image with devtoolset-9.1 (GCC-9.3.1), clang-10.0 and cuda.
