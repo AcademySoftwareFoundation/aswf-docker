@@ -8,7 +8,7 @@ on:
       types: [opened, synchronize, reopened]
 
 jobs:
-  release:
+  sonar:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,12 +37,22 @@ jobs:
     - run: pipenv run prospector -F python/aswfdocker --output-format xunit > test-prospector-results.xml
       name: Run prospector linter
 
-    # black in "check" mode which will fail the job if any file is not already formatted
-    - run: pipenv run black python --check
-      name: Run black checker
+    - run: git fetch --unshallow
+      name: Fetch unshallow to help sonar
 
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - run: |
+        export SONAR_SCANNER_VERSION=4.2.0.1873
+        export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+        curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+        unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+        export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+        export SONAR_SCANNER_OPTS="-server"
+        sonar-scanner \
+          -Dsonar.organization=academysoftwarefoundation \
+          -Dsonar.projectKey=AcademySoftwareFoundation_aswf_docker \
+          -Dsonar.sources=. \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.projectDate=`git log $tag -n 1 --date=short --pretty="%ad"` \
+          -Dsonar.projectVersion=`pipenv run python setup.py --version`
+      name: Install and Run Sonar Scanner
