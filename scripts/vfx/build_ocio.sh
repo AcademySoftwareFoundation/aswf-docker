@@ -19,7 +19,7 @@ cmake \
     -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
     -DOCIO_BUILD_STATIC=OFF \
     -DOCIO_BUILD_TRUELIGHT=OFF \
-    -DOCIO_BUILD_APPS=OFF \
+    -DOCIO_BUILD_APPS=ON \
     -DOCIO_BUILD_NUKE=OFF \
     -DCMAKE_CXX_FLAGS="-Wno-error=unused-function -Wno-error=deprecated-declarations"\
     ..

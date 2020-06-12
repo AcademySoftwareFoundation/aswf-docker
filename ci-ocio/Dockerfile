@@ -36,7 +36,7 @@ LABEL org.label-schema.vendor="AcademySoftwareFoundation"
 LABEL org.label-schema.version=$VFXPLATFORM_VERSION
 LABEL org.label-schema.docker.cmd="docker run -v `pwd`:/tmp/project -it $ASWF_ORG/base-ocio bash"
 
-ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH} \
+ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:/usr/local/lib64/python{PYTHON_VERSION}/site-packages:${PYTHONPATH} \
     VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION \
     ASWF_VERSION=${ASWF_VERSION} \
     ASWF_ORG=${ASWF_ORG}
