@@ -3,7 +3,6 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AcademySoftwareFoundation_aswf_docker&metric=coverage)](https://sonarcloud.io/dashboard?id=AcademySoftwareFoundation_aswf_docker) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=AcademySoftwareFoundation_aswf_docker&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AcademySoftwareFoundation_aswf_docker)
 [![Test Build Docker Images](https://github.com/AcademySoftwareFoundation/aswf-docker/workflows/Test%20Build%20Docker%20Images/badge.svg)](https://github.com/AcademySoftwareFoundation/aswf-docker/actions?query=workflow%3A%22Test+Build+Docker+Images%22) [![Test Python aswfdocker Library](https://github.com/AcademySoftwareFoundation/aswf-docker/workflows/Test%20Python%20aswfdocker%20Library/badge.svg)](https://github.com/AcademySoftwareFoundation/aswf-docker/actions?query=workflow%3A%22Test+Python+aswfdocker+Library%22)
 
-
 More information:
 * [VFXPlatform](https://vfxplatform.com)
 * [ASWF](https://aswf.io)
@@ -15,16 +14,17 @@ Changes are documented [here](CHANGELOG.md)
 These images are for Continuous Integration testing of various project managed by the ASWF.
 Each image (apart from `ci-common`) is available for multiple VFX Platform Years.
 
-* `aswf/ci-common:1`: A base CentOS-7 image with devtoolset-6 (GCC-6.3.1), clang-7 and cuda.
-* `aswf/ci-common:2`: A base CentOS-7 image with devtoolset-9.1 (GCC-9.3.1), clang-10 and cuda.
-* `aswf/ci-base:20XX`: Based on `aswf/ci-common` with most most VFX Platform requirements pre-installed.
-* `aswf/ci-openexr:20XX`: Based on `aswf/ci-common`, comes with all OpenEXR upstream dependencies pre-installed.
-* `aswf/ci-ocio:20XX`: Based on `aswf/ci-common`, comes with all OpenColorIO upstream dependencies pre-installed.
-* `aswf/ci-opencue:20XX`: Based on `aswf/ci-common`, comes with all OpenCue upstream dependencies pre-installed.
-* `aswf/ci-openvdb:20XX`: Based on `aswf/ci-common`, comes with all OpenVDB upstream dependencies pre-installed.
-* `aswf/ci-usd:20XX`: Based on `aswf/ci-common`, comes with all USD upstream dependencies pre-installed.
-* `aswf/ci-osl:20XX`: Based on `aswf/ci-common`, comes with all OpenShadingLanguage upstream dependencies pre-installed.
-* `aswf/ci-vfxall:20XX`: Based on `aswf/ci-common`, comes with most VFX packages pre-installed.
+* `aswf/ci-common:1`: A base CentOS-7 image with devtoolset-6 (GCC-6.3.1), clang-7 and cuda. ![Docker Pulls](https://img.shields.io/docker/pulls/aswf/ci-common)
+* `aswf/ci-common:2`: A base CentOS-7 image with devtoolset-9.1 (GCC-9.3.1), clang-10 and cuda. ![Docker Pulls](https://img.shields.io/docker/pulls/aswf/ci-common)
+* `aswf/ci-base:20XX`: Based on `aswf/ci-common` with most most VFX Platform requirements pre-installed. ![Docker Pulls](https://img.shields.io/docker/pulls/aswf/ci-base)
+* `aswf/ci-openexr:20XX`: Based on `aswf/ci-common`, comes with all OpenEXR upstream dependencies pre-installed. ![Docker Pulls](https://img.shields.io/docker/pulls/aswf/ci-openexr)
+* `aswf/ci-ocio:20XX`: Based on `aswf/ci-common`, comes with all OpenColorIO upstream dependencies pre-installed. ![Docker Pulls](https://img.shields.io/docker/pulls/aswf/ci-ocio)
+* `aswf/ci-opencue:20XX`: Based on `aswf/ci-common`, comes with all OpenCue upstream dependencies pre-installed. ![Docker Pulls](https://img.shields.io/docker/pulls/aswf/ci-opencue)
+* `aswf/ci-openvdb:20XX`: Based on `aswf/ci-common`, comes with all OpenVDB upstream dependencies pre-installed. ![Docker Pulls](https://img.shields.io/docker/pulls/aswf/ci-openvdb)
+* `aswf/ci-usd:20XX`: Based on `aswf/ci-common`, comes with all USD upstream dependencies pre-installed. ![Docker Pulls](https://img.shields.io/docker/pulls/aswf/ci-usd)
+* `aswf/ci-osl:20XX`: Based on `aswf/ci-common`, comes with all OpenShadingLanguage upstream dependencies pre-installed. ![Docker Pulls](https://img.shields.io/docker/pulls/aswf/ci-osl)
+* `aswf/ci-vfxall:20XX`: Based on `aswf/ci-common`, comes with most VFX packages pre-installed. ![Docker Pulls](https://img.shields.io/docker/pulls/aswf/ci-vfxall)
+
 
 ### Versions
 
