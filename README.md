@@ -106,6 +106,8 @@ To build a single package, e.g. USD:
 aswfdocker packages
 # Then run the build
 aswfdocker --verbose build -t PACKAGE --group vfx --version 2019 --target usd
+# Or the simpler but less flexible syntax:
+aswfdocker build -n aswftesting/ci-package-usd:2019
 ```
 
 ### Images
@@ -123,4 +125,6 @@ To build a single image:
 aswfdocker images
 # Then run the build
 aswfdocker --verbose build -t IMAGE --group vfx1 --version 2019 --target openexr
+# Or the simpler but less flexible syntax:
+aswfdocker build -n aswftesting/ci-openexr:2019
 ```
