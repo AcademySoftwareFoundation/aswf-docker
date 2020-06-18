@@ -24,7 +24,6 @@ yum install --setopt=tsflags=nodocs -y \
     frei0r-devel \
     gdbm-devel \
     giflib-devel \
-    git \
     glib2-devel \
     glut-devel \
     glx-utils \
@@ -128,6 +127,7 @@ yum install -y epel-release
 
 # Additional package that are not found initially
 yum install -y \
+    rh-git218 \
     lame-devel \
     libcaca-devel \
     libdb4-devel \
