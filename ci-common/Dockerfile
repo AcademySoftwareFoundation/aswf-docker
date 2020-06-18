@@ -61,3 +61,7 @@ RUN export DOWNLOADS_DIR=/tmp/downloads && \
 
 COPY scripts/common/setup_aswfuser.sh /tmp
 RUN /tmp/setup_aswfuser.sh
+
+# Make Git 2.x the default version.
+RUN echo "source scl_source enable rh-git218" > /etc/profile.d/git-scl.sh
+
