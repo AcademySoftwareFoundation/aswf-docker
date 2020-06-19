@@ -21,3 +21,10 @@ if [[ $ninja_v != 1.* ]]
 then
     exit 1
 fi
+
+git_v=`git --version`
+if [[ $git_v != 2.* ]]
+then
+    exit 1
+fi
+
