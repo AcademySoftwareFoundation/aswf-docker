@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## 2020-06-20
 ### Changed
 * `ci:common`:
-  * Updated all images to new git version 2.18
+  * Updated all images to new git version 2.18: [#59](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/59) by @bcipriano.
 ### New CI Images:
 * `aswf/ci-common:1.5`, `aswf/ci-common:2.1`
 * `aswf/ci-base:2018.5`, `aswf/ci-base:2019.5`, `aswf/ci-base:2020.5`, `aswf/ci-base:2021.1`
