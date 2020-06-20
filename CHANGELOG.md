@@ -1,6 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-06-20
+### Changed
+* `ci:common`:
+  * Updated all images to new git version 2.18
+### New CI Images:
+* `aswf/ci-common:1.5`, `aswf/ci-common:2.1`
+* `aswf/ci-base:2018.5`, `aswf/ci-base:2019.5`, `aswf/ci-base:2020.5`, `aswf/ci-base:2021.1`
+* `aswf/ci-openexr:2018.5`, `aswf/ci-openexr:2019.5`, `aswf/ci-openexr:2020.5`, `aswf/ci-openexr:2021.1`
+* `aswf/ci-openvdb:2018.5`, `aswf/ci-openvdb:2019.5`, `aswf/ci-openvdb:2020.5`, `aswf/ci-openvdb:2021.1`
+* `aswf/ci-ocio:2018.6`, `aswf/ci-ocio:2019.6`, `aswf/ci-ocio:2020.5`, `aswf/ci-ocio:2021.1`
+* `aswf/ci-opencue:2018.5`, `aswf/ci-opencue:2019.5`, `aswf/ci-opencue:2020.5`, `aswf/ci-opencue:2021.1`
+* `aswf/ci-usd:2019.6`, `aswf/ci-usd:2020.5`, `aswf/ci-usd:2021.1`
+* `aswf/ci-osl:2018.1`, `aswf/ci-osl:2019.1`, `aswf/ci-osl:2020.1`, `aswf/ci-osl:2021.1`
+* `aswf/ci-vfxall:2019.8`, `aswf/ci-vfxall:2020.6`, `aswf/ci-vfxall:2021.1`
+
+
 ## 2020-06-10
 ### Added
 * New `aswfdocker` version 0.2 with new `aswfdocker release` command line utility to create GitHub releases in batch.
