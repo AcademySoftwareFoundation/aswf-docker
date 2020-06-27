@@ -135,23 +135,3 @@ yum install -y \
     p7zip \
     yasm-devel \
     zvbi-devel
-
-if [[ $DTS_VERSION == 9 ]]; then
-    gcc_v=`/opt/rh/devtoolset-9/root/usr/bin/gcc --version`
-    if [[ $gcc_v == gcc\ \(GCC\)\ 9.1* ]]; then
-        # Use these temp yum packages to update to GCC-9.3.1
-        # @TODO remove when new sclo for devtoolset-9.1 is ready
-        yum install -y --setopt=tsflags=nodocs \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-gcc-9.3.1-2.el7.x86_64.rpm \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-gcc-c++-9.3.1-2.el7.x86_64.rpm \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-gcc-gdb-plugin-9.3.1-2.el7.x86_64.rpm \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-gcc-gfortran-9.3.1-2.el7.x86_64.rpm \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-gcc-plugin-devel-9.3.1-2.el7.x86_64.rpm \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-libgccjit-9.3.1-2.el7.x86_64.rpm \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-libgccjit-devel-9.3.1-2.el7.x86_64.rpm \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-libgccjit-docs-9.3.1-2.el7.x86_64.rpm \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-libitm-devel-9.3.1-2.el7.x86_64.rpm \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-libquadmath-devel-9.3.1-2.el7.x86_64.rpm \
-            https://cbs.centos.org/kojifiles/packages/devtoolset-9-gcc/9.3.1/2.el7/x86_64/devtoolset-9-libstdc++-devel-9.3.1-2.el7.x86_64.rpm
-    fi
-fi
