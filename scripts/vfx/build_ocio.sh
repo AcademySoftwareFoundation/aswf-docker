@@ -4,7 +4,7 @@
 
 set -ex
 
-mkdir ocio
+mkdir -p ocio
 cd ocio
 
 
@@ -20,13 +20,13 @@ if [[ $DTS_VERSION == 9 && $OCIO_VERSION == 1.* ]]; then
     sed -i 's/-Werror//g' src/pyglue/CMakeLists.txt
 fi
 
-mkdir build
+mkdir -p build
 cd build
 cmake \
     -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
     -DOCIO_BUILD_STATIC=OFF \
     -DOCIO_BUILD_TRUELIGHT=OFF \
-    -DOCIO_BUILD_APPS=ON \
+    -DOCIO_BUILD_APPS=${OCIO_BUILD_APPS} \
     -DOCIO_BUILD_NUKE=OFF \
     -DCMAKE_CXX_FLAGS="-Wno-error=unused-function -Wno-error=deprecated-declarations"\
     ..
@@ -39,9 +39,9 @@ curl --location https://github.com/imageworks/OpenColorIO-Configs/archive/v${OCI
 tar -zxf ocio-configs.tar.gz
 cd OpenColorIO-Configs-${OCIO_CONFIGS_VERSION}
 
-mkdir ${ASWF_INSTALL_PREFIX}/openColorIO
-cp nuke-default/config.ocio ${ASWF_INSTALL_PREFIX}/openColorIO/
-cp -r nuke-default/luts ${ASWF_INSTALL_PREFIX}/openColorIO/
+mkdir -p ${ASWF_INSTALL_PREFIX}/openColorIO
+cp aces/config.ocio ${ASWF_INSTALL_PREFIX}/openColorIO/
+cp -r aces/luts ${ASWF_INSTALL_PREFIX}/openColorIO/
 
 cd ../..
 rm -rf ocio
