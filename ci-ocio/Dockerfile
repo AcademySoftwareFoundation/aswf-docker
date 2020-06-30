@@ -12,6 +12,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
 FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
 
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
+FROM ${ASWF_PKG_ORG}/ci-package-ocio:${VFXPLATFORM_VERSION} as ci-package-ocio
 FROM ${ASWF_PKG_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION} as ci-package-oiio
 
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-ocio
@@ -30,8 +31,9 @@ LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundat
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.version=$VFXPLATFORM_VERSION
 
-ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:/usr/local/lib64/python{PYTHON_VERSION}/site-packages:${PYTHONPATH} \
+ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:/usr/local/lib64/python${PYTHON_VERSION}/site-packages:${PYTHONPATH} \
     VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION \
+    LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64 \
     ASWF_VERSION=${ASWF_VERSION} \
     ASWF_ORG=${ASWF_ORG}
 
@@ -46,6 +48,7 @@ COPY --from=ci-package-tbb /. /usr/local/
 COPY --from=ci-package-boost /. /usr/local/
 COPY --from=ci-package-glew /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
+COPY --from=ci-package-ocio /. /usr/local
 COPY --from=ci-package-oiio /. /usr/local/
 
 RUN export DOWNLOADS_DIR=/tmp/downloads && \
