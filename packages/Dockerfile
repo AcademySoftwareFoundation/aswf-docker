@@ -428,8 +428,25 @@ FROM scratch as ci-package-partio
 COPY --from=ci-partio-builder /package/. /
 
 
+#################### ci-ocio-builder ####################
+FROM ci-openexr-builder as ci-ocio-builder
+
+COPY ../scripts/vfx/build_ocio.sh \
+     /tmp/
+
+ARG OCIO_BUILD_APPS=OFF
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,sharing=private,target=/tmp/downloads \
+    source /tmp/versions_vfx.sh && \
+    /tmp/before_build.sh && \
+    /tmp/build_ocio.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
 #################### ci-oiio-builder ####################
-FROM ci-openexr-builder as ci-oiio-builder
+FROM ci-ocio-builder as ci-oiio-builder
 
 COPY ../scripts/vfx/build_oiio.sh \
      /tmp/
@@ -444,7 +461,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-oiio ####################
-# This build target is used to generate a packages of oiio that 
+# This build target is used to generate a packages of ocio that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-oiio
@@ -452,11 +469,13 @@ FROM scratch as ci-package-oiio
 COPY --from=ci-oiio-builder /package/. /
 
 
-#################### ci-ocio-builder ####################
-FROM ci-oiio-builder as ci-ocio-builder
+#################### ci-ocio-apps-builder ####################
+FROM ci-oiio-builder as ci-ocio-apps-builder
 
 COPY ../scripts/vfx/build_ocio.sh \
      /tmp/
+
+ARG OCIO_BUILD_APPS=ON
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -467,37 +486,14 @@ RUN --mount=type=cache,target=/tmp/ccache \
     ccache --show-stats
 
 
-#################### ci-package-ocio ####################
+#################### ci-package-ocio-apps ####################
 # This build target is used to generate a packages of ocio that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-ocio
 
 COPY --from=ci-ocio-builder /package/. /
-
-
-#################### ci-oiio-util-builder ####################
-FROM ci-ocio-builder as ci-oiio-util-builder
-
-COPY ../scripts/vfx/build_oiio_util.sh \
-     /tmp/
-
-RUN --mount=type=cache,target=/tmp/ccache \
-    --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
-    /tmp/before_build.sh && \
-    /tmp/build_oiio_util.sh && \
-    /tmp/copy_new_files.sh && \
-    ccache --show-stats
-
-
-#################### ci-package-oiio ####################
-# This build target is used to generate a packages of oiio that
-# can be placed in a downloadable artifact
-
-FROM scratch as ci-package-oiio
-
-COPY --from=ci-oiio-util-builder /package/. /
+COPY --from=ci-ocio-apps-builder /package/. /
 
 
 #################### ci-osl-builder ####################
