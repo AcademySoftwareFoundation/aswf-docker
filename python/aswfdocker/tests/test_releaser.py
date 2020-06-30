@@ -7,6 +7,8 @@ from unittest import mock
 import logging
 import tempfile
 
+from github import InputGitAuthor
+
 from click.testing import CliRunner
 
 from aswfdocker import releaser, aswfinfo, index, constants, groupinfo, utils
@@ -37,8 +39,8 @@ class TestReleaser(unittest.TestCase):
         boost_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "boost")
         )[1]
-        r.gh.repo.create_git_tag_and_release.assert_called_with(
-            f"aswflocaltesting/ci-package-boost/{boost_version}",
+        r.gh.repo.create_git_tag_and_release.assert_called_once_with(
+            tag=f"aswflocaltesting/ci-package-boost/{boost_version}",
             draft=False,
             object=utils.get_current_sha(),
             prerelease=False,
@@ -46,6 +48,7 @@ class TestReleaser(unittest.TestCase):
             release_name=f"aswflocaltesting/ci-package-boost:{boost_version}",
             tag_message=f"aswflocaltesting/ci-package-boost:{boost_version}",
             type="commit",
+            tagger=mock.ANY,
         )
 
 

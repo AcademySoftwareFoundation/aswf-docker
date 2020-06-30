@@ -298,6 +298,15 @@ def settings(settings_path, github_access_token):
     default=constants.MAIN_GITHUB_ASWF_ORG,
     help=f"The GitHub organisation/username to create the release on, defaults to {constants.MAIN_GITHUB_ASWF_ORG}.",
 )
+@click.option(
+    "--docker-org",
+    "-do",
+    default=constants.TESTING_DOCKER_ORG,
+    help=f"The Docker organisation/username to upload the docker image to, defaults to {constants.TESTING_DOCKER_ORG}.",
+)
+@click.option(
+    "--message", "-m", help="The release message.",
+)
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
 @pass_build_info
 def release(
@@ -309,6 +318,8 @@ def release(
     target,
     sha,
     github_org,
+    docker_org,
+    message,
     dry_run,
 ):
     """Creates a GitHub release for a ci-package or ci-image docker image.
@@ -327,13 +338,19 @@ def release(
             )
             sys.exit(1)
         sha = utils.get_current_sha()
+    if docker_org:
+        build_info.docker_org = docker_org
 
     group_info = get_group_info(
         build_info, ci_image_type, group, version, full_name, target
     )
 
     r = releaser.Releaser(
-        github_org=github_org, build_info=build_info, group_info=group_info, sha=sha
+        github_org=github_org,
+        build_info=build_info,
+        group_info=group_info,
+        message=message,
+        sha=sha,
     )
     r.gather()
     if not click.confirm(
