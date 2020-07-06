@@ -12,7 +12,6 @@ FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
 FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
 
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
-FROM ${ASWF_PKG_ORG}/ci-package-ocio:${VFXPLATFORM_VERSION} as ci-package-ocio
 FROM ${ASWF_PKG_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION} as ci-package-oiio
 
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-ocio
@@ -48,7 +47,6 @@ COPY --from=ci-package-tbb /. /usr/local/
 COPY --from=ci-package-boost /. /usr/local/
 COPY --from=ci-package-glew /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
-COPY --from=ci-package-ocio /. /usr/local
 COPY --from=ci-package-oiio /. /usr/local/
 
 RUN export DOWNLOADS_DIR=/tmp/downloads && \
