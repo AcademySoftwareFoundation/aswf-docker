@@ -325,7 +325,7 @@ aswfdocker release -n aswftesting/ci-base:2021
 ```
 or for a whole group of images:
 ```bash
-aswfdocker release -t PACKAGE -g base1 -v 2018
+aswfdocker release -t PACKAGE -g base1 -v 2018 --docker-org aswftesting -m "Testing release"
 ```
 
 ### Adding a new `ci` image
