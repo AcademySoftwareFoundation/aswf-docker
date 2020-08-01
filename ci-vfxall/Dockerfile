@@ -26,6 +26,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-openvdb:${VFXPLATFORM_VERSION} as ci-package-ope
 FROM ${ASWF_PKG_ORG}/ci-package-usd:${VFXPLATFORM_VERSION} as ci-package-usd
 FROM ${ASWF_PKG_ORG}/ci-package-partio:${VFXPLATFORM_VERSION} as ci-package-partio
 FROM ${ASWF_PKG_ORG}/ci-package-osl:${VFXPLATFORM_VERSION} as ci-package-osl
+FROM ${ASWF_PKG_ORG}/ci-package-otio:${VFXPLATFORM_VERSION} as ci-package-otio
 
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-vfxall
 
@@ -76,6 +77,7 @@ COPY --from=ci-package-openvdb /. /usr/local/
 COPY --from=ci-package-usd /. /usr/local/
 COPY --from=ci-package-partio /. /usr/local/
 COPY --from=ci-package-osl /. /usr/local/
+COPY --from=ci-package-otio /. /usr/local/
 
 
 RUN export DOWNLOADS_DIR=/tmp/downloads && \
