@@ -34,6 +34,13 @@ class TestReleaser(unittest.TestCase):
             sha=utils.get_current_sha(),
         )
         r.gh.repo.create_git_tag_and_release = mock.MagicMock()
+
+        class u:
+            name = "testuser"
+            email = "testuser@test.user"
+
+        r.gh.github.get_user = mock.MagicMock(return_value=u())
+
         r.gather()
         r.release(dry_run=False)
         boost_version = list(
