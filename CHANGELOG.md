@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-08-01
+
+### Added
+* New `ci:otio` docker image
+* Added OpenTimelineIO 0.12 to `ci-vfxall`
+
+### New CI Images:
+* `ci-otio:2019.0`, `ci-otio:2020.0`, `ci-otio:2021.0`
+* `ci-vfxall:2019.9`, `ci-vfxall:2020.7`, `ci-vfxall:2021.2`
+
 ## 2020-06-20
 ### Changed
 * `ci:common`:

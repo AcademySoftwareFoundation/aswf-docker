@@ -649,3 +649,32 @@ FROM scratch as ci-package-usd
 COPY --from=ci-usd-builder /package/. /
 
 
+
+#################### ci-otio-builder ####################
+FROM ci-python-builder as ci-otio-builder
+
+COPY --from=ci-package-clang-external /. /usr/local/
+COPY --from=ci-package-qt-external /. /usr/local/
+COPY --from=ci-package-pyside-external /. /usr/local/
+
+COPY ../scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
+     ../scripts/vfx/build_otio.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,sharing=private,target=/tmp/downloads \
+    source /tmp/versions_vfx.sh && \
+    /tmp/before_build.sh && \
+    /tmp/build_otio.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
+#################### ci-package-otio ####################
+# This build target is used to generate a package of otio that 
+# can be placed in a downloadable artifact
+
+FROM scratch as ci-package-otio
+
+COPY --from=ci-otio-builder /package/. /
+
