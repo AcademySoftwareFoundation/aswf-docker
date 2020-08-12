@@ -490,7 +490,7 @@ groups:
         - partio
         - ptex
         - usd
-  image:
+  ci-image:
       common:
         - common
       base:

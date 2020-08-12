@@ -73,6 +73,16 @@ jobs:
             type: CI_IMAGE
             name: vfxall
             common_version: 2-clang10
+          - group: img-usd-2021
+            type: CI_IMAGE
+            name: usd
+            common_version: 2
+            version: 2021
+            test: ""
+          - group: img-vfxall-2021
+            type: CI_IMAGE
+            name: vfxall
+            common_version: 2
             version: 2021
             test: ""
 
