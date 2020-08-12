@@ -116,7 +116,7 @@ but it is recommended to speed up large builds.
 
 To build all images (very unlikely to succeed unless run on a very very powerful machine!):
 ```bash
-aswfdocker --verbose build -t IMAGE
+aswfdocker --verbose build -t CI_IMAGE
 ```
 
 To build a single image:
@@ -124,7 +124,7 @@ To build a single image:
 # First list the available CI images to know which package belong to which "group":
 aswfdocker images
 # Then run the build
-aswfdocker --verbose build -t IMAGE --group vfx1 --version 2019 --target openexr
+aswfdocker --verbose build -t CI_IMAGE --group vfx1 --version 2019 --target openexr
 # Or the simpler but less flexible syntax:
 aswfdocker build -n aswftesting/ci-openexr:2019
 ```

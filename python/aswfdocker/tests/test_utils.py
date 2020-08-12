@@ -71,7 +71,11 @@ class TestUtils(unittest.TestCase):
             utils.get_image_spec("aswf/ci-package-openexr_2018")
         self.assertEqual(
             utils.get_image_spec("aswftesting/ci-common:1"),
-            ("aswftesting", constants.ImageType.IMAGE, "common", "1"),
+            ("aswftesting", constants.ImageType.CI_IMAGE, "common", "1"),
+        )
+        self.assertEqual(
+            utils.get_image_spec("aswftesting/rt-base:2019"),
+            ("aswftesting", constants.ImageType.RT_IMAGE, "base", "2019"),
         )
         self.assertEqual(
             utils.get_image_spec("aswf/ci-package-openexr:2018"),
@@ -164,7 +168,7 @@ class TestUtilsCli(unittest.TestCase):
         imgs = result.output.split("\n")
         self.assertGreater(len(imgs), 15)
         common_version = list(
-            index.Index().iter_versions(constants.ImageType.IMAGE, "common")
+            index.Index().iter_versions(constants.ImageType.CI_IMAGE, "common")
         )[0]
         self.assertEqual(
             imgs[0], f"common/ci-common:{common_version}",

@@ -257,15 +257,14 @@ def packages():
 
 @cli.command()
 def images():
-    """Lists all known ci images in this format: IMAGEGROUP/ci-IMAGE:VERSION
+    """Lists all known ci images in this format: IMAGEGROUP/ci-CI_IMAGE:VERSION
     """
-    for group, images in constants.GROUPS[constants.ImageType.IMAGE].items():
-        for image in images:
-            image_name = utils.get_image_name(constants.ImageType.IMAGE, image)
-            for version in index.Index().iter_versions(
-                constants.ImageType.IMAGE, image
-            ):
-                click.echo(f"{group}/{image_name}:{version}")
+    for image_type in (constants.ImageType.CI_IMAGE, constants.ImageType.RT_IMAGE):
+        for group, images in constants.GROUPS[image_type].items():
+            for image in images:
+                image_name = utils.get_image_name(image_type, image)
+                for version in index.Index().iter_versions(image_type, image):
+                    click.echo(f"{group}/{image_name}:{version}")
 
 
 @cli.command()

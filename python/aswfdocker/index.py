@@ -24,7 +24,9 @@ class Index:
     def _get_key(self, image_type: constants.ImageType):
         if image_type == constants.ImageType.PACKAGE:
             return "ci-packages"
-        return "ci-images"
+        if image_type == constants.ImageType.CI_IMAGE:
+            return "ci-images"
+        return "rt-images"
 
     def iter_images(self, image_type: constants.ImageType):
         """

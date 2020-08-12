@@ -82,7 +82,9 @@ def download_package(repo_root: str, docker_org: str, package: str, version: str
 def get_image_name(image_type: constants.ImageType, image: str):
     if image_type == constants.ImageType.PACKAGE:
         return f"ci-package-{image}"
-    return f"ci-{image}"
+    if image_type == constants.ImageType.CI_IMAGE:
+        return f"ci-{image}"
+    return f"rt-{image}"
 
 
 IMAGE_NAME_REGEXC = re.compile(constants.IMAGE_NAME_REGEX)
@@ -97,8 +99,14 @@ def get_image_spec(name: str):
     org = m.group("org")
     if m.group("package"):
         image_type = constants.ImageType.PACKAGE
+    elif m.group("ci"):
+        image_type = constants.ImageType.CI_IMAGE
+    elif m.group("rt"):
+        image_type = constants.ImageType.RT_IMAGE
     else:
-        image_type = constants.ImageType.IMAGE
+        raise RuntimeError(
+            f"Image name does not conform to expected format (missing image type): {constants.IMAGE_NAME_REGEX}"
+        )
     image = m.group("image")
     version = m.group("version")
     logger.debug("get_image_spec found %s: %s/%s:%s", image_type, org, image, version)

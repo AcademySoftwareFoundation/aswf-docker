@@ -22,9 +22,14 @@ class TestIndex(unittest.TestCase):
         self.assertEqual(packages[0], "clang")
 
     def test_get_versions(self):
-        images = list(self.index.iter_images(constants.ImageType.IMAGE))
-        self.assertGreater(len(images), 1)
-        self.assertEqual(images[0], "common")
-        versions = list(self.index.iter_versions(constants.ImageType.IMAGE, images[0]))
+        ciimages = list(self.index.iter_images(constants.ImageType.CI_IMAGE))
+        self.assertGreater(len(ciimages), 1)
+        self.assertEqual(ciimages[0], "common")
+        rtimages = list(self.index.iter_images(constants.ImageType.RT_IMAGE))
+        self.assertGreater(len(rtimages), 1)
+        self.assertEqual(rtimages[0], "base")
+        versions = list(
+            self.index.iter_versions(constants.ImageType.CI_IMAGE, ciimages[0])
+        )
         self.assertGreaterEqual(len(versions), 1)
         self.assertTrue(versions[0].startswith("1."))

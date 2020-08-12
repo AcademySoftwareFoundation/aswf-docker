@@ -73,12 +73,12 @@ class TestBuilder(unittest.TestCase):
             groupinfo.GroupInfo(
                 names=["base"],
                 versions=["2019"],
-                type_=constants.ImageType.IMAGE,
+                type_=constants.ImageType.CI_IMAGE,
                 targets=[],
             ),
         )
         base_version = list(
-            index.Index().iter_versions(constants.ImageType.IMAGE, "base")
+            index.Index().iter_versions(constants.ImageType.CI_IMAGE, "base")
         )[1]
         self.assertEqual(
             b.make_bake_dict(),
@@ -118,12 +118,12 @@ class TestBuilder(unittest.TestCase):
             groupinfo.GroupInfo(
                 names=["base"],
                 versions=["2019", "2020"],
-                type_=constants.ImageType.IMAGE,
+                type_=constants.ImageType.CI_IMAGE,
                 targets=[],
             ),
         )
         base_versions = list(
-            index.Index().iter_versions(constants.ImageType.IMAGE, "base")
+            index.Index().iter_versions(constants.ImageType.CI_IMAGE, "base")
         )
         self.assertEqual(
             b.make_bake_dict(),
@@ -220,7 +220,7 @@ class TestBuilderCli(unittest.TestCase):
         self.assertFalse(result.exception)
         self.assertEqual(
             result.output,
-            f"INFO:aswfdocker.builder:Would build: 'docker buildx bake -f {tempfile.gettempdir()}/docker-bake-IMAGE-common-1.json --progress auto'\n",
+            f"INFO:aswfdocker.builder:Would build: 'docker buildx bake -f {tempfile.gettempdir()}/docker-bake-CI_IMAGE-common-1.json --progress auto'\n",
         )
         self.assertEqual(result.exit_code, 0)
 
