@@ -11,6 +11,8 @@ import logging
 import json
 import urllib.request
 import requests
+import json
+import urllib.request
 
 from aswfdocker import constants
 
@@ -164,11 +166,50 @@ def iter_all_images():
             for _, images in constants.GROUPS[image_type].items():
                 for image in images:
                     yield org, image_type, image
-=======
-=======
->>>>>>> Split package dockerfile alongside groups to speed builds
+
+
 def get_dockerhub_token(username, password):
     body = {"username": username, "password": password}
     response = requests.post("https://hub.docker.com/v2/users/login", json=body)
     return response.json()["token"]
->>>>>>> Added docker hub description upload
+
+
+def get_image_pull_count(docker_org, image):
+    url = f"https://hub.docker.com/v2/repositories/{docker_org}/{image}"
+    try:
+        d = json.loads(urllib.request.urlopen(url).read())
+        return d["pull_count"]
+    except urllib.error.HTTPError:
+        logger.debug("Failed to load data from URL %r", url)
+        return 0
+
+
+def get_image_sizes(docker_org, image):
+    sizes = {}
+    url = f"https://hub.docker.com/v2/repositories/{docker_org}/{image}/tags/"
+    try:
+        d = json.loads(urllib.request.urlopen(url).read())
+    except urllib.error.HTTPError:
+        logger.debug("Failed to load data from URL %r", url)
+        return sizes
+    digests = set()
+    for tag in d["results"]:
+        digest = tag["images"][0]["digest"]
+        if digest in digests:
+            continue
+        digests.add(digest)
+        sizes[tag["name"]] = tag["full_size"]
+    return sizes
+
+
+def iter_all_images():
+    for org in (constants.TESTING_DOCKER_ORG, constants.PUBLISH_DOCKER_ORG):
+        for image_type in (
+            constants.ImageType.PACKAGE,
+            constants.ImageType.CI_IMAGE,
+            constants.ImageType.RT_IMAGE,
+        ):
+            for _, images in constants.GROUPS[image_type].items():
+                for image in images:
+                    yield org, image_type, image
+>>>>>>> Added dockerstats command
