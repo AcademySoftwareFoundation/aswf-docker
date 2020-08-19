@@ -257,7 +257,7 @@ def packages():
 
 @cli.command()
 def images():
-    """Lists all known ci images in this format: IMAGEGROUP/ci-CI_IMAGE:VERSION
+    """Lists all known ci images in this format: IMAGEGROUP/IMAGE:VERSION
     """
     for image_type in (constants.ImageType.CI_IMAGE, constants.ImageType.RT_IMAGE):
         for group, images in constants.GROUPS[image_type].items():

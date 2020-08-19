@@ -32,11 +32,22 @@ ENV USER=${NB_USER} \
 
 COPY rt-vfxall-jupyter/jupyter_notebook_config.py /etc/jupyter/
 
+# Prepare xpra folder for new user
+RUN mkdir -p /run/user/${NB_UID}/xpra && \
+    mkdir -p /run/xpra && \
+    chown ${NB_USER}:${NB_USER} /run/user/${NB_UID}/xpra && \
+    chown ${NB_USER}:${NB_USER} /run/xpra && \
+    chown ${NB_USER}:${NB_USER} /etc/xpra/ssl-cert.pem
+
 USER ${NB_USER}
 
 RUN mkdir /home/${NB_USER}/work
 WORKDIR /home/${NB_USER}/work
 
+COPY rt-vfxall-jupyter/jupyter-entry-point.sh /usr/local/bin/
+
 EXPOSE 8888
 
-ENTRYPOINT [ "jupyter", "lab" ]
+ENV ASWF_XPRA_COMMAND=/usr/local/bin/jupyter-entry-point.sh
+
+#ENTRYPOINT [ "/usr/local/bin/xpra-entry-point.sh" ]

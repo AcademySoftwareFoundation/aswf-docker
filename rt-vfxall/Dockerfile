@@ -1,5 +1,6 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
+ARG CUDA_VERSION=10.2
 ARG ASWF_ORG=aswftesting
 ARG ASWF_PKG_ORG=aswftesting
 ARG VFXPLATFORM_VERSION=2019
@@ -27,7 +28,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-partio:${VFXPLATFORM_VERSION} as ci-package-part
 FROM ${ASWF_PKG_ORG}/ci-package-osl:${VFXPLATFORM_VERSION} as ci-package-osl
 FROM ${ASWF_PKG_ORG}/ci-package-otio:${VFXPLATFORM_VERSION} as ci-package-otio
 
-FROM ${ASWF_ORG}/rt-base:${VFXPLATFORM_VERSION} as builder
+FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as builder
 
 COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-tbb /. /usr/local/
