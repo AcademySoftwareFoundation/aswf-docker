@@ -1,6 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<<<<<<< HEAD
 ## 2020-10-21
 ### Added
 * Added `clang-11.0.0` package.
@@ -39,11 +40,24 @@ All notable changes to this project will be documented in this file.
 * `ci-otio:2019.1`, `ci-otio:2020.1`, `ci-otio:2021.1`
 * `ci-vfxall:2019-clang6.10`, `ci-vfxall:2019-clang7.10`, `ci-vfxall:2019-clang8.10`, `ci-vfxall:2019-clang9.10`, `ci-vfxall:2020-clang7.8`, `ci-vfxall:2021-clang10.3`
 
+=======
+## 2020-09
+
+### Changed
+* Updated `ci-common:2` to cuda-11
+
+### New CI Images
+* `aswf/ci-common:2021.2`
+* `aswf/ci-ocio:2021.2`
+* `aswf/ci-usd:2021.2`
+* `aswf/ci-osl:2021.2`
+* `aswf/ci-vfxall:2021.3`
+>>>>>>> Updated gl-dependent docker image versions
 
 ## 2020-08-01
 
 ### Added
-* New `ci:otio` docker image
+* New `ci-otio` docker image
 * Added OpenTimelineIO 0.12 to `ci-vfxall`
 
 ### New CI Images:
