@@ -22,6 +22,7 @@ class VersionInfo:
         dts_version: str,
         clang_major_version: str,
         use_major_version_as_tag=True,
+        cuda_version: str,
     ):
         self.version = version
         self.major_version = major_version
@@ -31,6 +32,7 @@ class VersionInfo:
         self.dts_version = dts_version
         self.clang_major_version = clang_major_version
         self.use_major_version_as_tag = use_major_version_as_tag
+        self.cuda_version = cuda_version
 
     def get_tags(
         self, aswf_version: str, docker_org: str, image_name: str
