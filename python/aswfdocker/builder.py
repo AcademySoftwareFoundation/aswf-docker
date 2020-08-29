@@ -54,6 +54,7 @@ class Builder:
                     "VFXPLATFORM_VERSION": version_info.major_version,
                     "DTS_VERSION": version_info.dts_version,
                     "CLANG_MAJOR_VERSION": version_info.clang_major_version,
+                    "CUDA_VERSION": version_info.cuda_version,
                 },
                 "labels": {
                     "org.opencontainers.image.created": self.build_info.build_date,
