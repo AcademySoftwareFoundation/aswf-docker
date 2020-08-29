@@ -52,6 +52,7 @@ class Index:
                 python_version=v.get("python_version"),
                 dts_version=v.get("dts_version"),
                 clang_major_version=v.get("clang_major_version"),
+                cuda_version=v.get("cuda_version"),
                 use_major_version_as_tag=v.get("use_major_version_as_tag", True),
             )
 

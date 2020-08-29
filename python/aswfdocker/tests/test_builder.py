@@ -143,6 +143,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_VERSION": openvdb_version,
                             "CI_COMMON_VERSION": "1",
                             "CLANG_MAJOR_VERSION": "9",
+                            "CUDA_VERSION": "10.2",
                             "DTS_VERSION": "6",
                             "PYTHON_VERSION": "2.7",
                             "VFXPLATFORM_VERSION": "2019",
