@@ -13,7 +13,7 @@ cd llvm-project-llvmorg-${CLANG_VERSION}/llvm
 
 mkdir build
 cd build
-cmake -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;compiler-rt;lld" \
+cmake -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;libcxx;libcxxabi;compiler-rt;lld" \
       -DCMAKE_BUILD_TYPE=Release \
       -G "Unix Makefiles" \
       -DGCC_INSTALL_PREFIX=/opt/rh/devtoolset-${DTS_VERSION}/root/usr \
