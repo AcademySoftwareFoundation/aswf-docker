@@ -106,7 +106,7 @@ yum install --setopt=tsflags=nodocs -y \
     xorg-x11-xkb-utils xorg-x11-xkb-utils-devel \
     xorg-x11-server-Xvfb \
     xz-devel \
-    zlib-devel                                                                                        
+    zlib-devel
 
 # This is needed for Xvfb to function properly.
 dbus-uuidgen > /etc/machine-id

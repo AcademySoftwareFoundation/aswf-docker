@@ -69,7 +69,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-clang ####################
-# This build target is used to generate a packages of clang that 
+# This build target is used to generate a packages of clang that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-clang
@@ -96,7 +96,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-ninja ####################
-# This build target is used to generate a packages of ninja that 
+# This build target is used to generate a packages of ninja that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-ninja
@@ -140,7 +140,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-boost ####################
-# This build target is used to generate a packages of boost that 
+# This build target is used to generate a packages of boost that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-python
@@ -167,7 +167,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-boost ####################
-# This build target is used to generate a packages of boost that 
+# This build target is used to generate a packages of boost that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-boost
@@ -191,7 +191,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-tbb ####################
-# This build target is used to generate a packages of tbb that 
+# This build target is used to generate a packages of tbb that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-tbb
@@ -215,7 +215,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-cppunit ####################
-# This build target is used to generate a packages of cppunit that 
+# This build target is used to generate a packages of cppunit that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-cppunit
@@ -239,7 +239,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-log4cplus ####################
-# This build target is used to generate a packages of log4cplus that 
+# This build target is used to generate a packages of log4cplus that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-log4cplus
@@ -263,7 +263,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-glew ####################
-# This build target is used to generate a packages of glew that 
+# This build target is used to generate a packages of glew that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-glew
@@ -288,7 +288,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-glfw ####################
-# This build target is used to generate a packages of glfw that 
+# This build target is used to generate a packages of glfw that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-glfw
@@ -312,7 +312,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-qt ####################
-# This build target is used to generate a packages of qt that 
+# This build target is used to generate a packages of qt that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-qt
@@ -341,7 +341,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-pyside ####################
-# This build target is used to generate a packages of pyside that 
+# This build target is used to generate a packages of pyside that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-pyside
@@ -370,7 +370,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-openexr ####################
-# This build target is used to generate a packages of openexr that 
+# This build target is used to generate a packages of openexr that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-openexr
@@ -395,7 +395,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-blosc ####################
-# This build target is used to generate a packages of blosc that 
+# This build target is used to generate a packages of blosc that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-blosc
@@ -420,7 +420,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-partio ####################
-# This build target is used to generate a packages of partio that 
+# This build target is used to generate a packages of partio that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-partio
@@ -444,7 +444,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-oiio ####################
-# This build target is used to generate a packages of oiio that 
+# This build target is used to generate a packages of oiio that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-oiio
@@ -468,7 +468,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-ocio ####################
-# This build target is used to generate a packages of ocio that 
+# This build target is used to generate a packages of ocio that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-ocio
@@ -496,7 +496,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-osl ####################
-# This build target is used to generate a packages of osl that 
+# This build target is used to generate a packages of osl that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-osl
@@ -520,7 +520,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-alembic ####################
-# This build target is used to generate a packages of alembic that 
+# This build target is used to generate a packages of alembic that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-alembic
@@ -545,7 +545,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-ptex ####################
-# This build target is used to generate a packages of ptex that 
+# This build target is used to generate a packages of ptex that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-ptex
@@ -575,7 +575,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-opensubdiv ####################
-# This build target is used to generate a packages of opensubdiv that 
+# This build target is used to generate a packages of opensubdiv that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-opensubdiv
@@ -607,7 +607,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-openvdb ####################
-# This build target is used to generate a packages of openvdb that 
+# This build target is used to generate a packages of openvdb that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-openvdb
@@ -641,7 +641,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-usd ####################
-# This build target is used to generate a packages of usd that 
+# This build target is used to generate a packages of usd that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-usd
@@ -671,7 +671,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-otio ####################
-# This build target is used to generate a package of otio that 
+# This build target is used to generate a package of otio that
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-otio
