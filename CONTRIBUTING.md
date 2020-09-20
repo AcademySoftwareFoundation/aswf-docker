@@ -94,7 +94,7 @@ Documentation](https://git-scm.com/doc).
 
 ### Docker Basics
 
-You will also need to understand how Docker images are built and how 
+You will also need to understand how Docker images are built and how
 to test them. The `aswfdocker` Python utility wraps many of the complexities
 of the Docker build process and must be installed locally before starting.
 Please read the Python [README.md](python/README.md) file for further instructions.
@@ -156,7 +156,7 @@ aswf-docker-dev@lists.aswf.io mail list.
 
 Contributions should be submitted as Github pull requests. See
 [Creating a pull request](https://help.github.com/articles/creating-a-pull-request/)
-if you're unfamiliar with this concept. 
+if you're unfamiliar with this concept.
 
 The development cycle for a code change should follow this protocol:
 
@@ -248,7 +248,7 @@ tests can be run manually by running `pre-commit run --all-files`.
 
 #### Formatting
 
-[Black](https://black.readthedocs.io/en/stable/) is the automatic formatter of choice 
+[Black](https://black.readthedocs.io/en/stable/) is the automatic formatter of choice
 for aswf-docker and is required to be run before any commit.
 
 #### Naming Conventions

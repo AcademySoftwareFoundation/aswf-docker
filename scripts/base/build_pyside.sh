@@ -37,7 +37,7 @@ else
 
     export LLVM_INSTALL_DIR=${ASWF_INSTALL_PREFIX}
     export CLANG_INSTALL_DIR=${ASWF_INSTALL_PREFIX}
-    
+
     cd pyside
 
     if [[ $PYSIDE_VERSION == 5.12.6 ]]; then

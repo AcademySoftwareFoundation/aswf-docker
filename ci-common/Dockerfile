@@ -15,7 +15,6 @@ ARG ASWF_ORG
 ARG CI_COMMON_VERSION
 ARG DTS_VERSION
 
-
 LABEL maintainer="aloys.baillet@gmail.com"
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/base-ci"
