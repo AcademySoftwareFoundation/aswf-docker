@@ -10,6 +10,12 @@ then
     exit 1
 fi
 
+clang_tidy_v=`clang-tidy --version`
+if [[ $clang_tidy_v != *LLVM\ version\ 7.0* ]]
+then
+    exit 1
+fi
+
 gcc_v=`gcc --version`
 if [[ $gcc_v != gcc\ \(GCC\)\ 6.3* ]]
 then
