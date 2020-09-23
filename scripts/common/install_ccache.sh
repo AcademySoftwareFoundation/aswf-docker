@@ -29,7 +29,7 @@ ln -s /usr/local/bin/ccache /usr/local/bin/_ccache/clang
 # Create activate_ccache.sh script
 cat <<EOF > /usr/local/bin/activate_ccache.sh
 #!/usr/bin/env bash
-PATH=/usr/local/bin/_ccache:$PATH
+export PATH=/usr/local/bin/_ccache:$PATH
 if [ -z "$CCACHE_DIR"]
 then
     export CCACHE_DIR=/tmp/ccache
