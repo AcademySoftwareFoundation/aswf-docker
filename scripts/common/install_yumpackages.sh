@@ -121,7 +121,7 @@ if [[ $DTS_VERSION == 6 ]]; then
 fi
 
 yum install -y --setopt=tsflags=nodocs \
-    devtoolset-$DTS_VERSION-toolchain
+    "devtoolset-$DTS_VERSION-toolchain"
 
 yum install -y epel-release
 
