@@ -4,7 +4,7 @@
 
 set -ex
 
-pypath=`which python`
+pypath=$(which python)
 if [[ $pypath != /usr/local/bin/python ]]
 then
     echo "Wrong python location: $pypath"

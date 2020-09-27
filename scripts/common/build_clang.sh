@@ -4,21 +4,21 @@
 
 set -ex
 
-if [ ! -f $DOWNLOADS_DIR/llvmorg-${CLANG_VERSION}.tar.gz ]; then
-    curl --location https://github.com/llvm/llvm-project/archive/llvmorg-${CLANG_VERSION}.tar.gz -o $DOWNLOADS_DIR/llvmorg-${CLANG_VERSION}.tar.gz
+if [ ! -f "$DOWNLOADS_DIR/llvmorg-${CLANG_VERSION}.tar.gz" ]; then
+    curl --location "https://github.com/llvm/llvm-project/archive/llvmorg-${CLANG_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/llvmorg-${CLANG_VERSION}.tar.gz"
 fi
 
-tar xf $DOWNLOADS_DIR/llvmorg-${CLANG_VERSION}.tar.gz
-cd llvm-project-llvmorg-${CLANG_VERSION}/llvm
+tar xf "$DOWNLOADS_DIR/llvmorg-${CLANG_VERSION}.tar.gz"
+cd "llvm-project-llvmorg-${CLANG_VERSION}/llvm"
 
 mkdir build
 cd build
 cmake -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;libcxx;libcxxabi;compiler-rt;lld" \
       -DCMAKE_BUILD_TYPE=Release \
       -G "Unix Makefiles" \
-      -DGCC_INSTALL_PREFIX=/opt/rh/devtoolset-${DTS_VERSION}/root/usr \
+      -DGCC_INSTALL_PREFIX="/opt/rh/devtoolset-${DTS_VERSION}/root/usr" \
       -DLLVM_TARGETS_TO_BUILD="host;NVPTX" \
-      -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
+      -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
       -DCLANG_INCLUDE_DOCS=OFF \
       -DLIBCXX_INCLUDE_DOCS=OFF \
       -DLLVM_BUILD_TESTS=OFF \
@@ -56,4 +56,4 @@ make -j$(nproc)
 make install
 
 cd ../../..
-rm -rf llvm-project-llvmorg-${CLANG_VERSION}
+rm -rf "llvm-project-llvmorg-${CLANG_VERSION}"
