@@ -10,7 +10,7 @@ import os
 import tempfile
 import typing
 
-from aswfdocker import constants, aswfinfo, utils, groupinfo
+from aswfdocker import constants, aswfinfo, utils, groupinfo, index
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +28,7 @@ class Builder:
         self.push = push
         self.build_info = build_info
         self.group_info = group_info
+        self.index = index.Index()
 
     def make_bake_dict(self) -> typing.Dict[str, dict]:
         root: typing.Dict[str, dict] = {}
@@ -39,7 +40,7 @@ class Builder:
                 docker_file = f"{image}/Dockerfile"
 
             major_version = utils.get_major_version(version)
-            version_info = constants.VERSION_INFO[major_version]
+            version_info = self.index.version_info(major_version)
             tags = version_info.get_tags(version, self.build_info.docker_org, image)
             target_dict = {
                 "context": ".",
@@ -50,8 +51,9 @@ class Builder:
                     "ASWF_VERSION": version,
                     "CI_COMMON_VERSION": version_info.ci_common_version,
                     "PYTHON_VERSION": version_info.python_version,
-                    "VFXPLATFORM_VERSION": major_version,
+                    "VFXPLATFORM_VERSION": version_info.major_version,
                     "DTS_VERSION": version_info.dts_version,
+                    "CLANG_MAJOR_VERSION": version_info.clang_major_version,
                 },
                 "labels": {
                     "org.opencontainers.image.created": self.build_info.build_date,

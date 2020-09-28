@@ -57,7 +57,7 @@ class Migrater:
             self.cmds.append(f"docker push {minfo.destination}")
 
             major_version = utils.get_major_version(minfo.version)
-            version_info = constants.VERSION_INFO[major_version]
+            version_info = self.index.version_info(major_version)
             tags = version_info.get_tags(minfo.version, self.to_org, minfo.image)
             if len(tags) > 1:
                 for tag in tags:

@@ -3,10 +3,118 @@
 
 # This file contains all the CI Docker package and image versions
 
+versions:
+  - version: "1-clang6"
+    major_version: "1-clang6"
+    tags: []
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "6"
+  - version: "1-clang7"
+    major_version: "1-clang7"
+    tags: ["latest"]
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "7"
+  - version: "1-clang8"
+    major_version: "1-clang8"
+    tags: []
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "8"
+  - version: "1-clang9"
+    major_version: "1-clang9"
+    tags: []
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "9"
+  - version: "2-clang10"
+    major_version: "2-clang10"
+    tags: ["preview"]
+    ci_common_version: "2"
+    python_version: "3.7"
+    dts_version: "9"
+    clang_major_version: "10"
+  - version: "2018"
+    major_version: "2018"
+    tags: []
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "7"
+  - version: "2019"
+    major_version: "2019"
+    tags: ["latest"]
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "7"
+  - version: "2019-clang6"
+    major_version: "2019"
+    tags: []
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "6"
+    use_major_version_as_tag: false
+  - version: "2019-clang7"
+    major_version: "2019"
+    tags: ["latest"]
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "7"
+    use_major_version_as_tag: true
+  - version: "2019-clang8"
+    major_version: "2019"
+    tags: []
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "8"
+    use_major_version_as_tag: false
+  - version: "2019-clang9"
+    major_version: "2019"
+    tags: []
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "9"
+    use_major_version_as_tag: false
+  - version: "2020"
+    major_version: "2020"
+    tags: []
+    ci_common_version: "1"
+    python_version: "3.7"
+    dts_version: "6"
+    clang_major_version: "7"
+  - version: "2021"
+    major_version: "2021"
+    tags: ["preview"]
+    ci_common_version: "2"
+    python_version: "3.7"
+    dts_version: "9"
+    clang_major_version: "10"
+  - version: "2021-clang10"
+    major_version: "2021"
+    tags: ["preview"]
+    ci_common_version: "2"
+    python_version: "3.7"
+    dts_version: "9"
+    clang_major_version: "10"
+    use_major_version_as_tag: true
+
 ci-packages:
   clang:
-    - "1.1"
-    - "2.0"
+    - "1-clang6.1"
+    - "1-clang7.1"
+    - "1-clang8.1"
+    - "1-clang9.1"
+    - "2-clang10.1"
   ninja:
     - "1.2"
     - "2.0"
@@ -115,8 +223,11 @@ ci-packages:
 
 ci-images:
   common:
-    - "1.5"
-    - "2.1"
+    - "1-clang6.5"
+    - "1-clang7.5"
+    - "1-clang8.5"
+    - "1-clang9.5"
+    - "2-clang10.1"
   base:
     - "2018.5"
     - "2019.5"
@@ -129,9 +240,14 @@ ci-images:
     - "2021.1"
   openvdb:
     - "2018.5"
-    - "2019.5"
+    - "2018.5"
+    - "2019-clang6.5"
+    - "2019-clang7.5"
+    - "2019-clang8.5"
+    - "2019-clang9.5"
     - "2020.5"
     - "2021.1"
+    - "2021-clang10.5"
   ocio:
     - "2018.6"
     - "2019.6"
