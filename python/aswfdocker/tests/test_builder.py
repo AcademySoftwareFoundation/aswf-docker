@@ -47,6 +47,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_PKG_ORG": "aswftesting",
                             "ASWF_VERSION": qt_version,
                             "CI_COMMON_VERSION": "1",
+                            "CLANG_MAJOR_VERSION": "7",
                             "DTS_VERSION": "6",
                             "PYTHON_VERSION": "2.7",
                             "VFXPLATFORM_VERSION": "2019",
@@ -93,6 +94,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_PKG_ORG": "aswftesting",
                             "ASWF_VERSION": base_version,
                             "CI_COMMON_VERSION": "1",
+                            "CLANG_MAJOR_VERSION": "7",
                             "DTS_VERSION": "6",
                             "PYTHON_VERSION": "2.7",
                             "VFXPLATFORM_VERSION": "2019",
@@ -105,6 +107,51 @@ class TestBuilder(unittest.TestCase):
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2019",
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_version}",
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:latest",
+                        ],
+                        "output": ["type=docker"],
+                    }
+                },
+            },
+        )
+
+    def test_image_base_2019clang_dict(self):
+        b = builder.Builder(
+            self.build_info,
+            groupinfo.GroupInfo(
+                names=["vfx1"],
+                versions=["2019-clang9"],
+                type_=constants.ImageType.IMAGE,
+                targets=["openvdb"],
+            ),
+        )
+        openvdb_version = list(
+            index.Index().iter_versions(constants.ImageType.IMAGE, "openvdb")
+        )[5]
+        self.assertEqual(
+            b.make_bake_dict(),
+            {
+                "group": {"default": {"targets": ["ci-openvdb-2019-clang9"]}},
+                "target": {
+                    "ci-openvdb-2019-clang9": {
+                        "context": ".",
+                        "dockerfile": "ci-openvdb/Dockerfile",
+                        "args": {
+                            "ASWF_ORG": "aswflocaltesting",
+                            "ASWF_PKG_ORG": "aswftesting",
+                            "ASWF_VERSION": openvdb_version,
+                            "CI_COMMON_VERSION": "1",
+                            "CLANG_MAJOR_VERSION": "9",
+                            "DTS_VERSION": "6",
+                            "PYTHON_VERSION": "2.7",
+                            "VFXPLATFORM_VERSION": "2019",
+                        },
+                        "labels": {
+                            "org.opencontainers.image.created": constants.DEV_BUILD_DATE,
+                            "org.opencontainers.image.revision": constants.DEV_BUILD_DATE,
+                        },
+                        "tags": [
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-openvdb:2019-clang9",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-openvdb:{openvdb_version}",
                         ],
                         "output": ["type=docker"],
                     }
@@ -138,6 +185,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_PKG_ORG": "aswftesting",
                             "ASWF_VERSION": base_versions[2],
                             "CI_COMMON_VERSION": "1",
+                            "CLANG_MAJOR_VERSION": "7",
                             "DTS_VERSION": "6",
                             "PYTHON_VERSION": "3.7",
                             "VFXPLATFORM_VERSION": "2020",
@@ -149,7 +197,6 @@ class TestBuilder(unittest.TestCase):
                         "tags": [
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2020",
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[2]}",
-                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:preview",
                         ],
                         "output": ["type=docker"],
                     },
@@ -161,6 +208,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_PKG_ORG": "aswftesting",
                             "ASWF_VERSION": base_versions[1],
                             "CI_COMMON_VERSION": "1",
+                            "CLANG_MAJOR_VERSION": "7",
                             "DTS_VERSION": "6",
                             "PYTHON_VERSION": "2.7",
                             "VFXPLATFORM_VERSION": "2019",

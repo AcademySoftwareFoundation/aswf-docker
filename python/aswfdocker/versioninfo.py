@@ -4,6 +4,7 @@
 Docker Image Version information
 """
 import typing
+from aswfdocker import constants
 
 
 class VersionInfo:
@@ -13,32 +14,35 @@ class VersionInfo:
 
     def __init__(  # noqa too many arguments
         self,
+        version: str,
         major_version: str,
-        label: typing.Optional[str],
+        tags: typing.List[str],
         ci_common_version: str,
         python_version: str,
         dts_version: str,
+        clang_major_version: str,
+        use_major_version_as_tag=True,
     ):
+        self.version = version
         self.major_version = major_version
         self.ci_common_version = ci_common_version
-        self.label = label
+        self.tags = tags
         self.python_version = python_version
         self.dts_version = dts_version
+        self.clang_major_version = clang_major_version
+        self.use_major_version_as_tag = use_major_version_as_tag
 
     def get_tags(
         self, aswf_version: str, docker_org: str, image_name: str
     ) -> typing.List[str]:
-        tags = [
-            self.major_version,
-            aswf_version,
-        ]
-        if self.label:
-            tags.append(self.label)
-
-        # @TODO nicer tag generation without cyclic import
-        # pylint: disable=cyclic-import
-        # pylint: disable=import-outside-toplevel
-        from aswfdocker import constants
+        if self.use_major_version_as_tag:
+            tags = [self.major_version]
+            if self.major_version != self.version:
+                tags.append(self.version)
+        else:
+            tags = [self.version]
+        tags.append(aswf_version)
+        tags.extend(self.tags)
 
         return list(
             map(
