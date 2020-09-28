@@ -9,9 +9,10 @@ ARG PYTHON_VERSION=2.7
 ARG CUDA_VERSION=10.2
 ARG DTS_VERSION=6
 ARG ASWF_ORG=aswftesting
+ARG CLANG_MAJOR_VERSION=7
 
 # Required base packages built in previous passes to speed things up
-FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION} as ci-package-clang-external
+FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-package-clang-external
 FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python-external
 FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost-external
 FROM ${ASWF_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt-external
@@ -32,10 +33,10 @@ COPY ../scripts/common/install_yumpackages.sh \
      /tmp/
 
 RUN --mount=type=cache,sharing=private,target=/var/cache/yum \
-    source /tmp/versions_common.sh && \
     /tmp/install_yumpackages.sh
 
 ENV CI_COMMON_VERSION=${CI_COMMON_VERSION} \
+    CLANG_MAJOR_VERSION=${CLANG_MAJOR_VERSION} \
     DOWNLOADS_DIR=/tmp/downloads \
     CCACHE_DIR=/tmp/ccache \
     ASWF_INSTALL_PREFIX=/usr/local \
@@ -52,6 +53,7 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
 FROM ci-centos7-gl-packages as ci-clang-builder
 
 ARG CI_COMMON_VERSION
+ARG CLANG_MAJOR_VERSION
 
 COPY ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
      ../scripts/common/build_clang.sh \

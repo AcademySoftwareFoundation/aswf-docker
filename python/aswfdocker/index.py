@@ -7,7 +7,7 @@ import os
 
 import yaml
 
-from aswfdocker import constants, utils
+from aswfdocker import constants, utils, versioninfo
 
 
 class Index:
@@ -39,3 +39,22 @@ class Index:
         """
         for version in self._versions[self._get_key(image_type)][name]:
             yield version
+
+    def iter_version_info(self):
+        for v in self._versions["versions"]:
+            yield versioninfo.VersionInfo(
+                version=v.get("version"),
+                major_version=v.get("major_version"),
+                tags=v.get("tags", []),
+                ci_common_version=v.get("ci_common_version"),
+                python_version=v.get("python_version"),
+                dts_version=v.get("dts_version"),
+                clang_major_version=v.get("clang_major_version"),
+                use_major_version_as_tag=v.get("use_major_version_as_tag", True),
+            )
+
+    def version_info(self, version):
+        for vi in self.iter_version_info():
+            if version == vi.version:
+                return vi
+        raise ValueError("VersionInfo not found for version {}".format(version))
