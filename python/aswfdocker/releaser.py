@@ -44,8 +44,7 @@ class GitHub:
 
 
 class Releaser:
-    """Releaser creates GitHub releases for each docker image.
-    """
+    """Releaser creates GitHub releases for each docker image."""
 
     def __init__(  # pylint: disable=too-many-arguments
         self,
