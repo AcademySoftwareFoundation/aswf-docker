@@ -26,53 +26,53 @@ jobs:
           - group: img-common-1
             type: CI_IMAGE
             name: common
-            version: 1
+            version: 1-clang7
             test: common
           - group: img-common-2
             type: CI_IMAGE
             name: common
-            version: 2
+            version: 2-clang10
             test: common
           - group: pkg-base-2018
             type: PACKAGE
             name: base1
-            common_version: 1
+            common_version: 1-clang7
             version: 2018
             test: ""
           - group: pkg-base-2021
             type: PACKAGE
             name: base1
-            common_version: 2
+            common_version: 2-clang10
             version: 2021
             test: ""
           - group: img-base-2021
             type: CI_IMAGE
             name: base
-            common_version: 2
+            common_version: 2-clang10
             version: 2021
             test: base
           - group: img-vfx1-2021
             type: CI_IMAGE
             name: vfx1
-            common_version: 2
+            common_version: 2-clang10
             version: 2021
             test: openvdb
           - group: img-vfx2-2021
             type: CI_IMAGE
             name: vfx2
-            common_version: 2
+            common_version: 2-clang10
             version: 2021
             test: ""
           - group: img-usd-2021
             type: CI_IMAGE
             name: usd
-            common_version: 2
+            common_version: 2-clang10
             version: 2021
             test: ""
           - group: img-vfxall-2021
             type: CI_IMAGE
             name: vfxall
-            common_version: 2
+            common_version: 2-clang10
             version: 2021
             test: ""
 
