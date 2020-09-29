@@ -16,8 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class Builder:
-    """Builder generates a "docker buildx bake" json file to drive the parallel builds of docker images.
-    """
+    """Builder generates a "docker buildx bake" json file to drive the parallel builds of docker images."""
 
     def __init__(
         self,
