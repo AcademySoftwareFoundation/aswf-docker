@@ -7,7 +7,8 @@ from aswfdocker import utils, constants
 
 
 class ASWFInfo:
-    """Information about the current state of the ASWF repository"""
+    """Information about the current state of the ASWF repository
+    """
 
     def __init__(
         self,

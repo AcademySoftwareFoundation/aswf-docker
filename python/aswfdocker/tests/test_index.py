@@ -27,7 +27,6 @@ class TestIndex(unittest.TestCase):
         self.assertEqual(images[0], "common")
         versions = list(self.index.iter_versions(constants.ImageType.IMAGE, images[0]))
         self.assertGreaterEqual(len(versions), 1)
-        print(versions[0])
         self.assertTrue(versions[0].startswith("1-clang"))
 
     def test_version_info(self):
