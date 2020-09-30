@@ -1,6 +1,29 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-09-30
+### Added
+* Added `clang-tidy` into all clang images: [#71](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/71)
+* New `ci-common:1-clang6`, `ci-common:1-clang7` (similar to `ci-common:1`), `ci-common:1-clang8`, `ci-common:1-clang9` and `ci-common:2-clang10`
+* New `ci-openvdb:2019-clang6`, `ci-openvdb:2019-clang7` (similar to `ci-openvdb:2019`), `ci-openvdb:2019-clang8`, `ci-openvdb:2019-clang9` and `ci-openvdb:2021-clang10`
+
+### Changed
+* Cleanup of shell scripts: [#74](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/74)
+* Internal changes to python `aswfdocker` utility to allow for clang variants.
+
+### New CI Images:
+* `ci-common:1-clang6.6`, `ci-common:1-clang7.6`, `ci-common:1-clang8.6`, `ci-common:1-clang9.6`, `ci-common:2-clang10.2`
+* `ci-base:2018.6`, `ci-base:2019.6`, `ci-base:2020.6`, `ci-base:2021.2`
+* `ci-openexr:2018.6`, `ci-openexr:2019.6`, `ci-openexr:2020.6`, `ci-openexr:2021.2`
+* `ci-openvdb:2018-clang7.6`, `ci-openvdb:2019-clang6.6`, `ci-openvdb:2019-clang7.6`, `ci-openvdb:2019-clang8.6`, `ci-openvdb:2019-clang9.6`, `ci-openvdb:2020-clang7.6`, `ci-openvdb:2021-clang10.2`
+* `ci-ocio:2018.7`, `ci-ocio:2019.7`, `ci-ocio:2020.6`, `ci-ocio:2021.2`
+* `ci-opencue:2018.6`, `ci-opencue:2019.6`, `ci-opencue:2020.6`, `ci-opencue:2021.2`
+* `ci-usd:2019.7`, `ci-usd:2020.6`, `ci-usd:2021.2`
+* `ci-osl:2018-clang7.2`, `ci-osl:2019-clang6.2`, `ci-osl:2019-clang7.2`, `ci-osl:2019-clang8.2`, `ci-osl:2019-clang9.2`, `ci-osl:2020-clang7.2`, `ci-osl:2021-clang10.2`
+* `ci-otio:2019.1`, `ci-otio:2020.1`, `ci-otio:2021.1`
+* `ci-vfxall:2019.10`, `ci-vfxall:2020.8`, `ci-vfxall:2021.3`
+
+
 ## 2020-08-01
 
 ### Added
