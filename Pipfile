@@ -7,7 +7,7 @@ verify_ssl = true
 pytest = "*"
 pytest-cov = "*"
 prospector = "*"
-black = "*"
+black = "==19.10b0"
 mypy = "*"
 pre-commit = "*"
 pipenv-setup = "*"

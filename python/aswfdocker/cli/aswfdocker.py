@@ -44,7 +44,8 @@ pass_build_info = click.make_pass_decorator(aswfinfo.ASWFInfo)
 @click.version_option("1.0")
 @click.pass_context
 def cli(ctx, repo_root, repo_uri, source_branch, verbose):
-    """aswfdocker is a command line interface to build ASWF Docker packages and ci images"""
+    """aswfdocker is a command line interface to build ASWF Docker packages and ci images
+    """
     if verbose:
         logging.basicConfig(level=logging.DEBUG)
     else:
@@ -153,7 +154,8 @@ def build(
     dry_run,
     progress,
 ):
-    """Builds a ci-package or ci-image docker image."""
+    """Builds a ci-package or ci-image docker image.
+    """
     if push == "YES":
         pushb = True
     elif push == "AUTO":
@@ -183,7 +185,8 @@ def build(
 )
 @click.option("--dry-run", "-d", is_flag=True)
 def migrate(from_org, to_org, package, version, dry_run):
-    """Migrates packages from a dockerhub org to another."""
+    """Migrates packages from a dockerhub org to another.
+    """
     m = migrater.Migrater(from_org, to_org)
     m.gather(package, version)
     if not click.confirm(
@@ -201,7 +204,8 @@ def migrate(from_org, to_org, package, version, dry_run):
 @cli.command()
 @pass_build_info
 def getdockerorg(build_info):
-    """Prints the current dockerhub organisation to use according to the current repo uri and branch name"""
+    """Prints the current dockerhub organisation to use according to the current repo uri and branch name
+    """
     click.echo(
         utils.get_docker_org(build_info.repo_uri, build_info.source_branch), nl=False
     )
@@ -210,7 +214,8 @@ def getdockerorg(build_info):
 @cli.command()
 @pass_build_info
 def getdockerpush(build_info):
-    """Prints if the images should be pushed according to the current repo uri and branch name"""
+    """Prints if the images should be pushed according to the current repo uri and branch name
+    """
     click.echo(
         "true"
         if utils.get_docker_push(build_info.repo_uri, build_info.source_branch)
@@ -231,14 +236,16 @@ def getdockerpush(build_info):
 )
 @pass_build_info
 def download(build_info, docker_org, package, version):
-    """Downloads and extracts a ci-package into the packages folder."""
+    """Downloads and extracts a ci-package into the packages folder.
+    """
     path = utils.download_package(build_info.repo_root, docker_org, package, version)
     click.echo(path, nl=False)
 
 
 @cli.command()
 def packages():
-    """Lists all known ci packages in this format: PACKAGEGROUP/ci-package-PACKAGE:VERSION"""
+    """Lists all known ci packages in this format: PACKAGEGROUP/ci-package-PACKAGE:VERSION
+    """
     for group, packages in constants.GROUPS[constants.ImageType.PACKAGE].items():
         for package in packages:
             image_name = utils.get_image_name(constants.ImageType.PACKAGE, package)
@@ -295,7 +302,8 @@ def dockerstats(sizes):
     help="GitHub access token generated from https://github.com/settings/tokens",
 )
 def settings(settings_path, github_access_token):
-    """Sets user settings"""
+    """Sets user settings
+    """
     s = aswf_settings.Settings(settings_path=settings_path)
     s.github_access_token = github_access_token
     s.save()
@@ -338,7 +346,8 @@ def release(
     message,
     dry_run,
 ):
-    """Creates a GitHub release for a ci-package or ci-image docker image."""
+    """Creates a GitHub release for a ci-package or ci-image docker image.
+    """
 
     # Disable SSL unclosed ResourceWarning coming from GitHub
     warnings.filterwarnings(
