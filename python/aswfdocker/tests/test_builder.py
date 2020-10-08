@@ -126,7 +126,7 @@ class TestBuilder(unittest.TestCase):
         )
         openvdb_version = list(
             index.Index().iter_versions(constants.ImageType.IMAGE, "openvdb")
-        )[5]
+        )[4]
         self.assertEqual(
             b.make_bake_dict(),
             {
