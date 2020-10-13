@@ -5,13 +5,13 @@
 set -ex
 
 clang_v=$(clang --version)
-if [[ $clang_v != clang\ version\ 7.0* ]]
+if [[ $clang_v != clang\ version\ 7.1* ]]
 then
     exit 1
 fi
 
 clang_tidy_v=$(clang-tidy --version)
-if [[ $clang_tidy_v != *LLVM\ version\ 7.0* ]]
+if [[ $clang_tidy_v != *LLVM\ version\ 7.1* ]]
 then
     exit 1
 fi
