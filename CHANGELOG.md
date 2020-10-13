@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 * Added `clang-tidy` into all clang images: [#71](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/71)
 * New `ci-common:1-clang6`, `ci-common:1-clang7` (similar to `ci-common:1`), `ci-common:1-clang8`, `ci-common:1-clang9` and `ci-common:2-clang10`
 * New `ci-openvdb:2019-clang6`, `ci-openvdb:2019-clang7` (similar to `ci-openvdb:2019`), `ci-openvdb:2019-clang8`, `ci-openvdb:2019-clang9` and `ci-openvdb:2021-clang10`
+* Updated clang7 from clang-7.0.1 to clang-7.1.0
 
 ### Changed
 * Cleanup of shell scripts: [#74](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/74)
