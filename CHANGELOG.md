@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 * Cleanup of shell scripts: [#74](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/74)
 * Internal changes to python `aswfdocker` utility to allow for clang variants.
+* Updated OpenVDB from `7.0.0` to `7.1.0`.
+* Updated USD from `20.05` to `20.11`.
 
 ### New CI Images:
 * `ci-common:1-clang6.6`, `ci-common:1-clang7.6`, `ci-common:1-clang8.6`, `ci-common:1-clang9.6`, `ci-common:2-clang10.2`
