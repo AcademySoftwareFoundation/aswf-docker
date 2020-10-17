@@ -8,7 +8,7 @@ The `aswfdocker` command line tool is available to help with package and image b
 ### For users:
 ```bash
 git clone https://github.com/AcademySoftwareFoundation/aswf-docker
-cd aswf-docker/python
+cd aswf-docker
 python3 setup.py install
 ```
 
