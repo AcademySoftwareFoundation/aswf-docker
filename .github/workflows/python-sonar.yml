@@ -11,6 +11,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 50
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -35,9 +37,6 @@ jobs:
     - name: Run prospector linter
       run: pipenv run prospector -F python/aswfdocker --output-format xunit > test-prospector-results.xml
 
-    - name: Fetch unshallow to help sonar
-      run: git fetch --unshallow
-
     - name: Install and Run Sonar Scanner
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -57,3 +56,13 @@ jobs:
           -Dsonar.login=$SONAR_TOKEN \
           -Dsonar.projectDate=`git log $tag -n 1 --date=short --pretty="%ad"` \
           -Dsonar.projectVersion=`pipenv run python setup.py --version`
+      if: always()
+
+    - uses: testspace-com/setup-testspace@v1
+      with:
+        domain: aloysbaillet
+
+    - name: Push result to Testspace server
+      run: |
+        testspace test*.xml
+      if: always()

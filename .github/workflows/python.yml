@@ -21,5 +21,23 @@ jobs:
     - run: pipenv install --dev
       name: Install aswfdocker and dev dependencies with pipenv
 
-    - run: pipenv run pre-commit run --all-files
-      name: Run all pre-commit tests
+    # python unittests with junit XML report and coverage XML Cobertura report for publishing task
+    - name: Run pytest
+      run: pipenv run pytest python/aswfdocker --doctest-modules --junitxml=test-pytest-results.xml --cov=. --cov-report=xml
+
+    # mypy static type checks with junit XML report
+    - name: Run mypy
+      run: pipenv run mypy python/aswfdocker --junit-xml=test-mypy-results.xml
+
+    # prospector linter checks with xunit XML report
+    - name: Run prospector linter
+      run: pipenv run prospector -F python/aswfdocker --output-format xunit > test-prospector-results.xml
+
+    - uses: testspace-com/setup-testspace@v1
+      with:
+        domain: aloysbaillet
+
+    - name: Push result to Testspace server
+      run: |
+        testspace test*.xml
+      if: always()
