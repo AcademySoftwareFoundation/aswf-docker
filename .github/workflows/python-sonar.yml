@@ -42,6 +42,19 @@ jobs:
     - name: Run prospector linter
       run: pipenv run prospector -F python/aswfdocker --output-format xunit > test-prospector-results.xml
 
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1.3
+      if: always()
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        check_name: Unit Test Results
+        files: "**/test-*.xml"
+    
+    - name: Prepare sonar variables
+      run: |
+        echo "::set-env name=SONAR_PROJECT_VERSION::`git log $tag -n 1 --date=short --pretty=\"%ad\"`"
+        echo "::set-env name=SONAR_PROJECT_DATE::`pipenv run python setup.py --version`"
+
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       if: always()
@@ -50,10 +63,5 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-          -Dsonar.organization=academysoftwarefoundation
-          -Dsonar.projectKey=AcademySoftwareFoundation_aswf_docker
-          -Dsonar.sources=.
-          -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.login=$SONAR_TOKEN
-          -Dsonar.projectDate=`git log $tag -n 1 --date=short --pretty="%ad"`
-          -Dsonar.projectVersion=`pipenv run python setup.py --version`
+          -Dsonar.projectDate=${{ env.SONAR_PROJECT_VERSION }}
+          -Dsonar.projectVersion=${{ env.SONAR_PROJECT_DATE }}
