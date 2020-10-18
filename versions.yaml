@@ -51,6 +51,13 @@ versions:
     python_version: "2.7"
     dts_version: "6"
     clang_major_version: "7"
+  - version: "2018-clang7"
+    major_version: "2018"
+    tags: []
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "7"
   - version: "2019"
     major_version: "2019"
     tags: ["latest"]
@@ -91,6 +98,13 @@ versions:
     clang_major_version: "9"
     use_major_version_as_tag: false
   - version: "2020"
+    major_version: "2020"
+    tags: []
+    ci_common_version: "1"
+    python_version: "3.7"
+    dts_version: "6"
+    clang_major_version: "7"
+  - version: "2020-clang7"
     major_version: "2020"
     tags: []
     ci_common_version: "1"
@@ -278,6 +292,9 @@ ci-images:
     - "2020.1"
     - "2021.1"
   vfxall:
-    - "2019.10"
-    - "2020.8"
-    - "2021.3"
+    - "2019-clang6.10"
+    - "2019-clang7.10"
+    - "2019-clang8.10"
+    - "2019-clang9.10"
+    - "2020-clang7.8"
+    - "2021-clang10.3"
