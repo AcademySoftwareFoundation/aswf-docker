@@ -13,4 +13,6 @@ export PKGS_COMMON_CMAKE_VERSION=3.12.4 # Only used to build common packages
 
 if [[ $CLANG_MAJOR_VERSION == 10 ]]; then
     export CLANG_VERSION=10.0.1
+elif [[ $CLANG_MAJOR_VERSION == 11 ]]; then
+    export CLANG_VERSION=11.0.0
 fi
