@@ -4,6 +4,7 @@ ARG ASWF_ORG=aswftesting
 ARG ASWF_PKG_ORG=aswftesting
 ARG CI_COMMON_VERSION=1
 ARG VFXPLATFORM_VERSION=2019
+ARG CLANG_MAJOR_VERSION=7
 
 FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
 FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION} as ci-package-tbb
@@ -28,7 +29,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-partio:${VFXPLATFORM_VERSION} as ci-package-part
 FROM ${ASWF_PKG_ORG}/ci-package-osl:${VFXPLATFORM_VERSION} as ci-package-osl
 FROM ${ASWF_PKG_ORG}/ci-package-otio:${VFXPLATFORM_VERSION} as ci-package-otio
 
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-vfxall
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-vfxall
 
 ARG ASWF_ORG
 ARG VFXPLATFORM_VERSION
