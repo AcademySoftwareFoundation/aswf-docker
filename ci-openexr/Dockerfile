@@ -4,11 +4,12 @@ ARG ASWF_ORG=aswftesting
 ARG ASWF_PKG_ORG=aswftesting
 ARG CI_COMMON_VERSION=1
 ARG VFXPLATFORM_VERSION=2019
+ARG CLANG_MAJOR_VERSION=7
 
 FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
 FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
 
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION} as ci-openexr
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-openexr
 
 ARG ASWF_ORG
 ARG VFXPLATFORM_VERSION
