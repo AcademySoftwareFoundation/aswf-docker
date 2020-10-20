@@ -36,6 +36,14 @@ versions:
     dts_version: "6"
     clang_major_version: "9"
     use_major_version_as_tag: false
+  - version: "1-clang10"
+    major_version: "1"
+    tags: []
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "10"
+    use_major_version_as_tag: false
   - version: "2-clang10"
     major_version: "2"
     tags: ["preview"]
@@ -43,6 +51,14 @@ versions:
     python_version: "3.7"
     dts_version: "9"
     clang_major_version: "10"
+    use_major_version_as_tag: true
+  - version: "2-clang11"
+    major_version: "2"
+    tags: []
+    ci_common_version: "2"
+    python_version: "3.7"
+    dts_version: "9"
+    clang_major_version: "11"
     use_major_version_as_tag: true
   - version: "2018"
     major_version: "2018"
@@ -133,7 +149,9 @@ ci-packages:
     - "1-clang7.1"
     - "1-clang8.1"
     - "1-clang9.1"
+    - "1-clang10.1"
     - "2-clang10.1"
+    - "2-clang11.1"
   ninja:
     - "1.2"
     - "2.0"
@@ -246,7 +264,9 @@ ci-images:
     - "1-clang7.6"
     - "1-clang8.6"
     - "1-clang9.6"
+    - "1-clang10.6"
     - "2-clang10.2"
+    - "2-clang11.2"
   base:
     - "2018.6"
     - "2019.6"
@@ -286,7 +306,9 @@ ci-images:
     - "2019-clang8.2"
     - "2019-clang9.2"
     - "2020-clang7.2"
+    - "2020-clang10.2"
     - "2021-clang10.2"
+    - "2021-clang11.2"
   otio:
     - "2019.1"
     - "2020.1"
