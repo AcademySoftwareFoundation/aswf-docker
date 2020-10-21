@@ -305,8 +305,8 @@ ci-images:
     - "2019-clang7.2"
     - "2019-clang8.2"
     - "2019-clang9.2"
+    - "2019-clang10.2"
     - "2020-clang7.2"
-    - "2020-clang10.2"
     - "2021-clang10.2"
     - "2021-clang11.2"
   otio:
