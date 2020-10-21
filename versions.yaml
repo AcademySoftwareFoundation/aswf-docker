@@ -113,6 +113,14 @@ versions:
     dts_version: "6"
     clang_major_version: "9"
     use_major_version_as_tag: false
+  - version: "2019-clang10"
+    major_version: "2019"
+    tags: []
+    ci_common_version: "1"
+    python_version: "2.7"
+    dts_version: "6"
+    clang_major_version: "10"
+    use_major_version_as_tag: false
   - version: "2020"
     major_version: "2020"
     tags: []
@@ -141,6 +149,14 @@ versions:
     python_version: "3.7"
     dts_version: "9"
     clang_major_version: "10"
+    use_major_version_as_tag: true
+  - version: "2021-clang11"
+    major_version: "2021"
+    tags: ["preview"]
+    ci_common_version: "2"
+    python_version: "3.7"
+    dts_version: "9"
+    clang_major_version: "11"
     use_major_version_as_tag: true
 
 ci-packages:
@@ -305,8 +321,8 @@ ci-images:
     - "2019-clang7.2"
     - "2019-clang8.2"
     - "2019-clang9.2"
+    - "2019-clang10.2"
     - "2020-clang7.2"
-    - "2020-clang10.2"
     - "2021-clang10.2"
     - "2021-clang11.2"
   otio:

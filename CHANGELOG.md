@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-10-21
+### Added
+* Added `clang-11.0.0` package.
+
+### Fixed
+* All clang variants of `ci-vfxall` actually contained `clang7`.
+
+### New CI Images:
+* `ci-common:2-clang11.2`
+* `ci-osl:2019-clang10.2`, `ci-osl:2021-clang11.2`
+
+
 ## 2020-09-30
 ### Added
 * Added `clang-tidy` into all clang images: [#71](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/71)
