@@ -14,7 +14,9 @@ fi
 tar xf "$DOWNLOADS_DIR/ccache-${CCACHE_VERSION}.tar.gz"
 
 cd "ccache-${CCACHE_VERSION}"
-./configure --prefix=/usr/local
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..
 make -j$(nproc)
 make install
 
@@ -38,5 +40,5 @@ EOF
 chmod a+x /usr/local/bin/activate_ccache.sh
 
 
-cd ../..
+cd ../../..
 rm -rf ccache

@@ -18,24 +18,25 @@ class VersionInfo:
         major_version: str,
         tags: typing.List[str],
         ci_common_version: str,
-        python_version: str,
-        dts_version: str,
-        clang_major_version: str,
-        cuda_version: str,
+        parent_versions: typing.List[str],
+        package_versions: typing.Dict[str, str],
         use_major_version_as_tag=True,
     ):
         self.version = version
         self.major_version = major_version
         self.ci_common_version = ci_common_version
         self.tags = tags
-        self.python_version = python_version
-        self.dts_version = dts_version
-        self.clang_major_version = clang_major_version
-        self.cuda_version = cuda_version
+        self.parent_versions = parent_versions
+        self.package_versions = package_versions
         self.use_major_version_as_tag = use_major_version_as_tag
+        self.all_package_versions: typing.Dict[str, str] = {}
 
     def get_tags(
-        self, aswf_version: str, docker_org: str, image_name: str
+        self,
+        aswf_version: str,
+        docker_org: str,
+        image_name: str,
+        extra_suffix: typing.Optional[str] = None,
     ) -> typing.List[str]:
         if self.use_major_version_as_tag:
             tags = [self.major_version]
@@ -45,6 +46,8 @@ class VersionInfo:
             tags = [self.version]
         tags.append(aswf_version)
         tags.extend(self.tags)
+        if extra_suffix:
+            tags.append(self.major_version + "-" + extra_suffix)
 
         return list(
             map(

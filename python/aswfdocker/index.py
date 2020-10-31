@@ -4,10 +4,12 @@
 Index of docker images and versions.
 """
 import os
-
+import logging
 import yaml
 
 from aswfdocker import constants, utils, versioninfo
+
+logger = logging.getLogger(__name__)
 
 
 class Index:
@@ -20,6 +22,23 @@ class Index:
         versions_file_path = os.path.join(utils.get_git_top_level(), "versions.yaml")
         with open(versions_file_path) as f:
             self._versions = yaml.load(f, Loader=yaml.FullLoader)
+        self._version_infos = {}
+        for version, v in self._versions["versions"].items():
+            self._version_infos[version] = versioninfo.VersionInfo(
+                version=version,
+                major_version=v.get("major_version"),
+                tags=v.get("tags", []),
+                ci_common_version=v.get("ci_common_version"),
+                package_versions=v.get("package_versions", {}),
+                parent_versions=v.get("parent_versions", []),
+                use_major_version_as_tag=v.get("use_major_version_as_tag", False),
+            )
+        for vi in self._version_infos.values():
+            vi.all_package_versions = vi.package_versions.copy()
+            for parent in vi.parent_versions:
+                vi.all_package_versions.update(
+                    self._version_infos[parent].package_versions
+                )
 
     def _get_key(self, image_type: constants.ImageType):
         if image_type == constants.ImageType.PACKAGE:
@@ -41,18 +60,7 @@ class Index:
             yield version
 
     def iter_version_info(self):
-        for v in self._versions["versions"]:
-            yield versioninfo.VersionInfo(
-                version=v.get("version"),
-                major_version=v.get("major_version"),
-                tags=v.get("tags", []),
-                ci_common_version=v.get("ci_common_version"),
-                python_version=v.get("python_version"),
-                dts_version=v.get("dts_version"),
-                clang_major_version=v.get("clang_major_version"),
-                cuda_version=v.get("cuda_version"),
-                use_major_version_as_tag=v.get("use_major_version_as_tag", True),
-            )
+        return self._version_infos.values()
 
     def version_info(self, version):
         for vi in self.iter_version_info():

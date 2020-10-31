@@ -11,7 +11,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION} as ci-package-tbb
 FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
 FROM ${ASWF_PKG_ORG}/ci-package-cppunit:${VFXPLATFORM_VERSION} as ci-package-cppunit
 FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
-
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION} as ci-package-cmake
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
 FROM ${ASWF_PKG_ORG}/ci-package-blosc:${VFXPLATFORM_VERSION} as ci-package-blosc
 
@@ -37,12 +37,6 @@ ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH
     ASWF_VERSION=${ASWF_VERSION} \
     ASWF_ORG=${ASWF_ORG}
 
-COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
-     scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
-     scripts/$VFXPLATFORM_VERSION/patchup.sh \
-     scripts/base/install_cmake.sh \
-     /tmp/
-
 COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-tbb /. /usr/local/
 COPY --from=ci-package-boost /. /usr/local/
@@ -50,10 +44,4 @@ COPY --from=ci-package-cppunit /. /usr/local/
 COPY --from=ci-package-glfw /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-blosc /. /usr/local/
-
-RUN export DOWNLOADS_DIR=/tmp/downloads && \
-    mkdir /tmp/downloads && \
-    source /tmp/versions_base.sh && \
-    /tmp/install_cmake.sh && \
-    /tmp/patchup.sh && \
-    rm -rf /tmp/downloads
+COPY --from=ci-package-cmake /. /usr/local/

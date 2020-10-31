@@ -15,7 +15,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
 FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
 FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
 FROM ${ASWF_PKG_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
-
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION} as ci-package-cmake
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
 FROM ${ASWF_PKG_ORG}/ci-package-blosc:${VFXPLATFORM_VERSION} as ci-package-blosc
 FROM ${ASWF_PKG_ORG}/ci-package-alembic:${VFXPLATFORM_VERSION} as ci-package-alembic
@@ -46,13 +46,6 @@ ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH
     ASWF_VERSION=${ASWF_VERSION} \
     ASWF_ORG=${ASWF_ORG}
 
-COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
-     scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
-     scripts/$VFXPLATFORM_VERSION/patchup.sh \
-     scripts/base/install_cmake.sh \
-     /tmp/
-
-
 COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-tbb /. /usr/local/
 COPY --from=ci-package-boost /. /usr/local/
@@ -61,7 +54,7 @@ COPY --from=ci-package-glfw /. /usr/local/
 COPY --from=ci-package-log4cplus /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
 COPY --from=ci-package-pyside /. /usr/local/
-
+COPY --from=ci-package-cmake /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
 COPY --from=ci-package-ocio /. /usr/local/
@@ -71,11 +64,4 @@ COPY --from=ci-package-alembic /. /usr/local/
 COPY --from=ci-package-blosc /. /usr/local/
 COPY --from=ci-package-openvdb /. /usr/local/
 
-
-RUN export DOWNLOADS_DIR=/tmp/downloads && \
-    mkdir /tmp/downloads && \
-    source /tmp/versions_base.sh && \
-    /tmp/install_cmake.sh && \
-    /tmp/patchup.sh && \
-    sudo pip install jinja2 PyOpenGL && \
-    rm -rf /tmp/downloads
+RUN sudo pip install jinja2 PyOpenGL
