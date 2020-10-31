@@ -7,7 +7,7 @@ set -ex
 mkdir python
 cd python
 
-curl -C - --location "https://www.python.org/ftp/python/${PYTHON_VERSION_FULL}/Python-${PYTHON_VERSION_FULL}.tgz" -o "$DOWNLOADS_DIR/Python-${PYTHON_VERSION_FULL}.tgz"
+curl -C - --location "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz" -o "$DOWNLOADS_DIR/Python-${PYTHON_VERSION}.tgz"
 
 
 mkdir -p "${ASWF_INSTALL_PREFIX}/bin"
@@ -35,8 +35,8 @@ exec "${ASWF_INSTALL_PREFIX}/bin/run-with-system-python" /usr/bin/yum "\$@"
 EOF
 chmod a+x "${ASWF_INSTALL_PREFIX}/bin/yum"
 
-tar xf "$DOWNLOADS_DIR/Python-${PYTHON_VERSION_FULL}.tgz"
-cd "Python-${PYTHON_VERSION_FULL}"
+tar xf "$DOWNLOADS_DIR/Python-${PYTHON_VERSION}.tgz"
+cd "Python-${PYTHON_VERSION}"
 
 # Ensure configure, build and install is done with no reference to ${ASWF_INSTALL_PREFIX} as this somehow messes up the system install
 run-with-system-python ./configure \

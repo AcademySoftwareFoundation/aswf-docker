@@ -4,6 +4,8 @@
 
 set -ex
 
+mkdir -p /opt/aswfbuilder
+
 if [ ! -f "$DOWNLOADS_DIR/cmake-${PKGS_COMMON_CMAKE_VERSION}-Linux-x86_64.sh" ]; then
     curl --location "https://github.com/Kitware/CMake/releases/download/v${PKGS_COMMON_CMAKE_VERSION}/cmake-${PKGS_COMMON_CMAKE_VERSION}-Linux-x86_64.sh" -o "$DOWNLOADS_DIR/cmake-${PKGS_COMMON_CMAKE_VERSION}-Linux-x86_64.sh"
 fi

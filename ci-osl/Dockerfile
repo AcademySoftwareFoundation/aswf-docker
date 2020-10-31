@@ -9,7 +9,7 @@ ARG CLANG_MAJOR_VERSION=7
 FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
 FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
 FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
-
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION} as ci-package-cmake
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
 FROM ${ASWF_PKG_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION} as ci-package-oiio
 FROM ${ASWF_PKG_ORG}/ci-package-partio:${VFXPLATFORM_VERSION} as ci-package-partio
@@ -35,25 +35,10 @@ ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:/usr/local/l
     ASWF_VERSION=${ASWF_VERSION} \
     ASWF_ORG=${ASWF_ORG}
 
-COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
-     scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
-     scripts/$VFXPLATFORM_VERSION/patchup.sh \
-     scripts/base/install_cmake.sh \
-     /tmp/
-
-
 COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-boost /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
-
+COPY --from=ci-package-cmake /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
 COPY --from=ci-package-partio /. /usr/local/
-
-
-RUN export DOWNLOADS_DIR=/tmp/downloads && \
-    mkdir /tmp/downloads && \
-    source /tmp/versions_base.sh && \
-    /tmp/install_cmake.sh && \
-    /tmp/patchup.sh && \
-    rm -rf /tmp/downloads

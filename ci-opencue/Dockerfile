@@ -7,6 +7,7 @@ ARG VFXPLATFORM_VERSION=2019
 ARG CLANG_MAJOR_VERSION=7
 
 FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION} as ci-package-cmake
 
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-opencue
 
@@ -30,20 +31,8 @@ ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH
     ASWF_VERSION=${ASWF_VERSION} \
     ASWF_ORG=${ASWF_ORG}
 
-COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
-     scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
-     scripts/$VFXPLATFORM_VERSION/patchup.sh \
-     scripts/base/install_cmake.sh \
-     /tmp/
-
 COPY --from=ci-package-python /. /usr/local/
-
-RUN export DOWNLOADS_DIR=/tmp/downloads && \
-    mkdir /tmp/downloads && \
-    source /tmp/versions_base.sh && \
-    /tmp/install_cmake.sh && \
-    /tmp/patchup.sh && \
-    rm -rf /tmp/downloads
+COPY --from=ci-package-cmake /. /usr/local/
 
 RUN yum -y install \
     java-1.8.0-openjdk.x86_64 \

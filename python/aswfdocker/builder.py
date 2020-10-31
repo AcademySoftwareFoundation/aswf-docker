@@ -34,14 +34,21 @@ class Builder:
         root: typing.Dict[str, dict] = {}
         root["target"] = {}
         for image, version in self.group_info.iter_images_versions():
-            if self.group_info.type == constants.ImageType.PACKAGE:
-                docker_file = "packages/Dockerfile"
-            else:
-                docker_file = f"{image}/Dockerfile"
-
             major_version = utils.get_major_version(version)
             version_info = self.index.version_info(major_version)
-            tags = version_info.get_tags(version, self.build_info.docker_org, image)
+            if self.group_info.type == constants.ImageType.PACKAGE:
+                tags = version_info.get_tags(
+                    version,
+                    self.build_info.docker_org,
+                    image,
+                    extra_suffix=version_info.package_versions.get(
+                        image.replace("ci-package-", "").upper() + "_VERSION"
+                    ),
+                )
+                docker_file = "packages/Dockerfile"
+            else:
+                tags = version_info.get_tags(version, self.build_info.docker_org, image)
+                docker_file = f"{image}/Dockerfile"
             target_dict = {
                 "context": ".",
                 "dockerfile": docker_file,
@@ -50,11 +57,7 @@ class Builder:
                     "ASWF_PKG_ORG": self.build_info.package_org,
                     "ASWF_VERSION": version,
                     "CI_COMMON_VERSION": version_info.ci_common_version,
-                    "PYTHON_VERSION": version_info.python_version,
                     "VFXPLATFORM_VERSION": version_info.major_version,
-                    "DTS_VERSION": version_info.dts_version,
-                    "CLANG_MAJOR_VERSION": version_info.clang_major_version,
-                    "CUDA_VERSION": version_info.cuda_version,
                 },
                 "labels": {
                     "org.opencontainers.image.created": self.build_info.build_date,
@@ -63,6 +66,7 @@ class Builder:
                 "tags": tags,
                 "output": ["type=registry,push=true" if self.push else "type=docker"],
             }
+            target_dict["args"].update(version_info.all_package_versions)
             if self.group_info.type == constants.ImageType.PACKAGE:
                 target_dict["target"] = image
             root["target"][f"{image}-{major_version}"] = target_dict

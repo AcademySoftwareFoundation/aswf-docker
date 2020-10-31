@@ -9,14 +9,43 @@ ARG PYTHON_VERSION=2.7
 ARG CUDA_VERSION=10.2
 ARG DTS_VERSION=6
 ARG ASWF_ORG=aswftesting
-ARG CLANG_MAJOR_VERSION=7
+ARG CLANG_VERSION
+ARG NINJA_VERSION
+ARG SONAR_VERSION
+ARG CCACHE_VERSION
+ARG PKGS_COMMON_CMAKE_VERSION
+ARG BOOST_VERSION
+ARG CMAKE_VERSION
+ARG CPPUNIT_VERSION
+ARG GLEW_VERSION
+ARG GLFW_VERSION
+ARG LOG4CPLUS_VERSION
+ARG NUMPY_VERSION
+ARG PYSIDE_VERSION
+ARG PYTHON_VERSION
+ARG QT_VERSION
+ARG TBB_VERSION
+ARG BLOSC_VERSION
+ARG OIIO_VERSION
+ARG OPENEXR_VERSION
+ARG OCIO_VERSION
+ARG OCIO_CONFIGS_VERSION
+ARG HDF5_VERSION
+ARG ALEMBIC_VERSION
+ARG PTEX_VERSION
+ARG OPENSUBDIV_VERSION
+ARG OPENVDB_VERSION
+ARG USD_VERSION
+ARG OSL_VERSION
+ARG OTIO_VERSION
+ARG PARTIO_VERSION
 
 # Required base packages built in previous passes to speed things up
-FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-package-clang-external
-FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python-external
-FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost-external
-FROM ${ASWF_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt-external
-FROM ${ASWF_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside-external
+FROM ${ASWF_ORG}/ci-package-clang:${CI_COMMON_VERSION}-${CLANG_VERSION} as ci-package-clang-external
+FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION}-${PYTHON_VERSION} as ci-package-python-external
+FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION}-${BOOST_VERSION} as ci-package-boost-external
+FROM ${ASWF_ORG}/ci-package-qt:${VFXPLATFORM_VERSION}-${QT_VERSION} as ci-package-qt-external
+FROM ${ASWF_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION}-${PYSIDE_VERSION} as ci-package-pyside-external
 
 #################### ci-centos7-gl-packages ####################
 FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-centos7-gl-packages
@@ -24,19 +53,25 @@ FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-centos7-gl-packages
 ARG CI_COMMON_VERSION
 ARG DTS_VERSION
 ARG CUDA_VERSION
+ARG CLANG_VERSION
+ARG NINJA_VERSION
+ARG SONAR_VERSION
+ARG CCACHE_VERSION
+ARG PKGS_COMMON_CMAKE_VERSION
 
 COPY ../scripts/common/install_yumpackages.sh \
-     ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
-     ../scripts/common/install_dev_ccache.sh \
-     ../scripts/common/before_build.sh \
-     ../scripts/common/copy_new_files.sh \
      /tmp/
 
 RUN --mount=type=cache,sharing=private,target=/var/cache/yum \
     /tmp/install_yumpackages.sh
 
+COPY ../scripts/common/install_dev_ccache.sh \
+     ../scripts/common/before_build.sh \
+     ../scripts/common/copy_new_files.sh \
+     ../scripts/common/install_dev_cmake.sh \
+     /tmp/
+
 ENV CI_COMMON_VERSION=${CI_COMMON_VERSION} \
-    CLANG_MAJOR_VERSION=${CLANG_MAJOR_VERSION} \
     DOWNLOADS_DIR=/tmp/downloads \
     CCACHE_DIR=/tmp/ccache \
     ASWF_INSTALL_PREFIX=/usr/local \
@@ -45,7 +80,7 @@ ENV CI_COMMON_VERSION=${CI_COMMON_VERSION} \
     CUDA_VERSION=${CUDA_VERSION}
 
 RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_common.sh && \
+    /tmp/install_dev_cmake.sh && \
     /tmp/install_dev_ccache.sh
 
 
@@ -53,16 +88,14 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
 FROM ci-centos7-gl-packages as ci-clang-builder
 
 ARG CI_COMMON_VERSION
-ARG CLANG_MAJOR_VERSION
+ARG CLANG_VERSION
+ENV CLANG_VERSION=${CLANG_VERSION}
 
-COPY ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
-     ../scripts/common/build_clang.sh \
-     ../scripts/common/install_dev_cmake.sh \
+COPY ../scripts/common/build_clang.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,target=/tmp/downloads \
-    source /tmp/versions_common.sh && \
     /tmp/install_dev_cmake.sh && \
     /tmp/before_build.sh && \
     /tmp/build_clang.sh && \
@@ -75,6 +108,8 @@ RUN --mount=type=cache,target=/tmp/ccache \
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-clang
+ARG CLANG_VERSION
+ENV CLANG_VERSION=${CLANG_VERSION}
 
 COPY --from=ci-clang-builder /package/. /
 
@@ -83,14 +118,14 @@ COPY --from=ci-clang-builder /package/. /
 FROM ci-centos7-gl-packages as ci-ninja-builder
 
 ARG CI_COMMON_VERSION
+ARG NINJA_VERSION
+ENV NINJA_VERSION=${NINJA_VERSION}
 
-COPY ../scripts/${CI_COMMON_VERSION}/versions_common.sh \
-     ../scripts/common/build_ninja.sh \
+COPY ../scripts/common/build_ninja.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,target=/tmp/downloads \
-    source /tmp/versions_common.sh && \
     /tmp/before_build.sh && \
     /tmp/build_ninja.sh && \
     /tmp/copy_new_files.sh && \
@@ -102,12 +137,43 @@ RUN --mount=type=cache,target=/tmp/ccache \
 # can be placed in a downloadable artifact
 
 FROM scratch as ci-package-ninja
+ARG NINJA_VERSION
+ENV NINJA_VERSION=${NINJA_VERSION}
 
 COPY --from=ci-ninja-builder /package/. /
 
 
+#################### ci-cmake-builder ####################
+FROM ci-centos7-gl-packages as ci-cmake-builder
+
+ARG CI_COMMON_VERSION
+ARG CMAKE_VERSION
+ENV CMAKE_VERSION=${CMAKE_VERSION}
+
+COPY ../scripts/base/install_cmake.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,target=/tmp/downloads \
+    /tmp/before_build.sh && \
+    /tmp/install_cmake.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
+#################### ci-package-cmake ####################
+# This build target is used to generate a packages of cmake that
+# can be placed in a downloadable artifact
+
+FROM scratch as ci-package-cmake
+ARG CMAKE_VERSION
+ENV CMAKE_VERSION=${CMAKE_VERSION}
+
+COPY --from=ci-cmake-builder /package/. /
+
+
 #################### ci-base-builder ####################
-FROM ci-centos7-gl-packages as ci-base-builder
+FROM ci-cmake-builder as ci-base-builder
 
 ARG VFXPLATFORM_VERSION
 ARG PYTHON_VERSION
@@ -115,37 +181,33 @@ ARG PYTHON_VERSION
 ENV PYTHONPATH=${ASWF_INSTALL_PREFIX}/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH}
 ENV VFXPLATFORM_VERSION=${VFXPLATFORM_VERSION}
 
-COPY ../scripts/${VFXPLATFORM_VERSION}/versions_base.sh \
-     ../scripts/base/install_cmake.sh \
-     /tmp/
-
-RUN --mount=type=cache,target=/tmp/ccache \
-    --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
-    /tmp/install_cmake.sh
-
 
 #################### ci-python-builder ####################
 FROM ci-base-builder as ci-python-builder
+ARG PYTHON_VERSION
+ENV PYTHON_VERSION=${PYTHON_VERSION}
+ARG NUMPY_VERSION
+ENV NUMPY_VERSION=${NUMPY_VERSION}
 
-COPY ../scripts/${VFXPLATFORM_VERSION}/versions_base.sh \
-     ../scripts/base/build_python.sh \
+COPY ../scripts/base/build_python.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
     /tmp/before_build.sh && \
     /tmp/build_python.sh && \
     /tmp/copy_new_files.sh && \
     ccache --show-stats
 
 
-#################### ci-package-boost ####################
-# This build target is used to generate a packages of boost that
+#################### ci-package-python ####################
+# This build target is used to generate a packages of python that
 # can be placed in a downloadable artifact
-
 FROM scratch as ci-package-python
+ARG PYTHON_VERSION
+ENV PYTHON_VERSION=${PYTHON_VERSION}
+ARG NUMPY_VERSION
+ENV NUMPY_VERSION=${NUMPY_VERSION}
 
 COPY --from=ci-python-builder /package/. /
 
@@ -161,7 +223,6 @@ COPY ../scripts/base/build_boost.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
     /tmp/before_build.sh && \
     /tmp/build_boost.sh && \
     /tmp/copy_new_files.sh && \
@@ -185,7 +246,6 @@ COPY ../scripts/base/build_tbb.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
     /tmp/before_build.sh && \
     /tmp/build_tbb.sh && \
     /tmp/copy_new_files.sh && \
@@ -209,7 +269,6 @@ COPY ../scripts/base/build_cppunit.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
     /tmp/before_build.sh && \
     /tmp/build_cppunit.sh && \
     /tmp/copy_new_files.sh && \
@@ -233,7 +292,6 @@ COPY ../scripts/base/build_log4cplus.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
     /tmp/before_build.sh && \
     /tmp/build_log4cplus.sh && \
     /tmp/copy_new_files.sh && \
@@ -257,7 +315,6 @@ COPY ../scripts/base/build_glew.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
     /tmp/before_build.sh && \
     /tmp/build_glew.sh && \
     /tmp/copy_new_files.sh && \
@@ -282,7 +339,6 @@ COPY ../scripts/base/build_glfw.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
     /tmp/before_build.sh && \
     /tmp/build_glfw.sh && \
     /tmp/copy_new_files.sh && \
@@ -306,7 +362,6 @@ COPY ../scripts/base/build_qt.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
     /tmp/before_build.sh && \
     /tmp/build_qt.sh && \
     /tmp/copy_new_files.sh && \
@@ -335,7 +390,6 @@ COPY --from=ci-package-clang-external /. /usr/local/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_base.sh && \
     /tmp/before_build.sh && \
     /tmp/build_pyside.sh && \
     /tmp/copy_new_files.sh && \
@@ -358,13 +412,11 @@ FROM ci-base-builder as ci-openexr-builder
 COPY --from=ci-package-python-external /. /usr/local/
 COPY --from=ci-package-boost-external /. /usr/local/
 
-COPY ../scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
-     ../scripts/vfx/build_openexr.sh \
+COPY ../scripts/vfx/build_openexr.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_openexr.sh && \
     /tmp/copy_new_files.sh && \
@@ -383,13 +435,11 @@ COPY --from=ci-openexr-builder /package/. /
 #################### ci-blosc-builder ####################
 FROM ci-python-builder as ci-blosc-builder
 
-COPY ../scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
-     ../scripts/vfx/build_blosc.sh \
+COPY ../scripts/vfx/build_blosc.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_blosc.sh && \
     /tmp/copy_new_files.sh && \
@@ -408,13 +458,11 @@ COPY --from=ci-blosc-builder /package/. /
 #################### ci-partio-builder ####################
 FROM ci-python-builder as ci-partio-builder
 
-COPY ../scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
-     ../scripts/vfx/build_partio.sh \
+COPY ../scripts/vfx/build_partio.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_partio.sh && \
     /tmp/copy_new_files.sh && \
@@ -438,7 +486,6 @@ COPY ../scripts/vfx/build_oiio.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_oiio.sh && \
     /tmp/copy_new_files.sh && \
@@ -462,7 +509,6 @@ COPY ../scripts/vfx/build_ocio.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_ocio.sh && \
     /tmp/copy_new_files.sh && \
@@ -490,7 +536,6 @@ COPY ../scripts/vfx/build_osl.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_osl.sh && \
     /tmp/copy_new_files.sh && \
@@ -514,7 +559,6 @@ COPY ../scripts/vfx/build_alembic.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_alembic.sh && \
     /tmp/copy_new_files.sh && \
@@ -539,7 +583,6 @@ COPY ../scripts/vfx/build_ptex.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_ptex.sh && \
     /tmp/copy_new_files.sh && \
@@ -569,7 +612,6 @@ COPY --from=ci-package-glfw /. /usr/local/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_opensubdiv.sh && \
     /tmp/copy_new_files.sh && \
@@ -601,7 +643,6 @@ COPY --from=ci-package-blosc /. /usr/local/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_openvdb.sh && \
     /tmp/copy_new_files.sh && \
@@ -635,7 +676,6 @@ COPY ../scripts/vfx/build_usd.sh \
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_usd.sh && \
     /tmp/copy_new_files.sh && \
@@ -659,13 +699,11 @@ COPY --from=ci-package-clang-external /. /usr/local/
 COPY --from=ci-package-qt-external /. /usr/local/
 COPY --from=ci-package-pyside-external /. /usr/local/
 
-COPY ../scripts/$VFXPLATFORM_VERSION/versions_vfx.sh \
-     ../scripts/vfx/build_otio.sh \
+COPY ../scripts/vfx/build_otio.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
-    source /tmp/versions_vfx.sh && \
     /tmp/before_build.sh && \
     /tmp/build_otio.sh && \
     /tmp/copy_new_files.sh && \

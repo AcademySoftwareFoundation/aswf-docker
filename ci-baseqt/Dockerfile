@@ -15,6 +15,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
 FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
 FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
 FROM ${ASWF_PKG_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION} as ci-package-cmake
 
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-baseqt
 
@@ -38,11 +39,6 @@ ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH
     ASWF_VERSION=${ASWF_VERSION} \
     ASWF_ORG=${ASWF_ORG}
 
-COPY scripts/$VFXPLATFORM_VERSION/versions_base.sh \
-     scripts/$VFXPLATFORM_VERSION/patchup.sh \
-     scripts/base/*.sh \
-     /tmp/
-
 COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-tbb /. /usr/local/
 COPY --from=ci-package-boost /. /usr/local/
@@ -52,10 +48,4 @@ COPY --from=ci-package-glew /. /usr/local/
 COPY --from=ci-package-glfw /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
 COPY --from=ci-package-pyside /. /usr/local/
-
-RUN export DOWNLOADS_DIR=/tmp/downloads && \
-    mkdir /tmp/downloads && \
-    source /tmp/versions_base.sh && \
-    /tmp/install_cmake.sh && \
-    /tmp/patchup.sh && \
-    rm -rf /tmp/downloads
+COPY --from=ci-package-cmake /. /usr/local/
