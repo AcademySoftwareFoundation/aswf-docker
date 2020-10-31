@@ -4,180 +4,243 @@
 # This file contains all the CI Docker package and image versions
 
 versions:
-  - version: "1-clang6"
+  "1":
     major_version: "1"
-    tags: []
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "6"
-    cuda_version: "10.2"
-    use_major_version_as_tag: false
-  - version: "1-clang7"
+    package_versions:
+      DTS_VERSION: "6"
+      CUDA_VERSION: "10.2"
+      CCACHE_VERSION: "4.0"
+      NINJA_VERSION: "1.10.0"
+      SONAR_VERSION: "3.3.0.1492"
+      PKGS_COMMON_CMAKE_VERSION: "3.12.4"
+  "1-clang6":
+    parent_versions: ["1"]
+    major_version: "1"
+    ci_common_version: "1"
+    package_versions:
+      CLANG_MAJOR_VERSION: "6"
+      CLANG_VERSION: "6.0.1"
+  "1-clang7":
+    parent_versions: ["1"]
     major_version: "1"
     tags: ["latest"]
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "7"
-    cuda_version: "10.2"
     use_major_version_as_tag: true
-  - version: "1-clang8"
+    package_versions:
+      CLANG_MAJOR_VERSION: "7"
+      CLANG_VERSION: "7.1.0"
+  "1-clang8":
+    parent_versions: ["1"]
     major_version: "1"
-    tags: []
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "8"
-    cuda_version: "10.2"
-    use_major_version_as_tag: false
-  - version: "1-clang9"
+    package_versions:
+      CLANG_MAJOR_VERSION: "8"
+      CLANG_VERSION: "8.0.1"
+  "1-clang9":
+    parent_versions: ["1"]
     major_version: "1"
-    tags: []
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "9"
-    cuda_version: "10.2"
-    use_major_version_as_tag: false
-  - version: "1-clang10"
+    package_versions:
+      CLANG_MAJOR_VERSION: "9"
+      CLANG_VERSION: "9.0.1"
+  "1-clang10":
+    parent_versions: ["1"]
     major_version: "1"
-    tags: []
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "10"
-    cuda_version: "10.2"
-    use_major_version_as_tag: false
-  - version: "2-clang10"
+    package_versions:
+      CLANG_MAJOR_VERSION: "10"
+      CLANG_VERSION: "10.0.1"
+  "2":
     major_version: "2"
     tags: ["preview"]
     ci_common_version: "2"
-    python_version: "3.7"
-    dts_version: "9"
-    clang_major_version: "10"
-    cuda_version: "11.1"
-    use_major_version_as_tag: true
-  - version: "2-clang11"
+    package_versions:
+      DTS_VERSION: "9"
+      CUDA_VERSION: "11.1"
+      CCACHE_VERSION: "4.0"
+      NINJA_VERSION: "1.10.0"
+      SONAR_VERSION: "3.3.0.1492"
+      PKGS_COMMON_CMAKE_VERSION: "3.12.4"
+  "2-clang10":
+    parent_versions: ["2"]
     major_version: "2"
-    tags: []
+    tags: ["preview"]
     ci_common_version: "2"
-    python_version: "3.7"
-    dts_version: "9"
-    clang_major_version: "11.1"
-    cuda_version: "11.1"
     use_major_version_as_tag: true
-  - version: "2018"
+    package_versions:
+      CLANG_MAJOR_VERSION: "10"
+      CLANG_VERSION: "10.0.1"
+  "2-clang11":
+    parent_versions: ["2"]
+    major_version: "2"
+    ci_common_version: "2"
+    package_versions:
+      CLANG_MAJOR_VERSION: "11"
+      CLANG_VERSION: "11.0.0"
+  "2018":
+    parent_versions: ["1", "1-clang7"]
     major_version: "2018"
-    tags: []
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "7"
-    cuda_version: "10.2"
-  - version: "2018-clang7"
+    package_versions:
+      BOOST_VERSION: "1.61.0"
+      CMAKE_VERSION: "3.9.4"
+      CPPUNIT_VERSION: "1.14.0"
+      GLEW_VERSION: "2.1.0"
+      GLFW_VERSION: "3.1.2"
+      LOG4CPLUS_VERSION: "1.1.2"
+      NUMPY_VERSION: "1.14"
+      PYSIDE_VERSION: "2.0.0"
+      PYTHON_VERSION: "2.7.15"
+      QT_VERSION: "5.6.1"
+      TBB_VERSION: "2017_U6"
+      BLOSC_VERSION: "1.5.0"
+      OIIO_VERSION: "2.0.8"
+      OPENEXR_VERSION: "2.2.1"
+      OCIO_VERSION: "1.0.9"
+      OCIO_CONFIGS_VERSION: "1.0_r2"
+      HDF5_VERSION: "1.8.21"
+      ALEMBIC_VERSION: "1.7.11"
+      PTEX_VERSION: "2.1.28"
+      OPENSUBDIV_VERSION: "3_3_3"
+      OPENVDB_VERSION: "5.2.0"
+      USD_VERSION: "19.11"
+      OSL_VERSION: "1.10.9"
+      PARTIO_VERSION: "1.10.1"
+  "2018-clang7":
+    parent_versions: ["1", "1-clang7", "2018"]
     major_version: "2018"
-    tags: []
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "7"
-    cuda_version: "10.2"
-  - version: "2019"
+  "2019":
+    parent_versions: ["1", "1-clang7"]
     major_version: "2019"
     tags: ["latest"]
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "7"
-    cuda_version: "10.2"
-  - version: "2019-clang6"
+    package_versions:
+      BOOST_VERSION: "1.66.0"
+      CMAKE_VERSION: "3.12.4"
+      CPPUNIT_VERSION: "1.14.0"
+      GLEW_VERSION: "2.1.0"
+      GLFW_VERSION: "3.1.2"
+      LOG4CPLUS_VERSION: "1.1.2"
+      NUMPY_VERSION: "1.14"
+      PYSIDE_VERSION: "5.12.6"
+      PYTHON_VERSION: "2.7.15"
+      QT_VERSION: "5.12.6"
+      TBB_VERSION: "2018"
+      BLOSC_VERSION: "1.5.0"
+      OIIO_VERSION: "2.0.8"
+      OPENEXR_VERSION: "2.3.0"
+      OCIO_VERSION: "1.1.0"
+      OCIO_CONFIGS_VERSION: "1.0_r2"
+      HDF5_VERSION: "1.8.21"
+      ALEMBIC_VERSION: "1.7.11"
+      PTEX_VERSION: "2.1.33"
+      OPENSUBDIV_VERSION: "3_3_3"
+      OPENVDB_VERSION: "6.2.1"
+      USD_VERSION: "19.11"
+      OSL_VERSION: "1.10.9"
+      OTIO_VERSION: "0.12.1"
+      PARTIO_VERSION: "1.10.1"
+  "2019-clang6":
+    parent_versions: ["1", "1-clang6", "2019"]
     major_version: "2019"
-    tags: []
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "6"
-    cuda_version: "10.2"
-    use_major_version_as_tag: false
-  - version: "2019-clang7"
+  "2019-clang7":
+    parent_versions: ["1", "1-clang7", "2019"]
     major_version: "2019"
     tags: ["latest"]
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "7"
-    cuda_version: "10.2"
     use_major_version_as_tag: true
-  - version: "2019-clang8"
+  "2019-clang8":
+    parent_versions: ["1", "1-clang8", "2019"]
     major_version: "2019"
-    tags: []
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "8"
-    cuda_version: "10.2"
-    use_major_version_as_tag: false
-  - version: "2019-clang9"
+  "2019-clang9":
+    parent_versions: ["1", "1-clang9", "2019"]
     major_version: "2019"
-    tags: []
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "9"
-    cuda_version: "10.2"
-    use_major_version_as_tag: false
-  - version: "2019-clang10"
+  "2019-clang10":
+    parent_versions: ["1", "1-clang10", "2019"]
     major_version: "2019"
-    tags: []
     ci_common_version: "1"
-    python_version: "2.7"
-    dts_version: "6"
-    clang_major_version: "10"
-    cuda_version: "10.2"
-    use_major_version_as_tag: false
-  - version: "2020"
+  "2020":
+    parent_versions: ["1", "1-clang7"]
     major_version: "2020"
-    tags: []
     ci_common_version: "1"
-    python_version: "3.7"
-    dts_version: "6"
-    cuda_version: "10.2"
-    clang_major_version: "7"
-  - version: "2020-clang7"
+    package_versions:
+      BOOST_VERSION: "1.70.0"
+      CMAKE_VERSION: "3.18.4"
+      CPPUNIT_VERSION: "1.14.0"
+      GLEW_VERSION: "2.1.0"
+      GLFW_VERSION: "3.1.2"
+      LOG4CPLUS_VERSION: "1.1.2"
+      NUMPY_VERSION: "1.16"
+      PYSIDE_VERSION: "5.12.6"
+      PYTHON_VERSION: "3.7.3"
+      QT_VERSION: "5.12.6"
+      TBB_VERSION: "2019_U6"
+      BLOSC_VERSION: "1.5.0"
+      OIIO_VERSION: "2.1.13.0"
+      OPENEXR_VERSION: "2.4.0"
+      OCIO_VERSION: "1.1.1"
+      OCIO_CONFIGS_VERSION: "1.0_r2"
+      HDF5_VERSION: "1.8.21"
+      ALEMBIC_VERSION: "1.7.12"
+      PTEX_VERSION: "2.3.2"
+      OPENSUBDIV_VERSION: "3_4_3"
+      OPENVDB_VERSION: "7.1.0"
+      USD_VERSION: "20.11"
+      OSL_VERSION: "1.10.10"
+      OTIO_VERSION: "0.12.1"
+      PARTIO_VERSION: "1.10.1"
+  "2020-clang7":
+    parent_versions: ["1", "1-clang7", "2020"]
     major_version: "2020"
-    tags: []
     ci_common_version: "1"
-    python_version: "3.7"
-    dts_version: "6"
-    cuda_version: "10.2"
-    clang_major_version: "7"
-  - version: "2021"
-    major_version: "2021"
-    tags: ["preview"]
-    ci_common_version: "2"
-    python_version: "3.7"
-    dts_version: "9"
-    cuda_version: "11.1"
-    clang_major_version: "10"
-  - version: "2021-clang10"
-    major_version: "2021"
-    tags: ["preview"]
-    ci_common_version: "2"
-    python_version: "3.7"
-    dts_version: "9"
-    clang_major_version: "10"
-    cuda_version: "11.1"
     use_major_version_as_tag: true
-  - version: "2021-clang11"
+  "2021":
+    parent_versions: ["2", "2-clang10"]
     major_version: "2021"
     tags: ["preview"]
     ci_common_version: "2"
-    python_version: "3.7"
-    dts_version: "9"
-    clang_major_version: "11"
-    cuda_version: "11.1"
+    package_versions:
+      BOOST_VERSION: "1.70.0"
+      CMAKE_VERSION: "3.18.4"
+      CPPUNIT_VERSION: "1.14.0"
+      GLEW_VERSION: "2.1.0"
+      GLFW_VERSION: "3.1.2"
+      LOG4CPLUS_VERSION: "1.1.2"
+      NUMPY_VERSION: "1.16"
+      PYSIDE_VERSION: "5.12.6"
+      PYTHON_VERSION: "3.7.3"
+      QT_VERSION: "5.12.8"
+      TBB_VERSION: "2019_U6"
+      BLOSC_VERSION: "1.5.0"
+      OIIO_VERSION: "2.1.13.0"
+      OPENEXR_VERSION: "2.4.0"
+      OCIO_VERSION: "1.1.1"
+      OCIO_CONFIGS_VERSION: "1.0_r2"
+      HDF5_VERSION: "1.8.21"
+      ALEMBIC_VERSION: "1.7.12"
+      PTEX_VERSION: "2.3.2"
+      OPENSUBDIV_VERSION: "3_4_3"
+      OPENVDB_VERSION: "7.1.0"
+      USD_VERSION: "20.11"
+      OSL_VERSION: "1.10.10"
+      OTIO_VERSION: "0.12.1"
+      PARTIO_VERSION: "1.10.1"
+  "2021-clang10":
+    parent_versions: ["2", "2-clang10", "2021"]
+    major_version: "2021"
+    tags: ["preview"]
+    ci_common_version: "2"
     use_major_version_as_tag: true
+  "2021-clang11":
+    parent_versions: ["2", "2-clang11", "2021"]
+    major_version: "2021"
+    tags: ["preview"]
+    ci_common_version: "2"
 
 ci-packages:
   clang:
@@ -191,6 +254,11 @@ ci-packages:
   ninja:
     - "1.2"
     - "2.0"
+  cmake:
+    - "2018.0"
+    - "2019.0"
+    - "2020.0"
+    - "2021.0"
   python:
     - "2018.1"
     - "2019.1"
