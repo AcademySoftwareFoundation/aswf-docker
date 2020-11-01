@@ -49,25 +49,27 @@ ENV PYTHON_VERSION=${PYTHON_VERSION}
 ARG TBB_VERSION
 ENV TBB_VERSION=${TBB_VERSION}
 
-LABEL maintainer="aloys.baillet@gmail.com"
-LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION
+LABEL org.opencontainers.image.authors="aloys.baillet@gmail.com"
 
-LABEL org.opencontainers.image.name="$ASWF_ORG/base-ci"
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-base"
 LABEL org.opencontainers.image.title="Base CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: python-${PYTHON_VERSION}, tbb-${TBB_VERSION}, boost-${BOOST_VERSION} and base libraries"
+LABEL org.opencontainers.image.description="Contains: python-${PYTHON_VERSION}, tbb-${TBB_VERSION}, boost-${BOOST_VERSION} and other base libraries"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.version=${ASWF_VERSION}
-LABEL io.aswf.docker.versions.boost=${BOOST_VERSION}
-LABEL io.aswf.docker.versions.cmake=${CMAKE_VERSION}
-LABEL io.aswf.docker.versions.cppunit=${CPPUNIT_VERSION}
-LABEL io.aswf.docker.versions.glew=${GLEW_VERSION}
-LABEL io.aswf.docker.versions.glfw=${GLFW_VERSION}
-LABEL io.aswf.docker.versions.log4cplus=${LOG4CPLUS_VERSION}
-LABEL io.aswf.docker.versions.numpy=${NUMPY_VERSION}
-LABEL io.aswf.docker.versions.python=${PYTHON_VERSION}
-LABEL io.aswf.docker.versions.tbb=${TBB_VERSION}
+LABEL org.opencontainers.image.version="${ASWF_VERSION}"
+
+LABEL com.vfxplatform.version="${VFXPLATFORM_VERSION}"
+
+LABEL io.aswf.docker.versions.boost="${BOOST_VERSION}"
+LABEL io.aswf.docker.versions.cmake="${CMAKE_VERSION}"
+LABEL io.aswf.docker.versions.cppunit="${CPPUNIT_VERSION}"
+LABEL io.aswf.docker.versions.glew="${GLEW_VERSION}"
+LABEL io.aswf.docker.versions.glfw="${GLFW_VERSION}"
+LABEL io.aswf.docker.versions.log4cplus="${LOG4CPLUS_VERSION}"
+LABEL io.aswf.docker.versions.numpy="${NUMPY_VERSION}"
+LABEL io.aswf.docker.versions.python="${PYTHON_VERSION}"
+LABEL io.aswf.docker.versions.tbb="${TBB_VERSION}"
 
 ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH} \
     VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION \

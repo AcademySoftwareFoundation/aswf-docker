@@ -7,6 +7,8 @@ ARG CI_COMMON_VERSION=1
 ARG DTS_VERSION=6
 ARG CLANG_VERSION
 ARG NINJA_VERSION
+ARG SONAR_VERSION
+ARG CCACHE_VERSION
 
 FROM ${ASWF_PKG_ORG}/ci-package-clang:${CI_COMMON_VERSION}-${CLANG_VERSION} as ci-package-clang
 FROM ${ASWF_PKG_ORG}/ci-package-ninja:${CI_COMMON_VERSION}-${NINJA_VERSION} as ci-package-ninja
@@ -23,23 +25,31 @@ ENV CLANG_VERSION=${CLANG_VERSION}
 ARG NINJA_VERSION
 ENV NINJA_VERSION=${NINJA_VERSION}
 
-LABEL maintainer="aloys.baillet@gmail.com"
+ARG SONAR_VERSION
+ENV SONAR_VERSION=${SONAR_VERSION}
 
-LABEL org.opencontainers.image.name="$ASWF_ORG/base-ci"
+ARG CCACHE_VERSION
+ENV CCACHE_VERSION=${CCACHE_VERSION}
+
+
+LABEL org.opencontainers.image.authors="aloys.baillet@gmail.com"
+
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-common"
 LABEL org.opencontainers.image.title="Common CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: clang:${CLANG_VERSION}, ninja:${NINJA_VERSION}"
+LABEL org.opencontainers.image.description="Contains: clang:${CLANG_VERSION}, ninja:${NINJA_VERSION}, sonar:${SONAR_VERSION}"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/ci-common/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.version="1.0"
+LABEL org.opencontainers.image.version="${CI_COMMON_VERSION}"
+
 LABEL io.aswf.docker.versions.dts="${DTS_VERSION}"
 LABEL io.aswf.docker.versions.clang="${CLANG_VERSION}"
 LABEL io.aswf.docker.versions.ninja="${NINJA_VERSION}"
+LABEL io.aswf.docker.versions.sonar="${SONAR_VERSION}"
 
 USER root
 
-COPY scripts/${CI_COMMON_VERSION}/versions_common.sh \
-     scripts/common/install_yumpackages.sh \
+COPY scripts/common/install_yumpackages.sh \
      /tmp/
 
 ENV DTS_VERSION=${DTS_VERSION}
@@ -57,6 +67,7 @@ ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/httpd24/root/usr/lib
 
 COPY scripts/common/install_sonar.sh \
      scripts/common/install_ccache.sh \
+     scripts/common/install_dev_cmake.sh \
      /tmp/
 
 COPY --from=ci-package-clang /. /usr/local/
@@ -64,10 +75,12 @@ COPY --from=ci-package-ninja /. /usr/local/
 
 RUN export DOWNLOADS_DIR=/tmp/downloads && \
     mkdir /tmp/downloads && \
-    source /tmp/versions_common.sh && \
     /tmp/install_sonar.sh && \
+    export PATH=${PATH}:/opt/aswfbuilder/bin && \
+    /tmp/install_dev_cmake.sh && \
     /tmp/install_ccache.sh && \
-    rm -rf /tmp/downloads
+    rm -rf /tmp/downloads && \
+    rm -rf /opt/aswfbuilder
 
 COPY scripts/common/setup_aswfuser.sh /tmp
 RUN /tmp/setup_aswfuser.sh

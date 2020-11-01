@@ -16,7 +16,7 @@ tar xf "$DOWNLOADS_DIR/ccache-${CCACHE_VERSION}.tar.gz"
 cd "ccache-${CCACHE_VERSION}"
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..
+cmake -DCMAKE_BUILD_TYPE=Release -DZSTD_FROM_INTERNET=ON -DCMAKE_INSTALL_PREFIX=/usr/local ..
 make -j$(nproc)
 make install
 
