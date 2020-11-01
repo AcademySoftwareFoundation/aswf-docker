@@ -745,6 +745,8 @@ COPY --from=ci-oiio-builder /package/. /
 FROM ci-oiio-builder as ci-ocio-builder
 ARG OCIO_VERSION
 ENV OCIO_VERSION=${OCIO_VERSION}
+ARG OCIO_CONFIGS_VERSION
+ENV OCIO_CONFIGS_VERSION=${OCIO_CONFIGS_VERSION}
 
 COPY ../scripts/vfx/build_ocio.sh \
      /tmp/
@@ -764,6 +766,7 @@ ARG CI_COMMON_VERSION
 ARG DTS_VERSION
 ARG VFXPLATFORM_VERSION
 ARG OCIO_VERSION
+ARG OCIO_CONFIGS_VERSION
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-ocio"
 LABEL org.opencontainers.image.title="OpenColorIO package built for ASWF docker images"
 LABEL org.opencontainers.image.description="OpenColorIO headers and binaries to be installed in ASWF docker images"
@@ -777,6 +780,7 @@ LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
 LABEL io.aswf.docker.versions.vfx-platform="${VFXPLATFORM_VERSION}"
 LABEL io.aswf.docker.versions.dts="${DTS_VERSION}"
 LABEL io.aswf.docker.versions.ocio="${OCIO_VERSION}"
+LABEL io.aswf.docker.versions.ocioconfigs="${OCIO_CONFIGS_VERSION}"
 
 COPY --from=ci-ocio-builder /package/. /
 
@@ -829,6 +833,8 @@ COPY --from=ci-osl-builder /package/. /
 FROM ci-openexr-builder as ci-alembic-builder
 ARG ALEMBIC_VERSION
 ENV ALEMBIC_VERSION=${ALEMBIC_VERSION}
+ARG HDF5_VERSION
+ENV HDF5_VERSION=${HDF5_VERSION}
 
 COPY ../scripts/vfx/build_alembic.sh \
      /tmp/
@@ -848,6 +854,7 @@ ARG CI_COMMON_VERSION
 ARG DTS_VERSION
 ARG VFXPLATFORM_VERSION
 ARG ALEMBIC_VERSION
+ARG HDF5_VERSION
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-alembic"
 LABEL org.opencontainers.image.title="Alembic package built for ASWF docker images"
 LABEL org.opencontainers.image.description="Alembic headers and binaries to be installed in ASWF docker images"
@@ -861,6 +868,7 @@ LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
 LABEL io.aswf.docker.versions.vfx-platform="${VFXPLATFORM_VERSION}"
 LABEL io.aswf.docker.versions.dts="${DTS_VERSION}"
 LABEL io.aswf.docker.versions.alembic="${ALEMBIC_VERSION}"
+LABEL io.aswf.docker.versions.hdf5="${HDF5_VERSION}"
 
 COPY --from=ci-alembic-builder /package/. /
 
