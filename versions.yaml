@@ -11,9 +11,8 @@ versions:
       DTS_VERSION: "6"
       CUDA_VERSION: "10.2"
       CCACHE_VERSION: "4.0"
-      NINJA_VERSION: "1.10.0"
-      SONAR_VERSION: "3.3.0.1492"
-      PKGS_COMMON_CMAKE_VERSION: "3.12.4"
+      NINJA_VERSION: "1.10.1"
+      SONAR_VERSION: "4.5.0.2216"
   "1-clang6":
     parent_versions: ["1"]
     major_version: "1"
@@ -59,9 +58,8 @@ versions:
       DTS_VERSION: "9"
       CUDA_VERSION: "11.1"
       CCACHE_VERSION: "4.0"
-      NINJA_VERSION: "1.10.0"
-      SONAR_VERSION: "3.3.0.1492"
-      PKGS_COMMON_CMAKE_VERSION: "3.12.4"
+      NINJA_VERSION: "1.10.1"
+      SONAR_VERSION: "4.5.0.2216"
   "2-clang10":
     parent_versions: ["2"]
     major_version: "2"

@@ -36,7 +36,7 @@ ARG VFXPLATFORM_VERSION
 ARG ASWF_VERSION
 ARG PYTHON_VERSION=2.7
 
-LABEL maintainer="aloys.baillet@gmail.com"
+LABEL org.opencontainers.image.authors="aloys.baillet@gmail.com"
 LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION
 LABEL org.opencontainers.image.name="$ASWF_ORG/base-vfxall"
 LABEL org.opencontainers.image.description="All VFX Packages CI Docker Image"

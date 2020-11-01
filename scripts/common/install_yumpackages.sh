@@ -138,3 +138,5 @@ yum install -y \
     p7zip \
     yasm-devel \
     zvbi-devel
+
+yum clean all
