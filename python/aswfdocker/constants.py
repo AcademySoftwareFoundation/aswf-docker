@@ -15,7 +15,16 @@ class ImageType(enum.Enum):
 GROUPS = {
     ImageType.PACKAGE: {
         "common": ["clang", "ninja"],
-        "base1": ["python", "boost", "tbb", "cppunit", "glew", "glfw", "log4cplus"],
+        "base1": [
+            "cmake",
+            "python",
+            "boost",
+            "tbb",
+            "cppunit",
+            "glew",
+            "glfw",
+            "log4cplus",
+        ],
         "base2": ["qt"],
         "base3": ["pyside"],
         "vfx1": ["blosc", "openexr", "alembic", "ocio", "oiio"],
