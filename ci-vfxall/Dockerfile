@@ -36,7 +36,7 @@ ARG VFXPLATFORM_VERSION
 ARG ASWF_VERSION
 ARG PYTHON_VERSION=2.7
 
-LABEL org.opencontainers.image.authors="aloys.baillet@gmail.com"
+LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION
 LABEL org.opencontainers.image.name="$ASWF_ORG/base-vfxall"
 LABEL org.opencontainers.image.description="All VFX Packages CI Docker Image"
@@ -45,7 +45,7 @@ LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundat
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.version=$VFXPLATFORM_VERSION
 
-ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:/usr/local/lib/python \
+ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib/python \
     VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION \
     ASWF_VERSION=${ASWF_VERSION} \
     ASWF_ORG=${ASWF_ORG}

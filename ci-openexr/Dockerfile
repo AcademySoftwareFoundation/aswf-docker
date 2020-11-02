@@ -1,36 +1,55 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
-ARG ASWF_ORG=aswftesting
-ARG ASWF_PKG_ORG=aswftesting
-ARG CI_COMMON_VERSION=1
-ARG VFXPLATFORM_VERSION=2019
-ARG CLANG_MAJOR_VERSION=7
+ARG ASWF_ORG
+ARG ASWF_PKG_ORG
+ARG BOOST_VERSION
+ARG CI_COMMON_VERSION
+ARG CLANG_MAJOR_VERSION
+ARG CMAKE_VERSION
+ARG NUMPY_VERSION
+ARG PYTHON_VERSION
+ARG PYTHON_VERSION_MAJOR_MINOR
+ARG VFXPLATFORM_VERSION
 
-FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
-FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
-FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION} as ci-package-cmake
+FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION}-${BOOST_VERSION} as ci-package-boost
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION}-${CMAKE_VERSION} as ci-package-cmake
+FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION}-${PYTHON_VERSION} as ci-package-python
 
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-openexr
 
 ARG ASWF_ORG
+ARG BOOST_VERSION
+ARG CMAKE_VERSION
+ARG NUMPY_VERSION
+ARG PYTHON_VERSION
+ARG PYTHON_VERSION_MAJOR_MINOR
 ARG VFXPLATFORM_VERSION
-ARG ASWF_VERSION
-ARG PYTHON_VERSION=2.7
 
-LABEL org.opencontainers.image.authors="aloys.baillet@gmail.com"
-LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/openexr-ci"
-LABEL org.opencontainers.image.description="openexr CI Docker Image"
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-openexr"
+LABEL org.opencontainers.image.title="OpenEXR CI Docker Image"
+LABEL org.opencontainers.image.description="Contains: python-${PYTHON_VERSION}, boost-${BOOST_VERSION} and other OpenEXR upstream dependencies"
 LABEL org.opencontainers.image.url="http://aswf.io/"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-openexr/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.version=$VFXPLATFORM_VERSION
+LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
+LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 
-ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH} \
-    VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION \
-    ASWF_VERSION=${ASWF_VERSION} \
-    ASWF_ORG=${ASWF_ORG}
+LABEL com.vfxplatform.version="${VFXPLATFORM_VERSION}"
+
+LABEL io.aswf.docker.versions.boost="${BOOST_VERSION}"
+LABEL io.aswf.docker.versions.cmake="${CMAKE_VERSION}"
+LABEL io.aswf.docker.versions.numpy="${NUMPY_VERSION}"
+LABEL io.aswf.docker.versions.python="${PYTHON_VERSION}"
+
+ENV ASWF_ORG=${ASWF_ORG}
+ENV BOOST_VERSION=${BOOST_VERSION}
+ENV CMAKE_VERSION=${CMAKE_VERSION}
+ENV NUMPY_VERSION=${NUMPY_VERSION}
+ENV PYTHON_VERSION=${PYTHON_VERSION}
+ENV PYTHON_VERSION_MAJOR_MINOR=${PYTHON_VERSION_MAJOR_MINOR}
+ENV VFXPLATFORM_VERSION=${VFXPLATFORM_VERSION}
+
+ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:${PYTHONPATH}
 
 COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-boost /. /usr/local/
