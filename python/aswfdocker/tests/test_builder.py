@@ -181,7 +181,7 @@ class TestBuilder(unittest.TestCase):
                             "CLANG_MAJOR_VERSION": "7",
                             "CLANG_VERSION": "7.1.0",
                             "CMAKE_VERSION": "3.18.4",
-                            "CPPUNIT_VERSION": "1.14.0",
+                            "CPPUNIT_VERSION": "1.15.1",
                             "CUDA_VERSION": "10.2",
                             "DTS_VERSION": "6",
                             "GLEW_VERSION": "2.1.0",
