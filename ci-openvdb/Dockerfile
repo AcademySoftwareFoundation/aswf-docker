@@ -25,7 +25,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION}-${TBB_VERSION} as ci-
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION}-${OPENEXR_VERSION} as ci-package-openexr
 FROM ${ASWF_PKG_ORG}/ci-package-blosc:${VFXPLATFORM_VERSION}-${BLOSC_VERSION} as ci-package-blosc
 
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-base
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-openvdb
 
 ARG ASWF_ORG
 ARG ASWF_VERSION
