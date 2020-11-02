@@ -16,13 +16,12 @@ else
     BOOST_EXTRA_ARGS=""
 fi
 
-PYTHON_MAJOR_MINOR=$(echo "${PYTHON_VERSION}" | cut -d. -f-2)
-BOOTSTRAP_ARGS="--with-python=${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_MAJOR_MINOR} --with-python-version=${PYTHON_MAJOR_MINOR} --with-python-root=${ASWF_INSTALL_PREFIX}/lib/python${PYTHON_MAJOR_MINOR}"
-if [[ $PYTHON_MAJOR_MINOR == 3* ]]; then
+BOOTSTRAP_ARGS="--with-python=${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_VERSION_MAJOR_MINOR} --with-python-version=${PYTHON_VERSION_MAJOR_MINOR} --with-python-root=${ASWF_INSTALL_PREFIX}/lib/python${PYTHON_VERSION_MAJOR_MINOR}"
+if [[ $PYTHON_VERSION_MAJOR_MINOR == 3* ]]; then
     # The unfortunate trick is the "m" in the python include path...
-    echo "using python : ${PYTHON_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/include/python${PYTHON_MAJOR_MINOR}m : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
+    echo "using python : ${PYTHON_VERSION_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_VERSION_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/include/python${PYTHON_VERSION_MAJOR_MINOR}m : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
 else
-    echo "using python : ${PYTHON_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/include/python${PYTHON_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
+    echo "using python : ${PYTHON_VERSION_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_VERSION_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/include/python${PYTHON_VERSION_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
 fi
 
 mkdir boost
