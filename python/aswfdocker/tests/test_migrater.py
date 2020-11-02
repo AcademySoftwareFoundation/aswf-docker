@@ -35,7 +35,10 @@ class TestMigrater(unittest.TestCase):
         self.assertEqual(len(m.migration_list), 1)
         minfo = m.migration_list[0]
         self.assertEqual(minfo.image, "ci-package-openexr")
-        self.assertEqual(minfo.version, "2019.1")
+        oexr_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "openexr")
+        )[1]
+        self.assertEqual(minfo.version, oexr_version)
         self.assertEqual(
             minfo.source,
             f"{constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version}",
