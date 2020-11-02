@@ -45,7 +45,7 @@ ARG QT_VERSION
 ARG TBB_VERSION
 ARG VFXPLATFORM_VERSION
 
-LABEL org.opencontainers.image.name="$ASWF_ORG/baseqt-ci"
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-baseqt"
 LABEL org.opencontainers.image.title="Base with Qt and PySide CI Docker Image"
 LABEL org.opencontainers.image.description="Contains: qt-${QT_VERSION}, pyside-${PYSIDE_VERSION} and other base libraries"
 LABEL org.opencontainers.image.url="http://aswf.io/"
