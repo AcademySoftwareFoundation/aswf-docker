@@ -1,14 +1,14 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
-ARG CUDA_VERSION=10.2
-ARG ASWF_ORG=aswftesting
-ARG ASWF_PKG_ORG=aswftesting
-ARG CI_COMMON_VERSION=1
-ARG DTS_VERSION=6
+ARG ASWF_ORG
+ARG ASWF_PKG_ORG
+ARG CCACHE_VERSION
+ARG CI_COMMON_VERSION
 ARG CLANG_VERSION
+ARG CUDA_VERSION
+ARG DTS_VERSION
 ARG NINJA_VERSION
 ARG SONAR_VERSION
-ARG CCACHE_VERSION
 
 FROM ${ASWF_PKG_ORG}/ci-package-clang:${CI_COMMON_VERSION}-${CLANG_VERSION} as ci-package-clang
 FROM ${ASWF_PKG_ORG}/ci-package-ninja:${CI_COMMON_VERSION}-${NINJA_VERSION} as ci-package-ninja
@@ -16,30 +16,20 @@ FROM ${ASWF_PKG_ORG}/ci-package-ninja:${CI_COMMON_VERSION}-${NINJA_VERSION} as c
 FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as ci-common
 
 ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG DTS_VERSION
-
-ARG CLANG_VERSION
-ENV CLANG_VERSION=${CLANG_VERSION}
-
-ARG NINJA_VERSION
-ENV NINJA_VERSION=${NINJA_VERSION}
-
-ARG SONAR_VERSION
-ENV SONAR_VERSION=${SONAR_VERSION}
-
 ARG CCACHE_VERSION
-ENV CCACHE_VERSION=${CCACHE_VERSION}
-
-
-LABEL org.opencontainers.image.authors="aloys.baillet@gmail.com"
+ARG CI_COMMON_VERSION
+ARG CLANG_VERSION
+ARG DTS_VERSION
+ARG NINJA_VERSION
+ARG SONAR_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-common"
 LABEL org.opencontainers.image.title="Common CI Docker Image"
 LABEL org.opencontainers.image.description="Contains: clang:${CLANG_VERSION}, ninja:${NINJA_VERSION}, sonar:${SONAR_VERSION}"
 LABEL org.opencontainers.image.url="http://aswf.io/"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/ci-common/Dockerfile"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-common/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
+LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${CI_COMMON_VERSION}"
 
 LABEL io.aswf.docker.versions.dts="${DTS_VERSION}"
@@ -52,7 +42,14 @@ USER root
 COPY scripts/common/install_yumpackages.sh \
      /tmp/
 
+ENV CCACHE_VERSION=${CCACHE_VERSION}
+ENV CLANG_VERSION=${CLANG_VERSION}
+ENV NINJA_VERSION=${NINJA_VERSION}
+ENV SONAR_VERSION=${SONAR_VERSION}
 ENV DTS_VERSION=${DTS_VERSION}
+ENV ASWF_ORG=${ASWF_ORG}
+ENV CI_COMMON_VERSION=${CI_COMMON_VERSION}
+
 RUN /tmp/install_yumpackages.sh
 
 RUN mkdir /opt/aswf
@@ -60,10 +57,8 @@ WORKDIR /opt/aswf
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/httpd24/root/usr/lib64:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/lib64:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
     PATH=/opt/rh/rh-git218/root/usr/bin:/usr/local/bin:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-${DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
-    CI_COMMON_VERSION=${CI_COMMON_VERSION} \
     PERL5LIB=/opt/rh/rh-git218/root/usr/share/perl5/vendor_perl \
-    MANPATH=/opt/rh/rh-git218/root/usr/share/man \
-    ASWF_ORG=${ASWF_ORG}
+    MANPATH=/opt/rh/rh-git218/root/usr/share/man
 
 COPY scripts/common/install_sonar.sh \
      scripts/common/install_ccache.sh \

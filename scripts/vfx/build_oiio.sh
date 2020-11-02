@@ -11,15 +11,13 @@ if [ "$OIIO_VERSION" != "latest" ]; then
     git checkout "tags/Release-${OIIO_VERSION}" -b "Release-${OIIO_VERSION}"
 fi
 
-PYTHON_MAJOR_MINOR=$(echo "${PYTHON_VERSION}" | cut -d. -f-2)
-
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
       -DOIIO_BUILD_TOOLS=ON \
       -DOIIO_BUILD_TESTS=OFF \
       -DVERBOSE=ON \
-      -DPYTHON_VERSION="${PYTHON_MAJOR_MINOR}" \
+      -DPYTHON_VERSION="${PYTHON_VERSION_MAJOR_MINOR}" \
       -DBoost_NO_BOOST_CMAKE=ON \
       ../.
 make -j$(nproc)
