@@ -2,10 +2,12 @@
 # SPDX-License-Identifier: Apache-2.0
 ARG ALEMBIC_VERSION
 ARG ASWF_ORG
+ARG ASWF_PKG_ORG
 ARG BLOSC_VERSION
 ARG BOOST_VERSION
 ARG CI_COMMON_VERSION
 ARG CLANG_VERSION
+ARG CLANG_MAJOR_VERSION
 ARG CMAKE_VERSION
 ARG CPPUNIT_VERSION
 ARG CUDA_VERSION
@@ -33,28 +35,28 @@ ARG TBB_VERSION
 ARG USD_VERSION
 ARG VFXPLATFORM_VERSION
 
-FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
-FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION} as ci-package-tbb
-FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
-FROM ${ASWF_PKG_ORG}/ci-package-cppunit:${VFXPLATFORM_VERSION} as ci-package-cppunit
-FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:${VFXPLATFORM_VERSION} as ci-package-log4cplus
-FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
-FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
-FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
-FROM ${ASWF_PKG_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
-FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION} as ci-package-cmake
-FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
-FROM ${ASWF_PKG_ORG}/ci-package-blosc:${VFXPLATFORM_VERSION} as ci-package-blosc
-FROM ${ASWF_PKG_ORG}/ci-package-alembic:${VFXPLATFORM_VERSION} as ci-package-alembic
-FROM ${ASWF_PKG_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION} as ci-package-oiio
-FROM ${ASWF_PKG_ORG}/ci-package-ocio:${VFXPLATFORM_VERSION} as ci-package-ocio
-FROM ${ASWF_PKG_ORG}/ci-package-opensubdiv:${VFXPLATFORM_VERSION} as ci-package-opensubdiv
-FROM ${ASWF_PKG_ORG}/ci-package-ptex:${VFXPLATFORM_VERSION} as ci-package-ptex
-FROM ${ASWF_PKG_ORG}/ci-package-openvdb:${VFXPLATFORM_VERSION} as ci-package-openvdb
-FROM ${ASWF_PKG_ORG}/ci-package-usd:${VFXPLATFORM_VERSION} as ci-package-usd
-FROM ${ASWF_PKG_ORG}/ci-package-partio:${VFXPLATFORM_VERSION} as ci-package-partio
-FROM ${ASWF_PKG_ORG}/ci-package-osl:${VFXPLATFORM_VERSION} as ci-package-osl
-FROM ${ASWF_PKG_ORG}/ci-package-otio:${VFXPLATFORM_VERSION} as ci-package-otio
+FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION}-${PYTHON_VERSION} as ci-package-python
+FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION}-${TBB_VERSION} as ci-package-tbb
+FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION}-${BOOST_VERSION} as ci-package-boost
+FROM ${ASWF_PKG_ORG}/ci-package-cppunit:${VFXPLATFORM_VERSION}-${CPPUNIT_VERSION} as ci-package-cppunit
+FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:${VFXPLATFORM_VERSION}-${LOG4CPLUS_VERSION} as ci-package-log4cplus
+FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION}-${GLEW_VERSION} as ci-package-glew
+FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION}-${GLFW_VERSION} as ci-package-glfw
+FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION}-${QT_VERSION} as ci-package-qt
+FROM ${ASWF_PKG_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION}-${PYSIDE_VERSION} as ci-package-pyside
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION}-${CMAKE_VERSION} as ci-package-cmake
+FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION}-${OPENEXR_VERSION} as ci-package-openexr
+FROM ${ASWF_PKG_ORG}/ci-package-blosc:${VFXPLATFORM_VERSION}-${BLOSC_VERSION} as ci-package-blosc
+FROM ${ASWF_PKG_ORG}/ci-package-alembic:${VFXPLATFORM_VERSION}-${ALEMBIC_VERSION} as ci-package-alembic
+FROM ${ASWF_PKG_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION}-${OIIO_VERSION} as ci-package-oiio
+FROM ${ASWF_PKG_ORG}/ci-package-ocio:${VFXPLATFORM_VERSION}-${OCIO_VERSION} as ci-package-ocio
+FROM ${ASWF_PKG_ORG}/ci-package-opensubdiv:${VFXPLATFORM_VERSION}-${OPENSUBDIV_VERSION} as ci-package-opensubdiv
+FROM ${ASWF_PKG_ORG}/ci-package-ptex:${VFXPLATFORM_VERSION}-${PTEX_VERSION} as ci-package-ptex
+FROM ${ASWF_PKG_ORG}/ci-package-openvdb:${VFXPLATFORM_VERSION}-${OPENVDB_VERSION} as ci-package-openvdb
+FROM ${ASWF_PKG_ORG}/ci-package-usd:${VFXPLATFORM_VERSION}-${USD_VERSION} as ci-package-usd
+FROM ${ASWF_PKG_ORG}/ci-package-partio:${VFXPLATFORM_VERSION}-${PARTIO_VERSION} as ci-package-partio
+FROM ${ASWF_PKG_ORG}/ci-package-osl:${VFXPLATFORM_VERSION}-${OSL_VERSION} as ci-package-osl
+FROM ${ASWF_PKG_ORG}/ci-package-otio:${VFXPLATFORM_VERSION}-${OTIO_VERSION} as ci-package-otio
 
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-vfxall
 
