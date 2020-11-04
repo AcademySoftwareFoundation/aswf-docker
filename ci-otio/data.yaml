@@ -1,0 +1,12 @@
+ci_image_name: "otio"
+ci_image_title: "OpenTimelineIO CI Docker Image"
+ci_image_description: |
+  Contains: python, Qt, PySide and other OpenTimelineIO upstream dependencies
+  Warning: this image does *not* contain OpenTimelineIO itself as it is used to *build* OpenTimelineIO!
+packages:
+  - python
+  - cmake
+  - qt
+  - pyside
+implicit_packages:
+  - numpy

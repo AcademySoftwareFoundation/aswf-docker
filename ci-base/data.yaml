@@ -1,0 +1,15 @@
+ci_image_name: "base"
+ci_image_title: "Base CI Docker Image"
+ci_image_description: |
+  Contains: python, tbb, boost and other base libraries
+packages:
+  - boost
+  - cmake
+  - cppunit
+  - glew
+  - glfw
+  - log4cplus
+  - python
+  - tbb
+implicit_packages:
+  - numpy

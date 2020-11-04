@@ -33,7 +33,7 @@ GROUPS = {
     },
     ImageType.IMAGE: {
         "common": ["common"],
-        "base": ["base"],
+        "base": ["base", "baseqt"],
         "vfx1": ["openexr", "openvdb", "opencue"],
         "vfx2": ["ocio", "osl", "otio"],
         "usd": ["usd"],

@@ -1,0 +1,10 @@
+ci_image_name: "opencue"
+ci_image_title: "OpenCue CI Docker Image"
+ci_image_description: |
+  Contains: python, cmake and other OpenCue upstream dependencies
+  Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!
+packages:
+  - python
+  - cmake
+implicit_packages:
+  - numpy
