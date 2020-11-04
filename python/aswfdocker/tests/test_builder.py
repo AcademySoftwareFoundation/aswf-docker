@@ -156,7 +156,7 @@ class TestBuilder(unittest.TestCase):
                 names=["base"],
                 versions=["2019", "2020"],
                 type_=constants.ImageType.IMAGE,
-                targets=[],
+                targets=["base"],
             ),
         )
         base_versions = list(

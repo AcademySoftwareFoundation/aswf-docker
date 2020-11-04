@@ -1,0 +1,16 @@
+ci_image_name: "ocio"
+ci_image_title: "OpenColorIO CI Docker Image"
+ci_image_description: |
+  Contains: python, tbb, boost and other OpenColorIO upstream dependencies
+  Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!
+packages:
+  - python
+  - tbb
+  - boost
+  - glew
+  - glfw
+  - cmake
+  - openexr
+  - oiio
+implicit_packages:
+  - numpy

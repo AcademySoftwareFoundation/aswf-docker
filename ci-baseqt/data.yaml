@@ -1,0 +1,17 @@
+ci_image_name: "baseqt"
+ci_image_title: "Base with Qt and PySide CI Docker Image"
+ci_image_description: |
+  Contains: python, tbb, boost, Qt, PySide and other base libraries
+packages:
+  - boost
+  - cmake
+  - cppunit
+  - glew
+  - glfw
+  - log4cplus
+  - python
+  - tbb
+  - qt
+  - pyside
+implicit_packages:
+  - numpy
