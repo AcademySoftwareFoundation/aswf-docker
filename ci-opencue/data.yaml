@@ -8,3 +8,7 @@ packages:
   - cmake
 implicit_packages:
   - numpy
+extra_commands: |
+  RUN sudo yum -y install \
+      java-1.8.0-openjdk.x86_64 \
+      java-1.8.0-openjdk-devel.x86_64

@@ -158,3 +158,6 @@ COPY --from=ci-package-opensubdiv /. /usr/local/
 COPY --from=ci-package-alembic /. /usr/local/
 COPY --from=ci-package-blosc /. /usr/local/
 COPY --from=ci-package-openvdb /. /usr/local/
+
+
+RUN sudo pip install jinja2 PyOpenGL
