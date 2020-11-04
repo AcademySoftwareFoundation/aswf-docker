@@ -59,3 +59,5 @@ ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:
 {% for package in packages -%}
 COPY --from=ci-package-{{ package }} /. /usr/local/
 {% endfor %}
+
+{{ extra_commands }}

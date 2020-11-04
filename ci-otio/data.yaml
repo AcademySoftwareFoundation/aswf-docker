@@ -10,3 +10,5 @@ packages:
   - pyside
 implicit_packages:
   - numpy
+extra_commands: |
+  RUN sudo pip install flake8 tox urllib3

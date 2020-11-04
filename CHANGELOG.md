@@ -1,7 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-<<<<<<< HEAD
+## 2020-11-05
+### Added
+* Added `ci-baseqt` image which was not pushed in a while.
+* All `ci-package-*` images now have their actual version in the label and in their tags (e.g. `aswf/ci-package-openexr:2019-2.3.0`).
+* New `aswfdocker dockergen` command line tool to re-generate CI Image Dockerfiles and Readmes from a set of templates and current versions.
+
+### Changed
+* All CI images are now templated and come with a `Readme.md` containing all the current package version numbers.
+* All package versions have been moved from version bash scripts into the `versions.yaml` file, which enables the tagging of the image with these versions.
+
 ## 2020-10-21
 ### Added
 * Added `clang-11.0.0` package.
@@ -40,19 +49,6 @@ All notable changes to this project will be documented in this file.
 * `ci-otio:2019.1`, `ci-otio:2020.1`, `ci-otio:2021.1`
 * `ci-vfxall:2019-clang6.10`, `ci-vfxall:2019-clang7.10`, `ci-vfxall:2019-clang8.10`, `ci-vfxall:2019-clang9.10`, `ci-vfxall:2020-clang7.8`, `ci-vfxall:2021-clang10.3`
 
-=======
-## 2020-09
-
-### Changed
-* Updated `ci-common:2` to cuda-11
-
-### New CI Images
-* `aswf/ci-common:2021.2`
-* `aswf/ci-ocio:2021.2`
-* `aswf/ci-usd:2021.2`
-* `aswf/ci-osl:2021.2`
-* `aswf/ci-vfxall:2021.3`
->>>>>>> Updated gl-dependent docker image versions
 
 ## 2020-08-01
 

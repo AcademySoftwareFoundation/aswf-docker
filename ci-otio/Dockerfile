@@ -76,3 +76,6 @@ COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-cmake /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
 COPY --from=ci-package-pyside /. /usr/local/
+
+
+RUN sudo pip install flake8 tox urllib3

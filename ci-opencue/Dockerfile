@@ -64,3 +64,8 @@ ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:
 
 COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-cmake /. /usr/local/
+
+
+RUN sudo yum -y install \
+    java-1.8.0-openjdk.x86_64 \
+    java-1.8.0-openjdk-devel.x86_64
