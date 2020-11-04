@@ -24,3 +24,5 @@ packages:
 implicit_packages:
   - numpy
   - hdf5
+extra_commands: |
+  RUN sudo pip install jinja2 PyOpenGL
