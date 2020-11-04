@@ -15,6 +15,7 @@ from aswfdocker import (
     aswfinfo,
     groupinfo,
     constants,
+    dockergen as aswf_dockergen,
     index,
     utils,
     releaser,
@@ -386,3 +387,24 @@ def release(
         return
     r.release(dry_run=dry_run)
     click.echo("Release done.")
+
+
+@cli.command()
+@click.option(
+    "--image-name", "-n", default="all", help='Image name to generate. E.g. "base"',
+)
+def dockergen(image_name):
+    """Generates a docker file from inital data and dockerfile template
+    """
+    if image_name == "all":
+        images = []
+        for group, gimages in constants.GROUPS[constants.ImageType.IMAGE].items():
+            if group != "common":
+                images.extend(gimages)
+    else:
+        images = [image_name]
+    for image in images:
+        path = aswf_dockergen.DockerGen(image).generate_dockerfile()
+        click.echo(f"Generated {path}")
+        path = aswf_dockergen.DockerGen(image).generate_readme()
+        click.echo(f"Generated {path}")

@@ -1,0 +1,11 @@
+ci_image_name: "openexr"
+ci_image_title: "OpenEXR CI Docker Image"
+ci_image_description: |
+  Contains: python, boost and other OpenEXR upstream dependencies
+  Warning: this image does *not* contain OpenEXR itself as it is used to *build* OpenEXR!
+packages:
+  - python
+  - boost
+  - cmake
+implicit_packages:
+  - numpy

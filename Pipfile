@@ -17,6 +17,7 @@ aswfdocker = {editable = true,path = "."}
 click = "*"
 pygithub = "*"
 pyyaml = "*"
+jinja2 = "*"
 
 [requires]
 python_version = "3.7"
