@@ -295,6 +295,10 @@ Example use: migrate a single package from `aswftesting` to `aswf` dockerhub org
 aswfdocker --verbose migrate --from aswftesting --to aswf --package usd
 ```
 
+### Updating versions
+If a version number of a package or an image needs to be updated, the `versions.yaml` file is the main data source.
+In order to update the templated images with updated version numbers, run `aswfdocker dockergen`.
+
 ### Manually push new packages
 When rebuilding all packages from the CI is overkill, and if you have access to the right dockerhub organisations, it is possible
 to manually build and push packages and images by overriding the automatic discovery of current repo and branch.
