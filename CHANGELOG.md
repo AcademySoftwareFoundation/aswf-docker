@@ -8,8 +8,50 @@ All notable changes to this project will be documented in this file.
 * New `aswfdocker dockergen` command line tool to re-generate CI Image Dockerfiles and Readmes from a set of templates and current versions.
 
 ### Changed
-* All CI images are now templated and come with a `Readme.md` containing all the current package version numbers.
+* All CI images (except `ci-common`) are now automatically generated from a template and come with a `Readme.md` (also templated) containing all the current package version numbers.
 * All package versions have been moved from version bash scripts into the `versions.yaml` file, which enables the tagging of the image with these versions.
+* VFX 2021 images are now built against CUDA-11.1.
+
+### New CI Packages:
+* `ci-package-clang:1-clang6.2`, `ci-package-clang:1-clang7.2`, `ci-package-clang:1-clang8.2`, `ci-package-clang:1-clang9.2`, `ci-package-clang:1-clang10.2`, `ci-package-clang:2-clang10.2`, `ci-package-clang:2-clang11.2`
+* `ci-package-ninja:1.3`, `ci-package-ninja:2.1`
+* `ci-package-cmake:2018.0`, `ci-package-cmake:2019.0`, `ci-package-cmake:2020.0`, `ci-package-cmake:2021.0`
+* `ci-package-python:2018.2`, `ci-package-python:2019.2`, `ci-package-python:2020.2`, `ci-package-python:2021.1`
+* `ci-package-boost:2018.2`, `ci-package-boost:2019.2`, `ci-package-boost:2020.2`, `ci-package-boost:2021.1`
+* `ci-package-tbb:2018.2`, `ci-package-tbb:2019.2`, `ci-package-tbb:2020.2`, `ci-package-tbb:2021.1`
+* `ci-package-cppunit:2018.2`, `ci-package-cppunit:2019.2`, `ci-package-cppunit:2020.2`, `ci-package-cppunit:2021.1`
+* `ci-package-glew:2018.2`, `ci-package-glew:2019.2`, `ci-package-glew:2020.2`, `ci-package-glew:2021.2`
+* `ci-package-glfw:2018.2`, `ci-package-glfw:2019.2`, `ci-package-glfw:2020.2`, `ci-package-glfw:2021.2`
+* `ci-package-log4cplus:2018.2`, `ci-package-log4cplus:2019.2`, `ci-package-log4cplus:2020.2`, `ci-package-log4cplus:2021.1`
+* `ci-package-qt:2018.2`, `ci-package-qt:2019.2`, `ci-package-qt:2020.2`, `ci-package-qt:2021.1`
+* `ci-package-pyside:2018.2`, `ci-package-pyside:2019.2`, `ci-package-pyside:2020.2`, `ci-package-pyside:2021.1`
+* `ci-package-blosc:2018.2`, `ci-package-blosc:2019.2`, `ci-package-blosc:2020.2`, `ci-package-blosc:2021.1`
+* `ci-package-openexr:2018.2`, `ci-package-openexr:2019.2`, `ci-package-openexr:2020.2`, `ci-package-openexr:2021.1`
+* `ci-package-alembic:2018.2`, `ci-package-alembic:2019.2`, `ci-package-alembic:2020.2`, `ci-package-alembic:2021.1`
+* `ci-package-ocio:2018.2`, `ci-package-ocio:2019.2`, `ci-package-ocio:2020.2`, `ci-package-ocio:2021.2`
+* `ci-package-oiio:2018.2`, `ci-package-oiio:2019.2`, `ci-package-oiio:2020.2`, `ci-package-oiio:2021.2`
+* `ci-package-opensubdiv:2018.2`, `ci-package-opensubdiv:2019.2`, `ci-package-opensubdiv:2020.2`, `ci-package-opensubdiv:2021.2`
+* `ci-package-ptex:2018.2`, `ci-package-ptex:2019.2`, `ci-package-ptex:2020.2`, `ci-package-ptex:2021.1`
+* `ci-package-openvdb:2019.2`, `ci-package-openvdb:2020.2`, `ci-package-openvdb:2021.1`
+* `ci-package-usd:2019.3`, `ci-package-usd:2020.2`, `ci-package-usd:2021.2`
+* `ci-package-otio:2019.1`, `ci-package-otio:2020.1`, `ci-package-otio:2021.1`
+* `ci-package-partio:2018.1`, `ci-package-partio:2019.1`, `ci-package-partio:2020.1`, `ci-package-partio:2021.1`
+* `ci-package-osl:2018.1`, `ci-package-osl:2019.1`, `ci-package-osl:2020.1`, `ci-package-osl:2021.2`
+
+### New CI Images:
+* `ci-common:1-clang6.7`, `ci-common:1-clang7.7`, `ci-common:1-clang8.7`, `ci-common:1-clang9.7`, `ci-common:1-clang10.7`, `ci-common:2-clang10.2`, `ci-common:2-clang11.2`
+* `ci-base:2018.7`, `ci-base:2019.7`, `ci-base:2020.7`, `ci-base:2021.3`
+* `ci-baseqt:2018.0`, `ci-baseqt:2019.0`, `ci-baseqt:2020.0`, `ci-baseqt:2021.0`
+* `ci-openexr:2018.7`, `ci-openexr:2019.7`, `ci-openexr:2020.7`, `ci-openexr:2021.3`
+* `ci-openvdb:2018-clang7.7`, `ci-openvdb:2019-clang6.7`, `ci-openvdb:2019-clang7.7`, `ci-openvdb:2019-clang8.7`, `ci-openvdb:2019-clang9.7`, `ci-openvdb:2020-clang7.7`, `ci-openvdb:2021-clang10.3`
+* `ci-opencue:2018.7`, `ci-opencue:2019.7`, `ci-opencue:2020.7`, `ci-opencue:2021.3`
+* `ci-ocio:2018.8`, `ci-ocio:2019.8`, `ci-ocio:2020.7`, `ci-ocio:2021.3`
+* `ci-osl:2018-clang7.3`, `ci-osl:2019-clang6.3`, `ci-osl:2019-clang7.3`, `ci-osl:2019-clang8.3`, `ci-osl:2019-clang9.3`, `ci-osl:2019-clang10.3`, `ci-osl:2020-clang7.3`, `ci-osl:2021-clang10.3`, `ci-osl:2021-clang11.3`
+* `ci-otio:2019.2`, `ci-otio:2020.2`, `ci-otio:2021.2`
+* `ci-usd:2019.8`, `ci-usd:2020.7`, `ci-usd:2021.3`
+* `ci-vfxall:2019-clang6.11`, `ci-vfxall:2019-clang7.11`, `ci-vfxall:2019-clang8.11`, `ci-vfxall:2019-clang9.11`, `ci-vfxall:2020-clang7.9`, `ci-vfxall:2021-clang10.4`
+
+
 
 ## 2020-10-21
 ### Added
