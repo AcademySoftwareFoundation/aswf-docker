@@ -8,6 +8,7 @@ import re
 import subprocess
 import datetime
 import logging
+import requests
 
 from aswfdocker import constants
 
@@ -111,3 +112,9 @@ def get_group_from_image(image_type: constants.ImageType, image: str):
             if img == image:
                 return group
     raise RuntimeError(f"Cannot find group for image {image}")
+
+
+def get_dockerhub_token(username, password):
+    body = {"username": username, "password": password}
+    response = requests.post("https://hub.docker.com/v2/users/login", json=body)
+    return response.json()["token"]

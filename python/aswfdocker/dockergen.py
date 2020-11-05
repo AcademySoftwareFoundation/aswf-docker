@@ -5,7 +5,7 @@ Migration of ASWF docker images between docker organisations
 """
 import logging
 import os
-
+import requests
 import yaml
 from jinja2 import Environment, PackageLoader
 
@@ -76,3 +76,29 @@ class DockerGen:
         with open(readme_path) as f:
             ok = f.read() == template.render(image_data)
         return readme_path, ok
+
+    def push_overview(self, docker_org, token):
+        readme_path = os.path.join(
+            utils.get_git_top_level(), f"ci-{self.image_name}/Readme.md"
+        )
+
+        with open(readme_path) as f:
+            full_description = f.read()
+
+        image_data = self._get_image_data()
+
+        body = {
+            # "registry": "registry-1.docker.io",
+            "description": image_data["ci_image_title"]
+            + "\n"
+            + image_data["ci_image_description"],
+            "full_description": full_description,
+        }
+        url = (
+            f"https://hub.docker.com/v2/repositories/{docker_org}/ci-{self.image_name}/"
+        )
+        logger.debug("Patching description url %s", url)
+        response = requests.patch(
+            url, json=body, headers={"Authorization": f"JWT {token}"},
+        )
+        return response.status_code == 200
