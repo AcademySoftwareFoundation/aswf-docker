@@ -390,11 +390,15 @@ def release(
 
 
 @cli.command()
+@click.pass_context
 @click.option(
-    "--image-name", "-n", default="all", help='Image name to generate. E.g. "base"',
+    "--image-name", "-n", default="all", help='Image name to generate. E.g. "base"'
 )
-def dockergen(image_name):
-    """Generates a docker file from inital data and dockerfile template
+@click.option(
+    "--check", "-c", is_flag=True, help="Checks that the current files are up to date."
+)
+def dockergen(context, image_name, check):
+    """Generates a docker file and readme from image data and template
     """
     if image_name == "all":
         images = []
@@ -403,8 +407,23 @@ def dockergen(image_name):
                 images.extend(gimages)
     else:
         images = [image_name]
-    for image in images:
-        path = aswf_dockergen.DockerGen(image).generate_dockerfile()
-        click.echo(f"Generated {path}")
-        path = aswf_dockergen.DockerGen(image).generate_readme()
-        click.echo(f"Generated {path}")
+    if check:
+        for image in images:
+            path, ok = aswf_dockergen.DockerGen(image).check_dockerfile()
+            if not ok:
+                click.secho(f"{path} is not up to date!", fg="red")
+                context.exit(1)
+            else:
+                click.secho(f"{path} is up to date", fg="green")
+            path, ok = aswf_dockergen.DockerGen(image).check_readme()
+            if not ok:
+                click.secho(f"{path} is not up to date!", fg="red")
+                context.exit(1)
+            else:
+                click.secho(f"{path} is up to date", fg="green")
+    else:
+        for image in images:
+            path = aswf_dockergen.DockerGen(image).generate_dockerfile()
+            click.echo(f"Generated {path}")
+            path = aswf_dockergen.DockerGen(image).generate_readme()
+            click.echo(f"Generated {path}")
