@@ -41,3 +41,11 @@ jobs:
           build \
           --full-name $GITHUB_REF \
           --push YES
+
+    - name: Update Docker Hub Description
+      run: |
+        aswfdocker \
+          pushoverview \
+          --username aswfdocker \
+          --password ${{ secrets.DOCKERHUB_PASSWORD }} \
+          --full-name $GITHUB_REF

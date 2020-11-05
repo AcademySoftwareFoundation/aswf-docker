@@ -10,6 +10,7 @@ import datetime
 import logging
 import json
 import urllib.request
+import requests
 
 from aswfdocker import constants
 
@@ -123,6 +124,7 @@ def get_group_from_image(image_type: constants.ImageType, image: str):
     raise RuntimeError(f"Cannot find group for image {image}")
 
 
+<<<<<<< HEAD
 def get_image_pull_count(docker_org, image):
     url = f"https://hub.docker.com/v2/repositories/{docker_org}/{image}"
     try:
@@ -161,3 +163,9 @@ def iter_all_images():
             for _, images in constants.GROUPS[image_type].items():
                 for image in images:
                     yield org, image_type, image
+=======
+def get_dockerhub_token(username, password):
+    body = {"username": username, "password": password}
+    response = requests.post("https://hub.docker.com/v2/users/login", json=body)
+    return response.json()["token"]
+>>>>>>> Added docker hub description upload

@@ -427,3 +427,36 @@ def dockergen(context, image_name, check):
             click.echo(f"Generated {path}")
             path = aswf_dockergen.DockerGen(image).generate_readme()
             click.echo(f"Generated {path}")
+
+
+@cli.command()
+@common_image_options
+@click.option(
+    "--username", "-u", help="DockerHub username.",
+)
+@click.option(
+    "--password", "-p", help="DockerHub password",
+)
+@pass_build_info
+def pushoverview(
+    build_info, ci_image_type, group, version, full_name, target, username, password,
+):
+    """Pushes the Docker Image Readme file to DockerHub
+    """
+    group_info = get_group_info(
+        build_info, ci_image_type, group, version, full_name, target
+    )
+    token = utils.get_dockerhub_token(username, password)
+    for image, _ in group_info.iter_images_versions():
+        dg = aswf_dockergen.DockerGen(image.replace("ci-", ""))
+        if dg.push_overview(build_info.docker_org, token):
+            click.secho(
+                f"Successfully pushed description to image {build_info.docker_org}/{image}",
+                fg="green",
+            )
+        else:
+            click.secho(
+                f"Failed to push description to image {build_info.docker_org}/{image}",
+                fg="red",
+            )
+            click.get_current_context().exit(1)
