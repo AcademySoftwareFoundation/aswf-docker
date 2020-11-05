@@ -32,10 +32,9 @@ index 4f3cd9d40..e01dc0915 100644
 EOF
 
 if [[ $DTS_VERSION == 9 && $CUDA_VERSION == 10* ]]; then
-    # CUDA-10 is not compatible with GCC-9...
-    EXTRA_ARGS=-DNO_CUDA=1
+    CUDA_COMPUTE_VERSION=compute_30
 else
-    EXTRA_ARGS=""
+    CUDA_COMPUTE_VERSION=compute_50
 fi
 
 mkdir build
@@ -55,8 +54,7 @@ cmake .. \
       -DNO_REGRESSION=1 \
       -DNO_DOC=1 \
       -DNO_TUTORIALS=ON \
-      -DOSD_CUDA_NVCC_FLAGS="--gpu-architecture compute_30" \
-      $EXTRA_ARGS
+      -DOSD_CUDA_NVCC_FLAGS="--gpu-architecture ${CUDA_COMPUTE_VERSION}"
 make # random cuda build failure when more than one job in //...
 make install
 
