@@ -23,3 +23,6 @@ jobs:
 
     - run: pipenv run pre-commit run --all-files
       name: Run all pre-commit tests
+
+    - run: pipenv run aswfdocker dockergen --check
+      name: Check that all templated Dockerfile and Readme.md are up to date
