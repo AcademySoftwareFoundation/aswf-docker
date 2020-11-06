@@ -1,6 +1,6 @@
-ci_image_name: "openvdb"
-ci_image_title: "OpenVDB CI Docker Image"
-ci_image_description: |
+name: "openvdb"
+title: "OpenVDB CI Docker Image"
+description: |
   Contains: python, boost, tbb and other OpenVDB upstream dependencies
   Warning: this image does *not* contain OpenVDB itself as it is used to *build* OpenVDB!
 packages:
@@ -14,3 +14,6 @@ packages:
   - blosc
 implicit_packages:
   - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION}
+docker_package_version: $VFXPLATFORM_VERSION

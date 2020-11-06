@@ -7,34 +7,51 @@ ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG CLANG_MAJOR_VERSION
-ARG VFXPLATFORM_VERSION
-ARG PYTHON_VERSION_MAJOR_MINOR
+
+{% for arg in docker_args -%}
+ARG {{ arg }}
+{% endfor -%}
 
 {% for package in packages + implicit_packages -%}
 ARG {{package.upper()}}_VERSION
+{% endfor -%}
+
+{% for package in packages + implicit_packages -%}
+{% for arg in index.package_data(package).get("docker_args", []) -%}
+ARG {{ arg }}
+{% endfor -%}
 {% endfor %}
+
 {% for package in packages -%}
-FROM ${ASWF_PKG_ORG}/ci-package-{{ package }}:${VFXPLATFORM_VERSION}-${{package.upper()}}_VERSION as ci-package-{{ package }}
-{% endfor %}
+FROM ${ASWF_PKG_ORG}/ci-package-{{ package }}:{{docker_package_version}}-${{package.upper()}}_VERSION as ci-package-{{ package }}
+{% endfor -%}
 
 
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-base
+FROM {{ docker_from }} as ci-{{ name }}
 
 
 ARG ASWF_ORG
 ARG ASWF_VERSION
-ARG VFXPLATFORM_VERSION
-ARG PYTHON_VERSION_MAJOR_MINOR
+
+{% for arg in docker_args -%}
+ARG {{ arg }}
+{% endfor -%}
 
 {% for package in packages + implicit_packages -%}
 ARG {{package.upper()}}_VERSION
+{% endfor -%}
+
+{% for package in packages + implicit_packages -%}
+{% for arg in index.package_data(package).get("docker_args", []) -%}
+ARG {{ arg }}
+{% endfor -%}
 {% endfor %}
 
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-{{ ci_image_name }}"
-LABEL org.opencontainers.image.title="{{ ci_image_title }}"
-LABEL org.opencontainers.image.description="{{ "\\\n".join(ci_image_description.split("\n")) }}"
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-{{ name }}"
+LABEL org.opencontainers.image.title="{{ title }}"
+LABEL org.opencontainers.image.description="{{ "\\\n".join(description.split("\n")) }}"
 LABEL org.opencontainers.image.url="http://aswf.io/"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-{{ ci_image_name }}/Dockerfile"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-{{ name }}/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
@@ -47,17 +64,28 @@ LABEL io.aswf.docker.versions.{{ package }}="${{ package.upper() }}_VERSION"
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
-ENV VFXPLATFORM_VERSION=${VFXPLATFORM_VERSION}
-ENV PYTHON_VERSION_MAJOR_MINOR=${PYTHON_VERSION_MAJOR_MINOR}
+{% for arg in docker_args -%}
+ENV {{ arg }}=${{ arg }}
+{% endfor -%}
 
 {% for package in packages + implicit_packages -%}
 ENV {{package.upper()}}_VERSION=${{package.upper()}}_VERSION
-{% endfor %}
+{% endfor -%}
 
-ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:${PYTHONPATH}
+{% for package in packages + implicit_packages -%}
+{% for arg in index.package_data(package).get("docker_args", []) -%}
+ENV {{ arg }}=${{ arg }}
+{% endfor -%}
+{% endfor %}
 
 {% for package in packages -%}
 COPY --from=ci-package-{{ package }} /. /usr/local/
-{% endfor %}
+{% endfor -%}
 
-{{ extra_commands }}
+COPY ci-{{name}}/README.md ci-{{name}}/image.yaml /usr/local/aswf/
+
+{{ docker_commands }}
+
+{% for package in packages + implicit_packages -%}
+{{ index.package_data(package).get("docker_commands", "") -}}
+{% endfor -%}

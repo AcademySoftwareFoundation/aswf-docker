@@ -11,7 +11,7 @@ Contains: python, boost, tbb, OpenEXR, Blosc and other OpenShadingLanguage upstr
 Warning: this image does *not* contain OpenShadingLanguage itself as it is used to *build* OpenShadingLanguage!
 
 
-## [aswf/osl:2018-clang7.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2018-clang7.3)
+## [aswf/ci-osl:2018-clang7.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2018-clang7.3)
 Contains:
 * boost-1.61.0
 * cmake-3.9.4
@@ -22,8 +22,9 @@ Contains:
 * openexr-2.2.1
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2018
 
-## [aswf/osl:2019-clang6.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang6.3)
+## [aswf/ci-osl:2019-clang6.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang6.3)
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
@@ -34,8 +35,9 @@ Contains:
 * openexr-2.3.0
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/osl:2019-clang7.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang7.3)
+## [aswf/ci-osl:2019-clang7.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang7.3)
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
@@ -46,8 +48,9 @@ Contains:
 * openexr-2.3.0
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/osl:2019-clang8.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang8.3)
+## [aswf/ci-osl:2019-clang8.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang8.3)
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
@@ -58,8 +61,9 @@ Contains:
 * openexr-2.3.0
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/osl:2019-clang9.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang9.3)
+## [aswf/ci-osl:2019-clang9.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang9.3)
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
@@ -70,8 +74,9 @@ Contains:
 * openexr-2.3.0
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/osl:2019-clang10.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang10.3)
+## [aswf/ci-osl:2019-clang10.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang10.3)
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
@@ -82,8 +87,9 @@ Contains:
 * openexr-2.3.0
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/osl:2020-clang7.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2020-clang7.3)
+## [aswf/ci-osl:2020-clang7.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2020-clang7.3)
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
@@ -94,8 +100,9 @@ Contains:
 * openexr-2.4.0
 * blosc-1.5.0
 * numpy-1.16
+* vfxplatform-2020
 
-## [aswf/osl:2021-clang10.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang10.3)
+## [aswf/ci-osl:2021-clang10.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang10.3)
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
@@ -106,8 +113,9 @@ Contains:
 * openexr-2.4.0
 * blosc-1.20.1
 * numpy-1.16
+* vfxplatform-2021
 
-## [aswf/osl:2021-clang11.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang11.3)
+## [aswf/ci-osl:2021-clang11.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang11.3)
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
@@ -118,4 +126,5 @@ Contains:
 * openexr-2.4.0
 * blosc-1.20.1
 * numpy-1.16
+* vfxplatform-2021
 

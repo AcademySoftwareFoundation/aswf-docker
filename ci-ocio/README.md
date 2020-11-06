@@ -11,7 +11,7 @@ Contains: python, tbb, boost and other OpenColorIO upstream dependencies
 Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!
 
 
-## [aswf/ocio:2018.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2018.8)
+## [aswf/ci-ocio:2018.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2018.8)
 Contains:
 * python-2.7.15
 * tbb-2017_U6
@@ -22,8 +22,9 @@ Contains:
 * openexr-2.2.1
 * oiio-2.0.8
 * numpy-1.14
+* vfxplatform-2018
 
-## [aswf/ocio:2019.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2019.8)
+## [aswf/ci-ocio:2019.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2019.8)
 Contains:
 * python-2.7.15
 * tbb-2018
@@ -34,8 +35,9 @@ Contains:
 * openexr-2.3.0
 * oiio-2.0.8
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/ocio:2020.7](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2020.7)
+## [aswf/ci-ocio:2020.7](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2020.7)
 Contains:
 * python-3.7.3
 * tbb-2019_U6
@@ -46,8 +48,9 @@ Contains:
 * openexr-2.4.0
 * oiio-2.1.13.0
 * numpy-1.16
+* vfxplatform-2020
 
-## [aswf/ocio:2021.3](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2021.3)
+## [aswf/ci-ocio:2021.3](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2021.3)
 Contains:
 * python-3.7.3
 * tbb-2019_U6
@@ -58,4 +61,5 @@ Contains:
 * openexr-2.4.0
 * oiio-2.1.13.0
 * numpy-1.16
+* vfxplatform-2021
 

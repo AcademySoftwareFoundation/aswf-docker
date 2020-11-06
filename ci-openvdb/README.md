@@ -11,7 +11,7 @@ Contains: python, boost, tbb and other OpenVDB upstream dependencies
 Warning: this image does *not* contain OpenVDB itself as it is used to *build* OpenVDB!
 
 
-## [aswf/openvdb:2018-clang7.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2018-clang7.7)
+## [aswf/ci-openvdb:2018-clang7.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2018-clang7.7)
 Contains:
 * boost-1.61.0
 * cmake-3.9.4
@@ -22,8 +22,9 @@ Contains:
 * openexr-2.2.1
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2018
 
-## [aswf/openvdb:2019-clang6.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang6.7)
+## [aswf/ci-openvdb:2019-clang6.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang6.7)
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
@@ -34,8 +35,9 @@ Contains:
 * openexr-2.3.0
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/openvdb:2019-clang7.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang7.7)
+## [aswf/ci-openvdb:2019-clang7.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang7.7)
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
@@ -46,8 +48,9 @@ Contains:
 * openexr-2.3.0
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/openvdb:2019-clang8.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang8.7)
+## [aswf/ci-openvdb:2019-clang8.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang8.7)
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
@@ -58,8 +61,9 @@ Contains:
 * openexr-2.3.0
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/openvdb:2019-clang9.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang9.7)
+## [aswf/ci-openvdb:2019-clang9.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang9.7)
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
@@ -70,8 +74,9 @@ Contains:
 * openexr-2.3.0
 * blosc-1.5.0
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/openvdb:2020-clang7.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2020-clang7.7)
+## [aswf/ci-openvdb:2020-clang7.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2020-clang7.7)
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
@@ -82,8 +87,9 @@ Contains:
 * openexr-2.4.0
 * blosc-1.5.0
 * numpy-1.16
+* vfxplatform-2020
 
-## [aswf/openvdb:2021-clang10.3](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2021-clang10.3)
+## [aswf/ci-openvdb:2021-clang10.3](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2021-clang10.3)
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
@@ -94,4 +100,5 @@ Contains:
 * openexr-2.4.0
 * blosc-1.20.1
 * numpy-1.16
+* vfxplatform-2021
 
