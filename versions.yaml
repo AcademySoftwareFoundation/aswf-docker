@@ -106,6 +106,7 @@ versions:
       QT_VERSION: "5.6.1"
       TBB_VERSION: "2017_U6"
       USD_VERSION: "19.11"
+      VFXPLATFORM_VERSION: "2018"
   "2018-clang7":
     parent_versions: ["1", "1-clang7", "2018"]
     major_version: "2018"
@@ -142,6 +143,7 @@ versions:
       QT_VERSION: "5.12.6"
       TBB_VERSION: "2018"
       USD_VERSION: "19.11"
+      VFXPLATFORM_VERSION: "2019"
   "2019-clang6":
     parent_versions: ["1", "1-clang6", "2019"]
     major_version: "2019"
@@ -195,6 +197,7 @@ versions:
       QT_VERSION: "5.12.6"
       TBB_VERSION: "2019_U6"
       USD_VERSION: "20.11"
+      VFXPLATFORM_VERSION: "2020"
   "2020-clang7":
     parent_versions: ["1", "1-clang7", "2020"]
     major_version: "2020"
@@ -232,6 +235,7 @@ versions:
       QT_VERSION: "5.12.8"
       TBB_VERSION: "2019_U6"
       USD_VERSION: "20.11"
+      VFXPLATFORM_VERSION: "2021"
   "2021-clang10":
     parent_versions: ["2", "2-clang10", "2021"]
     major_version: "2021"
@@ -445,3 +449,10 @@ rt-images:
     - "2019.0"
     - "2020.0"
     - "2021.0"
+
+package_data:
+  python:
+    docker_args:
+      - PYTHON_VERSION_MAJOR_MINOR
+    docker_commands: |
+      ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib64/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib/python:${PYTHONPATH}

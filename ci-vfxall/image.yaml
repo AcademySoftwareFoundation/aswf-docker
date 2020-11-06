@@ -1,6 +1,6 @@
-ci_image_name: "vfxall"
-ci_image_title: "VFX All CI Docker Image"
-ci_image_description: |
+name: "vfxall"
+title: "VFX All CI Docker Image"
+description: |
   Contains: all supported VFX packages
 packages:
   - python
@@ -28,3 +28,6 @@ packages:
 implicit_packages:
   - numpy
   - hdf5
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION}
+docker_package_version: $VFXPLATFORM_VERSION

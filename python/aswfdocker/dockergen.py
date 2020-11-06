@@ -22,10 +22,13 @@ class DockerGen:
 
     def _get_image_data(self):
         image_data_path = os.path.join(
-            utils.get_git_top_level(), f"ci-{self.image_name}/data.yaml"
+            utils.get_git_top_level(), f"ci-{self.image_name}/image.yaml"
         )
         with open(image_data_path) as f:
-            return yaml.load(f, Loader=yaml.FullLoader)
+            image_data = yaml.load(f, Loader=yaml.FullLoader)
+        image_data["index"] = index.Index()
+        image_data["constants"] = constants
+        return image_data
 
     def generate_dockerfile(self):
         image_data = self._get_image_data()
@@ -51,12 +54,9 @@ class DockerGen:
 
     def generate_readme(self):
         image_data = self._get_image_data()
-        image_data["index"] = index.Index()
-        image_data["constants"] = constants
-
         template = self.env.get_template("ci-image-readme.tmpl")
         readme_path = os.path.join(
-            utils.get_git_top_level(), f"ci-{self.image_name}/Readme.md"
+            utils.get_git_top_level(), f"ci-{self.image_name}/README.md"
         )
 
         with open(readme_path, "w") as f:
@@ -65,12 +65,9 @@ class DockerGen:
 
     def check_readme(self):
         image_data = self._get_image_data()
-        image_data["index"] = index.Index()
-        image_data["constants"] = constants
-
         template = self.env.get_template("ci-image-readme.tmpl")
         readme_path = os.path.join(
-            utils.get_git_top_level(), f"ci-{self.image_name}/Readme.md"
+            utils.get_git_top_level(), f"ci-{self.image_name}/README.md"
         )
 
         with open(readme_path) as f:
@@ -79,7 +76,7 @@ class DockerGen:
 
     def push_overview(self, docker_org, token):
         readme_path = os.path.join(
-            utils.get_git_top_level(), f"ci-{self.image_name}/Readme.md"
+            utils.get_git_top_level(), f"ci-{self.image_name}/README.md"
         )
 
         with open(readme_path) as f:
@@ -89,9 +86,7 @@ class DockerGen:
 
         body = {
             # "registry": "registry-1.docker.io",
-            "description": image_data["ci_image_title"]
-            + "\n"
-            + image_data["ci_image_description"],
+            "description": image_data["title"] + "\n" + image_data["description"],
             "full_description": full_description,
         }
         url = (

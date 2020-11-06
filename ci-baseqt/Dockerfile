@@ -7,8 +7,6 @@ ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG CLANG_MAJOR_VERSION
-ARG VFXPLATFORM_VERSION
-ARG PYTHON_VERSION_MAJOR_MINOR
 
 ARG BOOST_VERSION
 ARG CMAKE_VERSION
@@ -21,27 +19,25 @@ ARG TBB_VERSION
 ARG QT_VERSION
 ARG PYSIDE_VERSION
 ARG NUMPY_VERSION
-
-FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION}-$BOOST_VERSION as ci-package-boost
-FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION}-$CMAKE_VERSION as ci-package-cmake
-FROM ${ASWF_PKG_ORG}/ci-package-cppunit:${VFXPLATFORM_VERSION}-$CPPUNIT_VERSION as ci-package-cppunit
-FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION}-$GLEW_VERSION as ci-package-glew
-FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION}-$GLFW_VERSION as ci-package-glfw
-FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:${VFXPLATFORM_VERSION}-$LOG4CPLUS_VERSION as ci-package-log4cplus
-FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION}-$PYTHON_VERSION as ci-package-python
-FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION}-$TBB_VERSION as ci-package-tbb
-FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION}-$QT_VERSION as ci-package-qt
-FROM ${ASWF_PKG_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION}-$PYSIDE_VERSION as ci-package-pyside
+ARG VFXPLATFORM_VERSION
+ARG PYTHON_VERSION_MAJOR_MINOR
 
 
-
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-base
+FROM ${ASWF_PKG_ORG}/ci-package-boost:$VFXPLATFORM_VERSION-$BOOST_VERSION as ci-package-boost
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:$VFXPLATFORM_VERSION-$CMAKE_VERSION as ci-package-cmake
+FROM ${ASWF_PKG_ORG}/ci-package-cppunit:$VFXPLATFORM_VERSION-$CPPUNIT_VERSION as ci-package-cppunit
+FROM ${ASWF_PKG_ORG}/ci-package-glew:$VFXPLATFORM_VERSION-$GLEW_VERSION as ci-package-glew
+FROM ${ASWF_PKG_ORG}/ci-package-glfw:$VFXPLATFORM_VERSION-$GLFW_VERSION as ci-package-glfw
+FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:$VFXPLATFORM_VERSION-$LOG4CPLUS_VERSION as ci-package-log4cplus
+FROM ${ASWF_PKG_ORG}/ci-package-python:$VFXPLATFORM_VERSION-$PYTHON_VERSION as ci-package-python
+FROM ${ASWF_PKG_ORG}/ci-package-tbb:$VFXPLATFORM_VERSION-$TBB_VERSION as ci-package-tbb
+FROM ${ASWF_PKG_ORG}/ci-package-qt:$VFXPLATFORM_VERSION-$QT_VERSION as ci-package-qt
+FROM ${ASWF_PKG_ORG}/ci-package-pyside:$VFXPLATFORM_VERSION-$PYSIDE_VERSION as ci-package-pyside
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-baseqt
 
 
 ARG ASWF_ORG
 ARG ASWF_VERSION
-ARG VFXPLATFORM_VERSION
-ARG PYTHON_VERSION_MAJOR_MINOR
 
 ARG BOOST_VERSION
 ARG CMAKE_VERSION
@@ -54,6 +50,8 @@ ARG TBB_VERSION
 ARG QT_VERSION
 ARG PYSIDE_VERSION
 ARG NUMPY_VERSION
+ARG VFXPLATFORM_VERSION
+ARG PYTHON_VERSION_MAJOR_MINOR
 
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-baseqt"
@@ -79,13 +77,11 @@ LABEL io.aswf.docker.versions.tbb="$TBB_VERSION"
 LABEL io.aswf.docker.versions.qt="$QT_VERSION"
 LABEL io.aswf.docker.versions.pyside="$PYSIDE_VERSION"
 LABEL io.aswf.docker.versions.numpy="$NUMPY_VERSION"
+LABEL io.aswf.docker.versions.vfxplatform="$VFXPLATFORM_VERSION"
 
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
-ENV VFXPLATFORM_VERSION=${VFXPLATFORM_VERSION}
-ENV PYTHON_VERSION_MAJOR_MINOR=${PYTHON_VERSION_MAJOR_MINOR}
-
 ENV BOOST_VERSION=$BOOST_VERSION
 ENV CMAKE_VERSION=$CMAKE_VERSION
 ENV CPPUNIT_VERSION=$CPPUNIT_VERSION
@@ -97,9 +93,9 @@ ENV TBB_VERSION=$TBB_VERSION
 ENV QT_VERSION=$QT_VERSION
 ENV PYSIDE_VERSION=$PYSIDE_VERSION
 ENV NUMPY_VERSION=$NUMPY_VERSION
+ENV VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION
+ENV PYTHON_VERSION_MAJOR_MINOR=$PYTHON_VERSION_MAJOR_MINOR
 
-
-ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:${PYTHONPATH}
 
 COPY --from=ci-package-boost /. /usr/local/
 COPY --from=ci-package-cmake /. /usr/local/
@@ -111,5 +107,8 @@ COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-tbb /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
 COPY --from=ci-package-pyside /. /usr/local/
+COPY ci-baseqt/README.md ci-baseqt/image.yaml /usr/local/aswf/
 
 
+
+ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib64/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib/python:${PYTHONPATH}

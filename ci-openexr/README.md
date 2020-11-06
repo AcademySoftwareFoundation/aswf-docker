@@ -11,31 +11,35 @@ Contains: python, boost and other OpenEXR upstream dependencies
 Warning: this image does *not* contain OpenEXR itself as it is used to *build* OpenEXR!
 
 
-## [aswf/openexr:2018.7](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2018.7)
+## [aswf/ci-openexr:2018.7](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2018.7)
 Contains:
 * python-2.7.15
 * boost-1.61.0
 * cmake-3.9.4
 * numpy-1.14
+* vfxplatform-2018
 
-## [aswf/openexr:2019.7](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2019.7)
+## [aswf/ci-openexr:2019.7](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2019.7)
 Contains:
 * python-2.7.15
 * boost-1.66.0
 * cmake-3.12.4
 * numpy-1.14
+* vfxplatform-2019
 
-## [aswf/openexr:2020.7](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2020.7)
+## [aswf/ci-openexr:2020.7](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2020.7)
 Contains:
 * python-3.7.3
 * boost-1.70.0
 * cmake-3.18.4
 * numpy-1.16
+* vfxplatform-2020
 
-## [aswf/openexr:2021.3](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2021.3)
+## [aswf/ci-openexr:2021.3](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2021.3)
 Contains:
 * python-3.7.3
 * boost-1.70.0
 * cmake-3.18.4
 * numpy-1.16
+* vfxplatform-2021
 

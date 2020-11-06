@@ -402,9 +402,8 @@ def dockergen(context, image_name, check):
     """
     if image_name == "all":
         images = []
-        for group, gimages in constants.GROUPS[constants.ImageType.IMAGE].items():
-            if group != "common":
-                images.extend(gimages)
+        for gimages in constants.GROUPS[constants.ImageType.IMAGE].values():
+            images.extend(gimages)
     else:
         images = [image_name]
     if check:
@@ -441,8 +440,11 @@ def dockergen(context, image_name, check):
 def pushoverview(
     build_info, ci_image_type, group, version, full_name, target, username, password,
 ):
-    """Pushes the Docker Image Readme file to DockerHub
+    """Pushes the Docker Image README file to DockerHub
     """
+    if ci_image_type == constants.ImageType.PACKAGE:
+        click.echo("Package readme do not exist yet.")
+        return
     group_info = get_group_info(
         build_info, ci_image_type, group, version, full_name, target
     )

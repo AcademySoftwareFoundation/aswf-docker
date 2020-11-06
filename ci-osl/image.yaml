@@ -1,6 +1,6 @@
-ci_image_name: "osl"
-ci_image_title: "OpenShadingLanguage CI Docker Image"
-ci_image_description: |
+name: "osl"
+title: "OpenShadingLanguage CI Docker Image"
+description: |
   Contains: python, boost, tbb, OpenEXR, Blosc and other OpenShadingLanguage upstream dependencies
   Warning: this image does *not* contain OpenShadingLanguage itself as it is used to *build* OpenShadingLanguage!
 packages:
@@ -14,3 +14,6 @@ packages:
   - blosc
 implicit_packages:
   - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION}
+docker_package_version: $VFXPLATFORM_VERSION
