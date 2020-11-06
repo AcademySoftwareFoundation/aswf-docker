@@ -7,8 +7,6 @@ ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG CLANG_MAJOR_VERSION
-ARG VFXPLATFORM_VERSION
-ARG PYTHON_VERSION_MAJOR_MINOR
 
 ARG PYTHON_VERSION
 ARG TBB_VERSION
@@ -29,34 +27,32 @@ ARG BLOSC_VERSION
 ARG OPENVDB_VERSION
 ARG NUMPY_VERSION
 ARG HDF5_VERSION
-
-FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION}-$PYTHON_VERSION as ci-package-python
-FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION}-$TBB_VERSION as ci-package-tbb
-FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION}-$BOOST_VERSION as ci-package-boost
-FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION}-$GLEW_VERSION as ci-package-glew
-FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION}-$GLFW_VERSION as ci-package-glfw
-FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:${VFXPLATFORM_VERSION}-$LOG4CPLUS_VERSION as ci-package-log4cplus
-FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION}-$QT_VERSION as ci-package-qt
-FROM ${ASWF_PKG_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION}-$PYSIDE_VERSION as ci-package-pyside
-FROM ${ASWF_PKG_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION}-$CMAKE_VERSION as ci-package-cmake
-FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION}-$OPENEXR_VERSION as ci-package-openexr
-FROM ${ASWF_PKG_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION}-$OIIO_VERSION as ci-package-oiio
-FROM ${ASWF_PKG_ORG}/ci-package-ocio:${VFXPLATFORM_VERSION}-$OCIO_VERSION as ci-package-ocio
-FROM ${ASWF_PKG_ORG}/ci-package-ptex:${VFXPLATFORM_VERSION}-$PTEX_VERSION as ci-package-ptex
-FROM ${ASWF_PKG_ORG}/ci-package-opensubdiv:${VFXPLATFORM_VERSION}-$OPENSUBDIV_VERSION as ci-package-opensubdiv
-FROM ${ASWF_PKG_ORG}/ci-package-alembic:${VFXPLATFORM_VERSION}-$ALEMBIC_VERSION as ci-package-alembic
-FROM ${ASWF_PKG_ORG}/ci-package-blosc:${VFXPLATFORM_VERSION}-$BLOSC_VERSION as ci-package-blosc
-FROM ${ASWF_PKG_ORG}/ci-package-openvdb:${VFXPLATFORM_VERSION}-$OPENVDB_VERSION as ci-package-openvdb
+ARG VFXPLATFORM_VERSION
+ARG PYTHON_VERSION_MAJOR_MINOR
 
 
-
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-base
+FROM ${ASWF_PKG_ORG}/ci-package-python:$VFXPLATFORM_VERSION-$PYTHON_VERSION as ci-package-python
+FROM ${ASWF_PKG_ORG}/ci-package-tbb:$VFXPLATFORM_VERSION-$TBB_VERSION as ci-package-tbb
+FROM ${ASWF_PKG_ORG}/ci-package-boost:$VFXPLATFORM_VERSION-$BOOST_VERSION as ci-package-boost
+FROM ${ASWF_PKG_ORG}/ci-package-glew:$VFXPLATFORM_VERSION-$GLEW_VERSION as ci-package-glew
+FROM ${ASWF_PKG_ORG}/ci-package-glfw:$VFXPLATFORM_VERSION-$GLFW_VERSION as ci-package-glfw
+FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:$VFXPLATFORM_VERSION-$LOG4CPLUS_VERSION as ci-package-log4cplus
+FROM ${ASWF_PKG_ORG}/ci-package-qt:$VFXPLATFORM_VERSION-$QT_VERSION as ci-package-qt
+FROM ${ASWF_PKG_ORG}/ci-package-pyside:$VFXPLATFORM_VERSION-$PYSIDE_VERSION as ci-package-pyside
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:$VFXPLATFORM_VERSION-$CMAKE_VERSION as ci-package-cmake
+FROM ${ASWF_PKG_ORG}/ci-package-openexr:$VFXPLATFORM_VERSION-$OPENEXR_VERSION as ci-package-openexr
+FROM ${ASWF_PKG_ORG}/ci-package-oiio:$VFXPLATFORM_VERSION-$OIIO_VERSION as ci-package-oiio
+FROM ${ASWF_PKG_ORG}/ci-package-ocio:$VFXPLATFORM_VERSION-$OCIO_VERSION as ci-package-ocio
+FROM ${ASWF_PKG_ORG}/ci-package-ptex:$VFXPLATFORM_VERSION-$PTEX_VERSION as ci-package-ptex
+FROM ${ASWF_PKG_ORG}/ci-package-opensubdiv:$VFXPLATFORM_VERSION-$OPENSUBDIV_VERSION as ci-package-opensubdiv
+FROM ${ASWF_PKG_ORG}/ci-package-alembic:$VFXPLATFORM_VERSION-$ALEMBIC_VERSION as ci-package-alembic
+FROM ${ASWF_PKG_ORG}/ci-package-blosc:$VFXPLATFORM_VERSION-$BLOSC_VERSION as ci-package-blosc
+FROM ${ASWF_PKG_ORG}/ci-package-openvdb:$VFXPLATFORM_VERSION-$OPENVDB_VERSION as ci-package-openvdb
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-usd
 
 
 ARG ASWF_ORG
 ARG ASWF_VERSION
-ARG VFXPLATFORM_VERSION
-ARG PYTHON_VERSION_MAJOR_MINOR
 
 ARG PYTHON_VERSION
 ARG TBB_VERSION
@@ -77,6 +73,8 @@ ARG BLOSC_VERSION
 ARG OPENVDB_VERSION
 ARG NUMPY_VERSION
 ARG HDF5_VERSION
+ARG VFXPLATFORM_VERSION
+ARG PYTHON_VERSION_MAJOR_MINOR
 
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-usd"
@@ -111,13 +109,11 @@ LABEL io.aswf.docker.versions.blosc="$BLOSC_VERSION"
 LABEL io.aswf.docker.versions.openvdb="$OPENVDB_VERSION"
 LABEL io.aswf.docker.versions.numpy="$NUMPY_VERSION"
 LABEL io.aswf.docker.versions.hdf5="$HDF5_VERSION"
+LABEL io.aswf.docker.versions.vfxplatform="$VFXPLATFORM_VERSION"
 
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
-ENV VFXPLATFORM_VERSION=${VFXPLATFORM_VERSION}
-ENV PYTHON_VERSION_MAJOR_MINOR=${PYTHON_VERSION_MAJOR_MINOR}
-
 ENV PYTHON_VERSION=$PYTHON_VERSION
 ENV TBB_VERSION=$TBB_VERSION
 ENV BOOST_VERSION=$BOOST_VERSION
@@ -137,9 +133,9 @@ ENV BLOSC_VERSION=$BLOSC_VERSION
 ENV OPENVDB_VERSION=$OPENVDB_VERSION
 ENV NUMPY_VERSION=$NUMPY_VERSION
 ENV HDF5_VERSION=$HDF5_VERSION
+ENV VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION
+ENV PYTHON_VERSION_MAJOR_MINOR=$PYTHON_VERSION_MAJOR_MINOR
 
-
-ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:${PYTHONPATH}
 
 COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-tbb /. /usr/local/
@@ -158,6 +154,8 @@ COPY --from=ci-package-opensubdiv /. /usr/local/
 COPY --from=ci-package-alembic /. /usr/local/
 COPY --from=ci-package-blosc /. /usr/local/
 COPY --from=ci-package-openvdb /. /usr/local/
+COPY ci-usd/README.md ci-usd/image.yaml /usr/local/aswf/
 
 
-RUN sudo pip install jinja2 PyOpenGL
+
+ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib64/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib/python:${PYTHONPATH}

@@ -267,7 +267,7 @@ All new source files should begin with a copyright and license stating:
 
 Any non-trivial change to the docker images should be followed by incrementing
 the corresponding image version. We use MAJOR.MINOR versioning for all images.
-Versioning is further explained in the [Readme](README.md#version) file.
+Versioning is further explained in the [README](README.md#version) file.
 
 ## Releasing new Docker Images
 

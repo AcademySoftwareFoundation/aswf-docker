@@ -1,6 +1,6 @@
-ci_image_name: "usd"
-ci_image_title: "USD CI Docker Image"
-ci_image_description: |
+name: "usd"
+title: "USD CI Docker Image"
+description: |
   Contains: python, Qt, PySide and other USD upstream dependencies
   Warning: this image does *not* contain USD itself as it is used to *build* USD!
 packages:
@@ -24,5 +24,6 @@ packages:
 implicit_packages:
   - numpy
   - hdf5
-extra_commands: |
-  RUN sudo pip install jinja2 PyOpenGL
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION}
+docker_package_version: $VFXPLATFORM_VERSION

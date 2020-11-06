@@ -11,7 +11,7 @@ Contains: python, Qt, PySide and other USD upstream dependencies
 Warning: this image does *not* contain USD itself as it is used to *build* USD!
 
 
-## [aswf/usd:2019.8](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2019.8)
+## [aswf/ci-usd:2019.8](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2019.8)
 Contains:
 * python-2.7.15
 * tbb-2018
@@ -32,8 +32,9 @@ Contains:
 * openvdb-6.2.1
 * numpy-1.14
 * hdf5-1.8.21
+* vfxplatform-2019
 
-## [aswf/usd:2020.7](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2020.7)
+## [aswf/ci-usd:2020.7](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2020.7)
 Contains:
 * python-3.7.3
 * tbb-2019_U6
@@ -54,8 +55,9 @@ Contains:
 * openvdb-7.1.0
 * numpy-1.16
 * hdf5-1.8.21
+* vfxplatform-2020
 
-## [aswf/usd:2021.3](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2021.3)
+## [aswf/ci-usd:2021.3](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2021.3)
 Contains:
 * python-3.7.3
 * tbb-2019_U6
@@ -76,4 +78,5 @@ Contains:
 * openvdb-7.1.0
 * numpy-1.16
 * hdf5-1.8.21
+* vfxplatform-2021
 

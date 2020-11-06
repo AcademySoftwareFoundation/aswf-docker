@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 * New `aswfdocker dockergen` command line tool to re-generate CI Image Dockerfiles and Readmes from a set of templates and current versions.
 
 ### Changed
-* All CI images (except `ci-common`) are now automatically generated from a template and come with a `Readme.md` (also templated) containing all the current package version numbers.
+* All CI images (except `ci-common`) are now automatically generated from a template and come with a `README.md` (also templated) containing all the current package version numbers.
 * All package versions have been moved from version bash scripts into the `versions.yaml` file, which enables the tagging of the image with these versions.
 * VFX 2021 images are now built against CUDA-11.1.
 

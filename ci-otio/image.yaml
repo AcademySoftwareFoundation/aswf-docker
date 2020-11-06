@@ -1,6 +1,6 @@
-ci_image_name: "otio"
-ci_image_title: "OpenTimelineIO CI Docker Image"
-ci_image_description: |
+name: "otio"
+title: "OpenTimelineIO CI Docker Image"
+description: |
   Contains: python, Qt, PySide and other OpenTimelineIO upstream dependencies
   Warning: this image does *not* contain OpenTimelineIO itself as it is used to *build* OpenTimelineIO!
 packages:
@@ -10,5 +10,8 @@ packages:
   - pyside
 implicit_packages:
   - numpy
-extra_commands: |
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION}
+docker_package_version: $VFXPLATFORM_VERSION
+docker_commands: |
   RUN sudo pip install flake8 tox urllib3

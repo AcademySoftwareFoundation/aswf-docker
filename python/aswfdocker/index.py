@@ -67,3 +67,6 @@ class Index:
             if version == vi.version:
                 return vi
         raise ValueError("VersionInfo not found for version {}".format(version))
+
+    def package_data(self, package_name):
+        return self._versions["package_data"].get(package_name, {})
