@@ -19,6 +19,7 @@ class DockerGen:
     def __init__(self, image_name):
         self.image_name = image_name
         self.env = Environment(loader=PackageLoader("aswfdocker", "data"))
+        self.image_data = self._get_image_data()
 
     def _get_image_data(self):
         image_data_path = os.path.join(
@@ -30,64 +31,49 @@ class DockerGen:
         image_data["constants"] = constants
         return image_data
 
-    def generate_dockerfile(self):
-        image_data = self._get_image_data()
-        template = self.env.get_template("ci-image-dockerfile.tmpl")
+    def _render_template(self, template_name, path):
+        template = self.env.get_template(template_name)
         dockerfile_path = os.path.join(
-            utils.get_git_top_level(), f"ci-{self.image_name}/Dockerfile"
+            utils.get_git_top_level(), f"ci-{self.image_name}/{path}"
         )
+        return dockerfile_path, template.render(self.image_data)
 
-        with open(dockerfile_path, "w") as f:
-            f.write(template.render(image_data))
-        return dockerfile_path
+    def _render_dockerfile(self):
+        return self._render_template("ci-image-dockerfile.tmpl", "Dockerfile")
+
+    def _render_readme(self):
+        return self._render_template("ci-image-readme.tmpl", "README.md")
+
+    def _generate(self, path, content):
+        with open(path, "w") as f:
+            f.write(content)
+        return path
+
+    def _check(self, path, content):
+        with open(path) as f:
+            ok = f.read() == content
+        return path, ok
+
+    def generate_dockerfile(self):
+        return self._generate(*self._render_dockerfile())
 
     def check_dockerfile(self):
-        image_data = self._get_image_data()
-        template = self.env.get_template("ci-image-dockerfile.tmpl")
-        dockerfile_path = os.path.join(
-            utils.get_git_top_level(), f"ci-{self.image_name}/Dockerfile"
-        )
-
-        with open(dockerfile_path) as f:
-            ok = f.read() == template.render(image_data)
-        return dockerfile_path, ok
+        return self._check(*self._render_dockerfile())
 
     def generate_readme(self):
-        image_data = self._get_image_data()
-        template = self.env.get_template("ci-image-readme.tmpl")
-        readme_path = os.path.join(
-            utils.get_git_top_level(), f"ci-{self.image_name}/README.md"
-        )
-
-        with open(readme_path, "w") as f:
-            f.write(template.render(image_data))
-        return readme_path
+        return self._generate(*self._render_readme())
 
     def check_readme(self):
-        image_data = self._get_image_data()
-        template = self.env.get_template("ci-image-readme.tmpl")
-        readme_path = os.path.join(
-            utils.get_git_top_level(), f"ci-{self.image_name}/README.md"
-        )
-
-        with open(readme_path) as f:
-            ok = f.read() == template.render(image_data)
-        return readme_path, ok
+        return self._check(*self._render_readme())
 
     def push_overview(self, docker_org, token):
-        readme_path = os.path.join(
-            utils.get_git_top_level(), f"ci-{self.image_name}/README.md"
-        )
-
-        with open(readme_path) as f:
-            full_description = f.read()
-
-        image_data = self._get_image_data()
+        _, readme = self._render_readme()
 
         body = {
-            # "registry": "registry-1.docker.io",
-            "description": image_data["title"] + "\n" + image_data["description"],
-            "full_description": full_description,
+            "description": self.image_data["title"]
+            + "\n"
+            + self.image_data["description"],
+            "full_description": readme,
         }
         url = (
             f"https://hub.docker.com/v2/repositories/{docker_org}/ci-{self.image_name}/"
