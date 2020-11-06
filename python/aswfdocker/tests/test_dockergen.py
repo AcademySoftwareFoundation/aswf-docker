@@ -35,8 +35,7 @@ class TestUtilsCli(unittest.TestCase):
         runner = CliRunner()
         result = runner.invoke(aswfdocker.cli, ["dockergen", "--check", "-n", "base"])
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(
-            result.output,
-            "/home/ggaloys/dev/aswf-docker/ci-base/Dockerfile is up to date\n"
-            "/home/ggaloys/dev/aswf-docker/ci-base/README.md is up to date\n",
-        )
+        lines = result.output.split("\n")
+        self.assertEqual(len(lines), 3)
+        self.assertTrue(lines[0].endswith("ci-base/Dockerfile is up to date"))
+        self.assertTrue(lines[1].endswith("ci-base/README.md is up to date"))
