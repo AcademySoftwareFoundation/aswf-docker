@@ -442,12 +442,12 @@ def pushoverview(
 ):
     """Pushes the Docker Image README file to DockerHub
     """
-    if ci_image_type == constants.ImageType.PACKAGE:
-        click.echo("Package readme do not exist yet.")
-        return
     group_info = get_group_info(
         build_info, ci_image_type, group, version, full_name, target
     )
+    if group_info.type == constants.ImageType.PACKAGE:
+        click.echo("Package readme do not exist yet.")
+        return
     token = utils.get_dockerhub_token(username, password)
     for image, _ in group_info.iter_images_versions():
         dg = aswf_dockergen.DockerGen(image.replace("ci-", ""))
