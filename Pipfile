@@ -19,6 +19,7 @@ pygithub = "*"
 pyyaml = "*"
 jinja2 = "*"
 requests = "*"
+importlib-resources = "*"
 
 [requires]
 python_version = "3.7"
