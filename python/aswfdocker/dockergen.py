@@ -39,10 +39,10 @@ class DockerGen:
         return dockerfile_path, template.render(self.image_data)
 
     def _render_dockerfile(self):
-        return self._render_template("ci-image-dockerfile.tmpl", "Dockerfile")
+        return self._render_template("ci-image-dockerfile.jinja2", "Dockerfile")
 
     def _render_readme(self):
-        return self._render_template("ci-image-readme.tmpl", "README.md")
+        return self._render_template("ci-image-readme.jinja2", "README.md")
 
     def _generate(self, path, content):
         with open(path, "w") as f:
