@@ -16,6 +16,8 @@ setup(
     url="https://github.com/AcademySoftwareFoundation/aswf-docker",
     packages=find_packages(where="python"),
     package_dir={"": "python"},
+    package_data={"aswfdocker": ["data/*.yaml", "data/*.jinja2"]},
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache 2 License",
