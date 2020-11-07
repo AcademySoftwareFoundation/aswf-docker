@@ -3,11 +3,11 @@
 """
 Index of docker images and versions.
 """
-import os
 import logging
 import yaml
+import importlib
 
-from aswfdocker import constants, utils, versioninfo
+from aswfdocker import constants, versioninfo
 
 logger = logging.getLogger(__name__)
 
@@ -19,8 +19,7 @@ class Index:
     """
 
     def __init__(self):
-        versions_file_path = os.path.join(utils.get_git_top_level(), "versions.yaml")
-        with open(versions_file_path) as f:
+        with importlib.resources.open_text("aswfdocker.data", "versions.yaml") as f:
             self._versions = yaml.load(f, Loader=yaml.FullLoader)
         self._version_infos = {}
         for version, v in self._versions["versions"].items():
