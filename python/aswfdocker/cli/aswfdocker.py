@@ -107,19 +107,20 @@ def common_image_options(function):
 
 
 def get_group_info(build_info, ci_image_type, groups, versions, full_name, targets):
+    idx = index.Index()
     if full_name:
         org, image_type, target, version = full_name
         versions = [version]
         targets = [target]
         try:
-            groups = [utils.get_group_from_image(image_type, target)]
+            groups = [idx.get_group_from_image(image_type, target)]
         except RuntimeError as e:
             raise click.BadOptionUsage(option_name="--full-name", message=e.args[0])
         build_info.set_org(org)
     else:
         image_type = constants.ImageType[ci_image_type]
         if not groups and targets:
-            groups = [utils.get_group_from_image(image_type, targets[0])]
+            groups = [idx.get_group_from_image(image_type, targets[0])]
     group_info = groupinfo.GroupInfo(
         type_=image_type, names=groups, versions=versions, targets=targets,
     )
@@ -247,7 +248,7 @@ def download(build_info, docker_org, package, version):
 def packages():
     """Lists all known ci packages in this format: PACKAGEGROUP/ci-package-PACKAGE:VERSION
     """
-    for group, packages in constants.GROUPS[constants.ImageType.PACKAGE].items():
+    for group, packages in index.Index().groups[constants.ImageType.PACKAGE].items():
         for package in packages:
             image_name = utils.get_image_name(constants.ImageType.PACKAGE, package)
             for version in index.Index().iter_versions(
@@ -260,7 +261,7 @@ def packages():
 def images():
     """Lists all known ci images in this format: IMAGEGROUP/ci-IMAGE:VERSION
     """
-    for group, images in constants.GROUPS[constants.ImageType.IMAGE].items():
+    for group, images in index.Index().groups[constants.ImageType.IMAGE].items():
         for image in images:
             image_name = utils.get_image_name(constants.ImageType.IMAGE, image)
             for version in index.Index().iter_versions(
@@ -378,7 +379,7 @@ def dockergen(context, image_name, check):
     """
     if image_name == "all":
         images = []
-        for gimages in constants.GROUPS[constants.ImageType.IMAGE].values():
+        for gimages in index.Index().groups[constants.ImageType.IMAGE].values():
             images.extend(gimages)
     else:
         images = [image_name]
