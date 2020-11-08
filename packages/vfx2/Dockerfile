@@ -302,6 +302,7 @@ FROM ci-opensubdiv-builder as ci-usd-builder
 ARG USD_VERSION
 ENV USD_VERSION=${USD_VERSION}
 
+COPY --from=ci-package-openexr-external /. /usr/local/
 COPY --from=ci-package-glew-external /. /usr/local/
 COPY --from=ci-package-alembic-external /. /usr/local/
 COPY --from=ci-package-openvdb-external /. /usr/local/
