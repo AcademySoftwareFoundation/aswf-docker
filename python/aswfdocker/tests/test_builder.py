@@ -47,6 +47,10 @@ class TestBuilder(unittest.TestCase):
         self.assertEqual(
             baked["target"]["ci-package-qt-2019"]["args"]["ASWF_VERSION"], qt_version
         )
+        self.assertEqual(
+            baked["target"]["ci-package-qt-2019"]["dockerfile"],
+            "packages/base2/Dockerfile",
+        )
 
     def test_image_base_2019_dict(self):
         b = builder.Builder(

@@ -86,11 +86,6 @@ class TestUtils(unittest.TestCase):
             ("aswf", constants.ImageType.PACKAGE, "clang", "1-clang6"),
         )
 
-    def test_group_from_image(self):
-        self.assertEqual(
-            utils.get_group_from_image(constants.ImageType.PACKAGE, "clang"), "common"
-        )
-
 
 class TestUtilsCli(unittest.TestCase):
     def setUp(self):

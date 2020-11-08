@@ -23,6 +23,10 @@ class Index:
             "versions.yaml"
         ).open() as f:
             self._versions = yaml.load(f, Loader=yaml.FullLoader)
+        self.groups = {
+            constants.ImageType.IMAGE: self._versions["groups"]["image"],
+            constants.ImageType.PACKAGE: self._versions["groups"]["package"],
+        }
         self._version_infos = {}
         for version, v in self._versions["versions"].items():
             self._version_infos[version] = versioninfo.VersionInfo(
@@ -71,3 +75,10 @@ class Index:
 
     def package_data(self, package_name):
         return self._versions["package_data"].get(package_name, {})
+
+    def get_group_from_image(self, image_type: constants.ImageType, image: str):
+        for group, images in self.groups[image_type].items():
+            for img in images:
+                if img == image:
+                    return group
+        raise RuntimeError(f"Cannot find group for image {image}")
