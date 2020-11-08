@@ -450,6 +450,56 @@ rt-images:
     - "2020.0"
     - "2021.0"
 
+groups:
+  package:
+      common: 
+        - clang
+        - ninja
+      base1:
+        - boost
+        - cmake
+        - cppunit
+        - glew
+        - glfw
+        - log4cplus
+        - python
+        - tbb
+      base2:
+        - qt
+      base3:
+        - pyside
+      vfx1: 
+        - alembic
+        - blosc
+        - ocio
+        - oiio
+        - openexr
+      vfx2: 
+        - opensubdiv
+        - openvdb
+        - osl
+        - otio
+        - partio
+        - ptex
+        - usd
+  image:
+      common:
+        - common
+      base:
+        - base
+        - baseqt
+      vfx1:
+        - opencue
+        - openexr
+        - openvdb
+      vfx2:
+        - ocio
+        - osl
+        - otio
+        - usd
+      vfx3:
+        - vfxall
+
 package_data:
   python:
     docker_args:

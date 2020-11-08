@@ -28,10 +28,10 @@ class GroupInfo:
         self.names = names
         self.versions = [utils.get_major_version(v) for v in versions]
         for name in self.names:
-            if name not in constants.GROUPS[self.type]:
+            if name not in self.index.groups[self.type]:
                 raise TypeError(f"Group {name} is not valid!")
         self.images = []
-        for images in [constants.GROUPS[self.type][n] for n in self.names]:
+        for images in [self.index.groups[self.type][n] for n in self.names]:
             self.images.extend(images)
         self.targets = targets
         logger.debug(

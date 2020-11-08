@@ -45,7 +45,7 @@ class Builder:
                         image.replace("ci-package-", "").upper() + "_VERSION"
                     ),
                 )
-                docker_file = "packages/Dockerfile"
+                docker_file = f"packages/{self.index.get_group_from_image(self.group_info.type, image.replace('ci-package-', ''))}/Dockerfile"
             else:
                 tags = version_info.get_tags(version, self.build_info.docker_org, image)
                 docker_file = f"{image}/Dockerfile"

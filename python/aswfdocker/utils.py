@@ -116,6 +116,7 @@ def get_image_spec(name: str):
     return org, image_type, image, version
 
 
+<<<<<<< HEAD
 def get_group_from_image(image_type: constants.ImageType, image: str):
     for group, images in constants.GROUPS[image_type].items():
         for img in images:
@@ -164,6 +165,8 @@ def iter_all_images():
                 for image in images:
                     yield org, image_type, image
 =======
+=======
+>>>>>>> Split package dockerfile alongside groups to speed builds
 def get_dockerhub_token(username, password):
     body = {"username": username, "password": password}
     response = requests.post("https://hub.docker.com/v2/users/login", json=body)

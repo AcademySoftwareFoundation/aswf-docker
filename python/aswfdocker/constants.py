@@ -12,41 +12,6 @@ class ImageType(enum.Enum):
     PACKAGE = "package"
 
 
-# Groups try to split builds into reasonable blocks of build time
-GROUPS = {
-    ImageType.PACKAGE: {
-        "common": ["clang", "ninja"],
-        "base1": [
-            "cmake",
-            "python",
-            "boost",
-            "tbb",
-            "cppunit",
-            "glew",
-            "glfw",
-            "log4cplus",
-        ],
-        "base2": ["qt"],
-        "base3": ["pyside"],
-        "vfx1": ["blosc", "openexr", "alembic", "ocio", "oiio"],
-        "vfx2": ["opensubdiv", "ptex", "openvdb", "usd", "otio"],
-        "vfx3": ["partio", "osl"],
-    },
-    ImageType.CI_IMAGE: {
-        "common": ["common"],
-        "base": ["base", "baseqt"],
-        "vfx1": ["openexr", "openvdb", "opencue"],
-        "vfx2": ["ocio", "osl", "otio"],
-        "usd": ["usd"],
-        "vfxall": ["vfxall"],
-    },
-    ImageType.RT_IMAGE: {
-        "base": ["base"],
-        "vfx1": ["vfxall"],
-        "vfx2": ["vfxall-jupyter"],
-    },
-}
-
 PUBLISH_DOCKER_ORG = "aswf"
 TESTING_DOCKER_ORG = "aswftesting"
 # this org is not valid, but this ensures that the test will not accidently pull an existing image
