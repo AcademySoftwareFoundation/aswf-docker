@@ -120,7 +120,7 @@ jobs:
           --group common \
           --version ${{ matrix.common_version }}
       name: Optionally build local ci-common Docker Image for downstream images
-      if: ${{ matrix.name != 'common' && matrix.type == 'IMAGE' }}
+      if: ${{ matrix.name != 'common' }}
 
     - run: |
         set -ex
