@@ -63,15 +63,9 @@ jobs:
             common_version: 2-clang10
             version: 2021
             test: ""
-          - group: img-usd-2021
+          - group: img-vfx3-2021
             type: IMAGE
-            name: usd
-            common_version: 2-clang10
-            version: 2021
-            test: ""
-          - group: img-vfxall-2021
-            type: IMAGE
-            name: vfxall
+            name: vfx3
             common_version: 2-clang10
             version: 2021
             test: ""
