@@ -246,56 +246,6 @@ LABEL io.aswf.docker.versions.opensubdiv="${OPENSUBDIV_VERSION}"
 COPY --from=ci-opensubdiv-builder /package/. /
 
 
-#################### ci-openvdb-builder ####################
-FROM ci-base-builder as ci-openvdb-builder
-
-ARG OPENVDB_VERSION
-ENV OPENVDB_VERSION=${OPENVDB_VERSION}
-
-COPY ../scripts/vfx/build_openvdb.sh \
-     /tmp/
-
-COPY --from=ci-package-openexr-external /. /usr/local/
-COPY --from=ci-package-glew-external /. /usr/local/
-COPY --from=ci-package-tbb-external /. /usr/local/
-COPY --from=ci-package-cppunit-external /. /usr/local/
-COPY --from=ci-package-glfw-external /. /usr/local/
-COPY --from=ci-package-blosc-external /. /usr/local/
-
-RUN --mount=type=cache,target=/tmp/ccache \
-     --mount=type=cache,sharing=private,target=/tmp/downloads \
-     /tmp/before_build.sh && \
-     /tmp/build_openvdb.sh && \
-     /tmp/copy_new_files.sh && \
-     ccache --show-stats
-
-
-#################### ci-package-openvdb ####################
-FROM scratch as ci-package-openvdb
-
-ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG DTS_VERSION
-ARG OPENVDB_VERSION
-ARG VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-openvdb"
-LABEL org.opencontainers.image.title="OpenVDB package built for ASWF docker images"
-LABEL org.opencontainers.image.description="OpenVDB headers and binaries to be installed in ASWF docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/openvdb"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${OPENVDB_VERSION}"
-LABEL org.opencontainers.image.licenses="MPL-2.0"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${DTS_VERSION}"
-LABEL io.aswf.docker.versions.openvdb="${OPENVDB_VERSION}"
-
-COPY --from=ci-openvdb-builder /package/. /
-
-
 #################### ci-usd-builder ####################
 FROM ci-opensubdiv-builder as ci-usd-builder
 
