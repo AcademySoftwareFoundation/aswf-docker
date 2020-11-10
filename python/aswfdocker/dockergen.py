@@ -69,10 +69,11 @@ class DockerGen:
     def push_overview(self, docker_org, token):
         _, readme = self._render_readme()
 
+        description = self.image_data["title"] + "\n" + self.image_data["description"]
+        if len(description) > 99:
+            description = description[:96] + "..."
         body = {
-            "description": self.image_data["title"]
-            + "\n"
-            + self.image_data["description"],
+            "description": description,
             "full_description": readme,
         }
         url = (
@@ -82,4 +83,7 @@ class DockerGen:
         response = requests.patch(
             url, json=body, headers={"Authorization": f"JWT {token}"},
         )
-        return response.status_code == 200
+        if response.status_code == 200:
+            return True
+        logger.error("Failed to update description: %s", response.json())
+        return False
