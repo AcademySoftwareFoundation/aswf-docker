@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 * All CI images (except `ci-common`) are now automatically generated from a template and come with a `README.md` (also templated) containing all the current package version numbers.
 * All package versions have been moved from version bash scripts into the `versions.yaml` file, which enables the tagging of the image with these versions.
 * VFX 2021 images are now built against CUDA-11.1.
+* Update SonarQube client version 4.5.0.2216 (upgraded from 3.3.0.1492)
 
 ### New CI Packages:
 * `ci-package-clang:1-clang6.2`, `ci-package-clang:1-clang7.2`, `ci-package-clang:1-clang8.2`, `ci-package-clang:1-clang9.2`, `ci-package-clang:1-clang10.2`, `ci-package-clang:2-clang10.2`, `ci-package-clang:2-clang11.2`
