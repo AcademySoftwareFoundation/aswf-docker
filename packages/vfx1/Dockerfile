@@ -8,10 +8,14 @@ ARG CI_COMMON_VERSION
 ARG CLANG_MAJOR_VERSION
 ARG VFXPLATFORM_VERSION
 
+ARG BOOST_VERSION
+ARG CMAKE_VERSION
+ARG CPPUNIT_VERSION
+ARG GLEW_VERSION
+ARG GLFW_VERSION
 ARG PYTHON_VERSION
 ARG PYTHON_VERSION_MAJOR_MINOR
-ARG CMAKE_VERSION
-ARG BOOST_VERSION
+ARG TBB_VERSION
 
 ARG ALEMBIC_VERSION
 ARG BLOSC_VERSION
@@ -25,6 +29,10 @@ ARG OPENEXR_VERSION
 FROM ${ASWF_ORG}/ci-package-cmake:${VFXPLATFORM_VERSION}-${CMAKE_VERSION} as ci-package-cmake-external
 FROM ${ASWF_ORG}/ci-package-python:${VFXPLATFORM_VERSION}-${PYTHON_VERSION} as ci-package-python-external
 FROM ${ASWF_ORG}/ci-package-boost:${VFXPLATFORM_VERSION}-${BOOST_VERSION} as ci-package-boost-external
+FROM ${ASWF_ORG}/ci-package-glew:${VFXPLATFORM_VERSION}-${GLEW_VERSION} as ci-package-glew-external
+FROM ${ASWF_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION}-${TBB_VERSION} as ci-package-tbb-external
+FROM ${ASWF_ORG}/ci-package-cppunit:${VFXPLATFORM_VERSION}-${CPPUNIT_VERSION} as ci-package-cppunit-external
+FROM ${ASWF_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION}-${GLFW_VERSION} as ci-package-glfw-external
 
 #################### ci-centos7-gl-packages ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${CLANG_MAJOR_VERSION} as ci-base-builder
@@ -285,3 +293,55 @@ RUN --mount=type=cache,target=/tmp/ccache \
     /tmp/build_osl.sh && \
     /tmp/copy_new_files.sh && \
     ccache --show-stats
+
+
+#################### ci-openvdb-builder ####################
+FROM ci-openexr-builder as ci-openvdb-builder
+
+ARG OPENVDB_VERSION
+ENV OPENVDB_VERSION=${OPENVDB_VERSION}
+
+COPY ../scripts/vfx/build_openvdb.sh \
+     /tmp/
+
+COPY --from=ci-package-glew-external /. /usr/local/
+COPY --from=ci-package-tbb-external /. /usr/local/
+COPY --from=ci-package-cppunit-external /. /usr/local/
+COPY --from=ci-package-glfw-external /. /usr/local/
+
+COPY --from=ci-package-blosc /. /usr/local/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+     --mount=type=cache,sharing=private,target=/tmp/downloads \
+     /tmp/before_build.sh && \
+     /tmp/build_openvdb.sh && \
+     /tmp/copy_new_files.sh && \
+     ccache --show-stats
+
+
+#################### ci-package-openvdb ####################
+FROM scratch as ci-package-openvdb
+
+ARG ASWF_ORG
+ARG CI_COMMON_VERSION
+ARG DTS_VERSION
+ARG OPENVDB_VERSION
+ARG VFXPLATFORM_VERSION
+
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-openvdb"
+LABEL org.opencontainers.image.title="OpenVDB package built for ASWF docker images"
+LABEL org.opencontainers.image.description="OpenVDB headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
+LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
+LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/openvdb"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
+LABEL org.opencontainers.image.version="${OPENVDB_VERSION}"
+LABEL org.opencontainers.image.licenses="MPL-2.0"
+LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
+LABEL io.aswf.docker.versions.vfx-platform="${VFXPLATFORM_VERSION}"
+LABEL io.aswf.docker.versions.dts="${DTS_VERSION}"
+LABEL io.aswf.docker.versions.openvdb="${OPENVDB_VERSION}"
+
+COPY --from=ci-openvdb-builder /package/. /
+
+

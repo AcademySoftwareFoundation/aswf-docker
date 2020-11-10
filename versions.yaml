@@ -392,14 +392,6 @@ ci-images:
     - "2019.7"
     - "2020.7"
     - "2021.3"
-  openvdb:
-    - "2018-clang7.7"
-    - "2019-clang6.7"
-    - "2019-clang7.7"
-    - "2019-clang8.7"
-    - "2019-clang9.7"
-    - "2020-clang7.7"
-    - "2021-clang10.3"
   ocio:
     - "2018.8"
     - "2019.8"
@@ -414,6 +406,10 @@ ci-images:
     - "2019.8"
     - "2020.7"
     - "2021.3"
+  otio:
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
   osl:
     - "2018-clang7.3"
     - "2019-clang6.3"
@@ -424,10 +420,14 @@ ci-images:
     - "2020-clang7.3"
     - "2021-clang10.3"
     - "2021-clang11.3"
-  otio:
-    - "2019.2"
-    - "2020.2"
-    - "2021.2"
+  openvdb:
+    - "2018-clang7.7"
+    - "2019-clang6.7"
+    - "2019-clang7.7"
+    - "2019-clang8.7"
+    - "2019-clang9.7"
+    - "2020-clang7.7"
+    - "2021-clang10.3"
   vfxall:
     - "2019-clang6.11"
     - "2019-clang7.11"
@@ -460,9 +460,9 @@ groups:
         - ocio
         - oiio
         - openexr
+        - openvdb
       vfx2: 
         - opensubdiv
-        - openvdb
         - osl
         - otio
         - partio
@@ -477,13 +477,13 @@ groups:
       vfx1:
         - opencue
         - openexr
-        - openvdb
       vfx2:
         - ocio
-        - osl
         - otio
         - usd
       vfx3:
+        - osl
+        - openvdb
         - vfxall
 
 package_data:
