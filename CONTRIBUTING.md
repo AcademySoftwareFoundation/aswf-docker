@@ -365,3 +365,44 @@ aswfdocker release -n aswftesting/ci-package-xyz:2021 --sha `git rev-parse HEAD`
 * Create the Pull Request with these changes
 
 Check [#66](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/66) for an example.
+
+
+### Example of a large re-release of all images:
+```
+# Common packages
+aswfdocker release -t PACKAGE -g common -v 1 -v 2 --target ninja --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 --target clang --docker-org aswf -m "RELEASE_NOTES!"
+# Wait for clang builds to finish (from 2 to 3 hours!)
+
+# ci-common needs to be built before base packages can be built
+aswfdocker release -t IMAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 --docker-org aswf -m "RELEASE_NOTES!"
+
+# Base packages
+aswfdocker release -t PACKAGE -g base1 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base2 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+# Wait for Qt builds to finish (2-6 hours!)
+
+# Usually some Qt build will fail as too big and too slow for free GitHub actions... So here's how to build qt locally:
+aswfdocker --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/master --verbose build -n aswf/ci-package-qt
+:2021
+docker push aswf/ci-package-qt:2021
+docker push aswf/ci-package-qt:2021-5.12.8
+docker push aswf/ci-package-qt:preview
+docker push aswf/ci-package-qt:2021.1
+
+# Once all Qt are out, release PySide packages
+aswfdocker release -t PACKAGE -g base3 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+
+
+# Wait for all Qt and Pyside builds to finish, then build downstream packages:
+# VFX packages
+aswfdocker release -t PACKAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+
+
+# Finally build the CI images
+aswfdocker release -t IMAGE -g base -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx3 -v 2018-clang7 -v 2019-clang6 -v 2019-clang7 -v 2019-clang8 -v 2019-clang9 -v 2020-clang7 -v 2021-clang10 -v 2021-clang11 --docker-org aswf -m "RELEASE_NOTES!"
+```
