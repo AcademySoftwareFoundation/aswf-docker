@@ -82,7 +82,7 @@ class TestBuilder(unittest.TestCase):
         b = builder.Builder(
             self.build_info,
             groupinfo.GroupInfo(
-                names=["vfx1"],
+                names=["vfx3"],
                 versions=["2019-clang9"],
                 type_=constants.ImageType.IMAGE,
                 targets=["openvdb"],
