@@ -7,8 +7,8 @@ set -ex
 git clone https://github.com/01org/tbb.git
 cd tbb
 
-if [ "$TBB_VERSION" != "latest" ]; then
-    git checkout "tags/${TBB_VERSION}" -b "${TBB_VERSION}"
+if [ "$ASWF_TBB_VERSION" != "latest" ]; then
+    git checkout "tags/${ASWF_TBB_VERSION}" -b "${ASWF_TBB_VERSION}"
 fi
 
 make -j$(nproc)

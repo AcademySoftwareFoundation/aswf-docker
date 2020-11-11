@@ -8,13 +8,13 @@ mkdir ocio
 cd ocio
 
 
-if [ ! -f "$DOWNLOADS_DIR/ocio-${OCIO_VERSION}.tar.gz" ]; then
-    curl --location "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v${OCIO_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/ocio-${OCIO_VERSION}.tar.gz"
+if [ ! -f "$DOWNLOADS_DIR/ocio-${ASWF_OCIO_VERSION}.tar.gz" ]; then
+    curl --location "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v${ASWF_OCIO_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/ocio-${ASWF_OCIO_VERSION}.tar.gz"
 fi
-tar -zxf "$DOWNLOADS_DIR/ocio-${OCIO_VERSION}.tar.gz"
-cd "OpenColorIO-${OCIO_VERSION}"
+tar -zxf "$DOWNLOADS_DIR/ocio-${ASWF_OCIO_VERSION}.tar.gz"
+cd "OpenColorIO-${ASWF_OCIO_VERSION}"
 
-if [[ $DTS_VERSION == 9 && $OCIO_VERSION == 1.* ]]; then
+if [[ $ASWF_DTS_VERSION == 9 && $ASWF_OCIO_VERSION == 1.* ]]; then
     # Disable warning treated as errors
     sed -i 's/-Werror//g' src/core/CMakeLists.txt
     sed -i 's/-Werror//g' src/pyglue/CMakeLists.txt
@@ -35,9 +35,9 @@ make install
 
 cd ../..
 
-curl --location "https://github.com/imageworks/OpenColorIO-Configs/archive/v${OCIO_CONFIGS_VERSION}.tar.gz" -o "ocio-configs.tar.gz"
+curl --location "https://github.com/imageworks/OpenColorIO-Configs/archive/v${ASWF_OCIO_CONFIGS_VERSION}.tar.gz" -o "ocio-configs.tar.gz"
 tar -zxf ocio-configs.tar.gz
-cd "OpenColorIO-Configs-${OCIO_CONFIGS_VERSION}"
+cd "OpenColorIO-Configs-${ASWF_OCIO_CONFIGS_VERSION}"
 
 mkdir "${ASWF_INSTALL_PREFIX}/openColorIO"
 cp nuke-default/config.ocio "${ASWF_INSTALL_PREFIX}/openColorIO/"

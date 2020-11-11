@@ -6,14 +6,14 @@
 ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
-ARG CLANG_MAJOR_VERSION
+ARG ASWF_CLANG_MAJOR_VERSION
 
 {% for arg in docker_args -%}
 ARG {{ arg }}
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
-ARG {{package.upper()}}_VERSION
+ARG ASWF_{{package.upper()}}_VERSION
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
@@ -23,7 +23,7 @@ ARG {{ arg }}
 {% endfor %}
 
 {% for package in packages -%}
-FROM ${ASWF_PKG_ORG}/ci-package-{{ package }}:{{docker_package_version}}-${{package.upper()}}_VERSION as ci-package-{{ package }}
+FROM ${ASWF_PKG_ORG}/ci-package-{{ package }}:{{docker_package_version}}-$ASWF_{{package.upper()}}_VERSION as ci-package-{{ package }}
 {% endfor -%}
 
 
@@ -38,7 +38,7 @@ ARG {{ arg }}
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
-ARG {{package.upper()}}_VERSION
+ARG ASWF_{{package.upper()}}_VERSION
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
@@ -56,20 +56,22 @@ LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 
-LABEL com.vfxplatform.version="${VFXPLATFORM_VERSION}"
+LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
 
 {% for package in packages + implicit_packages -%}
-LABEL io.aswf.docker.versions.{{ package }}="${{ package.upper() }}_VERSION"
+LABEL io.aswf.docker.versions.{{ package }}="$ASWF_{{ package.upper() }}_VERSION"
 {% endfor %}
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
+ENV VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
+
 {% for arg in docker_args -%}
 ENV {{ arg }}=${{ arg }}
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
-ENV {{package.upper()}}_VERSION=${{package.upper()}}_VERSION
+ENV ASWF_{{package.upper()}}_VERSION=$ASWF_{{package.upper()}}_VERSION
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}

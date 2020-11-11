@@ -4,14 +4,14 @@
 
 set -ex
 
-if [ ! -f "$DOWNLOADS_DIR/openexr-${OPENEXR_VERSION}.tar.gz" ]; then
-    curl --location "https://github.com/AcademySoftwareFoundation/openexr/archive/v${OPENEXR_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/openexr-${OPENEXR_VERSION}.tar.gz"
+if [ ! -f "$DOWNLOADS_DIR/openexr-${ASWF_OPENEXR_VERSION}.tar.gz" ]; then
+    curl --location "https://github.com/AcademySoftwareFoundation/openexr/archive/v${ASWF_OPENEXR_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/openexr-${ASWF_OPENEXR_VERSION}.tar.gz"
 fi
 
-tar xf "$DOWNLOADS_DIR/openexr-${OPENEXR_VERSION}.tar.gz"
-cd "openexr-${OPENEXR_VERSION}"
+tar xf "$DOWNLOADS_DIR/openexr-${ASWF_OPENEXR_VERSION}.tar.gz"
+cd "openexr-${ASWF_OPENEXR_VERSION}"
 
-if [[ $OPENEXR_VERSION == 2.2* ]]; then
+if [[ $ASWF_OPENEXR_VERSION == 2.2* ]]; then
 
     cd IlmBase
     ./bootstrap
@@ -33,8 +33,8 @@ if [[ $OPENEXR_VERSION == 2.2* ]]; then
 else
 
     # TODO: add support for python-3 PyIlmBase when it works...
-    if [[ $OPENEXR_VERSION == 2.3.0 ]]; then
-        if [[ $PYTHON_VERSION == 2.7* ]]; then
+    if [[ $ASWF_OPENEXR_VERSION == 2.3.0 ]]; then
+        if [[ $ASWF_PYTHON_VERSION == 2.7* ]]; then
             BUILD_PYILMBASE=on
         else
             BUILD_PYILMBASE=off
@@ -54,4 +54,4 @@ else
 fi
 
 cd ../..
-rm -rf "openexr-${OPENEXR_VERSION}"
+rm -rf "openexr-${ASWF_OPENEXR_VERSION}"

@@ -7,8 +7,8 @@ set -ex
 git clone https://github.com/PixarAnimationStudios/OpenTimelineIO.git
 cd OpenTimelineIO
 
-if [ "$OTIO_VERSION" != "latest" ]; then
-    git checkout "tags/v${OTIO_VERSION}" -b "v${OTIO_VERSION}"
+if [ "$ASWF_OTIO_VERSION" != "latest" ]; then
+    git checkout "tags/v${ASWF_OTIO_VERSION}" -b "v${ASWF_OTIO_VERSION}"
 fi
 
 pip install --prefix="${ASWF_INSTALL_PREFIX}" .
