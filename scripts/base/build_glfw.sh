@@ -7,8 +7,8 @@ set -ex
 git clone https://github.com/glfw/glfw.git
 cd glfw
 
-if [ "$GLFW_VERSION" != "latest" ]; then
-    git checkout "tags/${GLFW_VERSION}" -b "${GLFW_VERSION}"
+if [ "$ASWF_GLFW_VERSION" != "latest" ]; then
+    git checkout "tags/${ASWF_GLFW_VERSION}" -b "${ASWF_GLFW_VERSION}"
 fi
 
 mkdir build

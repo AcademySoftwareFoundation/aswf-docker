@@ -4,14 +4,14 @@
 
 set -ex
 
-if [ ! -f "$DOWNLOADS_DIR/openvdb-${OPENVDB_VERSION}.tar.gz" ]; then
-     curl --location "https://github.com/AcademySoftwareFoundation/openvdb/archive/v${OPENVDB_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/openvdb-${OPENVDB_VERSION}.tar.gz"
+if [ ! -f "$DOWNLOADS_DIR/openvdb-${ASWF_OPENVDB_VERSION}.tar.gz" ]; then
+     curl --location "https://github.com/AcademySoftwareFoundation/openvdb/archive/v${ASWF_OPENVDB_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/openvdb-${ASWF_OPENVDB_VERSION}.tar.gz"
 fi
 
-tar -zxf "$DOWNLOADS_DIR/openvdb-${OPENVDB_VERSION}.tar.gz"
-cd "openvdb-${OPENVDB_VERSION}"
+tar -zxf "$DOWNLOADS_DIR/openvdb-${ASWF_OPENVDB_VERSION}.tar.gz"
+cd "openvdb-${ASWF_OPENVDB_VERSION}"
 
-if [[ $OPENVDB_VERSION == 5* ]]; then
+if [[ $ASWF_OPENVDB_VERSION == 5* ]]; then
 cat <<EOF | patch -p1
 diff -ur openvdb-5.2.0/openvdb/python/CMakeLists.txt openvdb-5.2.0_patched/openvdb/python/CMakeLists.txt
 --- openvdb-5.2.0/openvdb/python/CMakeLists.txt 2018-08-14 01:33:07.000000000 +1000
@@ -52,4 +52,4 @@ make -j$(nproc)
 make install
 
 cd ../..
-rm -rf "openvdb-${OPENVDB_VERSION}"
+rm -rf "openvdb-${ASWF_OPENVDB_VERSION}"
