@@ -53,14 +53,14 @@ Each image (apart from `ci-common`) is available for multiple VFX Platform Years
 
 ### Versions
 
-The `VFXPLATFORM_VERSION` is the calendar year mentioned in the VFX Platform, e.g. `2019`.
+The `ASWF_VFXPLATFORM_VERSION` is the calendar year mentioned in the VFX Platform, e.g. `2019`.
 
-The `ASWF_VERSION` is a semantic version made of the `VFXPLATFORM_VERSION` as the major version number, and a minor version number to indicate minor changes in the Docker Image that still point to the same calendar year version, e.g. `2019.0` would be followed if necessary by a `2019.1` version.
+The `ASWF_VERSION` is a semantic version made of the `ASWF_VFXPLATFORM_VERSION` as the major version number, and a minor version number to indicate minor changes in the Docker Image that still point to the same calendar year version, e.g. `2019.0` would be followed if necessary by a `2019.1` version.
 The minor version here does *not* point to a calendar month or quarter, it is solely to express that the image has changed internally. We could also have a patch version.
 
 ### Image Tags
 
-The most precise version tag is the `ASWF_VERSION` of the image, e.g. `aswf/ci-base:2019.0`, but it is recommended to use the `VFXPLATFORM_VERSION` as the tag to use in CI pipelines, e.g. `aswf/ci-openexr:2019`.
+The most precise version tag is the `ASWF_VERSION` of the image, e.g. `aswf/ci-base:2019.0`, but it is recommended to use the `ASWF_VFXPLATFORM_VERSION` as the tag to use in CI pipelines, e.g. `aswf/ci-openexr:2019`.
 
 The `latest` tag is pointing to the current VFX Platorm year images, e.g. `aswf/ci-openexr:latest` points to `aswf/ci-openexr:2019.0` but will be updated to point to `aswf/ci-openexr:2020.0` in the calendar year 2020.
 

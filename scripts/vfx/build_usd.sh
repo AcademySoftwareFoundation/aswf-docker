@@ -6,14 +6,14 @@ set -ex
 
 pip install jinja2 PyOpenGL
 
-if [ ! -f "$DOWNLOADS_DIR/usd-${USD_VERSION}.tar.gz" ]; then
-     curl --location "https://github.com/PixarAnimationStudios/USD/archive/v${USD_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/usd-${USD_VERSION}.tar.gz"
+if [ ! -f "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz" ]; then
+     curl --location "https://github.com/PixarAnimationStudios/USD/archive/v${ASWF_USD_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz"
 fi
 
-tar -zxf "$DOWNLOADS_DIR/usd-${USD_VERSION}.tar.gz"
-cd "USD-${USD_VERSION}"
+tar -zxf "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz"
+cd "USD-${ASWF_USD_VERSION}"
 
-if [[ $USD_VERSION == 19.* ]]; then
+if [[ $ASWF_USD_VERSION == 19.* ]]; then
      VT_SRC_FOLDER=base/lib/vt
 else
      VT_SRC_FOLDER=base/vt
@@ -49,7 +49,7 @@ EOF
 mkdir build
 cd build
 
-if [[ $PYTHON_VERSION == 2.7* ]]; then
+if [[ $ASWF_PYTHON_VERSION == 2.7* ]]; then
     USD_EXTRA_ARGS=
 else
     USD_EXTRA_ARGS=-DPXR_USE_PYTHON_3=ON
@@ -74,4 +74,4 @@ make install
 
 cd ../..
 
-rm -rf "USD-${USD_VERSION}"
+rm -rf "USD-${ASWF_USD_VERSION}"

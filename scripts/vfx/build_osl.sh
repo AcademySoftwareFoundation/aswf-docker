@@ -4,12 +4,12 @@
 
 set -ex
 
-if [ ! -f "$DOWNLOADS_DIR/osl-${OSL_VERSION}.tar.gz" ]; then
-    curl --location "https://github.com/imageworks/OpenShadingLanguage/archive/Release-${OSL_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/osl-${OSL_VERSION}.tar.gz"
+if [ ! -f "$DOWNLOADS_DIR/osl-${ASWF_OSL_VERSION}.tar.gz" ]; then
+    curl --location "https://github.com/imageworks/OpenShadingLanguage/archive/Release-${ASWF_OSL_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/osl-${ASWF_OSL_VERSION}.tar.gz"
 fi
 
-tar -zxf "$DOWNLOADS_DIR/osl-${OSL_VERSION}.tar.gz"
-cd "OpenShadingLanguage-Release-${OSL_VERSION}"
+tar -zxf "$DOWNLOADS_DIR/osl-${ASWF_OSL_VERSION}.tar.gz"
+cd "OpenShadingLanguage-Release-${ASWF_OSL_VERSION}"
 
 mkdir build
 cd build
@@ -24,4 +24,4 @@ make -j$(nproc)
 make install
 
 cd ../..
-rm -rf "OpenShadingLanguage-Release-${OSL_VERSION}"
+rm -rf "OpenShadingLanguage-Release-${ASWF_OSL_VERSION}"

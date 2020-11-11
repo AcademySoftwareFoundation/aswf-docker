@@ -4,34 +4,34 @@
 
 set -ex
 
-BOOST_MAJOR_MINOR=$(echo "${BOOST_VERSION}" | cut -d. -f-2)
-BOOST_MAJOR=$(echo "${BOOST_VERSION}" | cut -d. -f-1)
+BOOST_MAJOR_MINOR=$(echo "${ASWF_BOOST_VERSION}" | cut -d. -f-2)
+BOOST_MAJOR=$(echo "${ASWF_BOOST_VERSION}" | cut -d. -f-1)
 BOOST_MINOR=$(echo "${BOOST_MAJOR_MINOR}" | cut -d. -f2-)
-BOOST_PATCH=$(echo "${BOOST_VERSION}" | cut -d. -f3-)
+BOOST_PATCH=$(echo "${ASWF_BOOST_VERSION}" | cut -d. -f3-)
 BOOST_VERSION_U="${BOOST_MAJOR}_${BOOST_MINOR}_${BOOST_PATCH}"
 
-if [[ $BOOST_VERSION != 1.61* ]]; then
+if [[ $ASWF_BOOST_VERSION != 1.61* ]]; then
     BOOST_EXTRA_ARGS="cxxstd=14"
 else
     BOOST_EXTRA_ARGS=""
 fi
 
-BOOTSTRAP_ARGS="--with-python=${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_VERSION_MAJOR_MINOR} --with-python-version=${PYTHON_VERSION_MAJOR_MINOR} --with-python-root=${ASWF_INSTALL_PREFIX}/lib/python${PYTHON_VERSION_MAJOR_MINOR}"
-if [[ $PYTHON_VERSION_MAJOR_MINOR == 3* ]]; then
+BOOTSTRAP_ARGS="--with-python=${ASWF_INSTALL_PREFIX}/bin/python${ASWF_PYTHON_MAJOR_MINOR_VERSION} --with-python-version=${ASWF_PYTHON_MAJOR_MINOR_VERSION} --with-python-root=${ASWF_INSTALL_PREFIX}/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}"
+if [[ $ASWF_PYTHON_MAJOR_MINOR_VERSION == 3* ]]; then
     # The unfortunate trick is the "m" in the python include path...
-    echo "using python : ${PYTHON_VERSION_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_VERSION_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/include/python${PYTHON_VERSION_MAJOR_MINOR}m : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
+    echo "using python : ${ASWF_PYTHON_MAJOR_MINOR_VERSION} : ${ASWF_INSTALL_PREFIX}/bin/python${ASWF_PYTHON_MAJOR_MINOR_VERSION} : ${ASWF_INSTALL_PREFIX}/include/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}m : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
 else
-    echo "using python : ${PYTHON_VERSION_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/bin/python${PYTHON_VERSION_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/include/python${PYTHON_VERSION_MAJOR_MINOR} : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
+    echo "using python : ${ASWF_PYTHON_MAJOR_MINOR_VERSION} : ${ASWF_INSTALL_PREFIX}/bin/python${ASWF_PYTHON_MAJOR_MINOR_VERSION} : ${ASWF_INSTALL_PREFIX}/include/python${ASWF_PYTHON_MAJOR_MINOR_VERSION} : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
 fi
 
 mkdir boost
 cd boost
 
-if [ ! -f "$DOWNLOADS_DIR/boost-${BOOST_VERSION}.tar.gz" ]; then
-    curl --location "https://sourceforge.net/projects/boost/files/boost/${BOOST_VERSION}/boost_${BOOST_VERSION_U}.tar.gz" -o "$DOWNLOADS_DIR/boost-${BOOST_VERSION}.tar.gz"
+if [ ! -f "$DOWNLOADS_DIR/boost-${ASWF_BOOST_VERSION}.tar.gz" ]; then
+    curl --location "https://sourceforge.net/projects/boost/files/boost/${ASWF_BOOST_VERSION}/boost_${BOOST_VERSION_U}.tar.gz" -o "$DOWNLOADS_DIR/boost-${ASWF_BOOST_VERSION}.tar.gz"
 fi
 
-tar -xzf "$DOWNLOADS_DIR/boost-${BOOST_VERSION}.tar.gz"
+tar -xzf "$DOWNLOADS_DIR/boost-${ASWF_BOOST_VERSION}.tar.gz"
 
 cd "boost_${BOOST_VERSION_U}"
 sh bootstrap.sh ${BOOTSTRAP_ARGS}
