@@ -169,7 +169,7 @@ Contains:
 * pyside-5.12.6
 * cmake-3.18.4
 * openexr-2.4.0
-* blosc-1.20.1
+* blosc-1.5.0
 * alembic-1.7.12
 * oiio-2.1.13.0
 * ocio-1.1.1

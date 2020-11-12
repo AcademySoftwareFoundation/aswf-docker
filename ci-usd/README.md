@@ -80,7 +80,7 @@ Contains:
 * ptex-2.3.2
 * opensubdiv-3_4_3
 * alembic-1.7.12
-* blosc-1.20.1
+* blosc-1.5.0
 * openvdb-7.1.0
 * numpy-1.16
 * hdf5-1.8.21
