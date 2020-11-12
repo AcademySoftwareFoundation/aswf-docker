@@ -11,7 +11,7 @@ See [aswf.io](https://aswf.io) and [aswf-docker](https://github.com/AcademySoftw
 
 ## OpenShadingLanguage CI Docker Image
 
-Contains: python, boost, tbb, OpenEXR, Blosc and other OpenShadingLanguage upstream dependencies
+Contains: python, boost, Qt, OpenEXR, OpenImageIO, PartIO and other OpenShadingLanguage upstream dependencies
 Warning: this image does *not* contain OpenShadingLanguage itself as it is used to *build* OpenShadingLanguage!
 
 
@@ -21,12 +21,11 @@ Warning: this image does *not* contain OpenShadingLanguage itself as it is used 
 Contains:
 * boost-1.61.0
 * cmake-3.9.4
-* cppunit-1.14.0
-* glfw-3.1.2
 * python-2.7.15
-* tbb-2017_U6
+* qt-5.6.1
 * openexr-2.2.1
-* blosc-1.5.0
+* oiio-2.0.8
+* partio-1.10.1
 * numpy-1.14
 * vfxplatform-2018
 
@@ -34,12 +33,11 @@ Contains:
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
-* cppunit-1.14.0
-* glfw-3.1.2
 * python-2.7.15
-* tbb-2018
+* qt-5.12.6
 * openexr-2.3.0
-* blosc-1.5.0
+* oiio-2.0.8
+* partio-1.10.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -47,12 +45,11 @@ Contains:
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
-* cppunit-1.14.0
-* glfw-3.1.2
 * python-2.7.15
-* tbb-2018
+* qt-5.12.6
 * openexr-2.3.0
-* blosc-1.5.0
+* oiio-2.0.8
+* partio-1.10.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -60,12 +57,11 @@ Contains:
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
-* cppunit-1.14.0
-* glfw-3.1.2
 * python-2.7.15
-* tbb-2018
+* qt-5.12.6
 * openexr-2.3.0
-* blosc-1.5.0
+* oiio-2.0.8
+* partio-1.10.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -73,12 +69,11 @@ Contains:
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
-* cppunit-1.14.0
-* glfw-3.1.2
 * python-2.7.15
-* tbb-2018
+* qt-5.12.6
 * openexr-2.3.0
-* blosc-1.5.0
+* oiio-2.0.8
+* partio-1.10.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -86,12 +81,11 @@ Contains:
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
-* cppunit-1.14.0
-* glfw-3.1.2
 * python-2.7.15
-* tbb-2018
+* qt-5.12.6
 * openexr-2.3.0
-* blosc-1.5.0
+* oiio-2.0.8
+* partio-1.10.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -99,12 +93,11 @@ Contains:
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
-* cppunit-1.15.1
-* glfw-3.1.2
 * python-3.7.3
-* tbb-2019_U6
+* qt-5.12.6
 * openexr-2.4.0
-* blosc-1.5.0
+* oiio-2.1.13.0
+* partio-1.10.1
 * numpy-1.16
 * vfxplatform-2020
 
@@ -112,12 +105,11 @@ Contains:
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
-* cppunit-1.15.1
-* glfw-3.1.2
 * python-3.7.3
-* tbb-2019_U6
+* qt-5.12.8
 * openexr-2.4.0
-* blosc-1.5.0
+* oiio-2.1.13.0
+* partio-1.13.0
 * numpy-1.16
 * vfxplatform-2021
 
@@ -125,12 +117,11 @@ Contains:
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
-* cppunit-1.15.1
-* glfw-3.1.2
 * python-3.7.3
-* tbb-2019_U6
+* qt-5.12.8
 * openexr-2.4.0
-* blosc-1.5.0
+* oiio-2.1.13.0
+* partio-1.13.0
 * numpy-1.16
 * vfxplatform-2021
 

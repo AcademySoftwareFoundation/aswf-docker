@@ -1,17 +1,16 @@
 name: "osl"
 title: "OpenShadingLanguage CI Docker Image"
 description: |
-  Contains: python, boost, tbb, OpenEXR, Blosc and other OpenShadingLanguage upstream dependencies
+  Contains: python, boost, Qt, OpenEXR, OpenImageIO, PartIO and other OpenShadingLanguage upstream dependencies
   Warning: this image does *not* contain OpenShadingLanguage itself as it is used to *build* OpenShadingLanguage!
 packages:
   - boost
   - cmake
-  - cppunit
-  - glfw
   - python
-  - tbb
+  - qt
   - openexr
-  - blosc
+  - oiio
+  - partio
 implicit_packages:
   - numpy
   - vfxplatform
