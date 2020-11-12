@@ -104,7 +104,7 @@ Contains:
 * python-3.7.3
 * tbb-2019_U6
 * openexr-2.4.0
-* blosc-1.20.1
+* blosc-1.5.0
 * numpy-1.16
 * vfxplatform-2021
 
