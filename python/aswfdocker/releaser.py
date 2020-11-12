@@ -4,7 +4,7 @@ import logging
 import typing
 from datetime import datetime, timezone
 
-from github import Github, InputGitAuthor
+from github import Github, InputGitAuthor, GithubException
 
 from aswfdocker import settings, constants, aswfinfo, groupinfo
 
@@ -26,8 +26,23 @@ class GitHub:
 
     def create_release(self, sha, tag, release_message, prerelease):
         logger.debug("GitHub.create_release(tag=%s)", tag)
-        self.repo.create_git_tag_and_release(
-            tag=tag.replace(":", "/"),
+        real_tag = tag.replace(":", "/")
+        try:
+            release = self.repo.get_release(real_tag)
+        except GithubException:
+            release = None
+        if release:
+            release.delete_release()
+            logger.warning("Release %s already existed, deleted!", real_tag)
+        try:
+            ref = self.repo.get_git_ref(ref="tags/" + real_tag)
+        except GithubException:
+            ref = None
+        if ref:
+            ref.delete()
+            logger.warning("Tag %s already existed, deleted!", real_tag)
+        release = self.repo.create_git_tag_and_release(
+            tag=real_tag,
             tag_message=tag,
             release_name=tag,
             release_message=release_message,
@@ -41,6 +56,7 @@ class GitHub:
                 datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
             ),
         )
+        logger.info("Release %s created.", real_tag)
 
 
 class Releaser:
