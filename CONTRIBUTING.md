@@ -9,14 +9,16 @@ explains our contribution process and procedures:
 * [Versioning Policy](#Versioning-Policy)
 * [Creating a Release](#Creating-a-Release)
 
-
 ## Getting Information
 
-There are two primary ways to connect with the aswf-docker project:
+There are three primary ways to connect with the aswf-docker project:
 
-* The [tac](https://lists.aswf.io/g/tac) mail list:
+* The [TAC mailing list](https://lists.aswf.io/g/tac):
   This is a general mailing list which can be used to discuss CI issues, please
-  use the #ci-working tag.
+  use the `#ci-working` tag.
+
+* The [ASWF Slack workspace](http://slack.aswf.io/):
+  The CI working group has a channel `#wg-ci` for discussions.
 
 * [GitHub Issues](https://github.com/AcademySoftwareFoundation/aswf-docker/issues): GitHub
   Issues are used both to track bugs and to discuss feature requests.
