@@ -67,9 +67,9 @@ The `latest` tag is pointing to the current VFX Platorm year images, e.g. `aswf/
 
 ## Testing Images
 
-There is another dockerhub organisation with copies of the `aswf` docker images called `aswftesting`, images published there are for general testing and experimentations. Images can be pushed by any fork of the official repo as long as the branch is called `testing`. Images in this org will change without notice and could be broken in many unexpected ways!
+There is another Docker Hub organization with copies of the `aswf` docker images called `aswftesting`, images published there are for general testing and experimentations. Images can be pushed by any fork of the official repo as long as the branch is called `testing`. Images in this org will change without notice and could be broken in many unexpected ways!
 
-To get write access to the `aswftesting` dockerhub organisation you can open a jira issue [there](https://jira.aswf.io).
+To get write access to the `aswftesting` Docker Hub organization you can open a jira issue [there](https://jira.aswf.io).
 
 ### Status
 As of June 2020 there are full 2018, 2019 and 2020 [VFX Platform](https://vfxplatform.com) compliant images. And a preview of 2021

@@ -275,7 +275,7 @@ The [CHANGELOG.md](CHANGELOG.md) file needs to be updated with the date of the c
 and the list of new docker image versions that will be built by the CI infrastructure.
 
 GitHub releases will trigger a `Release` GitHub action that will build the corresponding
-image and push it to dockerhub.
+image and push it to Docker Hub.
 
 ### Build
 `aswfdocker build` builds ci packages and ci images.
@@ -288,9 +288,10 @@ aswfdocker --verbose build -t IMAGE --group vfx --version 2019 --target vfxall -
 ```
 
 ### Migrate
-`aswfdocker migrate` can migrate images between docker organisations, should only be used on package images
+
+`aswfdocker migrate` can migrate images between docker organizations, should only be used on package images
 that are very heavy to build such as clang or qt.
-Example use: migrate a single package from `aswftesting` to `aswf` dockerhub organisation.
+Example use: migrate a single package from `aswftesting` to `aswf` Docker Hub organization.
 ```bash
 aswfdocker --verbose migrate --from aswftesting --to aswf --package usd
 ```
@@ -300,9 +301,10 @@ If a version number of a package or an image needs to be updated, the `versions.
 In order to update the templated images with updated version numbers, run `aswfdocker dockergen`.
 
 ### Manually push new packages
-When rebuilding all packages from the CI is overkill, and if you have access to the right dockerhub organisations, it is possible
+
+When rebuilding all packages from the CI is overkill, and if you have access to the right Docker Hub organizations, it is possible
 to manually build and push packages and images by overriding the automatic discovery of current repo and branch.
-E.g. to build and push a new `ninja` package these commands can be run to push to `aswf` and `aswftesting` organisations:
+E.g. to build and push a new `ninja` package these commands can be run to push to `aswf` and `aswftesting` organizations:
 
 ```bash
 # push to aswftesting

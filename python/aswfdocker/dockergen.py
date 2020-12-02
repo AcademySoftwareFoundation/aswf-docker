@@ -1,7 +1,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 """
-Migration of ASWF docker images between docker organisations
+Migration of ASWF docker images between docker organizations
 """
 import logging
 import os
