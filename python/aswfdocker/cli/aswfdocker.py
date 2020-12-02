@@ -187,7 +187,7 @@ def build(
 )
 @click.option("--dry-run", "-d", is_flag=True)
 def migrate(from_org, to_org, package, version, dry_run):
-    """Migrates packages from a dockerhub org to another.
+    """Migrates packages from a Docker Hub org to another.
     """
     m = migrater.Migrater(from_org, to_org)
     m.gather(package, version)
@@ -206,7 +206,7 @@ def migrate(from_org, to_org, package, version, dry_run):
 @cli.command()
 @pass_build_info
 def getdockerorg(build_info):
-    """Prints the current dockerhub organisation to use according to the current repo uri and branch name
+    """Prints the current Docker Hub organization to use according to the current repo uri and branch name
     """
     click.echo(
         utils.get_docker_org(build_info.repo_uri, build_info.source_branch), nl=False
@@ -228,7 +228,7 @@ def getdockerpush(build_info):
 
 @cli.command()
 @click.option(
-    "--docker-org", "-d", default="aswf", help="Docker organisation",
+    "--docker-org", "-d", default="aswf", help="Docker organization",
 )
 @click.option(
     "--package", "-p", help="Package name to download",
@@ -322,13 +322,13 @@ def settings(settings_path, github_access_token):
     "--github-org",
     "-o",
     default=constants.MAIN_GITHUB_ASWF_ORG,
-    help=f"The GitHub organisation/username to create the release on, defaults to {constants.MAIN_GITHUB_ASWF_ORG}.",
+    help=f"The GitHub organization/username to create the release on, defaults to {constants.MAIN_GITHUB_ASWF_ORG}.",
 )
 @click.option(
     "--docker-org",
     "-do",
     default=constants.TESTING_DOCKER_ORG,
-    help=f"The Docker organisation/username to upload the docker image to, defaults to {constants.TESTING_DOCKER_ORG}.",
+    help=f"The Docker organization/username to upload the docker image to, defaults to {constants.TESTING_DOCKER_ORG}.",
 )
 @click.option(
     "--message", "-m", help="The release message.",
@@ -432,16 +432,16 @@ def dockergen(context, image_name, check):
 @cli.command()
 @common_image_options
 @click.option(
-    "--username", "-u", help="DockerHub username.",
+    "--username", "-u", help="Docker Hub username.",
 )
 @click.option(
-    "--password", "-p", help="DockerHub password",
+    "--password", "-p", help="Docker Hub password",
 )
 @pass_build_info
 def pushoverview(
     build_info, ci_image_type, group, version, full_name, target, username, password,
 ):
-    """Pushes the Docker Image README file to DockerHub
+    """Pushes the Docker Image README file to Docker Hub
     """
     group_info = get_group_info(
         build_info, ci_image_type, group, version, full_name, target
