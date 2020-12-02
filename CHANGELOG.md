@@ -220,9 +220,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 * `aswfdocker packages` lists all ci packages.
 * `aswfdocker images` lists all ci images.
-* `aswfdocker migrate` allows migration of docker packages from one organisation to another.
+* `aswfdocker migrate` allows migration of docker packages from one organization to another.
 * `aswfdocker build` builds docker ci packages and ci images.
-* `aswfdocker getdockerorg` prints the current dockerhub organisation to use.
+* `aswfdocker getdockerorg` prints the current Docker Hub organization to use.
 * `aswfdocker getdockerpush` prints if the images should be pushed.
 ### Removed
 * All bash scripts...
