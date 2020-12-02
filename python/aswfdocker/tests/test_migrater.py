@@ -99,10 +99,12 @@ class TestMigraterCli(unittest.TestCase):
         reg = constants.DOCKER_REGISTRY
         self.assertEqual(
             result.output,
-            f"""Are you sure you want to migrate the following 1 packages?
-{reg}/src/ci-package-openexr:{current_version} -> {reg}/dst/ci-package-openexr:{current_version}
- [y/N]: y
-INFO:aswfdocker.migrater:Migrating {reg}/src/ci-package-openexr:{current_version} -> {reg}/dst/ci-package-openexr:{current_version}
-Migration done.
-""",
+            f"Are you sure you want to migrate the following 1 packages?\n"
+            f"{reg}/src/ci-package-openexr:{current_version} -> "
+            f"{reg}/dst/ci-package-openexr:{current_version}\n"
+            f" [y/N]: y\n"
+            f"INFO:aswfdocker.migrater:Migrating "
+            f"{reg}/src/ci-package-openexr:{current_version} -> "
+            f"{reg}/dst/ci-package-openexr:{current_version}\n"
+            f"Migration done.\n",
         )
