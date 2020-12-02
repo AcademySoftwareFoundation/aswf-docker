@@ -279,8 +279,10 @@ GitHub releases will trigger a `Release` GitHub action that will build the corre
 image and push it to Docker Hub.
 
 ### Build
+
 `aswfdocker build` builds ci packages and ci images.
 Example use: just build a single package for testing:
+
 ```bash
 # Build and push USD package to aswftesting
 aswfdocker --verbose build -t PACKAGE --group vfx --version 2019 --target usd --push
@@ -293,11 +295,13 @@ aswfdocker --verbose build -t IMAGE --group vfx --version 2019 --target vfxall -
 `aswfdocker migrate` can migrate images between docker organizations, should only be used on package images
 that are very heavy to build such as clang or qt.
 Example use: migrate a single package from `aswftesting` to `aswf` Docker Hub organization.
+
 ```bash
 aswfdocker --verbose migrate --from aswftesting --to aswf --package usd
 ```
 
 ### Updating versions
+
 If a version number of a package or an image needs to be updated, the `versions.yaml` file is the main data source.
 In order to update the templated images with updated version numbers, run `aswfdocker dockergen`.
 
@@ -315,6 +319,7 @@ aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/asw
 ```
 
 ### Manual GitHub release creation
+
 * Create a new release in [GitHub New Release](https://github.com/AcademySoftwareFoundation/aswf-docker/releases/new)
     * Use the following tag format: `ci-NAME:X.Y` (e.g. `ci-common:1.4`)
     * Use the following release name format: `aswf/ci-NAME:X.Y` (e.g. `aswf/ci-common:1.4`)
@@ -323,17 +328,21 @@ aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/asw
 * Run a manual build in Azure on the specific tagged commit created before
 
 ### Automatic GitHub release creation
-* Generate a GitHub token to allow `aswfdocker release` to create GitHub releases: [GitHub Settings](https://github.com/settings/tokens) with **"repo"** permissions.
+
+* Generate a GitHub token to allow `aswfdocker release` to create GitHub releases:
+  [GitHub Settings](https://github.com/settings/tokens) with **"repo"** permissions.
 * Configure the token in the `aswfdocker` settings by running:
-    `aswfdocker settings --github-access-token MYTOKEN`.
+  ```bash
+  aswfdocker settings --github-access-token MYTOKEN
+  ```
 * Run the `release` command for a given image:
-```bash
-aswfdocker release -n aswftesting/ci-base:2021
-```
-or for a whole group of images:
-```bash
-aswfdocker release -t PACKAGE -g base1 -v 2018 --docker-org aswftesting -m "Testing release"
-```
+  ```bash
+  aswfdocker release -n aswftesting/ci-base:2021
+  ```
+  or for a whole group of images:
+  ```bash
+  aswfdocker release -t PACKAGE -g base1 -v 2018 --docker-org aswftesting -m "Testing release"
+  ```
 
 ### Adding a new `ci` image
 
@@ -348,30 +357,30 @@ It is usually a good idea to add this `xyz` package to the `vfxall` library so t
 * Add a new `xyz` section at the end of the `packages/Dockerfile` file to build the `ci-package-xyz` docker package using the previous script.
 * Add the `xyz` package to the `ci-vfxall/Dockerfile` image.
 * Test the scripts by running these commands in order and manually checking if everything works
-```bash
-# Build the CI image
-aswfdocker build -n aswftesting/ci-xyz:2019
-# Build the CI package (a small docker image that contains only the xyz build artifacts)
-aswfdocker build -n aswftesting/ci-package-xyz:2019 --progress plain
-# Buils the `vfxall` package that should now contain the `xyz` package
-aswfdocker build -n aswftesting/ci-vfxall:2019
-# Now run the vfxall image locally to test if xyz is working properly
-docker run --gpus=all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v `pwd`:/project --rm -it aswftesting/ci-vfxall:2019 bash
-```
+  ```bash
+  # Build the CI image
+  aswfdocker build -n aswftesting/ci-xyz:2019
+  # Build the CI package (a small docker image that contains only the xyz build artifacts)
+  aswfdocker build -n aswftesting/ci-package-xyz:2019 --progress plain
+  # Buils the `vfxall` package that should now contain the `xyz` package
+  aswfdocker build -n aswftesting/ci-vfxall:2019
+  # Now run the vfxall image locally to test if xyz is working properly
+  docker run --gpus=all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v `pwd`:/project --rm -it aswftesting/ci-vfxall:2019 bash
+  ```
 * Do a pre-release of the new `ci-package-xyz` image so it can be used by the Github Action builds and tests:
-```bash
-# Create a Github release to build the `ci-package-xyz:2___` image via a GitHub action
-aswfdocker release -n aswftesting/ci-package-xyz:2019 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
-aswfdocker release -n aswftesting/ci-package-xyz:2020 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
-aswfdocker release -n aswftesting/ci-package-xyz:2021 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
-```
+  ```bash
+  # Create a Github release to build the `ci-package-xyz:2___` image via a GitHub action
+  aswfdocker release -n aswftesting/ci-package-xyz:2019 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
+  aswfdocker release -n aswftesting/ci-package-xyz:2020 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
+  aswfdocker release -n aswftesting/ci-package-xyz:2021 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
+  ```
 * Create the Pull Request with these changes
 
 Check [#66](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/66) for an example.
 
+### Example of a large re-release of all images
 
-### Example of a large re-release of all images:
-```
+```bash
 # Common packages
 aswfdocker release -t PACKAGE -g common -v 1 -v 2 --target ninja --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 --target clang --docker-org aswf -m "RELEASE_NOTES!"
@@ -396,12 +405,10 @@ docker push aswf/ci-package-qt:2021.1
 # Once all Qt are out, release PySide packages
 aswfdocker release -t PACKAGE -g base3 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
 
-
 # Wait for all Qt and Pyside builds to finish, then build downstream packages:
 # VFX packages
 aswfdocker release -t PACKAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
-
 
 # Finally build the CI images
 aswfdocker release -t IMAGE -g base -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
