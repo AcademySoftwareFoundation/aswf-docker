@@ -51,8 +51,7 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-ocio"
 LABEL org.opencontainers.image.title="OpenColorIO CI Docker Image"
 LABEL org.opencontainers.image.description="Contains: Python, TBB, Boost and other OpenColorIO upstream dependencies\
-Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!\
-"
+Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-ocio/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
