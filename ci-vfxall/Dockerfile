@@ -94,7 +94,8 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-vfxall"
 LABEL org.opencontainers.image.title="VFX All CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: all supported VFX packages"
+LABEL org.opencontainers.image.description="Contains: all supported VFX packages\
+"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-vfxall/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"

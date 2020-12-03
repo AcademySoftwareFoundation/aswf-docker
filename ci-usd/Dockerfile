@@ -79,8 +79,9 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-usd"
 LABEL org.opencontainers.image.title="USD CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: python, Qt, PySide and other USD upstream dependencies\
-Warning: this image does *not* contain USD itself as it is used to *build* USD!"
+LABEL org.opencontainers.image.description="Contains: Python, Qt, PySide and other USD upstream dependencies\
+Warning: this image does *not* contain USD itself as it is used to *build* USD!\
+"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-usd/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"

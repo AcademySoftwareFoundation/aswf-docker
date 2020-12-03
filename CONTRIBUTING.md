@@ -29,7 +29,7 @@ aswf-docker use GitHub's issue tracking system for bugs and enhancements:
 https://github.com/AcademySoftwareFoundation/aswf-docker/issues
 
 If you are submitting a bug report, please be sure to note which
-docker image you are using. Please give a specific account of
+Docker image you are using. Please give a specific account of
 
 * what you tried
 * what happened

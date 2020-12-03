@@ -1,7 +1,7 @@
 name: "usd"
 title: "USD CI Docker Image"
 description: |
-  Contains: python, Qt, PySide and other USD upstream dependencies
+  Contains: Python, Qt, PySide and other USD upstream dependencies
   Warning: this image does *not* contain USD itself as it is used to *build* USD!
 packages:
   - python

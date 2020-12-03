@@ -17,6 +17,7 @@ FROM ${ASWF_ORG}/ci-package-cmake:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CMAKE_VERSI
 FROM ${ASWF_ORG}/ci-package-python:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYTHON_VERSION} as ci-package-python-external
 FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} as ci-package-qt-external
 
+
 #################### ci-centos7-gl-packages ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-centos7-gl-packages
 
@@ -63,8 +64,8 @@ ARG ASWF_PYSIDE_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-pyside"
-LABEL org.opencontainers.image.title="PySide package built for ASWF docker images"
-LABEL org.opencontainers.image.description="PySide headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="PySide package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="PySide headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://www.qt.io/qt-for-python"
@@ -77,4 +78,3 @@ LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
 LABEL io.aswf.docker.versions.pyside="${ASWF_PYSIDE_VERSION}"
 
 COPY --from=ci-pyside-builder /package/. /
-
