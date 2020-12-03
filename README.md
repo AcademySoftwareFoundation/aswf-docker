@@ -87,11 +87,9 @@ a Jira issue [there](https://jira.aswf.io).
 
 ### Status
 
-As of June 2020 there are full 2018, 2019 and 2020
-[VFX Platform](https://vfxplatform.com) compliant images. And a preview of 2021
-with devtoolset-9.1 (GCC-9.3.1) and clang-10, N.B. that the built-in CUDA-10.2
-is currently incompatible with GCC-9, hoping to update to CUDA-11 as soon as
-possible to restore CUDA support in 2021 images.
+As of December 2020 there are full 2018, 2019 and 2020
+[VFX Platform](https://vfxplatform.com) compliant images. A preview of 2021
+with GCC 9.3.1 (DTS 9.1), Clang 10 and CUDA 11 is also available.
 
 ## CI Packages
 
