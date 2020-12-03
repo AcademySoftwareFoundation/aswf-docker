@@ -8,7 +8,7 @@ More information:
 * [VFXPlatform](https://vfxplatform.com)
 * [ASWF](https://aswf.io)
 
-Changes are documented [here](CHANGELOG.md)
+Changes are documented in [CHANGELOG.md](CHANGELOG.md)
 
 ## CI Images
 
