@@ -36,8 +36,7 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-openexr"
 LABEL org.opencontainers.image.title="OpenEXR CI Docker Image"
 LABEL org.opencontainers.image.description="Contains: Python, Boost and other OpenEXR upstream dependencies\
-Warning: this image does *not* contain OpenEXR itself as it is used to *build* OpenEXR!\
-"
+Warning: this image does *not* contain OpenEXR itself as it is used to *build* OpenEXR!"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-openexr/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"

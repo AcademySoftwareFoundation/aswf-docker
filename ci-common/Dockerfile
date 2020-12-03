@@ -34,8 +34,7 @@ ARG ASWF_SONAR_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-common"
 LABEL org.opencontainers.image.title="Common CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: GCC, Clang, Jinja, ccache and all base OS libraries\
-"
+LABEL org.opencontainers.image.description="Contains: GCC, Clang, Jinja, ccache and all base OS libraries"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-common/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
