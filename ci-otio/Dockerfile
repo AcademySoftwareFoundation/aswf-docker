@@ -38,8 +38,9 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-otio"
 LABEL org.opencontainers.image.title="OpenTimelineIO CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: python, Qt, PySide and other OpenTimelineIO upstream dependencies\
-Warning: this image does *not* contain OpenTimelineIO itself as it is used to *build* OpenTimelineIO!"
+LABEL org.opencontainers.image.description="Contains: Python, Qt, PySide and other OpenTimelineIO upstream dependencies\
+Warning: this image does *not* contain OpenTimelineIO itself as it is used to *build* OpenTimelineIO!\
+"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-otio/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"

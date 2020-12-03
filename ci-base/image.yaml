@@ -1,7 +1,7 @@
 name: "base"
 title: "Base CI Docker Image"
 description: |
-  Contains: python, tbb, boost and other base libraries
+  Contains: Python, TBB, Boost and other base libraries
 packages:
   - boost
   - cmake

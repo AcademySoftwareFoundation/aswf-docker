@@ -50,6 +50,7 @@ FROM ${ASWF_ORG}/ci-package-openvdb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OPENVDB_V
 FROM ${ASWF_ORG}/ci-package-oiio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OIIO_VERSION} as ci-package-oiio-external
 FROM ${ASWF_ORG}/ci-package-ocio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OCIO_VERSION} as ci-package-ocio-external
 
+
 #################### ci-centos7-gl-packages ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base-builder
 
@@ -94,8 +95,8 @@ ARG ASWF_PARTIO_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-partio"
-LABEL org.opencontainers.image.title="Partio package built for ASWF docker images"
-LABEL org.opencontainers.image.description="Partio headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="Partio package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Partio headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/wdas/partio"
@@ -140,8 +141,8 @@ ARG ASWF_OSL_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-osl"
-LABEL org.opencontainers.image.title="OpenShadingLanguage package built for ASWF docker images"
-LABEL org.opencontainers.image.description="OpenShadingLanguage headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="OpenShadingLanguage package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="OpenShadingLanguage headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/imageworks/OpenShadingLanguage"
@@ -183,8 +184,8 @@ ARG ASWF_PTEX_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-ptex"
-LABEL org.opencontainers.image.title="Ptex package built for ASWF docker images"
-LABEL org.opencontainers.image.description="Ptex headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="Ptex package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Ptex headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/wdas/ptex"
@@ -230,8 +231,8 @@ ARG ASWF_OPENSUBDIV_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-opensubdiv"
-LABEL org.opencontainers.image.title="OpenSubdiv package built for ASWF docker images"
-LABEL org.opencontainers.image.description="OpenSubdiv headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="OpenSubdiv package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="OpenSubdiv headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/PixarAnimationStudios/OpenSubdiv"
@@ -282,8 +283,8 @@ ARG ASWF_USD_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-usd"
-LABEL org.opencontainers.image.title="USD package built for ASWF docker images"
-LABEL org.opencontainers.image.description="USD (Universal Scene Description) headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="USD package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="USD (Universal Scene Description) headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/PixarAnimationStudios/USD"
@@ -328,8 +329,8 @@ ARG ASWF_OTIO_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-otio"
-LABEL org.opencontainers.image.title="OpenTimelineIO package built for ASWF docker images"
-LABEL org.opencontainers.image.description="OpenTimelineIO headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="OpenTimelineIO package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="OpenTimelineIO headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/PixarAnimationStudios/OpenTimelineIO"
@@ -342,4 +343,3 @@ LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
 LABEL io.aswf.docker.versions.otio="${ASWF_OTIO_VERSION}"
 
 COPY --from=ci-otio-builder /package/. /
-

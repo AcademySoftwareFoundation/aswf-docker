@@ -34,6 +34,7 @@ FROM ${ASWF_ORG}/ci-package-tbb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_TBB_VERSION} 
 FROM ${ASWF_ORG}/ci-package-cppunit:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CPPUNIT_VERSION} as ci-package-cppunit-external
 FROM ${ASWF_ORG}/ci-package-glfw:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLFW_VERSION} as ci-package-glfw-external
 
+
 #################### ci-centos7-gl-packages ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base-builder
 
@@ -49,6 +50,7 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
     CCACHE_DIR=/tmp/ccache \
     ASWF_INSTALL_PREFIX=/usr/local \
     PYTHONPATH=${ASWF_INSTALL_PREFIX}/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:${PYTHONPATH}
+
 
 #################### ci-openexr-builder ####################
 FROM ci-base-builder as ci-openexr-builder
@@ -77,8 +79,8 @@ ARG ASWF_OPENEXR_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-openexr"
-LABEL org.opencontainers.image.title="OpenEXR package built for ASWF docker images"
-LABEL org.opencontainers.image.description="OpenEXR headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="OpenEXR package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="OpenEXR headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/openexr"
@@ -124,8 +126,8 @@ ARG ASWF_HDF5_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-alembic"
-LABEL org.opencontainers.image.title="Alembic package built for ASWF docker images"
-LABEL org.opencontainers.image.description="Alembic headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="Alembic package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Alembic headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/alembic/alembic"
@@ -168,8 +170,8 @@ ARG ASWF_DTS_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-blosc"
-LABEL org.opencontainers.image.title="Blosc package built for ASWF docker images"
-LABEL org.opencontainers.image.description="Blosc headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="Blosc package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Blosc headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/Blosc/c-blosc"
@@ -211,8 +213,8 @@ ARG ASWF_OIIO_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-oiio"
-LABEL org.opencontainers.image.title="OpenImageIO package built for ASWF docker images"
-LABEL org.opencontainers.image.description="OpenImageIO headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="OpenImageIO package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="OpenImageIO headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/OpenImageIO/oiio"
@@ -257,8 +259,8 @@ ARG ASWF_OCIO_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-ocio"
-LABEL org.opencontainers.image.title="OpenColorIO package built for ASWF docker images"
-LABEL org.opencontainers.image.description="OpenColorIO headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="OpenColorIO package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="OpenColorIO headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/OpenColorIO"
@@ -329,8 +331,8 @@ ARG ASWF_OPENVDB_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-openvdb"
-LABEL org.opencontainers.image.title="OpenVDB package built for ASWF docker images"
-LABEL org.opencontainers.image.description="OpenVDB headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="OpenVDB package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="OpenVDB headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/openvdb"
@@ -343,5 +345,3 @@ LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
 LABEL io.aswf.docker.versions.openvdb="${ASWF_OPENVDB_VERSION}"
 
 COPY --from=ci-openvdb-builder /package/. /
-
-

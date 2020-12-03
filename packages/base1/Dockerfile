@@ -63,8 +63,8 @@ ARG ASWF_DTS_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-ninja"
-LABEL org.opencontainers.image.title="CMake package built for ASWF docker images"
-LABEL org.opencontainers.image.description="CMake binary to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="CMake package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="CMake binary to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://cmake.org/"
@@ -120,8 +120,8 @@ ARG ASWF_PYTHON_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-python"
-LABEL org.opencontainers.image.title="Python and numpy packages built for ASWF docker images"
-LABEL org.opencontainers.image.description="Python (PSF-2.0 license) and numpy (BSD-3-Clause license) to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="Python and numpy packages built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Python (PSF-2.0 license) and numpy (BSD-3-Clause license) to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://www.python.org/"
@@ -164,8 +164,8 @@ ARG ASWF_DTS_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-boost"
-LABEL org.opencontainers.image.title="Boost package built for ASWF docker images"
-LABEL org.opencontainers.image.description="Boost binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="Boost package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Boost binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://www.boost.org/"
@@ -207,8 +207,8 @@ ARG ASWF_TBB_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-tbb"
-LABEL org.opencontainers.image.title="Intel TBB package built for ASWF docker images"
-LABEL org.opencontainers.image.description="TBB binaries and headers to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="Intel TBB package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="TBB binaries and headers to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://software.intel.com/en-us/tbb"
@@ -250,8 +250,8 @@ ARG ASWF_DTS_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-cppunit"
-LABEL org.opencontainers.image.title="CppUnit package built for ASWF docker images"
-LABEL org.opencontainers.image.description="CppUnit headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="CppUnit package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="CppUnit headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://www.boost.org/"
@@ -293,8 +293,8 @@ ARG ASWF_LOG4CPLUS_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-log4cplus"
-LABEL org.opencontainers.image.title="log4cplus package built for ASWF docker images"
-LABEL org.opencontainers.image.description="log4cplus headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="log4cplus package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="log4cplus headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://sourceforge.net/projects/log4cplus/"
@@ -336,8 +336,8 @@ ARG ASWF_GLEW_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-glew"
-LABEL org.opencontainers.image.title="glew package built for ASWF docker images"
-LABEL org.opencontainers.image.description="glew headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="glew package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="glew headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="http://glew.sourceforge.net/"
@@ -379,8 +379,8 @@ ARG ASWF_GLFW_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-glfw"
-LABEL org.opencontainers.image.title="glfw package built for ASWF docker images"
-LABEL org.opencontainers.image.description="glfw headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="glfw package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="glfw headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://www.glfw.org/"

@@ -143,5 +143,5 @@ jobs:
         else
           echo "No test script found $test_script"
         fi
-      name: Run test script ${{ matrix.version }}/test_${{ matrix.test }}.sh to check docker image
+      name: Run test script ${{ matrix.version }}/test_${{ matrix.test }}.sh to check Docker image
       if: ${{ matrix.test != '' }}
