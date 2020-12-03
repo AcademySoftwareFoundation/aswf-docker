@@ -50,8 +50,7 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-base"
 LABEL org.opencontainers.image.title="Base CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: python, tbb, boost and other base libraries\
-"
+LABEL org.opencontainers.image.description="Contains: python, tbb, boost and other base libraries"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-base/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
