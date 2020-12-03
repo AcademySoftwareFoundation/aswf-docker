@@ -157,7 +157,7 @@ aswf-docker-dev@lists.aswf.io mail list.
 
 ### Pull Requests
 
-Contributions should be submitted as Github pull requests. See
+Contributions should be submitted as GitHub pull requests. See
 [Creating a pull request](https://help.github.com/articles/creating-a-pull-request/)
 if you're unfamiliar with this concept.
 
@@ -173,7 +173,7 @@ with a separate pull request.
 
 3. Push commits to your fork.
 
-4. Create a Github pull request from your topic branch.
+4. Create a GitHub pull request from your topic branch.
 
 5. Pull requests will be reviewed by project Committers and Contributors,
 who may discuss, offer constructive feedback, request changes, or approve
@@ -268,21 +268,21 @@ All new source files should begin with a copyright and license stating:
 
 ## Versioning Policy
 
-Any non-trivial change to the docker images should be followed by incrementing
+Any non-trivial change to the Docker images should be followed by incrementing
 the corresponding image version. We use MAJOR.MINOR versioning for all images.
 Versioning is further explained in the [README](README.md#version) file.
 
 ## Releasing new Docker Images
 
 The [CHANGELOG.md](CHANGELOG.md) file needs to be updated with the date of the change
-and the list of new docker image versions that will be built by the CI infrastructure.
+and the list of new Docker image versions that will be built by the CI infrastructure.
 
 GitHub releases will trigger a `Release` GitHub action that will build the corresponding
 image and push it to Docker Hub.
 
 ### Build
 
-`aswfdocker build` builds ci packages and ci images.
+`aswfdocker build` builds CI packages and CI images.
 Example use: just build a single package for testing:
 
 ```bash
@@ -294,7 +294,7 @@ aswfdocker --verbose build -t CI_IMAGE --group vfx --version 2019 --target vfxal
 
 ### Migrate
 
-`aswfdocker migrate` can migrate images between docker organizations, should only be used on package images
+`aswfdocker migrate` can migrate images between Docker organizations, should only be used on package images
 that are very heavy to build such as clang or qt.
 Example use: migrate a single package from `aswftesting` to `aswf` Docker Hub organization.
 
@@ -348,30 +348,30 @@ aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/asw
 
 ### Adding a new `ci` image
 
-Let's consider the addition of a new `ci-xyz` docker image to help the maintainers of the `xyz` library. The `ci-xyz` docker image
+Let's consider the addition of a new `ci-xyz` Docker image to help the maintainers of the `xyz` library. The `ci-xyz` Docker image
 should be prepared with most upstream dependencies of the `xyz` library.
 
 It is usually a good idea to add this `xyz` package to the `vfxall` library so that it can be tested there.
 
-* Add a new `xyz` version section in the `versions.yaml`, for both the `ci-package-xyz` docker package and the `ci-xyz` for the CI image.
+* Add a new `xyz` version section in the `versions.yaml`, for both the `ci-package-xyz` Docker package and the `ci-xyz` for the CI image.
 * Create a new `ci-xyx/Dockerfile` using an existing one as an example (e.g. `ci-otio/Dockerfile`).
 * Create a new `scripts/vfx/build_xyz.sh` file that builds and installs `xyz` from source.
-* Add a new `xyz` section at the end of the `packages/Dockerfile` file to build the `ci-package-xyz` docker package using the previous script.
+* Add a new `xyz` section at the end of the `packages/Dockerfile` file to build the `ci-package-xyz` Docker package using the previous script.
 * Add the `xyz` package to the `ci-vfxall/Dockerfile` image.
 * Test the scripts by running these commands in order and manually checking if everything works
   ```bash
   # Build the CI image
   aswfdocker build -n aswftesting/ci-xyz:2019
-  # Build the CI package (a small docker image that contains only the xyz build artifacts)
+  # Build the CI package (a small Docker image that contains only the xyz build artifacts)
   aswfdocker build -n aswftesting/ci-package-xyz:2019 --progress plain
   # Buils the `vfxall` package that should now contain the `xyz` package
   aswfdocker build -n aswftesting/ci-vfxall:2019
   # Now run the vfxall image locally to test if xyz is working properly
   docker run --gpus=all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v `pwd`:/project --rm -it aswftesting/ci-vfxall:2019 bash
   ```
-* Do a pre-release of the new `ci-package-xyz` image so it can be used by the Github Action builds and tests:
+* Do a pre-release of the new `ci-package-xyz` image so it can be used by the GitHub Action builds and tests:
   ```bash
-  # Create a Github release to build the `ci-package-xyz:2___` image via a GitHub action
+  # Create a GitHub release to build the `ci-package-xyz:2___` image via a GitHub action
   aswfdocker release -n aswftesting/ci-package-xyz:2019 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
   aswfdocker release -n aswftesting/ci-package-xyz:2020 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
   aswfdocker release -n aswftesting/ci-package-xyz:2021 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG

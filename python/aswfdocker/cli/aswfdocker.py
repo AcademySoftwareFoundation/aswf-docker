@@ -45,7 +45,7 @@ pass_build_info = click.make_pass_decorator(aswfinfo.ASWFInfo)
 @click.version_option("1.0")
 @click.pass_context
 def cli(ctx, repo_root, repo_uri, source_branch, verbose):
-    """aswfdocker is a command line interface to build ASWF Docker packages and ci images
+    """aswfdocker is a command line interface to build ASWF Docker packages and CI images
     """
     if verbose:
         logging.basicConfig(level=logging.DEBUG)
@@ -134,7 +134,7 @@ def get_group_info(build_info, ci_image_type, groups, versions, full_name, targe
     "-p",
     type=click.Choice(["YES", "NO", "AUTO"], case_sensitive=False),
     default="NO",
-    help="Push built images to docker repository.",
+    help="Push built images to Docker repository.",
 )
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
 @click.option(
@@ -156,7 +156,7 @@ def build(
     dry_run,
     progress,
 ):
-    """Builds a ci-package or ci-image docker image.
+    """Builds a ci-package or ci-image Docker image.
     """
     if push == "YES":
         pushb = True
@@ -246,7 +246,7 @@ def download(build_info, docker_org, package, version):
 
 @cli.command()
 def packages():
-    """Lists all known ci packages in this format: PACKAGEGROUP/ci-package-PACKAGE:VERSION
+    """Lists all known CI packages in this format: PACKAGEGROUP/ci-package-PACKAGE:VERSION
     """
     for group, packages in index.Index().groups[constants.ImageType.PACKAGE].items():
         for package in packages:
@@ -259,7 +259,7 @@ def packages():
 
 @cli.command()
 def images():
-    """Lists all known ci images in this format: IMAGEGROUP/IMAGE:VERSION
+    """Lists all known CI images in this format: IMAGEGROUP/IMAGE:VERSION
     """
     for image_type in (constants.ImageType.CI_IMAGE, constants.ImageType.RT_IMAGE):
         for group, images in constants.GROUPS[image_type].items():
@@ -328,7 +328,7 @@ def settings(settings_path, github_access_token):
     "--docker-org",
     "-do",
     default=constants.TESTING_DOCKER_ORG,
-    help=f"The Docker organization/username to upload the docker image to, defaults to {constants.TESTING_DOCKER_ORG}.",
+    help=f"The Docker organization/username to upload the Docker image to, defaults to {constants.TESTING_DOCKER_ORG}.",
 )
 @click.option(
     "--message", "-m", help="The release message.",
@@ -348,7 +348,7 @@ def release(
     message,
     dry_run,
 ):
-    """Creates a GitHub release for a ci-package or ci-image docker image.
+    """Creates a GitHub release for a ci-package or ci-image Docker image.
     """
 
     # Disable SSL unclosed ResourceWarning coming from GitHub
@@ -399,7 +399,7 @@ def release(
     "--check", "-c", is_flag=True, help="Checks that the current files are up to date."
 )
 def dockergen(context, image_name, check):
-    """Generates a docker file and readme from image data and template
+    """Generates a Docker file and readme from image data and template
     """
     if image_name == "all":
         images = []

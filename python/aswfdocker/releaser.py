@@ -60,7 +60,7 @@ class GitHub:
 
 
 class Releaser:
-    """Releaser creates GitHub releases for each docker image.
+    """Releaser creates GitHub releases for each Docker image.
     """
 
     def __init__(  # pylint: disable=too-many-arguments
@@ -93,7 +93,7 @@ class Releaser:
             start_message = self.message
         for image, version, tag in self.release_list:
             message = (
-                f"{start_message}Inspect released docker image here: "
+                f"{start_message}Inspect released Docker image here: "
                 f"https://hub.docker.com/r/{self.build_info.docker_org}/{image}/tags?name={version}"
             )
             if dry_run:

@@ -146,7 +146,7 @@ aswfdocker build -n aswftesting/ci-package-usd:2019
 ```
 
 ### Images
-Images can be build with recent Docker versions but do not require
+Images can be built with recent Docker versions but do not require
 [buildx](https://docs.docker.com/buildx/working-with-buildx/) but it is
 recommended to speed up large builds.
 

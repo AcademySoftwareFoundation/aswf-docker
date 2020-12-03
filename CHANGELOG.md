@@ -96,7 +96,7 @@ All notable changes to this project will be documented in this file.
 ## 2020-08-01
 
 ### Added
-* New `ci-otio` docker image
+* New `ci-otio` Docker image
 * Added OpenTimelineIO 0.12 to `ci-vfxall`
 
 ### New CI Images:
@@ -152,8 +152,8 @@ All notable changes to this project will be documented in this file.
 * New `aswf/ci-package-osl` package
 ### Changed
 * Added OSL and clang into `aswf/ci-vfxall`
-* Simplified ci image build system
-* Free up space during build of docker images
+* Simplified CI image build system
+* Free up space during build of Docker images
 ### Fixed
 * Fixed bug in python `aswfdocker build` command when build multiple versions simultaneously
 ### New CI Images:
@@ -187,8 +187,8 @@ All notable changes to this project will be documented in this file.
 
 ## 2020-04-23
 ### Added
-* `ci:common:1.3`: Added aswfuser for non-root operations in the docker images. Can be used by running `runuser -l aswfuser -c 'COMMAND'`
-* Rebuilt all ci images from fixed `ci-common:1.3` image.
+* `ci:common:1.3`: Added aswfuser for non-root operations in the Docker images. Can be used by running `runuser -l aswfuser -c 'COMMAND'`
+* Rebuilt all CI images from fixed `ci-common:1.3` image.
 ### New CI Images:
 * `aswf/ci-common:1.3`
 * `aswf/ci-base:2018.3`, `aswf/ci-base:2019.3`, `aswf/ci-base:2020.3`
@@ -201,13 +201,13 @@ All notable changes to this project will be documented in this file.
 
 ## 2020-04-18
 ### Added
-* Added batch support for building docker packages and CI images, check README.md for examples.
+* Added batch support for building Docker packages and CI images, check README.md for examples.
 
 ## 2020-04-16
 ### Fixed
 * `aswf/ci-common:1.2` contains a fix for the `ninja` binary that required a newer libstdc++: https://github.com/AcademySoftwareFoundation/aswf-docker/issues/34
 ### Changed
-* Rebuilt all ci images from fixed `ci-common:1.2` image:
+* Rebuilt all CI images from fixed `ci-common:1.2` image:
 ### New CI Images:
 * `aswf/ci-common:1.2`
 * `aswf/ci-base:2018.2`, `aswf/ci-base:2019.2`, `aswf/ci-base:2020.2`
@@ -218,10 +218,10 @@ All notable changes to this project will be documented in this file.
 
 ## 2020-02-17
 ### Added
-* `aswfdocker packages` lists all ci packages.
-* `aswfdocker images` lists all ci images.
-* `aswfdocker migrate` allows migration of docker packages from one organization to another.
-* `aswfdocker build` builds docker ci packages and ci images.
+* `aswfdocker packages` lists all CI packages.
+* `aswfdocker images` lists all CI images.
+* `aswfdocker migrate` allows migration of Docker packages from one organization to another.
+* `aswfdocker build` builds Docker CI packages and CI images.
 * `aswfdocker getdockerorg` prints the current Docker Hub organization to use.
 * `aswfdocker getdockerpush` prints if the images should be pushed.
 ### Removed
@@ -237,7 +237,7 @@ All notable changes to this project will be documented in this file.
 
 ## 2019-12-16
 ### Changed
-* All ci images have been rebuilt from docker packages, they should be identical to the previous `.0` version:
+* All CI images have been rebuilt from Docker packages, they should be identical to the previous `.0` version:
 
   * `aswf/ci-common:1.1`
   * `aswf/ci-base:2018.1`, `aswf/ci-base:2019.1`, `aswf/ci-base:2020.1`

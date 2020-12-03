@@ -1,7 +1,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 """
-Index of docker images and versions.
+Index of Docker images and versions.
 """
 import logging
 import yaml
