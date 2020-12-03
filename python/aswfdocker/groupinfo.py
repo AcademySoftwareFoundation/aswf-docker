@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 class GroupInfo:
     """Image Group Info
-    An image group is a group of related docker images that will be built together.
+    An image group is a group of related Docker images that will be built together.
     """
 
     def __init__(
