@@ -47,8 +47,9 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-osl"
 LABEL org.opencontainers.image.title="OpenShadingLanguage CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: python, boost, Qt, OpenEXR, OpenImageIO, PartIO and other OpenShadingLanguage upstream dependencies\
-Warning: this image does *not* contain OpenShadingLanguage itself as it is used to *build* OpenShadingLanguage!"
+LABEL org.opencontainers.image.description="Contains: Python, Boost, Qt, OpenEXR, OpenImageIO, Partio and other OpenShadingLanguage upstream dependencies\
+Warning: this image does *not* contain OpenShadingLanguage itself as it is used to *build* OpenShadingLanguage!\
+"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-osl/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"

@@ -15,6 +15,7 @@ ARG ASWF_VFXPLATFORM_VERSION
 # Required base packages built in previous stages
 FROM ${ASWF_ORG}/ci-package-cmake:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CMAKE_VERSION} as ci-package-cmake-external
 
+
 #################### ci-centos7-gl-packages ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-centos7-gl-packages
 
@@ -56,8 +57,8 @@ ARG ASWF_QT_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-qt"
-LABEL org.opencontainers.image.title="Qt package built for ASWF docker images"
-LABEL org.opencontainers.image.description="Qt headers and binaries to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="Qt package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Qt headers and binaries to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://www.qt.io/"

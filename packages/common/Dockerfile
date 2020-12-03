@@ -11,6 +11,7 @@ ARG ASWF_CUDA_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_NINJA_VERSION
 
+
 #################### ci-centos7-gl-packages ####################
 FROM nvidia/cudagl:${ASWF_CUDA_VERSION}-devel-centos7 as ci-centos7-gl-packages
 
@@ -70,8 +71,8 @@ ARG ASWF_CLANG_VERSION
 ARG ASWF_DTS_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-clang"
-LABEL org.opencontainers.image.title="Clang package built for ASWF docker images"
-LABEL org.opencontainers.image.description="Clang (llvm) build artifacts to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="Clang package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Clang (llvm) build artifacts to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://llvm.org/"
@@ -111,8 +112,8 @@ ARG ASWF_DTS_VERSION
 ARG ASWF_NINJA_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-ninja"
-LABEL org.opencontainers.image.title="Ninja package built for ASWF docker images"
-LABEL org.opencontainers.image.description="Ninja binary to be installed in ASWF docker images"
+LABEL org.opencontainers.image.title="Ninja package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Ninja binary to be installed in ASWF Docker images"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.url="https://ninja-build.org/"
@@ -124,5 +125,3 @@ LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
 LABEL io.aswf.docker.versions.ninja="${ASWF_NINJA_VERSION}"
 
 COPY --from=ci-ninja-builder /package/. /
-
-

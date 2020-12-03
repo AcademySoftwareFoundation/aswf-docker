@@ -56,7 +56,8 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-baseqt"
 LABEL org.opencontainers.image.title="Base with Qt and PySide CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: python, tbb, boost, Qt, PySide and other base libraries"
+LABEL org.opencontainers.image.description="Contains: Python, TBB, Boost, Qt, PySide and other base libraries\
+"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-baseqt/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
