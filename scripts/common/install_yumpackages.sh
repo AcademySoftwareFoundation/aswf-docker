@@ -6,6 +6,11 @@ set -ex
 
 yum install --setopt=tsflags=nodocs -y \
     alsa-lib alsa-lib-devel \
+    alsa-lib-devel \
+    alsa-plugins-pulseaudio \
+    alsa-utils \
+    at-spi2-core-devel \
+    audiofile-devel \
     automake autoconf \
     bison \
     bzip2-devel \
@@ -18,6 +23,7 @@ yum install --setopt=tsflags=nodocs -y \
     fam \
     file \
     flex \
+    flite-devel \
     fontconfig fontconfig-devel \
     freeglut freeglut-devel \
     freetype freetype-devel \
@@ -30,6 +36,8 @@ yum install --setopt=tsflags=nodocs -y \
     gperf \
     gstreamer1 gstreamer1-devel \
     gstreamer1-plugins-bad-free gstreamer1-plugins-bad-free-devel \
+    gstreamer1-plugins-base-devel \
+    gstreamer1-plugins-good \
     gtk2-devel \
     harfbuzz-devel \
     java-1.8.0-openjdk \
@@ -37,6 +45,7 @@ yum install --setopt=tsflags=nodocs -y \
     libcap-devel \
     libcdio-paranoia-devel \
     libcurl-devel \
+    libdrm \
     libffi-devel \
     libgcrypt-devel \
     libgudev1-devel \
@@ -53,9 +62,12 @@ yum install --setopt=tsflags=nodocs -y \
     libvorbis-devel \
     libvpx-devel \
     libwebp-devel \
+    libX11-devel \
     libxcb libxcb-devel \
     libXcomposite libXcomposite-devel \
     libXcursor libXcursor-devel \
+    libXext-devel \
+    libXfixes-devel \
     libXi libXi-devel \
     libXinerama libXinerama-devel \
     libxkbcommon libxkbcommon-devel \
@@ -67,12 +79,14 @@ yum install --setopt=tsflags=nodocs -y \
     libXrandr libXrandr-devel \
     libXrender libXrender-devel \
     libXScrnSaver libXScrnSaver-devel \
+    libxshmfence-devel \
     libxslt libxslt-devel \
     libXtst-devel \
     make \
     mesa-libEGL-devel \
     mesa-libGL-devel \
     mesa-libGLU-devel \
+    mesa-libGLw-devel \
     motif motif-devel \
     ncurses ncurses-devel \
     nss nss-devel \
@@ -80,6 +94,7 @@ yum install --setopt=tsflags=nodocs -y \
     openjpeg2-devel \
     openssl-devel \
     opus-devel \
+    PackageKit-gstreamer-plugin \
     patch \
     pciutils-devel \
     pkgconfig \
@@ -88,6 +103,7 @@ yum install --setopt=tsflags=nodocs -y \
     readline readline-devel \
     rsync \
     ruby \
+    speech-dispatcher-devel \
     speex-devel \
     sqlite-devel \
     sudo \
@@ -101,12 +117,14 @@ yum install --setopt=tsflags=nodocs -y \
     xcb-util xcb-util-devel \
     xcb-util-image xcb-util-image-devel \
     xcb-util-keysyms xcb-util-keysyms-devel \
+    xcb-util-renderutil xcb-util-renderutil-devel \
     xcb-util-wm xcb-util-wm-devel \
     xkeyboard-config-devel \
-    xorg-x11-xkb-utils xorg-x11-xkb-utils-devel \
     xorg-x11-server-Xvfb \
+    xorg-x11-xkb-utils xorg-x11-xkb-utils-devel \
     xz-devel \
-    zlib-devel
+    zlib-devel \
+
 
 # This is needed for Xvfb to function properly.
 dbus-uuidgen > /etc/machine-id
@@ -135,6 +153,7 @@ yum install -y \
     libcaca-devel \
     libdb4-devel \
     libdc1394-devel \
+    openssl11-devel \
     p7zip \
     yasm-devel \
     zvbi-devel
