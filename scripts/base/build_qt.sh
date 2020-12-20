@@ -26,6 +26,7 @@ else
     tar xf "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz"
     mv "qt-everywhere-src-${ASWF_QT_VERSION}" qt-src
     cd qt-src
+    
 fi
 
 ./configure \
@@ -34,10 +35,9 @@ fi
         -no-rpath \
         -opensource \
         -plugin-sql-sqlite \
-        -openssl \
         -verbose \
         -opengl desktop \
-        -qt-xcb \
+        -xcb \
         -no-warnings-are-errors \
         -no-libudev \
         -no-egl \
@@ -45,7 +45,20 @@ fi
         -nomake tests \
         -c++std c++14 \
         -confirm-license \
-        -no-use-gold-linker
+        -no-use-gold-linker \
+        -release \
+        -no-sql-mysql \
+        -qt-libjpeg \
+        -qt-libpng \
+        -bundled-xcb-xinput \
+        -sysconfdir /etc/xdg \
+        -qt-pcre \
+        -qt-harfbuzz \
+        -R . \
+        -icu \
+        -skip qtnetworkauth \
+        -skip qtpurchasing
+
 make -j$(nproc)
 
 sudo make install
