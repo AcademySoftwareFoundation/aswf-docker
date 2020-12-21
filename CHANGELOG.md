@@ -3,21 +3,26 @@
 All notable changes to this project will be documented in this file.
 
 ## 2020-12-20
+
 ### Changed
+
 * Updated Qt in VFX-2021 images to version 5.15.2
 
 ### New CI Packages:
+
 * `ci-package-qt:2021.2`
 * `ci-package-pyside:2021.2`
 * `ci-package-usd:2021.3`
 
 ### New CI Images:
+
 * `ci-common:2-clang10.3`, `ci-common:2-clang11.3`
 * `ci-baseqt:2021.1`
 * `ci-osl:2021-clang10.4`, `ci-osl:2021-clang11.4`
 * `ci-usd:2021.4`
 * `ci-otio:2021.3`
 * `ci-vfxall:2021-clang10.5`
+
 
 
 ## 2020-11-05
