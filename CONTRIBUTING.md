@@ -400,7 +400,7 @@ aswfdocker release -t PACKAGE -g base2 -v 2018 -v 2019 -v 2020 -v 2021 --docker-
 aswfdocker --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/master --verbose build -n aswf/ci-package-qt
 :2021
 docker push aswf/ci-package-qt:2021
-docker push aswf/ci-package-qt:2021-5.12.8
+docker push aswf/ci-package-qt:2021-5.15.2
 docker push aswf/ci-package-qt:preview
 docker push aswf/ci-package-qt:2021.1
 
