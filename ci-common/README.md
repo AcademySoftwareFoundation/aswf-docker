@@ -67,7 +67,7 @@ Contains:
 * dts-6
 * sonar-4.5.0.2216
 
-## [aswf/ci-common:2-clang10.2](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang10.2)
+## [aswf/ci-common:2-clang10.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang10.3)
 
 Contains:
 * clang-10.0.1
@@ -77,7 +77,7 @@ Contains:
 * dts-9
 * sonar-4.5.0.2216
 
-## [aswf/ci-common:2-clang11.2](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang11.2)
+## [aswf/ci-common:2-clang11.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang11.3)
 
 Contains:
 * clang-11.0.0

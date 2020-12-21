@@ -38,13 +38,13 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-otio:2021.2](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2021.2)
+## [aswf/ci-otio:2021.3](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2021.3)
 
 Contains:
 * python-3.7.3
 * cmake-3.18.4
-* qt-5.12.8
-* pyside-5.12.6
+* qt-5.15.2
+* pyside-5.15.2
 * numpy-1.16
 * vfxplatform-2021
 
