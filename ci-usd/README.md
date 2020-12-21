@@ -66,7 +66,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2020
 
-## [aswf/ci-usd:2021.3](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2021.3)
+## [aswf/ci-usd:2021.4](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2021.4)
 
 Contains:
 * python-3.7.3
@@ -75,8 +75,8 @@ Contains:
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
-* qt-5.12.8
-* pyside-5.12.6
+* qt-5.15.2
+* pyside-5.15.2
 * cmake-3.18.4
 * openexr-2.4.0
 * oiio-2.1.13.0
