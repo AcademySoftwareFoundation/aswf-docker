@@ -109,26 +109,26 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-osl:2021-clang10.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang10.3)
+## [aswf/ci-osl:2021-clang10.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang10.4)
 
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
 * python-3.7.3
-* qt-5.12.8
+* qt-5.15.2
 * openexr-2.4.0
 * oiio-2.1.13.0
 * partio-1.13.0
 * numpy-1.16
 * vfxplatform-2021
 
-## [aswf/ci-osl:2021-clang11.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang11.3)
+## [aswf/ci-osl:2021-clang11.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang11.4)
 
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
 * python-3.7.3
-* qt-5.12.8
+* qt-5.15.2
 * openexr-2.4.0
 * oiio-2.1.13.0
 * partio-1.13.0

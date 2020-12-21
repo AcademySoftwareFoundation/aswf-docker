@@ -162,7 +162,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2020
 
-## [aswf/ci-vfxall:2021-clang10.4](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2021-clang10.4)
+## [aswf/ci-vfxall:2021-clang10.5](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2021-clang10.5)
 
 Contains:
 * python-3.7.3
@@ -172,8 +172,8 @@ Contains:
 * log4cplus-1.1.2
 * glew-2.1.0
 * glfw-3.1.2
-* qt-5.12.8
-* pyside-5.12.6
+* qt-5.15.2
+* pyside-5.15.2
 * cmake-3.18.4
 * openexr-2.4.0
 * blosc-1.5.0
