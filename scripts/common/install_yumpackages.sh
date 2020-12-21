@@ -5,28 +5,34 @@
 set -ex
 
 yum install --setopt=tsflags=nodocs -y \
-    alsa-lib alsa-lib-devel \
+    alsa-lib \
     alsa-lib-devel \
     alsa-plugins-pulseaudio \
     alsa-utils \
     at-spi2-core-devel \
     audiofile-devel \
-    automake autoconf \
+    automake \
+    autoconf \
     bison \
     bzip2-devel \
     ca-certificates \
     csh \
-    cups cups-devel \
-    dbus dbus-devel \
+    cups \
+    cups-devel \
+    dbus \
+    dbus-devel \
     doxygen \
     expat-devel \
     fam \
     file \
     flex \
     flite-devel \
-    fontconfig fontconfig-devel \
-    freeglut freeglut-devel \
-    freetype freetype-devel \
+    fontconfig \
+    fontconfig-devel \
+    freeglut \
+    freeglut-devel \
+    freetype \
+    freetype-devel \
     frei0r-devel \
     gdbm-devel \
     giflib-devel \
@@ -34,8 +40,10 @@ yum install --setopt=tsflags=nodocs -y \
     glut-devel \
     glx-utils \
     gperf \
-    gstreamer1 gstreamer1-devel \
-    gstreamer1-plugins-bad-free gstreamer1-plugins-bad-free-devel \
+    gstreamer1 \
+    gstreamer1-devel \
+    gstreamer1-plugins-bad-free \
+    gstreamer1-plugins-bad-free-devel \
     gstreamer1-plugins-base-devel \
     gstreamer1-plugins-good \
     gtk2-devel \
@@ -50,46 +58,67 @@ yum install --setopt=tsflags=nodocs -y \
     libgcrypt-devel \
     libgudev1-devel \
     libicu-devel \
-    libjpeg libjpeg-devel \
+    libjpeg \
+    libjpeg-devel \
     libmng-devel \
     libpcap-devel \
-    libpng libpng-devel \
+    libpng \
+    libpng-devel \
     LibRaw-devel \
     libtheora-devel \
-    libtiff libtiff-devel \
-    libv4l libv4l-devel \
+    libtiff \
+    libtiff-devel \
+    libv4l \
+    libv4l-devel \
     libvdpau-devel \
     libvorbis-devel \
     libvpx-devel \
     libwebp-devel \
     libX11-devel \
-    libxcb libxcb-devel \
-    libXcomposite libXcomposite-devel \
-    libXcursor libXcursor-devel \
+    libxcb \
+    libxcb-devel \
+    libXcomposite \
+    libXcomposite-devel \
+    libXcursor \
+    libXcursor-devel \
     libXext-devel \
     libXfixes-devel \
-    libXi libXi-devel \
-    libXinerama libXinerama-devel \
-    libxkbcommon libxkbcommon-devel \
+    libXi \
+    libXi-devel \
+    libXinerama \
+    libXinerama-devel \
+    libxkbcommon \
+    libxkbcommon-devel \
     libxkbcommon-x11-devel \
-    libxml2 libxml2-devel \
-    libXmu libXmu-devel \
-    libXp libXp-devel \
-    libXpm libXpm-devel \
-    libXrandr libXrandr-devel \
-    libXrender libXrender-devel \
-    libXScrnSaver libXScrnSaver-devel \
+    libxml2 \
+    libxml2-devel \
+    libXmu \
+    libXmu-devel \
+    libXp \
+    libXp-devel \
+    libXpm \
+    libXpm-devel \
+    libXrandr \
+    libXrandr-devel \
+    libXrender \
+    libXrender-devel \
+    libXScrnSaver \
+    libXScrnSaver-devel \
     libxshmfence-devel \
-    libxslt libxslt-devel \
+    libxslt \
+    libxslt-devel \
     libXtst-devel \
     make \
     mesa-libEGL-devel \
     mesa-libGL-devel \
     mesa-libGLU-devel \
     mesa-libGLw-devel \
-    motif motif-devel \
-    ncurses ncurses-devel \
-    nss nss-devel \
+    motif \
+    motif-devel \
+    ncurses \
+    ncurses-devel \
+    nss \
+    nss-devel \
     openjpeg-devel \
     openjpeg2-devel \
     openssl-devel \
@@ -99,8 +128,10 @@ yum install --setopt=tsflags=nodocs -y \
     pciutils-devel \
     pkgconfig \
     procps-ng-devel \
-    pulseaudio-libs pulseaudio-libs-devel \
-    readline readline-devel \
+    pulseaudio-libs \
+    pulseaudio-libs-devel \
+    readline \
+    readline-devel \
     rsync \
     ruby \
     speech-dispatcher-devel \
@@ -114,14 +145,20 @@ yum install --setopt=tsflags=nodocs -y \
     unzip \
     wget \
     which \
-    xcb-util xcb-util-devel \
-    xcb-util-image xcb-util-image-devel \
-    xcb-util-keysyms xcb-util-keysyms-devel \
-    xcb-util-renderutil xcb-util-renderutil-devel \
-    xcb-util-wm xcb-util-wm-devel \
+    xcb-util \
+    xcb-util-devel \
+    xcb-util-image \
+    xcb-util-image-devel \
+    xcb-util-keysyms \
+    xcb-util-keysyms-devel \
+    xcb-util-renderutil \
+    xcb-util-renderutil-devel \
+    xcb-util-wm \
+    xcb-util-wm-devel \
     xkeyboard-config-devel \
     xorg-x11-server-Xvfb \
-    xorg-x11-xkb-utils xorg-x11-xkb-utils-devel \
+    xorg-x11-xkb-utils \
+    xorg-x11-xkb-utils-devel \
     xz-devel \
     zlib-devel \
 
