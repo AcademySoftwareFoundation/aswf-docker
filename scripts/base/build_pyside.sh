@@ -9,7 +9,8 @@ cd pyside
 
 
 # Workaround pyside issue with Qt headers within system location https://bugreports.qt.io/browse/PYSIDE-787
-# Qt is temporarily moved to /tmp/qt5temp just to build pyside!
+# Qt is temporarily moved to /tmp/qt5temp just to build pyside! So set up the
+# environment so that it can be found (if it has NOT been moved, do nothing).
 if [ -d /tmp/qt5temp ] ; then
     export PATH=/tmp/qt5temp/bin:$PATH
     export LD_LIBRARY_PATH=/tmp/qt5temp/lib:$LD_LIBRARY_PATH
