@@ -10,12 +10,14 @@ cd pyside
 
 # Workaround pyside issue with Qt headers within system location https://bugreports.qt.io/browse/PYSIDE-787
 # Qt is temporarily moved to /tmp/qt5temp just to build pyside!
-export PATH=/tmp/qt5temp/bin:$PATH
-export LD_LIBRARY_PATH=/tmp/qt5temp/lib:$LD_LIBRARY_PATH
-cat <<EOF > /tmp/qt5temp/bin/qt.conf
-[Paths]
-Prefix = /tmp/qt5temp
-EOF
+if [ -d /tmp/qt5temp ] ; then
+    export PATH=/tmp/qt5temp/bin:$PATH
+    export LD_LIBRARY_PATH=/tmp/qt5temp/lib:$LD_LIBRARY_PATH
+    cat <<-EOF > /tmp/qt5temp/bin/qt.conf
+		[Paths]
+		Prefix = /tmp/qt5temp
+	EOF
+fi
 
 if [[ $ASWF_PYSIDE_VERSION == 2.0.0 ]]; then
     curl --location "https://www.autodesk.com/content/dam/autodesk/www/Company/files/pyside2-maya2018.4.zip" -o "$DOWNLOADS_DIR/pyside-${ASWF_PYSIDE_VERSION}.zip"
