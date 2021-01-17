@@ -10,14 +10,32 @@ All notable changes to this project will be documented in this file.
 
 ### New CI Packages:
 
+* `ci-package-cmake:2021.1`
+* `ci-package-python:2021.2`
+* `ci-package-boost:2021.2`
+* `ci-package-tbb:2021.2`
 * `ci-package-qt:2021.2`
 * `ci-package-pyside:2021.2`
 * `ci-package-usd:2021.3`
+* `ci-package-openexr:2021.2`
+* `ci-package-alembic:2021.2`
+* `ci-package-ocio:2021.2`
+* `ci-package-oiio:2021.2`
+* `ci-package-openvdb:2021.2`
+* `ci-package-usd:2021.4`
+* `ci-package-partio:2021.2`
+* `ci-package-osl:2021.2`
+* `ci-package-otio:2021.2`
 
 ### New CI Images:
 
 * `ci-common:2-clang10.3`, `ci-common:2-clang11.3`
+* `ci-base:2021.4`
 * `ci-baseqt:2021.1`
+* `ci-openexr:2021.4`
+* `ci-ocio:2021.4`
+* `ci-opencue:2021.4`
+* `ci-openvdb:clang10-2021.4`
 * `ci-osl:2021-clang10.4`, `ci-osl:2021-clang11.4`
 * `ci-usd:2021.4`
 * `ci-otio:2021.3`
