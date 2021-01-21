@@ -19,8 +19,8 @@ All notable changes to this project will be documented in this file.
 * `ci-package-usd:2021.3`
 * `ci-package-openexr:2021.2`
 * `ci-package-alembic:2021.2`
-* `ci-package-ocio:2021.2`
-* `ci-package-oiio:2021.2`
+* `ci-package-ocio:2021.3`
+* `ci-package-oiio:2021.3`
 * `ci-package-openvdb:2021.2`
 * `ci-package-usd:2021.4`
 * `ci-package-partio:2021.2`
