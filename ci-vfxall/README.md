@@ -165,29 +165,29 @@ Contains:
 ## [aswf/ci-vfxall:2021-clang10.5](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2021-clang10.5)
 
 Contains:
-* python-3.7.3
-* tbb-2019_U6
-* boost-1.70.0
+* python-3.7.9
+* tbb-2020_U2
+* boost-1.73.0
 * cppunit-1.15.1
 * log4cplus-1.1.2
 * glew-2.1.0
 * glfw-3.1.2
 * qt-5.15.2
 * pyside-5.15.2
-* cmake-3.18.4
-* openexr-2.4.0
+* cmake-3.19.3
+* openexr-2.5.2
 * blosc-1.5.0
-* alembic-1.7.12
-* oiio-2.1.13.0
-* ocio-1.1.1
+* alembic-1.7.16
+* oiio-2.2.10.0
+* ocio-2.0.0
 * opensubdiv-3_4_3
 * ptex-2.3.2
-* openvdb-7.1.0
-* usd-20.11
-* partio-1.13.0
-* osl-1.10.10
+* openvdb-8.0.0
+* usd-21.02
+* partio-1.14.0
+* osl-1.11.10.0
 * otio-0.12.1
-* numpy-1.16
+* numpy-1.19
 * hdf5-1.8.21
 * vfxplatform-2021
 
