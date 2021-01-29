@@ -42,11 +42,11 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-opencue:2021.3](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2021.3)
+## [aswf/ci-opencue:2021.4](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2021.4)
 
 Contains:
-* python-3.7.3
-* cmake-3.18.4
-* numpy-1.16
+* python-3.7.9
+* cmake-3.19.3
+* numpy-1.19
 * vfxplatform-2021
 

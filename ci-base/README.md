@@ -59,17 +59,17 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-base:2021.3](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2021.3)
+## [aswf/ci-base:2021.4](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2021.4)
 
 Contains:
-* boost-1.70.0
-* cmake-3.18.4
+* boost-1.73.0
+* cmake-3.19.3
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
-* python-3.7.3
-* tbb-2019_U6
-* numpy-1.16
+* python-3.7.9
+* tbb-2020_U2
+* numpy-1.19
 * vfxplatform-2021
 

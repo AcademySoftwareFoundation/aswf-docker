@@ -41,10 +41,10 @@ Contains:
 ## [aswf/ci-otio:2021.3](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2021.3)
 
 Contains:
-* python-3.7.3
-* cmake-3.18.4
+* python-3.7.9
+* cmake-3.19.3
 * qt-5.15.2
 * pyside-5.15.2
-* numpy-1.16
+* numpy-1.19
 * vfxplatform-2021
 
