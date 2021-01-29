@@ -58,7 +58,11 @@ fi
 cd ../..
 rm -rf python
 
-curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+if [[ $ASWF_PYTHON_VERSION == 3* ]]; then
+    curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+else
+    curl "https://bootstrap.pypa.io/2.7/get-pip.py" -o "get-pip.py"
+fi
 python get-pip.py
 rm get-pip.py
 
