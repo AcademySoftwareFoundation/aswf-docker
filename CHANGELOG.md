@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 * Updated Qt in VFX-2021 images to version 5.15.2
+* Updated USD to version 21.02
+* Updated OpenColorIO to 2.0.0
+* Added PyBind11 version 2.6.2
 
 ### New CI Packages:
 
@@ -16,6 +19,7 @@ All notable changes to this project will be documented in this file.
 * `ci-package-tbb:2021.2`
 * `ci-package-qt:2021.2`
 * `ci-package-pyside:2021.2`
+* `ci-package-pybind11:2019.0`, `ci-package-pybind11:2020.0`, `ci-package-pybind11:2021.0`
 * `ci-package-usd:2021.3`
 * `ci-package-openexr:2021.2`
 * `ci-package-alembic:2021.2`
