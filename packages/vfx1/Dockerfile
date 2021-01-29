@@ -16,6 +16,7 @@ ARG ASWF_GLFW_VERSION
 ARG ASWF_PYTHON_VERSION
 ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 ARG ASWF_TBB_VERSION
+ARG ASWF_PYBIND11_VERSION
 
 ARG ASWF_ALEMBIC_VERSION
 ARG ASWF_BLOSC_VERSION
@@ -33,6 +34,7 @@ FROM ${ASWF_ORG}/ci-package-glew:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLEW_VERSION
 FROM ${ASWF_ORG}/ci-package-tbb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_TBB_VERSION} as ci-package-tbb-external
 FROM ${ASWF_ORG}/ci-package-cppunit:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CPPUNIT_VERSION} as ci-package-cppunit-external
 FROM ${ASWF_ORG}/ci-package-glfw:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLFW_VERSION} as ci-package-glfw-external
+FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} as ci-package-pybind11-external
 
 
 #################### ci-centos7-gl-packages ####################
@@ -191,6 +193,8 @@ FROM ci-openexr-builder as ci-oiio-builder
 
 ARG ASWF_OIIO_VERSION
 ENV ASWF_OIIO_VERSION=${ASWF_OIIO_VERSION}
+
+COPY --from=ci-package-pybind11-external /. /usr/local/
 
 COPY ../scripts/vfx/build_oiio.sh \
      /tmp/
