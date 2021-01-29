@@ -19,6 +19,7 @@ cmake -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
       -DVERBOSE=ON \
       -DPYTHON_VERSION="${ASWF_PYTHON_MAJOR_MINOR_VERSION}" \
       -DBoost_NO_BOOST_CMAKE=ON \
+      -Dpybind11_ROOT="${ASWF_INSTALL_PREFIX}" \
       ../.
 make -j$(nproc)
 make install
