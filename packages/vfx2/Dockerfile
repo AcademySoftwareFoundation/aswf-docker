@@ -13,6 +13,7 @@ ARG ASWF_CMAKE_VERSION
 ARG ASWF_CPPUNIT_VERSION
 ARG ASWF_GLEW_VERSION
 ARG ASWF_GLFW_VERSION
+ARG ASWF_PYBIND11_VERSION
 ARG ASWF_PYTHON_VERSION
 ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 ARG ASWF_TBB_VERSION
@@ -39,6 +40,7 @@ FROM ${ASWF_ORG}/ci-package-python:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYTHON_VER
 FROM ${ASWF_ORG}/ci-package-boost:${ASWF_VFXPLATFORM_VERSION}-${ASWF_BOOST_VERSION} as ci-package-boost-external
 FROM ${ASWF_ORG}/ci-package-tbb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_TBB_VERSION} as ci-package-tbb-external
 FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} as ci-package-qt-external
+FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} as ci-package-pybind11-external
 FROM ${ASWF_ORG}/ci-package-pyside:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYSIDE_VERSION} as ci-package-pyside-external
 
 FROM ${ASWF_ORG}/ci-package-openexr:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OPENEXR_VERSION} as ci-package-openexr-external
@@ -119,6 +121,7 @@ ENV ASWF_OSL_VERSION=${ASWF_OSL_VERSION}
 
 COPY --from=ci-package-openexr-external /. /usr/local/
 COPY --from=ci-package-oiio-external /. /usr/local/
+COPY --from=ci-package-pybind11-external /. /usr/local/
 
 COPY ../scripts/vfx/build_osl.sh \
      /tmp/
