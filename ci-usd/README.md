@@ -66,27 +66,27 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2020
 
-## [aswf/ci-usd:2021.3](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2021.3)
+## [aswf/ci-usd:2021.4](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2021.4)
 
 Contains:
-* python-3.7.3
-* tbb-2019_U6
-* boost-1.70.0
+* python-3.7.9
+* tbb-2020_U2
+* boost-1.73.0
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
-* qt-5.12.8
-* pyside-5.12.6
-* cmake-3.18.4
-* openexr-2.4.0
-* oiio-2.1.13.0
-* ocio-1.1.1
+* qt-5.15.2
+* pyside-5.15.2
+* cmake-3.19.3
+* openexr-2.5.2
+* oiio-2.2.10.0
+* ocio-2.0.0
 * ptex-2.3.2
 * opensubdiv-3_4_3
-* alembic-1.7.12
+* alembic-1.7.16
 * blosc-1.5.0
-* openvdb-7.1.0
-* numpy-1.16
+* openvdb-8.0.0
+* numpy-1.19
 * hdf5-1.8.21
 * vfxplatform-2021
 

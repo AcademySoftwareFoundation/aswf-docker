@@ -18,6 +18,7 @@ if [[ $ASWF_QT_VERSION == 5.6.1 ]]; then
     mv qt-adsk-5.6.1-vfx qt-src
     cd qt-src
     tar xf ../qt561-webkit.tgz
+    EXTRA_CONFIGURE_ARGS=-qt-xcb
 else
     QT_MAJOR_MINOR=$(echo "${ASWF_QT_VERSION}" | cut -d. -f-2)
     if [ ! -f "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz" ]; then
@@ -26,6 +27,23 @@ else
     tar xf "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz"
     mv "qt-everywhere-src-${ASWF_QT_VERSION}" qt-src
     cd qt-src
+    if [[ $QT_MAJOR_MINOR == 5.15 ]]; then
+        EXTRA_CONFIGURE_ARGS="-no-sql-mysql \
+        -xcb \
+        -qt-libjpeg \
+        -qt-libpng \
+        -bundled-xcb-xinput \
+        -sysconfdir /etc/xdg \
+        -qt-pcre \
+        -qt-harfbuzz \
+        -R . \
+        -icu \
+        -skip qtnetworkauth \
+        -skip qtpurchasing \
+        -I /usr/include/openssl11 -L /usr/lib64/openssl11"
+    else
+        EXTRA_CONFIGURE_ARGS=-qt-xcb
+    fi
 fi
 
 ./configure \
@@ -37,7 +55,6 @@ fi
         -openssl \
         -verbose \
         -opengl desktop \
-        -qt-xcb \
         -no-warnings-are-errors \
         -no-libudev \
         -no-egl \
@@ -45,7 +62,10 @@ fi
         -nomake tests \
         -c++std c++14 \
         -confirm-license \
-        -no-use-gold-linker
+        -no-use-gold-linker \
+        -release \
+        ${EXTRA_CONFIGURE_ARGS}
+
 make -j$(nproc)
 
 sudo make install

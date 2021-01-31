@@ -27,6 +27,7 @@ if [[ $ASWF_PYSIDE_VERSION == 2.0.0 ]]; then
     cd pyside
     "${ASWF_INSTALL_PREFIX}/bin/python" setup.py build install --prefix "${ASWF_INSTALL_PREFIX}"
 else
+    # Naming scheme changed from "everywhere" to "opensource" with version 5.13.2
     if [[ $ASWF_PYSIDE_VERSION == 5.12.6 ]]; then
         PYSIDE_URL_NAME=pyside-setup-everywhere-src-${ASWF_PYSIDE_VERSION}
     else

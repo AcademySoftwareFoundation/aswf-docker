@@ -11,6 +11,8 @@ fi
 tar -zxf "$DOWNLOADS_DIR/osl-${ASWF_OSL_VERSION}.tar.gz"
 cd "OpenShadingLanguage-Release-${ASWF_OSL_VERSION}"
 
+src/build-scripts/build_pugixml.bash
+
 mkdir build
 cd build
 

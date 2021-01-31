@@ -5,22 +5,34 @@
 set -ex
 
 yum install --setopt=tsflags=nodocs -y \
-    alsa-lib alsa-lib-devel \
-    automake autoconf \
+    alsa-lib \
+    alsa-lib-devel \
+    alsa-plugins-pulseaudio \
+    alsa-utils \
+    at-spi2-core-devel \
+    audiofile-devel \
+    automake \
+    autoconf \
     bison \
     bzip2-devel \
     ca-certificates \
     csh \
-    cups cups-devel \
-    dbus dbus-devel \
+    cups \
+    cups-devel \
+    dbus \
+    dbus-devel \
     doxygen \
     expat-devel \
     fam \
     file \
     flex \
-    fontconfig fontconfig-devel \
-    freeglut freeglut-devel \
-    freetype freetype-devel \
+    flite-devel \
+    fontconfig \
+    fontconfig-devel \
+    freeglut \
+    freeglut-devel \
+    freetype \
+    freetype-devel \
     frei0r-devel \
     gdbm-devel \
     giflib-devel \
@@ -28,8 +40,12 @@ yum install --setopt=tsflags=nodocs -y \
     glut-devel \
     glx-utils \
     gperf \
-    gstreamer1 gstreamer1-devel \
-    gstreamer1-plugins-bad-free gstreamer1-plugins-bad-free-devel \
+    gstreamer1 \
+    gstreamer1-devel \
+    gstreamer1-plugins-bad-free \
+    gstreamer1-plugins-bad-free-devel \
+    gstreamer1-plugins-base-devel \
+    gstreamer1-plugins-good \
     gtk2-devel \
     harfbuzz-devel \
     java-1.8.0-openjdk \
@@ -37,57 +53,88 @@ yum install --setopt=tsflags=nodocs -y \
     libcap-devel \
     libcdio-paranoia-devel \
     libcurl-devel \
+    libdrm \
     libffi-devel \
     libgcrypt-devel \
     libgudev1-devel \
     libicu-devel \
-    libjpeg libjpeg-devel \
+    libjpeg \
+    libjpeg-devel \
     libmng-devel \
     libpcap-devel \
-    libpng libpng-devel \
+    libpng \
+    libpng-devel \
     LibRaw-devel \
     libtheora-devel \
-    libtiff libtiff-devel \
-    libv4l libv4l-devel \
+    libtiff \
+    libtiff-devel \
+    libv4l \
+    libv4l-devel \
     libvdpau-devel \
     libvorbis-devel \
     libvpx-devel \
     libwebp-devel \
-    libxcb libxcb-devel \
-    libXcomposite libXcomposite-devel \
-    libXcursor libXcursor-devel \
-    libXi libXi-devel \
-    libXinerama libXinerama-devel \
-    libxkbcommon libxkbcommon-devel \
+    libX11-devel \
+    libxcb \
+    libxcb-devel \
+    libXcomposite \
+    libXcomposite-devel \
+    libXcursor \
+    libXcursor-devel \
+    libXext-devel \
+    libXfixes-devel \
+    libXi \
+    libXi-devel \
+    libXinerama \
+    libXinerama-devel \
+    libxkbcommon \
+    libxkbcommon-devel \
     libxkbcommon-x11-devel \
-    libxml2 libxml2-devel \
-    libXmu libXmu-devel \
-    libXp libXp-devel \
-    libXpm libXpm-devel \
-    libXrandr libXrandr-devel \
-    libXrender libXrender-devel \
-    libXScrnSaver libXScrnSaver-devel \
-    libxslt libxslt-devel \
+    libxml2 \
+    libxml2-devel \
+    libXmu \
+    libXmu-devel \
+    libXp \
+    libXp-devel \
+    libXpm \
+    libXpm-devel \
+    libXrandr \
+    libXrandr-devel \
+    libXrender \
+    libXrender-devel \
+    libXScrnSaver \
+    libXScrnSaver-devel \
+    libxshmfence-devel \
+    libxslt \
+    libxslt-devel \
     libXtst-devel \
     make \
     mesa-libEGL-devel \
     mesa-libGL-devel \
     mesa-libGLU-devel \
-    motif motif-devel \
-    ncurses ncurses-devel \
-    nss nss-devel \
+    mesa-libGLw-devel \
+    motif \
+    motif-devel \
+    ncurses \
+    ncurses-devel \
+    nss \
+    nss-devel \
     openjpeg-devel \
     openjpeg2-devel \
     openssl-devel \
     opus-devel \
+    PackageKit-gstreamer-plugin \
     patch \
     pciutils-devel \
     pkgconfig \
     procps-ng-devel \
-    pulseaudio-libs pulseaudio-libs-devel \
-    readline readline-devel \
+    pulseaudio-libs \
+    pulseaudio-libs-devel \
+    readline \
+    readline-devel \
     rsync \
     ruby \
+    speech-dispatcher-devel \
     speex-devel \
     sqlite-devel \
     sudo \
@@ -98,15 +145,23 @@ yum install --setopt=tsflags=nodocs -y \
     unzip \
     wget \
     which \
-    xcb-util xcb-util-devel \
-    xcb-util-image xcb-util-image-devel \
-    xcb-util-keysyms xcb-util-keysyms-devel \
-    xcb-util-wm xcb-util-wm-devel \
+    xcb-util \
+    xcb-util-devel \
+    xcb-util-image \
+    xcb-util-image-devel \
+    xcb-util-keysyms \
+    xcb-util-keysyms-devel \
+    xcb-util-renderutil \
+    xcb-util-renderutil-devel \
+    xcb-util-wm \
+    xcb-util-wm-devel \
     xkeyboard-config-devel \
-    xorg-x11-xkb-utils xorg-x11-xkb-utils-devel \
     xorg-x11-server-Xvfb \
+    xorg-x11-xkb-utils \
+    xorg-x11-xkb-utils-devel \
     xz-devel \
-    zlib-devel
+    zlib-devel \
+
 
 # This is needed for Xvfb to function properly.
 dbus-uuidgen > /etc/machine-id
@@ -135,6 +190,7 @@ yum install -y \
     libcaca-devel \
     libdb4-devel \
     libdc1394-devel \
+    openssl11-devel \
     p7zip \
     yasm-devel \
     zvbi-devel

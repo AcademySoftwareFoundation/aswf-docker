@@ -137,6 +137,7 @@ versions:
       ASWF_OTIO_VERSION: "0.12.1"
       ASWF_PARTIO_VERSION: "1.10.1"
       ASWF_PTEX_VERSION: "2.1.33"
+      ASWF_PYBIND11_VERSION: "2.6.2"
       ASWF_PYSIDE_VERSION: "5.12.6"
       ASWF_PYTHON_VERSION: "2.7.15"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "2.7"
@@ -191,6 +192,7 @@ versions:
       ASWF_OTIO_VERSION: "0.12.1"
       ASWF_PARTIO_VERSION: "1.10.1"
       ASWF_PTEX_VERSION: "2.3.2"
+      ASWF_PYBIND11_VERSION: "2.6.2"
       ASWF_PYSIDE_VERSION: "5.12.6"
       ASWF_PYTHON_VERSION: "3.7.3"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.7"
@@ -209,32 +211,33 @@ versions:
     tags: ["preview"]
     ci_common_version: "2"
     package_versions:
-      ASWF_ALEMBIC_VERSION: "1.7.12"
+      ASWF_ALEMBIC_VERSION: "1.7.16"
       ASWF_BLOSC_VERSION: "1.5.0"
-      ASWF_BOOST_VERSION: "1.70.0"
-      ASWF_CMAKE_VERSION: "3.18.4"
+      ASWF_BOOST_VERSION: "1.73.0"
+      ASWF_CMAKE_VERSION: "3.19.3"
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_HDF5_VERSION: "1.8.21"
       ASWF_LOG4CPLUS_VERSION: "1.1.2"
-      ASWF_NUMPY_VERSION: "1.16"
+      ASWF_NUMPY_VERSION: "1.19"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
-      ASWF_OCIO_VERSION: "1.1.1"
-      ASWF_OIIO_VERSION: "2.1.13.0"
-      ASWF_OPENEXR_VERSION: "2.4.0"
+      ASWF_OCIO_VERSION: "2.0.0"
+      ASWF_OIIO_VERSION: "2.2.10.0"
+      ASWF_OPENEXR_VERSION: "2.5.2"
       ASWF_OPENSUBDIV_VERSION: "3_4_3"
-      ASWF_OPENVDB_VERSION: "7.1.0"
-      ASWF_OSL_VERSION: "1.10.10"
+      ASWF_OPENVDB_VERSION: "8.0.0"
+      ASWF_OSL_VERSION: "1.11.10.0"
       ASWF_OTIO_VERSION: "0.12.1"
-      ASWF_PARTIO_VERSION: "1.13.0"
+      ASWF_PARTIO_VERSION: "1.14.0"
       ASWF_PTEX_VERSION: "2.3.2"
-      ASWF_PYSIDE_VERSION: "5.12.6"
-      ASWF_PYTHON_VERSION: "3.7.3"
+      ASWF_PYBIND11_VERSION: "2.6.2"
+      ASWF_PYSIDE_VERSION: "5.15.2"
+      ASWF_PYTHON_VERSION: "3.7.9"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.7"
-      ASWF_QT_VERSION: "5.12.8"
-      ASWF_TBB_VERSION: "2019_U6"
-      ASWF_USD_VERSION: "20.11"
+      ASWF_QT_VERSION: "5.15.2"
+      ASWF_TBB_VERSION: "2020_U2"
+      ASWF_USD_VERSION: "21.02"
       ASWF_VFXPLATFORM_VERSION: "2021"
   "2021-clang10":
     parent_versions: ["2", "2-clang10", "2021"]
@@ -264,22 +267,26 @@ ci-packages:
     - "2018.0"
     - "2019.0"
     - "2020.0"
-    - "2021.0"
+    - "2021.1"
   python:
     - "2018.2"
     - "2019.2"
     - "2020.2"
-    - "2021.1"
+    - "2021.2"
+  pybind11:
+    - "2019.0"
+    - "2020.0"
+    - "2021.0"
   boost:
     - "2018.2"
     - "2019.2"
     - "2020.2"
-    - "2021.1"
+    - "2021.2"
   tbb:
     - "2018.2"
     - "2019.2"
     - "2020.2"
-    - "2021.1"
+    - "2021.2"
   cppunit:
     - "2018.2"
     - "2019.2"
@@ -304,12 +311,12 @@ ci-packages:
     - "2018.2"
     - "2019.2"
     - "2020.2"
-    - "2021.1"
+    - "2021.2"
   pyside:
     - "2018.2"
     - "2019.2"
     - "2020.2"
-    - "2021.1"
+    - "2021.2"
   blosc:
     - "2018.2"
     - "2019.2"
@@ -319,22 +326,22 @@ ci-packages:
     - "2018.2"
     - "2019.2"
     - "2020.2"
-    - "2021.1"
+    - "2021.2"
   alembic:
     - "2018.2"
     - "2019.2"
     - "2020.2"
-    - "2021.1"
+    - "2021.2"
   ocio:
     - "2018.2"
     - "2019.2"
     - "2020.2"
-    - "2021.2"
+    - "2021.3"
   oiio:
     - "2018.2"
     - "2019.2"
     - "2020.2"
-    - "2021.2"
+    - "2021.3"
   opensubdiv:
     - "2018.2"
     - "2019.2"
@@ -348,16 +355,16 @@ ci-packages:
   openvdb:
     - "2019.2"
     - "2020.2"
-    - "2021.1"
+    - "2021.2"
   usd:
     - "2019.3"
     - "2020.2"
-    - "2021.2"
+    - "2021.4"
   partio:
     - "2018.1"
     - "2019.1"
     - "2020.1"
-    - "2021.1"
+    - "2021.2"
   osl:
     - "2018.1"
     - "2019.1"
@@ -366,7 +373,7 @@ ci-packages:
   otio:
     - "2019.1"
     - "2020.1"
-    - "2021.1"
+    - "2021.2"
 
 ci-images:
   common:
@@ -375,41 +382,41 @@ ci-images:
     - "1-clang8.7"
     - "1-clang9.7"
     - "1-clang10.7"
-    - "2-clang10.2"
-    - "2-clang11.2"
+    - "2-clang10.3"
+    - "2-clang11.3"
   base:
     - "2018.7"
     - "2019.7"
     - "2020.7"
-    - "2021.3"
+    - "2021.4"
   baseqt:
     - "2018.0"
     - "2019.0"
     - "2020.0"
-    - "2021.0"
+    - "2021.1"
   openexr:
     - "2018.7"
     - "2019.7"
     - "2020.7"
-    - "2021.3"
+    - "2021.4"
   ocio:
     - "2018.8"
     - "2019.8"
     - "2020.7"
-    - "2021.3"
+    - "2021.4"
   opencue:
     - "2018.7"
     - "2019.7"
     - "2020.7"
-    - "2021.3"
+    - "2021.4"
   usd:
     - "2019.8"
     - "2020.7"
-    - "2021.3"
+    - "2021.4"
   otio:
     - "2019.2"
     - "2020.2"
-    - "2021.2"
+    - "2021.3"
   osl:
     - "2018-clang7.3"
     - "2019-clang6.3"
@@ -418,8 +425,8 @@ ci-images:
     - "2019-clang9.3"
     - "2019-clang10.3"
     - "2020-clang7.3"
-    - "2021-clang10.3"
-    - "2021-clang11.3"
+    - "2021-clang10.4"
+    - "2021-clang11.4"
   openvdb:
     - "2018-clang7.7"
     - "2019-clang6.7"
@@ -427,14 +434,14 @@ ci-images:
     - "2019-clang8.7"
     - "2019-clang9.7"
     - "2020-clang7.7"
-    - "2021-clang10.3"
+    - "2021-clang10.4"
   vfxall:
     - "2019-clang6.11"
     - "2019-clang7.11"
     - "2019-clang8.11"
     - "2019-clang9.11"
     - "2020-clang7.9"
-    - "2021-clang10.4"
+    - "2021-clang10.5"
 
 groups:
   package:
@@ -450,6 +457,7 @@ groups:
         - log4cplus
         - python
         - tbb
+        - pybind11
       base2:
         - qt
       base3:
