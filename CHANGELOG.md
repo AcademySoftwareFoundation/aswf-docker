@@ -4,12 +4,27 @@ All notable changes to this project will be documented in this file.
 
 ## 2020-12-20
 
+### Added
+
+* Added PyBind11 2.6.2
+
 ### Changed
 
 * Updated Qt in VFX-2021 images to version 5.15.2
+* Updated Python to 3.7.9
+* Updated cmake to 3.19.3
+* Updated numpy to 1.19
+* Updated Boost to 1.73.0
+* Updated TBB to 2020_U2
+* Updated Alembic to 1.7.16
 * Updated USD to version 21.02
 * Updated OpenColorIO to 2.0.0
-* Added PyBind11 version 2.6.2
+* Updated OpenImageIO to 2.2.10.0
+* Updated OpenEXR to 2.5.2
+* Updated OpenVDB to 8.0.0
+* Updated OpenShadingLanguage to 1.11.10.0
+* Updated PartIO to 1.14.0
+
 
 ### New CI Packages:
 
