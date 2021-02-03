@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+atomicwrites = {version = "*", markers = "platform_system == 'Windows'"}
 pytest-cov = "*"
 prospector = "*"
 black = "==19.10b0"
