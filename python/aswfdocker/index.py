@@ -20,9 +20,7 @@ class Index:
     """
 
     def __init__(self):
-        path = importlib_resources.files("aswfdocker.data").joinpath(
-            "versions.yaml"
-        )
+        path = importlib_resources.files("aswfdocker.data").joinpath("versions.yaml")
         logger.debug("version path: %s", path)
         if not os.path.exists(path):
             raise RuntimeError(f"versions.yaml file missing: {path}")
