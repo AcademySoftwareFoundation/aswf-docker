@@ -140,7 +140,8 @@ class TestUtilsCli(unittest.TestCase):
                 catch_exceptions=False,
             )
             self.assertEqual(result.exit_code, 0)
-            self.assertEqual(result.output, f"{tmpdirname}/packages/2019/tbb.tar.gz")
+            path = os.path.join(tmpdirname, "packages", "2019", "tbb.tar.gz")
+            self.assertEqual(result.output, path)
             self.assertTrue(os.path.exists(result.output))
 
     def test_cli_packages(self):
