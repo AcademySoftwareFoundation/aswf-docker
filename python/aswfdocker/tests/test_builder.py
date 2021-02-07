@@ -311,11 +311,12 @@ class TestBuilderCli(unittest.TestCase):
             ],
         )
         self.assertFalse(result.exception)
-        bake_path = os.path.join(tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019.json")
+        bake_path = os.path.join(
+            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019.json"
+        )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
-            result.output,
-            f"INFO:aswfdocker.builder:Would build: {cmd!r}\n",
+            result.output, f"INFO:aswfdocker.builder:Would build: {cmd!r}\n",
         )
         self.assertEqual(result.exit_code, 0)
 
@@ -326,11 +327,12 @@ class TestBuilderCli(unittest.TestCase):
             ["build", "--full-name", "aswftesting/ci-common:1", "--dry-run",],
         )
         self.assertFalse(result.exception)
-        bake_path = os.path.join(tempfile.gettempdir(), "docker-bake-IMAGE-common-1.json")
+        bake_path = os.path.join(
+            tempfile.gettempdir(), "docker-bake-IMAGE-common-1.json"
+        )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
-            result.output,
-            f"INFO:aswfdocker.builder:Would build: {cmd!r}\n",
+            result.output, f"INFO:aswfdocker.builder:Would build: {cmd!r}\n",
         )
         self.assertEqual(result.exit_code, 0)
 
@@ -352,10 +354,11 @@ class TestBuilderCli(unittest.TestCase):
             ],
         )
         self.assertFalse(result.exception)
-        bake_path = os.path.join(tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019-2020.json")
+        bake_path = os.path.join(
+            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019-2020.json"
+        )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
-            result.output,
-            f"INFO:aswfdocker.builder:Would build: {cmd!r}\n",
+            result.output, f"INFO:aswfdocker.builder:Would build: {cmd!r}\n",
         )
         self.assertEqual(result.exit_code, 0)
