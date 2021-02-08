@@ -3,7 +3,6 @@
 """
 Index of Docker images and versions.
 """
-import os
 import logging
 import yaml
 import importlib_resources
@@ -22,8 +21,6 @@ class Index:
     def __init__(self):
         path = importlib_resources.files("aswfdocker.data").joinpath("versions.yaml")
         logger.debug("version path: %s", path)
-        if not os.path.exists(path):
-            raise RuntimeError(f"versions.yaml file missing: {path}")
         with open(path) as f:
             self._versions = yaml.load(f, Loader=yaml.FullLoader)
         logger.debug("versions.yaml file: %s", self._versions)
