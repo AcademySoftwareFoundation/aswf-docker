@@ -20,10 +20,11 @@ class Index:
 
     def __init__(self):
         path = importlib_resources.files("aswfdocker.data").joinpath("versions.yaml")
-        logger.debug("version path: %s", path)
-        with open(path) as f:
+        if not path.exists():
+            raise RuntimeError(f"versions.yaml file does not exist at path {path}")
+        logger.debug("version path: %s (%s)", path, type(path))
+        with path.open() as f:
             self._versions = yaml.load(f, Loader=yaml.FullLoader)
-        logger.debug("versions.yaml file: %s", self._versions)
         self.groups = {
             constants.ImageType.IMAGE: self._versions["groups"]["image"],
             constants.ImageType.PACKAGE: self._versions["groups"]["package"],
