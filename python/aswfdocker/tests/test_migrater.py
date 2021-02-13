@@ -53,11 +53,14 @@ class TestMigrater(unittest.TestCase):
             m.cmds,
             [
                 f"docker pull {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version}",
-                f"docker tag {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}",
+                f"docker tag {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version} "
+                f"{constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}",
                 f"docker push {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}",
-                f"docker tag {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:2019",
+                f"docker tag {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version} "
+                f"{constants.DOCKER_REGISTRY}/dst/ci-package-openexr:2019",
                 f"docker push {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:2019",
-                f"docker tag {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version} {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:latest",
+                f"docker tag {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version} "
+                f"{constants.DOCKER_REGISTRY}/dst/ci-package-openexr:latest",
                 f"docker push {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:latest",
             ],
         )
@@ -93,12 +96,13 @@ class TestMigraterCli(unittest.TestCase):
         current_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "openexr")
         )[1]
+        reg = constants.DOCKER_REGISTRY
         self.assertEqual(
             result.output,
             f"""Are you sure you want to migrate the following 1 packages?
-{constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version} -> {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}
+{reg}/src/ci-package-openexr:{current_version} -> {reg}/dst/ci-package-openexr:{current_version}
  [y/N]: y
-INFO:aswfdocker.migrater:Migrating {constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version} -> {constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}
+INFO:aswfdocker.migrater:Migrating {reg}/src/ci-package-openexr:{current_version} -> {reg}/dst/ci-package-openexr:{current_version}
 Migration done.
 """,
         )

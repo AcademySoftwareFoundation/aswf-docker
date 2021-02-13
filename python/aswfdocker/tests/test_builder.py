@@ -324,7 +324,7 @@ class TestBuilderCli(unittest.TestCase):
         runner = CliRunner()
         result = runner.invoke(
             aswfdocker.cli,
-            ["build", "--full-name", "aswftesting/ci-common:1", "--dry-run",],
+            ["build", "--full-name", "aswftesting/ci-common:1", "--dry-run"],
         )
         self.assertFalse(result.exception)
         bake_path = os.path.join(
