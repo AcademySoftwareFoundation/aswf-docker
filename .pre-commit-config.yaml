@@ -20,7 +20,7 @@ repos:
         types: [python]
       - id: prospector
         name: Check linting with prospector
-        entry: pipenv run prospector python/aswfdocker -F
+        entry: pipenv run prospector -P aswfdocker python/aswfdocker -F
         pass_filenames: false
         language: system
         types: [python]

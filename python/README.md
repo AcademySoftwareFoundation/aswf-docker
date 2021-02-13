@@ -48,7 +48,7 @@ The pre-commit hooks will run the following commands, which can be run individua
 * run `black` on the code to ensure formatting is OK: `black python`
 * run the tests to ensure everything is OK: `pytest python/aswfdocker`
 * run [mypy](http://mypy-lang.org/) to ensure static types are OK: `mypy python/aswfdocker`
-* run `prospector` on the code to ensure linting is OK: `prospector -F python/aswfdocker`
+* run `prospector` on the code to ensure linting is OK: `prospector -P aswfdocker -F python/aswfdocker`
 
 To run them all manually use `pre-commit run --all-files`.
 

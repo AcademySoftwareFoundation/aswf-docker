@@ -5,9 +5,6 @@ Tests for user settings
 """
 
 import unittest
-import tempfile
-import os
-import logging
 
 from aswfdocker import constants, index
 
