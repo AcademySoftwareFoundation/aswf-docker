@@ -262,7 +262,7 @@ def images():
     """Lists all known CI images in this format: IMAGEGROUP/IMAGE:VERSION
     """
     for image_type in (constants.ImageType.CI_IMAGE, constants.ImageType.RT_IMAGE):
-        for group, images in constants.GROUPS[image_type].items():
+        for group, images in index.Index().groups[image_type].items():
             for image in images:
                 image_name = utils.get_image_name(image_type, image)
                 for version in index.Index().iter_versions(image_type, image):
@@ -403,7 +403,7 @@ def dockergen(context, image_name, check):
     """
     if image_name == "all":
         images = []
-        for gimages in index.Index().groups[constants.ImageType.IMAGE].values():
+        for gimages in index.Index().groups[constants.ImageType.CI_IMAGE].values():
             images.extend(gimages)
     else:
         images = [image_name]

@@ -85,12 +85,12 @@ class TestBuilder(unittest.TestCase):
             groupinfo.GroupInfo(
                 names=["vfx3"],
                 versions=["2019-clang9"],
-                type_=constants.ImageType.IMAGE,
+                type_=constants.ImageType.CI_IMAGE,
                 targets=["openvdb"],
             ),
         )
         openvdb_version = list(
-            index.Index().iter_versions(constants.ImageType.IMAGE, "openvdb")
+            index.Index().iter_versions(constants.ImageType.CI_IMAGE, "openvdb")
         )[4]
         self.assertEqual(
             b.make_bake_dict(),

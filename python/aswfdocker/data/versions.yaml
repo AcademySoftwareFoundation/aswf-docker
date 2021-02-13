@@ -443,6 +443,20 @@ ci-images:
     - "2020-clang7.9"
     - "2021-clang10.5"
 
+rt-images:
+  base:
+    - "2019.0"
+    - "2020.0"
+    - "2021.0"
+  vfxall:
+    - "2019.0"
+    - "2020.0"
+    - "2021.0"
+  vfxall-jupyter:
+    - "2019.0"
+    - "2020.0"
+    - "2021.0"
+
 groups:
   package:
       common: 
@@ -476,7 +490,7 @@ groups:
         - partio
         - ptex
         - usd
-  image:
+  ci-image:
       common:
         - common
       base:
@@ -493,6 +507,13 @@ groups:
         - osl
         - openvdb
         - vfxall
+  rt-image:
+      base:
+        - base
+      vfx:
+        - vfxall
+        - vfxall-jupyter
+
 
 package_data:
   python:
