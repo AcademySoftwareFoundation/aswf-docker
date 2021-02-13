@@ -6,12 +6,10 @@ Tests for the utility commands
 
 import unittest
 import logging
-import tempfile
-import os
 
 from click.testing import CliRunner
 
-from aswfdocker import utils, index, constants, dockergen
+from aswfdocker import dockergen
 from aswfdocker.cli import aswfdocker
 
 

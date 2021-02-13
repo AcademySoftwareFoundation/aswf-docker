@@ -5,9 +5,6 @@
 import unittest
 from unittest import mock
 import logging
-import tempfile
-
-from github import InputGitAuthor
 
 from click.testing import CliRunner
 
@@ -35,11 +32,11 @@ class TestReleaser(unittest.TestCase):
         )
         r.gh.repo.create_git_tag_and_release = mock.MagicMock()
 
-        class u:
+        class U:
             name = "testuser"
             email = "testuser@test.user"
 
-        r.gh.github.get_user = mock.MagicMock(return_value=u())
+        r.gh.github.get_user = mock.MagicMock(return_value=U())
 
         r.gather()
         r.release(dry_run=False)
