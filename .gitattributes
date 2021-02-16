@@ -3,3 +3,4 @@
 
 # Avoid Windows line breaks in shell scripts (bound to fail)
 *.sh text eol=lf
+

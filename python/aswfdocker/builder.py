@@ -89,7 +89,7 @@ class Builder:
         cmd = f"docker buildx bake -f {path} --progress {progress}"
         logger.debug("Repo root: %s", self.build_info.repo_root)
         if dry_run:
-            logger.info("Would build: %r", cmd)
+            logger.info("Would build: '%s'", cmd)
         else:
-            logger.info("Building: %r", cmd)
+            logger.info("Building: '%s'", cmd)
             subprocess.run(cmd, shell=True, check=True, cwd=self.build_info.repo_root)

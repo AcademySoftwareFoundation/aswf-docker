@@ -63,7 +63,7 @@ jobs:
             common_version: 2-clang10
             version: 2021
             test: ""
-          - group: img-usd-2021
+          - group: img-vfx3-2021
             type: CI_IMAGE
             name: usd
             common_version: 2-clang10

@@ -11,8 +11,6 @@ import logging
 import json
 import urllib.request
 import requests
-import json
-import urllib.request
 
 from aswfdocker import constants
 
@@ -150,15 +148,3 @@ def get_dockerhub_token(username, password):
     body = {"username": username, "password": password}
     response = requests.post("https://hub.docker.com/v2/users/login", json=body)
     return response.json()["token"]
-
-
-def iter_all_images():
-    for org in (constants.TESTING_DOCKER_ORG, constants.PUBLISH_DOCKER_ORG):
-        for image_type in (
-            constants.ImageType.PACKAGE,
-            constants.ImageType.CI_IMAGE,
-            constants.ImageType.RT_IMAGE,
-        ):
-            for _, images in constants.GROUPS[image_type].items():
-                for image in images:
-                    yield org, image_type, image
