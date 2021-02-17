@@ -10,13 +10,13 @@ import os
 import tempfile
 import typing
 
-from aswfdocker import constants, aswfinfo, utils, groupinfo
+from aswfdocker import constants, aswfinfo, utils, groupinfo, index
 
 logger = logging.getLogger(__name__)
 
 
 class Builder:
-    """Builder generates a "docker buildx bake" json file to drive the parallel builds of docker images.
+    """Builder generates a "docker buildx bake" json file to drive the parallel builds of Docker images.
     """
 
     def __init__(
@@ -28,19 +28,27 @@ class Builder:
         self.push = push
         self.build_info = build_info
         self.group_info = group_info
+        self.index = index.Index()
 
     def make_bake_dict(self) -> typing.Dict[str, dict]:
         root: typing.Dict[str, dict] = {}
         root["target"] = {}
         for image, version in self.group_info.iter_images_versions():
-            if self.group_info.type == constants.ImageType.PACKAGE:
-                docker_file = "packages/Dockerfile"
-            else:
-                docker_file = f"{image}/Dockerfile"
-
             major_version = utils.get_major_version(version)
-            version_info = constants.VERSION_INFO[major_version]
-            tags = version_info.get_tags(version, self.build_info.docker_org, image)
+            version_info = self.index.version_info(major_version)
+            if self.group_info.type == constants.ImageType.PACKAGE:
+                tags = version_info.get_tags(
+                    version,
+                    self.build_info.docker_org,
+                    image,
+                    extra_suffix=version_info.package_versions.get(
+                        "ASWF_" + image.replace("ci-package-", "").upper() + "_VERSION"
+                    ),
+                )
+                docker_file = f"packages/{self.index.get_group_from_image(self.group_info.type, image.replace('ci-package-', ''))}/Dockerfile"
+            else:
+                tags = version_info.get_tags(version, self.build_info.docker_org, image)
+                docker_file = f"{image}/Dockerfile"
             target_dict = {
                 "context": ".",
                 "dockerfile": docker_file,
@@ -49,9 +57,7 @@ class Builder:
                     "ASWF_PKG_ORG": self.build_info.package_org,
                     "ASWF_VERSION": version,
                     "CI_COMMON_VERSION": version_info.ci_common_version,
-                    "PYTHON_VERSION": version_info.python_version,
-                    "VFXPLATFORM_VERSION": major_version,
-                    "DTS_VERSION": version_info.dts_version,
+                    "ASWF_VFXPLATFORM_VERSION": version_info.major_version,
                 },
                 "labels": {
                     "org.opencontainers.image.created": self.build_info.build_date,
@@ -60,6 +66,7 @@ class Builder:
                 "tags": tags,
                 "output": ["type=registry,push=true" if self.push else "type=docker"],
             }
+            target_dict["args"].update(version_info.all_package_versions)
             if self.group_info.type == constants.ImageType.PACKAGE:
                 target_dict["target"] = image
             root["target"][f"{image}-{major_version}"] = target_dict
@@ -82,7 +89,7 @@ class Builder:
         cmd = f"docker buildx bake -f {path} --progress {progress}"
         logger.debug("Repo root: %s", self.build_info.repo_root)
         if dry_run:
-            logger.info("Would build: %r", cmd)
+            logger.info("Would build: '%s'", cmd)
         else:
-            logger.info("Building: %r", cmd)
+            logger.info("Building: '%s'", cmd)
             subprocess.run(cmd, shell=True, check=True, cwd=self.build_info.repo_root)

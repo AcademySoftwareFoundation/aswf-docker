@@ -1,0 +1,29 @@
+name: "usd"
+title: "USD CI Docker Image"
+description: |
+  Contains: Python, Qt, PySide and other USD upstream dependencies
+  Warning: this image does *not* contain USD itself as it is used to *build* USD!
+packages:
+  - python
+  - tbb
+  - boost
+  - glew
+  - glfw
+  - log4cplus
+  - qt
+  - pyside
+  - cmake
+  - openexr
+  - oiio
+  - ocio
+  - ptex
+  - opensubdiv
+  - alembic
+  - blosc
+  - openvdb
+implicit_packages:
+  - numpy
+  - hdf5
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION

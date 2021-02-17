@@ -5,7 +5,6 @@
 import unittest
 from unittest import mock
 import logging
-import tempfile
 
 from click.testing import CliRunner
 
@@ -32,20 +31,28 @@ class TestReleaser(unittest.TestCase):
             sha=utils.get_current_sha(),
         )
         r.gh.repo.create_git_tag_and_release = mock.MagicMock()
+
+        class U:
+            name = "testuser"
+            email = "testuser@test.user"
+
+        r.gh.github.get_user = mock.MagicMock(return_value=U())
+
         r.gather()
         r.release(dry_run=False)
         boost_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "boost")
         )[1]
-        r.gh.repo.create_git_tag_and_release.assert_called_with(
-            f"aswflocaltesting/ci-package-boost/{boost_version}",
+        r.gh.repo.create_git_tag_and_release.assert_called_once_with(
+            tag=f"aswflocaltesting/ci-package-boost/{boost_version}",
             draft=False,
             object=utils.get_current_sha(),
             prerelease=False,
-            release_message=f"Inspect released docker image here: https://hub.docker.com/r/aswflocaltesting/ci-package-boost/tags?name={boost_version}",
+            release_message=f"Inspect released Docker image here: https://hub.docker.com/r/aswflocaltesting/ci-package-boost/tags?name={boost_version}",
             release_name=f"aswflocaltesting/ci-package-boost:{boost_version}",
             tag_message=f"aswflocaltesting/ci-package-boost:{boost_version}",
             type="commit",
+            tagger=mock.ANY,
         )
 
 

@@ -15,6 +15,7 @@ from aswfdocker import (
     aswfinfo,
     groupinfo,
     constants,
+    dockergen as aswf_dockergen,
     index,
     utils,
     releaser,
@@ -44,7 +45,7 @@ pass_build_info = click.make_pass_decorator(aswfinfo.ASWFInfo)
 @click.version_option("1.0")
 @click.pass_context
 def cli(ctx, repo_root, repo_uri, source_branch, verbose):
-    """aswfdocker is a command line interface to build ASWF Docker packages and ci images
+    """aswfdocker is a command line interface to build ASWF Docker packages and CI images
     """
     if verbose:
         logging.basicConfig(level=logging.DEBUG)
@@ -106,19 +107,20 @@ def common_image_options(function):
 
 
 def get_group_info(build_info, ci_image_type, groups, versions, full_name, targets):
+    idx = index.Index()
     if full_name:
         org, image_type, target, version = full_name
         versions = [version]
         targets = [target]
         try:
-            groups = [utils.get_group_from_image(image_type, target)]
+            groups = [idx.get_group_from_image(image_type, target)]
         except RuntimeError as e:
             raise click.BadOptionUsage(option_name="--full-name", message=e.args[0])
         build_info.set_org(org)
     else:
         image_type = constants.ImageType[ci_image_type]
         if not groups and targets:
-            groups = [utils.get_group_from_image(image_type, targets[0])]
+            groups = [idx.get_group_from_image(image_type, targets[0])]
     group_info = groupinfo.GroupInfo(
         type_=image_type, names=groups, versions=versions, targets=targets,
     )
@@ -132,7 +134,7 @@ def get_group_info(build_info, ci_image_type, groups, versions, full_name, targe
     "-p",
     type=click.Choice(["YES", "NO", "AUTO"], case_sensitive=False),
     default="NO",
-    help="Push built images to docker repository.",
+    help="Push built images to Docker repository.",
 )
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
 @click.option(
@@ -154,7 +156,7 @@ def build(
     dry_run,
     progress,
 ):
-    """Builds a ci-package or ci-image docker image.
+    """Builds a ci-package or ci-image Docker image.
     """
     if push == "YES":
         pushb = True
@@ -185,7 +187,7 @@ def build(
 )
 @click.option("--dry-run", "-d", is_flag=True)
 def migrate(from_org, to_org, package, version, dry_run):
-    """Migrates packages from a dockerhub org to another.
+    """Migrates packages from a Docker Hub org to another.
     """
     m = migrater.Migrater(from_org, to_org)
     m.gather(package, version)
@@ -204,7 +206,7 @@ def migrate(from_org, to_org, package, version, dry_run):
 @cli.command()
 @pass_build_info
 def getdockerorg(build_info):
-    """Prints the current dockerhub organisation to use according to the current repo uri and branch name
+    """Prints the current Docker Hub organization to use according to the current repo uri and branch name
     """
     click.echo(
         utils.get_docker_org(build_info.repo_uri, build_info.source_branch), nl=False
@@ -226,7 +228,7 @@ def getdockerpush(build_info):
 
 @cli.command()
 @click.option(
-    "--docker-org", "-d", default="aswf", help="Docker organisation",
+    "--docker-org", "-d", default="aswf", help="Docker organization",
 )
 @click.option(
     "--package", "-p", help="Package name to download",
@@ -244,9 +246,9 @@ def download(build_info, docker_org, package, version):
 
 @cli.command()
 def packages():
-    """Lists all known ci packages in this format: PACKAGEGROUP/ci-package-PACKAGE:VERSION
+    """Lists all known CI packages in this format: PACKAGEGROUP/ci-package-PACKAGE:VERSION
     """
-    for group, packages in constants.GROUPS[constants.ImageType.PACKAGE].items():
+    for group, packages in index.Index().groups[constants.ImageType.PACKAGE].items():
         for package in packages:
             image_name = utils.get_image_name(constants.ImageType.PACKAGE, package)
             for version in index.Index().iter_versions(
@@ -257,9 +259,9 @@ def packages():
 
 @cli.command()
 def images():
-    """Lists all known ci images in this format: IMAGEGROUP/ci-IMAGE:VERSION
+    """Lists all known CI images in this format: IMAGEGROUP/ci-IMAGE:VERSION
     """
-    for group, images in constants.GROUPS[constants.ImageType.IMAGE].items():
+    for group, images in index.Index().groups[constants.ImageType.IMAGE].items():
         for image in images:
             image_name = utils.get_image_name(constants.ImageType.IMAGE, image)
             for version in index.Index().iter_versions(
@@ -296,7 +298,16 @@ def settings(settings_path, github_access_token):
     "--github-org",
     "-o",
     default=constants.MAIN_GITHUB_ASWF_ORG,
-    help=f"The GitHub organisation/username to create the release on, defaults to {constants.MAIN_GITHUB_ASWF_ORG}.",
+    help=f"The GitHub organization/username to create the release on, defaults to {constants.MAIN_GITHUB_ASWF_ORG}.",
+)
+@click.option(
+    "--docker-org",
+    "-do",
+    default=constants.TESTING_DOCKER_ORG,
+    help=f"The Docker organization/username to upload the Docker image to, defaults to {constants.TESTING_DOCKER_ORG}.",
+)
+@click.option(
+    "--message", "-m", help="The release message.",
 )
 @click.option("--dry-run", "-d", is_flag=True, help="Just logs what would happen.")
 @pass_build_info
@@ -309,9 +320,11 @@ def release(
     target,
     sha,
     github_org,
+    docker_org,
+    message,
     dry_run,
 ):
-    """Creates a GitHub release for a ci-package or ci-image docker image.
+    """Creates a GitHub release for a ci-package or ci-image Docker image.
     """
 
     # Disable SSL unclosed ResourceWarning coming from GitHub
@@ -327,13 +340,19 @@ def release(
             )
             sys.exit(1)
         sha = utils.get_current_sha()
+    if docker_org:
+        build_info.docker_org = docker_org
 
     group_info = get_group_info(
         build_info, ci_image_type, group, version, full_name, target
     )
 
     r = releaser.Releaser(
-        github_org=github_org, build_info=build_info, group_info=group_info, sha=sha
+        github_org=github_org,
+        build_info=build_info,
+        group_info=group_info,
+        message=message,
+        sha=sha,
     )
     r.gather()
     if not click.confirm(
@@ -345,3 +364,78 @@ def release(
         return
     r.release(dry_run=dry_run)
     click.echo("Release done.")
+
+
+@cli.command()
+@click.pass_context
+@click.option(
+    "--image-name", "-n", default="all", help='Image name to generate. E.g. "base"'
+)
+@click.option(
+    "--check", "-c", is_flag=True, help="Checks that the current files are up to date."
+)
+def dockergen(context, image_name, check):
+    """Generates a Docker file and readme from image data and template
+    """
+    if image_name == "all":
+        images = []
+        for gimages in index.Index().groups[constants.ImageType.IMAGE].values():
+            images.extend(gimages)
+    else:
+        images = [image_name]
+    if check:
+        for image in images:
+            path, ok = aswf_dockergen.DockerGen(image).check_dockerfile()
+            if not ok:
+                click.secho(f"{path} is not up to date!", fg="red")
+                context.exit(1)
+            else:
+                click.secho(f"{path} is up to date", fg="green")
+            path, ok = aswf_dockergen.DockerGen(image).check_readme()
+            if not ok:
+                click.secho(f"{path} is not up to date!", fg="red")
+                context.exit(1)
+            else:
+                click.secho(f"{path} is up to date", fg="green")
+    else:
+        for image in images:
+            path = aswf_dockergen.DockerGen(image).generate_dockerfile()
+            click.echo(f"Generated {path}")
+            path = aswf_dockergen.DockerGen(image).generate_readme()
+            click.echo(f"Generated {path}")
+
+
+@cli.command()
+@common_image_options
+@click.option(
+    "--username", "-u", help="Docker Hub username.",
+)
+@click.option(
+    "--password", "-p", help="Docker Hub password",
+)
+@pass_build_info
+def pushoverview(
+    build_info, ci_image_type, group, version, full_name, target, username, password,
+):
+    """Pushes the Docker Image README file to Docker Hub
+    """
+    group_info = get_group_info(
+        build_info, ci_image_type, group, version, full_name, target
+    )
+    if group_info.type == constants.ImageType.PACKAGE:
+        click.echo("Package readme do not exist yet.")
+        return
+    token = utils.get_dockerhub_token(username, password)
+    for image, _ in group_info.iter_images_versions():
+        dg = aswf_dockergen.DockerGen(image.replace("ci-", ""))
+        if dg.push_overview(build_info.docker_org, token):
+            click.secho(
+                f"Successfully pushed description to image {build_info.docker_org}/{image}",
+                fg="green",
+            )
+        else:
+            click.secho(
+                f"Failed to push description to image {build_info.docker_org}/{image}",
+                fg="red",
+            )
+            click.get_current_context().exit(1)

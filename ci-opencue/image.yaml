@@ -1,0 +1,17 @@
+name: "opencue"
+title: "OpenCue CI Docker Image"
+description: |
+  Contains: Python, CMake and other OpenCue upstream dependencies
+  Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!
+packages:
+  - python
+  - cmake
+implicit_packages:
+  - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION
+docker_commands: |
+  RUN sudo yum -y install \
+      java-1.8.0-openjdk.x86_64 \
+      java-1.8.0-openjdk-devel.x86_64

@@ -7,12 +7,12 @@ set -ex
 mkdir opensubdiv
 cd opensubdiv
 
-if [ ! -f $DOWNLOADS_DIR/opensubdiv-${OPENSUBDIV_VERSION}.tar.gz ]; then
-     curl --location https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v${OPENSUBDIV_VERSION}.tar.gz -o $DOWNLOADS_DIR/opensubdiv-${OPENSUBDIV_VERSION}.tar.gz
+if [ ! -f "$DOWNLOADS_DIR/opensubdiv-${ASWF_OPENSUBDIV_VERSION}.tar.gz" ]; then
+     curl --location "https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v${ASWF_OPENSUBDIV_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/opensubdiv-${ASWF_OPENSUBDIV_VERSION}.tar.gz"
 fi
 
-tar -zxf $DOWNLOADS_DIR/opensubdiv-${OPENSUBDIV_VERSION}.tar.gz
-cd OpenSubdiv-${OPENSUBDIV_VERSION}
+tar -zxf "$DOWNLOADS_DIR/opensubdiv-${ASWF_OPENSUBDIV_VERSION}.tar.gz"
+cd "OpenSubdiv-${ASWF_OPENSUBDIV_VERSION}"
 
 # Apply cmake patch https://github.com/PixarAnimationStudios/OpenSubdiv/pull/952
 cat <<EOF | patch -p1
@@ -31,32 +31,30 @@ index 4f3cd9d40..e01dc0915 100644
  #-------------------------------------------------------------------------------
 EOF
 
-if [[ $DTS_VERSION == 9 && $CUDA_VERSION == 10* ]]; then
-    # CUDA-10 is not compatible with GCC-9...
-    EXTRA_ARGS=-DNO_CUDA=1
+if [[ $ASWF_DTS_VERSION == 9 && $ASWF_CUDA_VERSION == 10* ]]; then
+    CUDA_COMPUTE_VERSION=compute_30
 else
-    EXTRA_ARGS=""
+    CUDA_COMPUTE_VERSION=compute_50
 fi
 
 mkdir build
 cd build
 
 cmake .. \
-      -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX} \
+      -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
       -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
       -DOPENCL_INCLUDE_DIRS=/usr/local/cuda/include \
       -DOPENCL_LIBRARIES=/usr/local/cuda/lib64/libOpenCL.so \
-      -DTBB_LOCATION=${ASWF_INSTALL_PREFIX} \
-      -DPTEX_INCLUDE_DIR=${ASWF_INSTALL_PREFIX}/include \
-      -DPTEX_LOCATION=${ASWF_INSTALL_PREFIX} \
-      -DGLFW_LOCATION=${ASWF_INSTALL_PREFIX} \
-      -DGLEW_INCLUDE_DIR=${ASWF_INSTALL_PREFIX}/include \
+      -DTBB_LOCATION="${ASWF_INSTALL_PREFIX}" \
+      -DPTEX_INCLUDE_DIR="${ASWF_INSTALL_PREFIX}/include" \
+      -DPTEX_LOCATION="${ASWF_INSTALL_PREFIX}" \
+      -DGLFW_LOCATION="${ASWF_INSTALL_PREFIX}" \
+      -DGLEW_INCLUDE_DIR="${ASWF_INSTALL_PREFIX}/include" \
       -DNO_EXAMPLES=ON \
       -DNO_REGRESSION=1 \
       -DNO_DOC=1 \
       -DNO_TUTORIALS=ON \
-      -DOSD_CUDA_NVCC_FLAGS="--gpu-architecture compute_30" \
-      $EXTRA_ARGS
+      -DOSD_CUDA_NVCC_FLAGS="--gpu-architecture ${CUDA_COMPUTE_VERSION}"
 make # random cuda build failure when more than one job in //...
 make install
 

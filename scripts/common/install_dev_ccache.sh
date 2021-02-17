@@ -4,18 +4,21 @@
 
 set -ex
 
+export DEV_CCACHE_VERSION=4.0
+
 mkdir ccache
 cd ccache
 
-CCACHE_VERSION=3.7.9
-if [ ! -f $DOWNLOADS_DIR/ccache-${CCACHE_VERSION}.tar.gz ]; then
-    curl --location https://github.com/ccache/ccache/releases/download/v${CCACHE_VERSION}/ccache-${CCACHE_VERSION}.tar.gz -o $DOWNLOADS_DIR/ccache-${CCACHE_VERSION}.tar.gz
+if [ ! -f "$DOWNLOADS_DIR/ccache-${DEV_CCACHE_VERSION}.tar.gz" ]; then
+    curl --location "https://github.com/ccache/ccache/releases/download/v${DEV_CCACHE_VERSION}/ccache-${DEV_CCACHE_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/ccache-${DEV_CCACHE_VERSION}.tar.gz"
 fi
 
-tar xf $DOWNLOADS_DIR/ccache-${CCACHE_VERSION}.tar.gz
+tar xf "$DOWNLOADS_DIR/ccache-${DEV_CCACHE_VERSION}.tar.gz"
 
-cd ccache-${CCACHE_VERSION}
-./configure --prefix=/opt/aswfbuilder
+cd "ccache-${DEV_CCACHE_VERSION}"
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/aswfbuilder -DZSTD_FROM_INTERNET=ON ..
 make -j$(nproc)
 make install
 
@@ -24,5 +27,5 @@ ln -s /opt/aswfbuilder/bin/ccache /opt/aswfbuilder/bin/g++
 ln -s /opt/aswfbuilder/bin/ccache /opt/aswfbuilder/bin/cc
 ln -s /opt/aswfbuilder/bin/ccache /opt/aswfbuilder/bin/c++
 
-cd ../..
+cd ../../..
 rm -rf ccache

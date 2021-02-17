@@ -1,0 +1,18 @@
+name: "osl"
+title: "OpenShadingLanguage CI Docker Image"
+description: |
+  Contains: Python, Boost, Qt, OpenEXR, OpenImageIO, Partio and other OpenShadingLanguage upstream dependencies
+  Warning: this image does *not* contain OpenShadingLanguage itself as it is used to *build* OpenShadingLanguage!
+packages:
+  - boost
+  - cmake
+  - python
+  - qt
+  - openexr
+  - oiio
+  - partio
+implicit_packages:
+  - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION

@@ -81,10 +81,9 @@ class TestUtils(unittest.TestCase):
             utils.get_image_spec("refs/tags/aswf/ci-package-openexr/2018"),
             ("aswf", constants.ImageType.PACKAGE, "openexr", "2018"),
         )
-
-    def test_group_from_image(self):
         self.assertEqual(
-            utils.get_group_from_image(constants.ImageType.PACKAGE, "clang"), "common"
+            utils.get_image_spec("aswf/ci-package-clang:1-clang6"),
+            ("aswf", constants.ImageType.PACKAGE, "clang", "1-clang6"),
         )
 
 
@@ -141,7 +140,8 @@ class TestUtilsCli(unittest.TestCase):
                 catch_exceptions=False,
             )
             self.assertEqual(result.exit_code, 0)
-            self.assertEqual(result.output, f"{tmpdirname}/packages/2019/tbb.tar.gz")
+            path = os.path.join(tmpdirname, "packages", "2019", "tbb.tar.gz")
+            self.assertEqual(result.output, path)
             self.assertTrue(os.path.exists(result.output))
 
     def test_cli_packages(self):

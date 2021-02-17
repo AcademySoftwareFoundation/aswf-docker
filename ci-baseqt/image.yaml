@@ -1,0 +1,20 @@
+name: "baseqt"
+title: "Base with Qt and PySide CI Docker Image"
+description: |
+  Contains: Python, TBB, Boost, Qt, PySide and other base libraries
+packages:
+  - boost
+  - cmake
+  - cppunit
+  - glew
+  - glfw
+  - log4cplus
+  - python
+  - tbb
+  - qt
+  - pyside
+implicit_packages:
+  - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION

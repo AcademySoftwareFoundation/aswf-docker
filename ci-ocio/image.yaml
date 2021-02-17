@@ -1,0 +1,19 @@
+name: "ocio"
+title: "OpenColorIO CI Docker Image"
+description: |
+  Contains: Python, TBB, Boost and other OpenColorIO upstream dependencies
+  Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!
+packages:
+  - python
+  - tbb
+  - boost
+  - glew
+  - glfw
+  - cmake
+  - openexr
+  - oiio
+implicit_packages:
+  - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION

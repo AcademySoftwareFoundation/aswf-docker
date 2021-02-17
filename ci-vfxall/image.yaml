@@ -1,0 +1,33 @@
+name: "vfxall"
+title: "VFX All CI Docker Image"
+description: |
+  Contains: all supported VFX packages
+packages:
+  - python
+  - tbb
+  - boost
+  - cppunit
+  - log4cplus
+  - glew
+  - glfw
+  - qt
+  - pyside
+  - cmake
+  - openexr
+  - blosc
+  - alembic
+  - oiio
+  - ocio
+  - opensubdiv
+  - ptex
+  - openvdb
+  - usd
+  - partio
+  - osl
+  - otio
+implicit_packages:
+  - numpy
+  - hdf5
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION

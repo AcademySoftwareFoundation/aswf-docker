@@ -9,14 +9,16 @@ explains our contribution process and procedures:
 * [Versioning Policy](#Versioning-Policy)
 * [Creating a Release](#Creating-a-Release)
 
-
 ## Getting Information
 
-There are two primary ways to connect with the aswf-docker project:
+There are three primary ways to connect with the aswf-docker project:
 
-* The [tac](https://lists.aswf.io/g/tac) mail list:
+* The [TAC mailing list](https://lists.aswf.io/g/tac):
   This is a general mailing list which can be used to discuss CI issues, please
-  use the #ci-working tag.
+  use the `#ci-working` tag.
+
+* The [ASWF Slack workspace](http://slack.aswf.io/):
+  The CI working group has a channel `#wg-ci` for discussions.
 
 * [GitHub Issues](https://github.com/AcademySoftwareFoundation/aswf-docker/issues): GitHub
   Issues are used both to track bugs and to discuss feature requests.
@@ -27,7 +29,7 @@ aswf-docker use GitHub's issue tracking system for bugs and enhancements:
 https://github.com/AcademySoftwareFoundation/aswf-docker/issues
 
 If you are submitting a bug report, please be sure to note which
-docker image you are using. Please give a specific account of
+Docker image you are using. Please give a specific account of
 
 * what you tried
 * what happened
@@ -73,7 +75,8 @@ Every commit must be signed off.  That is, every commit log message
 must include a “`Signed-off-by`” line (generated, for example, with
 “`git commit --signoff`”), indicating that the committer wrote the
 code and has the right to release it under the [Apache-2.0](LICENSE.md)
-license. See https://github.com/AcademySoftwareFoundation/tac/blob/master/process/contributing.md#contribution-sign-off for more information on this requirement.
+license. See [Contribution Sign-Off](https://github.com/AcademySoftwareFoundation/tac/blob/master/process/contributing.md#contribution-sign-off)
+for more information on this requirement.
 
 ## Development Workflow
 
@@ -94,7 +97,7 @@ Documentation](https://git-scm.com/doc).
 
 ### Docker Basics
 
-You will also need to understand how Docker images are built and how 
+You will also need to understand how Docker images are built and how
 to test them. The `aswfdocker` Python utility wraps many of the complexities
 of the Docker build process and must be installed locally before starting.
 Please read the Python [README.md](python/README.md) file for further instructions.
@@ -154,9 +157,9 @@ aswf-docker-dev@lists.aswf.io mail list.
 
 ### Pull Requests
 
-Contributions should be submitted as Github pull requests. See
+Contributions should be submitted as GitHub pull requests. See
 [Creating a pull request](https://help.github.com/articles/creating-a-pull-request/)
-if you're unfamiliar with this concept. 
+if you're unfamiliar with this concept.
 
 The development cycle for a code change should follow this protocol:
 
@@ -170,7 +173,7 @@ with a separate pull request.
 
 3. Push commits to your fork.
 
-4. Create a Github pull request from your topic branch.
+4. Create a GitHub pull request from your topic branch.
 
 5. Pull requests will be reviewed by project Committers and Contributors,
 who may discuss, offer constructive feedback, request changes, or approve
@@ -248,7 +251,7 @@ tests can be run manually by running `pre-commit run --all-files`.
 
 #### Formatting
 
-[Black](https://black.readthedocs.io/en/stable/) is the automatic formatter of choice 
+[Black](https://black.readthedocs.io/en/stable/) is the automatic formatter of choice
 for aswf-docker and is required to be run before any commit.
 
 #### Naming Conventions
@@ -265,21 +268,23 @@ All new source files should begin with a copyright and license stating:
 
 ## Versioning Policy
 
-Any non-trivial change to the docker images should be followed by incrementing
+Any non-trivial change to the Docker images should be followed by incrementing
 the corresponding image version. We use MAJOR.MINOR versioning for all images.
-Versioning is further explained in the [Readme](README.md#version) file.
+Versioning is further explained in the [README](README.md#version) file.
 
 ## Releasing new Docker Images
 
 The [CHANGELOG.md](CHANGELOG.md) file needs to be updated with the date of the change
-and the list of new docker image versions that will be built by the CI infrastructure.
+and the list of new Docker image versions that will be built by the CI infrastructure.
 
 GitHub releases will trigger a `Release` GitHub action that will build the corresponding
-image and push it to dockerhub.
+image and push it to Docker Hub.
 
 ### Build
-`aswfdocker build` builds ci packages and ci images.
+
+`aswfdocker build` builds CI packages and CI images.
 Example use: just build a single package for testing:
+
 ```bash
 # Build and push USD package to aswftesting
 aswfdocker --verbose build -t PACKAGE --group vfx --version 2019 --target usd --push
@@ -288,17 +293,25 @@ aswfdocker --verbose build -t IMAGE --group vfx --version 2019 --target vfxall -
 ```
 
 ### Migrate
-`aswfdocker migrate` can migrate images between docker organisations, should only be used on package images
+
+`aswfdocker migrate` can migrate images between Docker organizations, should only be used on package images
 that are very heavy to build such as clang or qt.
-Example use: migrate a single package from `aswftesting` to `aswf` dockerhub organisation.
+Example use: migrate a single package from `aswftesting` to `aswf` Docker Hub organization.
+
 ```bash
 aswfdocker --verbose migrate --from aswftesting --to aswf --package usd
 ```
 
+### Updating versions
+
+If a version number of a package or an image needs to be updated, the `versions.yaml` file is the main data source.
+In order to update the templated images with updated version numbers, run `aswfdocker dockergen`.
+
 ### Manually push new packages
-When rebuilding all packages from the CI is overkill, and if you have access to the right dockerhub organisations, it is possible
+
+When rebuilding all packages from the CI is overkill, and if you have access to the right Docker Hub organizations, it is possible
 to manually build and push packages and images by overriding the automatic discovery of current repo and branch.
-E.g. to build and push a new `ninja` package these commands can be run to push to `aswf` and `aswftesting` organisations:
+E.g. to build and push a new `ninja` package these commands can be run to push to `aswf` and `aswftesting` organizations:
 
 ```bash
 # push to aswftesting
@@ -308,6 +321,7 @@ aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/asw
 ```
 
 ### Manual GitHub release creation
+
 * Create a new release in [GitHub New Release](https://github.com/AcademySoftwareFoundation/aswf-docker/releases/new)
     * Use the following tag format: `ci-NAME:X.Y` (e.g. `ci-common:1.4`)
     * Use the following release name format: `aswf/ci-NAME:X.Y` (e.g. `aswf/ci-common:1.4`)
@@ -316,14 +330,91 @@ aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/asw
 * Run a manual build in Azure on the specific tagged commit created before
 
 ### Automatic GitHub release creation
-* Generate a GitHub token to allow `aswfdocker release` to create GitHub releases: [GitHub Settings](https://github.com/settings/tokens) with **"repo"** permissions.
+
+* Generate a GitHub token to allow `aswfdocker release` to create GitHub releases:
+  [GitHub Settings](https://github.com/settings/tokens) with **"repo"** permissions.
 * Configure the token in the `aswfdocker` settings by running:
-    `aswfdocker settings --github-access-token MYTOKEN`.
+  ```bash
+  aswfdocker settings --github-access-token MYTOKEN
+  ```
 * Run the `release` command for a given image:
+  ```bash
+  aswfdocker release -n aswftesting/ci-base:2021
+  ```
+  or for a whole group of images:
+  ```bash
+  aswfdocker release -t PACKAGE -g base1 -v 2018 --docker-org aswftesting -m "Testing release"
+  ```
+
+### Adding a new `ci` image
+
+Let's consider the addition of a new `ci-xyz` Docker image to help the maintainers of the `xyz` library. The `ci-xyz` Docker image
+should be prepared with most upstream dependencies of the `xyz` library.
+
+It is usually a good idea to add this `xyz` package to the `vfxall` library so that it can be tested there.
+
+* Add a new `xyz` version section in the `versions.yaml`, for both the `ci-package-xyz` Docker package and the `ci-xyz` for the CI image.
+* Create a new `ci-xyx/Dockerfile` using an existing one as an example (e.g. `ci-otio/Dockerfile`).
+* Create a new `scripts/vfx/build_xyz.sh` file that builds and installs `xyz` from source.
+* Add a new `xyz` section at the end of the `packages/Dockerfile` file to build the `ci-package-xyz` Docker package using the previous script.
+* Add the `xyz` package to the `ci-vfxall/Dockerfile` image.
+* Test the scripts by running these commands in order and manually checking if everything works
+  ```bash
+  # Build the CI image
+  aswfdocker build -n aswftesting/ci-xyz:2019
+  # Build the CI package (a small Docker image that contains only the xyz build artifacts)
+  aswfdocker build -n aswftesting/ci-package-xyz:2019 --progress plain
+  # Buils the `vfxall` package that should now contain the `xyz` package
+  aswfdocker build -n aswftesting/ci-vfxall:2019
+  # Now run the vfxall image locally to test if xyz is working properly
+  docker run --gpus=all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v `pwd`:/project --rm -it aswftesting/ci-vfxall:2019 bash
+  ```
+* Do a pre-release of the new `ci-package-xyz` image so it can be used by the GitHub Action builds and tests:
+  ```bash
+  # Create a GitHub release to build the `ci-package-xyz:2___` image via a GitHub action
+  aswfdocker release -n aswftesting/ci-package-xyz:2019 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
+  aswfdocker release -n aswftesting/ci-package-xyz:2020 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
+  aswfdocker release -n aswftesting/ci-package-xyz:2021 --sha `git rev-parse HEAD` --github-org MY_GITHUB_ORG
+  ```
+* Create the Pull Request with these changes
+
+Check [#66](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/66) for an example.
+
+### Example of a large re-release of all images
+
 ```bash
-aswfdocker release -n aswftesting/ci-base:2021
-```
-or for a whole group of images:
-```bash
-aswfdocker release -t PACKAGE -g base1 -v 2018
+# Common packages
+aswfdocker release -t PACKAGE -g common -v 1 -v 2 --target ninja --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 --target clang --docker-org aswf -m "RELEASE_NOTES!"
+# Wait for clang builds to finish (from 2 to 3 hours!)
+
+# ci-common needs to be built before base packages can be built
+aswfdocker release -t IMAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 --docker-org aswf -m "RELEASE_NOTES!"
+
+# Base packages
+aswfdocker release -t PACKAGE -g base1 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base2 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+# Wait for Qt builds to finish (2-6 hours!)
+
+# Usually some Qt build will fail as too big and too slow for free GitHub actions... So here's how to build qt locally:
+aswfdocker --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/master --verbose build -n aswf/ci-package-qt
+:2021
+docker push aswf/ci-package-qt:2021
+docker push aswf/ci-package-qt:2021-5.15.2
+docker push aswf/ci-package-qt:preview
+docker push aswf/ci-package-qt:2021.1
+
+# Once all Qt are out, release PySide packages
+aswfdocker release -t PACKAGE -g base3 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+
+# Wait for all Qt and Pyside builds to finish, then build downstream packages:
+# VFX packages
+aswfdocker release -t PACKAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+
+# Finally build the CI images
+aswfdocker release -t IMAGE -g base -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx3 -v 2018-clang7 -v 2019-clang6 -v 2019-clang7 -v 2019-clang8 -v 2019-clang9 -v 2020-clang7 -v 2021-clang10 -v 2021-clang11 --docker-org aswf -m "RELEASE_NOTES!"
 ```

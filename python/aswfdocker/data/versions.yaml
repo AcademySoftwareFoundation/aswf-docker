@@ -1,0 +1,502 @@
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# This file contains all the CI Docker package and image versions
+
+versions:
+  "1":
+    major_version: "1"
+    ci_common_version: "1"
+    package_versions:
+      ASWF_DTS_VERSION: "6"
+      ASWF_CUDA_VERSION: "10.2"
+      ASWF_CCACHE_VERSION: "4.0"
+      ASWF_NINJA_VERSION: "1.10.1"
+      ASWF_SONAR_VERSION: "4.5.0.2216"
+  "1-clang6":
+    parent_versions: ["1"]
+    major_version: "1"
+    ci_common_version: "1"
+    package_versions:
+      ASWF_CLANG_MAJOR_VERSION: "6"
+      ASWF_CLANG_VERSION: "6.0.1"
+  "1-clang7":
+    parent_versions: ["1"]
+    major_version: "1"
+    tags: ["latest"]
+    ci_common_version: "1"
+    use_major_version_as_tag: true
+    package_versions:
+      ASWF_CLANG_MAJOR_VERSION: "7"
+      ASWF_CLANG_VERSION: "7.1.0"
+  "1-clang8":
+    parent_versions: ["1"]
+    major_version: "1"
+    ci_common_version: "1"
+    package_versions:
+      ASWF_CLANG_MAJOR_VERSION: "8"
+      ASWF_CLANG_VERSION: "8.0.1"
+  "1-clang9":
+    parent_versions: ["1"]
+    major_version: "1"
+    ci_common_version: "1"
+    package_versions:
+      ASWF_CLANG_MAJOR_VERSION: "9"
+      ASWF_CLANG_VERSION: "9.0.1"
+  "1-clang10":
+    parent_versions: ["1"]
+    major_version: "1"
+    ci_common_version: "1"
+    package_versions:
+      ASWF_CLANG_MAJOR_VERSION: "10"
+      ASWF_CLANG_VERSION: "10.0.1"
+  "2":
+    major_version: "2"
+    tags: ["preview"]
+    ci_common_version: "2"
+    package_versions:
+      ASWF_DTS_VERSION: "9"
+      ASWF_CUDA_VERSION: "11.1"
+      ASWF_CCACHE_VERSION: "4.0"
+      ASWF_NINJA_VERSION: "1.10.1"
+      ASWF_SONAR_VERSION: "4.5.0.2216"
+  "2-clang10":
+    parent_versions: ["2"]
+    major_version: "2"
+    tags: ["preview"]
+    ci_common_version: "2"
+    use_major_version_as_tag: true
+    package_versions:
+      ASWF_CLANG_MAJOR_VERSION: "10"
+      ASWF_CLANG_VERSION: "10.0.1"
+  "2-clang11":
+    parent_versions: ["2"]
+    major_version: "2"
+    ci_common_version: "2"
+    package_versions:
+      ASWF_CLANG_MAJOR_VERSION: "11"
+      ASWF_CLANG_VERSION: "11.0.0"
+  "2018":
+    parent_versions: ["1", "1-clang7"]
+    major_version: "2018"
+    ci_common_version: "1"
+    package_versions:
+      ASWF_ALEMBIC_VERSION: "1.7.11"
+      ASWF_BLOSC_VERSION: "1.5.0"
+      ASWF_BOOST_VERSION: "1.61.0"
+      ASWF_CMAKE_VERSION: "3.9.4"
+      ASWF_CPPUNIT_VERSION: "1.14.0"
+      ASWF_GLEW_VERSION: "2.1.0"
+      ASWF_GLFW_VERSION: "3.1.2"
+      ASWF_HDF5_VERSION: "1.8.21"
+      ASWF_LOG4CPLUS_VERSION: "1.1.2"
+      ASWF_NUMPY_VERSION: "1.14"
+      ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
+      ASWF_OCIO_VERSION: "1.0.9"
+      ASWF_OIIO_VERSION: "2.0.8"
+      ASWF_OPENEXR_VERSION: "2.2.1"
+      ASWF_OPENSUBDIV_VERSION: "3_3_3"
+      ASWF_OPENVDB_VERSION: "5.2.0"
+      ASWF_OSL_VERSION: "1.10.9"
+      ASWF_PARTIO_VERSION: "1.10.1"
+      ASWF_PTEX_VERSION: "2.1.28"
+      ASWF_PYSIDE_VERSION: "2.0.0"
+      ASWF_PYTHON_VERSION: "2.7.15"
+      ASWF_PYTHON_MAJOR_MINOR_VERSION: "2.7"
+      ASWF_QT_VERSION: "5.6.1"
+      ASWF_TBB_VERSION: "2017_U6"
+      ASWF_USD_VERSION: "19.11"
+      ASWF_VFXPLATFORM_VERSION: "2018"
+  "2018-clang7":
+    parent_versions: ["1", "1-clang7", "2018"]
+    major_version: "2018"
+    ci_common_version: "1"
+  "2019":
+    parent_versions: ["1", "1-clang7"]
+    major_version: "2019"
+    tags: ["latest"]
+    ci_common_version: "1"
+    package_versions:
+      ASWF_ALEMBIC_VERSION: "1.7.11"
+      ASWF_BLOSC_VERSION: "1.5.0"
+      ASWF_BOOST_VERSION: "1.66.0"
+      ASWF_CMAKE_VERSION: "3.12.4"
+      ASWF_CPPUNIT_VERSION: "1.14.0"
+      ASWF_GLEW_VERSION: "2.1.0"
+      ASWF_GLFW_VERSION: "3.1.2"
+      ASWF_HDF5_VERSION: "1.8.21"
+      ASWF_LOG4CPLUS_VERSION: "1.1.2"
+      ASWF_NUMPY_VERSION: "1.14"
+      ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
+      ASWF_OCIO_VERSION: "1.1.0"
+      ASWF_OIIO_VERSION: "2.0.8"
+      ASWF_OPENEXR_VERSION: "2.3.0"
+      ASWF_OPENSUBDIV_VERSION: "3_3_3"
+      ASWF_OPENVDB_VERSION: "6.2.1"
+      ASWF_OSL_VERSION: "1.10.9"
+      ASWF_OTIO_VERSION: "0.12.1"
+      ASWF_PARTIO_VERSION: "1.10.1"
+      ASWF_PTEX_VERSION: "2.1.33"
+      ASWF_PYBIND11_VERSION: "2.6.2"
+      ASWF_PYSIDE_VERSION: "5.12.6"
+      ASWF_PYTHON_VERSION: "2.7.15"
+      ASWF_PYTHON_MAJOR_MINOR_VERSION: "2.7"
+      ASWF_QT_VERSION: "5.12.6"
+      ASWF_TBB_VERSION: "2018"
+      ASWF_USD_VERSION: "19.11"
+      ASWF_VFXPLATFORM_VERSION: "2019"
+  "2019-clang6":
+    parent_versions: ["1", "1-clang6", "2019"]
+    major_version: "2019"
+    ci_common_version: "1"
+  "2019-clang7":
+    parent_versions: ["1", "1-clang7", "2019"]
+    major_version: "2019"
+    tags: ["latest"]
+    ci_common_version: "1"
+    use_major_version_as_tag: true
+  "2019-clang8":
+    parent_versions: ["1", "1-clang8", "2019"]
+    major_version: "2019"
+    ci_common_version: "1"
+  "2019-clang9":
+    parent_versions: ["1", "1-clang9", "2019"]
+    major_version: "2019"
+    ci_common_version: "1"
+  "2019-clang10":
+    parent_versions: ["1", "1-clang10", "2019"]
+    major_version: "2019"
+    ci_common_version: "1"
+  "2020":
+    parent_versions: ["1", "1-clang7"]
+    major_version: "2020"
+    ci_common_version: "1"
+    package_versions:
+      ASWF_ALEMBIC_VERSION: "1.7.12"
+      ASWF_BLOSC_VERSION: "1.5.0"
+      ASWF_BOOST_VERSION: "1.70.0"
+      ASWF_CMAKE_VERSION: "3.18.4"
+      ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_GLEW_VERSION: "2.1.0"
+      ASWF_GLFW_VERSION: "3.1.2"
+      ASWF_HDF5_VERSION: "1.8.21"
+      ASWF_LOG4CPLUS_VERSION: "1.1.2"
+      ASWF_NUMPY_VERSION: "1.16"
+      ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
+      ASWF_OCIO_VERSION: "1.1.1"
+      ASWF_OIIO_VERSION: "2.1.13.0"
+      ASWF_OPENEXR_VERSION: "2.4.0"
+      ASWF_OPENSUBDIV_VERSION: "3_4_3"
+      ASWF_OPENVDB_VERSION: "7.1.0"
+      ASWF_OSL_VERSION: "1.10.10"
+      ASWF_OTIO_VERSION: "0.12.1"
+      ASWF_PARTIO_VERSION: "1.10.1"
+      ASWF_PTEX_VERSION: "2.3.2"
+      ASWF_PYBIND11_VERSION: "2.6.2"
+      ASWF_PYSIDE_VERSION: "5.12.6"
+      ASWF_PYTHON_VERSION: "3.7.3"
+      ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.7"
+      ASWF_QT_VERSION: "5.12.6"
+      ASWF_TBB_VERSION: "2019_U6"
+      ASWF_USD_VERSION: "20.11"
+      ASWF_VFXPLATFORM_VERSION: "2020"
+  "2020-clang7":
+    parent_versions: ["1", "1-clang7", "2020"]
+    major_version: "2020"
+    ci_common_version: "1"
+    use_major_version_as_tag: true
+  "2021":
+    parent_versions: ["2", "2-clang10"]
+    major_version: "2021"
+    tags: ["preview"]
+    ci_common_version: "2"
+    package_versions:
+      ASWF_ALEMBIC_VERSION: "1.7.16"
+      ASWF_BLOSC_VERSION: "1.5.0"
+      ASWF_BOOST_VERSION: "1.73.0"
+      ASWF_CMAKE_VERSION: "3.19.3"
+      ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_GLEW_VERSION: "2.1.0"
+      ASWF_GLFW_VERSION: "3.1.2"
+      ASWF_HDF5_VERSION: "1.8.21"
+      ASWF_LOG4CPLUS_VERSION: "1.1.2"
+      ASWF_NUMPY_VERSION: "1.19"
+      ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
+      ASWF_OCIO_VERSION: "2.0.0"
+      ASWF_OIIO_VERSION: "2.2.10.0"
+      ASWF_OPENEXR_VERSION: "2.5.2"
+      ASWF_OPENSUBDIV_VERSION: "3_4_3"
+      ASWF_OPENVDB_VERSION: "8.0.0"
+      ASWF_OSL_VERSION: "1.11.10.0"
+      ASWF_OTIO_VERSION: "0.12.1"
+      ASWF_PARTIO_VERSION: "1.14.0"
+      ASWF_PTEX_VERSION: "2.3.2"
+      ASWF_PYBIND11_VERSION: "2.6.2"
+      ASWF_PYSIDE_VERSION: "5.15.2"
+      ASWF_PYTHON_VERSION: "3.7.9"
+      ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.7"
+      ASWF_QT_VERSION: "5.15.2"
+      ASWF_TBB_VERSION: "2020_U2"
+      ASWF_USD_VERSION: "21.02"
+      ASWF_VFXPLATFORM_VERSION: "2021"
+  "2021-clang10":
+    parent_versions: ["2", "2-clang10", "2021"]
+    major_version: "2021"
+    tags: ["preview"]
+    ci_common_version: "2"
+    use_major_version_as_tag: true
+  "2021-clang11":
+    parent_versions: ["2", "2-clang11", "2021"]
+    major_version: "2021"
+    tags: ["preview"]
+    ci_common_version: "2"
+
+ci-packages:
+  clang:
+    - "1-clang6.2"
+    - "1-clang7.2"
+    - "1-clang8.2"
+    - "1-clang9.2"
+    - "1-clang10.2"
+    - "2-clang10.2"
+    - "2-clang11.2"
+  ninja:
+    - "1.3"
+    - "2.1"
+  cmake:
+    - "2018.0"
+    - "2019.0"
+    - "2020.0"
+    - "2021.1"
+  python:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  pybind11:
+    - "2019.0"
+    - "2020.0"
+    - "2021.0"
+  boost:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  tbb:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  cppunit:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.1"
+  glew:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  glfw:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  log4cplus:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.1"
+  qt:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  pyside:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  blosc:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.1"
+  openexr:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  alembic:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  ocio:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.3"
+  oiio:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.3"
+  opensubdiv:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  ptex:
+    - "2018.2"
+    - "2019.2"
+    - "2020.2"
+    - "2021.1"
+  openvdb:
+    - "2019.2"
+    - "2020.2"
+    - "2021.2"
+  usd:
+    - "2019.3"
+    - "2020.2"
+    - "2021.4"
+  partio:
+    - "2018.1"
+    - "2019.1"
+    - "2020.1"
+    - "2021.2"
+  osl:
+    - "2018.1"
+    - "2019.1"
+    - "2020.1"
+    - "2021.2"
+  otio:
+    - "2019.1"
+    - "2020.1"
+    - "2021.2"
+
+ci-images:
+  common:
+    - "1-clang6.7"
+    - "1-clang7.7"
+    - "1-clang8.7"
+    - "1-clang9.7"
+    - "1-clang10.7"
+    - "2-clang10.3"
+    - "2-clang11.3"
+  base:
+    - "2018.7"
+    - "2019.7"
+    - "2020.7"
+    - "2021.4"
+  baseqt:
+    - "2018.0"
+    - "2019.0"
+    - "2020.0"
+    - "2021.1"
+  openexr:
+    - "2018.7"
+    - "2019.7"
+    - "2020.7"
+    - "2021.4"
+  ocio:
+    - "2018.8"
+    - "2019.8"
+    - "2020.7"
+    - "2021.4"
+  opencue:
+    - "2018.7"
+    - "2019.7"
+    - "2020.7"
+    - "2021.4"
+  usd:
+    - "2019.8"
+    - "2020.7"
+    - "2021.4"
+  otio:
+    - "2019.2"
+    - "2020.2"
+    - "2021.3"
+  osl:
+    - "2018-clang7.3"
+    - "2019-clang6.3"
+    - "2019-clang7.3"
+    - "2019-clang8.3"
+    - "2019-clang9.3"
+    - "2019-clang10.3"
+    - "2020-clang7.3"
+    - "2021-clang10.4"
+    - "2021-clang11.4"
+  openvdb:
+    - "2018-clang7.7"
+    - "2019-clang6.7"
+    - "2019-clang7.7"
+    - "2019-clang8.7"
+    - "2019-clang9.7"
+    - "2020-clang7.7"
+    - "2021-clang10.4"
+  vfxall:
+    - "2019-clang6.11"
+    - "2019-clang7.11"
+    - "2019-clang8.11"
+    - "2019-clang9.11"
+    - "2020-clang7.9"
+    - "2021-clang10.5"
+
+groups:
+  package:
+      common: 
+        - clang
+        - ninja
+      base1:
+        - boost
+        - cmake
+        - cppunit
+        - glew
+        - glfw
+        - log4cplus
+        - python
+        - tbb
+        - pybind11
+      base2:
+        - qt
+      base3:
+        - pyside
+      vfx1: 
+        - alembic
+        - blosc
+        - ocio
+        - oiio
+        - openexr
+        - openvdb
+      vfx2: 
+        - opensubdiv
+        - osl
+        - otio
+        - partio
+        - ptex
+        - usd
+  image:
+      common:
+        - common
+      base:
+        - base
+        - baseqt
+      vfx1:
+        - opencue
+        - openexr
+      vfx2:
+        - ocio
+        - otio
+        - usd
+      vfx3:
+        - osl
+        - openvdb
+        - vfxall
+
+package_data:
+  python:
+    docker_args:
+      - ASWF_PYTHON_MAJOR_MINOR_VERSION
+    docker_commands: |
+      ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}

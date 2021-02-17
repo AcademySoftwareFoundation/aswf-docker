@@ -1,7 +1,16 @@
 name: Test Python aswfdocker Library
 
 on:
-  [push]
+  push:
+    branches:
+      - '*'
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches:
+      - '*'
+    paths-ignore:
+      - '**.md'
 
 jobs:
   python:
@@ -23,3 +32,6 @@ jobs:
 
     - run: pipenv run pre-commit run --all-files
       name: Run all pre-commit tests
+
+    - run: pipenv run aswfdocker dockergen --check
+      name: Check that all templated Dockerfile and README.md are up to date

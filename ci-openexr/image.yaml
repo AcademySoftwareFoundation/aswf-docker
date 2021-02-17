@@ -1,0 +1,14 @@
+name: "openexr"
+title: "OpenEXR CI Docker Image"
+description: |
+  Contains: Python, Boost and other OpenEXR upstream dependencies
+  Warning: this image does *not* contain OpenEXR itself as it is used to *build* OpenEXR!
+packages:
+  - python
+  - boost
+  - cmake
+implicit_packages:
+  - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION

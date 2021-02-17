@@ -5,9 +5,10 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+atomicwrites = {version = "*", markers = "platform_system == 'Windows'"}
 pytest-cov = "*"
 prospector = "*"
-black = "*"
+black = "==19.10b0"
 mypy = "*"
 pre-commit = "*"
 pipenv-setup = "*"
@@ -17,6 +18,9 @@ aswfdocker = {editable = true,path = "."}
 click = "*"
 pygithub = "*"
 pyyaml = "*"
+jinja2 = "*"
+requests = "*"
+importlib-resources = "*"
 
 [requires]
 python_version = "3.7"

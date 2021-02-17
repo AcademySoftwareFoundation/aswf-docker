@@ -7,13 +7,13 @@ set -ex
 git clone https://github.com/Blosc/c-blosc.git
 cd c-blosc
 
-if [ "$BLOSC_VERSION" != "latest" ]; then
-    git checkout tags/v${BLOSC_VERSION} -b v${BLOSC_VERSION}
+if [ "$ASWF_BLOSC_VERSION" != "latest" ]; then
+    git checkout "tags/v${ASWF_BLOSC_VERSION}" -b "v${ASWF_BLOSC_VERSION}"
 fi
 
 mkdir build
 cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=${ASWF_INSTALL_PREFIX}
+cmake .. -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}"
 make -j$(nproc)
 make install
 

@@ -5,9 +5,6 @@ Tests for user settings
 """
 
 import unittest
-import tempfile
-import os
-import logging
 
 from aswfdocker import constants, index
 
@@ -27,4 +24,15 @@ class TestIndex(unittest.TestCase):
         self.assertEqual(images[0], "common")
         versions = list(self.index.iter_versions(constants.ImageType.IMAGE, images[0]))
         self.assertGreaterEqual(len(versions), 1)
-        self.assertTrue(versions[0].startswith("1."))
+        self.assertTrue(versions[0].startswith("1-clang"))
+
+    def test_version_info(self):
+        vi = self.index.version_info("2019")
+        self.assertTrue(vi)
+        self.assertEqual(vi.version, "2019")
+
+    def test_group_from_image(self):
+        self.assertEqual(
+            self.index.get_group_from_image(constants.ImageType.PACKAGE, "clang"),
+            "common",
+        )
