@@ -63,7 +63,7 @@ COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-cmake /. /usr/local/
 COPY ci-opencue/README.md ci-opencue/image.yaml /usr/local/aswf/
 
-RUN yum -y install \
+RUN sudo yum -y install \
     java-1.8.0-openjdk.x86_64 \
     java-1.8.0-openjdk-devel.x86_64
 
