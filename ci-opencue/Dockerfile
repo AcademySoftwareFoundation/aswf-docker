@@ -67,4 +67,5 @@ RUN sudo yum -y install \
     java-1.8.0-openjdk.x86_64 \
     java-1.8.0-openjdk-devel.x86_64
 
+
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
