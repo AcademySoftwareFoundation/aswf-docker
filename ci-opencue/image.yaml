@@ -13,5 +13,5 @@ docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_
 docker_package_version: $ASWF_VFXPLATFORM_VERSION
 docker_commands: |
   RUN sudo yum -y install \
-      java-1.8.0-openjdk.x86_64 \
-      java-1.8.0-openjdk-devel.x86_64
+      java-11-openjdk.x86_64 \
+      java-11-openjdk-devel.x86_64
