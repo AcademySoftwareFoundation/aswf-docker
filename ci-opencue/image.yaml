@@ -15,3 +15,6 @@ docker_commands: |
   RUN sudo yum -y install \
       java-11-openjdk.x86_64 \
       java-11-openjdk-devel.x86_64
+  RUN sudo alternatives --set java java-11-openjdk.x86_64 && \
+      sudo alternatives --set javac java-11-openjdk.x86_64 && \
+      sudo alternatives --set jre_openjdk java-11-openjdk.x86_64
