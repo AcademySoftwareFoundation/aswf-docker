@@ -66,6 +66,9 @@ COPY ci-opencue/README.md ci-opencue/image.yaml /usr/local/aswf/
 RUN sudo yum -y install \
     java-11-openjdk.x86_64 \
     java-11-openjdk-devel.x86_64
+RUN sudo alternatives --set java java-11-openjdk.x86_64 && \
+    sudo alternatives --set javac java-11-openjdk.x86_64 && \
+    sudo alternatives --set jre_openjdk java-11-openjdk.x86_64
 
 
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
