@@ -10,6 +10,7 @@ packages:
   - qt
   - openexr
   - oiio
+  - ocio
   - partio
 implicit_packages:
   - numpy

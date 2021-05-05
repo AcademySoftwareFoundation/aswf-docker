@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2021-05-05
+
+### Changed
+
+* Added OpenColorIO to `ci-osl` image
+
+### New CI Images
+* `ci-osl:2018-clang7.4`, `ci-osl:2019-clang6.4`, `ci-osl:2019-clang7.4`, `ci-osl:2019-clang8.4`, `ci-osl:2019-clang9.4`, `ci-osl:2019-clang10.4`, `ci-osl:2020-clang7.4`, `ci-osl:2021-clang10.5`, `ci-osl:2021-clang11.5`
+
+
 ## 2020-12-20
 
 ### Added
