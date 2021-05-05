@@ -18,7 +18,7 @@ Warning: this image does *not* contain OpenShadingLanguage itself as it is used 
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-osl/Dockerfile)
 
-## [aswf/ci-osl:2018-clang7.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2018-clang7.3)
+## [aswf/ci-osl:2018-clang7.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2018-clang7.4)
 
 Contains:
 * boost-1.61.0
@@ -27,11 +27,12 @@ Contains:
 * qt-5.6.1
 * openexr-2.2.1
 * oiio-2.0.8
+* ocio-1.0.9
 * partio-1.10.1
 * numpy-1.14
 * vfxplatform-2018
 
-## [aswf/ci-osl:2019-clang6.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang6.3)
+## [aswf/ci-osl:2019-clang6.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang6.4)
 
 Contains:
 * boost-1.66.0
@@ -40,11 +41,12 @@ Contains:
 * qt-5.12.6
 * openexr-2.3.0
 * oiio-2.0.8
+* ocio-1.1.0
 * partio-1.10.1
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-osl:2019-clang7.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang7.3)
+## [aswf/ci-osl:2019-clang7.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang7.4)
 
 Contains:
 * boost-1.66.0
@@ -53,11 +55,12 @@ Contains:
 * qt-5.12.6
 * openexr-2.3.0
 * oiio-2.0.8
+* ocio-1.1.0
 * partio-1.10.1
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-osl:2019-clang8.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang8.3)
+## [aswf/ci-osl:2019-clang8.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang8.4)
 
 Contains:
 * boost-1.66.0
@@ -66,11 +69,12 @@ Contains:
 * qt-5.12.6
 * openexr-2.3.0
 * oiio-2.0.8
+* ocio-1.1.0
 * partio-1.10.1
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-osl:2019-clang9.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang9.3)
+## [aswf/ci-osl:2019-clang9.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang9.4)
 
 Contains:
 * boost-1.66.0
@@ -79,11 +83,12 @@ Contains:
 * qt-5.12.6
 * openexr-2.3.0
 * oiio-2.0.8
+* ocio-1.1.0
 * partio-1.10.1
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-osl:2019-clang10.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang10.3)
+## [aswf/ci-osl:2019-clang10.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang10.4)
 
 Contains:
 * boost-1.66.0
@@ -92,11 +97,12 @@ Contains:
 * qt-5.12.6
 * openexr-2.3.0
 * oiio-2.0.8
+* ocio-1.1.0
 * partio-1.10.1
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-osl:2020-clang7.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2020-clang7.3)
+## [aswf/ci-osl:2020-clang7.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2020-clang7.4)
 
 Contains:
 * boost-1.70.0
@@ -105,11 +111,12 @@ Contains:
 * qt-5.12.6
 * openexr-2.4.0
 * oiio-2.1.13.0
+* ocio-1.1.1
 * partio-1.10.1
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-osl:2021-clang10.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang10.4)
+## [aswf/ci-osl:2021-clang10.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang10.5)
 
 Contains:
 * boost-1.73.0
@@ -118,11 +125,12 @@ Contains:
 * qt-5.15.2
 * openexr-2.5.2
 * oiio-2.2.10.0
+* ocio-2.0.0
 * partio-1.14.0
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-osl:2021-clang11.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang11.4)
+## [aswf/ci-osl:2021-clang11.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang11.5)
 
 Contains:
 * boost-1.73.0
@@ -131,6 +139,7 @@ Contains:
 * qt-5.15.2
 * openexr-2.5.2
 * oiio-2.2.10.0
+* ocio-2.0.0
 * partio-1.14.0
 * numpy-1.19
 * vfxplatform-2021
