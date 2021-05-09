@@ -60,7 +60,7 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-ocio:2021.4](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2021.4)
+## [aswf/ci-ocio:2021.5](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2021.5)
 
 Contains:
 * python-3.7.9
@@ -69,8 +69,8 @@ Contains:
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.19.3
-* openexr-2.5.2
-* oiio-2.2.10.0
+* openexr-2.5.5
+* oiio-2.2.14.0
 * numpy-1.19
 * vfxplatform-2021
 
