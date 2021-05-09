@@ -38,7 +38,7 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-otio:2021.3](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2021.3)
+## [aswf/ci-otio:2021.4](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2021.4)
 
 Contains:
 * python-3.7.9

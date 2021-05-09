@@ -102,7 +102,7 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-openvdb:2021-clang10.4](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2021-clang10.4)
+## [aswf/ci-openvdb:2021-clang10.5](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2021-clang10.5)
 
 Contains:
 * boost-1.73.0
@@ -111,7 +111,7 @@ Contains:
 * glfw-3.1.2
 * python-3.7.9
 * tbb-2020_U2
-* openexr-2.5.2
+* openexr-2.5.5
 * blosc-1.5.0
 * numpy-1.19
 * vfxplatform-2021
