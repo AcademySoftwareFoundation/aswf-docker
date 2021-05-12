@@ -2,14 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2021-05-05
+## 2021-05-12
 
 ### Changed
 
 * Added OpenColorIO to `ci-osl` image
+* Updated patch versions of VFX 2021 packages: 
+  * OpenColorIO-2.0.1 (was 2.0.0)
+  * OpenImageIO-2.2.15 (was 2.2.10)
+  * OpenEXR-2.5.5 (was 2.5.2)
+  * OpenVDB-8.0.1 (was 8.0.0)
+  * OpenShadingLanguage-1.11.13 (was 1.11.10)
+  * OpenTimelineIO-0.13 (was 0.12.1)
+  * USD-21.05 (was 21.02)
+
+### New CI Packages
+* `ci-package-openexr-2021.2`
+* `ci-package-ocio-2021.3`
+* `ci-package-oiio-2021.3`
+* `ci-package-openvdb-2021.2`
+* `ci-package-usd-2021.4`
+* `ci-package-osl-2021.2`
+* `ci-package-otio-2021.2`
 
 ### New CI Images
-* `ci-osl:2018-clang7.4`, `ci-osl:2019-clang6.4`, `ci-osl:2019-clang7.4`, `ci-osl:2019-clang8.4`, `ci-osl:2019-clang9.4`, `ci-osl:2019-clang10.4`, `ci-osl:2020-clang7.4`, `ci-osl:2021-clang10.5`, `ci-osl:2021-clang11.5`
+* `ci-osl:2018-clang7.4`, `ci-osl:2019-clang6.4`, `ci-osl:2019-clang7.4`, `ci-osl:2019-clang8.4`, `ci-osl:2019-clang9.4`, `ci-osl:2019-clang10.4`, `ci-osl:2020-clang7.4`
+* `aswf/ci-osl:2021-clang11.6`, `aswf/ci-osl:2021-clang10.6`
+* `aswf/ci-ocio:2021.5`
+* `aswf/ci-otio:2021.4`
+* `aswf/ci-usd:2021.5`
+* `aswf/ci-openvdb:2021-clang10.5`
+* `aswf/ci-vfxall:2021-clang10.6`
 
 
 ## 2020-12-20
