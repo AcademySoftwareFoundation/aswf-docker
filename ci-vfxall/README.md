@@ -17,7 +17,7 @@ Contains: all supported VFX packages
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-vfxall/Dockerfile)
 
-## [aswf/ci-vfxall:2019-clang6.11](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang6.11)
+## [aswf/ci-vfxall:2019-clang6.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang6.12)
 
 Contains:
 * python-2.7.15
@@ -46,7 +46,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2019
 
-## [aswf/ci-vfxall:2019-clang7.11](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang7.11)
+## [aswf/ci-vfxall:2019-clang7.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang7.12)
 
 Contains:
 * python-2.7.15
@@ -75,7 +75,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2019
 
-## [aswf/ci-vfxall:2019-clang8.11](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang8.11)
+## [aswf/ci-vfxall:2019-clang8.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang8.12)
 
 Contains:
 * python-2.7.15
@@ -104,7 +104,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2019
 
-## [aswf/ci-vfxall:2019-clang9.11](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang9.11)
+## [aswf/ci-vfxall:2019-clang9.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang9.12)
 
 Contains:
 * python-2.7.15
@@ -133,7 +133,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2019
 
-## [aswf/ci-vfxall:2020-clang7.9](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2020-clang7.9)
+## [aswf/ci-vfxall:2020-clang7.10](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2020-clang7.10)
 
 Contains:
 * python-3.7.3
@@ -162,7 +162,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2020
 
-## [aswf/ci-vfxall:2021-clang10.6](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2021-clang10.6)
+## [aswf/ci-vfxall:2021-clang10.7](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2021-clang10.7)
 
 Contains:
 * python-3.7.9

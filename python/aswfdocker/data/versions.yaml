@@ -12,7 +12,7 @@ versions:
       ASWF_CUDA_VERSION: "10.2"
       ASWF_CCACHE_VERSION: "4.0"
       ASWF_NINJA_VERSION: "1.10.1"
-      ASWF_SONAR_VERSION: "4.5.0.2216"
+      ASWF_SONAR_VERSION: "4.6.2.2472"
   "1-clang6":
     parent_versions: ["1"]
     major_version: "1"
@@ -59,7 +59,7 @@ versions:
       ASWF_CUDA_VERSION: "11.1"
       ASWF_CCACHE_VERSION: "4.0"
       ASWF_NINJA_VERSION: "1.10.1"
-      ASWF_SONAR_VERSION: "4.5.0.2216"
+      ASWF_SONAR_VERSION: "4.6.2.2472"
   "2-clang10":
     parent_versions: ["2"]
     major_version: "2"
@@ -377,71 +377,71 @@ ci-packages:
 
 ci-images:
   common:
-    - "1-clang6.7"
-    - "1-clang7.7"
-    - "1-clang8.7"
-    - "1-clang9.7"
-    - "1-clang10.7"
-    - "2-clang10.3"
-    - "2-clang11.3"
+    - "1-clang6.8"
+    - "1-clang7.8"
+    - "1-clang8.8"
+    - "1-clang9.8"
+    - "1-clang10.8"
+    - "2-clang10.4"
+    - "2-clang11.4"
   base:
-    - "2018.7"
-    - "2019.7"
-    - "2020.7"
-    - "2021.4"
-  baseqt:
-    - "2018.0"
-    - "2019.0"
-    - "2020.0"
-    - "2021.1"
-  openexr:
-    - "2018.7"
-    - "2019.7"
-    - "2020.7"
-    - "2021.4"
-  ocio:
     - "2018.8"
     - "2019.8"
-    - "2020.7"
+    - "2020.8"
     - "2021.5"
-  opencue:
+  baseqt:
+    - "2018.1"
+    - "2019.1"
+    - "2020.1"
+    - "2021.2"
+  openexr:
+    - "2018.8"
+    - "2019.8"
+    - "2020.8"
+    - "2021.5"
+  ocio:
     - "2018.9"
     - "2019.9"
-    - "2020.9"
+    - "2020.8"
     - "2021.6"
+  opencue:
+    - "2019"
+    - "2020"
+    - "2021"
+    - "2021.7"
   usd:
-    - "2019.8"
-    - "2020.7"
-    - "2021.5"
+    - "2019.9"
+    - "2020.8"
+    - "2021.6"
   otio:
-    - "2019.2"
-    - "2020.2"
-    - "2021.4"
+    - "2019.3"
+    - "2020.3"
+    - "2021.5"
   osl:
-    - "2018-clang7.4"
-    - "2019-clang6.4"
-    - "2019-clang7.4"
-    - "2019-clang8.4"
-    - "2019-clang9.4"
-    - "2019-clang10.4"
-    - "2020-clang7.4"
-    - "2021-clang10.6"
-    - "2021-clang11.6"
+    - "2018-clang7.5"
+    - "2019-clang6.5"
+    - "2019-clang7.5"
+    - "2019-clang8.5"
+    - "2019-clang9.5"
+    - "2019-clang10.5"
+    - "2020-clang7.5"
+    - "2021-clang10.7"
+    - "2021-clang11.7"
   openvdb:
-    - "2018-clang7.7"
-    - "2019-clang6.7"
-    - "2019-clang7.7"
-    - "2019-clang8.7"
-    - "2019-clang9.7"
-    - "2020-clang7.7"
-    - "2021-clang10.5"
-  vfxall:
-    - "2019-clang6.11"
-    - "2019-clang7.11"
-    - "2019-clang8.11"
-    - "2019-clang9.11"
-    - "2020-clang7.9"
+    - "2018-clang7.8"
+    - "2019-clang6.8"
+    - "2019-clang7.8"
+    - "2019-clang8.8"
+    - "2019-clang9.8"
+    - "2020-clang7.8"
     - "2021-clang10.6"
+  vfxall:
+    - "2019-clang6.12"
+    - "2019-clang7.12"
+    - "2019-clang8.12"
+    - "2019-clang9.12"
+    - "2020-clang7.10"
+    - "2021-clang10.7"
 
 groups:
   package:

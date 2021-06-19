@@ -18,7 +18,7 @@ Warning: this image does *not* contain OpenColorIO itself as it is used to *buil
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-ocio/Dockerfile)
 
-## [aswf/ci-ocio:2018.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2018.8)
+## [aswf/ci-ocio:2018.9](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2018.9)
 
 Contains:
 * python-2.7.15
@@ -32,7 +32,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2018
 
-## [aswf/ci-ocio:2019.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2019.8)
+## [aswf/ci-ocio:2019.9](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2019.9)
 
 Contains:
 * python-2.7.15
@@ -46,7 +46,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-ocio:2020.7](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2020.7)
+## [aswf/ci-ocio:2020.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2020.8)
 
 Contains:
 * python-3.7.3
@@ -60,7 +60,7 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-ocio:2021.5](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2021.5)
+## [aswf/ci-ocio:2021.6](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2021.6)
 
 Contains:
 * python-3.7.9

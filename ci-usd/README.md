@@ -18,7 +18,7 @@ Warning: this image does *not* contain USD itself as it is used to *build* USD!
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-usd/Dockerfile)
 
-## [aswf/ci-usd:2019.8](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2019.8)
+## [aswf/ci-usd:2019.9](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2019.9)
 
 Contains:
 * python-2.7.15
@@ -42,7 +42,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2019
 
-## [aswf/ci-usd:2020.7](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2020.7)
+## [aswf/ci-usd:2020.8](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2020.8)
 
 Contains:
 * python-3.7.3
@@ -66,7 +66,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2020
 
-## [aswf/ci-usd:2021.5](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2021.5)
+## [aswf/ci-usd:2021.6](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2021.6)
 
 Contains:
 * python-3.7.9

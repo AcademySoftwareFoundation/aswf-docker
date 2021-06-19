@@ -2,6 +2,81 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2021-06-19
+
+### Changed
+* Updated to sonar scanner cli v4.6.2.2472 and latest build wrapper
+
+### New CI Images
+
+- `ci-common`:
+    - "1-clang6.8"
+    - "1-clang7.8"
+    - "1-clang8.8"
+    - "1-clang9.8"
+    - "1-clang10.8"
+    - "2-clang10.4"
+    - "2-clang11.4"
+- `ci-base`:
+    - "2018.8"
+    - "2019.8"
+    - "2020.8"
+    - "2021.5"
+- `ci-baseqt`:
+    - "2018.1"
+    - "2019.1"
+    - "2020.1"
+    - "2021.2"
+- `ci-openexr`:
+    - "2018.8"
+    - "2019.8"
+    - "2020.8"
+    - "2021.5"
+- `ci-ocio`:
+    - "2018.9"
+    - "2019.9"
+    - "2020.8"
+    - "2021.6"
+- `ci-opencue`:
+    - "2019"
+    - "2020"
+    - "2021"
+    - "2021.7"
+- `ci-usd`:
+    - "2019.9"
+    - "2020.8"
+    - "2021.6"
+- `ci-otio`:
+    - "2019.3"
+    - "2020.3"
+    - "2021.5"
+- `ci-osl`:
+    - "2018-clang7.5"
+    - "2019-clang6.5"
+    - "2019-clang7.5"
+    - "2019-clang8.5"
+    - "2019-clang9.5"
+    - "2019-clang10.5"
+    - "2020-clang7.5"
+    - "2021-clang10.7"
+    - "2021-clang11.7"
+- `ci-openvdb`:
+    - "2018-clang7.8"
+    - "2019-clang6.8"
+    - "2019-clang7.8"
+    - "2019-clang8.8"
+    - "2019-clang9.8"
+    - "2020-clang7.8"
+    - "2021-clang10.6"
+- `ci-vfxall`:
+    - "2019-clang6.12"
+    - "2019-clang7.12"
+    - "2019-clang8.12"
+    - "2019-clang9.12"
+    - "2020-clang7.10"
+    - "2021-clang10.7"
+
+
 ## 2021-05-12
 
 ### Changed
