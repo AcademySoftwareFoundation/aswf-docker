@@ -18,7 +18,7 @@ Warning: this image does *not* contain OpenShadingLanguage itself as it is used 
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-osl/Dockerfile)
 
-## [aswf/ci-osl:2018-clang7.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2018-clang7.4)
+## [aswf/ci-osl:2018-clang7.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2018-clang7.5)
 
 Contains:
 * boost-1.61.0
@@ -32,7 +32,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2018
 
-## [aswf/ci-osl:2019-clang6.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang6.4)
+## [aswf/ci-osl:2019-clang6.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang6.5)
 
 Contains:
 * boost-1.66.0
@@ -46,7 +46,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-osl:2019-clang7.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang7.4)
+## [aswf/ci-osl:2019-clang7.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang7.5)
 
 Contains:
 * boost-1.66.0
@@ -60,7 +60,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-osl:2019-clang8.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang8.4)
+## [aswf/ci-osl:2019-clang8.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang8.5)
 
 Contains:
 * boost-1.66.0
@@ -74,7 +74,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-osl:2019-clang9.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang9.4)
+## [aswf/ci-osl:2019-clang9.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang9.5)
 
 Contains:
 * boost-1.66.0
@@ -88,7 +88,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-osl:2019-clang10.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang10.4)
+## [aswf/ci-osl:2019-clang10.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang10.5)
 
 Contains:
 * boost-1.66.0
@@ -102,7 +102,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-osl:2020-clang7.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2020-clang7.4)
+## [aswf/ci-osl:2020-clang7.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2020-clang7.5)
 
 Contains:
 * boost-1.70.0
@@ -116,7 +116,7 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-osl:2021-clang10.6](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang10.6)
+## [aswf/ci-osl:2021-clang10.7](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang10.7)
 
 Contains:
 * boost-1.73.0
@@ -130,7 +130,7 @@ Contains:
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-osl:2021-clang11.6](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang11.6)
+## [aswf/ci-osl:2021-clang11.7](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang11.7)
 
 Contains:
 * boost-1.73.0

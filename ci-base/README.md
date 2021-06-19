@@ -17,7 +17,7 @@ Contains: Python, TBB, Boost and other base libraries
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-base/Dockerfile)
 
-## [aswf/ci-base:2018.7](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2018.7)
+## [aswf/ci-base:2018.8](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2018.8)
 
 Contains:
 * boost-1.61.0
@@ -31,7 +31,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2018
 
-## [aswf/ci-base:2019.7](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2019.7)
+## [aswf/ci-base:2019.8](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2019.8)
 
 Contains:
 * boost-1.66.0
@@ -45,7 +45,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-base:2020.7](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2020.7)
+## [aswf/ci-base:2020.8](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2020.8)
 
 Contains:
 * boost-1.70.0
@@ -59,7 +59,7 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-base:2021.4](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2021.4)
+## [aswf/ci-base:2021.5](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2021.5)
 
 Contains:
 * boost-1.73.0

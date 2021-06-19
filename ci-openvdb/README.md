@@ -18,7 +18,7 @@ Warning: this image does *not* contain OpenVDB itself as it is used to *build* O
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-openvdb/Dockerfile)
 
-## [aswf/ci-openvdb:2018-clang7.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2018-clang7.7)
+## [aswf/ci-openvdb:2018-clang7.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2018-clang7.8)
 
 Contains:
 * boost-1.61.0
@@ -32,7 +32,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2018
 
-## [aswf/ci-openvdb:2019-clang6.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang6.7)
+## [aswf/ci-openvdb:2019-clang6.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang6.8)
 
 Contains:
 * boost-1.66.0
@@ -46,7 +46,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-openvdb:2019-clang7.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang7.7)
+## [aswf/ci-openvdb:2019-clang7.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang7.8)
 
 Contains:
 * boost-1.66.0
@@ -60,7 +60,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-openvdb:2019-clang8.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang8.7)
+## [aswf/ci-openvdb:2019-clang8.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang8.8)
 
 Contains:
 * boost-1.66.0
@@ -74,7 +74,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-openvdb:2019-clang9.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang9.7)
+## [aswf/ci-openvdb:2019-clang9.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang9.8)
 
 Contains:
 * boost-1.66.0
@@ -88,7 +88,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-openvdb:2020-clang7.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2020-clang7.7)
+## [aswf/ci-openvdb:2020-clang7.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2020-clang7.8)
 
 Contains:
 * boost-1.70.0
@@ -102,7 +102,7 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-openvdb:2021-clang10.5](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2021-clang10.5)
+## [aswf/ci-openvdb:2021-clang10.6](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2021-clang10.6)
 
 Contains:
 * boost-1.73.0

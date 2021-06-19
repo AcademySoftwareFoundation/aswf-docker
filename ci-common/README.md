@@ -17,7 +17,7 @@ Contains: GCC, Clang, Jinja, ccache and all base OS libraries
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-common/Dockerfile)
 
-## [aswf/ci-common:1-clang6.7](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang6.7)
+## [aswf/ci-common:1-clang6.8](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang6.8)
 
 Contains:
 * clang-6.0.1
@@ -25,9 +25,9 @@ Contains:
 * cuda-10.2
 * ccache-4.0
 * dts-6
-* sonar-4.5.0.2216
+* sonar-4.6.2.2472
 
-## [aswf/ci-common:1-clang7.7](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang7.7)
+## [aswf/ci-common:1-clang7.8](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang7.8)
 
 Contains:
 * clang-7.1.0
@@ -35,9 +35,9 @@ Contains:
 * cuda-10.2
 * ccache-4.0
 * dts-6
-* sonar-4.5.0.2216
+* sonar-4.6.2.2472
 
-## [aswf/ci-common:1-clang8.7](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang8.7)
+## [aswf/ci-common:1-clang8.8](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang8.8)
 
 Contains:
 * clang-8.0.1
@@ -45,9 +45,9 @@ Contains:
 * cuda-10.2
 * ccache-4.0
 * dts-6
-* sonar-4.5.0.2216
+* sonar-4.6.2.2472
 
-## [aswf/ci-common:1-clang9.7](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang9.7)
+## [aswf/ci-common:1-clang9.8](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang9.8)
 
 Contains:
 * clang-9.0.1
@@ -55,9 +55,9 @@ Contains:
 * cuda-10.2
 * ccache-4.0
 * dts-6
-* sonar-4.5.0.2216
+* sonar-4.6.2.2472
 
-## [aswf/ci-common:1-clang10.7](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang10.7)
+## [aswf/ci-common:1-clang10.8](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang10.8)
 
 Contains:
 * clang-10.0.1
@@ -65,9 +65,9 @@ Contains:
 * cuda-10.2
 * ccache-4.0
 * dts-6
-* sonar-4.5.0.2216
+* sonar-4.6.2.2472
 
-## [aswf/ci-common:2-clang10.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang10.3)
+## [aswf/ci-common:2-clang10.4](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang10.4)
 
 Contains:
 * clang-10.0.1
@@ -75,9 +75,9 @@ Contains:
 * cuda-11.1
 * ccache-4.0
 * dts-9
-* sonar-4.5.0.2216
+* sonar-4.6.2.2472
 
-## [aswf/ci-common:2-clang11.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang11.3)
+## [aswf/ci-common:2-clang11.4](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang11.4)
 
 Contains:
 * clang-11.0.0
@@ -85,5 +85,5 @@ Contains:
 * cuda-11.1
 * ccache-4.0
 * dts-9
-* sonar-4.5.0.2216
+* sonar-4.6.2.2472
 
