@@ -18,7 +18,7 @@ Warning: this image does *not* contain OpenCue itself as it is used to *build* O
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-opencue/Dockerfile)
 
-## [aswf/ci-opencue:2019](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2019)
+## [aswf/ci-opencue:2019.10](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2019.10)
 
 Contains:
 * python-2.7.15
@@ -26,7 +26,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-opencue:2020](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2020)
+## [aswf/ci-opencue:2020.10](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2020.10)
 
 Contains:
 * python-3.7.3
@@ -34,7 +34,7 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-opencue:2021](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2021)
+## [aswf/ci-opencue:2021.10](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2021.10)
 
 Contains:
 * python-3.7.9
