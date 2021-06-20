@@ -28,3 +28,5 @@ MAIN_GITHUB_ASWF_DOCKER_URL = (
 )
 
 IMAGE_NAME_REGEX = r"(refs/tags/)?(?P<org>[a-z]+)/ci-(?P<package>package\-)?(?P<image>[a-z0-9]+)[:/](?P<version>[0-9\.a-z\-]+)"
+
+ALL = "all"

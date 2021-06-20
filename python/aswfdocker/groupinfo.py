@@ -26,13 +26,19 @@ class GroupInfo:
         self.index = index.Index()
         self.type = type_
         self.names = names
-        self.versions = [utils.get_major_version(v) for v in versions]
         for name in self.names:
             if name not in self.index.groups[self.type]:
                 raise TypeError(f"Group {name} is not valid!")
         self.images = []
         for images in [self.index.groups[self.type][n] for n in self.names]:
             self.images.extend(images)
+        if not versions or (len(versions) == 1 and versions[0] == constants.ALL):
+            version_set = set()
+            for image in self.images:
+                for v in self.index.iter_versions(self.type, image):
+                    version_set.add(utils.get_major_version(v))
+            versions = sorted(version_set)
+        self.versions = [utils.get_major_version(v) for v in sorted(versions)]
         self.targets = targets
         logger.debug(
             "GroupInfo: type=%s names=%s versions=%s images=%s targets=%s",

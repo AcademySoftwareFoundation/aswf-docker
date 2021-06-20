@@ -87,7 +87,7 @@ def common_image_options(function):
         "-v",
         required=False,
         multiple=True,
-        help='The major version number to build, e.g. "2019", can be specified multiple times.',
+        help='The major version number to build, e.g. "2019", can be specified multiple times. Can also be "all".',
     )(function)
     function = click.option(
         "--full-name",
@@ -118,7 +118,10 @@ def get_group_info(build_info, ci_image_type, groups, versions, full_name, targe
             raise click.BadOptionUsage(option_name="--full-name", message=e.args[0])
         build_info.set_org(org)
     else:
-        image_type = constants.ImageType[ci_image_type]
+        if ci_image_type is None:
+            image_type = constants.ImageType.IMAGE
+        else:
+            image_type = constants.ImageType[ci_image_type]
         if not groups and targets:
             groups = [idx.get_group_from_image(image_type, targets[0])]
     group_info = groupinfo.GroupInfo(
