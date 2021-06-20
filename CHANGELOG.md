@@ -38,9 +38,9 @@ All notable changes to this project will be documented in this file.
     - "2020.8"
     - "2021.6"
 - `ci-opencue`:
-    - "2019"
-    - "2020"
-    - "2021"
+    - "2019.10"
+    - "2020.10"
+    - "2021.10"
     - "2021.7"
 - `ci-usd`:
     - "2019.9"
