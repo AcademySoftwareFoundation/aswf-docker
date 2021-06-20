@@ -259,15 +259,39 @@ def packages():
 
 @cli.command()
 def images():
-    """Lists all known CI images in this format: IMAGEGROUP/ci-IMAGE:VERSION
+    """Lists all known CI images in this format: IMAGEGROUP/IMAGE:VERSION
     """
-    for group, images in index.Index().groups[constants.ImageType.IMAGE].items():
-        for image in images:
-            image_name = utils.get_image_name(constants.ImageType.IMAGE, image)
-            for version in index.Index().iter_versions(
-                constants.ImageType.IMAGE, image
-            ):
-                click.echo(f"{group}/{image_name}:{version}")
+    for image_type in (constants.ImageType.CI_IMAGE, constants.ImageType.RT_IMAGE):
+        for group, images in index.Index().groups[image_type].items():
+            for image in images:
+                image_name = utils.get_image_name(image_type, image)
+                for version in index.Index().iter_versions(image_type, image):
+                    click.echo(f"{group}/{image_name}:{version}")
+
+
+@click.option(
+    "--sizes", "-s", is_flag=True, help="Display Sizes",
+)
+@cli.command()
+def dockerstats(sizes):
+    """Lists all known ci images in this format: IMAGEGROUP/IMAGE:VERSION
+    """
+    if sizes:
+        total_size = 0
+        for org, image_type, image in utils.iter_all_images():
+            image_name = utils.get_image_name(image_type, image)
+            for tag, size in utils.get_image_sizes(org, image_name).items():
+                click.echo(f"{org}/{image_name}:{tag} size={size}")
+                total_size += size
+        click.echo(f"Total size={total_size}")
+    else:
+        total_pull = 0
+        for org, image_type, image in utils.iter_all_images():
+            image_name = utils.get_image_name(image_type, image)
+            pull_count = utils.get_image_pull_count(org, image_name)
+            click.echo(f"{org}/{image_name} pull_count={pull_count}")
+            total_pull += pull_count
+        click.echo(f"Total pull_count={total_pull}")
 
 
 @cli.command()
@@ -379,7 +403,7 @@ def dockergen(context, image_name, check):
     """
     if image_name == "all":
         images = []
-        for gimages in index.Index().groups[constants.ImageType.IMAGE].values():
+        for gimages in index.Index().groups[constants.ImageType.CI_IMAGE].values():
             images.extend(gimages)
     else:
         images = [image_name]

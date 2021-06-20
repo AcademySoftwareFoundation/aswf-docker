@@ -289,7 +289,7 @@ Example use: just build a single package for testing:
 # Build and push USD package to aswftesting
 aswfdocker --verbose build -t PACKAGE --group vfx --version 2019 --target usd --push
 # Build and push ci-vfxall image to aswftesting
-aswfdocker --verbose build -t IMAGE --group vfx --version 2019 --target vfxall --push
+aswfdocker --verbose build -t CI_IMAGE --group vfx --version 2019 --target vfxall --push
 ```
 
 ### Migrate

@@ -1,0 +1,75 @@
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+ARG CUDA_VERSION=10.2
+ARG ASWF_ORG=aswftesting
+ARG ASWF_PKG_ORG=aswftesting
+ARG VFXPLATFORM_VERSION=2019
+
+FROM ${ASWF_PKG_ORG}/ci-package-python:${VFXPLATFORM_VERSION} as ci-package-python
+FROM ${ASWF_PKG_ORG}/ci-package-tbb:${VFXPLATFORM_VERSION} as ci-package-tbb
+FROM ${ASWF_PKG_ORG}/ci-package-boost:${VFXPLATFORM_VERSION} as ci-package-boost
+FROM ${ASWF_PKG_ORG}/ci-package-cppunit:${VFXPLATFORM_VERSION} as ci-package-cppunit
+FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:${VFXPLATFORM_VERSION} as ci-package-log4cplus
+FROM ${ASWF_PKG_ORG}/ci-package-glew:${VFXPLATFORM_VERSION} as ci-package-glew
+FROM ${ASWF_PKG_ORG}/ci-package-glfw:${VFXPLATFORM_VERSION} as ci-package-glfw
+FROM ${ASWF_PKG_ORG}/ci-package-qt:${VFXPLATFORM_VERSION} as ci-package-qt
+FROM ${ASWF_PKG_ORG}/ci-package-pyside:${VFXPLATFORM_VERSION} as ci-package-pyside
+
+FROM ${ASWF_PKG_ORG}/ci-package-openexr:${VFXPLATFORM_VERSION} as ci-package-openexr
+FROM ${ASWF_PKG_ORG}/ci-package-blosc:${VFXPLATFORM_VERSION} as ci-package-blosc
+FROM ${ASWF_PKG_ORG}/ci-package-alembic:${VFXPLATFORM_VERSION} as ci-package-alembic
+FROM ${ASWF_PKG_ORG}/ci-package-oiio:${VFXPLATFORM_VERSION} as ci-package-oiio
+FROM ${ASWF_PKG_ORG}/ci-package-ocio:${VFXPLATFORM_VERSION} as ci-package-ocio
+FROM ${ASWF_PKG_ORG}/ci-package-opensubdiv:${VFXPLATFORM_VERSION} as ci-package-opensubdiv
+FROM ${ASWF_PKG_ORG}/ci-package-ptex:${VFXPLATFORM_VERSION} as ci-package-ptex
+FROM ${ASWF_PKG_ORG}/ci-package-openvdb:${VFXPLATFORM_VERSION} as ci-package-openvdb
+FROM ${ASWF_PKG_ORG}/ci-package-usd:${VFXPLATFORM_VERSION} as ci-package-usd
+FROM ${ASWF_PKG_ORG}/ci-package-partio:${VFXPLATFORM_VERSION} as ci-package-partio
+FROM ${ASWF_PKG_ORG}/ci-package-osl:${VFXPLATFORM_VERSION} as ci-package-osl
+FROM ${ASWF_PKG_ORG}/ci-package-otio:${VFXPLATFORM_VERSION} as ci-package-otio
+
+FROM nvidia/cudagl:${CUDA_VERSION}-devel-centos7 as builder
+
+COPY --from=ci-package-python /. /usr/local/
+COPY --from=ci-package-tbb /. /usr/local/
+COPY --from=ci-package-boost /. /usr/local/
+COPY --from=ci-package-cppunit /. /usr/local/
+COPY --from=ci-package-log4cplus /. /usr/local/
+COPY --from=ci-package-glew /. /usr/local/
+COPY --from=ci-package-glfw /. /usr/local/
+COPY --from=ci-package-qt /. /usr/local/
+COPY --from=ci-package-pyside /. /usr/local/
+
+COPY --from=ci-package-openexr /. /usr/local/
+COPY --from=ci-package-blosc /. /usr/local/
+COPY --from=ci-package-alembic /. /usr/local/
+COPY --from=ci-package-oiio /. /usr/local/
+COPY --from=ci-package-ocio /. /usr/local/
+COPY --from=ci-package-opensubdiv /. /usr/local/
+COPY --from=ci-package-ptex /. /usr/local/
+COPY --from=ci-package-openvdb /. /usr/local/
+COPY --from=ci-package-usd /. /usr/local/
+COPY --from=ci-package-partio /. /usr/local/
+COPY --from=ci-package-osl /. /usr/local/
+COPY --from=ci-package-otio /. /usr/local/
+
+RUN rm -rf /usr/local/include
+
+
+FROM ${ASWF_ORG}/rt-base:${VFXPLATFORM_VERSION} as rt-vfxall-jupyter
+
+ARG ASWF_ORG
+ARG VFXPLATFORM_VERSION
+ARG ASWF_VERSION
+ARG PYTHON_VERSION=2.7
+
+LABEL maintainer="aloys.baillet@gmail.com"
+LABEL com.vfxplatform.version=$VFXPLATFORM_VERSION
+LABEL org.opencontainers.image.name="$ASWF_ORG/base-vfxall"
+LABEL org.opencontainers.image.description="All VFX Packages CI Docker Image"
+LABEL org.opencontainers.image.url="http://aswf.io/"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker"
+LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
+LABEL org.opencontainers.image.version=$VFXPLATFORM_VERSION
+
+COPY --from=builder /usr/local /usr/local/

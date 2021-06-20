@@ -8,6 +8,8 @@ import re
 import subprocess
 import datetime
 import logging
+import json
+import urllib.request
 import requests
 
 from aswfdocker import constants
@@ -83,7 +85,9 @@ def download_package(repo_root: str, docker_org: str, package: str, version: str
 def get_image_name(image_type: constants.ImageType, image: str):
     if image_type == constants.ImageType.PACKAGE:
         return f"ci-package-{image}"
-    return f"ci-{image}"
+    if image_type == constants.ImageType.CI_IMAGE:
+        return f"ci-{image}"
+    return f"rt-{image}"
 
 
 IMAGE_NAME_REGEXC = re.compile(constants.IMAGE_NAME_REGEX)
@@ -98,12 +102,46 @@ def get_image_spec(name: str):
     org = m.group("org")
     if m.group("package"):
         image_type = constants.ImageType.PACKAGE
+    elif m.group("ci"):
+        image_type = constants.ImageType.CI_IMAGE
+    elif m.group("rt"):
+        image_type = constants.ImageType.RT_IMAGE
     else:
-        image_type = constants.ImageType.IMAGE
+        raise RuntimeError(
+            f"Image name does not conform to expected format (missing image type): {constants.IMAGE_NAME_REGEX}"
+        )
     image = m.group("image")
     version = m.group("version")
     logger.debug("get_image_spec found %s: %s/%s:%s", image_type, org, image, version)
     return org, image_type, image, version
+
+
+def get_image_pull_count(docker_org, image):
+    url = f"https://hub.docker.com/v2/repositories/{docker_org}/{image}"
+    try:
+        d = json.loads(urllib.request.urlopen(url).read())
+        return d["pull_count"]
+    except urllib.error.HTTPError:
+        logger.debug("Failed to load data from URL %r", url)
+        return 0
+
+
+def get_image_sizes(docker_org, image):
+    sizes = {}
+    url = f"https://hub.docker.com/v2/repositories/{docker_org}/{image}/tags/"
+    try:
+        d = json.loads(urllib.request.urlopen(url).read())
+    except urllib.error.HTTPError:
+        logger.debug("Failed to load data from URL %r", url)
+        return sizes
+    digests = set()
+    for tag in d["results"]:
+        digest = tag["images"][0]["digest"]
+        if digest in digests:
+            continue
+        digests.add(digest)
+        sizes[tag["name"]] = tag["full_size"]
+    return sizes
 
 
 def get_dockerhub_token(username, password):
