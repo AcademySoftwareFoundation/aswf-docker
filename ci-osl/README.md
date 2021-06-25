@@ -18,20 +18,6 @@ Warning: this image does *not* contain OpenShadingLanguage itself as it is used 
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-osl/Dockerfile)
 
-## [aswf/ci-osl:2018-clang7.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2018-clang7.5)
-
-Contains:
-* boost-1.61.0
-* cmake-3.9.4
-* python-2.7.15
-* qt-5.6.1
-* openexr-2.2.1
-* oiio-2.0.8
-* ocio-1.0.9
-* partio-1.10.1
-* numpy-1.14
-* vfxplatform-2018
-
 ## [aswf/ci-osl:2019-clang6.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang6.5)
 
 Contains:
@@ -142,5 +128,33 @@ Contains:
 * ocio-2.0.1
 * partio-1.14.0
 * numpy-1.19
+* vfxplatform-2021
+
+## [aswf/ci-osl:2022-clang10.7](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang10.7)
+
+Contains:
+* boost-1.75.0
+* cmake-3.20.5
+* python-3.9.5
+* qt-5.15.2
+* openexr-2.5.5
+* oiio-2.2.14.0
+* ocio-2.0.1
+* partio-1.14.0
+* numpy-1.20
+* vfxplatform-2021
+
+## [aswf/ci-osl:2022-clang11.7](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang11.7)
+
+Contains:
+* boost-1.75.0
+* cmake-3.20.5
+* python-3.9.5
+* qt-5.15.2
+* openexr-2.5.5
+* oiio-2.2.14.0
+* ocio-2.0.1
+* partio-1.14.0
+* numpy-1.20
 * vfxplatform-2021
 

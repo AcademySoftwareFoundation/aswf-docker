@@ -17,22 +17,6 @@ Contains: Python, TBB, Boost, Qt, PySide and other base libraries
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-baseqt/Dockerfile)
 
-## [aswf/ci-baseqt:2018.1](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2018.1)
-
-Contains:
-* boost-1.61.0
-* cmake-3.9.4
-* cppunit-1.14.0
-* glew-2.1.0
-* glfw-3.1.2
-* log4cplus-1.1.2
-* python-2.7.15
-* tbb-2017_U6
-* qt-5.6.1
-* pyside-2.0.0
-* numpy-1.14
-* vfxplatform-2018
-
 ## [aswf/ci-baseqt:2019.1](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2019.1)
 
 Contains:
@@ -79,5 +63,21 @@ Contains:
 * qt-5.15.2
 * pyside-5.15.2
 * numpy-1.19
+* vfxplatform-2021
+
+## [aswf/ci-baseqt:2022.0](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2022.0)
+
+Contains:
+* boost-1.75.0
+* cmake-3.20.5
+* cppunit-1.15.1
+* glew-2.1.0
+* glfw-3.1.2
+* log4cplus-1.1.2
+* python-3.9.5
+* tbb-2020_U3
+* qt-5.15.2
+* pyside-5.15.2
+* numpy-1.20
 * vfxplatform-2021
 

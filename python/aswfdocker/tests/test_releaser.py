@@ -42,7 +42,7 @@ class TestReleaser(unittest.TestCase):
         r.release(dry_run=False)
         boost_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "boost")
-        )[1]
+        )[0]
         r.gh.repo.create_git_tag_and_release.assert_called_once_with(
             tag=f"aswflocaltesting/ci-package-boost/{boost_version}",
             draft=False,

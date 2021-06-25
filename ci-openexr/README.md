@@ -18,15 +18,6 @@ Warning: this image does *not* contain OpenEXR itself as it is used to *build* O
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-openexr/Dockerfile)
 
-## [aswf/ci-openexr:2018.8](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2018.8)
-
-Contains:
-* python-2.7.15
-* boost-1.61.0
-* cmake-3.9.4
-* numpy-1.14
-* vfxplatform-2018
-
 ## [aswf/ci-openexr:2019.8](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2019.8)
 
 Contains:
@@ -52,5 +43,14 @@ Contains:
 * boost-1.73.0
 * cmake-3.19.3
 * numpy-1.19
+* vfxplatform-2021
+
+## [aswf/ci-openexr:2022.0](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2022.0)
+
+Contains:
+* python-3.9.5
+* boost-1.75.0
+* cmake-3.20.5
+* numpy-1.20
 * vfxplatform-2021
 

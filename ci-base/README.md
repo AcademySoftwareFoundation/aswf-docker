@@ -17,20 +17,6 @@ Contains: Python, TBB, Boost and other base libraries
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-base/Dockerfile)
 
-## [aswf/ci-base:2018.8](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2018.8)
-
-Contains:
-* boost-1.61.0
-* cmake-3.9.4
-* cppunit-1.14.0
-* glew-2.1.0
-* glfw-3.1.2
-* log4cplus-1.1.2
-* python-2.7.15
-* tbb-2017_U6
-* numpy-1.14
-* vfxplatform-2018
-
 ## [aswf/ci-base:2019.8](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2019.8)
 
 Contains:
@@ -71,5 +57,19 @@ Contains:
 * python-3.7.9
 * tbb-2020_U2
 * numpy-1.19
+* vfxplatform-2021
+
+## [aswf/ci-base:2022.0](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2022.0)
+
+Contains:
+* boost-1.75.0
+* cmake-3.20.5
+* cppunit-1.15.1
+* glew-2.1.0
+* glfw-3.1.2
+* log4cplus-1.1.2
+* python-3.9.5
+* tbb-2020_U3
+* numpy-1.20
 * vfxplatform-2021
 

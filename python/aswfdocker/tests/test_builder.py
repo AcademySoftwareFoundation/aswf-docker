@@ -34,7 +34,7 @@ class TestBuilder(unittest.TestCase):
         )
         qt_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "qt")
-        )[1]
+        )[0]
         baked = b.make_bake_dict()
         self.assertEqual(
             baked["target"]["ci-package-qt-2019"]["tags"],
@@ -65,7 +65,7 @@ class TestBuilder(unittest.TestCase):
         )
         base_version = list(
             index.Index().iter_versions(constants.ImageType.IMAGE, "base")
-        )[1]
+        )[0]
         baked = b.make_bake_dict()
         self.assertEqual(
             baked["target"]["ci-base-2019"]["tags"],
@@ -91,7 +91,7 @@ class TestBuilder(unittest.TestCase):
         )
         openvdb_version = list(
             index.Index().iter_versions(constants.ImageType.IMAGE, "openvdb")
-        )[4]
+        )[3]
         self.assertEqual(
             b.make_bake_dict(),
             {
@@ -180,7 +180,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_ALEMBIC_VERSION": "1.7.12",
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": base_versions[2],
+                            "ASWF_VERSION": base_versions[1],
                             "ASWF_BLOSC_VERSION": "1.5.0",
                             "ASWF_BOOST_VERSION": "1.70.0",
                             "ASWF_CCACHE_VERSION": "4.0",
@@ -223,7 +223,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2020",
-                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[2]}",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[1]}",
                         ],
                         "output": ["type=docker"],
                     },
@@ -234,7 +234,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_ALEMBIC_VERSION": "1.7.11",
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_PKG_ORG": "aswftesting",
-                            "ASWF_VERSION": base_versions[1],
+                            "ASWF_VERSION": base_versions[0],
                             "ASWF_BLOSC_VERSION": "1.5.0",
                             "ASWF_BOOST_VERSION": "1.66.0",
                             "ASWF_CCACHE_VERSION": "4.0",
@@ -277,7 +277,7 @@ class TestBuilder(unittest.TestCase):
                         },
                         "tags": [
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2019",
-                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[1]}",
+                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[0]}",
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:latest",
                         ],
                         "output": ["type=docker"],
