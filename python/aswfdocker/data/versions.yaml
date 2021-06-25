@@ -76,41 +76,6 @@ versions:
     package_versions:
       ASWF_CLANG_MAJOR_VERSION: "11"
       ASWF_CLANG_VERSION: "11.0.0"
-  "2018":
-    parent_versions: ["1", "1-clang7"]
-    major_version: "2018"
-    ci_common_version: "1"
-    package_versions:
-      ASWF_ALEMBIC_VERSION: "1.7.11"
-      ASWF_BLOSC_VERSION: "1.5.0"
-      ASWF_BOOST_VERSION: "1.61.0"
-      ASWF_CMAKE_VERSION: "3.9.4"
-      ASWF_CPPUNIT_VERSION: "1.14.0"
-      ASWF_GLEW_VERSION: "2.1.0"
-      ASWF_GLFW_VERSION: "3.1.2"
-      ASWF_HDF5_VERSION: "1.8.21"
-      ASWF_LOG4CPLUS_VERSION: "1.1.2"
-      ASWF_NUMPY_VERSION: "1.14"
-      ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
-      ASWF_OCIO_VERSION: "1.0.9"
-      ASWF_OIIO_VERSION: "2.0.8"
-      ASWF_OPENEXR_VERSION: "2.2.1"
-      ASWF_OPENSUBDIV_VERSION: "3_3_3"
-      ASWF_OPENVDB_VERSION: "5.2.0"
-      ASWF_OSL_VERSION: "1.10.9"
-      ASWF_PARTIO_VERSION: "1.10.1"
-      ASWF_PTEX_VERSION: "2.1.28"
-      ASWF_PYSIDE_VERSION: "2.0.0"
-      ASWF_PYTHON_VERSION: "2.7.15"
-      ASWF_PYTHON_MAJOR_MINOR_VERSION: "2.7"
-      ASWF_QT_VERSION: "5.6.1"
-      ASWF_TBB_VERSION: "2017_U6"
-      ASWF_USD_VERSION: "19.11"
-      ASWF_VFXPLATFORM_VERSION: "2018"
-  "2018-clang7":
-    parent_versions: ["1", "1-clang7", "2018"]
-    major_version: "2018"
-    ci_common_version: "1"
   "2019":
     parent_versions: ["1", "1-clang7"]
     major_version: "2019"
@@ -250,6 +215,45 @@ versions:
     major_version: "2021"
     tags: ["preview"]
     ci_common_version: "2"
+  "2022":
+    parent_versions: ["2", "2-clang10"]
+    major_version: "2022"
+    tags: ["draft"]
+    ci_common_version: "2"
+    package_versions:
+      ASWF_ALEMBIC_VERSION: "1.8.2"
+      ASWF_BLOSC_VERSION: "1.5.0"
+      ASWF_BOOST_VERSION: "1.75.0"
+      ASWF_CMAKE_VERSION: "3.20.5"
+      ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_GLEW_VERSION: "2.1.0"
+      ASWF_GLFW_VERSION: "3.1.2"
+      ASWF_HDF5_VERSION: "1.8.21"
+      ASWF_LOG4CPLUS_VERSION: "1.1.2"
+      ASWF_NUMPY_VERSION: "1.20"
+      ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
+      ASWF_OCIO_VERSION: "2.0.1"
+      ASWF_OIIO_VERSION: "2.2.14.0"
+      ASWF_OPENEXR_VERSION: "2.5.5"
+      ASWF_OPENSUBDIV_VERSION: "3_4_3"
+      ASWF_OPENVDB_VERSION: "8.0.1"
+      ASWF_OSL_VERSION: "1.11.13.0"
+      ASWF_OTIO_VERSION: "0.13"
+      ASWF_PARTIO_VERSION: "1.14.0"
+      ASWF_PTEX_VERSION: "2.4.0"
+      ASWF_PYBIND11_VERSION: "2.6.2"
+      ASWF_PYSIDE_VERSION: "5.15.2"
+      ASWF_PYTHON_VERSION: "3.9.5"
+      ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.9"
+      ASWF_QT_VERSION: "5.15.2"
+      ASWF_TBB_VERSION: "2020_U3"
+      ASWF_USD_VERSION: "21.05"
+      ASWF_VFXPLATFORM_VERSION: "2021"
+  "2022-clang10":
+    parent_versions: ["2", "2-clang10", "2022"]
+    use_major_version_as_tag: true
+  "2022-clang11":
+    parent_versions: ["2", "2-clang11", "2022"]
 
 ci-packages:
   clang:
@@ -264,116 +268,120 @@ ci-packages:
     - "1.3"
     - "2.1"
   cmake:
-    - "2018.0"
     - "2019.0"
     - "2020.0"
     - "2021.1"
+    - "2022.0"
   python:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.2"
+    - "2022.0"
   pybind11:
     - "2019.0"
     - "2020.0"
     - "2021.0"
+    - "2022.0"
   boost:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.2"
+    - "2022.0"
   tbb:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.2"
+    - "2022.0"
   cppunit:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.1"
+    - "2022.0"
   glew:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.2"
+    - "2022.0"
   glfw:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.2"
+    - "2022.0"
   log4cplus:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.1"
+    - "2022.0"
   qt:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.2"
+    - "2022.0"
   pyside:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.2"
+    - "2022.0"
   blosc:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.1"
+    - "2022.0"
   openexr:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.3"
+    - "2022.0"
   alembic:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.2"
+    - "2022.0"
   ocio:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.4"
+    - "2022.0"
   oiio:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.4"
+    - "2022.0"
   opensubdiv:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.2"
+    - "2022.0"
   ptex:
-    - "2018.2"
     - "2019.2"
     - "2020.2"
     - "2021.1"
+    - "2022.0"
   openvdb:
     - "2019.2"
     - "2020.2"
     - "2021.3"
+    - "2022.0"
   usd:
     - "2019.3"
     - "2020.2"
     - "2021.5"
+    - "2022.0"
   partio:
-    - "2018.1"
     - "2019.1"
     - "2020.1"
     - "2021.2"
+    - "2022.0"
   osl:
-    - "2018.1"
     - "2019.1"
     - "2020.1"
     - "2021.3"
+    - "2022.0"
   otio:
     - "2019.1"
     - "2020.1"
     - "2021.3"
+    - "2022.0"
 
 ci-images:
   common:
@@ -385,40 +393,41 @@ ci-images:
     - "2-clang10.4"
     - "2-clang11.4"
   base:
-    - "2018.8"
     - "2019.8"
     - "2020.8"
     - "2021.5"
+    - "2022.0"
   baseqt:
-    - "2018.1"
     - "2019.1"
     - "2020.1"
     - "2021.2"
+    - "2022.0"
   openexr:
-    - "2018.8"
     - "2019.8"
     - "2020.8"
     - "2021.5"
+    - "2022.0"
   ocio:
-    - "2018.9"
     - "2019.9"
     - "2020.8"
     - "2021.6"
+    - "2022.0"
   opencue:
-    - "2018.10"
     - "2019.10"
     - "2020.10"
     - "2021.7"
+    - "2022.0"
   usd:
     - "2019.9"
     - "2020.8"
     - "2021.6"
+    - "2022.0"
   otio:
     - "2019.3"
     - "2020.3"
     - "2021.5"
+    - "2022.0"
   osl:
-    - "2018-clang7.5"
     - "2019-clang6.5"
     - "2019-clang7.5"
     - "2019-clang8.5"
@@ -427,14 +436,17 @@ ci-images:
     - "2020-clang7.5"
     - "2021-clang10.7"
     - "2021-clang11.7"
+    - "2022-clang10.7"
+    - "2022-clang11.7"
   openvdb:
-    - "2018-clang7.8"
     - "2019-clang6.8"
     - "2019-clang7.8"
     - "2019-clang8.8"
     - "2019-clang9.8"
     - "2020-clang7.8"
     - "2021-clang10.6"
+    - "2022-clang10.7"
+    - "2022-clang11.7"
   vfxall:
     - "2019-clang6.12"
     - "2019-clang7.12"
@@ -442,6 +454,8 @@ ci-images:
     - "2019-clang9.12"
     - "2020-clang7.10"
     - "2021-clang10.7"
+    - "2022-clang10.7"
+    - "2022-clang11.7"
 
 groups:
   package:

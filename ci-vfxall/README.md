@@ -191,3 +191,61 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2021
 
+## [aswf/ci-vfxall:2022-clang10.7](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang10.7)
+
+Contains:
+* python-3.9.5
+* tbb-2020_U3
+* boost-1.75.0
+* cppunit-1.15.1
+* log4cplus-1.1.2
+* glew-2.1.0
+* glfw-3.1.2
+* qt-5.15.2
+* pyside-5.15.2
+* cmake-3.20.5
+* openexr-2.5.5
+* blosc-1.5.0
+* alembic-1.8.2
+* oiio-2.2.14.0
+* ocio-2.0.1
+* opensubdiv-3_4_3
+* ptex-2.4.0
+* openvdb-8.0.1
+* usd-21.05
+* partio-1.14.0
+* osl-1.11.13.0
+* otio-0.13
+* numpy-1.20
+* hdf5-1.8.21
+* vfxplatform-2021
+
+## [aswf/ci-vfxall:2022-clang11.7](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang11.7)
+
+Contains:
+* python-3.9.5
+* tbb-2020_U3
+* boost-1.75.0
+* cppunit-1.15.1
+* log4cplus-1.1.2
+* glew-2.1.0
+* glfw-3.1.2
+* qt-5.15.2
+* pyside-5.15.2
+* cmake-3.20.5
+* openexr-2.5.5
+* blosc-1.5.0
+* alembic-1.8.2
+* oiio-2.2.14.0
+* ocio-2.0.1
+* opensubdiv-3_4_3
+* ptex-2.4.0
+* openvdb-8.0.1
+* usd-21.05
+* partio-1.14.0
+* osl-1.11.13.0
+* otio-0.13
+* numpy-1.20
+* hdf5-1.8.21
+* vfxplatform-2021
+

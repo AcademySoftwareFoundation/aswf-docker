@@ -31,13 +31,13 @@ class TestMigrater(unittest.TestCase):
         m.gather("openexr", "2019")
         current_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "openexr")
-        )[1]
+        )[0]
         self.assertEqual(len(m.migration_list), 1)
         minfo = m.migration_list[0]
         self.assertEqual(minfo.image, "ci-package-openexr")
         oexr_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "openexr")
-        )[1]
+        )[0]
         self.assertEqual(minfo.version, oexr_version)
         self.assertEqual(
             minfo.source,
@@ -96,7 +96,7 @@ class TestMigraterCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         current_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "openexr")
-        )[1]
+        )[0]
         reg = constants.DOCKER_REGISTRY
         self.assertEqual(
             result.output,

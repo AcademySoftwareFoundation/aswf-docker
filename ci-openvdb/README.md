@@ -18,20 +18,6 @@ Warning: this image does *not* contain OpenVDB itself as it is used to *build* O
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-openvdb/Dockerfile)
 
-## [aswf/ci-openvdb:2018-clang7.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2018-clang7.8)
-
-Contains:
-* boost-1.61.0
-* cmake-3.9.4
-* cppunit-1.14.0
-* glfw-3.1.2
-* python-2.7.15
-* tbb-2017_U6
-* openexr-2.2.1
-* blosc-1.5.0
-* numpy-1.14
-* vfxplatform-2018
-
 ## [aswf/ci-openvdb:2019-clang6.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang6.8)
 
 Contains:
@@ -114,5 +100,33 @@ Contains:
 * openexr-2.5.5
 * blosc-1.5.0
 * numpy-1.19
+* vfxplatform-2021
+
+## [aswf/ci-openvdb:2022-clang10.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang10.7)
+
+Contains:
+* boost-1.75.0
+* cmake-3.20.5
+* cppunit-1.15.1
+* glfw-3.1.2
+* python-3.9.5
+* tbb-2020_U3
+* openexr-2.5.5
+* blosc-1.5.0
+* numpy-1.20
+* vfxplatform-2021
+
+## [aswf/ci-openvdb:2022-clang11.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang11.7)
+
+Contains:
+* boost-1.75.0
+* cmake-3.20.5
+* cppunit-1.15.1
+* glfw-3.1.2
+* python-3.9.5
+* tbb-2020_U3
+* openexr-2.5.5
+* blosc-1.5.0
+* numpy-1.20
 * vfxplatform-2021
 

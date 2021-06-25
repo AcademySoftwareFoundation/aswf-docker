@@ -32,7 +32,7 @@ class TestUtilsCli(unittest.TestCase):
     def test_cli_dockergen(self):
         runner = CliRunner()
         result = runner.invoke(aswfdocker.cli, ["dockergen", "--check", "-n", "base"])
-        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(result.exit_code, 0, msg=f"output: {result.output}")
         lines = result.output.split("\n")
         self.assertEqual(len(lines), 3)
         self.assertTrue(lines[0].endswith("ci-base/Dockerfile is up to date"))
