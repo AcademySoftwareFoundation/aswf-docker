@@ -52,5 +52,5 @@ Contains:
 * boost-1.75.0
 * cmake-3.20.5
 * numpy-1.20
-* vfxplatform-2021
+* vfxplatform-2022
 

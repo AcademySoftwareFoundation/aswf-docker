@@ -71,5 +71,5 @@ Contains:
 * python-3.9.5
 * tbb-2020_U3
 * numpy-1.20
-* vfxplatform-2021
+* vfxplatform-2022
 

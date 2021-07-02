@@ -48,5 +48,5 @@ Contains:
 * python-3.9.5
 * cmake-3.20.5
 * numpy-1.20
-* vfxplatform-2021
+* vfxplatform-2022
 

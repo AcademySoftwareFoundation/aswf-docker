@@ -114,7 +114,7 @@ Contains:
 * openexr-2.5.5
 * blosc-1.5.0
 * numpy-1.20
-* vfxplatform-2021
+* vfxplatform-2022
 
 ## [aswf/ci-openvdb:2022-clang11.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang11.7)
 
@@ -128,5 +128,5 @@ Contains:
 * openexr-2.5.5
 * blosc-1.5.0
 * numpy-1.20
-* vfxplatform-2021
+* vfxplatform-2022
 

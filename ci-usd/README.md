@@ -112,5 +112,5 @@ Contains:
 * openvdb-8.0.1
 * numpy-1.20
 * hdf5-1.8.21
-* vfxplatform-2021
+* vfxplatform-2022
 

@@ -56,5 +56,5 @@ Contains:
 * qt-5.15.2
 * pyside-5.15.2
 * numpy-1.20
-* vfxplatform-2021
+* vfxplatform-2022
 

@@ -72,5 +72,5 @@ Contains:
 * openexr-2.5.5
 * oiio-2.2.14.0
 * numpy-1.20
-* vfxplatform-2021
+* vfxplatform-2022
 
