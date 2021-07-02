@@ -17,7 +17,7 @@ else
 fi
 
 BOOTSTRAP_ARGS="--with-python=${ASWF_INSTALL_PREFIX}/bin/python${ASWF_PYTHON_MAJOR_MINOR_VERSION} --with-python-version=${ASWF_PYTHON_MAJOR_MINOR_VERSION} --with-python-root=${ASWF_INSTALL_PREFIX}/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}"
-if [[ $ASWF_PYTHON_MAJOR_MINOR_VERSION == 3* ]]; then
+if [[ $ASWF_PYTHON_MAJOR_MINOR_VERSION == 3.7* ]]; then
     # The unfortunate trick is the "m" in the python include path...
     echo "using python : ${ASWF_PYTHON_MAJOR_MINOR_VERSION} : ${ASWF_INSTALL_PREFIX}/bin/python${ASWF_PYTHON_MAJOR_MINOR_VERSION} : ${ASWF_INSTALL_PREFIX}/include/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}m : ${ASWF_INSTALL_PREFIX}/lib ;" > ~/user-config.jam
 else
