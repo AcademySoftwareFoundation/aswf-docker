@@ -214,11 +214,11 @@ Contains:
 * openvdb-8.0.1
 * usd-21.05
 * partio-1.14.0
-* osl-1.11.13.0
+* osl-1.11.14.2
 * otio-0.13
 * numpy-1.20
 * hdf5-1.8.21
-* vfxplatform-2021
+* vfxplatform-2022
 
 ## [aswf/ci-vfxall:2022-clang11.7](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang11.7)
 
@@ -243,9 +243,9 @@ Contains:
 * openvdb-8.0.1
 * usd-21.05
 * partio-1.14.0
-* osl-1.11.13.0
+* osl-1.11.14.2
 * otio-0.13
 * numpy-1.20
 * hdf5-1.8.21
-* vfxplatform-2021
+* vfxplatform-2022
 
