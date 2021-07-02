@@ -237,7 +237,7 @@ versions:
       ASWF_OPENEXR_VERSION: "2.5.5"
       ASWF_OPENSUBDIV_VERSION: "3_4_3"
       ASWF_OPENVDB_VERSION: "8.0.1"
-      ASWF_OSL_VERSION: "1.11.13.0"
+      ASWF_OSL_VERSION: "1.11.14.2"
       ASWF_OTIO_VERSION: "0.13"
       ASWF_PARTIO_VERSION: "1.14.0"
       ASWF_PTEX_VERSION: "2.4.0"
@@ -248,7 +248,7 @@ versions:
       ASWF_QT_VERSION: "5.15.2"
       ASWF_TBB_VERSION: "2020_U3"
       ASWF_USD_VERSION: "21.05"
-      ASWF_VFXPLATFORM_VERSION: "2021"
+      ASWF_VFXPLATFORM_VERSION: "2022"
   "2022-clang10":
     parent_versions: ["2", "2-clang10", "2022"]
     use_major_version_as_tag: true
