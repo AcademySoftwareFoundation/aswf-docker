@@ -6,87 +6,91 @@
 ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
-ARG ASWF_CLANG_MAJOR_VERSION
+ARG CLANG_MAJOR_VERSION
 
-ARG ASWF_PYTHON_VERSION
-ARG ASWF_TBB_VERSION
-ARG ASWF_BOOST_VERSION
-ARG ASWF_GLEW_VERSION
-ARG ASWF_GLFW_VERSION
-ARG ASWF_CMAKE_VERSION
-ARG ASWF_OPENEXR_VERSION
-ARG ASWF_OIIO_VERSION
-ARG ASWF_NUMPY_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
+ARG PYTHON_VERSION
+ARG TBB_VERSION
+ARG BOOST_VERSION
+ARG GLEW_VERSION
+ARG GLFW_VERSION
+ARG CMAKE_VERSION
+ARG IMATH_VERSION
+ARG OPENEXR_VERSION
+ARG OIIO_VERSION
+ARG NUMPY_VERSION
+ARG VFXPLATFORM_VERSION
+ARG PYTHON_VERSION_MAJOR_MINOR
 
 
-FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
-FROM ${ASWF_PKG_ORG}/ci-package-tbb:$ASWF_VFXPLATFORM_VERSION-$ASWF_TBB_VERSION as ci-package-tbb
-FROM ${ASWF_PKG_ORG}/ci-package-boost:$ASWF_VFXPLATFORM_VERSION-$ASWF_BOOST_VERSION as ci-package-boost
-FROM ${ASWF_PKG_ORG}/ci-package-glew:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLEW_VERSION as ci-package-glew
-FROM ${ASWF_PKG_ORG}/ci-package-glfw:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLFW_VERSION as ci-package-glfw
-FROM ${ASWF_PKG_ORG}/ci-package-cmake:$ASWF_VFXPLATFORM_VERSION-$ASWF_CMAKE_VERSION as ci-package-cmake
-FROM ${ASWF_PKG_ORG}/ci-package-openexr:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENEXR_VERSION as ci-package-openexr
-FROM ${ASWF_PKG_ORG}/ci-package-oiio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OIIO_VERSION as ci-package-oiio
+FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$PYTHON_VERSION as ci-package-python
+FROM ${ASWF_PKG_ORG}/ci-package-tbb:$ASWF_VFXPLATFORM_VERSION-$TBB_VERSION as ci-package-tbb
+FROM ${ASWF_PKG_ORG}/ci-package-boost:$ASWF_VFXPLATFORM_VERSION-$BOOST_VERSION as ci-package-boost
+FROM ${ASWF_PKG_ORG}/ci-package-glew:$ASWF_VFXPLATFORM_VERSION-$GLEW_VERSION as ci-package-glew
+FROM ${ASWF_PKG_ORG}/ci-package-glfw:$ASWF_VFXPLATFORM_VERSION-$GLFW_VERSION as ci-package-glfw
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:$ASWF_VFXPLATFORM_VERSION-$CMAKE_VERSION as ci-package-cmake
+FROM ${ASWF_PKG_ORG}/ci-package-imath:$ASWF_VFXPLATFORM_VERSION-$IMATH_VERSION as ci-package-imath
+FROM ${ASWF_PKG_ORG}/ci-package-openexr:$ASWF_VFXPLATFORM_VERSION-$OPENEXR_VERSION as ci-package-openexr
+FROM ${ASWF_PKG_ORG}/ci-package-oiio:$ASWF_VFXPLATFORM_VERSION-$OIIO_VERSION as ci-package-oiio
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-ocio
 
 
 ARG ASWF_ORG
 ARG ASWF_VERSION
 
-ARG ASWF_PYTHON_VERSION
-ARG ASWF_TBB_VERSION
-ARG ASWF_BOOST_VERSION
-ARG ASWF_GLEW_VERSION
-ARG ASWF_GLFW_VERSION
-ARG ASWF_CMAKE_VERSION
-ARG ASWF_OPENEXR_VERSION
-ARG ASWF_OIIO_VERSION
-ARG ASWF_NUMPY_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
+ARG PYTHON_VERSION
+ARG TBB_VERSION
+ARG BOOST_VERSION
+ARG GLEW_VERSION
+ARG GLFW_VERSION
+ARG CMAKE_VERSION
+ARG IMATH_VERSION
+ARG OPENEXR_VERSION
+ARG OIIO_VERSION
+ARG NUMPY_VERSION
+ARG VFXPLATFORM_VERSION
+ARG PYTHON_VERSION_MAJOR_MINOR
 
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-ocio"
 LABEL org.opencontainers.image.title="OpenColorIO CI Docker Image"
 LABEL org.opencontainers.image.description="Contains: Python, TBB, Boost and other OpenColorIO upstream dependencies\
-Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!"
+Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!\
+"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-ocio/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 
-LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
+LABEL com.vfxplatform.version="${VFXPLATFORM_VERSION}"
 
-LABEL io.aswf.docker.versions.python="$ASWF_PYTHON_VERSION"
-LABEL io.aswf.docker.versions.tbb="$ASWF_TBB_VERSION"
-LABEL io.aswf.docker.versions.boost="$ASWF_BOOST_VERSION"
-LABEL io.aswf.docker.versions.glew="$ASWF_GLEW_VERSION"
-LABEL io.aswf.docker.versions.glfw="$ASWF_GLFW_VERSION"
-LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
-LABEL io.aswf.docker.versions.openexr="$ASWF_OPENEXR_VERSION"
-LABEL io.aswf.docker.versions.oiio="$ASWF_OIIO_VERSION"
-LABEL io.aswf.docker.versions.numpy="$ASWF_NUMPY_VERSION"
-LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
+LABEL io.aswf.docker.versions.python="$PYTHON_VERSION"
+LABEL io.aswf.docker.versions.tbb="$TBB_VERSION"
+LABEL io.aswf.docker.versions.boost="$BOOST_VERSION"
+LABEL io.aswf.docker.versions.glew="$GLEW_VERSION"
+LABEL io.aswf.docker.versions.glfw="$GLFW_VERSION"
+LABEL io.aswf.docker.versions.cmake="$CMAKE_VERSION"
+LABEL io.aswf.docker.versions.imath="$IMATH_VERSION"
+LABEL io.aswf.docker.versions.openexr="$OPENEXR_VERSION"
+LABEL io.aswf.docker.versions.oiio="$OIIO_VERSION"
+LABEL io.aswf.docker.versions.numpy="$NUMPY_VERSION"
+LABEL io.aswf.docker.versions.vfxplatform="$VFXPLATFORM_VERSION"
 
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
-ENV VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
-
-ENV ASWF_PYTHON_VERSION=$ASWF_PYTHON_VERSION
-ENV ASWF_TBB_VERSION=$ASWF_TBB_VERSION
-ENV ASWF_BOOST_VERSION=$ASWF_BOOST_VERSION
-ENV ASWF_GLEW_VERSION=$ASWF_GLEW_VERSION
-ENV ASWF_GLFW_VERSION=$ASWF_GLFW_VERSION
-ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
-ENV ASWF_OPENEXR_VERSION=$ASWF_OPENEXR_VERSION
-ENV ASWF_OIIO_VERSION=$ASWF_OIIO_VERSION
-ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
-ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
-ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
+ENV PYTHON_VERSION=$PYTHON_VERSION
+ENV TBB_VERSION=$TBB_VERSION
+ENV BOOST_VERSION=$BOOST_VERSION
+ENV GLEW_VERSION=$GLEW_VERSION
+ENV GLFW_VERSION=$GLFW_VERSION
+ENV CMAKE_VERSION=$CMAKE_VERSION
+ENV IMATH_VERSION=$IMATH_VERSION
+ENV OPENEXR_VERSION=$OPENEXR_VERSION
+ENV OIIO_VERSION=$OIIO_VERSION
+ENV NUMPY_VERSION=$NUMPY_VERSION
+ENV VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION
+ENV PYTHON_VERSION_MAJOR_MINOR=$PYTHON_VERSION_MAJOR_MINOR
 
 
 COPY --from=ci-package-python /. /usr/local/
@@ -95,10 +99,11 @@ COPY --from=ci-package-boost /. /usr/local/
 COPY --from=ci-package-glew /. /usr/local/
 COPY --from=ci-package-glfw /. /usr/local/
 COPY --from=ci-package-cmake /. /usr/local/
+COPY --from=ci-package-imath /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
 COPY ci-ocio/README.md ci-ocio/image.yaml /usr/local/aswf/
 
 
 
-ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
+ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib64/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib/python:${PYTHONPATH}

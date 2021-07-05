@@ -6,61 +6,60 @@
 ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
-ARG ASWF_CLANG_MAJOR_VERSION
+ARG CLANG_MAJOR_VERSION
 
-ARG ASWF_CLANG_VERSION
-ARG ASWF_NINJA_VERSION
-ARG ASWF_CUDA_VERSION
-ARG ASWF_CCACHE_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_SONAR_VERSION
+ARG CLANG_VERSION
+ARG NINJA_VERSION
+ARG CUDA_VERSION
+ARG CCACHE_VERSION
+ARG DTS_VERSION
+ARG SONAR_VERSION
 
 
-FROM ${ASWF_PKG_ORG}/ci-package-clang:$CI_COMMON_VERSION-$ASWF_CLANG_VERSION as ci-package-clang
-FROM ${ASWF_PKG_ORG}/ci-package-ninja:$CI_COMMON_VERSION-$ASWF_NINJA_VERSION as ci-package-ninja
+FROM ${ASWF_PKG_ORG}/ci-package-clang:$CI_COMMON_VERSION-$CLANG_VERSION as ci-package-clang
+FROM ${ASWF_PKG_ORG}/ci-package-ninja:$CI_COMMON_VERSION-$NINJA_VERSION as ci-package-ninja
 FROM nvidia/cudagl:${ASWF_CUDA_VERSION}-devel-centos7 as ci-common
 
 
 ARG ASWF_ORG
 ARG ASWF_VERSION
 
-ARG ASWF_CLANG_VERSION
-ARG ASWF_NINJA_VERSION
-ARG ASWF_CUDA_VERSION
-ARG ASWF_CCACHE_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_SONAR_VERSION
+ARG CLANG_VERSION
+ARG NINJA_VERSION
+ARG CUDA_VERSION
+ARG CCACHE_VERSION
+ARG DTS_VERSION
+ARG SONAR_VERSION
 
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-common"
 LABEL org.opencontainers.image.title="Common CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: GCC, Clang, Jinja, ccache and all base OS libraries"
+LABEL org.opencontainers.image.description="Contains: GCC, Clang, Jinja, ccache and all base OS libraries\
+"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-common/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 
-LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
+LABEL com.vfxplatform.version="${VFXPLATFORM_VERSION}"
 
-LABEL io.aswf.docker.versions.clang="$ASWF_CLANG_VERSION"
-LABEL io.aswf.docker.versions.ninja="$ASWF_NINJA_VERSION"
-LABEL io.aswf.docker.versions.cuda="$ASWF_CUDA_VERSION"
-LABEL io.aswf.docker.versions.ccache="$ASWF_CCACHE_VERSION"
-LABEL io.aswf.docker.versions.dts="$ASWF_DTS_VERSION"
-LABEL io.aswf.docker.versions.sonar="$ASWF_SONAR_VERSION"
+LABEL io.aswf.docker.versions.clang="$CLANG_VERSION"
+LABEL io.aswf.docker.versions.ninja="$NINJA_VERSION"
+LABEL io.aswf.docker.versions.cuda="$CUDA_VERSION"
+LABEL io.aswf.docker.versions.ccache="$CCACHE_VERSION"
+LABEL io.aswf.docker.versions.dts="$DTS_VERSION"
+LABEL io.aswf.docker.versions.sonar="$SONAR_VERSION"
 
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
-ENV VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
-
-ENV ASWF_CLANG_VERSION=$ASWF_CLANG_VERSION
-ENV ASWF_NINJA_VERSION=$ASWF_NINJA_VERSION
-ENV ASWF_CUDA_VERSION=$ASWF_CUDA_VERSION
-ENV ASWF_CCACHE_VERSION=$ASWF_CCACHE_VERSION
-ENV ASWF_DTS_VERSION=$ASWF_DTS_VERSION
-ENV ASWF_SONAR_VERSION=$ASWF_SONAR_VERSION
+ENV CLANG_VERSION=$CLANG_VERSION
+ENV NINJA_VERSION=$NINJA_VERSION
+ENV CUDA_VERSION=$CUDA_VERSION
+ENV CCACHE_VERSION=$CCACHE_VERSION
+ENV DTS_VERSION=$DTS_VERSION
+ENV SONAR_VERSION=$SONAR_VERSION
 
 
 COPY --from=ci-package-clang /. /usr/local/

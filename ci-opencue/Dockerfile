@@ -6,57 +6,56 @@
 ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
-ARG ASWF_CLANG_MAJOR_VERSION
+ARG CLANG_MAJOR_VERSION
 
-ARG ASWF_PYTHON_VERSION
-ARG ASWF_CMAKE_VERSION
-ARG ASWF_NUMPY_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
+ARG PYTHON_VERSION
+ARG CMAKE_VERSION
+ARG NUMPY_VERSION
+ARG VFXPLATFORM_VERSION
+ARG PYTHON_VERSION_MAJOR_MINOR
 
 
-FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
-FROM ${ASWF_PKG_ORG}/ci-package-cmake:$ASWF_VFXPLATFORM_VERSION-$ASWF_CMAKE_VERSION as ci-package-cmake
+FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$PYTHON_VERSION as ci-package-python
+FROM ${ASWF_PKG_ORG}/ci-package-cmake:$ASWF_VFXPLATFORM_VERSION-$CMAKE_VERSION as ci-package-cmake
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-opencue
 
 
 ARG ASWF_ORG
 ARG ASWF_VERSION
 
-ARG ASWF_PYTHON_VERSION
-ARG ASWF_CMAKE_VERSION
-ARG ASWF_NUMPY_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
+ARG PYTHON_VERSION
+ARG CMAKE_VERSION
+ARG NUMPY_VERSION
+ARG VFXPLATFORM_VERSION
+ARG PYTHON_VERSION_MAJOR_MINOR
 
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-opencue"
 LABEL org.opencontainers.image.title="OpenCue CI Docker Image"
 LABEL org.opencontainers.image.description="Contains: Python, CMake and other OpenCue upstream dependencies\
-Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!"
+Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!\
+"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-opencue/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 
-LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
+LABEL com.vfxplatform.version="${VFXPLATFORM_VERSION}"
 
-LABEL io.aswf.docker.versions.python="$ASWF_PYTHON_VERSION"
-LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
-LABEL io.aswf.docker.versions.numpy="$ASWF_NUMPY_VERSION"
-LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
+LABEL io.aswf.docker.versions.python="$PYTHON_VERSION"
+LABEL io.aswf.docker.versions.cmake="$CMAKE_VERSION"
+LABEL io.aswf.docker.versions.numpy="$NUMPY_VERSION"
+LABEL io.aswf.docker.versions.vfxplatform="$VFXPLATFORM_VERSION"
 
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
-ENV VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
-
-ENV ASWF_PYTHON_VERSION=$ASWF_PYTHON_VERSION
-ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
-ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
-ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
-ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
+ENV PYTHON_VERSION=$PYTHON_VERSION
+ENV CMAKE_VERSION=$CMAKE_VERSION
+ENV NUMPY_VERSION=$NUMPY_VERSION
+ENV VFXPLATFORM_VERSION=$VFXPLATFORM_VERSION
+ENV PYTHON_VERSION_MAJOR_MINOR=$PYTHON_VERSION_MAJOR_MINOR
 
 
 COPY --from=ci-package-python /. /usr/local/
@@ -71,4 +70,4 @@ RUN sudo alternatives --set java java-11-openjdk.x86_64 && \
     sudo alternatives --set jre_openjdk java-11-openjdk.x86_64
 
 
-ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
+ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib64/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages:/usr/local/lib/python:${PYTHONPATH}
