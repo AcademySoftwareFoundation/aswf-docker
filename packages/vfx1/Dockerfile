@@ -54,8 +54,51 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
     PYTHONPATH=${ASWF_INSTALL_PREFIX}/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:${PYTHONPATH}
 
 
+#################### ci-imath-builder ####################
+FROM ci-base-builder as ci-imath-builder
+
+ARG ASWF_IMATH_VERSION
+ENV ASWF_IMATH_VERSION=${ASWF_IMATH_VERSION}
+
+COPY ../scripts/vfx/build_imath.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,sharing=private,target=/tmp/downloads \
+    /tmp/before_build.sh && \
+    /tmp/build_imath.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
+#################### ci-package-imath ####################
+FROM scratch as ci-package-imath
+
+ARG ASWF_ORG
+ARG CI_COMMON_VERSION
+ARG ASWF_DTS_VERSION
+ARG ASWF_IMATH_VERSION
+ARG ASWF_VFXPLATFORM_VERSION
+
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-imath"
+LABEL org.opencontainers.image.title="Imath package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Imath headers and binaries to be installed in ASWF Docker images"
+LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
+LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
+LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/imath"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
+LABEL org.opencontainers.image.version="${ASWF_IMATH_VERSION}"
+LABEL org.opencontainers.image.licenses="BSD-3-Clause"
+LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
+LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
+LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
+LABEL io.aswf.docker.versions.imath="${ASWF_IMATH_VERSION}"
+
+COPY --from=ci-imath-builder /package/. /
+
+
 #################### ci-openexr-builder ####################
-FROM ci-base-builder as ci-openexr-builder
+FROM ci-imath-builder as ci-openexr-builder
 
 ARG ASWF_OPENEXR_VERSION
 ENV ASWF_OPENEXR_VERSION=${ASWF_OPENEXR_VERSION}
@@ -92,7 +135,7 @@ LABEL org.opencontainers.image.licenses="BSD-3-Clause"
 LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
 LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
 LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.pyside="${ASWF_OPENEXR_VERSION}"
+LABEL io.aswf.docker.versions.openexr="${ASWF_OPENEXR_VERSION}"
 
 COPY --from=ci-openexr-builder /package/. /
 
@@ -308,6 +351,7 @@ ARG ASWF_OPENVDB_VERSION
 ENV ASWF_OPENVDB_VERSION=${ASWF_OPENVDB_VERSION}
 
 COPY ../scripts/vfx/build_openvdb.sh \
+     ../scripts/vfx/openvdb-imath.patch \
      /tmp/
 
 COPY --from=ci-package-glew-external /. /usr/local/

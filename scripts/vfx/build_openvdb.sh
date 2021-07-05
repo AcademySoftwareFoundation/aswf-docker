@@ -12,6 +12,7 @@ tar -zxf "$DOWNLOADS_DIR/openvdb-${ASWF_OPENVDB_VERSION}.tar.gz"
 cd "openvdb-${ASWF_OPENVDB_VERSION}"
 
 if [[ $ASWF_OPENVDB_VERSION == 5* ]]; then
+
 cat <<EOF | patch -p1
 diff -ur openvdb-5.2.0/openvdb/python/CMakeLists.txt openvdb-5.2.0_patched/openvdb/python/CMakeLists.txt
 --- openvdb-5.2.0/openvdb/python/CMakeLists.txt 2018-08-14 01:33:07.000000000 +1000
@@ -27,6 +28,10 @@ diff -ur openvdb-5.2.0/openvdb/python/CMakeLists.txt openvdb-5.2.0_patched/openv
  IF ( NOT OPENVDB_BUILD_CORE )
 EOF
 
+fi
+
+if [[ $ASWF_IMATH_VERSION == 3* ]]; then
+    patch -p1 < /tmp/openvdb-imath.patch
 fi
 
 mkdir build

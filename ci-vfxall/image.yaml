@@ -13,6 +13,7 @@ packages:
   - qt
   - pyside
   - cmake
+  - imath
   - openexr
   - blosc
   - alembic

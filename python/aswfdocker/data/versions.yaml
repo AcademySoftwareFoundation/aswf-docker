@@ -90,6 +90,7 @@ versions:
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_HDF5_VERSION: "1.8.21"
+      ASWF_IMATH_VERSION: "2.3.0"
       ASWF_LOG4CPLUS_VERSION: "1.1.2"
       ASWF_NUMPY_VERSION: "1.14"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
@@ -145,6 +146,7 @@ versions:
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_HDF5_VERSION: "1.8.21"
+      ASWF_IMATH_VERSION: "2.4.0"
       ASWF_LOG4CPLUS_VERSION: "1.1.2"
       ASWF_NUMPY_VERSION: "1.16"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
@@ -184,6 +186,7 @@ versions:
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_HDF5_VERSION: "1.8.21"
+      ASWF_IMATH_VERSION: "2.5.5"
       ASWF_LOG4CPLUS_VERSION: "1.1.2"
       ASWF_NUMPY_VERSION: "1.19"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
@@ -229,14 +232,15 @@ versions:
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_HDF5_VERSION: "1.8.21"
+      ASWF_IMATH_VERSION: "3.0.5"
       ASWF_LOG4CPLUS_VERSION: "1.1.2"
       ASWF_NUMPY_VERSION: "1.20"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.0.1"
-      ASWF_OIIO_VERSION: "2.2.14.0"
-      ASWF_OPENEXR_VERSION: "2.5.5"
+      ASWF_OIIO_VERSION: "2.2.16.0"
+      ASWF_OPENEXR_VERSION: "3.0.5"
       ASWF_OPENSUBDIV_VERSION: "3_4_3"
-      ASWF_OPENVDB_VERSION: "8.0.1"
+      ASWF_OPENVDB_VERSION: "8.1.0"
       ASWF_OSL_VERSION: "1.11.14.2"
       ASWF_OTIO_VERSION: "0.13"
       ASWF_PARTIO_VERSION: "1.14.0"
@@ -328,6 +332,11 @@ ci-packages:
     - "2019.2"
     - "2020.2"
     - "2021.1"
+    - "2022.0"
+  imath:
+    - "2019.0"
+    - "2020.0"
+    - "2021.0"
     - "2022.0"
   openexr:
     - "2019.2"
@@ -483,6 +492,7 @@ groups:
         - blosc
         - ocio
         - oiio
+        - imath
         - openexr
         - openvdb
       vfx2: 

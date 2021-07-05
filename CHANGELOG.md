@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
     * qt-5.15.2
     * pyside-5.15.2
     * cmake-3.20.5
-    * openexr-2.5.5
+    * openexr-3.0.5
     * blosc-1.5.0
     * alembic-1.8.2
     * oiio-2.2.14.0
