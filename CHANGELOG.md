@@ -17,11 +17,11 @@ All notable changes to this project will be documented in this file.
     * openexr-3.0.5
     * blosc-1.5.0
     * alembic-1.8.2
-    * oiio-2.2.14.0
+    * oiio-2.2.16.0
     * ocio-2.0.1
     * opensubdiv-3_4_3
     * ptex-2.4.0
-    * openvdb-8.0.1
+    * openvdb-8.1.0
     * usd-21.05
     * partio-1.14.0
     * osl-1.11.14.2
