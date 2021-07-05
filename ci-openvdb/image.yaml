@@ -10,6 +10,7 @@ packages:
   - glfw
   - python
   - tbb
+  - imath
   - openexr
   - blosc
 implicit_packages:

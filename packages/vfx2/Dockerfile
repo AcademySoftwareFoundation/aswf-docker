@@ -23,6 +23,7 @@ ARG ASWF_BLOSC_VERSION
 ARG ASWF_OCIO_VERSION
 ARG ASWF_OIIO_VERSION
 ARG ASWF_OPENEXR_VERSION
+ARG ASWF_IMATH_VERSION
 ARG ASWF_OPENSUBDIV_VERSION
 ARG ASWF_OPENVDB_VERSION
 ARG ASWF_OSL_VERSION
@@ -43,6 +44,7 @@ FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} as
 FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} as ci-package-pybind11-external
 FROM ${ASWF_ORG}/ci-package-pyside:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYSIDE_VERSION} as ci-package-pyside-external
 
+FROM ${ASWF_ORG}/ci-package-imath:${ASWF_VFXPLATFORM_VERSION}-${ASWF_IMATH_VERSION} as ci-package-imath-external
 FROM ${ASWF_ORG}/ci-package-openexr:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OPENEXR_VERSION} as ci-package-openexr-external
 FROM ${ASWF_ORG}/ci-package-blosc:${ASWF_VFXPLATFORM_VERSION}-${ASWF_BLOSC_VERSION} as ci-package-blosc-external
 FROM ${ASWF_ORG}/ci-package-glew:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLEW_VERSION} as ci-package-glew-external
@@ -119,6 +121,7 @@ FROM ci-partio-builder as ci-osl-builder
 ARG ASWF_OSL_VERSION
 ENV ASWF_OSL_VERSION=${ASWF_OSL_VERSION}
 
+COPY --from=ci-package-imath-external /. /usr/local/
 COPY --from=ci-package-openexr-external /. /usr/local/
 COPY --from=ci-package-oiio-external /. /usr/local/
 COPY --from=ci-package-pybind11-external /. /usr/local/
@@ -256,6 +259,7 @@ FROM ci-opensubdiv-builder as ci-usd-builder
 ARG ASWF_USD_VERSION
 ENV ASWF_USD_VERSION=${ASWF_USD_VERSION}
 
+COPY --from=ci-package-imath-external /. /usr/local/
 COPY --from=ci-package-openexr-external /. /usr/local/
 COPY --from=ci-package-glew-external /. /usr/local/
 COPY --from=ci-package-alembic-external /. /usr/local/
