@@ -13,7 +13,7 @@ cd "pybind11-${ASWF_PYBIND11_VERSION}"
 mkdir build
 cd build
 
-cmake -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" ..
+cmake -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" -DPYBIND11_TEST=OFF ..
 make -j$(nproc)
 make install
 

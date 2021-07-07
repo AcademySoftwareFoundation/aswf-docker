@@ -13,44 +13,44 @@ cd "openexr-${ASWF_OPENEXR_VERSION}"
 
 if [[ $ASWF_OPENEXR_VERSION == 2.2* ]]; then
 
+    cd IlmBase
+    ./bootstrap
+    ./configure --prefix="${ASWF_INSTALL_PREFIX}"
+    make -j$(nproc)
+    make install
+
     cd ../OpenEXR
     ./bootstrap
     ./configure --prefix="${ASWF_INSTALL_PREFIX}"
     make -j$(nproc)
     make install
 
-elif [[ $ASWF_IMATH_VERSION == 2* ]]; then
+    cd ../PyIlmBase
+    ./bootstrap
+    ./configure --prefix="${ASWF_INSTALL_PREFIX}"
+    make
+    make install
+else
 
+    # TODO: add support for python-3 PyIlmBase when it works...
     if [[ $ASWF_OPENEXR_VERSION == 2.3.0 ]]; then
         if [[ $ASWF_PYTHON_VERSION == 2.7* ]]; then
-            BUILD_PYTHON_LIBS=on
+            BUILD_PYILMBASE=on
         else
-            BUILD_PYTHON_LIBS=off
+            BUILD_PYILMBASE=off
         fi
     else
-        BUILD_PYTHON_LIBS=on
+        BUILD_PYILMBASE=on
     fi
 
     mkdir build
     cd build
     cmake \
         -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
-        -DOPENEXR_BUILD_PYTHON_LIBS="${BUILD_PYTHON_LIBS}" \
-        ../OpenEXR
-    make -j$(nproc)
-    make install
-
-else
-
-    mkdir build
-    cd build
-    cmake \
-        -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
-        -DOPENEXR_BUILD_PYTHON_LIBS=ON \
+        -DOPENEXR_BUILD_PYTHON_LIBS="${BUILD_PYILMBASE}" \
         ..
     make -j$(nproc)
     make install
-
 fi
 
 cd ../..
