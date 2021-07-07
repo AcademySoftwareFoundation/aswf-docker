@@ -3,6 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 ## 2021-07-03
+* Added new Imath package. N.B. that the package is a dummy empty package for versions 2 of IlmBase/OpenEXR. It is only meaningful since VFX-2022 and Imath-3.
 * Added new VFX 2022 Draft images with the following versions:
     * python-3.9.5
     * tbb-2020_U3
