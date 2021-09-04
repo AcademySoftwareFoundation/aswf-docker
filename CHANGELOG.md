@@ -2,33 +2,65 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2021-09-04
+
+* Updated 2022 Packages:
+  * Python 3.9.7 (from 3.9.5)
+  * Boost 1.76.0 (from 1.75.0)
+  * OpenColorIO 2.1.0 (from 2.0.1)
+  * OpenImageIO 2.3.7.2 (from 2.2.16.0)
+  * Imath 3.1.3 (from 3.0.5)
+  * OpenEXR 3.1.1 (from 3.0.5)
+  * OpenSubdiv 3.4.4 (from 3.4.3)
+  * OpenShadingLanguage 1.11.15.0 (from 1.11.14.2)
+* `ci-osl` 2022 Updates:
+  * Added TBB and OpenVDB
+* `ci-ocio` 2022 Updates:
+  * Add OSL
+  * Remove TBB and Boost
+
+### New CI Images
+
+* `aswf/ci-base:2022.1`
+* `aswf/ci-baseqt:2022.1`
+* `aswf/ci-ocio:2022.1`
+* `aswf/ci-opencue:2022.1`
+* `aswf/ci-openexr:2022.1`
+* `aswf/ci-otio:2022.1`
+* `aswf/ci-usd:2022.1`
+* `aswf/ci-openvdb:2022-clang10.8`, `aswf/ci-openvdb:2022-clang11.8`
+* `aswf/ci-osl:2022-clang10.8`, `aswf/ci-osl:2022-clang11.8`
+* `aswf/ci-vfxall:2022-clang10.8`, `aswf/ci-vfxall:2022-clang11.8`
+
+
 ## 2021-07-03
+
 * Added new Imath package. N.B. that the package is a dummy empty package for versions 2 of IlmBase/OpenEXR. It is only meaningful since VFX-2022 and Imath-3.
 * Added new VFX 2022 Draft images with the following versions:
-    * python-3.9.5
-    * tbb-2020_U3
-    * boost-1.75.0
-    * cppunit-1.15.1
-    * log4cplus-1.1.2
-    * glew-2.1.0
-    * glfw-3.1.2
-    * qt-5.15.2
-    * pyside-5.15.2
-    * cmake-3.20.5
-    * openexr-3.0.5
-    * blosc-1.5.0
-    * alembic-1.8.2
-    * oiio-2.2.16.0
-    * ocio-2.0.1
-    * opensubdiv-3_4_3
-    * ptex-2.4.0
-    * openvdb-8.1.0
-    * usd-21.05
-    * partio-1.14.0
-    * osl-1.11.14.2
-    * otio-0.13
-    * numpy-1.20
-    * hdf5-1.8.21
+  * python-3.9.5
+  * tbb-2020_U3
+  * boost-1.75.0
+  * cppunit-1.15.1
+  * log4cplus-1.1.2
+  * glew-2.1.0
+  * glfw-3.1.2
+  * qt-5.15.2
+  * pyside-5.15.2
+  * cmake-3.20.5
+  * openexr-3.0.5
+  * blosc-1.5.0
+  * alembic-1.8.2
+  * oiio-2.2.16.0
+  * ocio-2.0.1
+  * opensubdiv-3_4_3
+  * ptex-2.4.0
+  * openvdb-8.1.0
+  * usd-21.05
+  * partio-1.14.0
+  * osl-1.11.14.2
+  * otio-0.13
+  * numpy-1.20
+* hdf5-1.8.21
 * Stopped active maintenance of VFX 2018 images (images are still available on dockerhub, but will not be rebuilt anymore, the OS packages and sonar utilities will become stale over time!)
 
 ### New CI Images
