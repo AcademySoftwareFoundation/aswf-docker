@@ -45,11 +45,11 @@ Contains:
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-openexr:2022.0](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2022.0)
+## [aswf/ci-openexr:2022.1](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2022.1)
 
 Contains:
-* python-3.9.5
-* boost-1.75.0
+* python-3.9.7
+* boost-1.76.0
 * cmake-3.20.5
 * numpy-1.20
 * vfxplatform-2022
