@@ -22,14 +22,13 @@ Warning: this image does *not* contain OpenColorIO itself as it is used to *buil
 
 Contains:
 * python-2.7.15
-* tbb-2018
-* boost-1.66.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
 * oiio-2.0.8
+* osl-1.10.9
 * numpy-1.14
 * vfxplatform-2019
 
@@ -37,14 +36,13 @@ Contains:
 
 Contains:
 * python-3.7.3
-* tbb-2019_U6
-* boost-1.70.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.18.4
 * imath-2.4.0
 * openexr-2.4.0
 * oiio-2.1.13.0
+* osl-1.10.10
 * numpy-1.16
 * vfxplatform-2020
 
@@ -52,29 +50,27 @@ Contains:
 
 Contains:
 * python-3.7.9
-* tbb-2020_U2
-* boost-1.73.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.19.3
 * imath-2.5.5
 * openexr-2.5.5
 * oiio-2.2.14.0
+* osl-1.11.13.0
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-ocio:2022.0](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2022.0)
+## [aswf/ci-ocio:2022.1](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2022.1)
 
 Contains:
-* python-3.9.5
-* tbb-2020_U3
-* boost-1.75.0
+* python-3.9.7
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.20.5
-* imath-3.0.5
-* openexr-3.0.5
-* oiio-2.2.16.0
+* imath-3.1.3
+* openexr-3.1.1
+* oiio-2.3.7.2
+* osl-1.11.15.0
 * numpy-1.20
 * vfxplatform-2022
 

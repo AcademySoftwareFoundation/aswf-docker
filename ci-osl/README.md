@@ -30,6 +30,8 @@ Contains:
 * oiio-2.0.8
 * ocio-1.1.0
 * partio-1.10.1
+* tbb-2018
+* openvdb-6.2.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -45,6 +47,8 @@ Contains:
 * oiio-2.0.8
 * ocio-1.1.0
 * partio-1.10.1
+* tbb-2018
+* openvdb-6.2.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -60,6 +64,8 @@ Contains:
 * oiio-2.0.8
 * ocio-1.1.0
 * partio-1.10.1
+* tbb-2018
+* openvdb-6.2.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -75,6 +81,8 @@ Contains:
 * oiio-2.0.8
 * ocio-1.1.0
 * partio-1.10.1
+* tbb-2018
+* openvdb-6.2.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -90,6 +98,8 @@ Contains:
 * oiio-2.0.8
 * ocio-1.1.0
 * partio-1.10.1
+* tbb-2018
+* openvdb-6.2.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -105,6 +115,8 @@ Contains:
 * oiio-2.1.13.0
 * ocio-1.1.1
 * partio-1.10.1
+* tbb-2019_U6
+* openvdb-7.1.0
 * numpy-1.16
 * vfxplatform-2020
 
@@ -120,6 +132,8 @@ Contains:
 * oiio-2.2.14.0
 * ocio-2.0.1
 * partio-1.14.0
+* tbb-2020_U2
+* openvdb-8.0.1
 * numpy-1.19
 * vfxplatform-2021
 
@@ -135,36 +149,42 @@ Contains:
 * oiio-2.2.14.0
 * ocio-2.0.1
 * partio-1.14.0
+* tbb-2020_U2
+* openvdb-8.0.1
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-osl:2022-clang10.7](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang10.7)
+## [aswf/ci-osl:2022-clang10.8](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang10.8)
 
 Contains:
-* boost-1.75.0
+* boost-1.76.0
 * cmake-3.20.5
-* python-3.9.5
+* python-3.9.7
 * qt-5.15.2
-* imath-3.0.5
-* openexr-3.0.5
-* oiio-2.2.16.0
-* ocio-2.0.1
+* imath-3.1.3
+* openexr-3.1.1
+* oiio-2.3.7.2
+* ocio-2.1.0
 * partio-1.14.0
+* tbb-2020_U3
+* openvdb-8.1.0
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-osl:2022-clang11.7](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang11.7)
+## [aswf/ci-osl:2022-clang11.8](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang11.8)
 
 Contains:
-* boost-1.75.0
+* boost-1.76.0
 * cmake-3.20.5
-* python-3.9.5
+* python-3.9.7
 * qt-5.15.2
-* imath-3.0.5
-* openexr-3.0.5
-* oiio-2.2.16.0
-* ocio-2.0.1
+* imath-3.1.3
+* openexr-3.1.1
+* oiio-2.3.7.2
+* ocio-2.1.0
 * partio-1.14.0
+* tbb-2020_U3
+* openvdb-8.1.0
 * numpy-1.20
 * vfxplatform-2022
 
