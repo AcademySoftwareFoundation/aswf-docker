@@ -5,14 +5,13 @@ description: |
   Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!
 packages:
   - python
-  - tbb
-  - boost
   - glew
   - glfw
   - cmake
   - imath
   - openexr
   - oiio
+  - osl
 implicit_packages:
   - numpy
   - vfxplatform
