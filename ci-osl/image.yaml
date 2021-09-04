@@ -13,6 +13,8 @@ packages:
   - oiio
   - ocio
   - partio
+  - tbb
+  - openvdb
 implicit_packages:
   - numpy
   - vfxplatform
