@@ -22,6 +22,9 @@ Warning: this image does *not* contain OpenColorIO itself as it is used to *buil
 
 Contains:
 * python-2.7.15
+* pybind11-2.4.3
+* tbb-2018
+* boost-1.66.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.12.4
@@ -36,6 +39,9 @@ Contains:
 
 Contains:
 * python-3.7.3
+* pybind11-2.4.3
+* tbb-2019_U6
+* boost-1.70.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.18.4
@@ -50,6 +56,9 @@ Contains:
 
 Contains:
 * python-3.7.9
+* pybind11-2.6.2
+* tbb-2020_U2
+* boost-1.73.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.19.3
@@ -64,6 +73,9 @@ Contains:
 
 Contains:
 * python-3.9.7
+* pybind11-2.6.2
+* tbb-2020_U3
+* boost-1.76.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.20.5
