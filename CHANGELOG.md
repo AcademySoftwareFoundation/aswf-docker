@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file.
   * Added TBB and OpenVDB
 * `ci-ocio` 2022 Updates:
   * Add OSL
-  * Remove TBB and Boost
+  * Add pybind11
 
 ### New CI Images
 

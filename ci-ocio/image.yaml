@@ -5,6 +5,9 @@ description: |
   Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!
 packages:
   - python
+  - pybind11
+  - tbb
+  - boost
   - glew
   - glfw
   - cmake
