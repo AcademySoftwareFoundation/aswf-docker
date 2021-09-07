@@ -31,6 +31,7 @@ Contains:
 * ocio-1.1.0
 * partio-1.10.1
 * tbb-2018
+* blosc-1.5.0
 * openvdb-6.2.1
 * numpy-1.14
 * vfxplatform-2019
@@ -48,6 +49,7 @@ Contains:
 * ocio-1.1.0
 * partio-1.10.1
 * tbb-2018
+* blosc-1.5.0
 * openvdb-6.2.1
 * numpy-1.14
 * vfxplatform-2019
@@ -65,6 +67,7 @@ Contains:
 * ocio-1.1.0
 * partio-1.10.1
 * tbb-2018
+* blosc-1.5.0
 * openvdb-6.2.1
 * numpy-1.14
 * vfxplatform-2019
@@ -82,6 +85,7 @@ Contains:
 * ocio-1.1.0
 * partio-1.10.1
 * tbb-2018
+* blosc-1.5.0
 * openvdb-6.2.1
 * numpy-1.14
 * vfxplatform-2019
@@ -99,6 +103,7 @@ Contains:
 * ocio-1.1.0
 * partio-1.10.1
 * tbb-2018
+* blosc-1.5.0
 * openvdb-6.2.1
 * numpy-1.14
 * vfxplatform-2019
@@ -116,6 +121,7 @@ Contains:
 * ocio-1.1.1
 * partio-1.10.1
 * tbb-2019_U6
+* blosc-1.5.0
 * openvdb-7.1.0
 * numpy-1.16
 * vfxplatform-2020
@@ -133,6 +139,7 @@ Contains:
 * ocio-2.0.1
 * partio-1.14.0
 * tbb-2020_U2
+* blosc-1.5.0
 * openvdb-8.0.1
 * numpy-1.19
 * vfxplatform-2021
@@ -150,6 +157,7 @@ Contains:
 * ocio-2.0.1
 * partio-1.14.0
 * tbb-2020_U2
+* blosc-1.5.0
 * openvdb-8.0.1
 * numpy-1.19
 * vfxplatform-2021
@@ -167,6 +175,7 @@ Contains:
 * ocio-2.1.0
 * partio-1.14.0
 * tbb-2020_U3
+* blosc-1.5.0
 * openvdb-8.1.0
 * numpy-1.20
 * vfxplatform-2022
@@ -184,6 +193,7 @@ Contains:
 * ocio-2.1.0
 * partio-1.14.0
 * tbb-2020_U3
+* blosc-1.5.0
 * openvdb-8.1.0
 * numpy-1.20
 * vfxplatform-2022

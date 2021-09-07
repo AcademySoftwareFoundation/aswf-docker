@@ -31,6 +31,8 @@ Contains:
 * imath-2.3.0
 * openexr-2.3.0
 * oiio-2.0.8
+* blosc-1.5.0
+* openvdb-6.2.1
 * osl-1.10.9
 * numpy-1.14
 * vfxplatform-2019
@@ -48,6 +50,8 @@ Contains:
 * imath-2.4.0
 * openexr-2.4.0
 * oiio-2.1.13.0
+* blosc-1.5.0
+* openvdb-7.1.0
 * osl-1.10.10
 * numpy-1.16
 * vfxplatform-2020
@@ -65,6 +69,8 @@ Contains:
 * imath-2.5.5
 * openexr-2.5.5
 * oiio-2.2.14.0
+* blosc-1.5.0
+* openvdb-8.0.1
 * osl-1.11.13.0
 * numpy-1.19
 * vfxplatform-2021
@@ -82,6 +88,8 @@ Contains:
 * imath-3.1.3
 * openexr-3.1.1
 * oiio-2.3.7.2
+* blosc-1.5.0
+* openvdb-8.1.0
 * osl-1.11.15.0
 * numpy-1.20
 * vfxplatform-2022
