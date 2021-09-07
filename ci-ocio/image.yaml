@@ -14,6 +14,8 @@ packages:
   - imath
   - openexr
   - oiio
+  - blosc
+  - openvdb
   - osl
 implicit_packages:
   - numpy
