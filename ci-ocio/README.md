@@ -32,6 +32,7 @@ Contains:
 * openexr-2.3.0
 * oiio-2.0.8
 * blosc-1.5.0
+* partio-1.10.1
 * openvdb-6.2.1
 * osl-1.10.9
 * numpy-1.14
@@ -51,6 +52,7 @@ Contains:
 * openexr-2.4.0
 * oiio-2.1.13.0
 * blosc-1.5.0
+* partio-1.10.1
 * openvdb-7.1.0
 * osl-1.10.10
 * numpy-1.16
@@ -70,6 +72,7 @@ Contains:
 * openexr-2.5.5
 * oiio-2.2.14.0
 * blosc-1.5.0
+* partio-1.14.0
 * openvdb-8.0.1
 * osl-1.11.13.0
 * numpy-1.19
@@ -89,6 +92,7 @@ Contains:
 * openexr-3.1.1
 * oiio-2.3.7.2
 * blosc-1.5.0
+* partio-1.14.0
 * openvdb-8.1.0
 * osl-1.11.15.0
 * numpy-1.20
