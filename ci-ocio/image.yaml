@@ -15,6 +15,7 @@ packages:
   - openexr
   - oiio
   - blosc
+  - partio
   - openvdb
   - osl
 implicit_packages:

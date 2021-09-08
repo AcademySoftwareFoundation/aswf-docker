@@ -11,6 +11,7 @@ fi
 tar -zxf "$DOWNLOADS_DIR/osl-${ASWF_OSL_VERSION}.tar.gz"
 cd "OpenShadingLanguage-Release-${ASWF_OSL_VERSION}"
 
+export PUGIXML_INSTALL_DIR=${ASWF_INSTALL_PREFIX}
 if [[ ! $ASWF_OSL_VERSION == 1.10* ]]; then
     src/build-scripts/build_pugixml.bash
 fi

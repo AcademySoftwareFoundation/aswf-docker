@@ -19,6 +19,7 @@ ARG ASWF_IMATH_VERSION
 ARG ASWF_OPENEXR_VERSION
 ARG ASWF_OIIO_VERSION
 ARG ASWF_BLOSC_VERSION
+ARG ASWF_PARTIO_VERSION
 ARG ASWF_OPENVDB_VERSION
 ARG ASWF_OSL_VERSION
 ARG ASWF_NUMPY_VERSION
@@ -37,6 +38,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-imath:$ASWF_VFXPLATFORM_VERSION-$ASWF_IMATH_VERS
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENEXR_VERSION as ci-package-openexr
 FROM ${ASWF_PKG_ORG}/ci-package-oiio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OIIO_VERSION as ci-package-oiio
 FROM ${ASWF_PKG_ORG}/ci-package-blosc:$ASWF_VFXPLATFORM_VERSION-$ASWF_BLOSC_VERSION as ci-package-blosc
+FROM ${ASWF_PKG_ORG}/ci-package-partio:$ASWF_VFXPLATFORM_VERSION-$ASWF_PARTIO_VERSION as ci-package-partio
 FROM ${ASWF_PKG_ORG}/ci-package-openvdb:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENVDB_VERSION as ci-package-openvdb
 FROM ${ASWF_PKG_ORG}/ci-package-osl:$ASWF_VFXPLATFORM_VERSION-$ASWF_OSL_VERSION as ci-package-osl
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-ocio
@@ -56,6 +58,7 @@ ARG ASWF_IMATH_VERSION
 ARG ASWF_OPENEXR_VERSION
 ARG ASWF_OIIO_VERSION
 ARG ASWF_BLOSC_VERSION
+ARG ASWF_PARTIO_VERSION
 ARG ASWF_OPENVDB_VERSION
 ARG ASWF_OSL_VERSION
 ARG ASWF_NUMPY_VERSION
@@ -86,6 +89,7 @@ LABEL io.aswf.docker.versions.imath="$ASWF_IMATH_VERSION"
 LABEL io.aswf.docker.versions.openexr="$ASWF_OPENEXR_VERSION"
 LABEL io.aswf.docker.versions.oiio="$ASWF_OIIO_VERSION"
 LABEL io.aswf.docker.versions.blosc="$ASWF_BLOSC_VERSION"
+LABEL io.aswf.docker.versions.partio="$ASWF_PARTIO_VERSION"
 LABEL io.aswf.docker.versions.openvdb="$ASWF_OPENVDB_VERSION"
 LABEL io.aswf.docker.versions.osl="$ASWF_OSL_VERSION"
 LABEL io.aswf.docker.versions.numpy="$ASWF_NUMPY_VERSION"
@@ -107,6 +111,7 @@ ENV ASWF_IMATH_VERSION=$ASWF_IMATH_VERSION
 ENV ASWF_OPENEXR_VERSION=$ASWF_OPENEXR_VERSION
 ENV ASWF_OIIO_VERSION=$ASWF_OIIO_VERSION
 ENV ASWF_BLOSC_VERSION=$ASWF_BLOSC_VERSION
+ENV ASWF_PARTIO_VERSION=$ASWF_PARTIO_VERSION
 ENV ASWF_OPENVDB_VERSION=$ASWF_OPENVDB_VERSION
 ENV ASWF_OSL_VERSION=$ASWF_OSL_VERSION
 ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
@@ -125,6 +130,7 @@ COPY --from=ci-package-imath /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
 COPY --from=ci-package-blosc /. /usr/local/
+COPY --from=ci-package-partio /. /usr/local/
 COPY --from=ci-package-openvdb /. /usr/local/
 COPY --from=ci-package-osl /. /usr/local/
 COPY ci-ocio/README.md ci-ocio/image.yaml /usr/local/aswf/
