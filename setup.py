@@ -7,7 +7,7 @@ with open("python/README.md", "r") as fh:
 
 setup(
     name="aswfdocker",
-    version="0.4.0",
+    version="0.5.0",
     author="Aloys Baillet",
     author_email="aloys.baillet+github@gmail.com",
     description="ASWF Docker Utilities",
@@ -38,8 +38,11 @@ setup(
         "requests==2.23.0",
         "urllib3==1.25.9; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
         "wrapt==1.12.1",
-        "zipp==3.4.0; python_version < '3.8' and python_version < '3.8'",
     ],
     python_requires=">=3.6",
-    entry_points={"console_scripts": ["aswfdocker=aswfdocker.cli.aswfdocker:cli",],},
+    entry_points={
+        "console_scripts": [
+            "aswfdocker=aswfdocker.cli.aswfdocker:cli",
+        ],
+    },
 )

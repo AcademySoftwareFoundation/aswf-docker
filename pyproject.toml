@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta:__legacy__"
+
+[tool.pytest.ini_options]
+testpaths = [
+    "python/aswfdocker/tests",
+]
+
+[tool.black]
+target-version = ['py37', 'py38']
+include = '''
+(
+    python/.*\.py$
+  | packages/conan/recipes/.*\.py$
+  | setup\.py
+)
+'''

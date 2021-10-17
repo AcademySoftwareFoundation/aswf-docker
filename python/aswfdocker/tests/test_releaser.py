@@ -48,7 +48,8 @@ class TestReleaser(unittest.TestCase):
             draft=False,
             object=utils.get_current_sha(),
             prerelease=False,
-            release_message=f"Inspect released Docker image here: https://hub.docker.com/r/aswflocaltesting/ci-package-boost/tags?name={boost_version}",
+            release_message="Inspect released Docker image here: "
+            f"https://hub.docker.com/r/aswflocaltesting/ci-package-boost/tags?name={boost_version}",
             release_name=f"aswflocaltesting/ci-package-boost:{boost_version}",
             tag_message=f"aswflocaltesting/ci-package-boost:{boost_version}",
             type="commit",
@@ -86,6 +87,7 @@ class TestReleaserCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(
             result.output,
+            # pylint: disable=line-too-long
             f"""Are you sure you want to create the following 1 release on sha={utils.get_current_sha()}?
 aswf/ci-package-boost:{current_version}
  [y/N]: y

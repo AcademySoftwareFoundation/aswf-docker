@@ -7,14 +7,19 @@ verify_ssl = true
 pytest = "*"
 atomicwrites = {version = "*", markers = "platform_system == 'Windows'"}
 pytest-cov = "*"
-prospector = "*"
-black = "==19.10b0"
+pylint = "*"
+black = "==21.9b0"
 mypy = "*"
 pre-commit = "*"
-pipenv-setup = "*"
+pytest-pylint = "*"
+types-click = "*"
+types-jinja2 = "*"
+types-pyyaml = "*"
+types-requests = "*"
+# pipenv-setup = "*" # commented for now as it requires a very old black version!
 
 [packages]
-aswfdocker = {editable = true,path = "."}
+aswfdocker = {editable = true, path = "."}
 click = "*"
 pygithub = "*"
 pyyaml = "*"
@@ -23,7 +28,7 @@ requests = "*"
 importlib-resources = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"
 
 [pipenv]
 allow_prereleases = true

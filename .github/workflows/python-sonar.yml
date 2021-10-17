@@ -15,7 +15,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.7
+        python-version: 3.9
 
     - name: Install pipenv
       run: pip3 install pipenv
@@ -23,17 +23,13 @@ jobs:
     - name: Install aswfdocker and dev dependencies with pipenv
       run: pipenv install --dev
 
-    # python unittests with junit XML report and coverage XML Cobertura report for publishing task
-    - name: Run pytest
-      run: pipenv run pytest python/aswfdocker --doctest-modules --junitxml=test-pytest-results.xml --cov=. --cov-report=xml
-
     # mypy static type checks with junit XML report
     - name: Run mypy
       run: pipenv run mypy python/aswfdocker --junit-xml=test-mypy-results.xml
 
-    # prospector linter checks with xunit XML report
-    - name: Run prospector linter
-      run: pipenv run prospector -F python/aswfdocker --output-format xunit > test-prospector-results.xml
+    # python unittests with junit XML report, PyLint and coverage XML Cobertura report for publishing task
+    - name: Run pylint linter
+      run: pipenv run pytest python/aswfdocker --doctest-modules --pylint --junitxml=test-pylint-results.xml --cov=. --cov-report=xml
 
     - name: Fetch unshallow to help sonar
       run: git fetch --unshallow

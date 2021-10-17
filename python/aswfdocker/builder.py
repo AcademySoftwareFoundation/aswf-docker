@@ -16,8 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class Builder:
-    """Builder generates a "docker buildx bake" json file to drive the parallel builds of Docker images.
-    """
+    """Builder generates a "docker buildx bake" json file to drive the parallel builds of Docker images."""
 
     def __init__(
         self,
@@ -45,7 +44,11 @@ class Builder:
                         "ASWF_" + image.replace("ci-package-", "").upper() + "_VERSION"
                     ),
                 )
-                docker_file = f"packages/{self.index.get_group_from_image(self.group_info.type, image.replace('ci-package-', ''))}/Dockerfile"
+                image_base = image.replace("ci-package-", "")
+                group = self.index.get_group_from_image(
+                    self.group_info.type, image_base
+                )
+                docker_file = f"packages/{group}/Dockerfile"
             else:
                 tags = version_info.get_tags(version, self.build_info.docker_org, image)
                 docker_file = f"{image}/Dockerfile"
@@ -76,9 +79,11 @@ class Builder:
 
     def make_bake_jsonfile(self) -> str:
         d = self.make_bake_dict()
+        groups = "-".join(self.group_info.names)
+        versions = "-".join(self.group_info.versions)
         path = os.path.join(
             tempfile.gettempdir(),
-            f"docker-bake-{self.group_info.type.name}-{'-'.join(self.group_info.names)}-{'-'.join(self.group_info.versions)}.json",
+            f"docker-bake-{self.group_info.type.name}-{groups}-{versions}.json",
         )
         with open(path, "w") as f:
             json.dump(d, f, indent=4, sort_keys=True)

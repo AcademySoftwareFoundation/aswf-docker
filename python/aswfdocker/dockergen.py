@@ -81,7 +81,9 @@ class DockerGen:
         )
         logger.debug("Patching description url %s", url)
         response = requests.patch(
-            url, json=body, headers={"Authorization": f"JWT {token}"},
+            url,
+            json=body,
+            headers={"Authorization": f"JWT {token}"},
         )
         if response.status_code == 200:
             return True

@@ -20,13 +20,15 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(utils.get_docker_org("", ""), "aswftesting")
         self.assertEqual(
             utils.get_docker_org(
-                constants.MAIN_GITHUB_ASWF_DOCKER_URL, "refs/heads/master",
+                constants.MAIN_GITHUB_ASWF_DOCKER_URL,
+                "refs/heads/master",
             ),
             "aswf",
         )
         self.assertEqual(
             utils.get_docker_org(
-                constants.MAIN_GITHUB_ASWF_DOCKER_URL, "refs/heads/testing",
+                constants.MAIN_GITHUB_ASWF_DOCKER_URL,
+                "refs/heads/testing",
             ),
             "aswftesting",
         )
@@ -47,12 +49,14 @@ class TestUtils(unittest.TestCase):
         self.assertFalse(utils.get_docker_push("", ""))
         self.assertTrue(
             utils.get_docker_push(
-                constants.MAIN_GITHUB_ASWF_DOCKER_URL, "refs/heads/master",
+                constants.MAIN_GITHUB_ASWF_DOCKER_URL,
+                "refs/heads/master",
             )
         )
         self.assertTrue(
             utils.get_docker_push(
-                constants.MAIN_GITHUB_ASWF_DOCKER_URL, "refs/heads/testing",
+                constants.MAIN_GITHUB_ASWF_DOCKER_URL,
+                "refs/heads/testing",
             )
         )
         self.assertFalse(
@@ -154,7 +158,8 @@ class TestUtilsCli(unittest.TestCase):
             index.Index().iter_versions(constants.ImageType.PACKAGE, "clang")
         )[0]
         self.assertEqual(
-            pkgs[0], f"common/ci-package-clang:{clang_version}",
+            pkgs[0],
+            f"common/ci-package-clang:{clang_version}",
         )
 
     def test_cli_images(self):
@@ -167,5 +172,6 @@ class TestUtilsCli(unittest.TestCase):
             index.Index().iter_versions(constants.ImageType.IMAGE, "common")
         )[0]
         self.assertEqual(
-            imgs[0], f"common/ci-common:{common_version}",
+            imgs[0],
+            f"common/ci-common:{common_version}",
         )

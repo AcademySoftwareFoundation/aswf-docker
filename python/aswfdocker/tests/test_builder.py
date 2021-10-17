@@ -319,7 +319,8 @@ class TestBuilderCli(unittest.TestCase):
         )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
-            result.output, f"INFO:aswfdocker.builder:Would build: '{cmd}'\n",
+            result.output,
+            f"INFO:aswfdocker.builder:Would build: '{cmd}'\n",
         )
         self.assertEqual(result.exit_code, 0)
 
@@ -335,7 +336,8 @@ class TestBuilderCli(unittest.TestCase):
         )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
-            result.output, f"INFO:aswfdocker.builder:Would build: '{cmd}'\n",
+            result.output,
+            f"INFO:aswfdocker.builder:Would build: '{cmd}'\n",
         )
         self.assertEqual(result.exit_code, 0)
 
@@ -362,7 +364,8 @@ class TestBuilderCli(unittest.TestCase):
         )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
-            result.output, f"INFO:aswfdocker.builder:Would build: '{cmd}'\n",
+            result.output,
+            f"INFO:aswfdocker.builder:Would build: '{cmd}'\n",
         )
         self.assertEqual(result.exit_code, 0)
 
@@ -379,6 +382,7 @@ class TestBuilderCli(unittest.TestCase):
         )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
-            result.output, f"INFO:aswfdocker.builder:Would build: '{cmd}'\n",
+            result.output,
+            f"INFO:aswfdocker.builder:Would build: '{cmd}'\n",
         )
         self.assertEqual(result.exit_code, 0)

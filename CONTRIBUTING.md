@@ -257,7 +257,7 @@ for aswf-docker and is required to be run before any commit.
 #### Naming Conventions
 
 We follow PEP-8 naming convention which is also checked before any commit by the
-[Prospector](http://prospector.landscape.io/en/master/) linter.
+[PyLint](https://docs.pylint.org/) linter.
 
 #### Copyright Notices
 

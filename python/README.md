@@ -76,8 +76,8 @@ individually as well:
 * Run the tests to ensure everything is okay: `pytest python/aswfdocker`
 * Run [mypy](http://mypy-lang.org/) to ensure static types are okay:
   `mypy python/aswfdocker`
-* Run [Prospector](http://prospector.landscape.io/) on the code to ensure
-  linting is okay: `prospector -P aswfdocker -F python/aswfdocker`
+* Run [PyLint](https://docs.pylint.org/) on the code to ensure
+  linting is okay: `pylint python/aswfdocker`
 
 To run them all manually use `pre-commit run --all-files`.
 

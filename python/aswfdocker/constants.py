@@ -27,6 +27,7 @@ MAIN_GITHUB_ASWF_DOCKER_URL = (
     f"https://github.com/{MAIN_GITHUB_ASWF_ORG}/{MAIN_GITHUB_REPO_NAME}"
 )
 
+# pylint: disable=line-too-long
 IMAGE_NAME_REGEX = r"(refs/tags/)?(?P<org>[a-z]+)/ci-(?P<package>package\-)?(?P<image>[a-z0-9]+)[:/](?P<version>[0-9\.a-z\-]+)"
 
 ALL = "all"
