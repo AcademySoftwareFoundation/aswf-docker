@@ -1,9 +1,9 @@
 repos:
 -   repo: https://github.com/ambv/black
-    rev: 19.10b0
+    rev: 21.9b0
     hooks:
     - id: black
-      language_version: python3.7
+      language_version: python3.9
 -   repo: local
     hooks:
       - id: pytest
@@ -18,9 +18,9 @@ repos:
         pass_filenames: false
         language: system
         types: [python]
-      - id: prospector
-        name: Check linting with prospector
-        entry: pipenv run prospector -P aswfdocker python/aswfdocker -F
+      - id: pylint
+        name: Check linting with pylint
+        entry: pipenv run pylint python/aswfdocker
         pass_filenames: false
         language: system
         types: [python]
