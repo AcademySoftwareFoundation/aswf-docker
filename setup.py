@@ -30,7 +30,7 @@ setup(
         "deprecated==1.2.10; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
         "idna==2.9; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
         "importlib-resources==3.3.0",
-        "jinja2==2.11.2",
+        "jinja2==2.11.3",
         "markupsafe==1.1.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
         "pygithub==1.51",
         "pyjwt==1.7.1",
