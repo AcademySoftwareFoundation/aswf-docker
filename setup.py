@@ -34,7 +34,7 @@ setup(
         "markupsafe==1.1.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
         "pygithub==1.51",
         "pyjwt==1.7.1",
-        "pyyaml==5.3.1",
+        "pyyaml==5.4",
         "requests==2.23.0",
         "urllib3==1.25.9; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
         "wrapt==1.12.1",
