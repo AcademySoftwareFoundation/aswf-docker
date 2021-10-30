@@ -3,3 +3,10 @@
 
 # Avoid Windows line breaks in shell scripts (bound to fail)
 *.sh text eol=lf
+
+# Tell GitHub that these files are automatically generated
+ci-*/Dockerfile linguist-generated
+ci-*/README.md  linguist-generated
+
+# Pipfile lock file is not nice to look at...
+Pipfile.lock    linguist-generated
