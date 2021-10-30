@@ -49,7 +49,7 @@ class GroupInfo:
             self.targets,
         )
 
-    def iter_images_versions(self):
+    def iter_images_versions(self, get_image=False):
         for image in self.images:
             if self.targets and image not in self.targets:
                 logger.debug("Skipping target %s", image)
@@ -66,4 +66,7 @@ class GroupInfo:
             for version in [v for v in self.versions if v in major_versions]:
                 logger.debug("iter version=%s", version)
                 version = all_versions[major_versions.index(version)]
-                yield ci_image, version
+                if get_image:
+                    yield image, version
+                else:
+                    yield ci_image, version

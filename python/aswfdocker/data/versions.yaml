@@ -7,10 +7,13 @@ versions:
   "1":
     major_version: "1"
     ci_common_version: "1"
+    conan_profile: "ci_common1"
     package_versions:
       ASWF_DTS_VERSION: "6"
       ASWF_CUDA_VERSION: "10.2"
       ASWF_CCACHE_VERSION: "4.0"
+      ASWF_CONAN_VERSION: "1.38.0"
+      ASWF_CONAN_PYTHON_VERSION: "3.9.5"
       ASWF_NINJA_VERSION: "1.10.1"
       ASWF_SONAR_VERSION: "4.6.2.2472"
   "1-clang6":
@@ -54,8 +57,11 @@ versions:
     major_version: "2"
     tags: ["preview"]
     ci_common_version: "2"
+    conan_profile: "ci_common2"
     package_versions:
       ASWF_DTS_VERSION: "9"
+      ASWF_CONAN_VERSION: "1.38.0"
+      ASWF_CONAN_PYTHON_VERSION: "3.9.5"
       ASWF_CUDA_VERSION: "11.1"
       ASWF_CCACHE_VERSION: "4.0"
       ASWF_NINJA_VERSION: "1.10.1"
@@ -81,6 +87,7 @@ versions:
     major_version: "2019"
     tags: ["latest"]
     ci_common_version: "1"
+    conan_profile: "vfx2019"
     package_versions:
       ASWF_ALEMBIC_VERSION: "1.7.11"
       ASWF_BLOSC_VERSION: "1.5.0"
@@ -137,6 +144,7 @@ versions:
     parent_versions: ["1", "1-clang7"]
     major_version: "2020"
     ci_common_version: "1"
+    conan_profile: "vfx2020"
     package_versions:
       ASWF_ALEMBIC_VERSION: "1.7.12"
       ASWF_BLOSC_VERSION: "1.5.0"
@@ -177,6 +185,7 @@ versions:
     major_version: "2021"
     tags: ["preview"]
     ci_common_version: "2"
+    conan_profile: "vfx2021"
     package_versions:
       ASWF_ALEMBIC_VERSION: "1.7.16"
       ASWF_BLOSC_VERSION: "1.5.0"
@@ -223,6 +232,7 @@ versions:
     major_version: "2022"
     tags: ["draft"]
     ci_common_version: "2"
+    conan_profile: "vfx2022"
     package_versions:
       ASWF_ALEMBIC_VERSION: "1.8.2"
       ASWF_BLOSC_VERSION: "1.5.0"
@@ -474,15 +484,15 @@ groups:
         - clang
         - ninja
       base1:
-        - boost
         - cmake
+        - python
+        - pybind11
+        - boost
         - cppunit
         - glew
         - glfw
         - log4cplus
-        - python
         - tbb
-        - pybind11
       base2:
         - qt
       base3:
@@ -526,3 +536,6 @@ package_data:
       - ASWF_PYTHON_MAJOR_MINOR_VERSION
     docker_commands: |
       ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
+  conan:
+    docker_args:
+      - ASWF_CONAN_PYTHON_VERSION

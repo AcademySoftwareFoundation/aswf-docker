@@ -25,7 +25,7 @@ class DockerGen:
         image_data_path = os.path.join(
             utils.get_git_top_level(), f"ci-{self.image_name}/image.yaml"
         )
-        with open(image_data_path) as f:
+        with open(image_data_path, encoding="utf-8") as f:
             image_data = yaml.load(f, Loader=yaml.FullLoader)
         image_data["index"] = index.Index()
         image_data["constants"] = constants
@@ -33,6 +33,7 @@ class DockerGen:
 
     def _render_template(self, template_name, path):
         template = self.env.get_template(template_name)
+        logger.debug("_render_template template=%s", template)
         dockerfile_path = os.path.join(
             utils.get_git_top_level(), f"ci-{self.image_name}/{path}"
         )
@@ -45,12 +46,12 @@ class DockerGen:
         return self._render_template("ci-image-readme.jinja2", "README.md")
 
     def _generate(self, path, content):
-        with open(path, "w") as f:
+        with open(path, "w", encoding="utf-8") as f:
             f.write(content)
         return path
 
     def _check(self, path, content):
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             ok = f.read() == content
         return path, ok
 

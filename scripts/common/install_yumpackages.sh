@@ -11,8 +11,8 @@ yum install --setopt=tsflags=nodocs -y \
     alsa-utils \
     at-spi2-core-devel \
     audiofile-devel \
-    automake \
     autoconf \
+    automake \
     bison \
     bzip2-devel \
     ca-certificates \
@@ -55,6 +55,7 @@ yum install --setopt=tsflags=nodocs -y \
     libcurl-devel \
     libdrm \
     libffi-devel \
+    libfontenc-devel \
     libgcrypt-devel \
     libgudev1-devel \
     libicu-devel \
@@ -75,14 +76,18 @@ yum install --setopt=tsflags=nodocs -y \
     libvpx-devel \
     libwebp-devel \
     libX11-devel \
+    libXaw-devel \
     libxcb \
     libxcb-devel \
     libXcomposite \
     libXcomposite-devel \
     libXcursor \
     libXcursor-devel \
+    libXdamage-devel \
+    libXdmcp-devel \
     libXext-devel \
     libXfixes-devel \
+    libXft-devel \
     libXi \
     libXi-devel \
     libXinerama \
@@ -90,6 +95,7 @@ yum install --setopt=tsflags=nodocs -y \
     libxkbcommon \
     libxkbcommon-devel \
     libxkbcommon-x11-devel \
+    libxkbfile-devel \
     libxml2 \
     libxml2-devel \
     libXmu \
@@ -102,12 +108,16 @@ yum install --setopt=tsflags=nodocs -y \
     libXrandr-devel \
     libXrender \
     libXrender-devel \
+    libXres-devel \
     libXScrnSaver \
     libXScrnSaver-devel \
     libxshmfence-devel \
     libxslt \
     libxslt-devel \
     libXtst-devel \
+    libXv-devel \
+    libXvMC-devel \
+    libXxf86vm-devel \
     make \
     mesa-libEGL-devel \
     mesa-libGL-devel \
@@ -159,9 +169,9 @@ yum install --setopt=tsflags=nodocs -y \
     xorg-x11-server-Xvfb \
     xorg-x11-xkb-utils \
     xorg-x11-xkb-utils-devel \
+    xorg-x11-xtrans-devel \
     xz-devel \
     zlib-devel \
-
 
 # This is needed for Xvfb to function properly.
 dbus-uuidgen > /etc/machine-id

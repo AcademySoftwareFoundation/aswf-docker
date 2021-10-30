@@ -7,6 +7,8 @@ ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
+ARG ASWF_CONAN_CHANNEL
+ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_CLANG_VERSION
 ARG ASWF_NINJA_VERSION
@@ -14,15 +16,22 @@ ARG ASWF_CUDA_VERSION
 ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_SONAR_VERSION
+ARG ASWF_CONAN_VERSION
+ARG ASWF_CONAN_PYTHON_VERSION
 
 
+# Comment out this block to use Conan packages
 FROM ${ASWF_PKG_ORG}/ci-package-clang:$CI_COMMON_VERSION-$ASWF_CLANG_VERSION as ci-package-clang
 FROM ${ASWF_PKG_ORG}/ci-package-ninja:$CI_COMMON_VERSION-$ASWF_NINJA_VERSION as ci-package-ninja
 FROM nvidia/cudagl:${ASWF_CUDA_VERSION}-devel-centos7 as ci-common
 
 
 ARG ASWF_ORG
+ARG ASWF_PKG_ORG
 ARG ASWF_VERSION
+ARG CI_COMMON_VERSION
+ARG ASWF_CONAN_CHANNEL
+ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_CLANG_VERSION
 ARG ASWF_NINJA_VERSION
@@ -30,6 +39,8 @@ ARG ASWF_CUDA_VERSION
 ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_SONAR_VERSION
+ARG ASWF_CONAN_VERSION
+ARG ASWF_CONAN_PYTHON_VERSION
 
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-common"
@@ -49,6 +60,7 @@ LABEL io.aswf.docker.versions.cuda="$ASWF_CUDA_VERSION"
 LABEL io.aswf.docker.versions.ccache="$ASWF_CCACHE_VERSION"
 LABEL io.aswf.docker.versions.dts="$ASWF_DTS_VERSION"
 LABEL io.aswf.docker.versions.sonar="$ASWF_SONAR_VERSION"
+LABEL io.aswf.docker.versions.conan="$ASWF_CONAN_VERSION"
 
 
 ENV ASWF_ORG=${ASWF_ORG}
@@ -61,8 +73,11 @@ ENV ASWF_CUDA_VERSION=$ASWF_CUDA_VERSION
 ENV ASWF_CCACHE_VERSION=$ASWF_CCACHE_VERSION
 ENV ASWF_DTS_VERSION=$ASWF_DTS_VERSION
 ENV ASWF_SONAR_VERSION=$ASWF_SONAR_VERSION
+ENV ASWF_CONAN_VERSION=$ASWF_CONAN_VERSION
+ENV ASWF_CONAN_PYTHON_VERSION=$ASWF_CONAN_PYTHON_VERSION
 
 
+# Comment out this block to use Conan packages
 COPY --from=ci-package-clang /. /usr/local/
 COPY --from=ci-package-ninja /. /usr/local/
 COPY ci-common/README.md ci-common/image.yaml /usr/local/aswf/
@@ -99,4 +114,26 @@ RUN export DOWNLOADS_DIR=/tmp/downloads && \
 COPY scripts/common/setup_aswfuser.sh /tmp
 RUN /tmp/setup_aswfuser.sh
 
+ENV ASWF_CONAN_ROOT=/opt/conan
 
+COPY ../scripts/common/install_conan.sh /tmp/
+
+RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
+    /tmp/install_conan.sh
+
+COPY ../packages/conan/settings /opt/conan_home/.conan
+ENV CONAN_USER_HOME=/opt/conan_home
+
+
+# Uncomment to use Conan packages instead of Docker ones
+# 
+# RUN cd /usr/local/ && \
+#     echo $'[generators]\n\
+# cmake\n\
+# [imports]\n\
+# ., * -> .\n\
+# [requires]\n' >> /usr/local/conanfile.txt && \
+# #     echo "clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
+# #     echo "ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
+# #     conan install . && \
+#     rm -rf ${CONAN_USER_DATA_FOLDER}/*

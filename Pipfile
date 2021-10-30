@@ -17,15 +17,17 @@ types-jinja2 = "*"
 types-pyyaml = "*"
 types-requests = "*"
 # pipenv-setup = "*" # commented for now as it requires a very old black version!
+aswfdocker = {editable = true, path = "."}
 
 [packages]
 aswfdocker = {editable = true, path = "."}
 click = "*"
-pygithub = "*"
+pygithub = "==1.53" # Needed to work with Conan 1.41
 pyyaml = "*"
 jinja2 = "*"
 requests = "*"
 importlib-resources = "*"
+conan = "*"
 
 [requires]
 python_version = "3.9"

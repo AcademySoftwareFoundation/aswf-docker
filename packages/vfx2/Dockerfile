@@ -55,7 +55,7 @@ FROM ${ASWF_ORG}/ci-package-oiio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OIIO_VERSION
 FROM ${ASWF_ORG}/ci-package-ocio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OCIO_VERSION} as ci-package-ocio-external
 
 
-#################### ci-centos7-gl-packages ####################
+#################### ci-base-builder ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base-builder
 
 COPY --from=ci-package-cmake-external /. /usr/local/
