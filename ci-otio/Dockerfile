@@ -7,6 +7,8 @@ ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
+ARG ASWF_CONAN_CHANNEL
+ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_PYTHON_VERSION
 ARG ASWF_CMAKE_VERSION
@@ -17,6 +19,7 @@ ARG ASWF_VFXPLATFORM_VERSION
 ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
+# Comment out this block to use Conan packages
 FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
 FROM ${ASWF_PKG_ORG}/ci-package-cmake:$ASWF_VFXPLATFORM_VERSION-$ASWF_CMAKE_VERSION as ci-package-cmake
 FROM ${ASWF_PKG_ORG}/ci-package-qt:$ASWF_VFXPLATFORM_VERSION-$ASWF_QT_VERSION as ci-package-qt
@@ -25,7 +28,11 @@ FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
 
 
 ARG ASWF_ORG
+ARG ASWF_PKG_ORG
 ARG ASWF_VERSION
+ARG CI_COMMON_VERSION
+ARG ASWF_CONAN_CHANNEL
+ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_PYTHON_VERSION
 ARG ASWF_CMAKE_VERSION
@@ -69,6 +76,7 @@ ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
 ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
+# Comment out this block to use Conan packages
 COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-cmake /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
@@ -79,3 +87,17 @@ RUN sudo pip install flake8 tox urllib3
 
 
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
+# Uncomment to use Conan packages instead of Docker ones
+# 
+# RUN cd /usr/local/ && \
+#     echo $'[generators]\n\
+# cmake\n\
+# [imports]\n\
+# ., * -> .\n\
+# [requires]\n' >> /usr/local/conanfile.txt && \
+# #     echo "python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
+# #     echo "cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
+# #     echo "qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
+# #     echo "pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
+# #     conan install . && \
+#     rm -rf ${CONAN_USER_DATA_FOLDER}/*

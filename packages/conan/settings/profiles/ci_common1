@@ -1,0 +1,14 @@
+[settings]
+os=Linux
+os_build=Linux
+arch=x86_64
+arch_build=x86_64
+compiler=gcc
+compiler.version=6.3
+compiler.libcxx=libstdc++
+build_type=Release
+ci_common=1
+devtoolset=6
+[options]
+[build_requires]
+[env]

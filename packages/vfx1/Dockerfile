@@ -37,7 +37,7 @@ FROM ${ASWF_ORG}/ci-package-glfw:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLFW_VERSION
 FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} as ci-package-pybind11-external
 
 
-#################### ci-centos7-gl-packages ####################
+#################### ci-base-builder ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base-builder
 
 COPY --from=ci-package-cmake-external /. /usr/local/

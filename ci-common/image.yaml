@@ -10,6 +10,7 @@ implicit_packages:
   - ccache
   - dts
   - sonar
+  - conan
 docker_from: nvidia/cudagl:${ASWF_CUDA_VERSION}-devel-centos7
 docker_package_version: $CI_COMMON_VERSION
 docker_commands: |
@@ -44,3 +45,13 @@ docker_commands: |
 
   COPY scripts/common/setup_aswfuser.sh /tmp
   RUN /tmp/setup_aswfuser.sh
+
+  ENV ASWF_CONAN_ROOT=/opt/conan
+
+  COPY ../scripts/common/install_conan.sh /tmp/
+
+  RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
+      /tmp/install_conan.sh
+
+  COPY ../packages/conan/settings /opt/conan_home/.conan
+  ENV CONAN_USER_HOME=/opt/conan_home

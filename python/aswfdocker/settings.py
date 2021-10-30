@@ -13,11 +13,11 @@ class Settings:
 
     def load(self):
         if os.path.exists(self.settings_path):
-            with open(self.settings_path) as f:
+            with open(self.settings_path, encoding="utf-8") as f:
                 data = yaml.load(f, Loader=yaml.FullLoader)
                 self.github_access_token = data.get("github_access_token", "")
 
     def save(self):
         data = {"github_access_token": self.github_access_token}
-        with open(self.settings_path, "w") as f:
+        with open(self.settings_path, "w", encoding="utf-8") as f:
             yaml.dump(data, f)

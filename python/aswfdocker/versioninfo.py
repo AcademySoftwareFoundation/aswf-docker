@@ -30,6 +30,7 @@ class VersionInfo:
         self.package_versions = package_versions
         self.use_major_version_as_tag = use_major_version_as_tag
         self.all_package_versions: typing.Dict[str, str] = {}
+        self.conan_profile: typing.Optional[str] = None
 
     def get_tags(
         self,

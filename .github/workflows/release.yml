@@ -49,3 +49,14 @@ jobs:
           --username aswfdocker \
           --password ${{ secrets.DOCKERHUB_PASSWORD }} \
           --full-name $GITHUB_REF
+
+    - name: Build and Push Conan Package
+      if: contains($GITHUB_REF, 'ci-package')
+      run: |
+        aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --verbose \
+          build \
+          --full-name $GITHUB_REF \
+          --push YES \
+          --use-conan
