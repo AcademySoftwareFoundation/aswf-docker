@@ -1,7 +1,7 @@
 from conans import ConanFile, tools
 import os
 
-required_conan_version = ">=1.33.0"
+required_conan_version = ">=1.38.0"
 
 
 class PySideConan(ConanFile):

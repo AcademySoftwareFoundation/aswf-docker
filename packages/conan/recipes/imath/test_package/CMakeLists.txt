@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.12)
 project(testimath_exe LANGUAGES CXX)
 
 message("CMAKE_MODULE_PATH: $ENV{CMAKE_MODULE_PATH}")

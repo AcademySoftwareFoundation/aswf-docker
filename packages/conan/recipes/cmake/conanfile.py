@@ -2,7 +2,7 @@ import os
 from conans import tools, ConanFile, CMake
 from conans.errors import ConanInvalidConfiguration, ConanException
 
-required_conan_version = ">=1.33.0"
+required_conan_version = ">=1.38.0"
 
 
 class CMakeConan(ConanFile):
