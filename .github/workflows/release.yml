@@ -51,7 +51,7 @@ jobs:
           --full-name $GITHUB_REF
 
     - name: Build and Push Conan Package
-      if: contains($GITHUB_REF, 'ci-package')
+      if: contains(env.GITHUB_REF, 'ci-package')
       run: |
         aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
