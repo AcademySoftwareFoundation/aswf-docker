@@ -390,7 +390,7 @@ class TestBuilderCli(unittest.TestCase):
         )
         self.assertTrue(
             cmds[1].startswith(
-                "INFO:aswfdocker.builder:Would run: 'docker run -it --rm -e CONAN_USER_HOME=/tmp/c"
+                "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME=/tmp/c"
             ),
             msg=cmds[1],
         )
@@ -481,7 +481,7 @@ class TestBuilderCli(unittest.TestCase):
         )
         self.assertTrue(
             cmds[1].startswith(
-                "INFO:aswfdocker.builder:Would run: 'docker run -it --rm -e CONAN_USER_HOME=/tmp/c"
+                "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME=/tmp/c"
             ),
             msg=cmds[1],
         )
