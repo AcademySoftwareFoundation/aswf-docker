@@ -168,7 +168,7 @@ class Builder:
         return vols
 
     def _get_conan_base_cmd(self, version_info):
-        base_cmd = ["docker", "run", "-it", "--rm"]
+        base_cmd = ["docker", "run"]
         for name, value in self._get_conan_env_vars(version_info).items():
             base_cmd.append("-e")
             base_cmd.append(f"{name}={value}")
