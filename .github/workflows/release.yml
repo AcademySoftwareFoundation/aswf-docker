@@ -17,8 +17,10 @@ jobs:
         include:
           - group: docker
             args: ""
+            push_description: true
           - group: conan
             args: --use-conan
+            push_description: false
 
     steps:
     - uses: actions/checkout@v2
@@ -50,22 +52,13 @@ jobs:
           build \
           --full-name $GITHUB_REF \
           --push YES
+          ${{ matrix.args }}
 
     - name: Update Docker Hub Description
+      if: ${{ matrix.push_description }}
       run: |
         aswfdocker \
           pushoverview \
           --username aswfdocker \
           --password ${{ secrets.DOCKERHUB_PASSWORD }} \
           --full-name $GITHUB_REF
-
-    - name: Build and Push Conan Package
-      if: contains(github.ref, '/ci-package')
-      run: |
-        aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --verbose \
-          build \
-          --full-name $GITHUB_REF \
-          --push YES \
-          ${{ matrix.args }}
