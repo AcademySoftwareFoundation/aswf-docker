@@ -11,6 +11,15 @@ jobs:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: '1'
 
+    strategy:
+      matrix:
+        group: [docker, conan]
+        include:
+          - group: docker
+            args: ""
+          - group: conan
+            args: --use-conan
+
     steps:
     - uses: actions/checkout@v2
 
@@ -59,4 +68,4 @@ jobs:
           build \
           --full-name $GITHUB_REF \
           --push YES \
-          --use-conan
+          ${{ matrix.args }}
