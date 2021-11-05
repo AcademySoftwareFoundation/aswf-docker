@@ -144,6 +144,7 @@ class Builder:
             "CONAN_USER_HOME": "/tmp/c",
             "CCACHE_DIR": "/tmp/ccache",
             "CONAN_USER_DATA_FOLDER": "/tmp/c/d",
+            "CONAN_NON_INTERACTIVE": "1",
         }
         if "CONAN_LOGIN_USERNAME" in os.environ:
             envs["CONAN_LOGIN_USERNAME"] = os.environ["CONAN_PASSWORD"]
@@ -185,6 +186,7 @@ class Builder:
         progress: str = "",
         keep_source=False,
         keep_build=False,
+        conan_login=False,
     ) -> None:
         path = self.make_bake_jsonfile()
         if path:
@@ -199,6 +201,16 @@ class Builder:
             major_version = utils.get_major_version(version)
             version_info = self.index.version_info(major_version)
             base_cmd = self._get_conan_base_cmd(version_info)
+            if conan_login:
+                self._run_in_docker(
+                    base_cmd,
+                    [
+                        "conan",
+                        "user",
+                        "-p",
+                    ],
+                    dry_run,
+                )
             self._run_in_docker(
                 base_cmd,
                 [
