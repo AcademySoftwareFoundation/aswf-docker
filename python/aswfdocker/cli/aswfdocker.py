@@ -162,6 +162,12 @@ def get_group_info(build_info, ci_image_type, groups, versions, full_name, targe
     is_flag=True,
     help="Instruct Conan to keep build - will fail is no previous build available!",
 )
+@click.option(
+    "--conan-login",
+    "-cl",
+    is_flag=True,
+    help="Instruct build to perform a `conan user -p` to login.",
+)
 @pass_build_info
 def build(
     build_info,
@@ -176,6 +182,7 @@ def build(
     use_conan,
     keep_source,
     keep_build,
+    conan_login,
 ):
     """Builds a ci-package or ci-image Docker image."""
     if push == "YES":
@@ -196,6 +203,7 @@ def build(
         progress=progress,
         keep_source=keep_source,
         keep_build=keep_build,
+        conan_login=conan_login,
     )
 
 

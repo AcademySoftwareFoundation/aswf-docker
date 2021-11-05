@@ -20,7 +20,7 @@ jobs:
             build: true
             push_description: true
           - group: conan
-            args: --use-conan
+            args: --use-conan --conan-login
             build: ${{ contains(github.ref, '/ci-package') }}
             push_description: false
 
