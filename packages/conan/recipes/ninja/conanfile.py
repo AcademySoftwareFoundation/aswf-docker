@@ -26,7 +26,7 @@ class NinjaConan(ConanFile):
 
         self._cmake = CMake(self)
         self._cmake.definitions["BUILD_TESTING"] = "OFF"
-        self._cmake.configure()
+        self._cmake.configure(source_folder=self._source_subfolder)
         return self._cmake
 
     def source(self):
