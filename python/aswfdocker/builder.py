@@ -54,7 +54,8 @@ class Builder:
                     versions_to_bake.add(version)
                     tags = list(
                         map(
-                            lambda tag: f"{constants.DOCKER_REGISTRY}/{self.build_info.docker_org}/ci-centos7-gl-conan:{tag}",
+                            lambda tag: f"{constants.DOCKER_REGISTRY}/{self.build_info.docker_org}"
+                            + f"/ci-centos7-gl-conan:{tag}",
                             [version, major_version],
                         )
                     )
@@ -176,7 +177,10 @@ class Builder:
         for name, value in self._get_conan_vols().items():
             base_cmd.append("-v")
             base_cmd.append(f"{name}:{value}")
-        tag = f"{constants.DOCKER_REGISTRY}/{self.build_info.docker_org}/ci-centos7-gl-conan:{version_info.ci_common_version}"
+        tag = (
+            f"{constants.DOCKER_REGISTRY}/{self.build_info.docker_org}"
+            + f"/ci-centos7-gl-conan:{version_info.ci_common_version}"
+        )
         base_cmd.append(tag)
         return base_cmd
 
@@ -226,7 +230,10 @@ class Builder:
             full_version = version_info.package_versions.get(
                 "ASWF_" + image.upper() + "_VERSION"
             )
-            conan_version = f"{image}/{full_version}@{self.build_info.docker_org}/{version_info.conan_profile}"
+            conan_version = (
+                f"{image}/{full_version}"
+                f"@{self.build_info.docker_org}/{version_info.conan_profile}"
+            )
             build_cmd = [
                 "conan",
                 "create",
