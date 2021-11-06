@@ -25,6 +25,8 @@ from aswfdocker import (
 
 # Avoid pylint giving us grief for complex command lines
 # pylint: disable=too-many-arguments
+# pylint: disable=too-many-locals
+# pylint: disable=too-many-branches
 
 logger = logging.getLogger("build-images")
 
@@ -394,7 +396,6 @@ def release(
         sha=sha,
     )
     r.gather()
-    rels = "\n".join(tag for _, _, tag in r.release_list)
     if not click.confirm(
         "Are you sure you want to create the following {} release on sha={}?\n{}\n".format(
             len(r.release_list),
