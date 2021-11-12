@@ -17,6 +17,7 @@ ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_SONAR_VERSION
 ARG ASWF_CONAN_VERSION
+ARG ASWF_ROCM_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
 
 
@@ -40,6 +41,7 @@ ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_SONAR_VERSION
 ARG ASWF_CONAN_VERSION
+ARG ASWF_ROCM_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
 
 
@@ -61,6 +63,7 @@ LABEL io.aswf.docker.versions.ccache="$ASWF_CCACHE_VERSION"
 LABEL io.aswf.docker.versions.dts="$ASWF_DTS_VERSION"
 LABEL io.aswf.docker.versions.sonar="$ASWF_SONAR_VERSION"
 LABEL io.aswf.docker.versions.conan="$ASWF_CONAN_VERSION"
+LABEL io.aswf.docker.versions.rocm="$ASWF_ROCM_VERSION"
 
 
 ENV ASWF_ORG=${ASWF_ORG}
@@ -74,6 +77,7 @@ ENV ASWF_CCACHE_VERSION=$ASWF_CCACHE_VERSION
 ENV ASWF_DTS_VERSION=$ASWF_DTS_VERSION
 ENV ASWF_SONAR_VERSION=$ASWF_SONAR_VERSION
 ENV ASWF_CONAN_VERSION=$ASWF_CONAN_VERSION
+ENV ASWF_ROCM_VERSION=$ASWF_ROCM_VERSION
 ENV ASWF_CONAN_PYTHON_VERSION=$ASWF_CONAN_PYTHON_VERSION
 
 
@@ -92,8 +96,8 @@ RUN /tmp/install_yumpackages.sh
 RUN mkdir /opt/aswf
 WORKDIR /opt/aswf
 
-ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/httpd24/root/usr/lib64:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
-    PATH=/opt/rh/rh-git218/root/usr/bin:/usr/local/bin:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
+ENV LD_LIBRARY_PATH=/opt/rocm/lib:/usr/local/lib:/usr/local/lib64:/opt/rh/httpd24/root/usr/lib64:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
+    PATH=/opt/rh/rh-git218/root/usr/bin:/usr/local/bin:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/bin/:/opt/rocm/hcc/bin:/opt/rocm/hip/bin:/opt/rocm/bin:/opt/rocm/hcc/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
     PERL5LIB=/opt/rh/rh-git218/root/usr/share/perl5/vendor_perl \
     MANPATH=/opt/rh/rh-git218/root/usr/share/man
 

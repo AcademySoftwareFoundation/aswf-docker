@@ -205,4 +205,8 @@ yum install -y \
     yasm-devel \
     zvbi-devel
 
+# Install AMD ROCm
+echo -e "[ROCm]\nname=ROCm\nbaseurl=https://repo.radeon.com/rocm/yum/$ASWF_ROCM_VERSION\nenabled=1\ngpgcheck=0" >> /etc/yum.repos.d/rocm.repo
+yum install -y rocm-dev rocm-libs
+
 yum clean all
