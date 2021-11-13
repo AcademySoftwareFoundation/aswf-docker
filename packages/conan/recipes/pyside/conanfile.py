@@ -25,14 +25,12 @@ class PySideConan(ConanFile):
     _source_subfolder = "source_subfolder"
 
     def requirements(self):
-        self.requires(
-            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
-        )
-        self.requires(f"qt/{os.environ['ASWF_QT_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"python/(latest)@{self.user}/{self.channel}")
+        self.requires(f"qt/(latest)@{self.user}/{self.channel}")
 
     def build_requirements(self):
         self.build_requires(
-            f"clang/{os.environ['ASWF_CLANG_VERSION']}@{self.user}/ci_common{self.settings.ci_common}"
+            f"clang/(latest)@{self.user}/ci_common{self.settings.ci_common}"
         )
 
     def source(self):

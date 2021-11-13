@@ -262,3 +262,17 @@ class Builder:
                     ],
                     dry_run,
                 )
+                alias_version = (
+                    f"{image}/latest"
+                    f"@{self.build_info.docker_org}/{version_info.conan_profile}"
+                )
+                self._run_in_docker(
+                    base_cmd,
+                    [
+                        "conan",
+                        "alias",
+                        alias_version,
+                        conan_version,
+                    ],
+                    dry_run,
+                )

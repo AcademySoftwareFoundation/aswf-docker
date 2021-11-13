@@ -31,19 +31,13 @@ class ImathConan(ConanFile):
     def requirements(self):
         if self._is_dummy():
             return
-        self.requires(
-            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
-        )
-        self.requires(
-            f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.requires(f"python/(latest)@{self.user}/{self.channel}")
+        self.requires(f"boost/(latest)@{self.user}/{self.channel}")
 
     def build_requirements(self):
         if self._is_dummy():
             return
-        self.build_requires(
-            f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.build_requires(f"cmake/(latest)@{self.user}/{self.channel}")
 
     def source(self):
         if self._is_dummy():
