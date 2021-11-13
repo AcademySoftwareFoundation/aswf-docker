@@ -130,6 +130,8 @@ compiler:
                 exceptions: [None]
 
 build_type: [None, Debug, Release, RelWithDebInfo, MinSizeRel]
+
+# ASWF-specific settings"
 python: [None, "2.7", "3.7", "3.9"]
 devtoolset: [None, "6", "9"]
 ci_common: [None, "1", "2"]
