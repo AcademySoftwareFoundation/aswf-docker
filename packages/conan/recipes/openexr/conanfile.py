@@ -25,21 +25,13 @@ class OpenEXRConan(ConanFile):
     _source_subfolder = "source_subfolder"
 
     def requirements(self):
-        self.requires(
-            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
-        )
-        self.requires(
-            f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.requires(f"python/(latest)@{self.user}/{self.channel}")
+        self.requires(f"boost/(latest)@{self.user}/{self.channel}")
         if tools.Version(self.version) >= "3":
-            self.requires(
-                f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}"
-            )
+            self.requires(f"imath/(latest)@{self.user}/{self.channel}")
 
     def build_requirements(self):
-        self.build_requires(
-            f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.build_requires(f"cmake/(latest)@{self.user}/{self.channel}")
 
     def source(self):
         tools.get(

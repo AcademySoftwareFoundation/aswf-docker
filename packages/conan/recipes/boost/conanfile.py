@@ -69,9 +69,7 @@ class BoostConan(ConanFile):
 
     def requirements(self):
         if self._with_component("python"):
-            self.requires(
-                f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
-            )
+            self.requires(f"python/(latest)@{self.user}/{self.channel}")
 
     @property
     def _source_subfolder(self):
