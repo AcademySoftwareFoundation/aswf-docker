@@ -1,4 +1,3 @@
-from platform import python_version
 from conans import AutoToolsBuildEnvironment, ConanFile, tools
 from contextlib import contextmanager
 import os
@@ -20,8 +19,8 @@ class PythonConan(ConanFile):
         "vfx_platform",
         "python",
     )
-    options = {}
-    default_options = {}
+    options = {"with_numpy": [True, False]}
+    default_options = {"with_numpy": "ASWF_NUMPY_VERSION" in os.environ}
     generators = "pkg_config"
 
     _autotools = None
@@ -127,9 +126,11 @@ class PythonConan(ConanFile):
             }
         ):
             self.run(f"{py_exe} get-pip.py")
-            self.run(
-                f"{py_exe} -m pip install nose coverage docutils epydoc numpy=={os.environ['ASWF_NUMPY_VERSION']}"
-            )
+            self.run(f"{py_exe} -m pip install nose coverage docutils epydoc")
+            if self.options.get_safe("with_numpy"):
+                self.run(
+                    f"{py_exe} -m pip install numpy=={os.environ['ASWF_NUMPY_VERSION']}"
+                )
 
     def package_info(self):
         self.cpp_info.filenames["pkg_config"] = "python"
