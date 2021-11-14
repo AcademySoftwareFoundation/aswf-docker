@@ -45,6 +45,8 @@ class ClangConan(ConanFile):
             and compiler == "gcc"
             and int(version.major) == 9
         ):
+            # llvm-13 fails to build (mostly unused) libc++
+            # see https://www.mail-archive.com/llvm-bugs@lists.llvm.org/msg53136.html
             self.options.components.value = self.options.components.value.replace(
                 "libcxx;libcxxabi;", ""
             )
