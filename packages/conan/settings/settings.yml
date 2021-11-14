@@ -131,11 +131,8 @@ compiler:
 
 build_type: [None, Debug, Release, RelWithDebInfo, MinSizeRel]
 
-# ASWF-specific settings"
+# ASWF-specific settings
 python: [None, "2.7", "3.7", "3.9"]
-devtoolset: [None, "6", "9"]
-ci_common: [None, "1", "2"]
-vfx_platform: [None, "2019", "2020", "2021", "2022"]
 
 
 cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20, 23, gnu23]  # Deprecated, use compiler.cppstd

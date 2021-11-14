@@ -16,8 +16,6 @@ class OpenEXRConan(ConanFile):
         "arch",
         "compiler",
         "build_type",
-        "ci_common",
-        "vfx_platform",
         "python",
     )
 

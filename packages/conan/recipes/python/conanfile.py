@@ -5,9 +5,9 @@ import os
 
 class PythonConan(ConanFile):
     name = "python"
-    description = "Python is the C++ port of the famous JUnit framework for unit testing. Test output is in XML for automatic testing and GUI based for supervised tests."
-    topics = ("conan", "python", "unit-test", "tdd")
-    license = " LGPL-2.1-or-later"
+    description = "Python is a programming language that lets you work quickly and integrate systems more effectively."
+    topics = ("conan", "python")
+    license = "Python (PSF-2.0 license) and numpy (BSD-3-Clause license)"
     homepage = "https://python.org/"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     settings = (
@@ -15,12 +15,10 @@ class PythonConan(ConanFile):
         "arch",
         "compiler",
         "build_type",
-        "ci_common",
-        "vfx_platform",
         "python",
     )
     options = {"with_numpy": [True, False]}
-    default_options = {"with_numpy": "ASWF_NUMPY_VERSION" in os.environ}
+    default_options = {"with_numpy": True}
     generators = "pkg_config"
 
     _autotools = None

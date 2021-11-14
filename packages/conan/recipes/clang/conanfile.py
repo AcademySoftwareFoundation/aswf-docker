@@ -15,7 +15,7 @@ class ClangConan(ConanFile):
     homepage = "https://github.com/llvm/llvm-project/tree/master/llvm"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
 
-    settings = "os", "arch", "compiler", "build_type", "devtoolset", "ci_common"
+    settings = "os", "arch", "compiler", "build_type"
     options = {
         "components": "ANY",
         "targets": "ANY",
@@ -36,9 +36,7 @@ class ClangConan(ConanFile):
 
     def _configure_cmake(self):
         cmake = CMake(self)
-        cmake.definitions[
-            "GCC_INSTALL_PREFIX"
-        ] = f"/opt/rh/devtoolset-{self.settings.devtoolset}/root/usr"
+        cmake.definitions["GCC_INSTALL_PREFIX"] = os.environ["GCC_INSTALL_PREFIX"]
         cmake.definitions["LLVM_BUILD_LLVM_DYLIB"] = True
         cmake.definitions["CLANG_INCLUDE_DOCS"] = False
         cmake.definitions["LIBCXX_INCLUDE_DOCS"] = False
@@ -92,9 +90,10 @@ class ClangConan(ConanFile):
         )
 
     def build(self):
-        cmake = self._configure_cmake()
-        cmake.configure(source_folder="source/llvm")
-        cmake.build()
+        with tools.environment_append(tools.RunEnvironment(self).vars):
+            cmake = self._configure_cmake()
+            cmake.configure(source_folder="source/llvm")
+            cmake.build()
 
     def package(self):
         self.copy(
@@ -102,8 +101,9 @@ class ClangConan(ConanFile):
             dst="licenses",
             src=os.path.join(self._source_subfolder, "llvm"),
         )
-        cmake = self._configure_cmake()
-        cmake.install()
+        with tools.environment_append(tools.RunEnvironment(self).vars):
+            cmake = self._configure_cmake()
+            cmake.install()
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
