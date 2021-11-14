@@ -170,6 +170,12 @@ def get_group_info(build_info, ci_image_type, groups, versions, full_name, targe
     is_flag=True,
     help="Instruct build to perform a `conan user -p` to login.",
 )
+@click.option(
+    "--build-missing",
+    "-bm",
+    is_flag=True,
+    help="Instruct Conan to build missing binary packages from source.",
+)
 @pass_build_info
 def build(
     build_info,
@@ -185,6 +191,7 @@ def build(
     keep_source,
     keep_build,
     conan_login,
+    build_missing,
 ):
     """Builds a ci-package or ci-image Docker image."""
     if push == "YES":
@@ -206,6 +213,7 @@ def build(
         keep_source=keep_source,
         keep_build=keep_build,
         conan_login=conan_login,
+        build_missing=build_missing,
     )
 
 

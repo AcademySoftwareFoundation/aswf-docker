@@ -184,6 +184,93 @@ class Builder:
         base_cmd.append(tag)
         return base_cmd
 
+    def _build_conan_package(
+        self,
+        image,
+        version,
+        dry_run,
+        keep_source,
+        keep_build,
+        conan_login,
+        build_missing,
+    ):
+        major_version = utils.get_major_version(version)
+        version_info = self.index.version_info(major_version)
+        base_cmd = self._get_conan_base_cmd(version_info)
+        if conan_login:
+            self._run_in_docker(
+                base_cmd,
+                [
+                    "conan",
+                    "user",
+                    "-p",
+                    "-r",
+                    self.build_info.docker_org,
+                ],
+                dry_run,
+            )
+        self._run_in_docker(
+            base_cmd,
+            [
+                "conan",
+                "config",
+                "set",
+                f"general.default_profile={version_info.conan_profile}",
+            ],
+            dry_run,
+        )
+        full_version = version_info.package_versions.get(
+            "ASWF_" + image.upper() + "_VERSION"
+        )
+        conan_version = (
+            f"{image}/{full_version}"
+            f"@{self.build_info.docker_org}/{version_info.conan_profile}"
+        )
+        build_cmd = [
+            "conan",
+            "create",
+            f"/tmp/c/recipes/{image}",
+            conan_version,
+        ]
+        if keep_source:
+            build_cmd.append("--keep-source")
+        if keep_build:
+            build_cmd.append("--keep-build")
+        if build_missing:
+            build_cmd.append("--build=missing")
+        self._run_in_docker(
+            base_cmd,
+            build_cmd,
+            dry_run,
+        )
+        if self.push:
+            self._run_in_docker(
+                base_cmd,
+                [
+                    "conan",
+                    "upload",
+                    "--all",
+                    "-r",
+                    self.build_info.docker_org,
+                    conan_version,
+                ],
+                dry_run,
+            )
+            alias_version = (
+                f"{image}/latest"
+                f"@{self.build_info.docker_org}/{version_info.conan_profile}"
+            )
+            self._run_in_docker(
+                base_cmd,
+                [
+                    "conan",
+                    "alias",
+                    alias_version,
+                    conan_version,
+                ],
+                dry_run,
+            )
+
     def build(
         self,
         dry_run: bool = False,
@@ -191,88 +278,22 @@ class Builder:
         keep_source=False,
         keep_build=False,
         conan_login=False,
+        build_missing=False,
     ) -> None:
         path = self.make_bake_jsonfile()
         if path:
             self._run(
                 f"docker buildx bake -f {path} --progress {progress}", dry_run=dry_run
             )
-        if not self.use_conan:
-            return
-        if self.group_info.type != constants.ImageType.PACKAGE:
+        if not self.use_conan or self.group_info.type == constants.ImageType.IMAGE:
             return
         for image, version in self.group_info.iter_images_versions(get_image=True):
-            major_version = utils.get_major_version(version)
-            version_info = self.index.version_info(major_version)
-            base_cmd = self._get_conan_base_cmd(version_info)
-            if conan_login:
-                self._run_in_docker(
-                    base_cmd,
-                    [
-                        "conan",
-                        "user",
-                        "-p",
-                        "-r",
-                        self.build_info.docker_org,
-                    ],
-                    dry_run,
-                )
-            self._run_in_docker(
-                base_cmd,
-                [
-                    "conan",
-                    "config",
-                    "set",
-                    f"general.default_profile={version_info.conan_profile}",
-                ],
+            self._build_conan_package(
+                image,
+                version,
                 dry_run,
+                keep_source,
+                keep_build,
+                conan_login,
+                build_missing,
             )
-            full_version = version_info.package_versions.get(
-                "ASWF_" + image.upper() + "_VERSION"
-            )
-            conan_version = (
-                f"{image}/{full_version}"
-                f"@{self.build_info.docker_org}/{version_info.conan_profile}"
-            )
-            build_cmd = [
-                "conan",
-                "create",
-                f"/tmp/c/recipes/{image}",
-                conan_version,
-            ]
-            if keep_source:
-                build_cmd.append("--keep-source")
-            if keep_build:
-                build_cmd.append("--keep-build")
-            self._run_in_docker(
-                base_cmd,
-                build_cmd,
-                dry_run,
-            )
-            if self.push:
-                self._run_in_docker(
-                    base_cmd,
-                    [
-                        "conan",
-                        "upload",
-                        "--all",
-                        "-r",
-                        self.build_info.docker_org,
-                        conan_version,
-                    ],
-                    dry_run,
-                )
-                alias_version = (
-                    f"{image}/latest"
-                    f"@{self.build_info.docker_org}/{version_info.conan_profile}"
-                )
-                self._run_in_docker(
-                    base_cmd,
-                    [
-                        "conan",
-                        "alias",
-                        alias_version,
-                        conan_version,
-                    ],
-                    dry_run,
-                )
