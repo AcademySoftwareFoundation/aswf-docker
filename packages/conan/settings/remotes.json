@@ -14,11 +14,6 @@
       "name": "aswftesting",
       "url": "https://linuxfoundation.jfrog.io/artifactory/api/conan/aswf-conan-dev",
       "verify_ssl": true
-    },
-    {
-     "name": "aswftesting-ab",
-     "url": "https://aloysbaillet.jfrog.io/artifactory/api/conan/aswftesting-conan",
-     "verify_ssl": true
     }
   ]
 }
