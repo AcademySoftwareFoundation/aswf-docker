@@ -42,8 +42,6 @@ class BoostConan(ConanFile):
         "compiler",
         "build_type",
         "python",
-        "ci_common",
-        "vfx_platform",
     )
     description = "Boost provides free peer-reviewed portable C++ source libraries"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"

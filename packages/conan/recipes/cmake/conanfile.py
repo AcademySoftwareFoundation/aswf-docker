@@ -13,7 +13,7 @@ class CMakeConan(ConanFile):
     homepage = "https://github.com/Kitware/CMake"
     license = "BSD-3-Clause"
     generators = "cmake"
-    settings = "os", "arch", "compiler", "build_type", "ci_common", "vfx_platform"
+    settings = "os", "arch", "compiler", "build_type"
 
     options = {}
     default_options = {}

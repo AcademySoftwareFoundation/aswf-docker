@@ -11,7 +11,7 @@ class Log4cplusConan(ConanFile):
     license = "BSD-2-Clause, Apache-2.0"
     exports_sources = ["CMakeLists.txt"]
     generators = "cmake"
-    settings = "os", "compiler", "build_type", "arch", "ci_common", "vfx_platform"
+    settings = "os", "compiler", "build_type", "arch"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],

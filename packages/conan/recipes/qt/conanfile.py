@@ -86,7 +86,7 @@ class QtConan(ConanFile):
     homepage = "https://www.qt.io"
     license = "LGPL-3.0"
     exports = ["patches/*.diff"]
-    settings = "os", "arch", "compiler", "build_type", "ci_common", "vfx_platform"
+    settings = "os", "arch", "compiler", "build_type"
 
     options = {
         "shared": [True, False],

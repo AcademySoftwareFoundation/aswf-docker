@@ -14,7 +14,7 @@ class GlewConan(ConanFile):
     license = "MIT"
     exports_sources = ["CMakeLists.txt", "patches/*"]
     generators = "cmake"
-    settings = "os", "arch", "build_type", "compiler", "ci_common", "vfx_platform"
+    settings = "os", "arch", "build_type", "compiler"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],

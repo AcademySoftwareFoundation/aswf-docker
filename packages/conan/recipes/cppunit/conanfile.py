@@ -10,7 +10,7 @@ class CppunitConan(ConanFile):
     license = " LGPL-2.1-or-later"
     homepage = "https://freedesktop.org/wiki/Software/cppunit/"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
-    settings = "os", "arch", "compiler", "build_type", "ci_common", "vfx_platform"
+    settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],

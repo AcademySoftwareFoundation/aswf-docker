@@ -16,8 +16,6 @@ class PySideConan(ConanFile):
         "arch",
         "compiler",
         "build_type",
-        "ci_common",
-        "vfx_platform",
         "python",
     )
     generators = "cmake_find_package_multi"

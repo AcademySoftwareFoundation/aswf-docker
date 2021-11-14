@@ -12,7 +12,7 @@ class TBBConan(ConanFile):
 programs that take full advantage of multicore performance, that are portable and composable, and
 that have future-proof scalability"""
     topics = ("conan", "tbb", "threading", "parallelism", "tbbmalloc")
-    settings = "os", "compiler", "build_type", "arch", "ci_common", "vfx_platform"
+    settings = "os", "compiler", "build_type", "arch"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
