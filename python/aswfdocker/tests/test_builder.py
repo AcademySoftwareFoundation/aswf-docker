@@ -332,6 +332,7 @@ class TestBuilderCli(unittest.TestCase):
         self.maxDiff = None
         self._log_handlers = logging.getLogger("").handlers
         logging.getLogger("").handlers = []
+        self._i = 0
 
     def tearDown(self):
         logging.getLogger("").handlers = self._log_handlers
@@ -383,7 +384,7 @@ class TestBuilderCli(unittest.TestCase):
             tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019.json"
         )
         cmds = result.output.strip().splitlines()
-        self.assertEqual(len(cmds), 3)
+        self.assertEqual(len(cmds), 4)
         self.assertEqual(
             cmds[0],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
@@ -452,6 +453,10 @@ class TestBuilderCli(unittest.TestCase):
         )
         self.assertEqual(result.exit_code, 0)
 
+    def _assertEndsWith(self, cmds, expected):
+        self.assertTrue(cmds[self._i].endswith(expected), "got: " + cmds[self._i])
+        self._i += 1
+
     def test_builderlist_cli_conan(self):
         runner = CliRunner()
         result = runner.invoke(
@@ -481,68 +486,47 @@ class TestBuilderCli(unittest.TestCase):
             tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019-2020.json"
         )
         cmds = result.output.strip().splitlines()
-        self.assertEqual(len(cmds), 11)
-        i = 0
+        self.assertEqual(len(cmds), 13)
         self.assertEqual(
-            cmds[i],
+            cmds[self._i],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
         )
-        i += 1
+        self._i += 1
         self.assertTrue(
-            cmds[i].startswith(
+            cmds[self._i].startswith(
                 "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME="
                 + constants.CONAN_USER_HOME
             ),
-            msg=cmds[i],
+            msg=cmds[self._i],
         )
-        self.assertTrue(
-            cmds[i].endswith("conan user -p -r aswftesting'"),
-            msg=cmds[i],
+        self._assertEndsWith(cmds, "conan user -p -r aswftesting'")
+        self._assertEndsWith(cmds, "conan config set general.default_profile=vfx2019'")
+        self._assertEndsWith(
+            cmds,
+            f"conan create {constants.CONAN_USER_HOME}/recipes/openexr"
+            " openexr/2.3.0@aswftesting/vfx2019"
+            " --keep-source --keep-build --build=missing'",
         )
-        i += 1
-        self.assertTrue(
-            cmds[i].endswith("conan config set general.default_profile=vfx2019'"),
-            msg=cmds[i],
+        self._assertEndsWith(
+            cmds,
+            "conan alias openexr/latest@aswftesting/vfx2019"
+            " openexr/2.3.0@aswftesting/vfx2019'",
         )
-        i += 1
-        self.assertTrue(
-            cmds[i].endswith(
-                f"conan create {constants.CONAN_USER_HOME}/recipes/openexr openexr/2.3.0@aswftesting/vfx2019"
-                " --keep-source --keep-build --build=missing'"
-            ),
-            msg=cmds[i],
+        self._assertEndsWith(
+            cmds,
+            "conan upload --all -r aswftesting" " openexr/2.3.0@aswftesting/vfx2019'",
         )
-        i += 1
-        self.assertTrue(
-            cmds[i].endswith(
-                "conan upload --all -r aswftesting openexr/2.3.0@aswftesting/vfx2019'"
-            ),
-            msg=cmds[i],
+        self._assertEndsWith(
+            cmds,
+            "conan upload --all -r aswftesting" " openexr/latest@aswftesting/vfx2019'",
         )
-        i += 1
-        self.assertTrue(
-            cmds[i].endswith(
-                "conan alias openexr/latest@aswftesting/vfx2019 openexr/2.3.0@aswftesting/vfx2019'"
-            ),
-            msg=cmds[i],
-        )
-        i += 1
-        self.assertTrue(
-            cmds[i].endswith("conan user -p -r aswftesting'"),
-            msg=cmds[i],
-        )
-        i += 1
-        self.assertTrue(
-            cmds[i].endswith("conan config set general.default_profile=vfx2020'"),
-            msg=cmds[i],
-        )
-        i += 1
-        self.assertTrue(
-            cmds[i].endswith(
-                f"conan create {constants.CONAN_USER_HOME}/recipes/openexr openexr/2.4.0@aswftesting/vfx2020"
-                " --keep-source --keep-build --build=missing'"
-            ),
-            msg=cmds[i],
+        self._assertEndsWith(cmds, "conan user -p -r aswftesting'")
+        self._assertEndsWith(cmds, "conan config set general.default_profile=vfx2020'")
+        self._assertEndsWith(
+            cmds,
+            f"conan create {constants.CONAN_USER_HOME}/recipes/openexr"
+            " openexr/2.4.0@aswftesting/vfx2020"
+            " --keep-source --keep-build --build=missing'",
         )
         self.assertEqual(result.exit_code, 0)
 
