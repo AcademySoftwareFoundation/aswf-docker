@@ -390,7 +390,8 @@ class TestBuilderCli(unittest.TestCase):
         )
         self.assertTrue(
             cmds[1].startswith(
-                "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME=/tmp/c"
+                "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME="
+                + constants.CONAN_USER_HOME
             ),
             msg=cmds[1],
         )
@@ -400,7 +401,7 @@ class TestBuilderCli(unittest.TestCase):
         )
         self.assertTrue(
             cmds[2].endswith(
-                "conan create /tmp/c/recipes/openexr openexr/2.3.0@aswftesting/vfx2019'"
+                f"conan create {constants.CONAN_USER_HOME}/recipes/openexr openexr/2.3.0@aswftesting/vfx2019'"
             ),
             msg=cmds[2],
         )
@@ -489,7 +490,8 @@ class TestBuilderCli(unittest.TestCase):
         i += 1
         self.assertTrue(
             cmds[i].startswith(
-                "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME=/tmp/c"
+                "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME="
+                + constants.CONAN_USER_HOME
             ),
             msg=cmds[i],
         )
@@ -505,7 +507,7 @@ class TestBuilderCli(unittest.TestCase):
         i += 1
         self.assertTrue(
             cmds[i].endswith(
-                "conan create /tmp/c/recipes/openexr openexr/2.3.0@aswftesting/vfx2019"
+                f"conan create {constants.CONAN_USER_HOME}/recipes/openexr openexr/2.3.0@aswftesting/vfx2019"
                 " --keep-source --keep-build --build=missing'"
             ),
             msg=cmds[i],
@@ -537,7 +539,7 @@ class TestBuilderCli(unittest.TestCase):
         i += 1
         self.assertTrue(
             cmds[i].endswith(
-                "conan create /tmp/c/recipes/openexr openexr/2.4.0@aswftesting/vfx2020"
+                f"conan create {constants.CONAN_USER_HOME}/recipes/openexr openexr/2.4.0@aswftesting/vfx2020"
                 " --keep-source --keep-build --build=missing'"
             ),
             msg=cmds[i],
