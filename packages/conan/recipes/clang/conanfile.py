@@ -25,7 +25,6 @@ class ClangConan(ConanFile):
         "targets": "host;NVPTX",
     }
 
-    build_requires = []
     exports_sources = ["CMakeLists.txt", "patches/*"]
     generators = ["cmake", "cmake_find_package"]
     no_copy_source = True
@@ -33,6 +32,22 @@ class ClangConan(ConanFile):
     @property
     def _source_subfolder(self):
         return "source"
+
+    def build_requirements(self):
+        if tools.Version(self.version) > "11":
+            self.build_requires(f"python/3.9.7@{self.user}/vfx2022")
+
+    def configure(self):
+        compiler = self.settings.compiler.value
+        version = tools.Version(self.settings.compiler.version)
+        if (
+            tools.Version(self.version) >= "13"
+            and compiler == "gcc"
+            and int(version.major) == 9
+        ):
+            self.options.components.value = self.options.components.value.replace(
+                "libcxx;libcxxabi;", ""
+            )
 
     def _configure_cmake(self):
         cmake = CMake(self)
