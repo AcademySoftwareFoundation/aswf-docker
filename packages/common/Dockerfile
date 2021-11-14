@@ -69,6 +69,7 @@ ARG ASWF_CLANG_VERSION
 ENV ASWF_CLANG_VERSION=${ASWF_CLANG_VERSION}
 
 COPY ../scripts/common/build_clang.sh \
+     ../scripts/base/build_python.sh \
      /tmp/
 
 RUN --mount=type=cache,target=/tmp/ccache \
