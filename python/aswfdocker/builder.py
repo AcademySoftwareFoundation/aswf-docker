@@ -142,9 +142,9 @@ class Builder:
 
     def _get_conan_env_vars(self, version_info):
         envs = {
-            "CONAN_USER_HOME": "/tmp/c",
+            "CONAN_USER_HOME": constants.CONAN_USER_HOME,
             "CCACHE_DIR": "/tmp/ccache",
-            "CONAN_USER_DATA_FOLDER": "/tmp/c/d",
+            "CONAN_USER_DATA_FOLDER": os.path.join(constants.CONAN_USER_HOME, "d"),
             "CONAN_NON_INTERACTIVE": "1",
         }
         if "CONAN_LOGIN_USERNAME" in os.environ:
@@ -162,9 +162,15 @@ class Builder:
     def _get_conan_vols(self):
         conan_base = os.path.join(utils.get_git_top_level(), "packages", "conan")
         vols = {
-            os.path.join(conan_base, "settings"): "/tmp/c/.conan",
-            os.path.join(conan_base, "data"): "/tmp/c/d",
-            os.path.join(conan_base, "recipes"): "/tmp/c/recipes",
+            os.path.join(conan_base, "settings"): os.path.join(
+                constants.CONAN_USER_HOME, ".conan"
+            ),
+            os.path.join(conan_base, "data"): os.path.join(
+                constants.CONAN_USER_HOME, "d"
+            ),
+            os.path.join(conan_base, "recipes"): os.path.join(
+                constants.CONAN_USER_HOME, "recipes"
+            ),
             os.path.join(conan_base, "ccache"): "/tmp/ccache",
         }
         return vols
@@ -229,7 +235,7 @@ class Builder:
         build_cmd = [
             "conan",
             "create",
-            f"/tmp/c/recipes/{image}",
+            os.path.join(constants.CONAN_USER_HOME, "recipes", image),
             conan_version,
         ]
         if keep_source:
