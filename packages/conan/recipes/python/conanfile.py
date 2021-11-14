@@ -26,6 +26,8 @@ class PythonConan(ConanFile):
     def configure(self):
         python_version = tools.Version(self.version)
         self.major_minor = f"{python_version.major}.{python_version.minor}"
+        if "ASWF_NUMPY_VERSION" not in os.environ:
+            self.options.with_numpy.value = False
 
     @property
     def _source_subfolder(self):
