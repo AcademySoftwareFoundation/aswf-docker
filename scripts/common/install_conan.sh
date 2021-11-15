@@ -37,3 +37,4 @@ chmod a+x "${ASWF_INSTALL_PREFIX}/bin/conan"
 cd ../..
 rm -rf python
 rm -rf /tmp/pyconan
+rm "$DOWNLOADS_DIR/Python-${ASWF_CONAN_PYTHON_VERSION}.tgz"
