@@ -477,6 +477,8 @@ ci-images:
     - "2021-clang11.7"
     - "2022-clang10.8"
     - "2022-clang11.8"
+    - "2022-clang12.0"
+    - "2022-clang13.0"
   openvdb:
     - "2019-clang6.8"
     - "2019-clang7.8"
@@ -486,6 +488,8 @@ ci-images:
     - "2021-clang10.6"
     - "2022-clang10.8"
     - "2022-clang11.8"
+    - "2022-clang12.0"
+    - "2022-clang13.0"
   vfxall:
     - "2019-clang6.12"
     - "2019-clang7.12"
@@ -495,6 +499,8 @@ ci-images:
     - "2021-clang10.7"
     - "2022-clang10.8"
     - "2022-clang11.8"
+    - "2022-clang12.0"
+    - "2022-clang13.0"
 
 groups:
   package:
