@@ -284,6 +284,12 @@ versions:
   "2022-clang11":
     parent_versions: ["2", "2-clang11", "2022"]
     ci_common_version: "2"
+  "2022-clang12":
+    parent_versions: ["2", "2-clang12", "2022"]
+    ci_common_version: "2"
+  "2022-clang13":
+    parent_versions: ["2", "2-clang13", "2022"]
+    ci_common_version: "2"
 
 ci-packages:
   clang:
