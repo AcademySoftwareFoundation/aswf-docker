@@ -97,11 +97,7 @@ class Builder:
                     "org.opencontainers.image.revision": self.build_info.vcs_ref,
                 },
                 "tags": tags,
-                "output": [
-                    "type=registry,push=true"
-                    if self.push and self.group_info.type == constants.ImageType.IMAGE
-                    else "type=docker"
-                ],
+                "output": ["type=registry,push=true" if self.push else "type=docker"],
             }
             if self.group_info.type == constants.ImageType.PACKAGE:
                 if self.use_conan:
