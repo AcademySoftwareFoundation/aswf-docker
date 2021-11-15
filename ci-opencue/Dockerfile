@@ -10,6 +10,9 @@ ARG ASWF_CLANG_MAJOR_VERSION
 ARG ASWF_CONAN_CHANNEL
 ARG CONAN_USER_DATA_FOLDER
 
+ARG ASWF_VFXPLATFORM_VERSION
+
+
 ARG ASWF_PYTHON_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_NUMPY_VERSION
@@ -47,7 +50,9 @@ LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 
+
 LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
+
 
 LABEL io.aswf.docker.versions.python="$ASWF_PYTHON_VERSION"
 LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
@@ -57,7 +62,9 @@ LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
-ENV VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
+
+ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
+
 
 ENV ASWF_PYTHON_VERSION=$ASWF_PYTHON_VERSION
 ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
@@ -80,6 +87,10 @@ RUN sudo alternatives --set java java-11-openjdk.x86_64 && \
 
 
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
+
+RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
+
+
 # Uncomment to use Conan packages instead of Docker ones
 # 
 # RUN cd /usr/local/ && \
