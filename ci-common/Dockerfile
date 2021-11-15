@@ -10,6 +10,7 @@ ARG ASWF_CLANG_MAJOR_VERSION
 ARG ASWF_CONAN_CHANNEL
 ARG CONAN_USER_DATA_FOLDER
 
+
 ARG ASWF_CLANG_VERSION
 ARG ASWF_NINJA_VERSION
 ARG ASWF_CUDA_VERSION
@@ -52,7 +53,7 @@ LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 
-LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
+
 
 LABEL io.aswf.docker.versions.clang="$ASWF_CLANG_VERSION"
 LABEL io.aswf.docker.versions.ninja="$ASWF_NINJA_VERSION"
@@ -65,7 +66,7 @@ LABEL io.aswf.docker.versions.conan="$ASWF_CONAN_VERSION"
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
-ENV VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
+
 
 ENV ASWF_CLANG_VERSION=$ASWF_CLANG_VERSION
 ENV ASWF_NINJA_VERSION=$ASWF_NINJA_VERSION
@@ -123,6 +124,10 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
 
 COPY ../packages/conan/settings /opt/conan_home/.conan
 ENV CONAN_USER_HOME=/opt/conan_home
+
+
+
+RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
 
 
 # Uncomment to use Conan packages instead of Docker ones

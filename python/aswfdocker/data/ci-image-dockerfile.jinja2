@@ -9,6 +9,9 @@ ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
 ARG ASWF_CONAN_CHANNEL
 ARG CONAN_USER_DATA_FOLDER
+{% if name != "common" %}
+ARG ASWF_VFXPLATFORM_VERSION
+{% endif %}
 
 {% for arg in docker_args -%}
 ARG {{ arg }}
@@ -63,7 +66,9 @@ LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 
+{% if name != "common" %}
 LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
+{% endif %}
 
 {% for package in packages + implicit_packages -%}
 LABEL io.aswf.docker.versions.{{ package }}="$ASWF_{{ package.upper() }}_VERSION"
@@ -71,7 +76,9 @@ LABEL io.aswf.docker.versions.{{ package }}="$ASWF_{{ package.upper() }}_VERSION
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
-ENV VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
+{% if name != "common" %}
+ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
+{% endif %}
 
 {% for arg in docker_args -%}
 ENV {{ arg }}=${{ arg }}
@@ -99,6 +106,12 @@ COPY ci-{{name}}/README.md ci-{{name}}/image.yaml /usr/local/aswf/
 {% for package in packages + implicit_packages -%}
 {{ index.package_data(package).get("docker_commands", "") -}}
 {% endfor -%}
+
+{% if name != "common" %}
+RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
+{% else %}
+RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
+{% endif %}
 
 # Uncomment to use Conan packages instead of Docker ones
 # 
