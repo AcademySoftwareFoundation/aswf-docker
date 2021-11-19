@@ -14,4 +14,6 @@ sources:
   2.6.2:
     url: "https://github.com/pybind/pybind11/archive/v2.6.2.tar.gz"
     sha256: "8ff2fff22df038f5cd02cea8af56622bc67f5b64534f1b83b9f133b8366acff2"
-
+  2.8.1:
+    url: "https://github.com/pybind/pybind11/archive/v2.8.1.tar.gz"
+    sha256: "f1bcc07caa568eb312411dde5308b1e250bd0e1bc020fae855bf9f43209940cc"
