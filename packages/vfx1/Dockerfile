@@ -231,8 +231,59 @@ LABEL io.aswf.docker.versions.blosc="${ASWF_BLOSC_VERSION}"
 COPY --from=ci-blosc-builder /package/. /
 
 
+#################### ci-openvdb-builder ####################
+FROM ci-openexr-builder as ci-openvdb-builder
+
+ARG ASWF_OPENVDB_VERSION
+ENV ASWF_OPENVDB_VERSION=${ASWF_OPENVDB_VERSION}
+
+COPY ../scripts/vfx/build_openvdb.sh \
+     ../scripts/vfx/openvdb-imath.patch \
+     /tmp/
+
+COPY --from=ci-package-glew-external /. /usr/local/
+COPY --from=ci-package-tbb-external /. /usr/local/
+COPY --from=ci-package-cppunit-external /. /usr/local/
+COPY --from=ci-package-glfw-external /. /usr/local/
+
+COPY --from=ci-package-blosc /. /usr/local/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+     --mount=type=cache,sharing=private,target=/tmp/downloads \
+     /tmp/before_build.sh && \
+     /tmp/build_openvdb.sh && \
+     /tmp/copy_new_files.sh && \
+     ccache --show-stats
+
+
+#################### ci-package-openvdb ####################
+FROM scratch as ci-package-openvdb
+
+ARG ASWF_ORG
+ARG CI_COMMON_VERSION
+ARG ASWF_DTS_VERSION
+ARG ASWF_OPENVDB_VERSION
+ARG ASWF_VFXPLATFORM_VERSION
+
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-openvdb"
+LABEL org.opencontainers.image.title="OpenVDB package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="OpenVDB headers and binaries to be installed in ASWF Docker images"
+LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
+LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
+LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/openvdb"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
+LABEL org.opencontainers.image.version="${ASWF_OPENVDB_VERSION}"
+LABEL org.opencontainers.image.licenses="MPL-2.0"
+LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
+LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
+LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
+LABEL io.aswf.docker.versions.openvdb="${ASWF_OPENVDB_VERSION}"
+
+COPY --from=ci-openvdb-builder /package/. /
+
+
 #################### ci-oiio-builder ####################
-FROM ci-openexr-builder as ci-oiio-builder
+FROM ci-openvdb-builder as ci-oiio-builder
 
 ARG ASWF_OIIO_VERSION
 ENV ASWF_OIIO_VERSION=${ASWF_OIIO_VERSION}
@@ -343,53 +394,3 @@ RUN --mount=type=cache,target=/tmp/ccache \
     /tmp/copy_new_files.sh && \
     ccache --show-stats
 
-
-#################### ci-openvdb-builder ####################
-FROM ci-openexr-builder as ci-openvdb-builder
-
-ARG ASWF_OPENVDB_VERSION
-ENV ASWF_OPENVDB_VERSION=${ASWF_OPENVDB_VERSION}
-
-COPY ../scripts/vfx/build_openvdb.sh \
-     ../scripts/vfx/openvdb-imath.patch \
-     /tmp/
-
-COPY --from=ci-package-glew-external /. /usr/local/
-COPY --from=ci-package-tbb-external /. /usr/local/
-COPY --from=ci-package-cppunit-external /. /usr/local/
-COPY --from=ci-package-glfw-external /. /usr/local/
-
-COPY --from=ci-package-blosc /. /usr/local/
-
-RUN --mount=type=cache,target=/tmp/ccache \
-     --mount=type=cache,sharing=private,target=/tmp/downloads \
-     /tmp/before_build.sh && \
-     /tmp/build_openvdb.sh && \
-     /tmp/copy_new_files.sh && \
-     ccache --show-stats
-
-
-#################### ci-package-openvdb ####################
-FROM scratch as ci-package-openvdb
-
-ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_OPENVDB_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-openvdb"
-LABEL org.opencontainers.image.title="OpenVDB package built for ASWF Docker images"
-LABEL org.opencontainers.image.description="OpenVDB headers and binaries to be installed in ASWF Docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/openvdb"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${ASWF_OPENVDB_VERSION}"
-LABEL org.opencontainers.image.licenses="MPL-2.0"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.openvdb="${ASWF_OPENVDB_VERSION}"
-
-COPY --from=ci-openvdb-builder /package/. /
