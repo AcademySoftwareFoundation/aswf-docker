@@ -78,23 +78,23 @@ Contains:
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-ocio:2022.1](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2022.1)
+## [aswf/ci-ocio:2022.2](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2022.2)
 
 Contains:
 * python-3.9.7
-* pybind11-2.6.2
+* pybind11-2.8.1
 * tbb-2020_U3
 * boost-1.76.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.20.5
 * imath-3.1.3
-* openexr-3.1.1
-* oiio-2.3.7.2
+* openexr-3.1.3
+* oiio-2.3.9.1
 * blosc-1.5.0
 * partio-1.14.0
-* openvdb-8.1.0
-* osl-1.11.15.0
+* openvdb-9.0.0
+* osl-1.11.16.0
 * numpy-1.20
 * vfxplatform-2022
 

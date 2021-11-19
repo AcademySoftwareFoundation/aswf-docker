@@ -93,7 +93,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2021
 
-## [aswf/ci-usd:2022.1](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2022.1)
+## [aswf/ci-usd:2022.2](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2022.2)
 
 Contains:
 * python-3.9.7
@@ -106,14 +106,14 @@ Contains:
 * pyside-5.15.2
 * cmake-3.20.5
 * imath-3.1.3
-* openexr-3.1.1
-* oiio-2.3.7.2
+* openexr-3.1.3
+* oiio-2.3.9.1
 * ocio-2.1.0
 * ptex-2.4.0
 * opensubdiv-3_4_4
 * alembic-1.8.2
 * blosc-1.5.0
-* openvdb-8.1.0
+* openvdb-9.0.0
 * numpy-1.20
 * hdf5-1.8.21
 * vfxplatform-2022
