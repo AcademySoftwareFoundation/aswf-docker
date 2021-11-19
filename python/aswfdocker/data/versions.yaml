@@ -261,21 +261,21 @@ versions:
       ASWF_NUMPY_VERSION: "1.20"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.1.0"
-      ASWF_OIIO_VERSION: "2.3.7.2"
-      ASWF_OPENEXR_VERSION: "3.1.1"
+      ASWF_OIIO_VERSION: "2.3.9.1"
+      ASWF_OPENEXR_VERSION: "3.1.3"
       ASWF_OPENSUBDIV_VERSION: "3_4_4"
-      ASWF_OPENVDB_VERSION: "8.1.0"
-      ASWF_OSL_VERSION: "1.11.15.0"
-      ASWF_OTIO_VERSION: "0.13"
+      ASWF_OPENVDB_VERSION: "9.0.0"
+      ASWF_OSL_VERSION: "1.11.16.0"
+      ASWF_OTIO_VERSION: "0.14"
       ASWF_PARTIO_VERSION: "1.14.0"
       ASWF_PTEX_VERSION: "2.4.0"
-      ASWF_PYBIND11_VERSION: "2.6.2"
+      ASWF_PYBIND11_VERSION: "2.8.1"
       ASWF_PYSIDE_VERSION: "5.15.2"
       ASWF_PYTHON_VERSION: "3.9.7"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.9"
       ASWF_QT_VERSION: "5.15.2"
       ASWF_TBB_VERSION: "2020_U3"
-      ASWF_USD_VERSION: "21.05"
+      ASWF_USD_VERSION: "21.11"
       ASWF_VFXPLATFORM_VERSION: "2022"
   "2022-clang10":
     parent_versions: ["2", "2-clang10", "2022"]
@@ -319,7 +319,7 @@ ci-packages:
     - "2019.0"
     - "2020.0"
     - "2021.0"
-    - "2022.1"
+    - "2022.2"
   boost:
     - "2019.2"
     - "2020.2"
@@ -374,7 +374,7 @@ ci-packages:
     - "2019.2"
     - "2020.2"
     - "2021.3"
-    - "2022.1"
+    - "2022.2"
   alembic:
     - "2019.2"
     - "2020.2"
@@ -389,7 +389,7 @@ ci-packages:
     - "2019.2"
     - "2020.2"
     - "2021.4"
-    - "2022.1"
+    - "2022.2"
   opensubdiv:
     - "2019.2"
     - "2020.2"
@@ -404,12 +404,12 @@ ci-packages:
     - "2019.2"
     - "2020.2"
     - "2021.3"
-    - "2022.1"
+    - "2022.2"
   usd:
     - "2019.3"
     - "2020.2"
     - "2021.5"
-    - "2022.1"
+    - "2022.2"
   partio:
     - "2019.1"
     - "2020.1"
@@ -419,12 +419,12 @@ ci-packages:
     - "2019.1"
     - "2020.1"
     - "2021.3"
-    - "2022.1"
+    - "2022.2"
   otio:
     - "2019.1"
     - "2020.1"
     - "2021.3"
-    - "2022.1"
+    - "2022.2"
 
 ci-images:
   common:
@@ -441,7 +441,7 @@ ci-images:
     - "2019.8"
     - "2020.8"
     - "2021.5"
-    - "2022.1"
+    - "2022.2"
   baseqt:
     - "2019.1"
     - "2020.1"
@@ -456,7 +456,7 @@ ci-images:
     - "2019.9"
     - "2020.8"
     - "2021.6"
-    - "2022.1"
+    - "2022.2"
   opencue:
     - "2019.10"
     - "2020.10"
@@ -466,7 +466,7 @@ ci-images:
     - "2019.9"
     - "2020.8"
     - "2021.6"
-    - "2022.1"
+    - "2022.2"
   otio:
     - "2019.3"
     - "2020.3"
@@ -481,8 +481,8 @@ ci-images:
     - "2020-clang7.5"
     - "2021-clang10.7"
     - "2021-clang11.7"
-    - "2022-clang10.8"
-    - "2022-clang11.8"
+    - "2022-clang10.9"
+    - "2022-clang11.9"
     - "2022-clang12.0"
     - "2022-clang13.0"
   openvdb:
@@ -492,8 +492,8 @@ ci-images:
     - "2019-clang9.8"
     - "2020-clang7.8"
     - "2021-clang10.6"
-    - "2022-clang10.8"
-    - "2022-clang11.8"
+    - "2022-clang10.9"
+    - "2022-clang11.9"
     - "2022-clang12.0"
     - "2022-clang13.0"
   vfxall:
@@ -503,8 +503,8 @@ ci-images:
     - "2019-clang9.12"
     - "2020-clang7.10"
     - "2021-clang10.7"
-    - "2022-clang10.8"
-    - "2022-clang11.8"
+    - "2022-clang10.9"
+    - "2022-clang11.9"
     - "2022-clang12.0"
     - "2022-clang13.0"
 
