@@ -197,7 +197,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2021
 
-## [aswf/ci-vfxall:2022-clang10.8](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang10.8)
+## [aswf/ci-vfxall:2022-clang10.9](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang10.9)
 
 Contains:
 * python-3.9.7
@@ -211,23 +211,23 @@ Contains:
 * pyside-5.15.2
 * cmake-3.20.5
 * imath-3.1.3
-* openexr-3.1.1
+* openexr-3.1.3
 * blosc-1.5.0
 * alembic-1.8.2
-* oiio-2.3.7.2
+* oiio-2.3.9.1
 * ocio-2.1.0
 * opensubdiv-3_4_4
 * ptex-2.4.0
-* openvdb-8.1.0
-* usd-21.05
+* openvdb-9.0.0
+* usd-21.11
 * partio-1.14.0
-* osl-1.11.15.0
-* otio-0.13
+* osl-1.11.16.0
+* otio-0.14
 * numpy-1.20
 * hdf5-1.8.21
 * vfxplatform-2022
 
-## [aswf/ci-vfxall:2022-clang11.8](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang11.8)
+## [aswf/ci-vfxall:2022-clang11.9](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang11.9)
 
 Contains:
 * python-3.9.7
@@ -241,18 +241,78 @@ Contains:
 * pyside-5.15.2
 * cmake-3.20.5
 * imath-3.1.3
-* openexr-3.1.1
+* openexr-3.1.3
 * blosc-1.5.0
 * alembic-1.8.2
-* oiio-2.3.7.2
+* oiio-2.3.9.1
 * ocio-2.1.0
 * opensubdiv-3_4_4
 * ptex-2.4.0
-* openvdb-8.1.0
-* usd-21.05
+* openvdb-9.0.0
+* usd-21.11
 * partio-1.14.0
-* osl-1.11.15.0
-* otio-0.13
+* osl-1.11.16.0
+* otio-0.14
+* numpy-1.20
+* hdf5-1.8.21
+* vfxplatform-2022
+
+## [aswf/ci-vfxall:2022-clang12.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang12.0)
+
+Contains:
+* python-3.9.7
+* tbb-2020_U3
+* boost-1.76.0
+* cppunit-1.15.1
+* log4cplus-1.1.2
+* glew-2.1.0
+* glfw-3.1.2
+* qt-5.15.2
+* pyside-5.15.2
+* cmake-3.20.5
+* imath-3.1.3
+* openexr-3.1.3
+* blosc-1.5.0
+* alembic-1.8.2
+* oiio-2.3.9.1
+* ocio-2.1.0
+* opensubdiv-3_4_4
+* ptex-2.4.0
+* openvdb-9.0.0
+* usd-21.11
+* partio-1.14.0
+* osl-1.11.16.0
+* otio-0.14
+* numpy-1.20
+* hdf5-1.8.21
+* vfxplatform-2022
+
+## [aswf/ci-vfxall:2022-clang13.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang13.0)
+
+Contains:
+* python-3.9.7
+* tbb-2020_U3
+* boost-1.76.0
+* cppunit-1.15.1
+* log4cplus-1.1.2
+* glew-2.1.0
+* glfw-3.1.2
+* qt-5.15.2
+* pyside-5.15.2
+* cmake-3.20.5
+* imath-3.1.3
+* openexr-3.1.3
+* blosc-1.5.0
+* alembic-1.8.2
+* oiio-2.3.9.1
+* ocio-2.1.0
+* opensubdiv-3_4_4
+* ptex-2.4.0
+* openvdb-9.0.0
+* usd-21.11
+* partio-1.14.0
+* osl-1.11.16.0
+* otio-0.14
 * numpy-1.20
 * hdf5-1.8.21
 * vfxplatform-2022

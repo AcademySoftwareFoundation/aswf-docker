@@ -162,7 +162,7 @@ Contains:
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-osl:2022-clang10.8](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang10.8)
+## [aswf/ci-osl:2022-clang10.9](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang10.9)
 
 Contains:
 * boost-1.76.0
@@ -170,17 +170,17 @@ Contains:
 * python-3.9.7
 * qt-5.15.2
 * imath-3.1.3
-* openexr-3.1.1
-* oiio-2.3.7.2
+* openexr-3.1.3
+* oiio-2.3.9.1
 * ocio-2.1.0
 * partio-1.14.0
 * tbb-2020_U3
 * blosc-1.5.0
-* openvdb-8.1.0
+* openvdb-9.0.0
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-osl:2022-clang11.8](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang11.8)
+## [aswf/ci-osl:2022-clang11.9](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang11.9)
 
 Contains:
 * boost-1.76.0
@@ -188,13 +188,49 @@ Contains:
 * python-3.9.7
 * qt-5.15.2
 * imath-3.1.3
-* openexr-3.1.1
-* oiio-2.3.7.2
+* openexr-3.1.3
+* oiio-2.3.9.1
 * ocio-2.1.0
 * partio-1.14.0
 * tbb-2020_U3
 * blosc-1.5.0
-* openvdb-8.1.0
+* openvdb-9.0.0
+* numpy-1.20
+* vfxplatform-2022
+
+## [aswf/ci-osl:2022-clang12.0](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang12.0)
+
+Contains:
+* boost-1.76.0
+* cmake-3.20.5
+* python-3.9.7
+* qt-5.15.2
+* imath-3.1.3
+* openexr-3.1.3
+* oiio-2.3.9.1
+* ocio-2.1.0
+* partio-1.14.0
+* tbb-2020_U3
+* blosc-1.5.0
+* openvdb-9.0.0
+* numpy-1.20
+* vfxplatform-2022
+
+## [aswf/ci-osl:2022-clang13.0](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang13.0)
+
+Contains:
+* boost-1.76.0
+* cmake-3.20.5
+* python-3.9.7
+* qt-5.15.2
+* imath-3.1.3
+* openexr-3.1.3
+* oiio-2.3.9.1
+* ocio-2.1.0
+* partio-1.14.0
+* tbb-2020_U3
+* blosc-1.5.0
+* openvdb-9.0.0
 * numpy-1.20
 * vfxplatform-2022
 
