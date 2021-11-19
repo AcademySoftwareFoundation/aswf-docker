@@ -301,7 +301,13 @@ class Builder:
             )
         if not self.use_conan or self.group_info.type == constants.ImageType.IMAGE:
             return
+
+        conan_base = os.path.join(utils.get_git_top_level(), "packages", "conan")
         for image, version in self.group_info.iter_images_versions(get_image=True):
+            recipe_path = os.path.join(conan_base, "recipes", image)
+            if not os.path.exists(recipe_path):
+                logger.warning("Recipe for %s not found: skipping!", image)
+                continue
             self._build_conan_package(
                 image,
                 version,
