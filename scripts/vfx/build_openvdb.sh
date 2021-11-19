@@ -30,7 +30,7 @@ EOF
 
 fi
 
-if [[ $ASWF_IMATH_VERSION == 3* ]]; then
+if [[ $ASWF_IMATH_VERSION == 3* && $ASWF_OPENVDB_VERSION == 8* ]]; then
     patch -p1 < /tmp/openvdb-imath.patch
 fi
 
