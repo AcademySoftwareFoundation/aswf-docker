@@ -8,9 +8,10 @@ packages:
   - cppunit
   - glew
   - glfw
+  - gtest
   - log4cplus
-  - python
   - pybind11
+  - python
   - tbb
 implicit_packages:
   - numpy

@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.3-labs
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -8,7 +9,6 @@ ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
 ARG ASWF_CONAN_CHANNEL
-ARG CONAN_USER_DATA_FOLDER
 
 
 ARG ASWF_CLANG_VERSION
@@ -32,7 +32,6 @@ ARG ASWF_PKG_ORG
 ARG ASWF_VERSION
 ARG CI_COMMON_VERSION
 ARG ASWF_CONAN_CHANNEL
-ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_CLANG_VERSION
 ARG ASWF_NINJA_VERSION
@@ -130,15 +129,19 @@ ENV CONAN_USER_HOME=/opt/conan_home
 RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
 
 
+
+# conan-only packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+deploy
+[requires]
 # Uncomment to use Conan packages instead of Docker ones
-# 
-# RUN cd /usr/local/ && \
-#     echo $'[generators]\n\
-# cmake\n\
-# [imports]\n\
-# ., * -> .\n\
-# [requires]\n' >> /usr/local/conanfile.txt && \
-# #     echo "clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     conan install . && \
-#     rm -rf ${CONAN_USER_DATA_FOLDER}/*
+# clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF
