@@ -134,7 +134,8 @@ RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 # conan-only packages
 COPY <<EOF /usr/local/conanfile.txt
 [generators]
-deploy
+[imports]
+., * -> .
 [requires]
 # Uncomment to use Conan packages instead of Docker ones
 # boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}

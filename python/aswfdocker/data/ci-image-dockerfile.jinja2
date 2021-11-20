@@ -118,7 +118,8 @@ RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
 # conan-only packages
 COPY <<EOF /usr/local/conanfile.txt
 [generators]
-deploy
+[imports]
+., * -> .
 [requires]
 {% for package in packages -%}
 {% if index.is_conan_only_package(package) -%}
