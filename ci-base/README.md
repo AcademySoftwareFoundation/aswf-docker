@@ -25,9 +25,10 @@ Contains:
 * cppunit-1.14.0
 * glew-2.1.0
 * glfw-3.1.2
+* gtest-1.8.1
 * log4cplus-1.1.2
-* python-2.7.15
 * pybind11-2.4.3
+* python-2.7.15
 * tbb-2018
 * numpy-1.14
 * vfxplatform-2019
@@ -40,9 +41,10 @@ Contains:
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
+* gtest-1.10.0
 * log4cplus-1.1.2
-* python-3.7.3
 * pybind11-2.4.3
+* python-3.7.3
 * tbb-2019_U6
 * numpy-1.16
 * vfxplatform-2020
@@ -55,9 +57,10 @@ Contains:
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
+* gtest-1.11.0
 * log4cplus-1.1.2
-* python-3.7.9
 * pybind11-2.6.2
+* python-3.7.9
 * tbb-2020_U2
 * numpy-1.19
 * vfxplatform-2021
@@ -70,9 +73,10 @@ Contains:
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
+* gtest-1.11.0
 * log4cplus-1.1.2
-* python-3.9.7
 * pybind11-2.8.1
+* python-3.9.7
 * tbb-2020_U3
 * numpy-1.20
 * vfxplatform-2022

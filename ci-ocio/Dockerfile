@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.3-labs
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -8,7 +9,6 @@ ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
 ARG ASWF_CONAN_CHANNEL
-ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_VFXPLATFORM_VERSION
 
@@ -55,7 +55,6 @@ ARG ASWF_PKG_ORG
 ARG ASWF_VERSION
 ARG CI_COMMON_VERSION
 ARG ASWF_CONAN_CHANNEL
-ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_PYTHON_VERSION
 ARG ASWF_PYBIND11_VERSION
@@ -157,27 +156,43 @@ ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-pack
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 
 
+
+# conan-only packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+deploy
+[requires]
 # Uncomment to use Conan packages instead of Docker ones
-# 
-# RUN cd /usr/local/ && \
-#     echo $'[generators]\n\
-# cmake\n\
-# [imports]\n\
-# ., * -> .\n\
-# [requires]\n' >> /usr/local/conanfile.txt && \
-# #     echo "python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "oiio/${ASWF_OIIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "partio/${ASWF_PARTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "openvdb/${ASWF_OPENVDB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "osl/${ASWF_OSL_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     conan install . && \
-#     rm -rf ${CONAN_USER_DATA_FOLDER}/*
+# python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# oiio/${ASWF_OIIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# partio/${ASWF_PARTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# openvdb/${ASWF_OPENVDB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# osl/${ASWF_OSL_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF

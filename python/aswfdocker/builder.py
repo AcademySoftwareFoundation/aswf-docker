@@ -140,7 +140,6 @@ class Builder:
         envs = {
             "CONAN_USER_HOME": constants.CONAN_USER_HOME,
             "CCACHE_DIR": "/tmp/ccache",
-            "CONAN_USER_DATA_FOLDER": os.path.join(constants.CONAN_USER_HOME, "d"),
             "CONAN_NON_INTERACTIVE": "1",
         }
         if "CONAN_LOGIN_USERNAME" in os.environ:

@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.3-labs
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -8,7 +9,6 @@ ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
 ARG ASWF_CONAN_CHANNEL
-ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_VFXPLATFORM_VERSION
 
@@ -33,7 +33,6 @@ ARG ASWF_PKG_ORG
 ARG ASWF_VERSION
 ARG CI_COMMON_VERSION
 ARG ASWF_CONAN_CHANNEL
-ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_PYTHON_VERSION
 ARG ASWF_BOOST_VERSION
@@ -91,16 +90,21 @@ ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-pack
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 
 
+
+# conan-only packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+deploy
+[requires]
 # Uncomment to use Conan packages instead of Docker ones
-# 
-# RUN cd /usr/local/ && \
-#     echo $'[generators]\n\
-# cmake\n\
-# [imports]\n\
-# ., * -> .\n\
-# [requires]\n' >> /usr/local/conanfile.txt && \
-# #     echo "python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     conan install . && \
-#     rm -rf ${CONAN_USER_DATA_FOLDER}/*
+# python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF

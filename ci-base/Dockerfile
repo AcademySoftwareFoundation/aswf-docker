@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.3-labs
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -8,7 +9,6 @@ ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
 ARG ASWF_CONAN_CHANNEL
-ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_VFXPLATFORM_VERSION
 
@@ -18,9 +18,10 @@ ARG ASWF_CMAKE_VERSION
 ARG ASWF_CPPUNIT_VERSION
 ARG ASWF_GLEW_VERSION
 ARG ASWF_GLFW_VERSION
+ARG ASWF_GTEST_VERSION
 ARG ASWF_LOG4CPLUS_VERSION
-ARG ASWF_PYTHON_VERSION
 ARG ASWF_PYBIND11_VERSION
+ARG ASWF_PYTHON_VERSION
 ARG ASWF_TBB_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
@@ -33,9 +34,10 @@ FROM ${ASWF_PKG_ORG}/ci-package-cmake:$ASWF_VFXPLATFORM_VERSION-$ASWF_CMAKE_VERS
 FROM ${ASWF_PKG_ORG}/ci-package-cppunit:$ASWF_VFXPLATFORM_VERSION-$ASWF_CPPUNIT_VERSION as ci-package-cppunit
 FROM ${ASWF_PKG_ORG}/ci-package-glew:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLEW_VERSION as ci-package-glew
 FROM ${ASWF_PKG_ORG}/ci-package-glfw:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLFW_VERSION as ci-package-glfw
+FROM ${ASWF_PKG_ORG}/ci-package-gtest:$ASWF_VFXPLATFORM_VERSION-$ASWF_GTEST_VERSION as ci-package-gtest
 FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:$ASWF_VFXPLATFORM_VERSION-$ASWF_LOG4CPLUS_VERSION as ci-package-log4cplus
-FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
 FROM ${ASWF_PKG_ORG}/ci-package-pybind11:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYBIND11_VERSION as ci-package-pybind11
+FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
 FROM ${ASWF_PKG_ORG}/ci-package-tbb:$ASWF_VFXPLATFORM_VERSION-$ASWF_TBB_VERSION as ci-package-tbb
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base
 
@@ -45,16 +47,16 @@ ARG ASWF_PKG_ORG
 ARG ASWF_VERSION
 ARG CI_COMMON_VERSION
 ARG ASWF_CONAN_CHANNEL
-ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_BOOST_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_CPPUNIT_VERSION
 ARG ASWF_GLEW_VERSION
 ARG ASWF_GLFW_VERSION
+ARG ASWF_GTEST_VERSION
 ARG ASWF_LOG4CPLUS_VERSION
-ARG ASWF_PYTHON_VERSION
 ARG ASWF_PYBIND11_VERSION
+ARG ASWF_PYTHON_VERSION
 ARG ASWF_TBB_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
@@ -79,9 +81,10 @@ LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
 LABEL io.aswf.docker.versions.cppunit="$ASWF_CPPUNIT_VERSION"
 LABEL io.aswf.docker.versions.glew="$ASWF_GLEW_VERSION"
 LABEL io.aswf.docker.versions.glfw="$ASWF_GLFW_VERSION"
+LABEL io.aswf.docker.versions.gtest="$ASWF_GTEST_VERSION"
 LABEL io.aswf.docker.versions.log4cplus="$ASWF_LOG4CPLUS_VERSION"
-LABEL io.aswf.docker.versions.python="$ASWF_PYTHON_VERSION"
 LABEL io.aswf.docker.versions.pybind11="$ASWF_PYBIND11_VERSION"
+LABEL io.aswf.docker.versions.python="$ASWF_PYTHON_VERSION"
 LABEL io.aswf.docker.versions.tbb="$ASWF_TBB_VERSION"
 LABEL io.aswf.docker.versions.numpy="$ASWF_NUMPY_VERSION"
 LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
@@ -98,9 +101,10 @@ ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
 ENV ASWF_CPPUNIT_VERSION=$ASWF_CPPUNIT_VERSION
 ENV ASWF_GLEW_VERSION=$ASWF_GLEW_VERSION
 ENV ASWF_GLFW_VERSION=$ASWF_GLFW_VERSION
+ENV ASWF_GTEST_VERSION=$ASWF_GTEST_VERSION
 ENV ASWF_LOG4CPLUS_VERSION=$ASWF_LOG4CPLUS_VERSION
-ENV ASWF_PYTHON_VERSION=$ASWF_PYTHON_VERSION
 ENV ASWF_PYBIND11_VERSION=$ASWF_PYBIND11_VERSION
+ENV ASWF_PYTHON_VERSION=$ASWF_PYTHON_VERSION
 ENV ASWF_TBB_VERSION=$ASWF_TBB_VERSION
 ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
 ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
@@ -114,8 +118,8 @@ COPY --from=ci-package-cppunit /. /usr/local/
 COPY --from=ci-package-glew /. /usr/local/
 COPY --from=ci-package-glfw /. /usr/local/
 COPY --from=ci-package-log4cplus /. /usr/local/
-COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-pybind11 /. /usr/local/
+COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-tbb /. /usr/local/
 COPY ci-base/README.md ci-base/image.yaml /usr/local/aswf/
 
@@ -126,22 +130,34 @@ ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-pack
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 
 
+
+# conan-only packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+deploy
+[requires]
 # Uncomment to use Conan packages instead of Docker ones
-# 
-# RUN cd /usr/local/ && \
-#     echo $'[generators]\n\
-# cmake\n\
-# [imports]\n\
-# ., * -> .\n\
-# [requires]\n' >> /usr/local/conanfile.txt && \
-# #     echo "boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "log4cplus/${ASWF_LOG4CPLUS_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     echo "tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# #     conan install . && \
-#     rm -rf ${CONAN_USER_DATA_FOLDER}/*
+# boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+gtest/${ASWF_GTEST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# log4cplus/${ASWF_LOG4CPLUS_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# Uncomment to use Conan packages instead of Docker ones
+# tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF

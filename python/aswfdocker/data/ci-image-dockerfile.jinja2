@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.3-labs
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -8,7 +9,6 @@ ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
 ARG ASWF_CONAN_CHANNEL
-ARG CONAN_USER_DATA_FOLDER
 {% if name != "common" %}
 ARG ASWF_VFXPLATFORM_VERSION
 {% endif %}
@@ -41,7 +41,6 @@ ARG ASWF_PKG_ORG
 ARG ASWF_VERSION
 ARG CI_COMMON_VERSION
 ARG ASWF_CONAN_CHANNEL
-ARG CONAN_USER_DATA_FOLDER
 
 {% for arg in docker_args -%}
 ARG {{ arg }}
@@ -96,7 +95,9 @@ ENV {{ arg }}=${{ arg }}
 
 # Comment out this block to use Conan packages
 {% for package in packages -%}
+{% if not index.is_conan_only_package(package) -%}
 COPY --from=ci-package-{{ package }} /. /usr/local/
+{% endif -%}
 {% endfor -%}
 
 COPY ci-{{name}}/README.md ci-{{name}}/image.yaml /usr/local/aswf/
@@ -113,16 +114,23 @@ RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
 {% endif %}
 
+
+# conan-only packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+deploy
+[requires]
+{% for package in packages -%}
+{% if index.is_conan_only_package(package) -%}
+{{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+{% else -%}
 # Uncomment to use Conan packages instead of Docker ones
-# 
-# RUN cd /usr/local/ && \
-#     echo $'[generators]\n\
-# cmake\n\
-# [imports]\n\
-# ., * -> .\n\
-# [requires]\n' >> /usr/local/conanfile.txt && \
-# {% for package in packages -%}
-#     echo "{{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
-# {% endfor -%}
-#     conan install . && \
-#     rm -rf ${CONAN_USER_DATA_FOLDER}/*
+# {{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+{% endif -%}
+{% endfor -%}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF
