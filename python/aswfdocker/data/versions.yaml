@@ -283,16 +283,20 @@ versions:
       ASWF_VFXPLATFORM_VERSION: "2022"
   "2022-clang10":
     parent_versions: ["2", "2-clang10", "2022"]
+    major_version: "2022"
     use_major_version_as_tag: true
     ci_common_version: "2"
   "2022-clang11":
     parent_versions: ["2", "2-clang11", "2022"]
+    major_version: "2022"
     ci_common_version: "2"
   "2022-clang12":
     parent_versions: ["2", "2-clang12", "2022"]
+    major_version: "2022"
     ci_common_version: "2"
   "2022-clang13":
     parent_versions: ["2", "2-clang13", "2022"]
+    major_version: "2022"
     ci_common_version: "2"
 
 ci-packages:
