@@ -125,6 +125,9 @@ COPY --from=ci-package-imath-external /. /usr/local/
 COPY --from=ci-package-openexr-external /. /usr/local/
 COPY --from=ci-package-oiio-external /. /usr/local/
 COPY --from=ci-package-pybind11-external /. /usr/local/
+COPY --from=ci-package-openvdb-external /. /usr/local/
+COPY --from=ci-package-tbb-external /. /usr/local/
+COPY --from=ci-package-blosc-external /. /usr/local/
 
 COPY ../scripts/vfx/build_osl.sh \
      /tmp/
