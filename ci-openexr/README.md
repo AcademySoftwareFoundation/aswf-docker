@@ -50,7 +50,7 @@ Contains:
 Contains:
 * python-3.9.7
 * boost-1.76.0
-* cmake-3.20.5
+* cmake-3.22.0
 * numpy-1.20
 * vfxplatform-2022
 

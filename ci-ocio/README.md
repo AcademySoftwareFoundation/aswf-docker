@@ -87,7 +87,7 @@ Contains:
 * boost-1.76.0
 * glew-2.1.0
 * glfw-3.1.2
-* cmake-3.20.5
+* cmake-3.22.0
 * imath-3.1.3
 * openexr-3.1.3
 * oiio-2.3.9.1

@@ -63,7 +63,7 @@ Contains:
 
 Contains:
 * boost-1.76.0
-* cmake-3.20.5
+* cmake-3.22.0
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
