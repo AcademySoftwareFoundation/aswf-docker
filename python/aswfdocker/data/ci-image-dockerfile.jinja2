@@ -29,7 +29,9 @@ ARG {{ arg }}
 
 # Comment out this block to use Conan packages
 {% for package in packages -%}
+{% if not index.is_conan_only_package(package) -%}
 FROM ${ASWF_PKG_ORG}/ci-package-{{ package }}:{{docker_package_version}}-$ASWF_{{package.upper()}}_VERSION as ci-package-{{ package }}
+{% endif -%}
 {% endfor -%}
 
 
@@ -121,11 +123,11 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
+# Uncomment to use Conan packages instead of Docker ones
 {% for package in packages -%}
 {% if index.is_conan_only_package(package) -%}
 {{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 {% else -%}
-# Uncomment to use Conan packages instead of Docker ones
 # {{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 {% endif -%}
 {% endfor -%}

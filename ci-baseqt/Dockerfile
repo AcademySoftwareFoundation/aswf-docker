@@ -140,23 +140,14 @@ COPY <<EOF /usr/local/conanfile.txt
 [requires]
 # Uncomment to use Conan packages instead of Docker ones
 # boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # log4cplus/${ASWF_LOG4CPLUS_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 

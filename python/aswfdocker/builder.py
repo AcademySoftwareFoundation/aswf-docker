@@ -36,6 +36,10 @@ class Builder:
         root["target"] = {}
         versions_to_bake = set()
         for image, version in self.group_info.iter_images_versions():
+            use_conan = self.group_info.type == constants.ImageType.PACKAGE and (
+                self.use_conan
+                or self.index.is_conan_only_package(image.replace("ci-package-", ""))
+            )
             major_version = utils.get_major_version(version)
             version_info = self.index.version_info(major_version)
             if self.group_info.type == constants.ImageType.PACKAGE:
@@ -43,7 +47,7 @@ class Builder:
                 group = self.index.get_group_from_image(
                     self.group_info.type, image_base
                 )
-                if self.use_conan:
+                if use_conan:
                     if version in versions_to_bake:
                         # Only one version per image needed
                         continue
@@ -100,7 +104,7 @@ class Builder:
                 "output": ["type=registry,push=true" if self.push else "type=docker"],
             }
             if self.group_info.type == constants.ImageType.PACKAGE:
-                if self.use_conan:
+                if use_conan:
                     target_dict["target"] = "ci-centos7-gl-conan"
                 else:
                     target_dict["target"] = image
