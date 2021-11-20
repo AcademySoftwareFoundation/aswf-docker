@@ -138,7 +138,6 @@ COPY <<EOF /usr/local/conanfile.txt
 [requires]
 # Uncomment to use Conan packages instead of Docker ones
 # clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 

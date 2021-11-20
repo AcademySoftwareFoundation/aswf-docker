@@ -99,7 +99,6 @@ COPY <<EOF /usr/local/conanfile.txt
 [requires]
 # Uncomment to use Conan packages instead of Docker ones
 # python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# Uncomment to use Conan packages instead of Docker ones
 # cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
