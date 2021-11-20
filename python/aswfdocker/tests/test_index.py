@@ -36,3 +36,6 @@ class TestIndex(unittest.TestCase):
             self.index.get_group_from_image(constants.ImageType.PACKAGE, "clang"),
             "common",
         )
+
+    def test_conan_only(self):
+        self.assertTrue(self.index.is_conan_only_package("gtest"))

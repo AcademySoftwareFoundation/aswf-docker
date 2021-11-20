@@ -294,6 +294,20 @@ class Builder:
         conan_login=False,
         build_missing=False,
     ) -> None:
+        images_and_versions = []
+        for image, version in self.group_info.iter_images_versions(get_image=True):
+            if (
+                self.group_info.type == constants.ImageType.PACKAGE
+                and not self.use_conan
+                and self.index.is_conan_only_package(image)
+            ):
+                logger.warning("Skipping %s as it is a conan-only package!", image)
+                continue
+            images_and_versions.append((image, version))
+
+        if not images_and_versions:
+            return
+
         path = self.make_bake_jsonfile()
         if path:
             self._run(
@@ -303,7 +317,7 @@ class Builder:
             return
 
         conan_base = os.path.join(utils.get_git_top_level(), "packages", "conan")
-        for image, version in self.group_info.iter_images_versions(get_image=True):
+        for image, version in images_and_versions:
             recipe_path = os.path.join(conan_base, "recipes", image)
             if not os.path.exists(recipe_path):
                 logger.warning("Recipe for %s not found: skipping!", image)

@@ -6,6 +6,7 @@ description: |
 packages:
   - boost
   - cmake
+  - gtest
   - cppunit
   - glfw
   - python

@@ -17,7 +17,7 @@ Contains: Python, TBB, Boost and other base libraries
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-base/Dockerfile)
 
-## [aswf/ci-base:2019.8](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2019.8)
+## [aswf/ci-base:2019.9](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2019.9)
 
 Contains:
 * boost-1.66.0
@@ -27,11 +27,12 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * python-2.7.15
+* pybind11-2.4.3
 * tbb-2018
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-base:2020.8](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2020.8)
+## [aswf/ci-base:2020.9](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2020.9)
 
 Contains:
 * boost-1.70.0
@@ -41,11 +42,12 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * python-3.7.3
+* pybind11-2.4.3
 * tbb-2019_U6
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-base:2021.5](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2021.5)
+## [aswf/ci-base:2021.6](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2021.6)
 
 Contains:
 * boost-1.73.0
@@ -55,6 +57,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * python-3.7.9
+* pybind11-2.6.2
 * tbb-2020_U2
 * numpy-1.19
 * vfxplatform-2021
@@ -69,6 +72,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * python-3.9.7
+* pybind11-2.8.1
 * tbb-2020_U3
 * numpy-1.20
 * vfxplatform-2022

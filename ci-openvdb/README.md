@@ -23,6 +23,7 @@ Warning: this image does *not* contain OpenVDB itself as it is used to *build* O
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
+* gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
 * python-2.7.15
@@ -38,6 +39,7 @@ Contains:
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
+* gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
 * python-2.7.15
@@ -53,6 +55,7 @@ Contains:
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
+* gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
 * python-2.7.15
@@ -68,6 +71,7 @@ Contains:
 Contains:
 * boost-1.66.0
 * cmake-3.12.4
+* gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
 * python-2.7.15
@@ -83,6 +87,7 @@ Contains:
 Contains:
 * boost-1.70.0
 * cmake-3.18.4
+* gtest-1.10.0
 * cppunit-1.15.1
 * glfw-3.1.2
 * python-3.7.3
@@ -98,6 +103,7 @@ Contains:
 Contains:
 * boost-1.73.0
 * cmake-3.19.3
+* gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
 * python-3.7.9
@@ -113,6 +119,7 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
+* gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
 * python-3.9.7
@@ -128,6 +135,7 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
+* gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
 * python-3.9.7
@@ -143,6 +151,7 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
+* gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
 * python-3.9.7
@@ -158,6 +167,7 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
+* gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
 * python-3.9.7

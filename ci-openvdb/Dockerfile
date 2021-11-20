@@ -15,6 +15,7 @@ ARG ASWF_VFXPLATFORM_VERSION
 
 ARG ASWF_BOOST_VERSION
 ARG ASWF_CMAKE_VERSION
+ARG ASWF_GTEST_VERSION
 ARG ASWF_CPPUNIT_VERSION
 ARG ASWF_GLFW_VERSION
 ARG ASWF_PYTHON_VERSION
@@ -30,6 +31,7 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 # Comment out this block to use Conan packages
 FROM ${ASWF_PKG_ORG}/ci-package-boost:$ASWF_VFXPLATFORM_VERSION-$ASWF_BOOST_VERSION as ci-package-boost
 FROM ${ASWF_PKG_ORG}/ci-package-cmake:$ASWF_VFXPLATFORM_VERSION-$ASWF_CMAKE_VERSION as ci-package-cmake
+FROM ${ASWF_PKG_ORG}/ci-package-gtest:$ASWF_VFXPLATFORM_VERSION-$ASWF_GTEST_VERSION as ci-package-gtest
 FROM ${ASWF_PKG_ORG}/ci-package-cppunit:$ASWF_VFXPLATFORM_VERSION-$ASWF_CPPUNIT_VERSION as ci-package-cppunit
 FROM ${ASWF_PKG_ORG}/ci-package-glfw:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLFW_VERSION as ci-package-glfw
 FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
@@ -49,6 +51,7 @@ ARG CONAN_USER_DATA_FOLDER
 
 ARG ASWF_BOOST_VERSION
 ARG ASWF_CMAKE_VERSION
+ARG ASWF_GTEST_VERSION
 ARG ASWF_CPPUNIT_VERSION
 ARG ASWF_GLFW_VERSION
 ARG ASWF_PYTHON_VERSION
@@ -77,6 +80,7 @@ LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
 
 LABEL io.aswf.docker.versions.boost="$ASWF_BOOST_VERSION"
 LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
+LABEL io.aswf.docker.versions.gtest="$ASWF_GTEST_VERSION"
 LABEL io.aswf.docker.versions.cppunit="$ASWF_CPPUNIT_VERSION"
 LABEL io.aswf.docker.versions.glfw="$ASWF_GLFW_VERSION"
 LABEL io.aswf.docker.versions.python="$ASWF_PYTHON_VERSION"
@@ -96,6 +100,7 @@ ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
 ENV ASWF_BOOST_VERSION=$ASWF_BOOST_VERSION
 ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
+ENV ASWF_GTEST_VERSION=$ASWF_GTEST_VERSION
 ENV ASWF_CPPUNIT_VERSION=$ASWF_CPPUNIT_VERSION
 ENV ASWF_GLFW_VERSION=$ASWF_GLFW_VERSION
 ENV ASWF_PYTHON_VERSION=$ASWF_PYTHON_VERSION
@@ -111,6 +116,7 @@ ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 # Comment out this block to use Conan packages
 COPY --from=ci-package-boost /. /usr/local/
 COPY --from=ci-package-cmake /. /usr/local/
+COPY --from=ci-package-gtest /. /usr/local/
 COPY --from=ci-package-cppunit /. /usr/local/
 COPY --from=ci-package-glfw /. /usr/local/
 COPY --from=ci-package-python /. /usr/local/
@@ -137,6 +143,7 @@ RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 # [requires]\n' >> /usr/local/conanfile.txt && \
 # #     echo "boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
 # #     echo "cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
+# #     echo "gtest/${ASWF_GTEST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
 # #     echo "cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
 # #     echo "glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
 # #     echo "python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
