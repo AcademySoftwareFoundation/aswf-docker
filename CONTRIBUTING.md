@@ -272,6 +272,43 @@ Any non-trivial change to the Docker images should be followed by incrementing
 the corresponding image version. We use MAJOR.MINOR versioning for all images.
 Versioning is further explained in the [README](README.md#version) file.
 
+### Building Conan Packages
+
+This repository contains 2 ways of building packages, Docker packages (`aswf/ci-package-*` images) and Conan packages.
+
+The Docker packages are being phased out as Conan offers a lot more flexibility when building options and variants of packages, with great cross-platform support.
+
+The [Conan](https://conan.io) [Reference Documentation](https://docs.conan.io/en/latest/reference.html) is a great way to discover and learn all about the Conan package manager.
+
+The AcademySoftwareFoundation has an [Artifactory](https://linuxfoundation.jfrog.io/ui/packages) server which hosts all `aswf` Conan packages.
+Credentials of the artifactory server are maintained by the Linux Foundation and are not known by the ASWF crew, new packages get uploaded via GitHub organisation secrets.
+
+#### Getting started
+
+Use the existing recipes as an example, and borrow from the MIT-licensed
+[Conan Center Index](https://github.com/conan-io/conan-center-index/tree/master/recipes).
+
+Follow the great instructions there:
+[Conan Center Index - How to add Packages](https://github.com/conan-io/conan-center-index/blob/master/docs/how_to_add_packages.md),
+but ignore the `config.yml` instructions as the aswfdocker `versions.yaml` already
+takes care of listing all the maintained package versions.
+
+Then ensure the ASWF-specific settings are added in the `conanfile.py` such as `python`.
+
+To test locally, use the `aswfdocker build` command with the `--use-conan` argument.
+The `--keep-source` and `--keep-build` can help when iterating on the build recipe to
+avoid re-downloading the source, and even keep the previous build artifact.
+All regular aswfdocker commands and options work the same with conan or docker packages.
+
+#### Docker-only Packages
+
+If a package has no Conan recipe folder its conan package will be skipped at release time.
+
+#### Conan-only Packages
+
+If a package can only be built using Conan its name must be added to the `conan_only` list
+at the end of the `versions.yaml` file, see `gtest` as an example.
+
 ## Releasing new Docker Images
 
 The [CHANGELOG.md](CHANGELOG.md) file needs to be updated with the date of the change
