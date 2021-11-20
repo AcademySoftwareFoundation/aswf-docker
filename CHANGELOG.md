@@ -2,6 +2,55 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2021-11-20
+
+* Updated 2022 Packages:
+  * CMake 3.22.0 (from 3.20.5)
+  * GTest 1.11.0 (new)
+  * OpenImageIO 2.3.9.1 (from 2.3.7.2)
+  * OpenEXR 3.1.3 (from 3.1.1)
+  * OpenVDB 9.0.0 (from 8.1.0)
+  * OpenShadingLanguage 1.11.16.0 (from 1.11.15.0)
+  * OpenTimelineIO 0.14 (from 0.13)
+  * Pybind11 2.8.1 (from 2.6.2)
+  * USD 21.11 (from 21.05)
+* Added GoogleTest (gtest):
+  * vfx2019: 1.8.1
+  * vfx2020: 1.10.0
+  * vfx2021: 1.11.0
+  * vfx2022: 1.11.0
+* New [Conan](https://conan.io) base packages:
+  * All base packages are already available [here](https://linuxfoundation.jfrog.io/ui/packages) with recipes [here](packages/conan/recipes).
+  * Easily installed using a command such as `conan install clang/13.0.0@aswftesting/ci_common1 -g deploy`
+  * Or with a `conanfile.txt` such as this:
+
+```ini
+[generators]
+cmake_find_package_multi
+virtualenv
+[requires]
+boost/latest@aswf/vfx2021
+cmake/latest@aswf/vfx2021
+cppunit/latest@aswf/vfx2021
+glew/latest@aswf/vfx2021
+glfw/latest@aswf/vfx2021
+gtest/latest@aswf/vfx2021
+log4cplus/latest@aswf/vfx2021
+pybind11/latest@aswf/vfx2021
+python/latest@aswf/vfx2021
+tbb/latest@aswf/vfx2021
+```
+
+### New CI Images
+
+* `aswf/ci-base:2019.9`, `aswf/ci-base:2020.9`, `aswf/ci-base:2021.6`, `aswf/ci-base:2022.2`
+* `aswf/ci-baseqt:2019.2`, `aswf/baseqt:2020.2`, `aswf/baseqt:2021.3`, `aswf/baseqt:2022.2`
+* `aswf/ci-ocio:2022.2`
+* `aswf/ci-usd:2022.2`
+* `aswf/ci-osl:2022-clang10.9`, `aswf/ci-osl:2022-clang11.9`, `aswf/ci-osl:2022-clang12.0`, `aswf/ci-osl:2022-clang13.0`
+* `aswf/ci-openvdb:2022-clang10.9`, `aswf/ci-openvdb:2022-clang11.9`, `aswf/ci-openvdb:2022-clang12.0`, `aswf/ci-openvdb:2022-clang13.0`
+* `aswf/ci-vfxall:2022-clang10.9`, `aswf/ci-vfxall:2022-clang11.9`, `aswf/ci-vfxall:2022-clang12.0`, `aswf/ci-vfxall:2022-clang13.0`
+
 ## 2021-09-04
 
 * Updated 2022 Packages:
