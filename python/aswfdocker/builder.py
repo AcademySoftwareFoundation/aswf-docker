@@ -83,7 +83,7 @@ class Builder:
             if version_info.ci_common_version == major_version:
                 channel = f"ci_common{major_version}"
             else:
-                channel = f"vfx{major_version}"
+                channel = f"vfx{version_info.major_version}"
             args = {
                 "ASWF_ORG": self.build_info.docker_org,
                 "ASWF_PKG_ORG": self.build_info.package_org,
