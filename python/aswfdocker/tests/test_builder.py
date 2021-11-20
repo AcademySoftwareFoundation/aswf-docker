@@ -141,7 +141,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_CLANG_VERSION": "9.0.1",
                             "ASWF_CMAKE_VERSION": "3.12.4",
                             "ASWF_CPPUNIT_VERSION": "1.14.0",
-                            "ASWF_CONAN_CHANNEL": "vfx2019-clang9",
+                            "ASWF_CONAN_CHANNEL": "vfx2019",
                             "ASWF_CONAN_PYTHON_VERSION": "3.9.5",
                             "ASWF_CONAN_VERSION": "1.42.0",
                             "ASWF_CUDA_VERSION": "10.2",
