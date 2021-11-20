@@ -20,6 +20,7 @@ ARG ASWF_GLEW_VERSION
 ARG ASWF_GLFW_VERSION
 ARG ASWF_LOG4CPLUS_VERSION
 ARG ASWF_PYTHON_VERSION
+ARG ASWF_PYBIND11_VERSION
 ARG ASWF_TBB_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
@@ -34,6 +35,7 @@ FROM ${ASWF_PKG_ORG}/ci-package-glew:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLEW_VERSIO
 FROM ${ASWF_PKG_ORG}/ci-package-glfw:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLFW_VERSION as ci-package-glfw
 FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:$ASWF_VFXPLATFORM_VERSION-$ASWF_LOG4CPLUS_VERSION as ci-package-log4cplus
 FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
+FROM ${ASWF_PKG_ORG}/ci-package-pybind11:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYBIND11_VERSION as ci-package-pybind11
 FROM ${ASWF_PKG_ORG}/ci-package-tbb:$ASWF_VFXPLATFORM_VERSION-$ASWF_TBB_VERSION as ci-package-tbb
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base
 
@@ -52,6 +54,7 @@ ARG ASWF_GLEW_VERSION
 ARG ASWF_GLFW_VERSION
 ARG ASWF_LOG4CPLUS_VERSION
 ARG ASWF_PYTHON_VERSION
+ARG ASWF_PYBIND11_VERSION
 ARG ASWF_TBB_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
@@ -78,6 +81,7 @@ LABEL io.aswf.docker.versions.glew="$ASWF_GLEW_VERSION"
 LABEL io.aswf.docker.versions.glfw="$ASWF_GLFW_VERSION"
 LABEL io.aswf.docker.versions.log4cplus="$ASWF_LOG4CPLUS_VERSION"
 LABEL io.aswf.docker.versions.python="$ASWF_PYTHON_VERSION"
+LABEL io.aswf.docker.versions.pybind11="$ASWF_PYBIND11_VERSION"
 LABEL io.aswf.docker.versions.tbb="$ASWF_TBB_VERSION"
 LABEL io.aswf.docker.versions.numpy="$ASWF_NUMPY_VERSION"
 LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
@@ -96,6 +100,7 @@ ENV ASWF_GLEW_VERSION=$ASWF_GLEW_VERSION
 ENV ASWF_GLFW_VERSION=$ASWF_GLFW_VERSION
 ENV ASWF_LOG4CPLUS_VERSION=$ASWF_LOG4CPLUS_VERSION
 ENV ASWF_PYTHON_VERSION=$ASWF_PYTHON_VERSION
+ENV ASWF_PYBIND11_VERSION=$ASWF_PYBIND11_VERSION
 ENV ASWF_TBB_VERSION=$ASWF_TBB_VERSION
 ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
 ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
@@ -110,6 +115,7 @@ COPY --from=ci-package-glew /. /usr/local/
 COPY --from=ci-package-glfw /. /usr/local/
 COPY --from=ci-package-log4cplus /. /usr/local/
 COPY --from=ci-package-python /. /usr/local/
+COPY --from=ci-package-pybind11 /. /usr/local/
 COPY --from=ci-package-tbb /. /usr/local/
 COPY ci-base/README.md ci-base/image.yaml /usr/local/aswf/
 
@@ -135,6 +141,7 @@ RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 # #     echo "glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
 # #     echo "log4cplus/${ASWF_LOG4CPLUS_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
 # #     echo "python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
+# #     echo "pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
 # #     echo "tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}" >> /usr/local/conanfile.txt && \
 # #     conan install . && \
 #     rm -rf ${CONAN_USER_DATA_FOLDER}/*

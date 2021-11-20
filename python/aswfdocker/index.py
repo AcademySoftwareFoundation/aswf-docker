@@ -89,3 +89,6 @@ class Index:
                 if img == image:
                     return group
         raise RuntimeError(f"Cannot find group for image {image}")
+
+    def is_conan_only_package(self, package):
+        return package in self._versions["conan_only"]

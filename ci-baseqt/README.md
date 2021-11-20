@@ -17,7 +17,7 @@ Contains: Python, TBB, Boost, Qt, PySide and other base libraries
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-baseqt/Dockerfile)
 
-## [aswf/ci-baseqt:2019.1](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2019.1)
+## [aswf/ci-baseqt:2019.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2019.2)
 
 Contains:
 * boost-1.66.0
@@ -33,7 +33,7 @@ Contains:
 * numpy-1.14
 * vfxplatform-2019
 
-## [aswf/ci-baseqt:2020.1](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2020.1)
+## [aswf/ci-baseqt:2020.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2020.2)
 
 Contains:
 * boost-1.70.0
@@ -49,7 +49,7 @@ Contains:
 * numpy-1.16
 * vfxplatform-2020
 
-## [aswf/ci-baseqt:2021.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2021.2)
+## [aswf/ci-baseqt:2021.3](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2021.3)
 
 Contains:
 * boost-1.73.0
@@ -65,7 +65,7 @@ Contains:
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-baseqt:2022.1](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2022.1)
+## [aswf/ci-baseqt:2022.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2022.2)
 
 Contains:
 * boost-1.76.0

@@ -10,6 +10,7 @@ packages:
   - glfw
   - log4cplus
   - python
+  - pybind11
   - tbb
 implicit_packages:
   - numpy
