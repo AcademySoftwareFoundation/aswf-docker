@@ -52,7 +52,7 @@ Contains:
 
 Contains:
 * python-3.9.7
-* cmake-3.20.5
+* cmake-3.22.0
 * qt-5.15.2
 * pyside-5.15.2
 * numpy-1.20

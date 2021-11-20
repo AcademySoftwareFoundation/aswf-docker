@@ -166,7 +166,7 @@ Contains:
 
 Contains:
 * boost-1.76.0
-* cmake-3.20.5
+* cmake-3.22.0
 * python-3.9.7
 * qt-5.15.2
 * imath-3.1.3
@@ -184,7 +184,7 @@ Contains:
 
 Contains:
 * boost-1.76.0
-* cmake-3.20.5
+* cmake-3.22.0
 * python-3.9.7
 * qt-5.15.2
 * imath-3.1.3
@@ -202,7 +202,7 @@ Contains:
 
 Contains:
 * boost-1.76.0
-* cmake-3.20.5
+* cmake-3.22.0
 * python-3.9.7
 * qt-5.15.2
 * imath-3.1.3
@@ -220,7 +220,7 @@ Contains:
 
 Contains:
 * boost-1.76.0
-* cmake-3.20.5
+* cmake-3.22.0
 * python-3.9.7
 * qt-5.15.2
 * imath-3.1.3

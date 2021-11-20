@@ -251,7 +251,7 @@ versions:
       ASWF_ALEMBIC_VERSION: "1.8.2"
       ASWF_BLOSC_VERSION: "1.5.0"
       ASWF_BOOST_VERSION: "1.76.0"
-      ASWF_CMAKE_VERSION: "3.20.5"
+      ASWF_CMAKE_VERSION: "3.22.0"
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
@@ -309,7 +309,7 @@ ci-packages:
     - "2019.0"
     - "2020.0"
     - "2021.1"
-    - "2022.0"
+    - "2022.1"
   python:
     - "2019.2"
     - "2020.2"
