@@ -133,7 +133,8 @@ RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
 # conan-only packages
 COPY <<EOF /usr/local/conanfile.txt
 [generators]
-deploy
+[imports]
+., * -> .
 [requires]
 # Uncomment to use Conan packages instead of Docker ones
 # clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
