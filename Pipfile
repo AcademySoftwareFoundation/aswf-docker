@@ -18,6 +18,7 @@ types-pyyaml = "*"
 types-requests = "*"
 # pipenv-setup = "*" # commented for now as it requires a very old black version!
 aswfdocker = {editable = true, path = "."}
+twine = "*"
 
 [packages]
 aswfdocker = {editable = true, path = "."}
@@ -27,7 +28,7 @@ pyyaml = "*"
 jinja2 = "*"
 requests = "*"
 importlib-resources = "*"
-conan = "*"
+conan = "==1.42"
 
 [requires]
 python_version = "3.9"
