@@ -31,6 +31,7 @@ EOF
 fi
 
 if [[ $ASWF_IMATH_VERSION == 3* && $ASWF_OPENVDB_VERSION == 8* ]]; then
+    # this patch was temporary to make OpenVDB-8 work with Imath-3
     patch -p1 < /tmp/openvdb-imath.patch
 fi
 
