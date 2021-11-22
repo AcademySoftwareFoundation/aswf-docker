@@ -16,6 +16,7 @@ versions:
       ASWF_CONAN_PYTHON_VERSION: "3.9.5"
       ASWF_NINJA_VERSION: "1.10.1"
       ASWF_SONAR_VERSION: "4.6.2.2472"
+      ASWF_ROCM_VERSION: "4.5"
   "1-clang6":
     parent_versions: ["1"]
     major_version: "1"
@@ -66,6 +67,7 @@ versions:
       ASWF_CCACHE_VERSION: "4.0"
       ASWF_NINJA_VERSION: "1.10.1"
       ASWF_SONAR_VERSION: "4.6.2.2472"
+      ASWF_ROCM_VERSION: "4.5"
   "2-clang10":
     parent_versions: ["2"]
     major_version: "2"

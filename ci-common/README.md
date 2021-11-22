@@ -27,6 +27,7 @@ Contains:
 * dts-6
 * sonar-4.6.2.2472
 * conan-1.42.0
+* rocm-4.5
 
 ## [aswf/ci-common:1-clang7.8](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang7.8)
 
@@ -38,6 +39,7 @@ Contains:
 * dts-6
 * sonar-4.6.2.2472
 * conan-1.42.0
+* rocm-4.5
 
 ## [aswf/ci-common:1-clang8.8](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang8.8)
 
@@ -49,6 +51,7 @@ Contains:
 * dts-6
 * sonar-4.6.2.2472
 * conan-1.42.0
+* rocm-4.5
 
 ## [aswf/ci-common:1-clang9.8](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang9.8)
 
@@ -60,6 +63,7 @@ Contains:
 * dts-6
 * sonar-4.6.2.2472
 * conan-1.42.0
+* rocm-4.5
 
 ## [aswf/ci-common:1-clang10.8](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang10.8)
 
@@ -71,6 +75,7 @@ Contains:
 * dts-6
 * sonar-4.6.2.2472
 * conan-1.42.0
+* rocm-4.5
 
 ## [aswf/ci-common:2-clang10.4](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang10.4)
 
@@ -82,6 +87,7 @@ Contains:
 * dts-9
 * sonar-4.6.2.2472
 * conan-1.42.0
+* rocm-4.5
 
 ## [aswf/ci-common:2-clang11.5](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang11.5)
 
@@ -115,4 +121,5 @@ Contains:
 * dts-9
 * sonar-4.6.2.2472
 * conan-1.42.0
+* rocm-4.5
 
