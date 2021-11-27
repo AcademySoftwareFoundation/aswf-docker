@@ -1,0 +1,19 @@
+{
+ "remotes": [
+   {
+     "name": "aswf",
+     "url": "https://linuxfoundation.jfrog.io/artifactory/api/conan/aswf-conan",
+     "verify_ssl": true
+    },
+    {
+      "name": "conan-central",
+      "url": "https://center.conan.io",
+      "verify_ssl": true
+    },
+    {
+      "name": "aswftesting",
+      "url": "https://linuxfoundation.jfrog.io/artifactory/api/conan/aswf-conan-dev",
+      "verify_ssl": true
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+from platform import system
 from conans import AutoToolsBuildEnvironment, ConanFile, tools
 from contextlib import contextmanager
 import os
@@ -47,23 +48,23 @@ class PythonConan(ConanFile):
     def _build_context(self):
         if self.settings.compiler == "Visual Studio":
             with tools.vcvars(self.settings):
-                env = {
-                    "AR": "{} lib".format(
-                        tools.unix_path(self.deps_user_info["automake"].ar_lib)
-                    ),
-                    "CC": "{} cl -nologo".format(
-                        tools.unix_path(self.deps_user_info["automake"].compile)
-                    ),
-                    "CXX": "{} cl -nologo".format(
-                        tools.unix_path(self.deps_user_info["automake"].compile)
-                    ),
-                    "NM": "dumpbin -symbols",
-                    "OBJDUMP": ":",
-                    "RANLIB": ":",
-                    "STRIP": ":",
-                }
-                with tools.environment_append(env):
-                    yield
+                # env = {
+                #     "AR": "{} lib".format(
+                #         tools.unix_path(self.deps_user_info["automake"].ar_lib)
+                #     ),
+                #     "CC": "{} cl -nologo".format(
+                #         tools.unix_path(self.deps_user_info["automake"].compile)
+                #     ),
+                #     "CXX": "{} cl -nologo".format(
+                #         tools.unix_path(self.deps_user_info["automake"].compile)
+                #     ),
+                #     "NM": "dumpbin -symbols",
+                #     "OBJDUMP": ":",
+                #     "RANLIB": ":",
+                #     "STRIP": ":",
+                # }
+                # with tools.environment_append(env):
+                yield
         else:
             yield
 
@@ -92,19 +93,26 @@ class PythonConan(ConanFile):
         return self._autotools
 
     def build(self):
-        with self._build_context():
-            autotools = self._configure_autotools()
-            autotools.make()
+        if system() == "Linux":
+            with self._build_context():
+                autotools = self._configure_autotools()
+                autotools.make()
+        else:
+            self.run(
+                os.path.join(self._source_subfolder, "PCbuild", "build.bat"),
+                run_environment=True,
+            )
 
     def package(self):
         self.copy("COPYING", src=self._source_subfolder, dst="licenses")
 
-        self.copy("yum", dst="bin")
-        self.copy("run-with-system-python", dst="bin")
+        if system() == "Linux":
+            self.copy("yum", dst="bin")
+            self.copy("run-with-system-python", dst="bin")
 
-        with self._build_context():
-            autotools = self._configure_autotools()
-            autotools.install()
+            with self._build_context():
+                autotools = self._configure_autotools()
+                autotools.install()
 
         python_version = tools.Version(self.version)
         if python_version.major == "3":

@@ -7,6 +7,7 @@ import logging
 import subprocess
 import json
 import os
+import platform
 import tempfile
 import typing
 
@@ -56,14 +57,19 @@ class Builder:
                         version = version_info.ci_common_version
                         major_version = utils.get_major_version(version)
                     versions_to_bake.add(version)
+                    if platform.system() == "Linux":
+                        target = constants.LINUX_CONAN_DOCKER_TARGET
+                        docker_file = "packages/common/Dockerfile"
+                    else:
+                        target = constants.WINDOWS_CONAN_DOCKER_TARGET
+                        docker_file = "packages\\windows\\Dockerfile"
                     tags = list(
                         map(
                             lambda tag: f"{constants.DOCKER_REGISTRY}/{self.build_info.docker_org}"
-                            + f"/ci-centos7-gl-conan:{tag}",
+                            + f"/{target}:{tag}",
                             [version, major_version],
                         )
                     )
-                    docker_file = "packages/common/Dockerfile"
                 else:
                     tags = version_info.get_tags(
                         version,
@@ -105,7 +111,10 @@ class Builder:
             }
             if self.group_info.type == constants.ImageType.PACKAGE:
                 if use_conan:
-                    target_dict["target"] = "ci-centos7-gl-conan"
+                    if platform.system() == "Linux":
+                        target_dict["target"] = constants.LINUX_CONAN_DOCKER_TARGET
+                    else:
+                        target_dict["target"] = constants.WINDOWS_CONAN_DOCKER_TARGET
                 else:
                     target_dict["target"] = image
             root["target"][f"{image}-{major_version}"] = target_dict
@@ -140,12 +149,21 @@ class Builder:
             dry_run=dry_run,
         )
 
+    def _get_conan_home(self):
+        if platform.system() == "Linux":
+            return constants.LINUX_CONAN_USER_HOME
+        elif platform.system() == "Windows":
+            return constants.WINDOWS_CONAN_USER_HOME
+        else:
+            raise NotImplementedError("OS not supported!")
+
     def _get_conan_env_vars(self, version_info):
         envs = {
-            "CONAN_USER_HOME": constants.CONAN_USER_HOME,
-            "CCACHE_DIR": "/tmp/ccache",
+            "CONAN_USER_HOME": self._get_conan_home(),
             "CONAN_NON_INTERACTIVE": "1",
         }
+        if platform.system() == "Linux":
+            envs["CCACHE_DIR"] = "/tmp/ccache"
         if "CONAN_LOGIN_USERNAME" in os.environ:
             envs["CONAN_LOGIN_USERNAME"] = os.environ["CONAN_PASSWORD"]
         if "ARTIFACTORY_USER" in os.environ:
@@ -161,17 +179,22 @@ class Builder:
     def _get_conan_vols(self):
         conan_base = os.path.join(utils.get_git_top_level(), "packages", "conan")
         vols = {
-            os.path.join(conan_base, "settings"): os.path.join(
-                constants.CONAN_USER_HOME, ".conan"
-            ),
-            os.path.join(conan_base, "data"): os.path.join(
-                constants.CONAN_USER_HOME, "d"
-            ),
+            os.path.join(
+                conan_base, "settings_" + platform.system().lower()
+            ): os.path.join(self._get_conan_home(), ".conan"),
             os.path.join(conan_base, "recipes"): os.path.join(
-                constants.CONAN_USER_HOME, "recipes"
+                self._get_conan_home(), "recipes"
             ),
-            os.path.join(conan_base, "ccache"): "/tmp/ccache",
         }
+        if platform.system() == "Linux":
+            vols[os.path.join(conan_base, "ccache")] = "/tmp/ccache"
+            # Build failures happen when data is mounted on windows unfortunately
+            vols[os.path.join(conan_base, "data")] = (
+                os.path.join(self._get_conan_home(), "d"),
+            )
+        for path in vols:
+            if not os.path.exists(path):
+                os.makedirs(path)
         return vols
 
     def _get_conan_base_cmd(self, version_info):
@@ -182,9 +205,13 @@ class Builder:
         for name, value in self._get_conan_vols().items():
             base_cmd.append("-v")
             base_cmd.append(f"{name}:{value}")
+        if platform.system() == "Linux":
+            target = constants.LINUX_CONAN_DOCKER_TARGET
+        else:
+            target = constants.WINDOWS_CONAN_DOCKER_TARGET
         tag = (
             f"{constants.DOCKER_REGISTRY}/{self.build_info.docker_org}"
-            + f"/ci-centos7-gl-conan:{version_info.ci_common_version}"
+            + f"/{target}:{version_info.ci_common_version}"
         )
         base_cmd.append(tag)
         return base_cmd
@@ -234,7 +261,7 @@ class Builder:
         build_cmd = [
             "conan",
             "create",
-            os.path.join(constants.CONAN_USER_HOME, "recipes", image),
+            os.path.join(self._get_conan_home(), "recipes", image),
             conan_version,
         ]
         if keep_source:
@@ -306,16 +333,35 @@ class Builder:
             ):
                 logger.warning("Skipping %s as it is a conan-only package!", image)
                 continue
+            logger.debug("Found %s:%s", image, version)
             images_and_versions.append((image, version))
 
         if not images_and_versions:
+            logger.warning("Nothing to build.")
             return
 
-        path = self.make_bake_jsonfile()
-        if path:
-            self._run(
-                f"docker buildx bake -f {path} --progress {progress}", dry_run=dry_run
-            )
+        if platform.system() == "Linux":
+            path = self.make_bake_jsonfile()
+            if path:
+                self._run(
+                    f"docker buildx bake -f {path} --progress {progress}",
+                    dry_run=dry_run,
+                )
+        else:
+            # Unfortunately no buildx available on windows for windows containers...
+            d = self.make_bake_dict()
+            if d["group"]["default"]["targets"]:
+                target = d["target"][d["group"]["default"]["targets"][0]]
+                docker_file = target["dockerfile"]
+                context = target["context"]
+                args = " ".join(
+                    map(lambda i: f"--build-arg {i[0]}={i[1]}", target["args"].items())
+                )
+                tags = " ".join(map(lambda t: f"-t {t}", target["tags"]))
+                self._run(
+                    f"docker build -f {docker_file} {args} {tags} {context}",
+                    dry_run=dry_run,
+                )
         if not self.use_conan or self.group_info.type == constants.ImageType.IMAGE:
             return
 

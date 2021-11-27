@@ -1,5 +1,5 @@
 data/
-settings/.conan.db
-settings/cacert.pem
-settings/artifacts.properties
+settings_*/.conan.db
+settings_*/cacert.pem
+settings_*/artifacts.properties
 ccache/
