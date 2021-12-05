@@ -8,6 +8,7 @@ import os
 import unittest
 import logging
 import tempfile
+import platform
 
 from click.testing import CliRunner
 
@@ -66,11 +67,17 @@ class TestBuilder(unittest.TestCase):
         )
         baked = b.make_bake_dict()
         self.assertIn("ASWF_QT_VERSION", baked["target"]["ci-package-qt-1"]["args"])
+        if self.build_info.target_os == "Linux":
+            target = constants.LINUX_CONAN_DOCKER_TARGET
+            folder = "common"
+        else:
+            target = constants.WINDOWS_CONAN_DOCKER_TARGET
+            folder = "windows"
         self.assertEqual(
             baked["target"]["ci-package-qt-1"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-centos7-gl-conan:1",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-centos7-gl-conan:1",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/{target}:1",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/{target}:1",
             ],
         )
         self.assertEqual(
@@ -78,7 +85,7 @@ class TestBuilder(unittest.TestCase):
         )
         self.assertEqual(
             baked["target"]["ci-package-qt-1"]["dockerfile"],
-            "packages/common/Dockerfile",
+            os.path.join("packages", folder, "Dockerfile"),
         )
 
     def test_image_base_2019_dict(self):
@@ -336,6 +343,10 @@ class TestBuilderCli(unittest.TestCase):
         self._log_handlers = logging.getLogger("").handlers
         logging.getLogger("").handlers = []
         self._i = 0
+        if platform.system() == "Linux":
+            self._docker_home = constants.LINUX_CONAN_USER_HOME
+        else:
+            self._docker_home = constants.WINDOWS_CONAN_USER_HOME
 
     def tearDown(self):
         logging.getLogger("").handlers = self._log_handlers
@@ -356,14 +367,71 @@ class TestBuilderCli(unittest.TestCase):
             ],
         )
         self.assertFalse(result.exception)
-        bake_path = os.path.join(
-            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019.json"
-        )
-        cmd = f"docker buildx bake -f {bake_path} --progress auto"
-        self.assertEqual(
-            result.output,
-            f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
-        )
+        if platform.system() == "Linux":
+            bake_path = os.path.join(
+                tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019.json"
+            )
+            cmd = f"docker buildx bake -f {bake_path} --progress auto"
+            self.assertEqual(
+                result.output,
+                f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
+            )
+        else:
+            cmd = (
+                "docker build -f packages/vfx1/Dockerfile "
+                "--build-arg ASWF_ORG=aswftesting "
+                "--build-arg ASWF_PKG_ORG=aswftesting "
+                "--build-arg ASWF_VERSION=2019.2 "
+                "--build-arg CI_COMMON_VERSION=1 "
+                "--build-arg ASWF_CONAN_CHANNEL=vfx2019 "
+                "--build-arg ASWF_ALEMBIC_VERSION=1.7.11 "
+                "--build-arg ASWF_BLOSC_VERSION=1.5.0 "
+                "--build-arg ASWF_BOOST_VERSION=1.66.0 "
+                "--build-arg ASWF_CMAKE_VERSION=3.12.4 "
+                "--build-arg ASWF_CPPUNIT_VERSION=1.14.0 "
+                "--build-arg ASWF_GLEW_VERSION=2.1.0 "
+                "--build-arg ASWF_GLFW_VERSION=3.1.2 "
+                "--build-arg ASWF_GTEST_VERSION=1.8.1 "
+                "--build-arg ASWF_HDF5_VERSION=1.8.21 "
+                "--build-arg ASWF_IMATH_VERSION=2.3.0 "
+                "--build-arg ASWF_LOG4CPLUS_VERSION=1.1.2 "
+                "--build-arg ASWF_NUMPY_VERSION=1.14 "
+                "--build-arg ASWF_OCIO_CONFIGS_VERSION=1.0_r2 "
+                "--build-arg ASWF_OCIO_VERSION=1.1.0 "
+                "--build-arg ASWF_OIIO_VERSION=2.0.8 "
+                "--build-arg ASWF_OPENEXR_VERSION=2.3.0 "
+                "--build-arg ASWF_OPENSUBDIV_VERSION=3_3_3 "
+                "--build-arg ASWF_OPENVDB_VERSION=6.2.1 "
+                "--build-arg ASWF_OSL_VERSION=1.10.9 "
+                "--build-arg ASWF_OTIO_VERSION=0.12.1 "
+                "--build-arg ASWF_PARTIO_VERSION=1.10.1 "
+                "--build-arg ASWF_PTEX_VERSION=2.1.33 "
+                "--build-arg ASWF_PYBIND11_VERSION=2.4.3 "
+                "--build-arg ASWF_PYSIDE_VERSION=5.12.6 "
+                "--build-arg ASWF_PYTHON_VERSION=2.7.15 "
+                "--build-arg ASWF_PYTHON_MAJOR_MINOR_VERSION=2.7 "
+                "--build-arg ASWF_QT_VERSION=5.12.6 "
+                "--build-arg ASWF_TBB_VERSION=2018 "
+                "--build-arg ASWF_USD_VERSION=19.11 "
+                "--build-arg ASWF_VFXPLATFORM_VERSION=2019 "
+                "--build-arg ASWF_DTS_VERSION=6 "
+                "--build-arg ASWF_CUDA_VERSION=10.2 "
+                "--build-arg ASWF_CCACHE_VERSION=4.0 "
+                "--build-arg ASWF_CONAN_VERSION=1.42.0 "
+                "--build-arg ASWF_CONAN_PYTHON_VERSION=3.9.5 "
+                "--build-arg ASWF_NINJA_VERSION=1.10.1 "
+                "--build-arg ASWF_SONAR_VERSION=4.6.2.2472 "
+                "--build-arg ASWF_CLANG_MAJOR_VERSION=7 "
+                "--build-arg ASWF_CLANG_VERSION=7.1.0 "
+                "-t docker.io/aswftesting/ci-package-openexr:2019 "
+                "-t docker.io/aswftesting/ci-package-openexr:2019.2 "
+                "-t docker.io/aswftesting/ci-package-openexr:latest "
+                "-t docker.io/aswftesting/ci-package-openexr:2019-2.3.0 ."
+            )
+            self.assertEqual(
+                result.output,
+                f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
+            )
         self.assertEqual(result.exit_code, 0)
 
     def test_builder_cli_conan(self):
@@ -388,14 +456,22 @@ class TestBuilderCli(unittest.TestCase):
         )
         cmds = result.output.strip().splitlines()
         self.assertEqual(len(cmds), 4)
-        self.assertEqual(
-            cmds[0],
-            f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
-        )
+        if platform.system() == "Linux":
+            self.assertEqual(
+                cmds[0],
+                f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
+            )
+        else:
+            self.assertTrue(
+                cmds[0].startswith(
+                    "INFO:aswfdocker.builder:Would run: 'docker build -f packages"
+                ),
+                msg=cmds[0],
+            )
         self.assertTrue(
             cmds[1].startswith(
                 "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME="
-                + constants.CONAN_USER_HOME
+                + self._docker_home
             ),
             msg=cmds[1],
         )
@@ -405,7 +481,7 @@ class TestBuilderCli(unittest.TestCase):
         )
         self.assertTrue(
             cmds[2].endswith(
-                f"conan create {constants.CONAN_USER_HOME}/recipes/openexr openexr/2.3.0@aswftesting/vfx2019'"
+                f"conan create {os.path.join(self._docker_home, 'recipes', 'openexr')} openexr/2.3.0@aswftesting/vfx2019'"
             ),
             msg=cmds[2],
         )
@@ -418,14 +494,22 @@ class TestBuilderCli(unittest.TestCase):
             ["build", "--full-name", "aswftesting/ci-common:1-clang7", "--dry-run"],
         )
         self.assertFalse(result.exception)
-        bake_path = os.path.join(
-            tempfile.gettempdir(), "docker-bake-IMAGE-common-1-clang7.json"
-        )
-        cmd = f"docker buildx bake -f {bake_path} --progress auto"
-        self.assertEqual(
-            result.output,
-            f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
-        )
+        if platform.system() == "Linux":
+            bake_path = os.path.join(
+                tempfile.gettempdir(), "docker-bake-IMAGE-common-1-clang7.json"
+            )
+            cmd = f"docker buildx bake -f {bake_path} --progress auto"
+            self.assertEqual(
+                result.output,
+                f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
+            )
+        else:
+            self.assertTrue(
+                result.output.startswith(
+                    "INFO:aswfdocker.builder:Would run: 'docker build -f ci-common/Dockerfile"
+                ),
+                msg=result.output,
+            )
         self.assertEqual(result.exit_code, 0)
 
     def test_builderlist_cli(self):
@@ -449,11 +533,20 @@ class TestBuilderCli(unittest.TestCase):
         bake_path = os.path.join(
             tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019-2020.json"
         )
-        cmd = f"docker buildx bake -f {bake_path} --progress auto"
-        self.assertEqual(
-            result.output,
-            f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
-        )
+        self.assertEqual(result.exit_code, 0)
+        if platform.system() == "Linux":
+            cmd = f"docker buildx bake -f {bake_path} --progress auto"
+            self.assertEqual(
+                result.output,
+                f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
+            )
+        else:
+            self.assertTrue(
+                result.output.startswith(
+                    "INFO:aswfdocker.builder:Would run: 'docker build -f packages/vfx1/Dockerfile"
+                ),
+                msg=result.output,
+            )
         self.assertEqual(result.exit_code, 0)
 
     def _assertEndsWith(self, cmds, expected):
@@ -485,20 +578,28 @@ class TestBuilderCli(unittest.TestCase):
             ],
         )
         self.assertFalse(result.exception, msg=result.output)
-        bake_path = os.path.join(
-            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019-2020.json"
-        )
         cmds = result.output.strip().splitlines()
         self.assertEqual(len(cmds), 13)
-        self.assertEqual(
-            cmds[self._i],
-            f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
-        )
+        if platform.system() == "Linux":
+            bake_path = os.path.join(
+                tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019-2020.json"
+            )
+            self.assertEqual(
+                cmds[self._i],
+                f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
+            )
+        else:
+            self.assertTrue(
+                cmds[self._i].startswith(
+                    "INFO:aswfdocker.builder:Would run: 'docker build -f packages"
+                ),
+                msg=cmds[self._i],
+            )
         self._i += 1
         self.assertTrue(
             cmds[self._i].startswith(
                 "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME="
-                + constants.CONAN_USER_HOME
+                + self._docker_home
             ),
             msg=cmds[self._i],
         )
@@ -506,7 +607,7 @@ class TestBuilderCli(unittest.TestCase):
         self._assertEndsWith(cmds, "conan config set general.default_profile=vfx2019'")
         self._assertEndsWith(
             cmds,
-            f"conan create {constants.CONAN_USER_HOME}/recipes/openexr"
+            f"conan create {os.path.join(self._docker_home, 'recipes', 'openexr')}"
             " openexr/2.3.0@aswftesting/vfx2019"
             " --keep-source --keep-build --build=missing'",
         )
@@ -527,7 +628,7 @@ class TestBuilderCli(unittest.TestCase):
         self._assertEndsWith(cmds, "conan config set general.default_profile=vfx2020'")
         self._assertEndsWith(
             cmds,
-            f"conan create {constants.CONAN_USER_HOME}/recipes/openexr"
+            f"conan create {os.path.join(self._docker_home, 'recipes', 'openexr')}"
             " openexr/2.4.0@aswftesting/vfx2020"
             " --keep-source --keep-build --build=missing'",
         )
@@ -540,14 +641,22 @@ class TestBuilderCli(unittest.TestCase):
             ["build", "--group", "common", "--version", "all", "--dry-run"],
         )
         self.assertFalse(result.exception)
-        bake_path = os.path.join(
-            tempfile.gettempdir(),
-            "docker-bake-IMAGE-common-1-clang10-1-clang6-1-clang7-1"
-            "-clang8-1-clang9-2-clang10-2-clang11-2-clang12-2-clang13.json",
-        )
-        cmd = f"docker buildx bake -f {bake_path} --progress auto"
-        self.assertEqual(
-            result.output,
-            f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
-        )
+        if platform.system() == "Linux":
+            bake_path = os.path.join(
+                tempfile.gettempdir(),
+                "docker-bake-IMAGE-common-1-clang10-1-clang6-1-clang7-1"
+                "-clang8-1-clang9-2-clang10-2-clang11-2-clang12-2-clang13.json",
+            )
+            cmd = f"docker buildx bake -f {bake_path} --progress auto"
+            self.assertEqual(
+                result.output,
+                f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
+            )
+        else:
+            self.assertTrue(
+                result.output.startswith(
+                    "INFO:aswfdocker.builder:Would run: 'docker build -f ci-common/Dockerfile"
+                ),
+                msg=result.output,
+            )
         self.assertEqual(result.exit_code, 0)

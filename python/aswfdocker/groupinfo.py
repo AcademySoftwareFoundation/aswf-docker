@@ -58,10 +58,11 @@ class GroupInfo:
             all_versions = list(self.index.iter_versions(self.type, image))
             major_versions = [utils.get_major_version(v) for v in all_versions]
             logger.debug(
-                "iter image=%s ci_image=%s all_versions=%s",
+                "iter image=%s ci_image=%s all_versions=%s major_versions=%s",
                 image,
                 ci_image,
                 all_versions,
+                major_versions,
             )
             for version in [v for v in self.versions if v in major_versions]:
                 logger.debug("iter version=%s", version)

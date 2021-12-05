@@ -1,0 +1,7 @@
+include(ci_common2)
+
+[settings]
+python=3.7
+[options]
+[build_requires]
+[env]

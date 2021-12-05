@@ -8,6 +8,9 @@ import unittest
 import logging
 import tempfile
 import os
+import platform
+
+import pytest
 
 from click.testing import CliRunner
 
@@ -127,6 +130,9 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(result.output, "false")
 
+    @pytest.mark.skipif(
+        platform.system() != "Linux", reason="This utility only makes sense on linux"
+    )
     def test_cli_download(self):
         runner = CliRunner()
         with tempfile.TemporaryDirectory() as tmpdirname:

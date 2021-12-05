@@ -121,7 +121,7 @@ COPY ../scripts/common/install_conan.sh /tmp/
 RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     /tmp/install_conan.sh
 
-COPY ../packages/conan/settings /opt/conan_home/.conan
+COPY ../packages/conan/settings_linux /opt/conan_home/.conan
 ENV CONAN_USER_HOME=/opt/conan_home
 
 

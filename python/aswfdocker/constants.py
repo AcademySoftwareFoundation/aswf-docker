@@ -32,4 +32,12 @@ IMAGE_NAME_REGEX = r"(refs/tags/)?(?P<org>[a-z]+)/ci-(?P<package>package\-)?(?P<
 
 ALL = "all"
 
-CONAN_USER_HOME = "/tmp/c"
+# OS specific variables
+# Cross-building on windows hosts with linux docker should be possible so we keep both
+# variables available
+
+LINUX_CONAN_USER_HOME = "/tmp/c"
+WINDOWS_CONAN_USER_HOME = "C:\\tmp\\c"
+
+LINUX_CONAN_DOCKER_TARGET = "ci-centos7-gl-conan"
+WINDOWS_CONAN_DOCKER_TARGET = "ci-windows-conan"

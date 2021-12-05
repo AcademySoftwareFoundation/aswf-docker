@@ -1,6 +1,6 @@
 from conans import ConanFile, CMake, tools
 
-import os.path
+import platform
 import os
 
 
@@ -34,7 +34,7 @@ class ClangConan(ConanFile):
         return "source"
 
     def build_requirements(self):
-        if tools.Version(self.version) > "11":
+        if tools.Version(self.version) > "11" and platform.system() == "Linux":
             self.build_requires(f"python/3.9.7@{self.user}/vfx2022")
 
     def configure(self):
@@ -53,7 +53,8 @@ class ClangConan(ConanFile):
 
     def _configure_cmake(self):
         cmake = CMake(self)
-        cmake.definitions["GCC_INSTALL_PREFIX"] = os.environ["GCC_INSTALL_PREFIX"]
+        if platform.system() == "Linux":
+            cmake.definitions["GCC_INSTALL_PREFIX"] = os.environ["GCC_INSTALL_PREFIX"]
         cmake.definitions["LLVM_BUILD_LLVM_DYLIB"] = True
         cmake.definitions["CLANG_INCLUDE_DOCS"] = False
         cmake.definitions["LIBCXX_INCLUDE_DOCS"] = False

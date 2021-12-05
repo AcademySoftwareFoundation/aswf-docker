@@ -3,6 +3,8 @@
 """
 ASWF repository information
 """
+import platform
+
 from aswfdocker import utils, constants
 
 
@@ -15,6 +17,7 @@ class ASWFInfo:
         source_branch: str = "",
         aswf_version: str = "",
         repo_root: str = "",
+        target_os: str = "",
     ):
         self.aswf_version = aswf_version
         self.repo_uri = repo_uri
@@ -31,6 +34,10 @@ class ASWFInfo:
         else:
             self.vcs_ref = constants.DEV_BUILD_DATE
             self.build_date = constants.DEV_BUILD_DATE
+        if target_os == "":
+            self.target_os = platform.system()
+        else:
+            self.target_os = target_os
 
     def set_org(self, org):
         self.docker_org = org
