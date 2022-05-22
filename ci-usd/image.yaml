@@ -14,6 +14,7 @@ packages:
   - pyside
   - cmake
   - imath
+  - materialx
   - openexr
   - oiio
   - ocio
