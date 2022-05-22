@@ -51,7 +51,7 @@ Contains:
 ## [aswf/ci-otio:2022.1](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2022.1)
 
 Contains:
-* python-3.9.7
+* python-3.9.11
 * cmake-3.22.0
 * qt-5.15.2
 * pyside-5.15.2

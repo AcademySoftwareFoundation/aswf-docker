@@ -167,12 +167,12 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.7
+* python-3.9.11
 * qt-5.15.2
-* imath-3.1.3
-* openexr-3.1.3
-* oiio-2.3.9.1
-* ocio-2.1.0
+* imath-3.1.5
+* openexr-3.1.5
+* oiio-2.3.14.0
+* ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
 * blosc-1.5.0
@@ -185,12 +185,12 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.7
+* python-3.9.11
 * qt-5.15.2
-* imath-3.1.3
-* openexr-3.1.3
-* oiio-2.3.9.1
-* ocio-2.1.0
+* imath-3.1.5
+* openexr-3.1.5
+* oiio-2.3.14.0
+* ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
 * blosc-1.5.0
@@ -203,12 +203,12 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.7
+* python-3.9.11
 * qt-5.15.2
-* imath-3.1.3
-* openexr-3.1.3
-* oiio-2.3.9.1
-* ocio-2.1.0
+* imath-3.1.5
+* openexr-3.1.5
+* oiio-2.3.14.0
+* ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
 * blosc-1.5.0
@@ -221,12 +221,12 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.7
+* python-3.9.11
 * qt-5.15.2
-* imath-3.1.3
-* openexr-3.1.3
-* oiio-2.3.9.1
-* ocio-2.1.0
+* imath-3.1.5
+* openexr-3.1.5
+* oiio-2.3.14.0
+* ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
 * blosc-1.5.0

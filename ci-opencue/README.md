@@ -45,7 +45,7 @@ Contains:
 ## [aswf/ci-opencue:2022.1](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2022.1)
 
 Contains:
-* python-3.9.7
+* python-3.9.11
 * cmake-3.22.0
 * numpy-1.20
 * vfxplatform-2022

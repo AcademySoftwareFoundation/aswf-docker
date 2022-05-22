@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:experimental
+# syntax = docker/dockerfile:1.3-labs
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -14,6 +14,7 @@ ARG ASWF_CPPUNIT_VERSION
 ARG ASWF_GLEW_VERSION
 ARG ASWF_GLFW_VERSION
 ARG ASWF_PYBIND11_VERSION
+ARG ASWF_NUMPY_VERSION
 ARG ASWF_PYTHON_VERSION
 ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 ARG ASWF_TBB_VERSION
@@ -58,9 +59,40 @@ FROM ${ASWF_ORG}/ci-package-ocio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OCIO_VERSION
 #################### ci-base-builder ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base-builder
 
-COPY --from=ci-package-cmake-external /. /usr/local/
-COPY --from=ci-package-python-external /. /usr/local/
-COPY --from=ci-package-boost-external /. /usr/local/
+ARG ASWF_CMAKE_VERSION
+ARG ASWF_PYTHON_VERSION
+ARG ASWF_NUMPY_VERSION
+ARG ASWF_BOOST_VERSION
+ARG ASWF_PKG_ORG
+ARG ASWF_CONAN_CHANNEL
+
+ENV ASWF_CMAKE_VERSION=${ASWF_CMAKE_VERSION}
+ENV ASWF_PYTHON_VERSION=${ASWF_PYTHON_VERSION}
+ENV ASWF_NUMPY_VERSION=${ASWF_NUMPY_VERSION}
+ENV ASWF_BOOST_VERSION=${ASWF_BOOST_VERSION}
+
+# Copy local conan packages if any
+COPY packages/conan/data/ /opt/conan_home/d/
+COPY packages/conan/settings/ /opt/conan_home/.conan/
+
+# Use conan to install MaterialX
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+cat /usr/local/conanfile.txt
+conan install .
+# Replace first line of pip to fix the hardcoded shebang line
+sed -i "1s/.*/\#\!\/usr\/bin\/env python3/" /usr/local/bin/pip
+EOF
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
@@ -259,8 +291,14 @@ COPY --from=ci-opensubdiv-builder /package/. /
 #################### ci-usd-builder ####################
 FROM ci-opensubdiv-builder as ci-usd-builder
 
+ARG ASWF_MATERIALX_VERSION
+ARG ASWF_PKG_ORG
+ARG ASWF_CONAN_CHANNEL
 ARG ASWF_USD_VERSION
+ARG ASWF_NUMPY_VERSION
+
 ENV ASWF_USD_VERSION=${ASWF_USD_VERSION}
+ENV ASWF_NUMPY_VERSION=${ASWF_NUMPY_VERSION}
 
 COPY --from=ci-package-imath-external /. /usr/local/
 COPY --from=ci-package-openexr-external /. /usr/local/
@@ -274,6 +312,20 @@ COPY --from=ci-package-pyside-external /. /usr/local/
 
 COPY ../scripts/vfx/build_usd.sh \
      /tmp/
+
+# Use conan to install MaterialX
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \

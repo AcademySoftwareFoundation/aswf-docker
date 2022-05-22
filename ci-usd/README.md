@@ -31,6 +31,7 @@ Contains:
 * pyside-5.12.6
 * cmake-3.12.4
 * imath-2.3.0
+* materialx-
 * openexr-2.3.0
 * oiio-2.0.8
 * ocio-1.1.0
@@ -56,6 +57,7 @@ Contains:
 * pyside-5.12.6
 * cmake-3.18.4
 * imath-2.4.0
+* materialx-
 * openexr-2.4.0
 * oiio-2.1.13.0
 * ocio-1.1.1
@@ -81,6 +83,7 @@ Contains:
 * pyside-5.15.2
 * cmake-3.19.3
 * imath-2.5.5
+* materialx-
 * openexr-2.5.5
 * oiio-2.2.14.0
 * ocio-2.0.1
@@ -96,7 +99,7 @@ Contains:
 ## [aswf/ci-usd:2022.2](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2022.2)
 
 Contains:
-* python-3.9.7
+* python-3.9.11
 * tbb-2020_U3
 * boost-1.76.0
 * glew-2.1.0
@@ -105,10 +108,11 @@ Contains:
 * qt-5.15.2
 * pyside-5.15.2
 * cmake-3.22.0
-* imath-3.1.3
-* openexr-3.1.3
-* oiio-2.3.9.1
-* ocio-2.1.0
+* imath-3.1.5
+* materialx-1.38.0
+* openexr-3.1.5
+* oiio-2.3.14.0
+* ocio-2.1.1
 * ptex-2.4.0
 * opensubdiv-3_4_4
 * alembic-1.8.2
