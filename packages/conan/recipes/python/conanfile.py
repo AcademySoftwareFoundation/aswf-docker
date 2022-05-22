@@ -1,5 +1,6 @@
 from conans import AutoToolsBuildEnvironment, ConanFile, tools
 from contextlib import contextmanager
+from conan.tools.files.symlinks import absolute_to_relative_symlinks
 import os
 
 
@@ -119,6 +120,9 @@ class PythonConan(ConanFile):
             )
 
         py_exe = os.path.join(self.package_folder, "bin", f"python{self.major_minor}")
+        py_exe_nover = os.path.join(self.package_folder, "bin", f"python")
+        self.run(f"ln -s {py_exe} {py_exe_nover}")
+        
         with tools.environment_append(
             {
                 "PATH": os.path.join(self.package_folder, "bin"),
@@ -126,11 +130,22 @@ class PythonConan(ConanFile):
             }
         ):
             self.run(f"{py_exe} get-pip.py")
+
+            # Replace first line of pip to fix the hardcoded shebang line
+            pip_exe = os.path.join(os.path.join(self.package_folder, "bin"), "pip")
+            with open(pip_exe) as f:
+                lines = f.readlines()
+            lines[0] = "#!/usr/bin/env python3\n"
+            with open(pip_exe, "w") as f:
+                f.writelines(lines)
+
             self.run(f"{py_exe} -m pip install nose coverage docutils epydoc")
             if self.options.get_safe("with_numpy"):
                 self.run(
                     f"{py_exe} -m pip install numpy=={os.environ['ASWF_NUMPY_VERSION']}"
                 )
+        
+        absolute_to_relative_symlinks(self, self.package_folder)
 
     def package_info(self):
         self.cpp_info.filenames["pkg_config"] = "python"

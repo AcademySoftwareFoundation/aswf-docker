@@ -21,3 +21,4 @@ class TestPackageConan(ConanFile):
             ),
             run_environment=True,
         )
+        self.run("pip --version", run_environment=True)
