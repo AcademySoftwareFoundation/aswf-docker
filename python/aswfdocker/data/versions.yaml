@@ -12,8 +12,8 @@ versions:
       ASWF_DTS_VERSION: "6"
       ASWF_CUDA_VERSION: "10.2"
       ASWF_CCACHE_VERSION: "4.0"
-      ASWF_CONAN_VERSION: "1.42.0"
-      ASWF_CONAN_PYTHON_VERSION: "3.9.5"
+      ASWF_CONAN_VERSION: "1.47.0"
+      ASWF_CONAN_PYTHON_VERSION: "3.9.11"
       ASWF_NINJA_VERSION: "1.10.1"
       ASWF_SONAR_VERSION: "4.6.2.2472"
   "1-clang6":
@@ -60,8 +60,8 @@ versions:
     conan_profile: "ci_common2"
     package_versions:
       ASWF_DTS_VERSION: "9"
-      ASWF_CONAN_VERSION: "1.42.0"
-      ASWF_CONAN_PYTHON_VERSION: "3.9.5"
+      ASWF_CONAN_VERSION: "1.47.0"
+      ASWF_CONAN_PYTHON_VERSION: "3.9.11"
       ASWF_CUDA_VERSION: "11.4.0"
       ASWF_CCACHE_VERSION: "4.0"
       ASWF_NINJA_VERSION: "1.10.1"
