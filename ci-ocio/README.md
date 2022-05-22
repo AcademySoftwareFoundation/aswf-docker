@@ -81,20 +81,20 @@ Contains:
 ## [aswf/ci-ocio:2022.2](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2022.2)
 
 Contains:
-* python-3.9.7
+* python-3.9.11
 * pybind11-2.8.1
 * tbb-2020_U3
 * boost-1.76.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.22.0
-* imath-3.1.3
-* openexr-3.1.3
-* oiio-2.3.9.1
+* imath-3.1.5
+* openexr-3.1.5
+* oiio-2.3.14.0
 * blosc-1.5.0
 * partio-1.14.0
 * openvdb-9.0.0
-* osl-1.11.16.0
+* osl-1.11.17.0
 * numpy-1.20
 * vfxplatform-2022
 
