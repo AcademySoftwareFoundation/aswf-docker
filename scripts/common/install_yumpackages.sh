@@ -200,6 +200,7 @@ yum install -y \
     libcaca-devel \
     libdb4-devel \
     libdc1394-devel \
+    opencl-headers \
     openssl11-devel \
     p7zip \
     yasm-devel \

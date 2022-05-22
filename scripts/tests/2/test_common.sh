@@ -4,6 +4,12 @@
 
 set -ex
 
+os_v=$(cat /etc/redhat-release)
+if [[ $os_v != CentOS\ Linux\ release\ 7.9.2009* ]]
+then
+    exit 1
+fi
+
 clang_v=$(clang --version)
 if [[ $clang_v != clang\ version\ 10.0* ]]
 then

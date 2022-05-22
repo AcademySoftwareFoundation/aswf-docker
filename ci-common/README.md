@@ -77,7 +77,7 @@ Contains:
 Contains:
 * clang-10.0.1
 * ninja-1.10.1
-* cuda-11.1
+* cuda-11.4.0
 * ccache-4.0
 * dts-9
 * sonar-4.6.2.2472
@@ -88,7 +88,7 @@ Contains:
 Contains:
 * clang-11.1.0
 * ninja-1.10.1
-* cuda-11.1
+* cuda-11.4.0
 * ccache-4.0
 * dts-9
 * sonar-4.6.2.2472
@@ -99,7 +99,7 @@ Contains:
 Contains:
 * clang-12.0.1
 * ninja-1.10.1
-* cuda-11.1
+* cuda-11.4.0
 * ccache-4.0
 * dts-9
 * sonar-4.6.2.2472
@@ -110,7 +110,7 @@ Contains:
 Contains:
 * clang-13.0.0
 * ninja-1.10.1
-* cuda-11.1
+* cuda-11.4.0
 * ccache-4.0
 * dts-9
 * sonar-4.6.2.2472
