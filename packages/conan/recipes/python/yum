@@ -1,3 +1,3 @@
 #!/bin/sh
 # This runs yum with system python
-exec "${ASWF_INSTALL_PREFIX}/bin/run-with-system-python" /usr/bin/yum "\$@"
+exec "${ASWF_INSTALL_PREFIX}/bin/run-with-system-python" /usr/bin/yum "$@"
