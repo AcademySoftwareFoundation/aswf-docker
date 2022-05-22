@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2022-05-22
+
+* Updated ci-common-v2 to CentOS-7.9 and CUDA-11.4
+* Updated 2022 Packages
+  * Imath 3.1.5 (from 3.1.3)
+  * OpenColorIO 2.1.1 (from 2.1.0)
+  * OpenImageIO 2.3.14.0 (from 2.3.9.1)
+  * OpenEXR 3.1.5 (from 3.1.3)
+  * OpenShadingLanguage 1.11.17.0 (from 1.11.16.0)
+  * OpenTimelineIO 0.14.1 (from 0.14)
+  * Python 3.9.11 (from 3.9.7)
+  * USD 22.05a (from 21.11)
+* Added MaterialX 1.38.0 (version required by USD 22.05a)
+* Updated Conan to 1.47.0 (from 1.42.0)
+
 ## 2021-11-20
 
 * Updated 2022 Packages:
