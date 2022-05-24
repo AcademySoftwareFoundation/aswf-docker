@@ -64,8 +64,8 @@ versions:
       ASWF_CONAN_PYTHON_VERSION: "3.9.11"
       ASWF_CUDA_VERSION: "11.4.0"
       ASWF_CCACHE_VERSION: "4.0"
-      ASWF_NINJA_VERSION: "1.10.1"
-      ASWF_SONAR_VERSION: "4.6.2.2472"
+      ASWF_NINJA_VERSION: "1.11.0"
+      ASWF_SONAR_VERSION: "4.7.0.2747"
   "2-clang10":
     parent_versions: ["2"]
     major_version: "2"
@@ -95,7 +95,14 @@ versions:
     ci_common_version: "2"
     package_versions:
       ASWF_CLANG_MAJOR_VERSION: "13"
-      ASWF_CLANG_VERSION: "13.0.0"
+      ASWF_CLANG_VERSION: "13.0.1"
+  "2-clang14":
+    parent_versions: ["2"]
+    major_version: "2"
+    ci_common_version: "2"
+    package_versions:
+      ASWF_CLANG_MAJOR_VERSION: "14"
+      ASWF_CLANG_VERSION: "14.0.0"
   "2019":
     parent_versions: ["1", "1-clang7"]
     major_version: "2019"
@@ -299,6 +306,10 @@ versions:
     parent_versions: ["2", "2-clang13", "2022"]
     major_version: "2022"
     ci_common_version: "2"
+  "2022-clang14":
+    parent_versions: ["2", "2-clang14", "2022"]
+    major_version: "2022"
+    ci_common_version: "2"
 
 ci-packages:
   clang:
@@ -307,13 +318,14 @@ ci-packages:
     - "1-clang8.2"
     - "1-clang9.2"
     - "1-clang10.2"
-    - "2-clang10.2"
-    - "2-clang11.3"
-    - "2-clang12.0"
-    - "2-clang13.0"
+    - "2-clang10.3"
+    - "2-clang11.4"
+    - "2-clang12.1"
+    - "2-clang13.1"
+    - "2-clang14.0"
   ninja:
     - "1.3"
-    - "2.1"
+    - "2.2"
   cmake:
     - "2019.0"
     - "2020.0"
@@ -453,6 +465,7 @@ ci-images:
     - "2-clang11.6"
     - "2-clang12.1"
     - "2-clang13.1"
+    - "2-clang14.0"
   base:
     - "2019.9"
     - "2020.9"
@@ -503,6 +516,7 @@ ci-images:
     - "2022-clang11.10"
     - "2022-clang12.1"
     - "2022-clang13.1"
+    - "2022-clang14.0"
   openvdb:
     - "2019-clang6.8"
     - "2019-clang7.8"
@@ -514,6 +528,7 @@ ci-images:
     - "2022-clang11.10"
     - "2022-clang12.1"
     - "2022-clang13.1"
+    - "2022-clang14.0"
   vfxall:
     - "2019-clang6.12"
     - "2019-clang7.12"
@@ -525,6 +540,7 @@ ci-images:
     - "2022-clang11.10"
     - "2022-clang12.1"
     - "2022-clang13.1"
+    - "2022-clang14.0"
 
 groups:
   package:
