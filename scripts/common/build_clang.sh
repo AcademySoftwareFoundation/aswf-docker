@@ -14,14 +14,14 @@ cd "llvm-project-llvmorg-${ASWF_CLANG_VERSION}/llvm"
 mkdir build
 cd build
 
-if [[ $ASWF_CLANG_VERSION == 12.* || $ASWF_CLANG_VERSION == 13.* ]]; then
+if [[ $ASWF_CLANG_VERSION != 7.* && $ASWF_CLANG_VERSION != 8.* && $ASWF_CLANG_VERSION != 9.* && $ASWF_CLANG_VERSION != 10.* && $ASWF_CLANG_VERSION != 11.* ]]; then
     # Recent llvm requires python3 to build
     export PATH=/tmp/pytmp/bin:$PATH
     export LD_LIBRARY_PATH=/tmp/pytmp/lib:$LD_LIBRARY_PATH
-    ASWF_INSTALL_PREFIX=/tmp/pytmp ASWF_PYTHON_VERSION=3.9.7 ASWF_NUMPY_VERSION=1.20 /tmp/build_python.sh
+    ASWF_INSTALL_PREFIX=/tmp/pytmp ASWF_PYTHON_VERSION=3.9.11 ASWF_NUMPY_VERSION=1.20 /tmp/build_python.sh
 fi
 
-if [[ $ASWF_CLANG_VERSION == 13.* ]]; then
+if [[ $ASWF_CLANG_VERSION == 13.* || $ASWF_CLANG_VERSION == 14.* ]]; then
 llvm_projects="clang;clang-tools-extra;compiler-rt;lld"
 else
 llvm_projects="clang;clang-tools-extra;libcxx;libcxxabi;compiler-rt;lld"
