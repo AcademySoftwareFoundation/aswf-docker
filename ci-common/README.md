@@ -76,43 +76,54 @@ Contains:
 
 Contains:
 * clang-10.0.1
-* ninja-1.10.1
+* ninja-1.11.0
 * cuda-11.4.0
 * ccache-4.0
 * dts-9
-* sonar-4.6.2.2472
+* sonar-4.7.0.2747
 * conan-1.47.0
 
 ## [aswf/ci-common:2-clang11.6](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang11.6)
 
 Contains:
 * clang-11.1.0
-* ninja-1.10.1
+* ninja-1.11.0
 * cuda-11.4.0
 * ccache-4.0
 * dts-9
-* sonar-4.6.2.2472
+* sonar-4.7.0.2747
 * conan-1.47.0
 
 ## [aswf/ci-common:2-clang12.1](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang12.1)
 
 Contains:
 * clang-12.0.1
-* ninja-1.10.1
+* ninja-1.11.0
 * cuda-11.4.0
 * ccache-4.0
 * dts-9
-* sonar-4.6.2.2472
+* sonar-4.7.0.2747
 * conan-1.47.0
 
 ## [aswf/ci-common:2-clang13.1](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang13.1)
 
 Contains:
-* clang-13.0.0
-* ninja-1.10.1
+* clang-13.0.1
+* ninja-1.11.0
 * cuda-11.4.0
 * ccache-4.0
 * dts-9
-* sonar-4.6.2.2472
+* sonar-4.7.0.2747
+* conan-1.47.0
+
+## [aswf/ci-common:2-clang14.0](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=2-clang14.0)
+
+Contains:
+* clang-14.0.0
+* ninja-1.11.0
+* cuda-11.4.0
+* ccache-4.0
+* dts-9
+* sonar-4.7.0.2747
 * conan-1.47.0
 
