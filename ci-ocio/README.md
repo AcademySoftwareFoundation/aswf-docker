@@ -90,7 +90,7 @@ Contains:
 * cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.14.0
+* oiio-2.3.15.0
 * blosc-1.5.0
 * partio-1.14.0
 * openvdb-9.0.0
