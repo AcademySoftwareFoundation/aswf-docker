@@ -7,7 +7,7 @@ with open("python/README.md", "r") as fh:
 
 setup(
     name="aswfdocker",
-    version="0.6.0",
+    version="0.7.0",
     author="Aloys Baillet",
     author_email="aloys.baillet+github@gmail.com",
     description="ASWF Docker Utilities",
