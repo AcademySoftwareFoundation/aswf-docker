@@ -43,7 +43,7 @@ setup(
         "pluginbase==1.0.1",
         "pygithub==1.53",
         "pygments==2.10.0; python_version >= '3.5'",
-        "pyjwt==1.7.1",
+        "pyjwt==2.4.0",
         "python-dateutil==2.8.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
         "pyyaml==5.4.1",
         "requests==2.26.0",
