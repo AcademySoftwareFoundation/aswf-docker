@@ -111,7 +111,7 @@ Contains:
 * imath-3.1.5
 * materialx-1.38.0
 * openexr-3.1.5
-* oiio-2.3.14.0
+* oiio-2.3.15.0
 * ocio-2.1.1
 * ptex-2.4.0
 * opensubdiv-3_4_4
