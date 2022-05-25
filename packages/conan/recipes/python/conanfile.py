@@ -122,7 +122,7 @@ class PythonConan(ConanFile):
         py_exe = os.path.join(self.package_folder, "bin", f"python{self.major_minor}")
         py_exe_nover = os.path.join(self.package_folder, "bin", f"python")
         self.run(f"ln -s {py_exe} {py_exe_nover}")
-        
+
         with tools.environment_append(
             {
                 "PATH": os.path.join(self.package_folder, "bin"),
@@ -144,7 +144,7 @@ class PythonConan(ConanFile):
                 self.run(
                     f"{py_exe} -m pip install numpy=={os.environ['ASWF_NUMPY_VERSION']}"
                 )
-        
+
         absolute_to_relative_symlinks(self, self.package_folder)
 
     def package_info(self):

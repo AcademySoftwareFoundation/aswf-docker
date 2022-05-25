@@ -8,7 +8,7 @@ pytest = "*"
 atomicwrites = {version = "*", markers = "platform_system == 'Windows'"}
 pytest-cov = "*"
 pylint = "*"
-black = "==21.9b0"
+black = "==22.3"
 mypy = "*"
 pre-commit = "*"
 pytest-pylint = "*"
@@ -16,19 +16,19 @@ types-click = "*"
 types-jinja2 = "*"
 types-pyyaml = "*"
 types-requests = "*"
-# pipenv-setup = "*" # commented for now as it requires a very old black version!
+pipenv-setup = "*"
 aswfdocker = {editable = true, path = "."}
 twine = "*"
 
 [packages]
 aswfdocker = {editable = true, path = "."}
 click = "*"
-pygithub = "==1.53" # Needed to work with Conan 1.41
+pygithub = "*"
 pyyaml = "*"
 jinja2 = "*"
 requests = "*"
 importlib-resources = "*"
-conan = "==1.42"
+conan = "==1.47"
 
 [requires]
 python_version = "3.9"

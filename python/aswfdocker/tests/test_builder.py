@@ -142,8 +142,8 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_CMAKE_VERSION": "3.12.4",
                             "ASWF_CPPUNIT_VERSION": "1.14.0",
                             "ASWF_CONAN_CHANNEL": "vfx2019",
-                            "ASWF_CONAN_PYTHON_VERSION": "3.9.5",
-                            "ASWF_CONAN_VERSION": "1.42.0",
+                            "ASWF_CONAN_PYTHON_VERSION": "3.9.11",
+                            "ASWF_CONAN_VERSION": "1.47.0",
                             "ASWF_CUDA_VERSION": "10.2",
                             "ASWF_DTS_VERSION": "6",
                             "ASWF_GLEW_VERSION": "2.1.0",
@@ -224,8 +224,8 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_CPPUNIT_VERSION": "1.15.1",
                             "ASWF_CUDA_VERSION": "10.2",
                             "ASWF_CONAN_CHANNEL": "vfx2020",
-                            "ASWF_CONAN_PYTHON_VERSION": "3.9.5",
-                            "ASWF_CONAN_VERSION": "1.42.0",
+                            "ASWF_CONAN_PYTHON_VERSION": "3.9.11",
+                            "ASWF_CONAN_VERSION": "1.47.0",
                             "ASWF_DTS_VERSION": "6",
                             "ASWF_GLEW_VERSION": "2.1.0",
                             "ASWF_GLFW_VERSION": "3.1.2",
@@ -283,8 +283,8 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_CPPUNIT_VERSION": "1.14.0",
                             "ASWF_CUDA_VERSION": "10.2",
                             "ASWF_CONAN_CHANNEL": "vfx2019",
-                            "ASWF_CONAN_PYTHON_VERSION": "3.9.5",
-                            "ASWF_CONAN_VERSION": "1.42.0",
+                            "ASWF_CONAN_PYTHON_VERSION": "3.9.11",
+                            "ASWF_CONAN_VERSION": "1.47.0",
                             "ASWF_DTS_VERSION": "6",
                             "ASWF_GLEW_VERSION": "2.1.0",
                             "ASWF_GLFW_VERSION": "3.1.2",
@@ -543,7 +543,7 @@ class TestBuilderCli(unittest.TestCase):
         bake_path = os.path.join(
             tempfile.gettempdir(),
             "docker-bake-IMAGE-common-1-clang10-1-clang6-1-clang7-1"
-            "-clang8-1-clang9-2-clang10-2-clang11-2-clang12-2-clang13.json",
+            "-clang8-1-clang9-2-clang10-2-clang11-2-clang12-2-clang13-2-clang14.json",
         )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(

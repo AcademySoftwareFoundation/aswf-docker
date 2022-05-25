@@ -58,9 +58,7 @@ class MaterialXConan(ConanFile):
     def package_info(self):
         self.cpp_info.requires.append("python::PythonLibs")
         self.cpp_info.requires.append("pybind11::main")
-        self.env_info.PYTHONPATH.append(
-            os.path.join(self.package_folder, "python")
-        )
+        self.env_info.PYTHONPATH.append(os.path.join(self.package_folder, "python"))
         self.env_info.CMAKE_PREFIX_PATH.append(
             os.path.join(self.package_folder, "lib", "cmake")
         )
