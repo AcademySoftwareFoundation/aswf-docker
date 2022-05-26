@@ -31,7 +31,7 @@ Contains:
 * pyside-5.12.6
 * cmake-3.12.4
 * imath-2.3.0
-* materialx-
+* materialx-1.38.0
 * openexr-2.3.0
 * oiio-2.0.8
 * ocio-1.1.0
@@ -57,7 +57,7 @@ Contains:
 * pyside-5.12.6
 * cmake-3.18.4
 * imath-2.4.0
-* materialx-
+* materialx-1.38.0
 * openexr-2.4.0
 * oiio-2.1.13.0
 * ocio-1.1.1
@@ -83,7 +83,7 @@ Contains:
 * pyside-5.15.2
 * cmake-3.19.3
 * imath-2.5.5
-* materialx-
+* materialx-1.38.0
 * openexr-2.5.5
 * oiio-2.2.14.0
 * ocio-2.0.1
