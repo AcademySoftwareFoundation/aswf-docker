@@ -2,20 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2022-05-22
+## 2022-06-06
 
 * Updated ci-common-v2 to CentOS-7.9 and CUDA-11.4
+* Added clang-14 for ci-common-v2
+* Updated Conan to 1.47.0 (from 1.42.0)
+* Added MaterialX 1.38.0 (version required by USD 22.05a)
 * Updated 2022 Packages
   * Imath 3.1.5 (from 3.1.3)
   * OpenColorIO 2.1.1 (from 2.1.0)
-  * OpenImageIO 2.3.14.0 (from 2.3.9.1)
+  * OpenImageIO 2.3.16.0 (from 2.3.9.1)
   * OpenEXR 3.1.5 (from 3.1.3)
   * OpenShadingLanguage 1.11.17.0 (from 1.11.16.0)
   * OpenTimelineIO 0.14.1 (from 0.14)
   * Python 3.9.11 (from 3.9.7)
   * USD 22.05a (from 21.11)
-* Added MaterialX 1.38.0 (version required by USD 22.05a)
-* Updated Conan to 1.47.0 (from 1.42.0)
+
+### New CI Images
+
+* `aswf/ci-common:2-clang10.5`, `aswf/ci-common:2-clang11.6`, `aswf/ci-common:2-clang12.1`, `aswf/ci-common:2-clang13.1`, `aswf/ci-common:2-clang14.0`
+* `aswf/ci-base:2022.3`, `aswf/ci-baseqt:2022.3`
+* `aswf/ci-opencue:2022.2`
+* `aswf/ci-openexr:2022.2`
+* `aswf/ci-ocio:2022.3`
+* `aswf/ci-otio:2022.2`
+* `aswf/ci-materialx:2022.0`
+* `aswf/ci-usd:2022.3`
+* `aswf/ci-osl:2022-clang10.10`, `aswf/ci-osl:2022-clang11.10`, `aswf/ci-osl:2022-clang12.1`, `aswf/ci-osl:2022-clang13.1`, `aswf/ci-osl:2022-clang14.0`
+* `aswf/ci-openvdb:2022-clang10.10`, `aswf/ci-openvdb:2022-clang11.10`, `aswf/ci-openvdb:2022-clang12.1`, `aswf/ci-openvdb:2022-clang13.1`, `aswf/ci-openvdb:2022-clang14.0`
+* `aswf/ci-vfxall:2022-clang10.10`, `aswf/ci-vfxall:2022-clang11.10`, `aswf/ci-vfxall:2022-clang12.1`, `aswf/ci-vfxall:2022-clang13.1`, `aswf/ci-vfxall:2022-clang14.0`
 
 ## 2021-11-20
 
