@@ -214,7 +214,7 @@ Contains:
 * openexr-3.1.5
 * blosc-1.5.0
 * alembic-1.8.2
-* oiio-2.3.15.0
+* oiio-2.3.16.0
 * ocio-2.1.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
@@ -244,7 +244,7 @@ Contains:
 * openexr-3.1.5
 * blosc-1.5.0
 * alembic-1.8.2
-* oiio-2.3.15.0
+* oiio-2.3.16.0
 * ocio-2.1.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
@@ -274,7 +274,7 @@ Contains:
 * openexr-3.1.5
 * blosc-1.5.0
 * alembic-1.8.2
-* oiio-2.3.15.0
+* oiio-2.3.16.0
 * ocio-2.1.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
@@ -304,7 +304,7 @@ Contains:
 * openexr-3.1.5
 * blosc-1.5.0
 * alembic-1.8.2
-* oiio-2.3.15.0
+* oiio-2.3.16.0
 * ocio-2.1.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
@@ -334,7 +334,7 @@ Contains:
 * openexr-3.1.5
 * blosc-1.5.0
 * alembic-1.8.2
-* oiio-2.3.15.0
+* oiio-2.3.16.0
 * ocio-2.1.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
