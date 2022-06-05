@@ -55,19 +55,19 @@ jobs:
             type: IMAGE
             name: vfx1
             common_version: 2-clang10
-            version: 2021
+            version: 2022
             test: openvdb
-          - group: img-vfx2-2021
+          - group: img-vfx2-2022
             type: IMAGE
             name: vfx2
             common_version: 2-clang10
-            version: 2021
+            version: 2022
             test: ""
-          - group: img-vfx3-2021
+          - group: img-vfx3-2022
             type: IMAGE
             name: vfx3
             common_version: 2-clang10
-            version: 2021
+            version: 2022
             test: ""
 
     steps:
