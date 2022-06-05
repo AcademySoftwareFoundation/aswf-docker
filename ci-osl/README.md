@@ -171,7 +171,7 @@ Contains:
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.15.0
+* oiio-2.3.16.0
 * ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
@@ -189,7 +189,7 @@ Contains:
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.15.0
+* oiio-2.3.16.0
 * ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
@@ -207,7 +207,7 @@ Contains:
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.15.0
+* oiio-2.3.16.0
 * ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
@@ -225,7 +225,7 @@ Contains:
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.15.0
+* oiio-2.3.16.0
 * ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
@@ -243,7 +243,7 @@ Contains:
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.15.0
+* oiio-2.3.16.0
 * ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
