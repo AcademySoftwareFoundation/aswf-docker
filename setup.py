@@ -25,7 +25,7 @@ setup(
     ],
     # Empty list of requirements before running `pipenv update` to avoid conflicts
     install_requires=[
-        "bottle==0.12.19",
+        "bottle==0.12.20",
         "certifi==2022.5.18.1; python_version >= '3.6'",
         "charset-normalizer==2.0.12; python_version >= '3'",
         "click==8.1.3",
