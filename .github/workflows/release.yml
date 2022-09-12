@@ -6,7 +6,7 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04-16c-64g-600h
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: '1'
