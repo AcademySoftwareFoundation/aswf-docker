@@ -19,33 +19,6 @@ else
      VT_SRC_FOLDER=base/vt
 fi
 
-touch "pxr/${VT_SRC_FOLDER}/devtoolset6Workaround.cpp"
-echo '#if (__GNUC__ >= 6)
-#include <cstdlib>
-#pragma weak __cxa_throw_bad_array_new_length
-extern "C" void __cxa_throw_bad_array_new_length()
-{
- abort();
-}
-#endif' >> "pxr/${VT_SRC_FOLDER}/devtoolset6Workaround.cpp"
-
-patch -p1 <<EOF
-diff --git a/pxr/${VT_SRC_FOLDER}/CMakeLists.txt b/pxr/${VT_SRC_FOLDER}/CMakeLists.txt
-index aecffd7fb..c8f840bed 100644
---- a/pxr/${VT_SRC_FOLDER}/CMakeLists.txt
-+++ b/pxr/${VT_SRC_FOLDER}/CMakeLists.txt
-@@ -38,6 +38,9 @@ pxr_library(vt
- 
-     PRIVATE_HEADERS
-         typeHeaders.h
-+        
-+    CPPFILES
-+        devtoolset6Workaround.cpp
- 
-     PYTHON_CPPFILES
-         moduleDeps.cpp
-EOF
-
 mkdir build
 cd build
 
