@@ -56,7 +56,7 @@ jobs:
     - name: Build and Push
       if: ${{ matrix.build }}
       run: |
-        aswfdocker \
+        pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
           --verbose \
           build \
@@ -67,7 +67,7 @@ jobs:
     - name: Update Docker Hub Description
       if: ${{ matrix.push_description }}
       run: |
-        aswfdocker \
+        pipenv run aswfdocker \
           pushoverview \
           --username aswfdocker \
           --password ${{ secrets.DOCKERHUB_PASSWORD }} \
