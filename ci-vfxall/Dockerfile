@@ -43,8 +43,6 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
 # Comment out this block to use Conan packages
-FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
-FROM ${ASWF_PKG_ORG}/ci-package-tbb:$ASWF_VFXPLATFORM_VERSION-$ASWF_TBB_VERSION as ci-package-tbb
 FROM ${ASWF_PKG_ORG}/ci-package-boost:$ASWF_VFXPLATFORM_VERSION-$ASWF_BOOST_VERSION as ci-package-boost
 FROM ${ASWF_PKG_ORG}/ci-package-cppunit:$ASWF_VFXPLATFORM_VERSION-$ASWF_CPPUNIT_VERSION as ci-package-cppunit
 FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:$ASWF_VFXPLATFORM_VERSION-$ASWF_LOG4CPLUS_VERSION as ci-package-log4cplus
@@ -181,8 +179,6 @@ ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
 # Comment out this block to use Conan packages
-COPY --from=ci-package-python /. /usr/local/
-COPY --from=ci-package-tbb /. /usr/local/
 COPY --from=ci-package-boost /. /usr/local/
 COPY --from=ci-package-cppunit /. /usr/local/
 COPY --from=ci-package-log4cplus /. /usr/local/
@@ -221,8 +217,8 @@ COPY <<EOF /usr/local/conanfile.txt
 ., * -> .
 [requires]
 # Uncomment to use Conan packages instead of Docker ones
-# python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # log4cplus/${ASWF_LOG4CPLUS_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}

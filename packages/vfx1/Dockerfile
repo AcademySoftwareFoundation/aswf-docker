@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:experimental
+# syntax = docker/dockerfile:1.3-labs
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -27,9 +27,6 @@ ARG ASWF_OIIO_VERSION
 ARG ASWF_OPENEXR_VERSION
 
 # Required base packages built in previous stages
-FROM ${ASWF_ORG}/ci-package-cmake:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CMAKE_VERSION} as ci-package-cmake-external
-FROM ${ASWF_ORG}/ci-package-python:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYTHON_VERSION} as ci-package-python-external
-FROM ${ASWF_ORG}/ci-package-boost:${ASWF_VFXPLATFORM_VERSION}-${ASWF_BOOST_VERSION} as ci-package-boost-external
 FROM ${ASWF_ORG}/ci-package-glew:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLEW_VERSION} as ci-package-glew-external
 FROM ${ASWF_ORG}/ci-package-tbb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_TBB_VERSION} as ci-package-tbb-external
 FROM ${ASWF_ORG}/ci-package-cppunit:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CPPUNIT_VERSION} as ci-package-cppunit-external
@@ -40,9 +37,37 @@ FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11
 #################### ci-base-builder ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base-builder
 
-COPY --from=ci-package-cmake-external /. /usr/local/
-COPY --from=ci-package-python-external /. /usr/local/
-COPY --from=ci-package-boost-external /. /usr/local/
+ARG ASWF_CMAKE_VERSION
+ARG ASWF_PYTHON_VERSION
+ARG ASWF_NUMPY_VERSION
+ARG ASWF_BOOST_VERSION
+ARG ASWF_PKG_ORG
+ARG ASWF_CONAN_CHANNEL
+
+ENV ASWF_CMAKE_VERSION=${ASWF_CMAKE_VERSION}
+ENV ASWF_PYTHON_VERSION=${ASWF_PYTHON_VERSION}
+ENV ASWF_NUMPY_VERSION=${ASWF_NUMPY_VERSION}
+ENV ASWF_BOOST_VERSION=${ASWF_BOOST_VERSION}
+
+# Copy local conan packages if any
+COPY packages/conan/data/ /opt/conan_home/d/
+COPY packages/conan/settings/ /opt/conan_home/.conan/
+
+# Use conan to install some packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \

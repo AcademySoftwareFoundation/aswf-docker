@@ -114,7 +114,7 @@ Contains:
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-openvdb:2022-clang10.10](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang10.10)
+## [aswf/ci-openvdb:2022-clang10.11](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang10.11)
 
 Contains:
 * boost-1.76.0
@@ -122,15 +122,15 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.9.11
+* python-3.9.15
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.5.0
+* blosc-1.17.0
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-openvdb:2022-clang11.10](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang11.10)
+## [aswf/ci-openvdb:2022-clang11.11](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang11.11)
 
 Contains:
 * boost-1.76.0
@@ -138,15 +138,15 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.9.11
+* python-3.9.15
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.5.0
+* blosc-1.17.0
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-openvdb:2022-clang12.1](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang12.1)
+## [aswf/ci-openvdb:2022-clang12.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang12.2)
 
 Contains:
 * boost-1.76.0
@@ -154,15 +154,15 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.9.11
+* python-3.9.15
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.5.0
+* blosc-1.17.0
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-openvdb:2022-clang13.1](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang13.1)
+## [aswf/ci-openvdb:2022-clang13.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang13.2)
 
 Contains:
 * boost-1.76.0
@@ -170,15 +170,15 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.9.11
+* python-3.9.15
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.5.0
+* blosc-1.17.0
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-openvdb:2022-clang14.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang14.0)
+## [aswf/ci-openvdb:2022-clang14.1](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang14.1)
 
 Contains:
 * boost-1.76.0
@@ -186,11 +186,11 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.9.11
+* python-3.9.15
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.5.0
+* blosc-1.17.0
 * numpy-1.20
 * vfxplatform-2022
 

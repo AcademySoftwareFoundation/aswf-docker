@@ -21,7 +21,7 @@ Warning: this image does *not* contain MaterialX itself as it is used to *build*
 ## [aswf/ci-materialx:2022.0](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2022.0)
 
 Contains:
-* python-3.9.11
+* python-3.9.15
 * pybind11-2.8.1
 * cmake-3.22.0
 * numpy-1.20
