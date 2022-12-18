@@ -71,7 +71,7 @@ jobs:
             test: ""
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Activate Docker buildx
       run: |
@@ -80,12 +80,15 @@ jobs:
         chmod a+x ~/.docker/cli-plugins/docker-buildx
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      if: ${{ matrix.build }}
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
-
-    - name: Install aswfdocker
-      run: python3 setup.py install
+        cache: 'pipenv'
+    - name: Install pipenv
+      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+    - name: Install aswfdocker and dependencies with pipenv
+      run: pipenv install
 
     - name: Free up disk space
       run: |
