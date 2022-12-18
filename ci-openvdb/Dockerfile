@@ -33,8 +33,6 @@ FROM ${ASWF_PKG_ORG}/ci-package-boost:$ASWF_VFXPLATFORM_VERSION-$ASWF_BOOST_VERS
 FROM ${ASWF_PKG_ORG}/ci-package-cmake:$ASWF_VFXPLATFORM_VERSION-$ASWF_CMAKE_VERSION as ci-package-cmake
 FROM ${ASWF_PKG_ORG}/ci-package-cppunit:$ASWF_VFXPLATFORM_VERSION-$ASWF_CPPUNIT_VERSION as ci-package-cppunit
 FROM ${ASWF_PKG_ORG}/ci-package-glfw:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLFW_VERSION as ci-package-glfw
-FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
-FROM ${ASWF_PKG_ORG}/ci-package-tbb:$ASWF_VFXPLATFORM_VERSION-$ASWF_TBB_VERSION as ci-package-tbb
 FROM ${ASWF_PKG_ORG}/ci-package-imath:$ASWF_VFXPLATFORM_VERSION-$ASWF_IMATH_VERSION as ci-package-imath
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENEXR_VERSION as ci-package-openexr
 FROM ${ASWF_PKG_ORG}/ci-package-blosc:$ASWF_VFXPLATFORM_VERSION-$ASWF_BLOSC_VERSION as ci-package-blosc
@@ -116,8 +114,6 @@ COPY --from=ci-package-boost /. /usr/local/
 COPY --from=ci-package-cmake /. /usr/local/
 COPY --from=ci-package-cppunit /. /usr/local/
 COPY --from=ci-package-glfw /. /usr/local/
-COPY --from=ci-package-python /. /usr/local/
-COPY --from=ci-package-tbb /. /usr/local/
 COPY --from=ci-package-imath /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-blosc /. /usr/local/
@@ -143,8 +139,8 @@ COPY <<EOF /usr/local/conanfile.txt
 gtest/${ASWF_GTEST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}

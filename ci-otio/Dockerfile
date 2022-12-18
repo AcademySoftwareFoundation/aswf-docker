@@ -23,7 +23,6 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
 # Comment out this block to use Conan packages
-FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
 FROM ${ASWF_PKG_ORG}/ci-package-cmake:$ASWF_VFXPLATFORM_VERSION-$ASWF_CMAKE_VERSION as ci-package-cmake
 FROM ${ASWF_PKG_ORG}/ci-package-qt:$ASWF_VFXPLATFORM_VERSION-$ASWF_QT_VERSION as ci-package-qt
 FROM ${ASWF_PKG_ORG}/ci-package-pyside:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYSIDE_VERSION as ci-package-pyside
@@ -83,7 +82,6 @@ ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
 # Comment out this block to use Conan packages
-COPY --from=ci-package-python /. /usr/local/
 COPY --from=ci-package-cmake /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
 COPY --from=ci-package-pyside /. /usr/local/
@@ -105,7 +103,7 @@ COPY <<EOF /usr/local/conanfile.txt
 ., * -> .
 [requires]
 # Uncomment to use Conan packages instead of Docker ones
-# python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}

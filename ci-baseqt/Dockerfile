@@ -35,8 +35,6 @@ FROM ${ASWF_PKG_ORG}/ci-package-cppunit:$ASWF_VFXPLATFORM_VERSION-$ASWF_CPPUNIT_
 FROM ${ASWF_PKG_ORG}/ci-package-glew:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLEW_VERSION as ci-package-glew
 FROM ${ASWF_PKG_ORG}/ci-package-glfw:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLFW_VERSION as ci-package-glfw
 FROM ${ASWF_PKG_ORG}/ci-package-log4cplus:$ASWF_VFXPLATFORM_VERSION-$ASWF_LOG4CPLUS_VERSION as ci-package-log4cplus
-FROM ${ASWF_PKG_ORG}/ci-package-python:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYTHON_VERSION as ci-package-python
-FROM ${ASWF_PKG_ORG}/ci-package-tbb:$ASWF_VFXPLATFORM_VERSION-$ASWF_TBB_VERSION as ci-package-tbb
 FROM ${ASWF_PKG_ORG}/ci-package-qt:$ASWF_VFXPLATFORM_VERSION-$ASWF_QT_VERSION as ci-package-qt
 FROM ${ASWF_PKG_ORG}/ci-package-pyside:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYSIDE_VERSION as ci-package-pyside
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-baseqt
@@ -118,8 +116,6 @@ COPY --from=ci-package-cppunit /. /usr/local/
 COPY --from=ci-package-glew /. /usr/local/
 COPY --from=ci-package-glfw /. /usr/local/
 COPY --from=ci-package-log4cplus /. /usr/local/
-COPY --from=ci-package-python /. /usr/local/
-COPY --from=ci-package-tbb /. /usr/local/
 COPY --from=ci-package-qt /. /usr/local/
 COPY --from=ci-package-pyside /. /usr/local/
 COPY ci-baseqt/README.md ci-baseqt/image.yaml /usr/local/aswf/
@@ -145,8 +141,8 @@ COPY <<EOF /usr/local/conanfile.txt
 # glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # log4cplus/${ASWF_LOG4CPLUS_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF

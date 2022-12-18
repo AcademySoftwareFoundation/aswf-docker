@@ -167,16 +167,16 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.11
+* python-3.9.15
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.16.0
+* oiio-2.4.5.0
 * ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
-* blosc-1.5.0
-* openvdb-9.0.0
+* blosc-1.17.0
+* openvdb-9.1.0
 * numpy-1.20
 * vfxplatform-2022
 
@@ -185,16 +185,16 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.11
+* python-3.9.15
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.16.0
+* oiio-2.4.5.0
 * ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
-* blosc-1.5.0
-* openvdb-9.0.0
+* blosc-1.17.0
+* openvdb-9.1.0
 * numpy-1.20
 * vfxplatform-2022
 
@@ -203,16 +203,16 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.11
+* python-3.9.15
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.16.0
+* oiio-2.4.5.0
 * ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
-* blosc-1.5.0
-* openvdb-9.0.0
+* blosc-1.17.0
+* openvdb-9.1.0
 * numpy-1.20
 * vfxplatform-2022
 
@@ -221,16 +221,16 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.11
+* python-3.9.15
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.16.0
+* oiio-2.4.5.0
 * ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
-* blosc-1.5.0
-* openvdb-9.0.0
+* blosc-1.17.0
+* openvdb-9.1.0
 * numpy-1.20
 * vfxplatform-2022
 
@@ -239,16 +239,16 @@ Contains:
 Contains:
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.11
+* python-3.9.15
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.3.16.0
+* oiio-2.4.5.0
 * ocio-2.1.1
 * partio-1.14.0
 * tbb-2020_U3
-* blosc-1.5.0
-* openvdb-9.0.0
+* blosc-1.17.0
+* openvdb-9.1.0
 * numpy-1.20
 * vfxplatform-2022
 

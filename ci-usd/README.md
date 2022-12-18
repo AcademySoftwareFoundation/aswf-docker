@@ -96,7 +96,7 @@ Contains:
 ## [aswf/ci-usd:2022.3](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2022.3)
 
 Contains:
-* python-3.9.11
+* python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
 * glew-2.1.0
@@ -106,15 +106,15 @@ Contains:
 * pyside-5.15.2
 * cmake-3.22.0
 * imath-3.1.5
-* materialx-1.38.0
+* materialx-1.38.5
 * openexr-3.1.5
-* oiio-2.3.16.0
+* oiio-2.4.5.0
 * ocio-2.1.1
 * ptex-2.4.0
 * opensubdiv-3_4_4
 * alembic-1.8.2
-* blosc-1.5.0
-* openvdb-9.0.0
+* blosc-1.17.0
+* openvdb-9.1.0
 * numpy-1.20
 * hdf5-1.8.21
 * vfxplatform-2022

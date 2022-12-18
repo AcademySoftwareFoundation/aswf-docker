@@ -132,12 +132,21 @@ class PythonConan(ConanFile):
             self.run(f"{py_exe} get-pip.py")
 
             # Replace first line of pip to fix the hardcoded shebang line
-            pip_exe = os.path.join(os.path.join(self.package_folder, "bin"), "pip")
-            with open(pip_exe) as f:
-                lines = f.readlines()
-            lines[0] = "#!/usr/bin/env python3\n"
-            with open(pip_exe, "w") as f:
-                f.writelines(lines)
+            def _replaceShebang(script_prefix):
+                script_folder = os.path.join(self.package_folder, "bin")
+                for name in os.listdir(script_folder):
+                    if not name.startswith(script_prefix):
+                        continue
+                    script = os.path.join(script_folder, name)
+                    with open(script) as f:
+                        lines = f.readlines()
+                    lines[0] = "#!/usr/bin/env python3\n"
+                    with open(script, "w") as f:
+                        f.writelines(lines)
+
+            _replaceShebang("pip")
+            _replaceShebang("wheel")
+            _replaceShebang("2to3-")
 
             self.run(f"{py_exe} -m pip install nose coverage docutils epydoc")
             if self.options.get_safe("with_numpy"):
