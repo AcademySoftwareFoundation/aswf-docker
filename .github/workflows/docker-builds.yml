@@ -80,7 +80,6 @@ jobs:
         chmod a+x ~/.docker/cli-plugins/docker-buildx
 
     - name: Set up Python
-      if: ${{ matrix.build }}
       uses: actions/setup-python@v4
       with:
         python-version: 3.9
