@@ -103,6 +103,8 @@ COPY --from=ci-package-{{ package }} /. /usr/local/
 
 COPY ci-{{name}}/README.md ci-{{name}}/image.yaml /usr/local/aswf/
 
+{{ docker_commands }}
+
 {% for package in packages + implicit_packages -%}
 {{ index.package_data(package).get("docker_commands", "") -}}
 {% endfor -%}
@@ -133,5 +135,4 @@ cd /usr/local/
 conan install .
 EOF
 
-{{ docker_commands }}
-
+{{ docker_post_commands }}

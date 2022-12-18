@@ -201,6 +201,8 @@ COPY --from=ci-package-osl /. /usr/local/
 COPY --from=ci-package-otio /. /usr/local/
 COPY ci-vfxall/README.md ci-vfxall/image.yaml /usr/local/aswf/
 
+
+
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
 
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
@@ -241,5 +243,4 @@ RUN <<EOF
 cd /usr/local/
 conan install .
 EOF
-
 

@@ -13,5 +13,5 @@ implicit_packages:
   - vfxplatform
 docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
 docker_package_version: $ASWF_VFXPLATFORM_VERSION
-docker_commands: |
+docker_post_commands: |
   RUN sudo pip3 install flake8 tox urllib3

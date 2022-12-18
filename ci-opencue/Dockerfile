@@ -74,6 +74,14 @@ ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 COPY --from=ci-package-cmake /. /usr/local/
 COPY ci-opencue/README.md ci-opencue/image.yaml /usr/local/aswf/
 
+RUN sudo yum -y install \
+    java-11-openjdk.x86_64 \
+    java-11-openjdk-devel.x86_64
+RUN sudo alternatives --set java java-11-openjdk.x86_64 && \
+    sudo alternatives --set javac java-11-openjdk.x86_64 && \
+    sudo alternatives --set jre_openjdk java-11-openjdk.x86_64
+
+
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
 
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
@@ -93,11 +101,4 @@ RUN <<EOF
 cd /usr/local/
 conan install .
 EOF
-
-RUN sudo yum -y install \
-    java-11-openjdk.x86_64 \
-    java-11-openjdk-devel.x86_64
-RUN sudo alternatives --set java java-11-openjdk.x86_64 && \
-    sudo alternatives --set javac java-11-openjdk.x86_64 && \
-    sudo alternatives --set jre_openjdk java-11-openjdk.x86_64
 
