@@ -75,7 +75,7 @@ ENV ASWF_BOOST_VERSION=${ASWF_BOOST_VERSION}
 COPY packages/conan/data/ /opt/conan_home/d/
 COPY packages/conan/settings/ /opt/conan_home/.conan/
 
-# Use conan to install MaterialX
+# Use conan to install some packages
 COPY <<EOF /usr/local/conanfile.txt
 [generators]
 [imports]
@@ -88,10 +88,7 @@ EOF
 
 RUN <<EOF
 cd /usr/local/
-cat /usr/local/conanfile.txt
 conan install .
-# Replace first line of pip to fix the hardcoded shebang line
-sed -i "1s/.*/\#\!\/usr\/bin\/env python3/" /usr/local/bin/pip
 EOF
 
 COPY ../scripts/common/before_build.sh \

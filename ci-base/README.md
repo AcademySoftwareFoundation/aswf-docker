@@ -76,7 +76,7 @@ Contains:
 * gtest-1.11.0
 * log4cplus-1.1.2
 * pybind11-2.8.1
-* python-3.9.11
+* python-3.9.15
 * tbb-2020_U3
 * numpy-1.20
 * vfxplatform-2022

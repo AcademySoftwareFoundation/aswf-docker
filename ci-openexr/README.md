@@ -48,7 +48,7 @@ Contains:
 ## [aswf/ci-openexr:2022.2](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2022.2)
 
 Contains:
-* python-3.9.11
+* python-3.9.15
 * boost-1.76.0
 * cmake-3.22.0
 * numpy-1.20
