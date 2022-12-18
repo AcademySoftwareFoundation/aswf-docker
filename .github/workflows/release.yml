@@ -27,7 +27,7 @@ jobs:
             push_description: false
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Login to DockerHub
       if: ${{ matrix.build }}
@@ -44,13 +44,14 @@ jobs:
 
     - name: Set up Python
       if: ${{ matrix.build }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
-
-    - name: Install aswfdocker
-      if: ${{ matrix.build }}
-      run: python3 setup.py install
+        cache: 'pipenv'
+    - name: Install pipenv
+      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+    - name: Install aswfdocker and dependencies with pipenv
+      run: pipenv install
 
     - name: Build and Push
       if: ${{ matrix.build }}
