@@ -95,7 +95,6 @@ ENV {{ arg }}=${{ arg }}
 {% endfor -%}
 {% endfor %}
 
-# Comment out this block to use Conan packages
 {% for package in packages -%}
 {% if not index.is_conan_only_package(package) -%}
 COPY --from=ci-package-{{ package }} /. /usr/local/
@@ -103,8 +102,6 @@ COPY --from=ci-package-{{ package }} /. /usr/local/
 {% endfor -%}
 
 COPY ci-{{name}}/README.md ci-{{name}}/image.yaml /usr/local/aswf/
-
-{{ docker_commands }}
 
 {% for package in packages + implicit_packages -%}
 {{ index.package_data(package).get("docker_commands", "") -}}
@@ -116,14 +113,12 @@ RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
 {% endif %}
 
-
 # conan-only packages
 COPY <<EOF /usr/local/conanfile.txt
 [generators]
 [imports]
 ., * -> .
 [requires]
-# Uncomment to use Conan packages instead of Docker ones
 {% for package in packages -%}
 {% if index.is_conan_only_package(package) -%}
 {{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
@@ -137,3 +132,6 @@ RUN <<EOF
 cd /usr/local/
 conan install .
 EOF
+
+{{ docker_commands }}
+

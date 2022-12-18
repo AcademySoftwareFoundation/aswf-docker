@@ -109,7 +109,6 @@ ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
 ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
-# Comment out this block to use Conan packages
 COPY --from=ci-package-boost /. /usr/local/
 COPY --from=ci-package-cmake /. /usr/local/
 COPY --from=ci-package-cppunit /. /usr/local/
@@ -119,12 +118,9 @@ COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-blosc /. /usr/local/
 COPY ci-openvdb/README.md ci-openvdb/image.yaml /usr/local/aswf/
 
-
-
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
 
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
-
 
 
 # conan-only packages
@@ -133,7 +129,6 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
-# Uncomment to use Conan packages instead of Docker ones
 # boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 gtest/${ASWF_GTEST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
@@ -150,3 +145,5 @@ RUN <<EOF
 cd /usr/local/
 conan install .
 EOF
+
+
