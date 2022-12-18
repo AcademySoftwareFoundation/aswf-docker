@@ -107,7 +107,7 @@ jobs:
 
     - run: |
         set -ex
-        aswfdocker \
+        pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
           --source-branch $GITHUB_REF \
           --verbose \
@@ -120,7 +120,7 @@ jobs:
 
     - run: |
         set -ex
-        aswfdocker \
+        pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
           --source-branch $GITHUB_REF \
           --verbose \
