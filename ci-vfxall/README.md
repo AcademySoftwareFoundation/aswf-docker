@@ -222,7 +222,7 @@ Contains:
 * usd-22.11
 * partio-1.14.0
 * osl-1.12.7.0
-* otio-0.15
+* otio-0.14.1
 * numpy-1.20
 * hdf5-1.8.21
 * vfxplatform-2022
@@ -252,7 +252,7 @@ Contains:
 * usd-22.11
 * partio-1.14.0
 * osl-1.12.7.0
-* otio-0.15
+* otio-0.14.1
 * numpy-1.20
 * hdf5-1.8.21
 * vfxplatform-2022
@@ -282,7 +282,7 @@ Contains:
 * usd-22.11
 * partio-1.14.0
 * osl-1.12.7.0
-* otio-0.15
+* otio-0.14.1
 * numpy-1.20
 * hdf5-1.8.21
 * vfxplatform-2022
@@ -312,7 +312,7 @@ Contains:
 * usd-22.11
 * partio-1.14.0
 * osl-1.12.7.0
-* otio-0.15
+* otio-0.14.1
 * numpy-1.20
 * hdf5-1.8.21
 * vfxplatform-2022
@@ -342,7 +342,7 @@ Contains:
 * usd-22.11
 * partio-1.14.0
 * osl-1.12.7.0
-* otio-0.15
+* otio-0.14.1
 * numpy-1.20
 * hdf5-1.8.21
 * vfxplatform-2022
