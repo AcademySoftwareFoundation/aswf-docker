@@ -71,22 +71,12 @@ ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
 ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
-# Comment out this block to use Conan packages
 COPY --from=ci-package-cmake /. /usr/local/
 COPY ci-opencue/README.md ci-opencue/image.yaml /usr/local/aswf/
-
-RUN sudo yum -y install \
-    java-11-openjdk.x86_64 \
-    java-11-openjdk-devel.x86_64
-RUN sudo alternatives --set java java-11-openjdk.x86_64 && \
-    sudo alternatives --set javac java-11-openjdk.x86_64 && \
-    sudo alternatives --set jre_openjdk java-11-openjdk.x86_64
-
 
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
 
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
-
 
 
 # conan-only packages
@@ -95,7 +85,6 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
-# Uncomment to use Conan packages instead of Docker ones
 python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
@@ -104,3 +93,11 @@ RUN <<EOF
 cd /usr/local/
 conan install .
 EOF
+
+RUN sudo yum -y install \
+    java-11-openjdk.x86_64 \
+    java-11-openjdk-devel.x86_64
+RUN sudo alternatives --set java java-11-openjdk.x86_64 && \
+    sudo alternatives --set javac java-11-openjdk.x86_64 && \
+    sudo alternatives --set jre_openjdk java-11-openjdk.x86_64
+

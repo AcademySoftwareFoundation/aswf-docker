@@ -77,10 +77,28 @@ ENV ASWF_CONAN_VERSION=$ASWF_CONAN_VERSION
 ENV ASWF_CONAN_PYTHON_VERSION=$ASWF_CONAN_PYTHON_VERSION
 
 
-# Comment out this block to use Conan packages
 COPY --from=ci-package-clang /. /usr/local/
 COPY --from=ci-package-ninja /. /usr/local/
 COPY ci-common/README.md ci-common/image.yaml /usr/local/aswf/
+
+
+RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
+
+
+# conan-only packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+# clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF
 
 USER root
 
@@ -124,24 +142,3 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
 COPY ../packages/conan/settings /opt/conan_home/.conan
 ENV CONAN_USER_HOME=/opt/conan_home
 
-
-
-RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
-
-
-
-# conan-only packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-# Uncomment to use Conan packages instead of Docker ones
-# clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN <<EOF
-cd /usr/local/
-conan install .
-EOF
