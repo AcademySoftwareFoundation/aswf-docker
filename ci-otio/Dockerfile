@@ -87,7 +87,7 @@ COPY --from=ci-package-qt /. /usr/local/
 COPY --from=ci-package-pyside /. /usr/local/
 COPY ci-otio/README.md ci-otio/image.yaml /usr/local/aswf/
 
-RUN sudo pip install flake8 tox urllib3
+RUN sudo pip3 install flake8 tox urllib3
 
 
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
