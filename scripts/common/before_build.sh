@@ -6,5 +6,4 @@ set -ex
 
 rm -rf /package
 
-cd "${ASWF_INSTALL_PREFIX}"
-find . -type f -o -type l | cut -c3- > /tmp/previous-prefix-files.txt
+find "${ASWF_INSTALL_PREFIX}" -type f -o -type l -exec realpath {} | cut -c3- > /tmp/previous-prefix-files.txt
