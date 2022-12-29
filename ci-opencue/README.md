@@ -42,7 +42,7 @@ Contains:
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-opencue:2022.2](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2022.2)
+## [aswf/ci-opencue:2022.3](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2022.3)
 
 Contains:
 * python-3.9.15

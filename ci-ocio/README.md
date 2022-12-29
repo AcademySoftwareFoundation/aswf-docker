@@ -78,7 +78,7 @@ Contains:
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-ocio:2022.3](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2022.3)
+## [aswf/ci-ocio:2022.4](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2022.4)
 
 Contains:
 * python-3.9.15

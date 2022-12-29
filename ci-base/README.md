@@ -65,7 +65,7 @@ Contains:
 * numpy-1.19
 * vfxplatform-2021
 
-## [aswf/ci-base:2022.3](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2022.3)
+## [aswf/ci-base:2022.4](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2022.4)
 
 Contains:
 * boost-1.76.0
