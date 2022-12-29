@@ -28,6 +28,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+        cache: 'pipenv'
+    - name: Install pipenv
+      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+    - name: Install aswfdocker and dependencies with pipenv
+      run: pipenv install
 
     - name: Login to DockerHub
       if: ${{ matrix.build }}
@@ -41,17 +50,6 @@ jobs:
         chmod a+x ~/.docker/cli-plugins/docker-buildx
         docker buildx create --name forpushing --use
         docker buildx inspect --bootstrap
-
-    - name: Set up Python
-      if: ${{ matrix.build }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-        cache: 'pipenv'
-    - name: Install pipenv
-      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-    - name: Install aswfdocker and dependencies with pipenv
-      run: pipenv install
 
     - name: Build and Push
       if: ${{ matrix.build }}
