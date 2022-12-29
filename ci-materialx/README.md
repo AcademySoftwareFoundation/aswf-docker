@@ -18,7 +18,7 @@ Warning: this image does *not* contain MaterialX itself as it is used to *build*
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-materialx/Dockerfile)
 
-## [aswf/ci-materialx:2022.0](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2022.0)
+## [aswf/ci-materialx:2022.1](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2022.1)
 
 Contains:
 * python-3.9.15
