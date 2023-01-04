@@ -77,6 +77,8 @@ LABEL io.aswf.docker.versions.{{ package }}="$ASWF_{{ package.upper() }}_VERSION
 
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
+ENV ASWF_INSTALL_PREFIX=/usr/local
+
 {% if name != "common" %}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 {% endif %}
