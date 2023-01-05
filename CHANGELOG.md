@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2023-01-06
+
+* Updated 2022 Packages
+  * Blosc 1.17.0 (from 1.5.0)
+  * MaterialX 1.38.5 (from 1.38.0)
+  * OpenImageIO 2.4.5.0 (from 2.3.16.0)
+  * OpenVDB 9.1.0 (from 9.0.0)
+  * OpenShadingLanguage 1.12.7.0 (from 1.11.17.0)
+  * Python 3.9.15 (from 3.9.11)
+  * USD 22.11 (from 22.05a)
+* Use conan build of TBB to fix #159
+* Use conan build of Python to fix #160
+* Updated github action versions (with new pipenv cache)
+
+### New CI Images
+
+* `aswf/ci-base:2022.4`
+* `aswf/ci-baseqt:2022.4`
+* `aswf/ci-opencue:2022.3`
+* `aswf/ci-openexr:2022.3`
+* `aswf/ci-ocio:2022.4`
+* `aswf/ci-otio:2022.3`
+* `aswf/ci-materialx:2022.1`
+* `aswf/ci-usd:2022.4`
+* `aswf/ci-osl:2022-clang10.11`, `aswf/ci-osl:2022-clang11.11`, `aswf/ci-osl:2022-clang12.2`, `aswf/ci-osl:2022-clang13.2`, `aswf/ci-osl:2022-clang14.1`
+* `aswf/ci-openvdb:2022-clang10.12`, `aswf/ci-openvdb:2022-clang11.12`, `aswf/ci-openvdb:2022-clang12.3`, `aswf/ci-openvdb:2022-clang13.3`, `aswf/ci-openvdb:2022-clang14.2`
+* `aswf/ci-vfxall:2022-clang10.12`, `aswf/ci-vfxall:2022-clang11.12`, `aswf/ci-vfxall:2022-clang12.3`, `aswf/ci-vfxall:2022-clang13.3`, `aswf/ci-vfxall:2022-clang14.2`
+
 ## 2022-06-06
 
 * Updated ci-common-v2 to CentOS-7.9 and CUDA-11.4
