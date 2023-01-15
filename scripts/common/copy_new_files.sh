@@ -6,5 +6,5 @@ set -ex
 
 mkdir -p /package
 
-find "${ASWF_INSTALL_PREFIX}" -type l -o -type f -exec realpath {} | cut -c3- > /tmp/new-prefix-files.txt
-rsync -av --files-from=/tmp/new-prefix-files.txt --exclude-from=/tmp/previous-prefix-files.txt "${ASWF_INSTALL_PREFIX}" /package/
+cd "${ASWF_INSTALL_PREFIX}"
+rsync -arv --exclude-from=/tmp/previous-prefix-files.txt --prune-empty-dirs "${ASWF_INSTALL_PREFIX}"/ /package/
