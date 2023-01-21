@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2023-01-21
+
+* Added missing MaterialX to `ci-vfxall`
+
+### New CI Images
+
+* `aswf/ci-vfxall:2022-clang10.13`, `aswf/ci-vfxall:2022-clang11.13`, `aswf/ci-vfxall:2022-clang12.4`, `aswf/ci-vfxall:2022-clang13.4`, `aswf/ci-vfxall:2022-clang14.3`
+
 ## 2023-01-06
 
 * Updated 2022 Packages
