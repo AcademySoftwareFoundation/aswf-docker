@@ -539,11 +539,11 @@ ci-images:
     - "2019-clang9.12"
     - "2020-clang7.10"
     - "2021-clang10.7"
-    - "2022-clang10.12"
-    - "2022-clang11.12"
-    - "2022-clang12.3"
-    - "2022-clang13.3"
-    - "2022-clang14.2"
+    - "2022-clang10.13"
+    - "2022-clang11.13"
+    - "2022-clang12.4"
+    - "2022-clang13.4"
+    - "2022-clang14.3"
 
 groups:
   package:
