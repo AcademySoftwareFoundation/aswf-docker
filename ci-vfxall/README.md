@@ -197,7 +197,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2021
 
-## [aswf/ci-vfxall:2022-clang10.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang10.12)
+## [aswf/ci-vfxall:2022-clang10.13](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang10.13)
 
 Contains:
 * python-3.9.15
@@ -219,6 +219,7 @@ Contains:
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
+* materialx-1.38.5
 * usd-22.11
 * partio-1.14.0
 * osl-1.12.7.0
@@ -227,7 +228,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2022
 
-## [aswf/ci-vfxall:2022-clang11.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang11.12)
+## [aswf/ci-vfxall:2022-clang11.13](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang11.13)
 
 Contains:
 * python-3.9.15
@@ -249,6 +250,7 @@ Contains:
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
+* materialx-1.38.5
 * usd-22.11
 * partio-1.14.0
 * osl-1.12.7.0
@@ -257,7 +259,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2022
 
-## [aswf/ci-vfxall:2022-clang12.3](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang12.3)
+## [aswf/ci-vfxall:2022-clang12.4](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang12.4)
 
 Contains:
 * python-3.9.15
@@ -279,6 +281,7 @@ Contains:
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
+* materialx-1.38.5
 * usd-22.11
 * partio-1.14.0
 * osl-1.12.7.0
@@ -287,7 +290,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2022
 
-## [aswf/ci-vfxall:2022-clang13.3](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang13.3)
+## [aswf/ci-vfxall:2022-clang13.4](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang13.4)
 
 Contains:
 * python-3.9.15
@@ -309,6 +312,7 @@ Contains:
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
+* materialx-1.38.5
 * usd-22.11
 * partio-1.14.0
 * osl-1.12.7.0
@@ -317,7 +321,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2022
 
-## [aswf/ci-vfxall:2022-clang14.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang14.2)
+## [aswf/ci-vfxall:2022-clang14.3](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang14.3)
 
 Contains:
 * python-3.9.15
@@ -339,6 +343,7 @@ Contains:
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
+* materialx-1.38.5
 * usd-22.11
 * partio-1.14.0
 * osl-1.12.7.0
