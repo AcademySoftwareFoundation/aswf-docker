@@ -21,10 +21,15 @@ ARG ASWF_CONAN_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
 
 
+
+ARG ASWF_BASEOS_VERSION
+ARG ASWF_BASEOS_REPOSITORY
+
+
 # Comment out this block to use Conan packages
 FROM ${ASWF_PKG_ORG}/ci-package-clang:$CI_COMMON_VERSION-$ASWF_CLANG_VERSION as ci-package-clang
 FROM ${ASWF_PKG_ORG}/ci-package-ninja:$CI_COMMON_VERSION-$ASWF_NINJA_VERSION as ci-package-ninja
-FROM nvidia/cudagl:${ASWF_CUDA_VERSION}-devel-centos7 as ci-common
+FROM ${ASWF_BASEOS_REPOSITORY}:${ASWF_CUDA_VERSION}-devel-${ASWF_BASEOS_VERSION} as ci-common
 
 
 ARG ASWF_ORG
@@ -93,6 +98,7 @@ RUN /tmp/install_yumpackages.sh
 RUN mkdir /opt/aswf
 WORKDIR /opt/aswf
 
+# FIXME: don't need special git in the path
 ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/httpd24/root/usr/lib64:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
     PATH=/opt/rh/rh-git218/root/usr/bin:/usr/local/bin:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
     PERL5LIB=/opt/rh/rh-git218/root/usr/share/perl5/vendor_perl \

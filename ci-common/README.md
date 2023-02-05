@@ -127,3 +127,14 @@ Contains:
 * sonar-4.7.0.2747
 * conan-1.47.0
 
+## [aswf/ci-common:3-clang14.0](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=3-clang14.0)
+
+Contains:
+* clang-14.0.6
+* ninja-1.11.1
+* cuda-11.8.0
+* ccache-4.7.4
+* dts-11
+* sonar-4.8.0.2856
+* conan-1.58.0
+

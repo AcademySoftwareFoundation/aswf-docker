@@ -252,3 +252,21 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
+## [aswf/ci-osl:2023-clang14.0](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2023-clang14.0)
+
+Contains:
+* boost-1.80.0
+* cmake-3.22.0
+* python-3.10.9
+* qt-5.15.2
+* imath-3.1.5
+* openexr-3.1.5
+* oiio-2.4.8.0
+* ocio-2.2.1
+* partio-1.14.6
+* tbb-2020_U3
+* blosc-1.17.0
+* openvdb-10.0.1
+* numpy-1.23.5
+* vfxplatform-2023
+

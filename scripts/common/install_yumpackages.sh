@@ -4,13 +4,24 @@
 
 set -ex
 
+# Rocky 8 needs PowerTools and Devel repos enabled for some of these packages
+
+BASEOS_MAJORVERSION=$(sed -n  's/^.* release \([0-9]*\)\..*$/\1/p' /etc/redhat-release)
+if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
+    dnf -y install 'dnf-command(config-manager)'
+    dnf config-manager --set-enabled powertools
+    dnf config-manager --set-enabled devel
+    # Rocky 8 base image doesn't have a system Python (3), install and make default
+    dnf -y install python3
+    alternatives --set python /usr/bin/python3 
+fi
+
 yum install --setopt=tsflags=nodocs -y \
     alsa-lib \
     alsa-lib-devel \
     alsa-plugins-pulseaudio \
     alsa-utils \
     at-spi2-core-devel \
-    audiofile-devel \
     autoconf \
     automake \
     bison \
@@ -23,7 +34,6 @@ yum install --setopt=tsflags=nodocs -y \
     dbus-devel \
     doxygen \
     expat-devel \
-    fam \
     file \
     flex \
     flite-devel \
@@ -34,6 +44,7 @@ yum install --setopt=tsflags=nodocs -y \
     freetype \
     freetype-devel \
     frei0r-devel \
+    gamin \
     gdbm-devel \
     giflib-devel \
     glib2-devel \
@@ -49,7 +60,6 @@ yum install --setopt=tsflags=nodocs -y \
     gtk2-devel \
     harfbuzz-devel \
     java-1.8.0-openjdk \
-    libbluray-devel \
     libcap-devel \
     libcdio-paranoia-devel \
     libcurl-devel \
@@ -129,7 +139,6 @@ yum install --setopt=tsflags=nodocs -y \
     ncurses-devel \
     nss \
     nss-devel \
-    openjpeg-devel \
     openjpeg2-devel \
     openssl-devel \
     opus-devel \
@@ -178,32 +187,62 @@ dbus-uuidgen > /etc/machine-id
 
 yum -y groupinstall "Development Tools"
 
-yum install -y --setopt=tsflags=nodocs centos-release-scl-rh
+if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
+    dnf -y install gcc-toolset-$ASWF_DTS_VERSION
+else
+    yum install -y --setopt=tsflags=nodocs centos-release-scl-rh
 
-if [[ $ASWF_DTS_VERSION == 6 ]]; then
-    # Use the centos vault as the original devtoolset-6 is not part of CentOS-7 anymore
-    sed -i 's/7/7.6.1810/g; s|^#\s*\(baseurl=http://\)mirror|\1vault|g; /mirrorlist/d' /etc/yum.repos.d/CentOS-SCLo-*.repo
+    if [[ $ASWF_DTS_VERSION == 6 ]]; then
+        # Use the centos vault as the original devtoolset-6 is not part of CentOS-7 anymore
+        sed -i 's/7/7.6.1810/g; s|^#\s*\(baseurl=http://\)mirror|\1vault|g; /mirrorlist/d' /etc/yum.repos.d/CentOS-SCLo-*.repo
+    fi
+
+    # Workaround for occasional error: "Not using downloaded centos-sclo-rh/repomd.xml because it is older than what we have"
+    yum clean all
+
+    yum install -y --setopt=tsflags=nodocs \
+        "devtoolset-$ASWF_DTS_VERSION-toolchain"
 fi
-
-# Workaround for occasional error: "Not using downloaded centos-sclo-rh/repomd.xml because it is older than what we have"
-yum clean all
-
-yum install -y --setopt=tsflags=nodocs \
-    "devtoolset-$ASWF_DTS_VERSION-toolchain"
 
 yum install -y epel-release
 
-# Additional package that are not found initially
+# Additional packages that are not found initially
 yum install -y \
-    rh-git218 \
+    audiofile-devel \
     lame-devel \
     libcaca-devel \
-    libdb4-devel \
-    libdc1394-devel \
     opencl-headers \
-    openssl11-devel \
     p7zip \
-    yasm-devel \
     zvbi-devel
+
+if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
+    # Rocky 8 has git 2.31 and OpenSSL 1.1.1k by default
+    dnf -y install \
+        git \
+        https://koji.mbox.centos.org/pkgs/packages/libbluray/1.0.2/3.el8/x86_64/libbluray-devel-1.0.2-3.el8.x86_64.rpm \
+        https://koji.mbox.centos.org/pkgs/packages/libdc1394/2.2.2/10.el8/x86_64/libdc1394-devel-2.2.2-10.el8.x86_64.rpm \
+        https://koji.mbox.centos.org/pkgs/packages/yasm/1.3.0/7.el8/x86_64/yasm-devel-1.3.0-7.el8.x86_64.rpm
+    # If we really wanted libdb4 / libdb4-devel
+    # dnf -y install
+    #    https://pkgs.dyn.su/el8/base/x86_64/libdb4-4.8.30-30.el8.x86_64.rpm
+    #    https://pkgs.dyn.su/el8/base/x86_64/libdb4-devel-4.8.30-30.el8.x86_64.rpm
+    # If we really wanted openjpeg / openjpeg-libs / openjpeg-devel
+    # dnf -y install
+    #    https://pkgs.dyn.su/el8/base/x86_64/openjpeg-1.5.2-1.el8.x86_64.rpm
+    #    https://pkgs.dyn.su/el8/base/x86_64/openjpeg-libs-1.5.2-1.el8.x86_64.rpm
+    #    https://pkgs.dyn.su/el8/base/x86_64/openjpeg-devel-1.5.2-1.el8.x86_64.rpm
+
+    # Make Python 3 the default Python
+    alternatives --set python /usr/bin/python3
+else
+    yum install -y \
+        libbluray-devel \
+        libdb4-devel \
+        libdc1394-devel \
+        openjpeg-devel \
+        openssl11-devel \
+        rh-git218 \
+        yasm-devel
+fi
 
 yum clean all

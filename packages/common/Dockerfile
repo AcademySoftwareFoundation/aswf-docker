@@ -13,10 +13,12 @@ ARG ASWF_CLANG_VERSION
 ARG ASWF_CUDA_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_NINJA_VERSION
+ARG ASWF_BASEOS_VERSION
+ARG ASWF_BASEOS_REPOSITORY
 
 
-#################### ci-centos7-gl-os ####################
-FROM nvidia/cudagl:${ASWF_CUDA_VERSION}-devel-centos7 as ci-centos7-gl-os
+#################### ci-baseos-gl-os ####################
+FROM ${ASWF_BASEOS_REPOSITORY}:${ASWF_CUDA_VERSION}-devel-${ASWF_BASEOS_VERSION} as ci-baseos-gl-os
 
 ARG CI_COMMON_VERSION
 ENV CI_COMMON_VERSION=${CI_COMMON_VERSION}
@@ -48,8 +50,8 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     /tmp/install_dev_ccache.sh
 
 
-#################### ci-centos7-gl-conan ####################
-FROM ci-centos7-gl-os as ci-centos7-gl-conan
+#################### ci-baseos-gl-conan ####################
+FROM ci-baseos-gl-os as ci-baseos-gl-conan
 
 ARG ASWF_CONAN_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
@@ -64,7 +66,7 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
 
 
 #################### ci-clang-builder ####################
-FROM ci-centos7-gl-os as ci-clang-builder
+FROM ci-baseos-gl-os as ci-clang-builder
 ARG ASWF_CLANG_VERSION
 ENV ASWF_CLANG_VERSION=${ASWF_CLANG_VERSION}
 
@@ -106,7 +108,7 @@ COPY --from=ci-clang-builder /package/. /
 
 
 #################### ci-ninja-builder ####################
-FROM ci-centos7-gl-os as ci-ninja-builder
+FROM ci-baseos-gl-os as ci-ninja-builder
 
 ARG ASWF_NINJA_VERSION
 ENV ASWF_NINJA_VERSION=${ASWF_NINJA_VERSION}
