@@ -81,3 +81,19 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
+## [aswf/ci-base:2023.0](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2023.0)
+
+Contains:
+* boost-1.80.0
+* cmake-3.22.0
+* cppunit-1.15.1
+* glew-2.1.0
+* glfw-3.1.2
+* gtest-1.11.0
+* log4cplus-1.1.2
+* pybind11-2.8.1
+* python-3.10.9
+* tbb-2020_U3
+* numpy-1.23.5
+* vfxplatform-2023
+

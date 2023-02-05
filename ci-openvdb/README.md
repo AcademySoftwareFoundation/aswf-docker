@@ -194,3 +194,19 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
+## [aswf/ci-openvdb:2023-clang14.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang14.0)
+
+Contains:
+* boost-1.80.0
+* cmake-3.22.0
+* gtest-1.11.0
+* cppunit-1.15.1
+* glfw-3.1.2
+* python-3.10.9
+* tbb-2020_U3
+* imath-3.1.5
+* openexr-3.1.5
+* blosc-1.17.0
+* numpy-1.23.5
+* vfxplatform-2023
+

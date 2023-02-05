@@ -27,6 +27,11 @@ ARG {{ arg }}
 {% endfor -%}
 {% endfor %}
 
+{% if name == "common" %}
+ARG ASWF_BASEOS_VERSION
+ARG ASWF_BASEOS_REPOSITORY
+{% endif %}
+
 # Comment out this block to use Conan packages
 {% for package in packages -%}
 {% if not index.is_conan_only_package(package) -%}
