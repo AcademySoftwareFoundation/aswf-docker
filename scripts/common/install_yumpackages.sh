@@ -217,8 +217,10 @@ yum install -y \
 
 if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     # Rocky 8 has git 2.31 and OpenSSL 1.1.1k by default
+    # Recent Qt 5.15.x wants wayland-devel
     dnf -y install \
         git \
+        wayland-devel \
         https://koji.mbox.centos.org/pkgs/packages/libbluray/1.0.2/3.el8/x86_64/libbluray-devel-1.0.2-3.el8.x86_64.rpm \
         https://koji.mbox.centos.org/pkgs/packages/libdc1394/2.2.2/10.el8/x86_64/libdc1394-devel-2.2.2-10.el8.x86_64.rpm \
         https://koji.mbox.centos.org/pkgs/packages/yasm/1.3.0/7.el8/x86_64/yasm-devel-1.3.0-7.el8.x86_64.rpm

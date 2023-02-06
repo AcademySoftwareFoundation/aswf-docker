@@ -69,8 +69,8 @@ class TestBuilder(unittest.TestCase):
         self.assertEqual(
             baked["target"]["ci-package-qt-1"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-centos7-gl-conan:1",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-centos7-gl-conan:1",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-baseos-gl-conan:1",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-baseos-gl-conan:1",
             ],
         )
         self.assertEqual(
