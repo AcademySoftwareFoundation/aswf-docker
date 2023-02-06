@@ -59,7 +59,7 @@ class Builder:
                     tags = list(
                         map(
                             lambda tag: f"{constants.DOCKER_REGISTRY}/{self.build_info.docker_org}"
-                            + f"/ci-centos7-gl-conan:{tag}",
+                            + f"/ci-baseos-gl-conan:{tag}",
                             [version, major_version],
                         )
                     )
@@ -105,7 +105,7 @@ class Builder:
             }
             if self.group_info.type == constants.ImageType.PACKAGE:
                 if use_conan:
-                    target_dict["target"] = "ci-centos7-gl-conan"
+                    target_dict["target"] = "ci-baseos-gl-conan"
                 else:
                     target_dict["target"] = image
             root["target"][f"{image}-{major_version}"] = target_dict
@@ -184,7 +184,7 @@ class Builder:
             base_cmd.append(f"{name}:{value}")
         tag = (
             f"{constants.DOCKER_REGISTRY}/{self.build_info.docker_org}"
-            + f"/ci-centos7-gl-conan:{version_info.ci_common_version}"
+            + f"/ci-baseos-gl-conan:{version_info.ci_common_version}"
         )
         base_cmd.append(tag)
         return base_cmd
