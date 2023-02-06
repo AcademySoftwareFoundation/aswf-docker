@@ -20,9 +20,14 @@ if [[ $ASWF_QT_VERSION == 5.6.1 ]]; then
     tar xf ../qt561-webkit.tgz
     EXTRA_CONFIGURE_ARGS=-qt-xcb
 else
+    if [[ $ASWF_QT_VERSION == 5.15.2 ]]; then
+        QT_ARCHIVE_PREFIX="qt-everywhere-src-"
+    else
+        QT_ARCHIVE_PREFIX="qt-everywhere-opensource-src-"
+    fi
     QT_MAJOR_MINOR=$(echo "${ASWF_QT_VERSION}" | cut -d. -f-2)
     if [ ! -f "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz" ]; then
-        curl --location "http://download.qt.io/official_releases/qt/${QT_MAJOR_MINOR}/${ASWF_QT_VERSION}/single/qt-everywhere-src-${ASWF_QT_VERSION}.tar.xz" -o "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz"
+        curl --location "http://download.qt.io/official_releases/qt/${QT_MAJOR_MINOR}/${ASWF_QT_VERSION}/single/${QT_ARCHIVE_PREFIX}${ASWF_QT_VERSION}.tar.xz" -o "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz"
     fi
     tar xf "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz"
     mv "qt-everywhere-src-${ASWF_QT_VERSION}" qt-src
