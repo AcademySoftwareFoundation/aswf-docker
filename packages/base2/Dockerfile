@@ -16,8 +16,8 @@ ARG ASWF_VFXPLATFORM_VERSION
 FROM ${ASWF_ORG}/ci-package-cmake:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CMAKE_VERSION} as ci-package-cmake-external
 
 
-#################### ci-centos7-gl-packages ####################
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-centos7-gl-packages
+#################### ci-baseos-gl-packages ####################
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-baseos-gl-packages
 
 COPY --from=ci-package-cmake-external /. /usr/local/
 
@@ -31,7 +31,7 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
 
 
 #################### ci-qt-builder ####################
-FROM ci-centos7-gl-packages as ci-qt-builder
+FROM ci-baseos-gl-packages as ci-qt-builder
 
 ARG ASWF_QT_VERSION
 ENV ASWF_QT_VERSION=${ASWF_QT_VERSION}

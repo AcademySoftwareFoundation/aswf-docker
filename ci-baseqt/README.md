@@ -93,7 +93,7 @@ Contains:
 * python-3.10.9
 * tbb-2020_U3
 * qt-5.15.8
-* pyside-5.15.2
+* pyside-5.15.8
 * numpy-1.23.5
 * vfxplatform-2023
 

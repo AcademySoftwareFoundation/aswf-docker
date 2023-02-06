@@ -363,7 +363,7 @@ Contains:
 * glew-2.1.0
 * glfw-3.1.2
 * qt-5.15.8
-* pyside-5.15.2
+* pyside-5.15.8
 * cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
