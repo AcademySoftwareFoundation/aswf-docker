@@ -18,8 +18,8 @@ FROM ${ASWF_ORG}/ci-package-python:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYTHON_VER
 FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} as ci-package-qt-external
 
 
-#################### ci-centos7-gl-packages ####################
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-centos7-gl-packages
+#################### ci-baseos-gl-packages ####################
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-baseos-gl-packages
 
 COPY --from=ci-package-cmake-external /. /usr/local/
 
@@ -34,7 +34,7 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
 
 
 #################### ci-pyside-builder ####################
-FROM ci-centos7-gl-packages as ci-pyside-builder
+FROM ci-baseos-gl-packages as ci-pyside-builder
 
 ARG ASWF_PYSIDE_VERSION
 ENV ASWF_PYSIDE_VERSION=${ASWF_PYSIDE_VERSION}

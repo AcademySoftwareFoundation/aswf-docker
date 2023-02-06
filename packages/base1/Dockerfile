@@ -24,8 +24,8 @@ ARG ASWF_TBB_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 
-#################### ci-centos7-gl-packages ####################
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-centos7-gl-packages
+#################### ci-baseos-gl-packages ####################
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base0-gl-packages
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
@@ -37,7 +37,7 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
 
 
 #################### ci-cmake-builder ####################
-FROM ci-centos7-gl-packages as ci-cmake-builder
+FROM ci-baseos-gl-packages as ci-cmake-builder
 
 ARG CI_COMMON_VERSION
 ARG ASWF_CMAKE_VERSION
