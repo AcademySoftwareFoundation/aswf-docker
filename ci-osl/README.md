@@ -258,7 +258,7 @@ Contains:
 * boost-1.80.0
 * cmake-3.22.0
 * python-3.10.9
-* qt-5.15.2
+* qt-5.15.8
 * imath-3.1.5
 * openexr-3.1.5
 * oiio-2.4.8.0
