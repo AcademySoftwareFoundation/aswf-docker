@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:experimental
+# syntax = docker/dockerfile:1.3-labs
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -14,7 +14,6 @@ ARG ASWF_VFXPLATFORM_VERSION
 
 # Required base packages built in previous stages
 FROM ${ASWF_ORG}/ci-package-cmake:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CMAKE_VERSION} as ci-package-cmake-external
-FROM ${ASWF_ORG}/ci-package-python:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYTHON_VERSION} as ci-package-python-external
 FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} as ci-package-qt-external
 
 
@@ -36,10 +35,38 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
 #################### ci-pyside-builder ####################
 FROM ci-baseos-gl-packages as ci-pyside-builder
 
+ARG ASWF_PYTHON_VERSION
 ARG ASWF_PYSIDE_VERSION
-ENV ASWF_PYSIDE_VERSION=${ASWF_PYSIDE_VERSION}
+ARG ASWF_PKG_ORG
+ARG ASWF_CONAN_CHANNEL
+ARG ASWF_VFXPLATFORM_VERSION
 
-COPY --from=ci-package-python-external /. /usr/local/
+ENV ASWF_PYTHON_VERSION=${ASWF_PYTHON_VERSION}
+ENV ASWF_PYSIDE_VERSION=${ASWF_PYSIDE_VERSION}
+ENV ASWF_PKG_ORG=${ASWF_PKG_ORG}
+ENV ASWF_CONAN_CHANNEL=${ASWF_CONAN_CHANNEL}
+ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
+
+# Copy local conan packages if any
+COPY packages/conan/data/ /opt/conan_home/d/
+COPY packages/conan/settings/ /opt/conan_home/.conan/
+
+RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
+
+# Use conan to install some packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF
+
 # Workaround pyside issue with Qt headers within system location https://bugreports.qt.io/browse/PYSIDE-787
 COPY --from=ci-package-qt-external /. /tmp/qt5temp
 
