@@ -1,0 +1,7 @@
+include(ci_common3)
+
+[settings]
+python=3.9
+[options]
+[build_requires]
+[env]
