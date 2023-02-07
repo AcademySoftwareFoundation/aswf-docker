@@ -364,7 +364,7 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.8
 * pyside-5.15.8
-* cmake-3.22.0
+* cmake-3.25.2
 * imath-3.1.5
 * openexr-3.1.5
 * blosc-1.17.0
