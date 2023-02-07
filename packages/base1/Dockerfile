@@ -25,7 +25,7 @@ ARG ASWF_VFXPLATFORM_VERSION
 
 
 #################### ci-baseos-gl-packages ####################
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base0-gl-packages
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-baseos-gl-packages
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
