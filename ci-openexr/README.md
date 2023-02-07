@@ -59,7 +59,7 @@ Contains:
 Contains:
 * python-3.10.9
 * boost-1.80.0
-* cmake-3.22.0
+* cmake-3.25.2
 * numpy-1.23.5
 * vfxplatform-2023
 
