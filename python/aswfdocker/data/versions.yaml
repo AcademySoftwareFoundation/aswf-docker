@@ -10,14 +10,15 @@ versions:
     conan_profile: "ci_common1"
     package_versions:
       ASWF_DTS_VERSION: "6"
+      ASWF_DTS_PREFIX: "devtoolset"
       ASWF_CUDA_VERSION: "10.2"
       ASWF_CCACHE_VERSION: "4.0"
       ASWF_CONAN_VERSION: "1.47.0"
       ASWF_CONAN_PYTHON_VERSION: "3.9.11"
       ASWF_NINJA_VERSION: "1.10.1"
       ASWF_SONAR_VERSION: "4.6.2.2472"
-      ASWF_BASEOS_VERSION: "centos7"
-      ASWF_BASEOS_REPOSITORY: "nvidia/cudagl"
+      ASWF_BASEOS_DISTRO: "centos7"
+      ASWF_BASEOS_IMAGE: "nvidia/cudagl"
   "1-clang6":
     parent_versions: ["1"]
     major_version: "1"
@@ -62,14 +63,15 @@ versions:
     conan_profile: "ci_common2"
     package_versions:
       ASWF_DTS_VERSION: "9"
+      ASWF_DTS_PREFIX: "devtoolset"
       ASWF_CONAN_VERSION: "1.47.0"
       ASWF_CONAN_PYTHON_VERSION: "3.9.11"
       ASWF_CUDA_VERSION: "11.4.0"
       ASWF_CCACHE_VERSION: "4.0"
       ASWF_NINJA_VERSION: "1.11.0"
       ASWF_SONAR_VERSION: "4.7.0.2747"
-      ASWF_BASEOS_VERSION: "centos7"
-      ASWF_BASEOS_REPOSITORY: "nvidia/cudagl"
+      ASWF_BASEOS_DISTRO: "centos7"
+      ASWF_BASEOS_IMAGE: "nvidia/cudagl"
   "2-clang10":
     parent_versions: ["2"]
     major_version: "2"
@@ -114,14 +116,15 @@ versions:
     conan_profile: "ci_common3"
     package_versions:
       ASWF_DTS_VERSION: "11"
+      ASWF_DTS_PREFIX: "gcc-toolset"
       ASWF_CONAN_VERSION: "1.58.0"
       ASWF_CONAN_PYTHON_VERSION: "3.10.9"
       ASWF_CUDA_VERSION: "11.8.0"
       ASWF_CCACHE_VERSION: "4.7.4"
       ASWF_NINJA_VERSION: "1.11.1"
       ASWF_SONAR_VERSION: "4.8.0.2856"
-      ASWF_BASEOS_VERSION: "rockylinux8"
-      ASWF_BASEOS_REPOSITORY: "nvidia/cuda"
+      ASWF_BASEOS_DISTRO: "rockylinux8"
+      ASWF_BASEOS_IMAGE: "nvidia/cuda"
   "3-clang14":
     parent_versions: ["3"]
     major_version: "3"

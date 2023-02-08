@@ -12,13 +12,14 @@ ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_VERSION
 ARG ASWF_CUDA_VERSION
 ARG ASWF_DTS_VERSION
+ARG ASWF_DTS_PREFIX
 ARG ASWF_NINJA_VERSION
-ARG ASWF_BASEOS_VERSION
-ARG ASWF_BASEOS_REPOSITORY
+ARG ASWF_BASEOS_DISTRO
+ARG ASWF_BASEOS_IMAGE
 
 
 #################### ci-baseos-gl-os ####################
-FROM ${ASWF_BASEOS_REPOSITORY}:${ASWF_CUDA_VERSION}-devel-${ASWF_BASEOS_VERSION} as ci-baseos-gl-os
+FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-devel-${ASWF_BASEOS_DISTRO} as ci-baseos-gl-os
 
 ARG CI_COMMON_VERSION
 ENV CI_COMMON_VERSION=${CI_COMMON_VERSION}
@@ -26,6 +27,8 @@ ARG ASWF_CUDA_VERSION
 ENV ASWF_CUDA_VERSION=${ASWF_CUDA_VERSION}
 ARG ASWF_DTS_VERSION
 ENV ASWF_DTS_VERSION=${ASWF_DTS_VERSION}
+ARG ASWF_DTS_PREFIX
+ENV ASWF_DTS_PREFIX=${ASWF_DTS_PREFIX}
 
 COPY ../scripts/common/install_yumpackages.sh \
      /tmp/
@@ -42,8 +45,8 @@ COPY ../scripts/common/install_dev_ccache.sh \
 ENV DOWNLOADS_DIR=/tmp/downloads \
     CCACHE_DIR=/tmp/ccache \
     ASWF_INSTALL_PREFIX=/usr/local \
-    LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
-    PATH=/opt/aswfbuilder/bin:/usr/local/bin:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+    LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
+    PATH=/opt/aswfbuilder/bin:/usr/local/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
 
 RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     /tmp/install_dev_cmake.sh && \

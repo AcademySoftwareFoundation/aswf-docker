@@ -28,8 +28,8 @@ ARG {{ arg }}
 {% endfor %}
 
 {% if name == "common" %}
-ARG ASWF_BASEOS_VERSION
-ARG ASWF_BASEOS_REPOSITORY
+ARG ASWF_BASEOS_DISTRO
+ARG ASWF_BASEOS_IMAGE
 {% endif %}
 
 # Comment out this block to use Conan packages
