@@ -30,7 +30,7 @@ fi
 cmake -DLLVM_ENABLE_PROJECTS=${llvm_projects} \
       -DCMAKE_BUILD_TYPE=Release \
       -G "Unix Makefiles" \
-      -DGCC_INSTALL_PREFIX="/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr" \
+      -DGCC_INSTALL_PREFIX="/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr" \
       -DLLVM_TARGETS_TO_BUILD="host;NVPTX" \
       -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
       -DCLANG_INCLUDE_DOCS=OFF \

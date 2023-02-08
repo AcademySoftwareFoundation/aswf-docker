@@ -2,6 +2,58 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2023-03-07
+
+* New ci-common-v3 for VFX Platform 2023 based on:
+  * C++17 (unchanged)
+  * Ccache 4.7.4 (from 4.0)
+  * Clang 14.0.6 (from 14.0.0)
+  * Conan 1.58.0 (from 1.47.0)
+  * CUDA 11.8 (from 11.4.0)
+  * gcc-toolset 11 / gcc 11.2.1 (from DTS 9 / gcc 9.3.1)
+  * glibc 2.28 (from 2.17)
+  * libstdc++11 new ABI
+  * Ninja 1.11.1 (from 1.11.0)
+  * Rocky Linux 8.7 (from CentOS 7.9)
+  * SonarScan 4.8.0.2856 (from 4.7.0.2747)
+* Updated 2023 Packages
+  * Alembic 1.8.4 (from 1.8.2)
+  * Boost 1.80.0 (from 1.76.0)
+  * CMake 3.25.2 (from 3.22.0)
+  * MaterialX 1.38.6 (from 1.38.5)
+  * NumPy 1.23.5 (from 1.20)
+  * OpenColorIO 2.2.1 (from 2.1.1)
+  * OpenImageIO 2.4.8.0 (from 2.4.5.0)
+  * OpenSubdiv 3.5.0 (from 3.4.4)
+  * OpenVDB 10.0.1 (from 9.1.0)
+  * OpenShadingLanguage 1.12.9.0 (from 1.12.7.0)
+  * OpenTimelineIO 0.15 (from 0.14.1)
+  * Partio 1.14.6 (from 1.14.0)
+  * Ptex 2.4.2 (from 2.4.0)
+  * PySide 5.15.8 (from 5.15.2)
+  * Python 3.10.9 (from 3.9.15)
+  * Qt 5.15.8 (from 5.15.2)
+  * USD 23.02 (from 22.11)
+* Unchanged 2023 Packages
+  * Imath 3.1.5
+  * OpenEXR 3.1.5
+  * TBB 2020u3
+  
+### New CI Images
+
+* `aswf/ci-common:3.0`: A base Rocky 8 image with GCC 11.2.1 (DTS 11), Clang 14.1 and CUDA 11.8.
+* `aswf/ci-base:2023.0`
+* `aswf/ci-baseqt:2023.0`
+* `aswf/ci-opencue:2023.0`
+* `aswf/ci-openexr:2023.0`
+* `aswf/ci-ocio:2023.0`
+* `aswf/ci-otio:2023.0`
+* `aswf/ci-materialx:2023.0`
+* `aswf/ci-usd:2023.0`
+* `aswf/ci-osl:2023-clang14.0`
+* `aswf/ci-openvdb:2023-clang14.0`
+* `aswf/ci-vfxall:2023-clang14.0'
+
 ## 2023-01-21
 
 * Added missing MaterialX to `ci-vfxall`

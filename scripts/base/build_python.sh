@@ -21,8 +21,8 @@ cat <<EOF > "${ASWF_INSTALL_PREFIX}/bin/run-with-system-python"
 unset PYTHONPATH
 unset LIBRARY_PATH
 unset PKG_CONFIG_PATH
-export LD_LIBRARY_PATH=/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/lib
-export PATH=/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/devtoolset-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/sbin:/usr/bin:/sbin:/bin
+export LD_LIBRARY_PATH=/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib
+export PATH=/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/sbin:/usr/bin:/sbin:/bin
 exec "\$@"
 EOF
 chmod a+x "${ASWF_INSTALL_PREFIX}/bin/run-with-system-python"
