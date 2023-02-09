@@ -59,6 +59,7 @@ FROM ci-baseos-gl-os as ci-baseos-gl-conan
 ARG ASWF_CONAN_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
 ARG ASWF_DTS_VERSION
+ARG ASWF_DTS_PREFIX
 
 ENV ASWF_CONAN_ROOT=/opt/conan
 
@@ -93,6 +94,7 @@ ARG ASWF_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_VERSION
 ARG ASWF_DTS_VERSION
+ARG ASWF_DTS_PREFIX
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-clang"
 LABEL org.opencontainers.image.title="Clang package built for ASWF Docker images"
@@ -133,6 +135,7 @@ FROM scratch as ci-package-ninja
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_DTS_VERSION
+ARG ASWF_DTS_PREFIX
 ARG ASWF_NINJA_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-ninja"

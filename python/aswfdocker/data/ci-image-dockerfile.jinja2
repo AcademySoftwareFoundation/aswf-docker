@@ -28,8 +28,8 @@ ARG {{ arg }}
 {% endfor %}
 
 {% if name == "common" %}
-ARG ASWF_BASEOS_DISTRO
 ARG ASWF_BASEOS_IMAGE
+ARG ASWF_BASEOS_DISTRO
 {% endif %}
 
 # Comment out this block to use Conan packages
@@ -48,6 +48,10 @@ ARG ASWF_PKG_ORG
 ARG ASWF_VERSION
 ARG CI_COMMON_VERSION
 ARG ASWF_CONAN_CHANNEL
+
+{% if name == "common" %}
+ARG ASWF_DTS_PREFIX
+{% endif %}
 
 {% for arg in docker_args -%}
 ARG {{ arg }}
@@ -86,6 +90,8 @@ ENV ASWF_INSTALL_PREFIX=/usr/local
 
 {% if name != "common" %}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
+{% else %}
+ENV ASWF_DTS_PREFIX=$ASWF_DTS_PREFIX
 {% endif %}
 
 {% for arg in docker_args -%}

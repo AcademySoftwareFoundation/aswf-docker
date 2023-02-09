@@ -10,6 +10,8 @@ cd qt
 ccache --max-size=10G
 #ccache --clear
 
+ASWF_QT_CXX_STD=c++14
+
 if [[ $ASWF_QT_VERSION == 5.6.1 ]]; then
     if [ ! -f "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.zip" ]; then
         curl --location "https://www.autodesk.com/content/dam/autodesk/www/Company/files/2019/qt561formaya2019.zip" -o "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.zip"
@@ -32,6 +34,14 @@ else
     tar xf "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz"
     mv "qt-everywhere-src-${ASWF_QT_VERSION}" qt-src
     cd qt-src
+    if [[ $ASWF_QT_VERSION == 5.15.8 ]]; then
+        if [ ! -f "$DOWNLOADS_DIR/qt-everywhere-opensource-src-5.15.8-kf5-1.patch" ]; then
+            curl --location "https://www.linuxfromscratch.org/patches/blfs/svn/qt-everywhere-opensource-src-5.15.8-kf5-1.patch" -o "$DOWNLOADS_DIR/qt-everywhere-opensource-src-5.15.8-kf5-1.patch"
+        fi
+        patch -Np1 -i "$DOWNLOADS_DIR/qt-everywhere-opensource-src-5.15.8-kf5-1.patch"
+        mkdir -pv qtbase/.git
+        ASWF_QT_CXX_STD=c++17
+    fi
     if [[ $QT_MAJOR_MINOR == 5.15 ]]; then
         EXTRA_CONFIGURE_ARGS="-no-sql-mysql \
         -xcb \
@@ -65,7 +75,7 @@ fi
         -no-egl \
         -nomake examples \
         -nomake tests \
-        -c++std c++14 \
+        -c++std ${ASWF_QT_CXX_STD} \
         -confirm-license \
         -no-use-gold-linker \
         -release \
