@@ -2,6 +2,7 @@ from conans import AutoToolsBuildEnvironment, ConanFile, tools
 from contextlib import contextmanager
 from conan.tools.files.symlinks import absolute_to_relative_symlinks
 import os
+import sysconfig
 
 
 class PythonConan(ConanFile):
@@ -155,6 +156,19 @@ class PythonConan(ConanFile):
                 )
 
         absolute_to_relative_symlinks(self, self.package_folder)
+
+        # The grossest of hacks: the generated _sysconfigdata__PLATFORM.py embeds our build paths
+        # This breaks tools that use sysconfig to find Python's INCLUDEDIR such as Qt.
+        # This will break for multi-architecture builds, as well as when installing in a
+        # different location than /usr/local
+        tools.replace_in_file(
+            os.path.join(
+                self.package_folder,
+                f"lib/python{self.major_minor}/_sysconfigdata__{sysconfig.get_config_var('MACHDEP')}_{sysconfig.get_config_var('MULTIARCH')}.py",
+            ),
+            self.package_folder,
+            "/usr/local",
+        )
 
     def package_info(self):
         self.cpp_info.filenames["pkg_config"] = "python"

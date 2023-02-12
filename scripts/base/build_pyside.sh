@@ -56,6 +56,54 @@ else
         unzip clang10-patch.zip
         patch -p1 < 9ae6382.diff
     fi
+    if [[ $ASWF_PYSIDE_VERSION == 5.15.8 ]]; then
+        # Apply _Py_Mangle patch from comments in https://bugreports.qt.io/browse/PYSIDE-1775
+        # Unfortunately no easily downloadable patch
+        cat << EOF > py_mangle.diff
+--- a/sources/shiboken2/libshiboken/pep384impl.cpp	2023-02-12 05:07:52.467175804 +0000
++++ b/sources/shiboken2/libshiboken/pep384impl.cpp	2023-02-12 05:08:39.867065833 +0000
+@@ -751,9 +751,7 @@
+ #endif // IS_PY2
+     Shiboken::AutoDecRef privateobj(PyObject_GetAttr(
+         reinterpret_cast<PyObject *>(Py_TYPE(self)), Shiboken::PyMagicName::name()));
+-#ifndef Py_LIMITED_API
+-    return _Py_Mangle(privateobj, name);
+-#else
++
+     // PYSIDE-1436: _Py_Mangle is no longer exposed; implement it always.
+     // The rest of this function is our own implementation of _Py_Mangle.
+     // Please compare the original function in compile.c .
+@@ -789,7 +787,6 @@
+     if (amount > big_stack)
+         free(resbuf);
+     return result;
+-#endif // else Py_LIMITED_API
+ }
+
+ /*****************************************************************************
+EOF
+        patch -p1 < py_mangle.diff
+    fi
+    if [[ $ASWF_PYSIDE_VERSION == 5.15.8 ]]; then
+        # Fix for compiling against Numpy 1.23.x from
+        # https://git.alpinelinux.org/aports/commit/?id=8936d82ae568ce7521427075be5599fcc3a409f0
+        cat << EOF > shiboken_numpy_1_23.diff
+--- a/sources/shiboken2/libshiboken/sbknumpyarrayconverter.cpp
++++ b/sources/shiboken2/libshiboken/sbknumpyarrayconverter.cpp
+@@ -116,8 +116,8 @@ std::ostream &operator<<(std::ostream &str, PyArrayObject *o)
+             str << " NPY_ARRAY_NOTSWAPPED";
+         if ((flags & NPY_ARRAY_WRITEABLE) != 0)
+             str << " NPY_ARRAY_WRITEABLE";
+-        if ((flags & NPY_ARRAY_UPDATEIFCOPY) != 0)
+-            str << " NPY_ARRAY_UPDATEIFCOPY";
++        if ((flags & NPY_ARRAY_WRITEBACKIFCOPY) != 0)
++            str << " NPY_ARRAY_WRITEBACKIFCOPY";
+     } else {
+         str << '0';
+     }
+EOF
+        patch -p1 < shiboken_numpy_1_23.diff
+    fi
 
     "${ASWF_INSTALL_PREFIX}/bin/python" setup.py build --parallel=$(nproc)
     "${ASWF_INSTALL_PREFIX}/bin/python" setup.py install --prefix "${ASWF_INSTALL_PREFIX}"
