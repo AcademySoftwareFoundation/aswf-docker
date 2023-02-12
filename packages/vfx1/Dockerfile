@@ -28,7 +28,6 @@ ARG ASWF_OPENEXR_VERSION
 
 # Required base packages built in previous stages
 FROM ${ASWF_ORG}/ci-package-glew:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLEW_VERSION} as ci-package-glew-external
-FROM ${ASWF_ORG}/ci-package-tbb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_TBB_VERSION} as ci-package-tbb-external
 FROM ${ASWF_ORG}/ci-package-cppunit:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CPPUNIT_VERSION} as ci-package-cppunit-external
 FROM ${ASWF_ORG}/ci-package-glfw:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLFW_VERSION} as ci-package-glfw-external
 FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} as ci-package-pybind11-external
@@ -62,6 +61,7 @@ COPY <<EOF /usr/local/conanfile.txt
 cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+tbb/${ASWF_TBB_VERSEION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 RUN <<EOF
@@ -271,7 +271,6 @@ COPY ../scripts/vfx/build_openvdb.sh \
      /tmp/
 
 COPY --from=ci-package-glew-external /. /usr/local/
-COPY --from=ci-package-tbb-external /. /usr/local/
 COPY --from=ci-package-cppunit-external /. /usr/local/
 COPY --from=ci-package-glfw-external /. /usr/local/
 

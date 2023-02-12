@@ -40,7 +40,6 @@ FROM ${ASWF_ORG}/ci-package-cmake:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CMAKE_VERSI
 FROM ${ASWF_ORG}/ci-package-cppunit:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CPPUNIT_VERSION} as ci-package-cppunit-external
 FROM ${ASWF_ORG}/ci-package-python:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYTHON_VERSION} as ci-package-python-external
 FROM ${ASWF_ORG}/ci-package-boost:${ASWF_VFXPLATFORM_VERSION}-${ASWF_BOOST_VERSION} as ci-package-boost-external
-FROM ${ASWF_ORG}/ci-package-tbb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_TBB_VERSION} as ci-package-tbb-external
 FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} as ci-package-qt-external
 FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} as ci-package-pybind11-external
 FROM ${ASWF_ORG}/ci-package-pyside:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYSIDE_VERSION} as ci-package-pyside-external
@@ -84,6 +83,7 @@ COPY <<EOF /usr/local/conanfile.txt
 cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+tbb/${ASWF_TBB_VERSION}@{$ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 RUN <<EOF
@@ -150,17 +150,36 @@ FROM ci-partio-builder as ci-osl-builder
 
 ARG ASWF_OSL_VERSION
 ENV ASWF_OSL_VERSION=${ASWF_OSL_VERSION}
+ARG ASWF_PKG_ORG
+ARG ASWF_CONAN_CHANNEL
 
 COPY --from=ci-package-imath-external /. /usr/local/
 COPY --from=ci-package-openexr-external /. /usr/local/
 COPY --from=ci-package-oiio-external /. /usr/local/
 COPY --from=ci-package-pybind11-external /. /usr/local/
 COPY --from=ci-package-openvdb-external /. /usr/local/
-COPY --from=ci-package-tbb-external /. /usr/local/
 COPY --from=ci-package-blosc-external /. /usr/local/
 
 COPY ../scripts/vfx/build_osl.sh \
      /tmp/
+
+# Copy local conan packages if any
+COPY packages/conan/data/ /opt/conan_home/d/
+COPY packages/conan/settings/ /opt/conan_home/.conan/
+
+# Use conan to install some packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+tbb/${ASWF_TBB_VERSION}@{$ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -246,13 +265,28 @@ FROM ci-ptex-builder as ci-opensubdiv-builder
 
 ARG ASWF_OPENSUBDIV_VERSION
 ENV ASWF_OPENSUBDIV_VERSION=${ASWF_OPENSUBDIV_VERSION}
+ARG ASWF_PKG_ORG
+ARG ASWF_CONAN_CHANNEL
 
 COPY ../scripts/vfx/build_opensubdiv.sh \
      /tmp/
 
 COPY --from=ci-package-glew-external /. /usr/local/
-COPY --from=ci-package-tbb-external /. /usr/local/
 COPY --from=ci-package-glfw-external /. /usr/local/
+
+# Use conan to install some packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+tbb/${ASWF_TBB_VERSION}@{$ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN <<EOF
+cd /usr/local/
+conan install .
+EOF
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
