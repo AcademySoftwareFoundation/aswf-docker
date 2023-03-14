@@ -138,3 +138,6 @@ class ClangConan(ConanFile):
             self.cpp_info.system_libs = ["m"]
         self.env_info.LLVM_INSTALL_DIR = self.package_folder
         self.env_info.CLANG_INSTALL_DIR = self.package_folder
+
+    def deploy(self):
+        self.copy("*")

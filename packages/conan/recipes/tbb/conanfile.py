@@ -308,3 +308,6 @@ MALLOCPROXY.DEF =
         if self.settings.build_type == "Debug":
             return name + "_debug"
         return name
+
+    def deploy(self):
+        self.copy("*")

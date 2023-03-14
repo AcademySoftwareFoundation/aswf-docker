@@ -48,3 +48,6 @@ class NinjaConan(ConanFile):
     def package_info(self):
         self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
         self.env_info.CONAN_CMAKE_GENERATOR = "Ninja"
+
+    def deploy(self):
+        self.copy("*")

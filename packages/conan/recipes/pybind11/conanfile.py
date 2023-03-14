@@ -134,3 +134,6 @@ class PyBind11Conan(ConanFile):
                     os.path.join(cmake_base_path, "FindPythonLibsNew.cmake"),
                     os.path.join(cmake_base_path, "pybind11Tools.cmake"),
                 ]
+
+    def deploy(self):
+        self.copy("*")

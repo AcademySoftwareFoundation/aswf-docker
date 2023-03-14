@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.3-labs
+# syntax=docker/dockerfile:1.4
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -142,17 +142,5 @@ RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
 
 
 # conan-only packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-# clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN <<EOF
-cd /usr/local/
-conan install .
-EOF
-
+# RUN conan install clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
+# RUN conan install ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local

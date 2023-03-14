@@ -272,3 +272,6 @@ class BoostConan(ConanFile):
             ]
         if self._with_component("wave"):
             self.cpp_info.components["wave"].libs = ["boost_wave"]
+
+    def deploy(self):
+        self.copy("*")

@@ -101,3 +101,6 @@ class OpenEXRConan(ConanFile):
         self.cpp_info.libs = ["IlmImf", "IlmImfUtils"]
         if tools.Version(self.version) >= "3":
             self.cpp_info.requires.append("imath::imath")
+
+    def deploy(self):
+        self.copy("*")

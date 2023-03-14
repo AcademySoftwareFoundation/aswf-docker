@@ -131,10 +131,10 @@ Contains:
 * qt-5.15.8
 * pyside-5.15.8
 * cmake-3.25.2
-* imath-3.1.5
+* imath-3.1.7
 * materialx-1.38.6
-* openexr-3.1.5
-* oiio-2.4.8.0
+* openexr-3.1.6
+* oiio-2.4.9.0
 * ocio-2.2.1
 * ptex-2.4.2
 * opensubdiv-3_5_0
@@ -142,6 +142,6 @@ Contains:
 * blosc-1.17.0
 * openvdb-10.0.1
 * numpy-1.23.5
-* hdf5-1.8.21
+* hdf5-1.8.23
 * vfxplatform-2023
 

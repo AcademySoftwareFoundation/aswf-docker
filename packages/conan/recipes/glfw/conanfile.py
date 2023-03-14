@@ -155,3 +155,6 @@ class GlfwConan(ConanFile):
             self.cpp_info.system_libs.append("gdi32")
         elif self.settings.os == "Macos":
             self.cpp_info.frameworks.extend(["Cocoa", "IOKit", "CoreFoundation"])
+
+    def deploy(self):
+        self.copy("*")

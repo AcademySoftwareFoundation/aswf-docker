@@ -138,3 +138,14 @@ Contains:
 * sonar-4.8.0.2856
 * conan-1.58.0
 
+## [aswf/ci-common:3-clang15.0](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=3-clang15.0)
+
+Contains:
+* clang-15.0.7
+* ninja-1.11.1
+* cuda-11.8.0
+* ccache-4.7.4
+* dts-11
+* sonar-4.8.0.2856
+* conan-1.58.0
+

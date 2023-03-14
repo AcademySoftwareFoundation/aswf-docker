@@ -1414,3 +1414,6 @@ Examples = bin/datadir/examples"""
         for dep in self.deps_cpp_info[p].public_deps:
             libs += self._gather_libs(dep)
         return self._remove_duplicate(libs)
+
+    def deploy(self):
+        self.copy("*")
