@@ -158,18 +158,7 @@ COPY packages/conan/data/ /opt/conan_home/d/
 COPY packages/conan/settings/ /opt/conan_home/.conan/
 
 # Use conan to install some packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN <<EOF
-cd /usr/local/
-conan install .
-EOF
+RUN conan install tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -265,18 +254,7 @@ COPY --from=ci-package-glew-external /. /usr/local/
 COPY --from=ci-package-glfw-external /. /usr/local/
 
 # Use conan to install some packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN <<EOF
-cd /usr/local/
-conan install .
-EOF
+RUN conan install tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -339,18 +317,7 @@ COPY ../scripts/vfx/build_usd.sh \
      /tmp/
 
 # Use conan to install MaterialX
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN <<EOF
-cd /usr/local/
-conan install .
-EOF
+RUN conan install materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
