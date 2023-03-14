@@ -62,3 +62,6 @@ class MaterialXConan(ConanFile):
         self.env_info.CMAKE_PREFIX_PATH.append(
             os.path.join(self.package_folder, "lib", "cmake")
         )
+
+    def deploy(self):
+        self.copy("*")

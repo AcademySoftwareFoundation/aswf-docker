@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.3-labs
+# syntax = docker/dockerfile:1.4
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -40,34 +40,29 @@ ARG ASWF_CMAKE_VERSION
 ARG ASWF_PYTHON_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_BOOST_VERSION
+ARG ASWF_TBB_VERSION
 ARG ASWF_PKG_ORG
 ARG ASWF_CONAN_CHANNEL
+ARG ASWF_VFXPLATFORM_VERSION
 
 ENV ASWF_CMAKE_VERSION=${ASWF_CMAKE_VERSION}
 ENV ASWF_PYTHON_VERSION=${ASWF_PYTHON_VERSION}
 ENV ASWF_NUMPY_VERSION=${ASWF_NUMPY_VERSION}
 ENV ASWF_BOOST_VERSION=${ASWF_BOOST_VERSION}
+ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
+ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
 # Copy local conan packages if any
 COPY packages/conan/data/ /opt/conan_home/d/
 COPY packages/conan/settings/ /opt/conan_home/.conan/
 
-# Use conan to install some packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-tbb/${ASWF_TBB_VERSEION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
+RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 
-RUN <<EOF
-cd /usr/local/
-conan install .
-EOF
+# Use conan to install some packages
+RUN conan install cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local && \
+    conan install python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local && \
+    conan install boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local && \
+    conan install tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \

@@ -90,3 +90,6 @@ class GlewConan(ConanFile):
         if self.settings.os == "Windows" and not self.options.shared:
             self.cpp_info.components["glewlib"].defines.append("GLEW_STATIC")
         self.cpp_info.components["glewlib"].requires = ["opengl::opengl", "glu::glu"]
+
+    def deploy(self):
+        self.copy("*")

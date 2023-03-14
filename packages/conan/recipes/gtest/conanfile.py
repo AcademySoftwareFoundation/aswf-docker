@@ -193,3 +193,6 @@ class GTestConan(ConanFile):
                     "gmock_main{}".format(self._postfix)
                 ]
                 self.cpp_info.components["gmock_main"].requires = ["gmock"]
+
+    def deploy(self):
+        self.copy("*")

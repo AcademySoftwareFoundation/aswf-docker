@@ -82,3 +82,6 @@ class PySideConan(ConanFile):
         self.env_info.PYTHONPATH.append(
             os.path.join(self.package_folder, "lib", pymajorminor, "site-packages")
         )
+
+    def deploy(self):
+        self.copy("*")

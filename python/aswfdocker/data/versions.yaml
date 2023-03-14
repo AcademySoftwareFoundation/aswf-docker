@@ -132,6 +132,13 @@ versions:
     package_versions:
       ASWF_CLANG_MAJOR_VERSION: "14"
       ASWF_CLANG_VERSION: "14.0.6"
+  "3-clang15":
+    parent_versions: ["3"]
+    major_version: "3"
+    ci_common_version: "3"
+    package_versions:
+      ASWF_CLANG_MAJOR_VERSION: "15"
+      ASWF_CLANG_VERSION: "15.0.7"
   "2019":
     parent_versions: ["1", "1-clang7"]
     major_version: "2019"
@@ -354,18 +361,18 @@ versions:
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_GTEST_VERSION: "1.11.0"
-      ASWF_HDF5_VERSION: "1.8.21"
-      ASWF_IMATH_VERSION: "3.1.5"
+      ASWF_HDF5_VERSION: "1.8.23"
+      ASWF_IMATH_VERSION: "3.1.7"
       ASWF_LOG4CPLUS_VERSION: "1.1.2"
       ASWF_MATERIALX_VERSION: "1.38.6"
       ASWF_NUMPY_VERSION: "1.23.5"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.2.1"
-      ASWF_OIIO_VERSION: "2.4.8.0"
-      ASWF_OPENEXR_VERSION: "3.1.5"
+      ASWF_OIIO_VERSION: "2.4.9.0"
+      ASWF_OPENEXR_VERSION: "3.1.6"
       ASWF_OPENSUBDIV_VERSION: "3_5_0"
       ASWF_OPENVDB_VERSION: "10.0.1"
-      ASWF_OSL_VERSION: "1.12.9.0"
+      ASWF_OSL_VERSION: "1.12.10.0"
       ASWF_OTIO_VERSION: "0.15"
       ASWF_PARTIO_VERSION: "1.14.6"
       ASWF_PTEX_VERSION: "2.4.2"
@@ -381,7 +388,10 @@ versions:
     parent_versions: ["3", "3-clang14", "2023"]
     major_version: "2023"
     ci_common_version: "3"
-
+  "2023-clang15":
+    parent_versions: ["3", "3-clang15", "2023"]
+    major_version: "2023"
+    ci_common_version: "3"
 
 ci-packages:
   clang:
@@ -396,6 +406,7 @@ ci-packages:
     - "2-clang13.1"
     - "2-clang14.0"
     - "3-clang14.0"
+    - "3-clang15.0"
   ninja:
     - "1.3"
     - "2.2"
@@ -570,6 +581,7 @@ ci-images:
     - "2-clang13.1"
     - "2-clang14.0"
     - "3-clang14.0"
+    - "3-clang15.0"
   base:
     - "2019.9"
     - "2020.9"
@@ -630,6 +642,7 @@ ci-images:
     - "2022-clang13.2"
     - "2022-clang14.1"
     - "2023-clang14.0"
+    - "2023-clang15.0"
   openvdb:
     - "2019-clang6.8"
     - "2019-clang7.8"
@@ -643,6 +656,7 @@ ci-images:
     - "2022-clang13.3"
     - "2022-clang14.2"
     - "2023-clang14.0"
+    - "2023-clang15.0"
   vfxall:
     - "2019-clang6.12"
     - "2019-clang7.12"
@@ -656,6 +670,7 @@ ci-images:
     - "2022-clang13.4"
     - "2022-clang14.3"
     - "2023-clang14.0"
+    - "2023-clang15.0"
 
 groups:
   package:

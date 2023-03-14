@@ -108,13 +108,13 @@ Contains:
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.25.2
-* imath-3.1.5
-* openexr-3.1.5
-* oiio-2.4.8.0
+* imath-3.1.7
+* openexr-3.1.6
+* oiio-2.4.9.0
 * blosc-1.17.0
 * partio-1.14.6
 * openvdb-10.0.1
-* osl-1.12.9.0
+* osl-1.12.10.0
 * numpy-1.23.5
 * vfxplatform-2023
 

@@ -13,7 +13,7 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     dnf config-manager --set-enabled devel
     # Rocky 8 base image doesn't have a system Python (3), install and make default
     dnf -y install python3
-    alternatives --set python /usr/bin/python3 
+    alternatives --set python /usr/bin/python3
 fi
 
 yum install --setopt=tsflags=nodocs -y \

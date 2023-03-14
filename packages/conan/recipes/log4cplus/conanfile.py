@@ -129,3 +129,6 @@ class Log4cplusConan(ConanFile):
                 self.cpp_info.system_libs.append("pthread")
         elif self.settings.os == "Windows":
             self.cpp_info.system_libs = ["advapi32", "Ws2_32"]
+
+    def deploy(self):
+        self.copy("*")

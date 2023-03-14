@@ -3,6 +3,7 @@ from contextlib import contextmanager
 from conan.tools.files.symlinks import absolute_to_relative_symlinks
 import os
 import sysconfig
+import re
 
 
 class PythonConan(ConanFile):
@@ -157,19 +158,6 @@ class PythonConan(ConanFile):
 
         absolute_to_relative_symlinks(self, self.package_folder)
 
-        # The grossest of hacks: the generated _sysconfigdata__PLATFORM.py embeds our build paths
-        # This breaks tools that use sysconfig to find Python's INCLUDEDIR such as Qt.
-        # This will break for multi-architecture builds, as well as when installing in a
-        # different location than /usr/local
-        tools.replace_in_file(
-            os.path.join(
-                self.package_folder,
-                f"lib/python{self.major_minor}/_sysconfigdata__{sysconfig.get_config_var('MACHDEP')}_{sysconfig.get_config_var('MULTIARCH')}.py",
-            ),
-            self.package_folder,
-            "/usr/local",
-        )
-
     def package_info(self):
         self.cpp_info.filenames["pkg_config"] = "python"
         self.user_info.python_interp = f"python{self.major_minor}"
@@ -190,3 +178,21 @@ class PythonConan(ConanFile):
         ]
         if self.settings.os == "Windows":
             self.cpp_info.components["PythonLibs"].defines.append("PYTHON_DLL")
+
+    def deploy(self):
+        self.copy("*")
+
+        # Something of a hack: the generated _sysconfigdata__PLATFORM.py embeds build paths
+        # This breaks tools that use sysconfig to find Python's INCLUDEDIR such as Qt.
+        # deploy() is only called by conan install package_reference
+
+        tools.replace_in_file(
+            os.path.join(
+                self.install_folder,
+                f"lib/python{self.major_minor}/_sysconfigdata__{sysconfig.get_config_var('MACHDEP')}_{sysconfig.get_config_var('MULTIARCH')}.py",
+            ),
+            re.sub(
+                r"^/opt/conan_home", r"/tmp/c", self.package_folder
+            ),  # FIXME is there a better way? aswfdocker defines CONAN_USER_HOME
+            self.install_folder,
+        )

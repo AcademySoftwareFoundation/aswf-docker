@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.3-labs
+# syntax = docker/dockerfile:1.4
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -56,18 +56,7 @@ COPY packages/conan/settings/ /opt/conan_home/.conan/
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 
 # Use conan to install some packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN <<EOF
-cd /usr/local/
-conan install .
-EOF
+RUN conan install python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
 
 # Workaround pyside issue with Qt headers within system location https://bugreports.qt.io/browse/PYSIDE-787
 COPY --from=ci-package-qt-external /. /tmp/qt5temp
