@@ -18,12 +18,14 @@ that have future-proof scalability"""
         "fPIC": [True, False],
         "tbbmalloc": [True, False],
         "tbbproxy": [True, False],
+        "tbbpreview": [True, False],
     }
     default_options = {
         "shared": True,
         "fPIC": True,
         "tbbmalloc": True,
         "tbbproxy": True,
+        "tbbpreview": False,
     }
 
     @property
@@ -81,21 +83,28 @@ that have future-proof scalability"""
         )
 
     def build(self):
+        self.build_base()
+        if self.options.tbbpreview:
+            self.build_base(preview=True)
+
+    def build_base(self, preview=False):
         def add_flag(name, value):
             if name in os.environ:
                 os.environ[name] += " " + value
             else:
                 os.environ[name] = value
 
-        # Get the version of the current compiler instead of gcc
-        linux_include = os.path.join(self._source_subfolder, "build", "linux.inc")
-        tools.replace_in_file(linux_include, "shell gcc", "shell $(CC)")
-        tools.replace_in_file(linux_include, "= gcc", "= $(CC)")
+        # if we're doing a second build (ie, preview), then we the source replacements have already been done...
+        if not preview:
+            # Get the version of the current compiler instead of gcc
+            linux_include = os.path.join(self._source_subfolder, "build", "linux.inc")
+            tools.replace_in_file(linux_include, "shell gcc", "shell $(CC)")
+            tools.replace_in_file(linux_include, "= gcc", "= $(CC)")
 
-        if self.version != "2019_u9" and self.settings.build_type == "Debug":
-            tools.replace_in_file(
-                os.path.join(self._source_subfolder, "Makefile"), "release", "debug"
-            )
+            if self.version != "2019_u9" and self.settings.build_type == "Debug":
+                tools.replace_in_file(
+                    os.path.join(self._source_subfolder, "Makefile"), "release", "debug"
+                )
 
         if self._base_compiler == "Visual Studio":
             tools.save(
@@ -138,6 +147,9 @@ MALLOCPROXY.DEF =
             "armv8": "aarch64",
         }[str(self.settings.arch)]
         extra += " arch=%s" % arch
+
+        if preview:
+            extra += " tbb_build_prefix=local_preview tbb_cpf=1"
 
         if str(self._base_compiler) in ("gcc", "clang", "apple-clang"):
             if str(self._base_compiler.libcxx) in ("libstdc++", "libstdc++11"):
@@ -197,10 +209,11 @@ MALLOCPROXY.DEF =
                 add_flag("CXXFLAGS", "-mrtm")
 
             targets = ["tbb"]
-            if self.options.tbbmalloc:
-                targets.append("tbbmalloc")
-            if self.options.tbbproxy:
-                targets.append("tbbproxy")
+            if not preview:
+                if self.options.tbbmalloc:
+                    targets.append("tbbmalloc")
+                if self.options.tbbproxy:
+                    targets.append("tbbproxy")
             context = tools.no_op()
             if self.settings.compiler == "intel":
                 context = tools.intel_compilervars(self)
@@ -275,39 +288,33 @@ MALLOCPROXY.DEF =
         self.cpp_info.names["cmake_find_package"] = "TBB"
         self.cpp_info.names["cmake_find_package_multi"] = "TBB"
         # tbb
-        self.cpp_info.components["libtbb"].names["cmake_find_package"] = "tbb"
-        self.cpp_info.components["libtbb"].names["cmake_find_package_multi"] = "tbb"
-        self.cpp_info.components["libtbb"].libs = [self._lib_name("tbb")]
+        self._add_component("libtbb", lib="tbb")
         if self.settings.os == "Linux":
             self.cpp_info.components["libtbb"].system_libs = ["dl", "rt", "pthread"]
         # tbbmalloc
         if self.options.tbbmalloc:
-            self.cpp_info.components["tbbmalloc"].names[
-                "cmake_find_package"
-            ] = "tbbmalloc"
-            self.cpp_info.components["tbbmalloc"].names[
-                "cmake_find_package_multi"
-            ] = "tbbmalloc"
-            self.cpp_info.components["tbbmalloc"].libs = [self._lib_name("tbbmalloc")]
+            self._add_component("tbbmalloc")
             if self.settings.os == "Linux":
                 self.cpp_info.components["tbbmalloc"].system_libs = ["dl", "pthread"]
             # tbbmalloc_proxy
             if self.options.tbbproxy:
-                self.cpp_info.components["tbbmalloc_proxy"].names[
-                    "cmake_find_package"
-                ] = "tbbmalloc_proxy"
-                self.cpp_info.components["tbbmalloc_proxy"].names[
-                    "cmake_find_package_multi"
-                ] = "tbbmalloc_proxy"
-                self.cpp_info.components["tbbmalloc_proxy"].libs = [
-                    self._lib_name("tbbmalloc_proxy")
-                ]
+                self._add_component("tbbmalloc_proxy")
                 self.cpp_info.components["tbbmalloc_proxy"].requires = ["tbbmalloc"]
+        # tbbpreview
+        if self.options.tbbpreview:
+            self._add_component("tbb_preview")
 
     def _lib_name(self, name):
         if self.settings.build_type == "Debug":
             return name + "_debug"
         return name
+
+    def _add_component(self, component_name, lib=""):
+        if not lib:
+            lib = component_name
+        self.cpp_info.components[component_name].names["cmake_find_package"] = lib
+        self.cpp_info.components[component_name].names["cmake_find_package_multi"] = lib
+        self.cpp_info.components[component_name].libs = [self._lib_name(lib)]
 
     def deploy(self):
         self.copy("*")
