@@ -22,8 +22,8 @@ that have future-proof scalability"""
     default_options = {
         "shared": True,
         "fPIC": True,
-        "tbbmalloc": False,
-        "tbbproxy": False,
+        "tbbmalloc": True,
+        "tbbproxy": True,
     }
 
     @property
@@ -50,12 +50,8 @@ that have future-proof scalability"""
             not self.options.shared or not self.options.tbbmalloc
         ):
             raise ConanInvalidConfiguration(
-                "tbbproxy needs tbbmaloc and shared options"
+                "tbbproxy needs tbbmalloc and shared options"
             )
-
-    def package_id(self):
-        del self.info.options.tbbmalloc
-        del self.info.options.tbbmalloc_proxy
 
     def build_requirements(self):
         if tools.os_info.is_windows:
@@ -200,7 +196,11 @@ MALLOCPROXY.DEF =
                 add_flag("CFLAGS", "-mrtm")
                 add_flag("CXXFLAGS", "-mrtm")
 
-            targets = ["tbb", "tbbmalloc", "tbbproxy"]
+            targets = ["tbb"]
+            if self.options.tbbmalloc:
+                targets.append("tbbmalloc")
+            if self.options.tbbproxy:
+                targets.append("tbbproxy")
             context = tools.no_op()
             if self.settings.compiler == "intel":
                 context = tools.intel_compilervars(self)
