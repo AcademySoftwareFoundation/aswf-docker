@@ -131,15 +131,25 @@ ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-pack
 
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 
+COPY scripts/common/install_conanpackages.sh /tmp/
 
 # conan-only packages
-# RUN conan install boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
-# RUN conan install cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
-# RUN conan install cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
-# RUN conan install glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
-# RUN conan install glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
-# RUN conan install log4cplus/${ASWF_LOG4CPLUS_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
-RUN conan install python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
-RUN conan install tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
-# RUN conan install qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
-# RUN conan install pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+# boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# log4cplus/${ASWF_LOG4CPLUS_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN /tmp/install_conanpackages.sh /usr/local
+

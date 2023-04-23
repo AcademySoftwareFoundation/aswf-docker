@@ -43,7 +43,7 @@ docker_commands: |
     rm -rf /tmp/downloads && \
     rm -rf /opt/aswfbuilder
 
-  COPY scripts/common/setup_aswfuser.sh /tmp
+  COPY scripts/common/setup_aswfuser.sh /tmp/
   RUN /tmp/setup_aswfuser.sh
 
   ENV ASWF_CONAN_ROOT=/opt/conan

@@ -123,7 +123,7 @@ RUN export DOWNLOADS_DIR=/tmp/downloads && \
   rm -rf /tmp/downloads && \
   rm -rf /opt/aswfbuilder
 
-COPY scripts/common/setup_aswfuser.sh /tmp
+COPY scripts/common/setup_aswfuser.sh /tmp/
 RUN /tmp/setup_aswfuser.sh
 
 ENV ASWF_CONAN_ROOT=/opt/conan
@@ -140,7 +140,17 @@ ENV CONAN_USER_HOME=/opt/conan_home
 
 RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
 
+COPY scripts/common/install_conanpackages.sh /tmp/
 
 # conan-only packages
-# RUN conan install clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
-# RUN conan install ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+# clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN /tmp/install_conanpackages.sh /usr/local
+
