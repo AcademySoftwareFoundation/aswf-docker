@@ -366,7 +366,7 @@ Contains:
 * pyside-5.15.8
 * cmake-3.25.2
 * imath-3.1.7
-* openexr-3.1.6
+* openexr-3.1.7
 * blosc-1.17.0
 * alembic-1.8.4
 * oiio-2.4.9.0
@@ -374,7 +374,7 @@ Contains:
 * opensubdiv-3_5_0
 * ptex-2.4.2
 * openvdb-10.0.1
-* materialx-1.38.6
+* materialx-1.38.7
 * usd-23.02
 * partio-1.14.6
 * osl-1.12.10.0
@@ -397,7 +397,7 @@ Contains:
 * pyside-5.15.8
 * cmake-3.25.2
 * imath-3.1.7
-* openexr-3.1.6
+* openexr-3.1.7
 * blosc-1.17.0
 * alembic-1.8.4
 * oiio-2.4.9.0
@@ -405,7 +405,7 @@ Contains:
 * opensubdiv-3_5_0
 * ptex-2.4.2
 * openvdb-10.0.1
-* materialx-1.38.6
+* materialx-1.38.7
 * usd-23.02
 * partio-1.14.6
 * osl-1.12.10.0

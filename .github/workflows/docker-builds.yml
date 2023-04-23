@@ -23,51 +23,51 @@ jobs:
       matrix:
         group: [img-common-1] # Extra groups come from the include next
         include:
-          - group: img-common-1
-            type: IMAGE
-            name: common
-            version: 1-clang7
-            test: common
           - group: img-common-2
             type: IMAGE
             name: common
             version: 2-clang10
             test: common
-          - group: pkg-base-2018
-            type: PACKAGE
-            name: base1
-            common_version: 1-clang7
-            version: 2018
-            test: ""
-          - group: pkg-base-2021
+          - group: img-common-3
+            type: IMAGE
+            name: common
+            version: 3-clang14
+            test: common
+          - group: pkg-base-2022
             type: PACKAGE
             name: base1
             common_version: 2-clang10
             version: 2021
             test: ""
-          - group: img-base-2021
+          - group: pkg-base-2023
+            type: PACKAGE
+            name: base1
+            common_version: 3-clang14
+            version: 2023
+            test: ""
+          - group: img-base-2023
             type: IMAGE
             name: base
-            common_version: 2-clang10
-            version: 2021
+            common_version: 3-clang14
+            version: 2023
             test: base
-          - group: img-vfx1-2021
+          - group: img-vfx1-2022
             type: IMAGE
             name: vfx1
             common_version: 2-clang10
             version: 2022
             test: openvdb
-          - group: img-vfx2-2022
+          - group: img-vfx2-2023
             type: IMAGE
             name: vfx2
-            common_version: 2-clang10
-            version: 2022
+            common_version: 3-clang14
+            version: 2023
             test: ""
-          - group: img-vfx3-2022
+          - group: img-vfx3-2023
             type: IMAGE
             name: vfx3
-            common_version: 2-clang10
-            version: 2022
+            common_version: 3-clang14
+            version: 2023
             test: ""
 
     steps:

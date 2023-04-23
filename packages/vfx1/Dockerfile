@@ -58,11 +58,21 @@ COPY packages/conan/settings/ /opt/conan_home/.conan/
 
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 
+COPY scripts/common/install_conanpackages.sh /tmp
+
 # Use conan to install some packages
-RUN conan install cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local && \
-    conan install python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local && \
-    conan install boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local && \
-    conan install tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN /tmp/install_conanpackages.sh /usr/local
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \

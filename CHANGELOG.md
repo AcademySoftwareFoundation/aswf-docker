@@ -24,7 +24,7 @@ All notable changes to this project will be documented in this file.
   * MaterialX 1.38.6 (from 1.38.5)
   * NumPy 1.23.5 (from 1.20)
   * OpenColorIO 2.2.1 (from 2.1.1)
-  * OpenEXR 3.1.6
+  * OpenEXR 3.1.7
   * OpenImageIO 2.4.9.0 (from 2.4.5.0)
   * OpenSubdiv 3.5.0 (from 3.4.4)
   * OpenVDB 10.0.1 (from 9.1.0)

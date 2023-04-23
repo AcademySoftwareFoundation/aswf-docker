@@ -127,14 +127,23 @@ RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 {% else %}
 RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
 {% endif %}
+COPY scripts/common/install_conanpackages.sh /tmp/
 
 # conan-only packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
 {% for package in packages -%}
 {% if index.is_conan_only_package(package) -%}
-RUN conan install {{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
+{{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 {% else -%}
-# RUN conan install {{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
+# {{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 {% endif -%}
 {% endfor -%}
+EOF
+
+RUN /tmp/install_conanpackages.sh /usr/local
 
 {{ docker_post_commands }}
