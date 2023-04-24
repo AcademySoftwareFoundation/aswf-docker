@@ -382,7 +382,7 @@ versions:
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.10"
       ASWF_QT_VERSION: "5.15.9"
       ASWF_TBB_VERSION: "2020_U3"
-      ASWF_USD_VERSION: "23.02"
+      ASWF_USD_VERSION: "23.05"
       ASWF_VFXPLATFORM_VERSION: "2023"
   "2023-clang14":
     parent_versions: ["3", "3-clang14", "2023"]
