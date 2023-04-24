@@ -34,11 +34,11 @@ else
     tar xf "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz"
     mv "qt-everywhere-src-${ASWF_QT_VERSION}" qt-src
     cd qt-src
-    if [[ $ASWF_QT_VERSION == 5.15.8 ]]; then
-        if [ ! -f "$DOWNLOADS_DIR/qt-everywhere-opensource-src-5.15.8-kf5-1.patch" ]; then
-            curl --location "https://www.linuxfromscratch.org/patches/blfs/svn/qt-everywhere-opensource-src-5.15.8-kf5-1.patch" -o "$DOWNLOADS_DIR/qt-everywhere-opensource-src-5.15.8-kf5-1.patch"
+    if [[ $ASWF_QT_VERSION == 5.15.9 ]]; then
+        if [ ! -f "$DOWNLOADS_DIR/qt-everywhere-opensource-src-${ASWF_QT_VERSION}-kf5-1.patch" ]; then
+            curl --location "https://www.linuxfromscratch.org/patches/downloads/qt-everywhere-opensource-src/qt-everywhere-opensource-src-${ASWF_QT_VERSION}-kf5-1.patch" -o "$DOWNLOADS_DIR/qt-everywhere-opensource-src-${ASWF_QT_VERSION}-kf5-1.patch"
         fi
-        patch -Np1 -i "$DOWNLOADS_DIR/qt-everywhere-opensource-src-5.15.8-kf5-1.patch"
+        patch -Np1 -i "$DOWNLOADS_DIR/qt-everywhere-opensource-src-${ASWF_QT_VERSION}-kf5-1.patch"
         mkdir -pv qtbase/.git
         ASWF_QT_CXX_STD=c++17
     fi
