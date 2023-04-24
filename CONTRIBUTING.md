@@ -364,7 +364,7 @@ aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/asw
     * Use the following release name format: `aswf/ci-NAME:X.Y` (e.g. `aswf/ci-common:1.4`)
     * Enter the release notes for that particular image
     * Click Create
-* Run a manual build in Azure on the specific tagged commit created before
+* Run a manual build in GitHub Actions on the specific tagged commit created before
 
 ### Automatic GitHub release creation
 

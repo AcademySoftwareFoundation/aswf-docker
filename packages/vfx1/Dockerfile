@@ -52,10 +52,6 @@ ENV ASWF_BOOST_VERSION=${ASWF_BOOST_VERSION}
 ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
-# Copy local conan packages if any
-COPY packages/conan/data/ /opt/conan_home/d/
-COPY packages/conan/settings/ /opt/conan_home/.conan/
-
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 
 COPY scripts/common/install_conanpackages.sh /tmp
@@ -72,7 +68,9 @@ boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
-RUN /tmp/install_conanpackages.sh /usr/local
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \

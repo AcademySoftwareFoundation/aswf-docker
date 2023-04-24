@@ -128,8 +128,8 @@ Contains:
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
-* qt-5.15.8
-* pyside-5.15.8
+* qt-5.15.9
+* pyside-5.15.9
 * cmake-3.25.2
 * imath-3.1.7
 * materialx-1.38.7
