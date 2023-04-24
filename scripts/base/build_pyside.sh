@@ -28,13 +28,18 @@ if [[ $ASWF_PYSIDE_VERSION == 2.0.0 ]]; then
     "${ASWF_INSTALL_PREFIX}/bin/python" setup.py build install --prefix "${ASWF_INSTALL_PREFIX}"
 else
     # Naming scheme changed from "everywhere" to "opensource" with version 5.13.2
+    PYSIDE_URL_SUFFIX=""
     if [[ $ASWF_PYSIDE_VERSION == 5.12.6 ]]; then
         PYSIDE_URL_NAME=pyside-setup-everywhere-src-${ASWF_PYSIDE_VERSION}
     else
-        PYSIDE_URL_NAME=pyside-setup-opensource-src-${ASWF_PYSIDE_VERSION}
+       PYSIDE_URL_NAME=pyside-setup-opensource-src-${ASWF_PYSIDE_VERSION}
+        if [[ $ASWF_PYSIDE_VERSION == 5.15.9 ]]; then
+            # 5.15.9 added a -1 suffix to the distribution tarball
+            PYSIDE_URL_SUFFIX="-1"
+        fi
     fi
     if [ ! -f "$DOWNLOADS_DIR/pyside-${ASWF_PYSIDE_VERSION}.tar.xz" ]; then
-        curl --location "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-${ASWF_PYSIDE_VERSION}-src/${PYSIDE_URL_NAME}.tar.xz" -o "$DOWNLOADS_DIR/pyside-${ASWF_PYSIDE_VERSION}.tar.xz"
+        curl --location "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-${ASWF_PYSIDE_VERSION}-src/${PYSIDE_URL_NAME}${PYSIDE_URL_SUFFIX}.tar.xz" -o "$DOWNLOADS_DIR/pyside-${ASWF_PYSIDE_VERSION}.tar.xz"
     fi
     tar xf "$DOWNLOADS_DIR/pyside-${ASWF_PYSIDE_VERSION}.tar.xz"
     mv "${PYSIDE_URL_NAME}" pyside
@@ -56,35 +61,7 @@ else
         unzip clang10-patch.zip
         patch -p1 < 9ae6382.diff
     fi
-    if [[ $ASWF_PYSIDE_VERSION == 5.15.8 ]]; then
-        # Apply _Py_Mangle patch from comments in https://bugreports.qt.io/browse/PYSIDE-1775
-        # Unfortunately no easily downloadable patch
-        cat << EOF > py_mangle.diff
---- a/sources/shiboken2/libshiboken/pep384impl.cpp	2023-02-12 05:07:52.467175804 +0000
-+++ b/sources/shiboken2/libshiboken/pep384impl.cpp	2023-02-12 05:08:39.867065833 +0000
-@@ -751,9 +751,7 @@
- #endif // IS_PY2
-     Shiboken::AutoDecRef privateobj(PyObject_GetAttr(
-         reinterpret_cast<PyObject *>(Py_TYPE(self)), Shiboken::PyMagicName::name()));
--#ifndef Py_LIMITED_API
--    return _Py_Mangle(privateobj, name);
--#else
-+
-     // PYSIDE-1436: _Py_Mangle is no longer exposed; implement it always.
-     // The rest of this function is our own implementation of _Py_Mangle.
-     // Please compare the original function in compile.c .
-@@ -789,7 +787,6 @@
-     if (amount > big_stack)
-         free(resbuf);
-     return result;
--#endif // else Py_LIMITED_API
- }
-
- /*****************************************************************************
-EOF
-        patch -p1 < py_mangle.diff
-    fi
-    if [[ $ASWF_PYSIDE_VERSION == 5.15.8 ]]; then
+    if [[ $ASWF_PYSIDE_VERSION == 5.15.9 ]]; then
         # Fix for compiling against Numpy 1.23.x from
         # https://git.alpinelinux.org/aports/commit/?id=8936d82ae568ce7521427075be5599fcc3a409f0
         cat << EOF > shiboken_numpy_1_23.diff
@@ -105,8 +82,7 @@ EOF
         patch -p1 < shiboken_numpy_1_23.diff
     fi
 
-    "${ASWF_INSTALL_PREFIX}/bin/python" setup.py build --parallel=$(nproc)
-    "${ASWF_INSTALL_PREFIX}/bin/python" setup.py install --prefix "${ASWF_INSTALL_PREFIX}"
+    "${ASWF_INSTALL_PREFIX}/bin/python" setup.py install --parallel=$(nproc) --prefix "${ASWF_INSTALL_PREFIX}"
 
 fi
 

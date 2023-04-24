@@ -150,5 +150,7 @@ tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
-RUN /tmp/install_conanpackages.sh /usr/local
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local
 

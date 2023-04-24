@@ -49,10 +49,6 @@ ENV ASWF_PKG_ORG=${ASWF_PKG_ORG}
 ENV ASWF_CONAN_CHANNEL=${ASWF_CONAN_CHANNEL}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
-# Copy local conan packages if any
-COPY packages/conan/data/ /opt/conan_home/d/
-COPY packages/conan/settings/ /opt/conan_home/.conan/
-
 RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
 
 COPY scripts/common/install_conanpackages.sh /tmp
@@ -66,7 +62,9 @@ COPY <<EOF /usr/local/conanfile.txt
 python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
-RUN /tmp/install_conanpackages.sh /usr/local
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local
 
 # Workaround pyside issue with Qt headers within system location https://bugreports.qt.io/browse/PYSIDE-787
 COPY --from=ci-package-qt-external /. /tmp/qt5temp

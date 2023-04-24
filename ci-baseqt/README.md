@@ -92,8 +92,8 @@ Contains:
 * log4cplus-1.1.2
 * python-3.10.9
 * tbb-2020_U3
-* qt-5.15.8
-* pyside-5.15.8
+* qt-5.15.9
+* pyside-5.15.9
 * numpy-1.23.5
 * vfxplatform-2023
 

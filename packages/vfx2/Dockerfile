@@ -71,10 +71,6 @@ ENV ASWF_BOOST_VERSION=${ASWF_BOOST_VERSION}
 ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
-# Copy local conan packages if any
-COPY packages/conan/data/ /opt/conan_home/d/
-COPY packages/conan/settings/ /opt/conan_home/.conan/
-
 COPY scripts/common/install_conanpackages.sh /tmp
 
 # Use conan to install some packages
@@ -89,7 +85,9 @@ boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
-RUN /tmp/install_conanpackages.sh /usr/local
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
@@ -163,12 +161,20 @@ COPY --from=ci-package-blosc-external /. /usr/local/
 COPY ../scripts/vfx/build_osl.sh \
      /tmp/
 
-# Copy local conan packages if any
-COPY packages/conan/data/ /opt/conan_home/d/
-COPY packages/conan/settings/ /opt/conan_home/.conan/
+COPY scripts/common/install_conanpackages.sh /tmp
 
 # Use conan to install some packages
-RUN conan install tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -263,8 +269,20 @@ COPY ../scripts/vfx/build_opensubdiv.sh \
 COPY --from=ci-package-glew-external /. /usr/local/
 COPY --from=ci-package-glfw-external /. /usr/local/
 
+COPY scripts/common/install_conanpackages.sh /tmp
+
 # Use conan to install some packages
-RUN conan install tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -326,8 +344,20 @@ COPY --from=ci-package-pyside-external /. /usr/local/
 COPY ../scripts/vfx/build_usd.sh \
      /tmp/
 
+COPY scripts/common/install_conanpackages.sh /tmp
+
 # Use conan to install MaterialX
-RUN conan install materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /usr/local
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
