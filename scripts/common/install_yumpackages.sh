@@ -60,6 +60,7 @@ yum install --setopt=tsflags=nodocs -y \
     gtk2-devel \
     harfbuzz-devel \
     java-1.8.0-openjdk \
+    libbluray-devel \
     libcap-devel \
     libcdio-paranoia-devel \
     libcurl-devel \
@@ -211,8 +212,10 @@ yum install -y \
     audiofile-devel \
     lame-devel \
     libcaca-devel \
+    libdc1394-devel \
     opencl-headers \
     p7zip \
+    yasm-devel \
     zvbi-devel
 
 if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
@@ -220,10 +223,7 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     # Recent Qt 5.15.x wants wayland-devel
     dnf -y install \
         git \
-        wayland-devel \
-        https://koji.mbox.centos.org/pkgs/packages/libbluray/1.0.2/3.el8/x86_64/libbluray-devel-1.0.2-3.el8.x86_64.rpm \
-        https://koji.mbox.centos.org/pkgs/packages/libdc1394/2.2.2/10.el8/x86_64/libdc1394-devel-2.2.2-10.el8.x86_64.rpm \
-        https://koji.mbox.centos.org/pkgs/packages/yasm/1.3.0/7.el8/x86_64/yasm-devel-1.3.0-7.el8.x86_64.rpm
+        wayland-devel
     # If we really wanted libdb4 / libdb4-devel
     # dnf -y install
     #    https://pkgs.dyn.su/el8/base/x86_64/libdb4-4.8.30-30.el8.x86_64.rpm
@@ -238,13 +238,10 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     alternatives --set python /usr/bin/python3
 else
     yum install -y \
-        libbluray-devel \
         libdb4-devel \
-        libdc1394-devel \
         openjpeg-devel \
         openssl11-devel \
-        rh-git218 \
-        yasm-devel
+        rh-git218
 fi
 
 yum clean all

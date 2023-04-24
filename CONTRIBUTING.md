@@ -324,9 +324,9 @@ Example use: just build a single package for testing:
 
 ```bash
 # Build and push USD package to aswftesting
-aswfdocker --verbose build -t PACKAGE --group vfx --version 2019 --target usd --push
+aswfdocker --verbose build -t PACKAGE --group vfx --version 2019 --target usd --push YES
 # Build and push ci-vfxall image to aswftesting
-aswfdocker --verbose build -t IMAGE --group vfx --version 2019 --target vfxall --push
+aswfdocker --verbose build -t IMAGE --group vfx --version 2019 --target vfxall --push YES
 ```
 
 ### Migrate
@@ -352,9 +352,9 @@ E.g. to build and push a new `ninja` package these commands can be run to push t
 
 ```bash
 # push to aswftesting
-aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/testing build -t PACKAGE --group common --version 1 --target ninja --push
+aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/testing build -t PACKAGE --group common --version 1 --target ninja --push YES
 # push to aswf
-aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/master build -t PACKAGE --group common --version 1 --target ninja --push
+aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/master build -t PACKAGE --group common --version 1 --target ninja --push YES
 ```
 
 ### Manual GitHub release creation
