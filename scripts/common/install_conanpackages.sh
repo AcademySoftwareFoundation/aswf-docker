@@ -11,6 +11,8 @@
 
 set -ex
 
+echo "ASWF_CONAN_CHANNEL is $ASWF_CONAN_CHANNEL"
+
 VFXYEAR=$(echo $ASWF_CONAN_CHANNEL | sed -rn 's/[^[:digit:]]*([[:digit:]]+)/\1/p')
 
 if [[ $ASWF_CONAN_CHANNEL == ci_common* ]]; then
