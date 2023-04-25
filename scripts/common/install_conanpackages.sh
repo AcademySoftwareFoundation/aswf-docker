@@ -13,6 +13,11 @@ set -ex
 
 VFXYEAR=$(echo $ASWF_CONAN_CHANNEL | sed -rn 's/[^[:digit:]]*([[:digit:]]+)/\1/p')
 
+if [[ $ASWF_CONAN_CHANNEL == ci_common* ]]; then
+    # ci_common images are "year independent", we just care if version 3/2023 or newer
+    VFXYEAR=$(( $VFXYEAR + 2020 ))
+fi
+
 cd $1
 if (( $VFXYEAR < 2023 )); then
     # Install conan packages listed in conanfile.txt in current directory
