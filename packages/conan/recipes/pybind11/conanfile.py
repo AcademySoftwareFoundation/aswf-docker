@@ -27,7 +27,9 @@ class PyBind11Conan(ConanFile):
     _cmake = None
 
     def requirements(self):
-        self.requires(f"python/(latest)@{self.user}/{self.channel}")
+        self.requires(
+            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
+        )
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
