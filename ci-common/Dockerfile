@@ -108,6 +108,8 @@ RUN /tmp/install_yumpackages.sh
 COPY scripts/common/install_opengl.sh \
     /tmp/
 
+ARG ASWF_BASEOS_DISTRO
+ENV ASWF_BASEOS_DISTRO=${ASWF_BASEOS_DISTRO}
 RUN /tmp/install_opengl.sh
 
 ENV NVIDIA_VISIBLE_DEVICES \
