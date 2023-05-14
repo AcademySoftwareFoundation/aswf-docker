@@ -7,6 +7,7 @@ packages:
   - ninja
 implicit_packages:
   - cuda
+  - glvnd
   - ccache
   - dts
   - sonar
@@ -20,6 +21,18 @@ docker_commands: |
       /tmp/
 
   RUN /tmp/install_yumpackages.sh
+
+  COPY scripts/common/install_opengl.sh \
+      /tmp/
+
+  RUN /tmp/install_opengl.sh
+
+  ENV NVIDIA_VISIBLE_DEVICES \
+      ${NVIDIA_VISIBLE_DEVICES:-all}
+  ENV NVIDIA_DRIVER_CAPABILITIES \
+      ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+  ENV PKG_CONFIG_PATH \
+      /usr/local/lib/pkgconfig
 
   RUN mkdir /opt/aswf
   WORKDIR /opt/aswf

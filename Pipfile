@@ -29,6 +29,8 @@ jinja2 = "*"
 requests = "*"
 importlib-resources = "*"
 conan = "==1.47"
+pytest = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.9"
