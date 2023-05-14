@@ -23,6 +23,7 @@ Contains:
 * clang-6.0.1
 * ninja-1.10.1
 * cuda-10.2
+* glvnd-1.2.0
 * ccache-4.0
 * dts-6
 * sonar-4.6.2.2472
@@ -34,6 +35,7 @@ Contains:
 * clang-7.1.0
 * ninja-1.10.1
 * cuda-10.2
+* glvnd-1.2.0
 * ccache-4.0
 * dts-6
 * sonar-4.6.2.2472
@@ -45,6 +47,7 @@ Contains:
 * clang-8.0.1
 * ninja-1.10.1
 * cuda-10.2
+* glvnd-1.2.0
 * ccache-4.0
 * dts-6
 * sonar-4.6.2.2472
@@ -56,6 +59,7 @@ Contains:
 * clang-9.0.1
 * ninja-1.10.1
 * cuda-10.2
+* glvnd-1.2.0
 * ccache-4.0
 * dts-6
 * sonar-4.6.2.2472
@@ -67,6 +71,7 @@ Contains:
 * clang-10.0.1
 * ninja-1.10.1
 * cuda-10.2
+* glvnd-1.2.0
 * ccache-4.0
 * dts-6
 * sonar-4.6.2.2472
@@ -78,6 +83,7 @@ Contains:
 * clang-10.0.1
 * ninja-1.11.0
 * cuda-11.4.0
+* glvnd-1.2.0
 * ccache-4.0
 * dts-9
 * sonar-4.7.0.2747
@@ -89,6 +95,7 @@ Contains:
 * clang-11.1.0
 * ninja-1.11.0
 * cuda-11.4.0
+* glvnd-1.2.0
 * ccache-4.0
 * dts-9
 * sonar-4.7.0.2747
@@ -100,6 +107,7 @@ Contains:
 * clang-12.0.1
 * ninja-1.11.0
 * cuda-11.4.0
+* glvnd-1.2.0
 * ccache-4.0
 * dts-9
 * sonar-4.7.0.2747
@@ -111,6 +119,7 @@ Contains:
 * clang-13.0.1
 * ninja-1.11.0
 * cuda-11.4.0
+* glvnd-1.2.0
 * ccache-4.0
 * dts-9
 * sonar-4.7.0.2747
@@ -122,6 +131,7 @@ Contains:
 * clang-14.0.0
 * ninja-1.11.0
 * cuda-11.4.0
+* glvnd-1.2.0
 * ccache-4.0
 * dts-9
 * sonar-4.7.0.2747
@@ -133,6 +143,7 @@ Contains:
 * clang-14.0.6
 * ninja-1.11.1
 * cuda-11.8.0
+* glvnd-1.6.0
 * ccache-4.7.4
 * dts-11
 * sonar-4.8.0.2856
@@ -144,6 +155,7 @@ Contains:
 * clang-15.0.7
 * ninja-1.11.1
 * cuda-11.8.0
+* glvnd-1.6.0
 * ccache-4.7.4
 * dts-11
 * sonar-4.8.0.2856
