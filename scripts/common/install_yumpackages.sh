@@ -215,6 +215,8 @@ yum install -y \
     libdc1394-devel \
     opencl-headers \
     p7zip \
+    xcb-util-cursor \
+    xcb-util-cursor-devel \
     yasm-devel \
     zvbi-devel
 

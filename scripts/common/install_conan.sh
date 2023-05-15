@@ -24,9 +24,16 @@ make install
 curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 python3 get-pip.py
 
-pip3 install "conan==${ASWF_CONAN_VERSION}" pyinstaller
+# Trying to run pyinstaller on an installer version of Conan does not work well
+# Instead we run pyinstaller directly on the source
+pip3 install pyinstaller
 
-pyinstaller `which conan` --distpath /opt
+cd ..
+git clone --branch ${ASWF_CONAN_VERSION} https://github.com/conan-io/conan.git
+cd conan
+pip3 install -r conans/requirements.txt
+python3 pyinstaller.py
+cp -r pyinstaller/dist/conan /opt
 
 cat <<EOF > "${ASWF_INSTALL_PREFIX}/bin/conan"
 #!/bin/sh
