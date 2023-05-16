@@ -1,0 +1,7 @@
+diff --git a/qtbase/include/QtCore//qtsan_impl.h b/qtbase/include/QtCore/qtsan_impl.h
+new file mode 100644
+index 0000000000..580a738b91
+--- /dev/null
++++ b/qtbase/include/QtCore/qtsan_impl.h
+@@ -0,0 +1,1 @@
++#include "../../src/corelib/thread/qtsan_impl.h"
