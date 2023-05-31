@@ -87,7 +87,7 @@ EOF
 
 RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
@@ -174,7 +174,7 @@ EOF
 
 RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -282,7 +282,7 @@ EOF
 
 RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -357,7 +357,7 @@ EOF
 
 RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \

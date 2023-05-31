@@ -155,9 +155,6 @@ COPY ../packages/conan/settings /opt/conan_home/.conan
 ENV CONAN_USER_HOME=/opt/conan_home
 
 
-
-RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
-
 COPY scripts/common/install_conanpackages.sh /tmp/
 
 # conan-only packages
@@ -170,7 +167,9 @@ COPY <<EOF /usr/local/conanfile.txt
 # ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
+
 RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local
+    /tmp/install_conanpackages.sh /usr/local ci_common${CI_COMMON_VERSION}
+
 

@@ -122,11 +122,6 @@ COPY ci-{{name}}/README.md ci-{{name}}/image.yaml /usr/local/aswf/
 {{ index.package_data(package).get("docker_commands", "") -}}
 {% endfor -%}
 
-{% if name != "common" %}
-RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
-{% else %}
-RUN conan config set general.default_profile=ci_common${CI_COMMON_VERSION}
-{% endif %}
 COPY scripts/common/install_conanpackages.sh /tmp/
 
 # conan-only packages
@@ -144,8 +139,14 @@ COPY <<EOF /usr/local/conanfile.txt
 {% endfor -%}
 EOF
 
+{% if name != "common" %}
 RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+{% else %}
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local ci_common${CI_COMMON_VERSION}
+{% endif %}
 
 {{ docker_post_commands }}
