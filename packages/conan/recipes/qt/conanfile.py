@@ -356,6 +356,29 @@ class QtConan(ConanFile):
 
         for patch in self.conan_data.get("patches", {}).get(self.version, []):
             tools.patch(**patch)
+
+        # This is ugly, but the python-patch module used by Conan ignores file renames in patches
+        if tools.Version(self.version) == "5.15.9":
+            qt5_15_9_renames = [
+                ("print-24.png", "printer-24.png"),
+                ("print-32.png", "printer-32.png"),
+                ("view-page-sided-24.png", "view-pages-facing-24.png"),
+                ("view-page-sided-32.png", "view-pages-facing-32.png"),
+                ("view-page-multi-24.png", "view-pages-overview-24.png"),
+                ("view-page-multi-32.png", "view-pages-overview-32.png"),
+                ("view-page-one-24.png", "view-pages-single-24.png"),
+                ("view-page-one-32.png", "view-pages-single-32.png"),
+                ("fit-page-24.png", "zoom-fit-page-24.png"),
+                ("fit-page-32.png", "zoom-fit-page-32.png"),
+                ("fit-width-24.png", "zoom-fit-width-24.png"),
+                ("fit-width-32.png", "zoom-fit-width-32.png"),
+            ]
+            for file_rename in qt5_15_9_renames:
+                shutil.move(
+                    f"qt5/qtbase/src/printsupport/dialogs/images/{file_rename[0]}",
+                    f"qt5/qtbase/src/printsupport/dialogs/images/{file_rename[1]}",
+                )
+
         for f in [
             "renderer",
             os.path.join("renderer", "core"),
