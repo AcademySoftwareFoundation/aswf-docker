@@ -365,7 +365,7 @@ Contains:
 * qt-5.15.9
 * pyside-5.15.9
 * cmake-3.25.2
-* imath-3.1.7
+* imath-3.1.8
 * openexr-3.1.7
 * blosc-1.17.0
 * alembic-1.8.4
@@ -396,7 +396,7 @@ Contains:
 * qt-5.15.9
 * pyside-5.15.9
 * cmake-3.25.2
-* imath-3.1.7
+* imath-3.1.8
 * openexr-3.1.7
 * blosc-1.17.0
 * alembic-1.8.4

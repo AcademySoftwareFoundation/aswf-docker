@@ -7,7 +7,12 @@
 # of hard coded installation paths.
 
 # Call with:
-# install_conanpackages.sh install_dir
+#
+# install_conanpackages.sh install_dir default_profile
+#
+# where:
+#   install_dir: location where Conan packages will installed
+#   default_profile: the Conan profile for the year, either ci_commonx or vfx20xx
 
 set -ex
 
@@ -19,6 +24,8 @@ if [[ $ASWF_CONAN_CHANNEL == ci_common* ]]; then
     # ci_common images are "year independent", we just care if version 3/2023 or newer
     VFXYEAR=$(( $VFXYEAR + 2020 ))
 fi
+
+conan config set general.default_profile=$2
 
 cd $1
 if (( $VFXYEAR < 2023 )); then

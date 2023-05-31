@@ -126,9 +126,6 @@ COPY ci-base/README.md ci-base/image.yaml /usr/local/aswf/
 
 
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}
-
-RUN conan config set general.default_profile=vfx${ASWF_VFXPLATFORM_VERSION}
-
 COPY scripts/common/install_conanpackages.sh /tmp/
 
 # conan-only packages
@@ -149,7 +146,9 @@ python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
+
 RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+
 
