@@ -52,6 +52,9 @@ class PySideConan(ConanFile):
                 filename="clang10-patch.zip",
             )
             self.run("patch -p1 < ../9ae6382.diff", cwd=self._source_subfolder)
+        else:
+            for patch in self.conan_data.get("patches", {}).get(self.version, []):
+                tools.patch(**patch)
 
     def build(self):
         vars = tools.RunEnvironment(self).vars
