@@ -131,7 +131,7 @@ Contains:
 * qt-5.15.9
 * pyside-5.15.9
 * cmake-3.25.2
-* imath-3.1.8
+* imath-3.1.9
 * materialx-1.38.7
 * openexr-3.1.7
 * oiio-2.4.9.0

@@ -204,7 +204,7 @@ Contains:
 * glfw-3.1.2
 * python-3.10.9
 * tbb-2020_U3
-* imath-3.1.8
+* imath-3.1.9
 * openexr-3.1.7
 * blosc-1.17.0
 * numpy-1.23.5
@@ -220,7 +220,7 @@ Contains:
 * glfw-3.1.2
 * python-3.10.9
 * tbb-2020_U3
-* imath-3.1.8
+* imath-3.1.9
 * openexr-3.1.7
 * blosc-1.17.0
 * numpy-1.23.5
