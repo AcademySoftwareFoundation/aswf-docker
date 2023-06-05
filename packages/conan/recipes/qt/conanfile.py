@@ -76,6 +76,9 @@ class QtConan(ConanFile):
         "qtnetworkauth",
         "qtremoteobjects",
         "qtwebglplugin",
+        "qtlottie",
+        "qtquicktimeline",
+        "qtquick3d",
     ]
 
     generators = "pkg_config"
@@ -661,7 +664,10 @@ class QtConan(ConanFile):
         args += ["-no-libudev"]
         args += ["-no-egl"]
         args += ["-no-use-gold-linker"]
-        args += ["-c++std c++14"]
+        if tools.Version(self.version) >= "5.15":
+            args += ["-c++std c++17"]
+        else:
+            args += ["-c++std c++14"]
 
         for package in self.deps_cpp_info.deps:
             args += ['-I "%s"' % s for s in self.deps_cpp_info[package].include_paths]
@@ -813,6 +819,15 @@ class QtConan(ConanFile):
     def package(self):
         with tools.chdir("build_folder"):
             self.run("%s install" % self._make_program())
+        if tools.Version(self.version) == "5.15.9":
+            # The KDE patchset adds qtsan_impl.h but it doesn't get packaged...
+            self.copy(
+                "qtsan_impl.h",
+                src=os.path.join(
+                    self.source_folder, "qt5", "qtbase", "src", "corelib", "thread"
+                ),
+                dst=os.path.join(self.package_folder, "include", "QtCore"),
+            )
         with open(os.path.join(self.package_folder, "bin", "qt.conf"), "w") as f:
             f.write(
                 """[Paths]
