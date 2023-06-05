@@ -1,7 +1,14 @@
 sources:
-  5.12.6:
+  "5.12.6":
     url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.12.6-src/pyside-setup-everywhere-src-5.12.6.tar.xz"
     sha256: "53379f43891a6bc72fc344f5963d77de0916344637132aae634677dfbba185d8"
-  5.15.2:
+  "5.15.2":
     url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.2-src/pyside-setup-opensource-src-5.15.2.tar.xz"
     sha256: "b306504b0b8037079a8eab772ee774b9e877a2d84bab2dbefbe4fa6f83941418"
+  "5.15.9":
+    url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.9-src/pyside-setup-opensource-src-5.15.9-1.tar.xz"
+    sha256: "3298660742037c71274a30770541abf6d1552ec65fc93678eedee5718852a62c"
+patches:
+  "5.15.9":
+    - patch_file: "shiboken_numpy_1_23.diff"
+      base_path: "patches_subfolder"
