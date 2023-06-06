@@ -109,7 +109,7 @@ Contains:
 * glfw-3.1.2
 * cmake-3.25.2
 * imath-3.1.9
-* openexr-3.1.7
+* openexr-3.1.8
 * oiio-2.4.9.0
 * blosc-1.17.0
 * partio-1.14.6

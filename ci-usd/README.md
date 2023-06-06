@@ -133,7 +133,7 @@ Contains:
 * cmake-3.25.2
 * imath-3.1.9
 * materialx-1.38.7
-* openexr-3.1.7
+* openexr-3.1.8
 * oiio-2.4.9.0
 * ocio-2.2.1
 * ptex-2.4.2

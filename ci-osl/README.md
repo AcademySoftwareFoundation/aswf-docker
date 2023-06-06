@@ -260,7 +260,7 @@ Contains:
 * python-3.10.9
 * qt-5.15.9
 * imath-3.1.9
-* openexr-3.1.7
+* openexr-3.1.8
 * oiio-2.4.9.0
 * ocio-2.2.1
 * partio-1.14.6
@@ -278,7 +278,7 @@ Contains:
 * python-3.10.9
 * qt-5.15.9
 * imath-3.1.9
-* openexr-3.1.7
+* openexr-3.1.8
 * oiio-2.4.9.0
 * ocio-2.2.1
 * partio-1.14.6
