@@ -50,7 +50,7 @@ All notable changes to this project will be documented in this file.
 
 ### New CI Images
 
-* `aswf/ci-common:3-clang14.0`, `aswf/ci-common:3-clang15.0` : A base Rocky 8 image with GCC 11.2.1 (DTS 11), Clang 14.1/15.0 and CUDA 11.8.
+* `aswf/ci-common:3-clang14.0`, `aswf/ci-common:3-clang15.0` : A base Rocky 8 image with GCC 11.2.1 (DTS 11), Clang 14.0/15.0 and CUDA 11.8.
 * `aswf/ci-base:2023.0`
 * `aswf/ci-baseqt:2023.0`
 * `aswf/ci-opencue:2023.0`
