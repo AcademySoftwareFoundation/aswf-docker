@@ -2,29 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2023-03-07
+## 2023-06-06
 
 * New ci-common-v3 for VFX Platform 2023 based on:
   * C++17 (unchanged)
   * Ccache 4.7.4 (from 4.0)
   * Clang 14.0.6 (from 14.0.0)
+  * Clang 15.0.7
   * Conan 1.58.0 (from 1.47.0)
   * CUDA 11.8 (from 11.4.0)
   * gcc-toolset 11 / gcc 11.2.1 (from DTS 9 / gcc 9.3.1)
   * glibc 2.28 (from 2.17)
   * libstdc++11 new ABI
   * Ninja 1.11.1 (from 1.11.0)
-  * Rocky Linux 8.7 (from CentOS 7.9)
+  * Rocky Linux 8.8 (from CentOS 7.9)
   * SonarScan 4.8.0.2856 (from 4.7.0.2747)
 * Updated 2023 Packages
   * Alembic 1.8.4 (from 1.8.2)
   * Boost 1.80.0 (from 1.76.0)
   * CMake 3.25.2 (from 3.22.0)
-  * Imath 3.1.7
-  * MaterialX 1.38.6 (from 1.38.5)
+  * Hdf5 1.8.23 (from 1.8.21)
+  * Imath 3.1.9
+  * MaterialX 1.38.7 (from 1.38.5)
   * NumPy 1.23.5 (from 1.20)
   * OpenColorIO 2.2.1 (from 2.1.1)
-  * OpenEXR 3.1.7
+  * OpenEXR 3.1.8
   * OpenImageIO 2.4.9.0 (from 2.4.5.0)
   * OpenSubdiv 3.5.0 (from 3.4.4)
   * OpenVDB 10.0.1 (from 9.1.0)
@@ -32,11 +34,18 @@ All notable changes to this project will be documented in this file.
   * OpenTimelineIO 0.15 (from 0.14.1)
   * Partio 1.14.6 (from 1.14.0)
   * Ptex 2.4.2 (from 2.4.0)
-  * PySide 5.15.8 (from 5.15.2)
+  * PySide 5.15.9 (from 5.15.2)
   * Python 3.10.9 (from 3.9.15)
-  * Qt 5.15.8 (from 5.15.2)
-  * USD 23.02 (from 22.11)
+  * Qt 5.15.9 (from 5.15.2)
+  * USD 23.05 (from 22.11)
 * Unchanged 2023 Packages
+  * Blosc 1.17.0
+  * CppUnit 1.15.1
+  * GLEW 2.1.0
+  * GLFW 3.1.2
+  * gtest 1.11.0
+  * HDF5 1.8.23
+  * log4cplus 1.1.2
   * TBB 2020u3
 
 ### New CI Images
