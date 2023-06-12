@@ -1,0 +1,27 @@
+From 9ae63824a5ec550e82561b9f07fc6307ae1f3cec Mon Sep 17 00:00:00 2001
+From: Friedemann Kleint <Friedemann.Kleint@qt.io>
+Date: Mon, 06 Apr 2020 08:15:11 +0200
+Subject: [PATCH] shiboken: Support Clang version 10
+
+Adapt the version check of the internal include directory to parse the
+entire directory (typically named like 9.0.0) as version number
+instead of just checking the first digit.
+
+Change-Id: I7e09c36fd523328e962c7f2acbc8385787e94998
+Fixes: PYSIDE-1259
+Reviewed-by: Cristian Maureira-Fredes <cristian.maureira-fredes@qt.io>
+---
+
+diff --git a/sources/shiboken2/ApiExtractor/clangparser/compilersupport.cpp b/sources/shiboken2/ApiExtractor/clangparser/compilersupport.cpp
+index d3e5e21..188725d 100644
+--- a/sources/shiboken2/ApiExtractor/clangparser/compilersupport.cpp
++++ b/sources/shiboken2/ApiExtractor/clangparser/compilersupport.cpp
+@@ -274,7 +274,7 @@
+         for (const QFileInfo &fi : versionDirs) {
+             const QString fileName = fi.fileName();
+             if (fileName.at(0).isDigit()) {
+-                const QVersionNumber versionNumber = QVersionNumber::fromString(fileName.at(0));
++                const QVersionNumber versionNumber = QVersionNumber::fromString(fileName);
+                 if (!versionNumber.isNull() && versionNumber > lastVersionNumber) {
+                     candidate = fi.absoluteFilePath();
+                     lastVersionNumber = versionNumber;

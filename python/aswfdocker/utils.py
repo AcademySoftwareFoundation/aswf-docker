@@ -108,5 +108,7 @@ def get_image_spec(name: str):
 
 def get_dockerhub_token(username, password):
     body = {"username": username, "password": password}
-    response = requests.post("https://hub.docker.com/v2/users/login", json=body)
+    response = requests.post(
+        "https://hub.docker.com/v2/users/login", json=body, timeout=5
+    )
     return response.json()["token"]
