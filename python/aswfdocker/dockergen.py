@@ -85,6 +85,7 @@ class DockerGen:
             url,
             json=body,
             headers={"Authorization": f"JWT {token}"},
+            timeout=5,
         )
         if response.status_code == 200:
             return True

@@ -11,6 +11,7 @@ class PySideConan(ConanFile):
     homepage = "https://www.qt.io/qt-for-python"
     license = "LGPL-3.0"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
+    exports = ["patches/*.diff"]
     settings = (
         "os",
         "arch",
@@ -28,33 +29,25 @@ class PySideConan(ConanFile):
 
     def build_requirements(self):
         self.build_requires(
-            f"clang/(latest)@{self.user}/ci_common{self.settings.ci_common}"
+            f"clang/(latest)@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
         )
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
-        os.rename(
+        extractdir = (
             self.conan_data["sources"][self.version]["url"]
             .split("/")[-1]
-            .replace(".tar.xz", ""),
+            .replace(".tar.xz", "")
+        )
+        if self.version == "5.15.9":
+            # tar file for 5.15.9 adds -1 suffix, but extracts to 5.15.9
+            extractdir = extractdir.rstrip("-1")
+        os.rename(
+            extractdir,
             self._source_subfolder,
         )
-        if self.version == "5.12.6":
-            # Apply typing patch
-            tools.get(
-                "https://codereview.qt-project.org/changes/pyside%2Fpyside-setup~271412/revisions/4/patch?zip",
-                filename="typing-patch.zip",
-            )
-            self.run("patch -p1 < ../28958df.diff", cwd=self._source_subfolder)
-            # Apply clang10 patch
-            tools.get(
-                "https://codereview.qt-project.org/changes/pyside%2Fpyside-setup~296271/revisions/2/patch?zip",
-                filename="clang10-patch.zip",
-            )
-            self.run("patch -p1 < ../9ae6382.diff", cwd=self._source_subfolder)
-        else:
-            for patch in self.conan_data.get("patches", {}).get(self.version, []):
-                tools.patch(**patch)
+        for patch in self.conan_data.get("patches", {}).get(self.version, []):
+            tools.patch(**patch)
 
     def build(self):
         vars = tools.RunEnvironment(self).vars

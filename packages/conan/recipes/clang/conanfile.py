@@ -33,9 +33,23 @@ class ClangConan(ConanFile):
     def _source_subfolder(self):
         return "source"
 
-    def build_requirements(self):
-        if tools.Version(self.version) > "11":
-            self.build_requires(f"python/3.9.7@{self.user}/vfx2022")
+    # def build_requirements(self):
+    # if tools.Version(self.version) > "11":
+    # We can't use our python package for a few reasons:
+    # - it introduces a circular dependency between the clang package build, in ci_commonX context
+    #   and vfx20XX context
+    # - the Package ID won't match: the vfx20XX profile adds a python=3.x setting which the ci_commonX
+    #   doesn't have, and if you don't define ASWF_NUMPY_VERSION, the conanfile.py for the python package
+    #   sets the option with_numpy=False, which also invalidates the Package ID
+    #
+    # Also the process which installed Conan in our build container built a Python in /tmp/pyconan, but
+    # it cleans up up once Conan has been installed and turned into an executable with pyinstaller.
+    #
+    # We could of course make sure we have a Python 3 installed in the docker image.
+    #
+    # Instead we just go ahead and rebuild Python from scratch.
+    #
+    # self.build_requires(f"python/3.9.7@{self.user}/vfx2022")
 
     def configure(self):
         compiler = self.settings.compiler.value
@@ -107,10 +121,25 @@ class ClangConan(ConanFile):
         )
 
     def build(self):
-        with tools.environment_append(tools.RunEnvironment(self).vars):
-            cmake = self._configure_cmake()
-            cmake.configure(source_folder="source/llvm")
-            cmake.build()
+        # See commented out build_requirements(): we have to build our own Python to break circular dependency
+        pyclangenv = {
+            "PATH": f"/tmp/pyclang/bin:{os.environ['PATH']}",
+            "LD_LIBRARY_PATH": f"/tmp/pyclang/lib:{os.environ['LD_LIBRARY_PATH']}",
+        }
+        tools.get(
+            f"https://www.python.org/ftp/python/{os.environ['ASWF_CONAN_PYTHON_VERSION']}/Python-{os.environ['ASWF_CONAN_PYTHON_VERSION']}.tgz"
+        )
+        with tools.environment_append(pyclangenv):
+            with tools.chdir(f"Python-{os.environ['ASWF_CONAN_PYTHON_VERSION']}"):
+                self.run(
+                    "./configure --prefix=/tmp/pyclang --enable-unicode=ucs4 --enable-shared"
+                )
+                self.run(f"make -j{tools.cpu_count()}")
+                self.run("make install")
+            with tools.environment_append(tools.RunEnvironment(self).vars):
+                cmake = self._configure_cmake()
+                cmake.configure(source_folder="source/llvm")
+                cmake.build()
 
     def package(self):
         self.copy(

@@ -9,6 +9,13 @@ sources:
     url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.9-src/pyside-setup-opensource-src-5.15.9-1.tar.xz"
     sha256: "3298660742037c71274a30770541abf6d1552ec65fc93678eedee5718852a62c"
 patches:
+  "5.12.6":
+    # typing-patch.zip from https://codereview.qt-project.org/changes/pyside%2Fpyside-setup~271412/revisions/4/patch?zip
+    - patch_file: "patches/28958df.diff"
+      base_path: "source_subfolder"
+    # clang10-patch.zip from https://codereview.qt-project.org/changes/pyside%2Fpyside-setup~296271/revisions/2/patch?zip
+    - patch_file: "patches/9ae6382.diff"
+      base_path: "source_subfolder"
   "5.15.9":
-    - patch_file: "shiboken_numpy_1_23.diff"
-      base_path: "patches_subfolder"
+    - patch_file: "patches/shiboken_numpy_1_23.diff"
+      base_path: "source_subfolder"

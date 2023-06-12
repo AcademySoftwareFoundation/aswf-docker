@@ -519,29 +519,30 @@ class TestBuilderCli(unittest.TestCase):
         self._assertEndsWith(
             cmds,
             f"conan create {constants.CONAN_USER_HOME}/recipes/openexr"
-            " openexr/2.3.0@aswftesting/vfx2019"
-            " --keep-source --keep-build --build=missing'",
+            + " openexr/2.3.0@aswftesting/vfx2019"
+            + " --keep-source --keep-build --build=missing'",
         )
         self._assertEndsWith(
             cmds,
             "conan alias openexr/latest@aswftesting/vfx2019"
-            " openexr/2.3.0@aswftesting/vfx2019'",
+            + " openexr/2.3.0@aswftesting/vfx2019'",
         )
         self._assertEndsWith(
             cmds,
-            "conan upload --all -r aswftesting" " openexr/2.3.0@aswftesting/vfx2019'",
+            "conan upload --all -r aswftesting" + " openexr/2.3.0@aswftesting/vfx2019'",
         )
         self._assertEndsWith(
             cmds,
-            "conan upload --all -r aswftesting" " openexr/latest@aswftesting/vfx2019'",
+            "conan upload --all -r aswftesting"
+            + " openexr/latest@aswftesting/vfx2019'",
         )
         self._assertEndsWith(cmds, "conan user -p -r aswftesting'")
         self._assertEndsWith(cmds, "conan config set general.default_profile=vfx2020'")
         self._assertEndsWith(
             cmds,
             f"conan create {constants.CONAN_USER_HOME}/recipes/openexr"
-            " openexr/2.4.0@aswftesting/vfx2020"
-            " --keep-source --keep-build --build=missing'",
+            + " openexr/2.4.0@aswftesting/vfx2020"
+            + " --keep-source --keep-build --build=missing'",
         )
         self.assertEqual(result.exit_code, 0)
 
