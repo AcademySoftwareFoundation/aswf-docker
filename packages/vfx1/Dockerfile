@@ -26,15 +26,8 @@ ARG ASWF_OCIO_VERSION
 ARG ASWF_OIIO_VERSION
 ARG ASWF_OPENEXR_VERSION
 
-# Required base packages built in previous stages
-FROM ${ASWF_ORG}/ci-package-glew:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLEW_VERSION} as ci-package-glew-external
-FROM ${ASWF_ORG}/ci-package-cppunit:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CPPUNIT_VERSION} as ci-package-cppunit-external
-FROM ${ASWF_ORG}/ci-package-glfw:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLFW_VERSION} as ci-package-glfw-external
-FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} as ci-package-pybind11-external
-
-
 #################### ci-base-builder ####################
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base-builder
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-base-builder
 
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_PYTHON_VERSION
@@ -81,7 +74,7 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
 
 
 #################### ci-imath-builder ####################
-FROM ci-base-builder as ci-imath-builder
+FROM ci-base-builder AS ci-imath-builder
 
 ARG ASWF_IMATH_VERSION
 ENV ASWF_IMATH_VERSION=${ASWF_IMATH_VERSION}
@@ -98,7 +91,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-imath ####################
-FROM scratch as ci-package-imath
+FROM scratch AS ci-package-imath
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
@@ -125,7 +118,7 @@ COPY --from=ci-imath-builder /package/. /
 
 
 #################### ci-openexr-builder ####################
-FROM ci-imath-builder as ci-openexr-builder
+FROM ci-imath-builder AS ci-openexr-builder
 
 ARG ASWF_OPENEXR_VERSION
 ENV ASWF_OPENEXR_VERSION=${ASWF_OPENEXR_VERSION}
@@ -142,7 +135,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-openexr ####################
-FROM scratch as ci-package-openexr
+FROM scratch AS ci-package-openexr
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
@@ -170,7 +163,7 @@ COPY --from=ci-openexr-builder /package/. /
 
 
 #################### ci-alembic-builder ####################
-FROM ci-openexr-builder as ci-alembic-builder
+FROM ci-openexr-builder AS ci-alembic-builder
 
 ARG ASWF_ALEMBIC_VERSION
 ENV ASWF_ALEMBIC_VERSION=${ASWF_ALEMBIC_VERSION}
@@ -189,7 +182,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-alembic ####################
-FROM scratch as ci-package-alembic
+FROM scratch AS ci-package-alembic
 
 ARG ASWF_ALEMBIC_VERSION
 ARG ASWF_ORG
@@ -218,7 +211,7 @@ COPY --from=ci-alembic-builder /package/. /
 
 
 #################### ci-blosc-builder ####################
-FROM ci-base-builder as ci-blosc-builder
+FROM ci-base-builder AS ci-blosc-builder
 
 ARG ASWF_BLOSC_VERSION
 ENV ASWF_BLOSC_VERSION=${ASWF_BLOSC_VERSION}
@@ -235,7 +228,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-blosc ####################
-FROM scratch as ci-package-blosc
+FROM scratch AS ci-package-blosc
 
 ARG ASWF_ORG
 ARG ASWF_BLOSC_VERSION
@@ -262,20 +255,37 @@ COPY --from=ci-blosc-builder /package/. /
 
 
 #################### ci-openvdb-builder ####################
-FROM ci-openexr-builder as ci-openvdb-builder
+FROM ci-openexr-builder AS ci-openvdb-builder
 
 ARG ASWF_OPENVDB_VERSION
+ARG ASWF_VFXPLATFORM_VERSION
 ENV ASWF_OPENVDB_VERSION=${ASWF_OPENVDB_VERSION}
+ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
 COPY ../scripts/vfx/build_openvdb.sh \
      ../scripts/vfx/openvdb-imath.patch \
      /tmp/
 
-COPY --from=ci-package-glew-external /. /usr/local/
-COPY --from=ci-package-cppunit-external /. /usr/local/
-COPY --from=ci-package-glfw-external /. /usr/local/
-
 COPY --from=ci-package-blosc /. /usr/local/
+
+COPY scripts/common/install_conanpackages.sh /tmp
+
+# Use conan to install some packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+OF
+
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+
+
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -286,7 +296,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-openvdb ####################
-FROM scratch as ci-package-openvdb
+FROM scratch AS ci-package-openvdb
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
@@ -313,12 +323,27 @@ COPY --from=ci-openvdb-builder /package/. /
 
 
 #################### ci-oiio-builder ####################
-FROM ci-openvdb-builder as ci-oiio-builder
+FROM ci-openvdb-builder AS ci-oiio-builder
 
 ARG ASWF_OIIO_VERSION
+ARG ASWF_VFXPLATFORM_VERSION
 ENV ASWF_OIIO_VERSION=${ASWF_OIIO_VERSION}
+ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
-COPY --from=ci-package-pybind11-external /. /usr/local/
+COPY scripts/common/install_conanpackages.sh /tmp
+
+# Use conan to install some packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 COPY ../scripts/vfx/build_oiio.sh \
      /tmp/
@@ -332,7 +357,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-oiio ####################
-FROM scratch as ci-package-oiio
+FROM scratch AS ci-package-oiio
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
@@ -359,7 +384,7 @@ COPY --from=ci-oiio-builder /package/. /
 
 
 #################### ci-ocio-builder ####################
-FROM ci-oiio-builder as ci-ocio-builder
+FROM ci-oiio-builder AS ci-ocio-builder
 
 ARG ASWF_OCIO_VERSION
 ENV ASWF_OCIO_VERSION=${ASWF_OCIO_VERSION}
@@ -378,7 +403,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-ocio ####################
-FROM scratch as ci-package-ocio
+FROM scratch AS ci-package-ocio
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
@@ -407,7 +432,7 @@ COPY --from=ci-ocio-builder /package/. /
 
 
 #################### ci-osl-builder ####################
-FROM ci-oiio-builder as ci-osl-builder
+FROM ci-oiio-builder AS ci-osl-builder
 
 ARG ASWF_OSL_VERSION
 ENV ASWF_OSL_VERSION=${ASWF_OSL_VERSION}

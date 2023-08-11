@@ -35,12 +35,12 @@ ARG ASWF_BASEOS_DISTRO
 # Comment out this block to use Conan packages
 {% for package in packages -%}
 {% if not index.is_conan_only_package(package) -%}
-FROM ${ASWF_PKG_ORG}/ci-package-{{ package }}:{{docker_package_version}}-$ASWF_{{package.upper()}}_VERSION as ci-package-{{ package }}
+FROM ${ASWF_PKG_ORG}/ci-package-{{ package }}:{{docker_package_version}}-$ASWF_{{package.upper()}}_VERSION AS ci-package-{{ package }}
 {% endif -%}
 {% endfor -%}
 
 
-FROM {{ docker_from }} as ci-{{ name }}
+FROM {{ docker_from }} AS ci-{{ name }}
 
 
 ARG ASWF_ORG

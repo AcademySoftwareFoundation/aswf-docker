@@ -36,24 +36,20 @@ ARG ASWF_QT_VERSION
 ARG ASWF_USD_VERSION
 
 # Required base packages built in previous stages
-FROM ${ASWF_ORG}/ci-package-cppunit:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CPPUNIT_VERSION} as ci-package-cppunit-external
-FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} as ci-package-qt-external
-FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} as ci-package-pybind11-external
-FROM ${ASWF_ORG}/ci-package-pyside:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYSIDE_VERSION} as ci-package-pyside-external
+FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} AS ci-package-qt-external
+FROM ${ASWF_ORG}/ci-package-pyside:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYSIDE_VERSION} AS ci-package-pyside-external
 
-FROM ${ASWF_ORG}/ci-package-imath:${ASWF_VFXPLATFORM_VERSION}-${ASWF_IMATH_VERSION} as ci-package-imath-external
-FROM ${ASWF_ORG}/ci-package-openexr:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OPENEXR_VERSION} as ci-package-openexr-external
-FROM ${ASWF_ORG}/ci-package-blosc:${ASWF_VFXPLATFORM_VERSION}-${ASWF_BLOSC_VERSION} as ci-package-blosc-external
-FROM ${ASWF_ORG}/ci-package-glew:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLEW_VERSION} as ci-package-glew-external
-FROM ${ASWF_ORG}/ci-package-glfw:${ASWF_VFXPLATFORM_VERSION}-${ASWF_GLFW_VERSION} as ci-package-glfw-external
-FROM ${ASWF_ORG}/ci-package-alembic:${ASWF_VFXPLATFORM_VERSION}-${ASWF_ALEMBIC_VERSION} as ci-package-alembic-external
-FROM ${ASWF_ORG}/ci-package-openvdb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OPENVDB_VERSION} as ci-package-openvdb-external
-FROM ${ASWF_ORG}/ci-package-oiio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OIIO_VERSION} as ci-package-oiio-external
-FROM ${ASWF_ORG}/ci-package-ocio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OCIO_VERSION} as ci-package-ocio-external
+FROM ${ASWF_ORG}/ci-package-imath:${ASWF_VFXPLATFORM_VERSION}-${ASWF_IMATH_VERSION} AS ci-package-imath-external
+FROM ${ASWF_ORG}/ci-package-openexr:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OPENEXR_VERSION} AS ci-package-openexr-external
+FROM ${ASWF_ORG}/ci-package-blosc:${ASWF_VFXPLATFORM_VERSION}-${ASWF_BLOSC_VERSION} AS ci-package-blosc-external
+FROM ${ASWF_ORG}/ci-package-alembic:${ASWF_VFXPLATFORM_VERSION}-${ASWF_ALEMBIC_VERSION} AS ci-package-alembic-external
+FROM ${ASWF_ORG}/ci-package-openvdb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OPENVDB_VERSION} AS ci-package-openvdb-external
+FROM ${ASWF_ORG}/ci-package-oiio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OIIO_VERSION} AS ci-package-oiio-external
+FROM ${ASWF_ORG}/ci-package-ocio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OCIO_VERSION} AS ci-package-ocio-external
 
 
 #################### ci-base-builder ####################
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-base-builder
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-base-builder
 
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_PYTHON_VERSION
@@ -100,7 +96,7 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
 
 
 #################### ci-partio-builder ####################
-FROM ci-base-builder as ci-partio-builder
+FROM ci-base-builder AS ci-partio-builder
 
 ARG ASWF_PARTIO_VERSION
 ENV ASWF_PARTIO_VERSION=${ASWF_PARTIO_VERSION}
@@ -117,7 +113,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-partio ####################
-FROM scratch as ci-package-partio
+FROM scratch AS ci-package-partio
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
@@ -144,17 +140,18 @@ COPY --from=ci-partio-builder /package/. /
 
 
 #################### ci-osl-builder ####################
-FROM ci-partio-builder as ci-osl-builder
+FROM ci-partio-builder AS ci-osl-builder
 
 ARG ASWF_OSL_VERSION
 ENV ASWF_OSL_VERSION=${ASWF_OSL_VERSION}
 ARG ASWF_PKG_ORG
 ARG ASWF_CONAN_CHANNEL
+ARG ASWF_VFXPLATFORM_VERSION
+ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
 COPY --from=ci-package-imath-external /. /usr/local/
 COPY --from=ci-package-openexr-external /. /usr/local/
 COPY --from=ci-package-oiio-external /. /usr/local/
-COPY --from=ci-package-pybind11-external /. /usr/local/
 COPY --from=ci-package-openvdb-external /. /usr/local/
 COPY --from=ci-package-blosc-external /. /usr/local/
 
@@ -169,6 +166,7 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
+pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
@@ -185,7 +183,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-osl ####################
-FROM scratch as ci-package-osl
+FROM scratch AS ci-package-osl
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
@@ -212,7 +210,7 @@ COPY --from=ci-osl-builder /package/. /
 
 
 #################### ci-ptex-builder ####################
-FROM ci-base-builder as ci-ptex-builder
+FROM ci-base-builder AS ci-ptex-builder
 
 ARG ASWF_PTEX_VERSION
 ENV ASWF_PTEX_VERSION=${ASWF_PTEX_VERSION}
@@ -229,7 +227,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-ptex ####################
-FROM scratch as ci-package-ptex
+FROM scratch AS ci-package-ptex
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
@@ -256,7 +254,7 @@ COPY --from=ci-ptex-builder /package/. /
 
 
 #################### ci-opensubdiv-builder ####################
-FROM ci-ptex-builder as ci-opensubdiv-builder
+FROM ci-ptex-builder AS ci-opensubdiv-builder
 
 ARG ASWF_OPENSUBDIV_VERSION
 ENV ASWF_OPENSUBDIV_VERSION=${ASWF_OPENSUBDIV_VERSION}
@@ -266,9 +264,6 @@ ARG ASWF_CONAN_CHANNEL
 COPY ../scripts/vfx/build_opensubdiv.sh \
      /tmp/
 
-COPY --from=ci-package-glew-external /. /usr/local/
-COPY --from=ci-package-glfw-external /. /usr/local/
-
 COPY scripts/common/install_conanpackages.sh /tmp
 
 # Use conan to install some packages
@@ -277,6 +272,8 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
+glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
@@ -293,7 +290,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-opensubdiv ####################
-FROM scratch as ci-package-opensubdiv
+FROM scratch AS ci-package-opensubdiv
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
@@ -320,7 +317,7 @@ COPY --from=ci-opensubdiv-builder /package/. /
 
 
 #################### ci-usd-builder ####################
-FROM ci-opensubdiv-builder as ci-usd-builder
+FROM ci-opensubdiv-builder AS ci-usd-builder
 
 ARG ASWF_MATERIALX_VERSION
 ARG ASWF_PKG_ORG
@@ -333,7 +330,6 @@ ENV ASWF_NUMPY_VERSION=${ASWF_NUMPY_VERSION}
 
 COPY --from=ci-package-imath-external /. /usr/local/
 COPY --from=ci-package-openexr-external /. /usr/local/
-COPY --from=ci-package-glew-external /. /usr/local/
 COPY --from=ci-package-alembic-external /. /usr/local/
 COPY --from=ci-package-openvdb-external /. /usr/local/
 COPY --from=ci-package-oiio-external /. /usr/local/
@@ -352,6 +348,7 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
+glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
@@ -368,7 +365,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-usd ####################
-FROM scratch as ci-package-usd
+FROM scratch AS ci-package-usd
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
@@ -395,7 +392,7 @@ COPY --from=ci-usd-builder /package/. /
 
 
 #################### ci-otio-builder ####################
-FROM ci-base-builder as ci-otio-builder
+FROM ci-base-builder AS ci-otio-builder
 
 ARG ASWF_OTIO_VERSION
 ENV ASWF_OTIO_VERSION=${ASWF_OTIO_VERSION}
@@ -415,7 +412,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-otio ####################
-FROM scratch as ci-package-otio
+FROM scratch AS ci-package-otio
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION

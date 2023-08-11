@@ -58,11 +58,11 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-otio:2023.0](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2023.0)
+## [aswf/ci-otio:2023.1](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2023.1)
 
 Contains:
-* python-3.10.9
-* cmake-3.25.2
+* python-3.10.11
+* cmake-3.26.2
 * qt-5.15.9
 * pyside-5.15.9
 * numpy-1.23.5

@@ -13,11 +13,11 @@ ARG ASWF_QT_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 # Required base packages built in previous stages
-FROM ${ASWF_ORG}/ci-package-cmake:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CMAKE_VERSION} as ci-package-cmake-external
+FROM ${ASWF_ORG}/ci-package-cmake:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CMAKE_VERSION} AS ci-package-cmake-external
 
 
 #################### ci-baseos-gl-packages ####################
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-baseos-gl-packages
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-baseos-gl-packages
 
 COPY --from=ci-package-cmake-external /. /usr/local/
 
@@ -31,7 +31,7 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
 
 
 #################### ci-qt-builder ####################
-FROM ci-baseos-gl-packages as ci-qt-builder
+FROM ci-baseos-gl-packages AS ci-qt-builder
 
 ARG ASWF_QT_VERSION
 ENV ASWF_QT_VERSION=${ASWF_QT_VERSION}
@@ -48,7 +48,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-qt ####################
-FROM scratch as ci-package-qt
+FROM scratch AS ci-package-qt
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION

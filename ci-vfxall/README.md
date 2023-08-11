@@ -352,10 +352,10 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2022
 
-## [aswf/ci-vfxall:2023-clang14.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang14.0)
+## [aswf/ci-vfxall:2023-clang14.1](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang14.1)
 
 Contains:
-* python-3.10.9
+* python-3.10.11
 * tbb-2020_U3
 * boost-1.80.0
 * cppunit-1.15.1
@@ -364,29 +364,29 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.9
 * pyside-5.15.9
-* cmake-3.25.2
+* cmake-3.26.2
 * imath-3.1.9
-* openexr-3.1.8
+* openexr-3.1.10
 * blosc-1.17.0
-* alembic-1.8.4
-* oiio-2.4.9.0
+* alembic-1.8.5
+* oiio-2.4.13.0
 * ocio-2.2.1
 * opensubdiv-3_5_0
 * ptex-2.4.2
 * openvdb-10.0.1
 * materialx-1.38.7
 * usd-23.05
-* partio-1.14.6
-* osl-1.12.10.0
+* partio-1.17.1
+* osl-1.12.13.0
 * otio-0.15
 * numpy-1.23.5
 * hdf5-1.8.23
 * vfxplatform-2023
 
-## [aswf/ci-vfxall:2023-clang15.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang15.0)
+## [aswf/ci-vfxall:2023-clang15.1](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang15.1)
 
 Contains:
-* python-3.10.9
+* python-3.10.11
 * tbb-2020_U3
 * boost-1.80.0
 * cppunit-1.15.1
@@ -395,20 +395,20 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.9
 * pyside-5.15.9
-* cmake-3.25.2
+* cmake-3.26.2
 * imath-3.1.9
-* openexr-3.1.8
+* openexr-3.1.10
 * blosc-1.17.0
-* alembic-1.8.4
-* oiio-2.4.9.0
+* alembic-1.8.5
+* oiio-2.4.13.0
 * ocio-2.2.1
 * opensubdiv-3_5_0
 * ptex-2.4.2
 * openvdb-10.0.1
 * materialx-1.38.7
 * usd-23.05
-* partio-1.14.6
-* osl-1.12.10.0
+* partio-1.17.1
+* osl-1.12.13.0
 * otio-0.15
 * numpy-1.23.5
 * hdf5-1.8.23

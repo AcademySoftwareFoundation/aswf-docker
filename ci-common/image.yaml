@@ -36,6 +36,11 @@ docker_commands: |
   ENV PKG_CONFIG_PATH \
       /usr/local/lib/pkgconfig
 
+  COPY scripts/common/install_optix.sh \
+      /tmp/
+
+  RUN /tmp/install_optix.sh
+
   RUN mkdir /opt/aswf
   WORKDIR /opt/aswf
 
