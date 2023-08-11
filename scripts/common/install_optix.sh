@@ -28,7 +28,7 @@ OptiXHeaders_70=( \
 "optixPaging/optixPaging.h" \
 "optixPaging/optixPagingImpl.cpp" \
 "optix.h" \
-"optix_7_device.h"\ 
+"optix_7_device.h" \
 "optix_7_host.h" \
 "optix_7_types.h" \
 "optix_device.h" \
@@ -65,7 +65,7 @@ do
     curl --retry 100 -m 120 --connect-timeout 30 \
         -o /tmp/OptiX-${OPTIX_VERSION}-Include.zip $OPTIXLOC/OptiX-${OPTIX_VERSION_ZIP[$OPTIX_VERSION]}-Include.zip
     # Not all zip files are structured the same
-    OPTIX_INSTALL_DIR=$OPTIX_SDK_PREFIX-$OPTIX_VERSION.0/${OPTIX_VERSION_DIR[$OPTIX_VERSION]}/ 
+    OPTIX_INSTALL_DIR=$OPTIX_SDK_PREFIX-$OPTIX_VERSION.0/${OPTIX_VERSION_DIR[$OPTIX_VERSION]}/
     mkdir -p $OPTIX_INSTALL_DIR
     unzip -d $OPTIX_INSTALL_DIR /tmp/OptiX-${OPTIX_VERSION}-Include.zip
 done
