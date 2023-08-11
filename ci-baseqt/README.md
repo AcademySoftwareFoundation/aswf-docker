@@ -81,16 +81,16 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-baseqt:2023.0](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2023.0)
+## [aswf/ci-baseqt:2023.1](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2023.1)
 
 Contains:
 * boost-1.80.0
-* cmake-3.25.2
+* cmake-3.26.2
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
-* python-3.10.9
+* python-3.10.11
 * tbb-2020_U3
 * qt-5.15.9
 * pyside-5.15.9

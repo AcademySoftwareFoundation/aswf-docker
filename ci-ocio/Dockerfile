@@ -35,19 +35,14 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
 # Comment out this block to use Conan packages
-FROM ${ASWF_PKG_ORG}/ci-package-pybind11:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYBIND11_VERSION as ci-package-pybind11
-FROM ${ASWF_PKG_ORG}/ci-package-boost:$ASWF_VFXPLATFORM_VERSION-$ASWF_BOOST_VERSION as ci-package-boost
-FROM ${ASWF_PKG_ORG}/ci-package-glew:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLEW_VERSION as ci-package-glew
-FROM ${ASWF_PKG_ORG}/ci-package-glfw:$ASWF_VFXPLATFORM_VERSION-$ASWF_GLFW_VERSION as ci-package-glfw
-FROM ${ASWF_PKG_ORG}/ci-package-cmake:$ASWF_VFXPLATFORM_VERSION-$ASWF_CMAKE_VERSION as ci-package-cmake
-FROM ${ASWF_PKG_ORG}/ci-package-imath:$ASWF_VFXPLATFORM_VERSION-$ASWF_IMATH_VERSION as ci-package-imath
-FROM ${ASWF_PKG_ORG}/ci-package-openexr:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENEXR_VERSION as ci-package-openexr
-FROM ${ASWF_PKG_ORG}/ci-package-oiio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OIIO_VERSION as ci-package-oiio
-FROM ${ASWF_PKG_ORG}/ci-package-blosc:$ASWF_VFXPLATFORM_VERSION-$ASWF_BLOSC_VERSION as ci-package-blosc
-FROM ${ASWF_PKG_ORG}/ci-package-partio:$ASWF_VFXPLATFORM_VERSION-$ASWF_PARTIO_VERSION as ci-package-partio
-FROM ${ASWF_PKG_ORG}/ci-package-openvdb:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENVDB_VERSION as ci-package-openvdb
-FROM ${ASWF_PKG_ORG}/ci-package-osl:$ASWF_VFXPLATFORM_VERSION-$ASWF_OSL_VERSION as ci-package-osl
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-ocio
+FROM ${ASWF_PKG_ORG}/ci-package-imath:$ASWF_VFXPLATFORM_VERSION-$ASWF_IMATH_VERSION AS ci-package-imath
+FROM ${ASWF_PKG_ORG}/ci-package-openexr:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENEXR_VERSION AS ci-package-openexr
+FROM ${ASWF_PKG_ORG}/ci-package-oiio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OIIO_VERSION AS ci-package-oiio
+FROM ${ASWF_PKG_ORG}/ci-package-blosc:$ASWF_VFXPLATFORM_VERSION-$ASWF_BLOSC_VERSION AS ci-package-blosc
+FROM ${ASWF_PKG_ORG}/ci-package-partio:$ASWF_VFXPLATFORM_VERSION-$ASWF_PARTIO_VERSION AS ci-package-partio
+FROM ${ASWF_PKG_ORG}/ci-package-openvdb:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENVDB_VERSION AS ci-package-openvdb
+FROM ${ASWF_PKG_ORG}/ci-package-osl:$ASWF_VFXPLATFORM_VERSION-$ASWF_OSL_VERSION AS ci-package-osl
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-ocio
 
 
 ARG ASWF_ORG
@@ -136,11 +131,6 @@ ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
 ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
-COPY --from=ci-package-pybind11 /. /usr/local/
-COPY --from=ci-package-boost /. /usr/local/
-COPY --from=ci-package-glew /. /usr/local/
-COPY --from=ci-package-glfw /. /usr/local/
-COPY --from=ci-package-cmake /. /usr/local/
 COPY --from=ci-package-imath /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
@@ -162,12 +152,12 @@ COPY <<EOF /usr/local/conanfile.txt
 ., * -> .
 [requires]
 python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # oiio/${ASWF_OIIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}

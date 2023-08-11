@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2023-08-10
+
+* NVIDIA Optix SDK includes
+  * 7.0.0, 7.3.0, 7.4.0, 7.5.0, 7.6.0, 7.7.0
+  * Installed in /usr/local/NVIDIA-OptiX-SDK-7.x.x/include/
+
+* Updated 2023 packages
+  * OpenEXR 3.1.10 (from 3.1.8)
+  * OpenImageIO 2.4.13.0 (from 2.4.9.0)
+  * OpenShadingLanguage 1.12.13.0 (from 1.12.10.0)
+  * Alembic 1.8.5 (from 1.8.4)
+  * Partio 1.17.1 (from 1.14.6)
+  * Cmake 3.26.4 (from 3.25.2)
+  * Pybind11 2.9.2 (from 2.8.1)
+  * Python 3.10.11 (from 3.10.9)
+
+* Additional packages built as Conan-only
+  * boost
+  * clang
+  * cmake
+  * cppunit
+  * glew
+  * glfw
+  * log4cplus
+  * pybind11
+
+* Default tagging for -clang15 images
+  * Previous years used oldest clang version for default version tag, now using latest
+  * ci-common:3 now points to :3-clang15
+  * ci-{openvdb,osl,vfxall}:2023 now points to :2023-clang15
+
 ## 2023-06-06
 
 * New ci-common-v3 for VFX Platform 2023 based on:

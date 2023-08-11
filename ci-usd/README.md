@@ -119,10 +119,10 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2022
 
-## [aswf/ci-usd:2023.0](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2023.0)
+## [aswf/ci-usd:2023.1](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2023.1)
 
 Contains:
-* python-3.10.9
+* python-3.10.11
 * tbb-2020_U3
 * boost-1.80.0
 * glew-2.1.0
@@ -130,15 +130,15 @@ Contains:
 * log4cplus-1.1.2
 * qt-5.15.9
 * pyside-5.15.9
-* cmake-3.25.2
+* cmake-3.26.2
 * imath-3.1.9
 * materialx-1.38.7
-* openexr-3.1.8
-* oiio-2.4.9.0
+* openexr-3.1.10
+* oiio-2.4.13.0
 * ocio-2.2.1
 * ptex-2.4.2
 * opensubdiv-3_5_0
-* alembic-1.8.4
+* alembic-1.8.5
 * blosc-1.17.0
 * openvdb-10.0.1
 * numpy-1.23.5
