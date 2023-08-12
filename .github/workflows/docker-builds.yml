@@ -136,7 +136,7 @@ jobs:
 
     - run: |
         set -ex
-        export DOCKER_ORG=`aswfdocker --repo-uri $GITHUB_REPOSITORY --source-branch $GITHUB_REF getdockerorg`
+        export DOCKER_ORG=`pipenv run aswfdocker --repo-uri $GITHUB_REPOSITORY --source-branch $GITHUB_REF getdockerorg`
         test_script=scripts/tests/${{ matrix.version }}/test_${{ matrix.test }}.sh
         if [ -f $test_script ]
         then
