@@ -14,13 +14,12 @@ All notable changes to this project will be documented in this file.
   * OpenShadingLanguage 1.12.13.0 (from 1.12.10.0)
   * Alembic 1.8.5 (from 1.8.4)
   * Partio 1.17.1 (from 1.14.6)
-  * Cmake 3.26.4 (from 3.25.2)
+  * Cmake 3.27.2 (from 3.25.2)
   * Pybind11 2.9.2 (from 2.8.1)
   * Python 3.10.11 (from 3.10.9)
 
 * Additional packages built as Conan-only
   * boost
-  * clang
   * cmake
   * cppunit
   * glew

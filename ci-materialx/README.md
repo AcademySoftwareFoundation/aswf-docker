@@ -32,7 +32,7 @@ Contains:
 Contains:
 * python-3.10.11
 * pybind11-2.9.2
-* cmake-3.26.2
+* cmake-3.27.2
 * numpy-1.23.5
 * vfxplatform-2023
 

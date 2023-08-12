@@ -62,7 +62,7 @@ Contains:
 
 Contains:
 * python-3.10.11
-* cmake-3.26.2
+* cmake-3.27.2
 * qt-5.15.9
 * pyside-5.15.9
 * numpy-1.23.5
