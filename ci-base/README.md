@@ -85,7 +85,7 @@ Contains:
 
 Contains:
 * boost-1.80.0
-* cmake-3.26.2
+* cmake-3.27.2
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2

@@ -360,7 +360,7 @@ versions:
       ASWF_ALEMBIC_VERSION: "1.8.5"
       ASWF_BLOSC_VERSION: "1.17.0"
       ASWF_BOOST_VERSION: "1.80.0"
-      ASWF_CMAKE_VERSION: "3.26.2"
+      ASWF_CMAKE_VERSION: "3.27.2"
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
@@ -744,7 +744,6 @@ package_data:
 
 conan_only:
   - boost
-  - clang
   - cmake
   - cppunit
   - glew

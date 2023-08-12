@@ -69,6 +69,49 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     /tmp/install_conan.sh
 
 
+#################### ci-clang-builder ####################
+FROM ci-baseos-gl-os AS ci-clang-builder
+ARG ASWF_CLANG_VERSION
+ENV ASWF_CLANG_VERSION=${ASWF_CLANG_VERSION}
+
+COPY ../scripts/common/build_clang.sh \
+     ../scripts/base/build_python.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,target=/tmp/downloads \
+    /tmp/install_dev_cmake.sh && \
+    /tmp/before_build.sh && \
+    /tmp/build_clang.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
+#################### ci-package-clang ####################
+FROM scratch as ci-package-clang
+
+ARG ASWF_ORG
+ARG CI_COMMON_VERSION
+ARG ASWF_CLANG_VERSION
+ARG ASWF_DTS_VERSION
+ARG ASWF_DTS_PREFIX
+
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-clang"
+LABEL org.opencontainers.image.title="Clang package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Clang (llvm) build artifacts to be installed in ASWF Docker images"
+LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
+LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
+LABEL org.opencontainers.image.url="https://llvm.org/"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
+LABEL org.opencontainers.image.version="${ASWF_CLANG_VERSION}"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
+LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
+LABEL io.aswf.docker.versions.clang="${ASWF_CLANG_VERSION}"
+
+COPY --from=ci-clang-builder /package/. /
+
+
 #################### ci-ninja-builder ####################
 FROM ci-baseos-gl-os AS ci-ninja-builder
 

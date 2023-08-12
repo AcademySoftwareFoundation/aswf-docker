@@ -364,7 +364,7 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.9
 * pyside-5.15.9
-* cmake-3.26.2
+* cmake-3.27.2
 * imath-3.1.9
 * openexr-3.1.10
 * blosc-1.17.0
@@ -395,7 +395,7 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.9
 * pyside-5.15.9
-* cmake-3.26.2
+* cmake-3.27.2
 * imath-3.1.9
 * openexr-3.1.10
 * blosc-1.17.0

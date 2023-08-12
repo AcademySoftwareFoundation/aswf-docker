@@ -256,7 +256,7 @@ Contains:
 
 Contains:
 * boost-1.80.0
-* cmake-3.26.2
+* cmake-3.27.2
 * python-3.10.11
 * qt-5.15.9
 * imath-3.1.9
@@ -274,7 +274,7 @@ Contains:
 
 Contains:
 * boost-1.80.0
-* cmake-3.26.2
+* cmake-3.27.2
 * python-3.10.11
 * qt-5.15.9
 * imath-3.1.9
