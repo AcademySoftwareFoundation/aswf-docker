@@ -92,7 +92,7 @@ jobs:
     - name: Install pipenv
       run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
     - name: Install aswfdocker and dependencies with pipenv
-      run: pipenv install
+      run: pipenv install --verbose
 
     - name: Free up disk space
       run: |
@@ -137,7 +137,7 @@ jobs:
     - run: |
         set -ex
         export DOCKER_ORG=`aswfdocker --repo-uri $GITHUB_REPOSITORY --source-branch $GITHUB_REF getdockerorg`
-        test_script=scripts/test/${{ matrix.version }}/test_${{ matrix.test }}.sh
+        test_script=scripts/tests/${{ matrix.version }}/test_${{ matrix.test }}.sh
         if [ -f $test_script ]
         then
           echo "Going to run ${test_script}"
