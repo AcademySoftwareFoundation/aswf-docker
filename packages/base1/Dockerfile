@@ -140,3 +140,46 @@ LABEL io.aswf.docker.versions.numpy="${ASWF_NUMPY_VERSION}"
 
 COPY --from=ci-python-builder /package/. /
 
+
+#################### ci-pybind11-builder ####################
+FROM ci-python-builder as ci-pybind11-builder
+
+ARG ASWF_PYBIND11_VERSION
+ENV ASWF_PYBIND11_VERSION=${ASWF_PYBIND11_VERSION}
+
+COPY ../scripts/base/build_pybind11.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,sharing=private,target=/tmp/downloads \
+    /tmp/before_build.sh && \
+    /tmp/build_pybind11.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
+#################### ci-package-pybind11 ####################
+FROM scratch as ci-package-pybind11
+
+ARG ASWF_ORG
+ARG ASWF_PYBIND11_VERSION
+ARG CI_COMMON_VERSION
+ARG ASWF_DTS_VERSION
+ARG ASWF_DTS_PREFIX
+ARG ASWF_VFXPLATFORM_VERSION
+
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-pybind11"
+LABEL org.opencontainers.image.title="Pybind11 package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="Pybind11 binaries to be installed in ASWF Docker images"
+LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
+LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
+LABEL org.opencontainers.image.url="https://github.com/pybind/pybind11"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
+LABEL org.opencontainers.image.version="${ASWF_PYBIND11_VERSION}"
+LABEL org.opencontainers.image.licenses="BSD-3-Clause"
+LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
+LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
+LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
+LABEL io.aswf.docker.versions.pybind11="${ASWF_PYBIND11_VERSION}"
+
+COPY --from=ci-pybind11-builder /package/. /
