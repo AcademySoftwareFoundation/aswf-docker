@@ -92,7 +92,7 @@ jobs:
     - name: Install pipenv
       run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
     - name: Install aswfdocker and dependencies with pipenv
-      run: pipenv install --verbose
+      run: pipenv install
 
     - name: Free up disk space
       run: |
