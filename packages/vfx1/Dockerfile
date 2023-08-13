@@ -26,6 +26,10 @@ ARG ASWF_OCIO_VERSION
 ARG ASWF_OIIO_VERSION
 ARG ASWF_OPENEXR_VERSION
 
+# Required base packages built in previous stages
+FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} as ci-package-pybind11-external
+
+
 #################### ci-base-builder ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-base-builder
 
@@ -333,26 +337,9 @@ COPY --from=ci-openvdb-builder /package/. /
 FROM ci-openvdb-builder AS ci-oiio-builder
 
 ARG ASWF_OIIO_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-ARG ASWF_PYBIND11_VERSION
 ENV ASWF_OIIO_VERSION=${ASWF_OIIO_VERSION}
-ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
-ENV ASWF_PYBIND11_VERSION=${ASWF_PYBIND11_VERSION}
 
-COPY scripts/common/install_conanpackages.sh /tmp
-
-# Use conan to install some packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+COPY --from=ci-package-pybind11-external /. /usr/local/
 
 COPY ../scripts/vfx/build_oiio.sh \
      /tmp/

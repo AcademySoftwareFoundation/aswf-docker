@@ -25,7 +25,6 @@ All notable changes to this project will be documented in this file.
   * glew
   * glfw
   * log4cplus
-  * pybind11
 
 * Default tagging for -clang15 images
   * Previous years used oldest clang version for default version tag, now using latest

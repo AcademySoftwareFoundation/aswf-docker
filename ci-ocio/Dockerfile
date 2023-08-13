@@ -35,6 +35,7 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
 # Comment out this block to use Conan packages
+FROM ${ASWF_PKG_ORG}/ci-package-pybind11:$ASWF_VFXPLATFORM_VERSION-$ASWF_PYBIND11_VERSION AS ci-package-pybind11
 FROM ${ASWF_PKG_ORG}/ci-package-imath:$ASWF_VFXPLATFORM_VERSION-$ASWF_IMATH_VERSION AS ci-package-imath
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENEXR_VERSION AS ci-package-openexr
 FROM ${ASWF_PKG_ORG}/ci-package-oiio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OIIO_VERSION AS ci-package-oiio
@@ -131,6 +132,7 @@ ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
 ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 
+COPY --from=ci-package-pybind11 /. /usr/local/
 COPY --from=ci-package-imath /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
@@ -152,7 +154,7 @@ COPY <<EOF /usr/local/conanfile.txt
 ., * -> .
 [requires]
 python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}

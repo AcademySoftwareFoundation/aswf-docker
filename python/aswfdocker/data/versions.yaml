@@ -751,6 +751,5 @@ conan_only:
   - gtest
   - log4cplus
   - materialx
-  - pybind11
   - python
   - tbb

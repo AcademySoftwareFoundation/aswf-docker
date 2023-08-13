@@ -37,6 +37,7 @@ ARG ASWF_USD_VERSION
 
 # Required base packages built in previous stages
 FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} AS ci-package-qt-external
+FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} AS ci-package-pybind11-external
 FROM ${ASWF_ORG}/ci-package-pyside:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYSIDE_VERSION} AS ci-package-pyside-external
 
 FROM ${ASWF_ORG}/ci-package-imath:${ASWF_VFXPLATFORM_VERSION}-${ASWF_IMATH_VERSION} AS ci-package-imath-external
@@ -148,14 +149,13 @@ ARG ASWF_PKG_ORG
 ARG ASWF_CONAN_CHANNEL
 ARG ASWF_VFXPLATFORM_VERSION
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
-ARG ASWF_PYBIND11_VERSION
-ENV ASWF_PYBIND11_VERSION=${ASWF_PYBIND11_VERSION}
 ARG ASWF_TBB_VERSION
 ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
 
 COPY --from=ci-package-imath-external /. /usr/local/
 COPY --from=ci-package-openexr-external /. /usr/local/
 COPY --from=ci-package-oiio-external /. /usr/local/
+COPY --from=ci-package-pybind11-external /. /usr/local/
 COPY --from=ci-package-openvdb-external /. /usr/local/
 COPY --from=ci-package-blosc-external /. /usr/local/
 
@@ -170,7 +170,6 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
-pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
