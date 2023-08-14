@@ -7,11 +7,11 @@ set -ex
 pip install jinja2 PyOpenGL
 
 if [ ! -f "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz" ]; then
-     curl --location "https://github.com/PixarAnimationStudios/USD/archive/v${ASWF_USD_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz"
+     curl --location "https://github.com/PixarAnimationStudios/OpenUSD/archive/v${ASWF_USD_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz"
 fi
 
 tar -zxf "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz"
-cd "USD-${ASWF_USD_VERSION}"
+cd "OpenUSD-${ASWF_USD_VERSION}"
 
 if [[ $ASWF_USD_VERSION == 23.05 && $ASWF_MATERIALX_VERSION == 1.38.7 ]]; then
     # Apply patch from https://github.com/PixarAnimationStudios/USD/pull/2402
