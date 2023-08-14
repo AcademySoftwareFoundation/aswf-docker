@@ -366,7 +366,7 @@ Contains:
 * pyside-5.15.9
 * cmake-3.27.2
 * imath-3.1.9
-* openexr-3.1.10
+* openexr-3.1.11
 * blosc-1.17.0
 * alembic-1.8.5
 * oiio-2.4.13.0
@@ -397,7 +397,7 @@ Contains:
 * pyside-5.15.9
 * cmake-3.27.2
 * imath-3.1.9
-* openexr-3.1.10
+* openexr-3.1.11
 * blosc-1.17.0
 * alembic-1.8.5
 * oiio-2.4.13.0
