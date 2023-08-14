@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
   * Installed in /usr/local/NVIDIA-OptiX-SDK-7.x.x/include/
 
 * Updated 2023 packages
-  * OpenEXR 3.1.10 (from 3.1.8)
+  * OpenEXR 3.1.11 (from 3.1.8)
   * OpenImageIO 2.4.13.0 (from 2.4.9.0)
   * OpenShadingLanguage 1.12.13.0 (from 1.12.10.0)
   * Alembic 1.8.5 (from 1.8.4)
