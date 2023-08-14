@@ -12,14 +12,31 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 ARG ASWF_QT_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
-# Required base packages built in previous stages
-FROM ${ASWF_ORG}/ci-package-cmake:${ASWF_VFXPLATFORM_VERSION}-${ASWF_CMAKE_VERSION} AS ci-package-cmake-external
-
-
 #################### ci-baseos-gl-packages ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-baseos-gl-packages
 
-COPY --from=ci-package-cmake-external /. /usr/local/
+ARG ASWF_CMAKE_VERSION
+ARG ASWF_PKG_ORG
+ARG ASWF_CONAN_CHANNEL
+ARG ASWF_VFXPLATFORM_VERSION
+
+ENV ASWF_CMAKE_VERSION=${ASWF_CMAKE_VERSION}
+ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
+
+COPY scripts/common/install_conanpackages.sh /tmp
+
+# Use conan to install some packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
