@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2023-08-10
+## 2023-08-15
 
 * NVIDIA Optix SDK includes
   * 7.0.0, 7.3.0, 7.4.0, 7.5.0, 7.6.0, 7.7.0
@@ -30,6 +30,21 @@ All notable changes to this project will be documented in this file.
   * Previous years used oldest clang version for default version tag, now using latest
   * ci-common:3 now points to :3-clang15
   * ci-{openvdb,osl,vfxall}:2023 now points to :2023-clang15
+
+### New CI Images
+
+* `aswf/ci-common:3-clang14.1`, `aswf/ci-common:3-clang15.1` : A base Rocky 8 image with GCC 11.2.1 (DTS 11), Clang 14.0/15.0 and CUDA 11.8.
+* `aswf/ci-base:2023.1`
+* `aswf/ci-baseqt:2023.1`
+* `aswf/ci-opencue:2023.1`
+* `aswf/ci-openexr:2023.1`
+* `aswf/ci-ocio:2023.1`
+* `aswf/ci-otio:2023.1`
+* `aswf/ci-materialx:2023.1`
+* `aswf/ci-usd:2023.1`
+* `aswf/ci-osl:2023-clang14.1`,`aswf/ci-osl:2023-clang15.1`
+* `aswf/ci-openvdb:2023-clang14.1`, `aswf/ci-openvdb:2023-clang15.1`
+* `aswf/ci-vfxall:2023-clang14.1`, `aswf/ci-vfxall:2023-clang15.1'
 
 ## 2023-06-06
 
