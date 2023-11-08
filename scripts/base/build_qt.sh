@@ -29,7 +29,8 @@ else
     fi
     QT_MAJOR_MINOR=$(echo "${ASWF_QT_VERSION}" | cut -d. -f-2)
     if [ ! -f "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz" ]; then
-        curl --location "http://download.qt.io/official_releases/qt/${QT_MAJOR_MINOR}/${ASWF_QT_VERSION}/single/${QT_ARCHIVE_PREFIX}${ASWF_QT_VERSION}.tar.xz" -o "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz"
+        # As of mid 2023, qt.io has become impossibly slow, the Qt Wiki points to funet.fi as valid mirror
+        curl --location "http://www.nic.funet.fi/pub/mirrors/download.qt-project.org/official_releases/qt/${QT_MAJOR_MINOR}/${ASWF_QT_VERSION}/single/${QT_ARCHIVE_PREFIX}${ASWF_QT_VERSION}.tar.xz" -o "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz"
     fi
     tar xf "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz"
     mv "qt-everywhere-src-${ASWF_QT_VERSION}" qt-src
