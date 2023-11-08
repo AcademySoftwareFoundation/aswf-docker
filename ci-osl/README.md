@@ -252,7 +252,7 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-osl:2023-clang14.1](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2023-clang14.1)
+## [aswf/ci-osl:2023-clang14.2](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2023-clang14.2)
 
 Contains:
 * boost-1.80.0
@@ -270,7 +270,7 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-osl:2023-clang15.1](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2023-clang15.1)
+## [aswf/ci-osl:2023-clang15.2](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2023-clang15.2)
 
 Contains:
 * boost-1.80.0

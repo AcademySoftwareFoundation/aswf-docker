@@ -35,7 +35,7 @@ class TestBuilder(unittest.TestCase):
         qt_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "qt")
         )[0]
-        baked = b.make_bake_dict()
+        baked = b.make_bake_dict(False, False, False, False)
         self.assertEqual(
             baked["target"]["ci-package-qt-2019"]["tags"],
             [
@@ -64,20 +64,20 @@ class TestBuilder(unittest.TestCase):
             ),
             use_conan=True,
         )
-        baked = b.make_bake_dict()
-        self.assertIn("ASWF_QT_VERSION", baked["target"]["ci-package-qt-1"]["args"])
+        baked = b.make_bake_dict(False, False, False, False)
+        self.assertIn("ASWF_QT_VERSION", baked["target"]["ci-package-qt-2019"]["args"])
         self.assertEqual(
-            baked["target"]["ci-package-qt-1"]["tags"],
+            baked["target"]["ci-package-qt-2019"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-baseos-gl-conan:1",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-baseos-gl-conan:1",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-baseos-gl-conan:2019.2",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-baseos-gl-conan:2019",
             ],
         )
         self.assertEqual(
-            baked["target"]["ci-package-qt-1"]["args"]["ASWF_VERSION"], "1"
+            baked["target"]["ci-package-qt-2019"]["args"]["ASWF_VERSION"], "2019.2"
         )
         self.assertEqual(
-            baked["target"]["ci-package-qt-1"]["dockerfile"],
+            baked["target"]["ci-package-qt-2019"]["dockerfile"],
             "packages/common/Dockerfile",
         )
 
@@ -94,7 +94,7 @@ class TestBuilder(unittest.TestCase):
         base_version = list(
             index.Index().iter_versions(constants.ImageType.IMAGE, "base")
         )[0]
-        baked = b.make_bake_dict()
+        baked = b.make_bake_dict(False, False, False, False)
         self.assertEqual(
             baked["target"]["ci-base-2019"]["tags"],
             [
@@ -121,7 +121,7 @@ class TestBuilder(unittest.TestCase):
             index.Index().iter_versions(constants.ImageType.IMAGE, "openvdb")
         )[3]
         self.assertEqual(
-            b.make_bake_dict(),
+            b.make_bake_dict(False, False, False, False),
             {
                 "group": {"default": {"targets": ["ci-openvdb-2019-clang9"]}},
                 "target": {
@@ -206,7 +206,7 @@ class TestBuilder(unittest.TestCase):
             index.Index().iter_versions(constants.ImageType.IMAGE, "base")
         )
         self.assertEqual(
-            b.make_bake_dict(),
+            b.make_bake_dict(False, False, False, False),
             {
                 "group": {"default": {"targets": ["ci-base-2019", "ci-base-2020"]}},
                 "target": {
@@ -399,27 +399,19 @@ class TestBuilderCli(unittest.TestCase):
             tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019.json"
         )
         cmds = result.output.strip().splitlines()
-        self.assertEqual(len(cmds), 4)
+        # Expect 2 lines of output
+        # 1 - docker buildx bake for the Docker packages
+        # 2 - docker buildx bake for the conan packages (no login or upload)
+        self.assertEqual(len(cmds), 2)
         self.assertEqual(
             cmds[0],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
         )
-        self.assertTrue(
-            cmds[1].startswith(
-                "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME="
-                + constants.CONAN_USER_HOME
-            ),
-            msg=cmds[1],
-        )
-        self.assertTrue(
-            cmds[1].endswith("conan config set general.default_profile=vfx2019'"),
-            msg=cmds[1],
-        )
-        self.assertTrue(
-            cmds[2].endswith(
-                f"conan create {constants.CONAN_USER_HOME}/recipes/openexr openexr/2.3.0@aswftesting/vfx2019'"
-            ),
-            msg=cmds[2],
+        self.assertEqual(
+            cmds[1],
+            f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
+            + "--set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder "
+            + "--progress auto ci-package-openexr-2019'",
         )
         self.assertEqual(result.exit_code, 0)
 
@@ -501,49 +493,32 @@ class TestBuilderCli(unittest.TestCase):
             tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019-2020.json"
         )
         cmds = result.output.strip().splitlines()
-        self.assertEqual(len(cmds), 13)
+        # We expect 5 steps
+        # 1 - docker buildx to build the non-Conan packages
+        # 2 - docker run to login to repository (2x for each image)
+        # 3 - docker buildx to build and upload (2x for each openexr package)
+        self.assertEqual(len(cmds), 5)
         self.assertEqual(
             cmds[self._i],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
         )
         self._i += 1
-        self.assertTrue(
-            cmds[self._i].startswith(
-                "INFO:aswfdocker.builder:Would run: 'docker run -e CONAN_USER_HOME="
-                + constants.CONAN_USER_HOME
-            ),
-            msg=cmds[self._i],
-        )
         self._assertEndsWith(cmds, "conan user -p -r aswftesting'")
-        self._assertEndsWith(cmds, "conan config set general.default_profile=vfx2019'")
-        self._assertEndsWith(
-            cmds,
-            f"conan create {constants.CONAN_USER_HOME}/recipes/openexr"
-            + " openexr/2.3.0@aswftesting/vfx2019"
-            + " --keep-source --keep-build --build=missing'",
+        self.assertEqual(
+            cmds[self._i],
+            f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
+            + "--set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder "
+            + "--progress auto ci-package-openexr-2019'",
         )
-        self._assertEndsWith(
-            cmds,
-            "conan alias openexr/latest@aswftesting/vfx2019"
-            + " openexr/2.3.0@aswftesting/vfx2019'",
-        )
-        self._assertEndsWith(
-            cmds,
-            "conan upload --all -r aswftesting" + " openexr/2.3.0@aswftesting/vfx2019'",
-        )
-        self._assertEndsWith(
-            cmds,
-            "conan upload --all -r aswftesting"
-            + " openexr/latest@aswftesting/vfx2019'",
-        )
+        self._i += 1
         self._assertEndsWith(cmds, "conan user -p -r aswftesting'")
-        self._assertEndsWith(cmds, "conan config set general.default_profile=vfx2020'")
-        self._assertEndsWith(
-            cmds,
-            f"conan create {constants.CONAN_USER_HOME}/recipes/openexr"
-            + " openexr/2.4.0@aswftesting/vfx2020"
-            + " --keep-source --keep-build --build=missing'",
+        self.assertEqual(
+            cmds[self._i],
+            f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
+            + "--set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder "
+            + "--progress auto ci-package-openexr-2020'",
         )
+        self._i += 1
         self.assertEqual(result.exit_code, 0)
 
     def test_builder_cli_allversions(self):

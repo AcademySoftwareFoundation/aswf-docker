@@ -170,7 +170,7 @@ cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 
-RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 

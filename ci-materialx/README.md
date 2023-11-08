@@ -27,7 +27,7 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-materialx:2023.1](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2023.1)
+## [aswf/ci-materialx:2023.2](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2023.2)
 
 Contains:
 * python-3.10.11

@@ -137,7 +137,7 @@ Contains:
 * sonar-4.7.0.2747
 * conan-1.47.0
 
-## [aswf/ci-common:3-clang14.1](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=3-clang14.1)
+## [aswf/ci-common:3-clang14.2](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=3-clang14.2)
 
 Contains:
 * clang-14.0.6
@@ -149,7 +149,7 @@ Contains:
 * sonar-4.8.0.2856
 * conan-1.58.0
 
-## [aswf/ci-common:3-clang15.1](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=3-clang15.1)
+## [aswf/ci-common:3-clang15.2](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=3-clang15.2)
 
 Contains:
 * clang-15.0.7

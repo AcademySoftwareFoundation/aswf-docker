@@ -14,8 +14,7 @@
 
 set -ex
 
-#OPTIX_SDK_PREFIX=/usr/local/NVIDIA-OptiX-SDK
-OPTIX_SDK_PREFIX=/tmp/optix/NVIDIA-OptiX-SDK
+OPTIX_SDK_PREFIX=/usr/local/NVIDIA-OptiX-SDK
 
 # Optix SDK 7.0.0 does not have include package, download include files directly.
 

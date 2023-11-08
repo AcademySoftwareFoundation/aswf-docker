@@ -81,7 +81,7 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-baseqt:2023.1](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2023.1)
+## [aswf/ci-baseqt:2023.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2023.2)
 
 Contains:
 * boost-1.80.0

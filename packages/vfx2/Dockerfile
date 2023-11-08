@@ -82,7 +82,7 @@ boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
-RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
@@ -173,7 +173,7 @@ COPY <<EOF /usr/local/conanfile.txt
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
-RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
@@ -286,7 +286,7 @@ glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
-RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
@@ -365,7 +365,7 @@ glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
-RUN --mount=type=bind,rw,target=/opt/conan_home/d,source=packages/conan/data \
+RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 

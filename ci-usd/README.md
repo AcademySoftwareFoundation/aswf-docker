@@ -119,7 +119,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2022
 
-## [aswf/ci-usd:2023.1](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2023.1)
+## [aswf/ci-usd:2023.2](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2023.2)
 
 Contains:
 * python-3.10.11

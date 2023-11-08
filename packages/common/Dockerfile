@@ -152,3 +152,66 @@ LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
 LABEL io.aswf.docker.versions.ninja="${ASWF_NINJA_VERSION}"
 
 COPY --from=ci-ninja-builder /package/. /
+
+#################### ci-conan-package-builder ####################
+FROM ci-baseos-gl-conan AS ci-conan-package-builder
+
+ARG ASWF_ORG
+ARG ASWF_CCACHE_VERSION
+ARG ASWF_CONAN_CHANNEL
+ARG ASWF_CONAN_VERSION
+ARG ASWF_CONAN_REMOTE
+ARG ASWF_CONAN_PYTHON_VERSION
+ARG ASWF_CONAN_KEEP_SOURCE
+ARG ASWF_CONAN_KEEP_BUILD
+ARG ASWF_CONAN_BUILD_MISSING
+ARG ASWF_CONAN_PUSH
+ARG CI_COMMON_VERSION
+ARG CONAN_USER_HOME
+ARG ASWF_PKG_NAME
+ARG ASWF_PKG_ORG
+ARG ASWF_PKG_VERSION
+ARG ASWF_PYTHON_VERSION
+ENV ASWF_PYTHON_VERSION=${ASWF_PYTHON_VERSION}
+ARG ASWF_NUMPY_VERSION
+ENV ASWF_NUMPY_VERSION=${ASWF_NUMPY_VERSION}
+
+ENV ASWF_CONAN_ROOT=/opt/conan \
+    CCACHE_DIR=/tmp/ccache \
+    CONAN_NON_INTERACTIVE=1
+
+# With "conan create --profile" we no longer need to set a default profile
+RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
+    --mount=type=cache,target=${CCACHE_DIR} \
+    --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=${CONAN_USER_HOME}/recipes,source=packages/conan/recipes \
+    conan create ${CONAN_USER_HOME}/recipes/${ASWF_PKG_NAME} ${ASWF_PKG_NAME}/${ASWF_PKG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} \
+      ${ASWF_CONAN_KEEP_SOURCE} ${ASWF_CONAN_KEEP_BUILD} ${ASWF_CONAN_BUILD_MISSING} --profile ${ASWF_CONAN_CHANNEL}
+
+RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
+    --mount=type=cache,target=${CCACHE_DIR} \
+    --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=${CONAN_USER_HOME}/recipes,source=packages/conan/recipes \
+    conan alias ${ASWF_PKG_NAME}/latest@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} ${ASWF_PKG_NAME}/${ASWF_PKG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+
+# Upload build to repository if called for
+RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
+    --mount=type=cache,target=${CCACHE_DIR} \
+    --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=${CONAN_USER_HOME}/recipes,source=packages/conan/recipes \
+    if [ -n "${ASWF_CONAN_PUSH}" ] ; then \
+      conan upload --all -r ${ASWF_PKG_ORG} ${ASWF_PKG_NAME}/${ASWF_PKG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} ;\
+    else \
+      echo "conan upload of package ${ASWF_PKG_NAME} skipped" ; \
+    fi
+
+# Upload build alias to latest if called for
+RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
+    --mount=type=cache,target=${CCACHE_DIR} \
+    --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=${CONAN_USER_HOME}/recipes,source=packages/conan/recipes \
+    if [ -n "${ASWF_CONAN_PUSH}" ] ; then \
+      conan upload --all -r ${ASWF_PKG_ORG} ${ASWF_PKG_NAME}/latest@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} ;\
+    else \
+      echo "conan upload of package ${ASWF_PKG_NAME} alias skipped" ;\
+    fi
