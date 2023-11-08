@@ -31,6 +31,7 @@ Contains:
 * imath-2.3.0
 * openexr-2.3.0
 * blosc-1.5.0
+* pybind11-2.4.3
 * numpy-1.14
 * vfxplatform-2019
 
@@ -47,6 +48,7 @@ Contains:
 * imath-2.3.0
 * openexr-2.3.0
 * blosc-1.5.0
+* pybind11-2.4.3
 * numpy-1.14
 * vfxplatform-2019
 
@@ -63,6 +65,7 @@ Contains:
 * imath-2.3.0
 * openexr-2.3.0
 * blosc-1.5.0
+* pybind11-2.4.3
 * numpy-1.14
 * vfxplatform-2019
 
@@ -79,6 +82,7 @@ Contains:
 * imath-2.3.0
 * openexr-2.3.0
 * blosc-1.5.0
+* pybind11-2.4.3
 * numpy-1.14
 * vfxplatform-2019
 
@@ -95,6 +99,7 @@ Contains:
 * imath-2.4.0
 * openexr-2.4.0
 * blosc-1.5.0
+* pybind11-2.4.3
 * numpy-1.16
 * vfxplatform-2020
 
@@ -111,6 +116,7 @@ Contains:
 * imath-2.5.5
 * openexr-2.5.5
 * blosc-1.5.0
+* pybind11-2.6.2
 * numpy-1.19
 * vfxplatform-2021
 
@@ -127,6 +133,7 @@ Contains:
 * imath-3.1.5
 * openexr-3.1.5
 * blosc-1.17.0
+* pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
 
@@ -143,6 +150,7 @@ Contains:
 * imath-3.1.5
 * openexr-3.1.5
 * blosc-1.17.0
+* pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
 
@@ -159,6 +167,7 @@ Contains:
 * imath-3.1.5
 * openexr-3.1.5
 * blosc-1.17.0
+* pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
 
@@ -175,6 +184,7 @@ Contains:
 * imath-3.1.5
 * openexr-3.1.5
 * blosc-1.17.0
+* pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
 
@@ -191,10 +201,11 @@ Contains:
 * imath-3.1.5
 * openexr-3.1.5
 * blosc-1.17.0
+* pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-openvdb:2023-clang14.1](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang14.1)
+## [aswf/ci-openvdb:2023-clang14.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang14.2)
 
 Contains:
 * boost-1.80.0
@@ -207,10 +218,11 @@ Contains:
 * imath-3.1.9
 * openexr-3.1.11
 * blosc-1.17.0
+* pybind11-2.9.2
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-openvdb:2023-clang15.1](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang15.1)
+## [aswf/ci-openvdb:2023-clang15.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang15.2)
 
 Contains:
 * boost-1.80.0
@@ -223,6 +235,7 @@ Contains:
 * imath-3.1.9
 * openexr-3.1.11
 * blosc-1.17.0
+* pybind11-2.9.2
 * numpy-1.23.5
 * vfxplatform-2023
 

@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2023-11-07
+
+* Fixes for local Conan builds
+  * Conan builds into buildx caches, no longer weighing down build context
+
+* OpenEXR and OpenVDB build container now include pybind11
+
+### New CI Images
+
+* `aswf/ci-common:3-clang14.2`, `aswf/ci-common:3-clang15.2` : A base Rocky 8.8 image with GCC 11.2.1 (DTS 11), Clang 14.0/15.0 and CUDA 11.8.
+* `aswf/ci-base:2023.2`
+* `aswf/ci-baseqt:2023.2`
+* `aswf/ci-opencue:2023.2`
+* `aswf/ci-openexr:2023.2`
+* `aswf/ci-ocio:2023.2`
+* `aswf/ci-otio:2023.2`
+* `aswf/ci-materialx:2023.2`
+* `aswf/ci-usd:2023.2`
+* `aswf/ci-osl:2023-clang14.2`,`aswf/ci-osl:2023-clang15.2`
+* `aswf/ci-openvdb:2023-clang14.2`, `aswf/ci-openvdb:2023-clang15.2`
+* `aswf/ci-vfxall:2023-clang14.2`, `aswf/ci-vfxall:2023-clang15.2'
+
 ## 2023-08-15
 
 * NVIDIA Optix SDK includes

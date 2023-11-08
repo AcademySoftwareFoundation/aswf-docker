@@ -24,6 +24,7 @@ Contains:
 * python-2.7.15
 * boost-1.66.0
 * cmake-3.12.4
+* pybind11-2.4.3
 * numpy-1.14
 * vfxplatform-2019
 
@@ -33,6 +34,7 @@ Contains:
 * python-3.7.3
 * boost-1.70.0
 * cmake-3.18.4
+* pybind11-2.4.3
 * numpy-1.16
 * vfxplatform-2020
 
@@ -42,6 +44,7 @@ Contains:
 * python-3.7.9
 * boost-1.73.0
 * cmake-3.19.3
+* pybind11-2.6.2
 * numpy-1.19
 * vfxplatform-2021
 
@@ -51,15 +54,17 @@ Contains:
 * python-3.9.15
 * boost-1.76.0
 * cmake-3.22.0
+* pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-openexr:2023.1](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2023.1)
+## [aswf/ci-openexr:2023.2](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2023.2)
 
 Contains:
 * python-3.10.11
 * boost-1.80.0
 * cmake-3.27.2
+* pybind11-2.9.2
 * numpy-1.23.5
 * vfxplatform-2023
 

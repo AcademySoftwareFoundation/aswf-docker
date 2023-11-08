@@ -352,7 +352,7 @@ Contains:
 * hdf5-1.8.21
 * vfxplatform-2022
 
-## [aswf/ci-vfxall:2023-clang14.1](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang14.1)
+## [aswf/ci-vfxall:2023-clang14.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang14.2)
 
 Contains:
 * python-3.10.11
@@ -383,7 +383,7 @@ Contains:
 * hdf5-1.8.23
 * vfxplatform-2023
 
-## [aswf/ci-vfxall:2023-clang15.1](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang15.1)
+## [aswf/ci-vfxall:2023-clang15.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang15.2)
 
 Contains:
 * python-3.10.11

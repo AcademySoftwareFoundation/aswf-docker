@@ -31,15 +31,21 @@ class Builder:
         self.use_conan = use_conan
         self.index = index.Index()
 
-    def make_bake_dict(self) -> typing.Dict[str, dict]:
+    def make_bake_dict(
+        self,
+        keep_source: bool,
+        keep_build: bool,
+        build_missing: bool,
+        conan_login: bool,
+    ) -> typing.Dict[str, dict]:
         root: typing.Dict[str, dict] = {}
         root["target"] = {}
-        versions_to_bake = set()
         for image, version in self.group_info.iter_images_versions():
             use_conan = self.group_info.type == constants.ImageType.PACKAGE and (
                 self.use_conan
                 or self.index.is_conan_only_package(image.replace("ci-package-", ""))
             )
+            versions_to_bake = set()
             major_version = utils.get_major_version(version)
             version_info = self.index.version_info(major_version)
             if self.group_info.type == constants.ImageType.PACKAGE:
@@ -51,10 +57,10 @@ class Builder:
                     if version in versions_to_bake:
                         # Only one version per image needed
                         continue
-                    if version_info.ci_common_version != major_version:
-                        # Only bake images for ci_common!
-                        version = version_info.ci_common_version
-                        major_version = utils.get_major_version(version)
+                    # if version_info.ci_common_version != major_version:
+                    #    # Only bake conan images in ci_common container!
+                    #    version = version_info.ci_common_version
+                    #    major_version = utils.get_major_version(version)
                     versions_to_bake.add(version)
                     tags = list(
                         map(
@@ -91,6 +97,27 @@ class Builder:
                 "CI_COMMON_VERSION": version_info.ci_common_version,
                 "ASWF_CONAN_CHANNEL": channel,
             }
+            if use_conan:
+                # params as env var needed for conan build
+                args.update(
+                    {
+                        "ASWF_PKG_NAME": image.replace("ci-package-", ""),
+                        "ASWF_PKG_VERSION": version_info.package_versions.get(
+                            "ASWF_"
+                            + image.replace("ci-package-", "").upper()
+                            + "_VERSION"
+                        ),
+                        "CONAN_USER_HOME": constants.CONAN_USER_HOME,
+                        "ASWF_CONAN_KEEP_SOURCE": "--keep-source"
+                        if keep_source
+                        else "",
+                        "ASWF_CONAN_KEEP_BUILD": "--keep-build" if keep_build else "",
+                        "ASWF_CONAN_BUILD_MISSING": "--build=missing"
+                        if build_missing
+                        else "",
+                        "ASWF_CONAN_PUSH": "TRUE" if self.push else "",
+                    }
+                )
             args.update(version_info.all_package_versions)
             target_dict = {
                 "context": ".",
@@ -113,8 +140,14 @@ class Builder:
         root["group"] = {"default": {"targets": list(root["target"].keys())}}
         return root
 
-    def make_bake_jsonfile(self) -> typing.Optional[str]:
-        d = self.make_bake_dict()
+    def make_bake_jsonfile(
+        self,
+        keep_source: bool,
+        keep_build: bool,
+        build_missing: bool,
+        conan_login: bool,
+    ) -> typing.Optional[str]:
+        d = self.make_bake_dict(keep_source, keep_build, build_missing, conan_login)
         if not d["group"]["default"]["targets"]:
             return None
         groups = "-".join(self.group_info.names)
@@ -147,7 +180,7 @@ class Builder:
             "CONAN_NON_INTERACTIVE": "1",
         }
         if "CONAN_LOGIN_USERNAME" in os.environ:
-            envs["CONAN_LOGIN_USERNAME"] = os.environ["CONAN_PASSWORD"]
+            envs["CONAN_LOGIN_USERNAME"] = os.environ["CONAN_LOGIN_USERNAME"]
         if "ARTIFACTORY_USER" in os.environ:
             envs["CONAN_LOGIN_USERNAME"] = os.environ["ARTIFACTORY_USER"]
         if "CONAN_PASSWORD" in os.environ:
@@ -158,6 +191,7 @@ class Builder:
             envs[name] = value
         return envs
 
+    # We should leverage this to avoid repeating volume definitions in packages/common/Dockerfiles
     def _get_conan_vols(self):
         conan_base = os.path.join(utils.get_git_top_level(), "packages", "conan")
         vols = {
@@ -194,15 +228,21 @@ class Builder:
         image,
         version,
         dry_run,
+        progress,
         keep_source,
         keep_build,
         conan_login,
         build_missing,
+        bake_jsonfile,
     ):
         major_version = utils.get_major_version(version)
         version_info = self.index.version_info(major_version)
         base_cmd = self._get_conan_base_cmd(version_info)
         if conan_login:
+            # We keep this as a separate step: the end result is to store credentials in
+            # packages/conan/.conan/.conan.db which is not thread safe: once we are able
+            # to run Conan builds from a single "docker buildx bake" invocation, we will
+            # want to keep the login step separate.
             self._run_in_docker(
                 base_cmd,
                 [
@@ -214,79 +254,36 @@ class Builder:
                 ],
                 dry_run,
             )
-        self._run_in_docker(
-            base_cmd,
-            [
-                "conan",
-                "config",
-                "set",
-                f"general.default_profile={version_info.conan_profile}",
-            ],
-            dry_run,
+        #
+        # These are kept for reference, they now live in
+        # packages/common/Dockerfile
+        #
+        # full_version = version_info.package_versions.get(
+        #    "ASWF_" + image.upper() + "_VERSION"
+        # )
+        # conan_version = (
+        #    f"{image}/{full_version}"
+        #    f"@{self.build_info.docker_org}/{version_info.conan_profile}"
+        # )
+        # alias_version = (
+        #    f"{image}/latest"
+        #    f"@{self.build_info.docker_org}/{version_info.conan_profile}"
+        # )
+
+        # buildx bake --set allows us to override settings in the bake file and avoid having to rewrite it.
+        # output=type=cacheonly : no container is produced, we only want the cache containing the output of conan builds
+        # target.target=ci-conan-package-builder : see packages/common/Dockerfile for the Conan build container which runs:
+        #
+        # - conan user (conditional)
+        # - conan create
+        # - conan alias
+        # - conan upload main version (conditional)
+        # - conan upload latest alias version (conditional)
+        # FIXME: not sure about ci-package-{image}-3
+        self._run(
+            f"docker buildx bake -f {bake_jsonfile} --set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder --progress {progress} ci-package-{image}-{major_version}",
+            dry_run=dry_run,
         )
-        full_version = version_info.package_versions.get(
-            "ASWF_" + image.upper() + "_VERSION"
-        )
-        conan_version = (
-            f"{image}/{full_version}"
-            f"@{self.build_info.docker_org}/{version_info.conan_profile}"
-        )
-        build_cmd = [
-            "conan",
-            "create",
-            os.path.join(constants.CONAN_USER_HOME, "recipes", image),
-            conan_version,
-        ]
-        if keep_source:
-            build_cmd.append("--keep-source")
-        if keep_build:
-            build_cmd.append("--keep-build")
-        if build_missing:
-            build_cmd.append("--build=missing")
-        self._run_in_docker(
-            base_cmd,
-            build_cmd,
-            dry_run,
-        )
-        alias_version = (
-            f"{image}/latest"
-            f"@{self.build_info.docker_org}/{version_info.conan_profile}"
-        )
-        self._run_in_docker(
-            base_cmd,
-            [
-                "conan",
-                "alias",
-                alias_version,
-                conan_version,
-            ],
-            dry_run,
-        )
-        if self.push:
-            self._run_in_docker(
-                base_cmd,
-                [
-                    "conan",
-                    "upload",
-                    "--all",
-                    "-r",
-                    self.build_info.docker_org,
-                    conan_version,
-                ],
-                dry_run,
-            )
-            self._run_in_docker(
-                base_cmd,
-                [
-                    "conan",
-                    "upload",
-                    "--all",
-                    "-r",
-                    self.build_info.docker_org,
-                    alias_version,
-                ],
-                dry_run,
-            )
 
     def build(
         self,
@@ -311,7 +308,9 @@ class Builder:
         if not images_and_versions:
             return
 
-        path = self.make_bake_jsonfile()
+        path = self.make_bake_jsonfile(
+            keep_source, keep_build, build_missing, conan_login
+        )
         if path:
             self._run(
                 f"docker buildx bake -f {path} --progress {progress}", dry_run=dry_run
@@ -329,8 +328,10 @@ class Builder:
                 image,
                 version,
                 dry_run,
+                progress,
                 keep_source,
                 keep_build,
                 conan_login,
                 build_missing,
+                path,
             )
