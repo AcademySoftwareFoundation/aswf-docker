@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2023-11-07
+## 2023-11-12
 
 * Fixes for local Conan builds
   * Conan builds into buildx caches, no longer weighing down build context
