@@ -21,7 +21,7 @@ if [[ $ASWF_CLANG_VERSION != 7.* && $ASWF_CLANG_VERSION != 8.* && $ASWF_CLANG_VE
     ASWF_INSTALL_PREFIX=/tmp/pytmp ASWF_PYTHON_VERSION=3.11.7 ASWF_NUMPY_VERSION=1.24.3 ASWF_CLANG_VERSION=$ASWF_CLANG_VERSION /tmp/build_python.sh
 fi
 
-if [[ $ASWF_CLANG_VERSION == 13.* || $ASWF_CLANG_VERSION == 14.* || $ASWF_CLANG_VERSION == 15.* || $ASWF_CLANG_VERSION == 16.* ]]; then
+if [[ $ASWF_CLANG_VERSION == 13.* || $ASWF_CLANG_VERSION == 14.* || $ASWF_CLANG_VERSION == 15.* || $ASWF_CLANG_VERSION == 16.* || $ASWF_CLANG_VERSION == 17.* ]]; then
 llvm_projects="clang;clang-tools-extra;compiler-rt;lld"
 else
 llvm_projects="clang;clang-tools-extra;libcxx;libcxxabi;compiler-rt;lld"

@@ -7,8 +7,7 @@ All notable changes to this project will be documented in this file.
 * New ci-common-v4 for VFX Platform 2024 based on:
   * C++17 (unchanged)
   * Ccache 4.8.3 (from 4.7.4)
-  * Clang 15.0.7 (unchanged)
-  * Clang 16.0.4
+  * Clang 16.0.4 / 17.0.1
   * Conan 1.58.0 (from 1.47.0)
   * CUDA 12.3.0 (from 11.8.0)
   * gcc-toolset 11 / gcc 11.2.1 (unchanged)
@@ -49,7 +48,7 @@ All notable changes to this project will be documented in this file.
 
 ### New CI Images
 
-* `aswf/ci-common:4-clang15.0`, `aswf/ci-common:4-clang16.0` : A base Rocky 8 image with GCC 11.2.1 (DTS 11), Clang 15.0/16.0 and CUDA 12.3.
+* `aswf/ci-common:4-clang16.0`, `aswf/ci-common:4-clang17.0` : A base Rocky 8 image with GCC 11.2.1 (DTS 11), Clang 16.0/17.0 and CUDA 12.3.
 * `aswf/ci-base:2024.0`
 * `aswf/ci-baseqt:2024.0`
 * `aswf/ci-opencue:2024.0`
@@ -58,9 +57,9 @@ All notable changes to this project will be documented in this file.
 * `aswf/ci-otio:2024.0`
 * `aswf/ci-materialx:2024.0`
 * `aswf/ci-usd:2024.0`
-* `aswf/ci-osl:2024-clang15.0`,`aswf/ci-osl:2024-clang16.0`
-* `aswf/ci-openvdb:2024-clang15.0`, `aswf/ci-openvdb:2024-clang16.0`
-* `aswf/ci-vfxall:2024-clang15.0`, `aswf/ci-vfxall:2024-clang16.0'
+* `aswf/ci-osl:2024-clang16.0`,`aswf/ci-osl:2024-clang17.0`
+* `aswf/ci-openvdb:2024-clang16.0`, `aswf/ci-openvdb:2024-clang17.0`
+* `aswf/ci-vfxall:2024-clang16.0`, `aswf/ci-vfxall:2024-clang17.0'
 
 ## 2023-11-12
 

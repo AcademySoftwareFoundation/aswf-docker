@@ -239,7 +239,7 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-openvdb:2024-clang15.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang15.0)
+## [aswf/ci-openvdb:2024-clang16.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang16.0)
 
 Contains:
 * boost-1.82.0
@@ -256,7 +256,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-openvdb:2024-clang16.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang16.0)
+## [aswf/ci-openvdb:2024-clang17.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang17.0)
 
 Contains:
 * boost-1.82.0
