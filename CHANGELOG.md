@@ -2,6 +2,66 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2024-01-29
+
+* New ci-common-v4 for VFX Platform 2024 based on:
+  * C++17 (unchanged)
+  * Ccache 4.8.3 (from 4.7.4)
+  * Clang 15.0.7 (unchanged)
+  * Clang 16.0.4
+  * Conan 1.58.0 (from 1.47.0)
+  * CUDA 12.3.0 (from 11.8.0)
+  * gcc-toolset 11 / gcc 11.2.1 (unchanged)
+  * glibc 2.28 (unchanged)
+  * libstdc++11 new ABI
+  * Ninja 1.11.1 (unchanged)
+  * Rocky Linux 8.9 (from 8.8)
+  * SonarScan 5.0.1.3006 (from 4.8.0.2856)
+* Updated 2024 Packages
+  * Alembic 1.8.6 (from 1.8.5)
+  * Blosc 1.21.5 (from 1.17.0)
+  * Boost 1.82.0 (from 1.80.0)
+  * CMake 3.27.8 (from 3.27.2)
+  * GLFW 3.3.8 (from 3.1.2)
+  * gtest 1.14.0 (from 1.11.0)
+  * Imath 3.1.10 (from 3.1.9)
+  * log4cplus 2.1.1 (from 1.1.2)
+  * MaterialX 1.38.8 (from 1.38.7)
+  * NumPy 1.24.3 (from 1.23.5)
+  * OpenColorIO 2.3.2 (from 2.2.1)
+  * OpenEXR 3.2.1 (from 3.1.11)
+  * OpenImageIO 2.5.6.0 (from 2.4.13.0)
+  * OpenSubdiv 3.6.0 (from 3.5.0)
+  * OpenVDB 11.0.0 (from 10.0.1)
+  * OpenShadingLanguage 1.12.14.0 (from 1.12.13.0)
+  * OpenTimelineIO 0.15 (from 0.14.1)
+  * PySide 6.5.3 (from 5.15.9.
+  * Python 3.11.7 (from 3.10.11)
+  * Qt 6.5.3 (from 5.15.9)
+  * USD 23.11 (from 23.05)
+* Unchanged 2024 Packages
+  * CppUnit 1.15.1
+  * GLEW 2.1.0
+  * HDF5 1.8.23
+  * Partio 1.17.1
+  * Ptex 2.4.2
+  * TBB 2020u3
+
+### New CI Images
+
+* `aswf/ci-common:4-clang15.0`, `aswf/ci-common:4-clang16.0` : A base Rocky 8 image with GCC 11.2.1 (DTS 11), Clang 15.0/16.0 and CUDA 12.3.
+* `aswf/ci-base:2024.0`
+* `aswf/ci-baseqt:2024.0`
+* `aswf/ci-opencue:2024.0`
+* `aswf/ci-openexr:202.0`
+* `aswf/ci-ocio:2024.0`
+* `aswf/ci-otio:2024.0`
+* `aswf/ci-materialx:2024.0`
+* `aswf/ci-usd:2024.0`
+* `aswf/ci-osl:2024-clang15.0`,`aswf/ci-osl:2024-clang16.0`
+* `aswf/ci-openvdb:2024-clang15.0`, `aswf/ci-openvdb:2024-clang16.0`
+* `aswf/ci-vfxall:2024-clang15.0`, `aswf/ci-vfxall:2024-clang16.0'
+
 ## 2023-11-12
 
 * Fixes for local Conan builds

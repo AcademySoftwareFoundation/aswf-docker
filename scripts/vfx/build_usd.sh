@@ -33,6 +33,15 @@ else
     USD_EXTRA_ARGS=-DPXR_USE_PYTHON_3=ON
 fi
 
+# Our current PySide6 Conan build doesn't create
+# the pyside6- prefixed # binaries.
+
+if [[ $ASWF_PYSIDE_VERSION == 6* ]]; then
+    USD_UIC_PATH=-DPYSIDEUICBINARY=/usr/local/bin/uic
+else
+    USD_UIC_PPATH=
+fi
+
 cmake \
      -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
      -DOPENEXR_LOCATION="${ASWF_INSTALL_PREFIX}" \
@@ -47,6 +56,7 @@ cmake \
      -DUSD_ROOT_DIR="${ASWF_INSTALL_PREFIX}" \
      -DPXR_BUILD_ALEMBIC_PLUGIN=OFF \
      -DPXR_BUILD_MAYA_PLUGIN=FALSE \
+     ${USD_UIC_PATH} \
      ${USD_EXTRA_ARGS} \
      ..
 

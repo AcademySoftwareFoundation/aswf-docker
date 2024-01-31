@@ -10,6 +10,7 @@ BASEOS_MAJORVERSION=$(sed -n  's/^.* release \([0-9]*\)\..*$/\1/p' /etc/redhat-r
 if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     dnf -y install 'dnf-command(config-manager)'
     dnf config-manager --set-enabled powertools
+    # libbluray-devel is in EPEL 9, we may no longer need devel repo then
     dnf config-manager --set-enabled devel
     # Rocky 8 base image doesn't have a system Python (3), install and make default
     dnf -y install python3
@@ -214,6 +215,7 @@ yum install -y \
     libcaca-devel \
     libdc1394-devel \
     opencl-headers \
+    patchelf \
     p7zip \
     xcb-util-cursor \
     xcb-util-cursor-devel \
@@ -223,9 +225,25 @@ yum install -y \
 if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     # Rocky 8 has git 2.31 and OpenSSL 1.1.1k by default
     # Recent Qt 5.15.x wants wayland-devel
+    # Qt 6 wants python3-html5lib, python3-importlib-metadata, nodejs, brotli,
+    # double-conversion, perl-IPC-Cmd, perl-Digest-SHA, python 3.9
+    # An unknown dependency is pulling Python 3.11.5, might as well
+    # have the devel package as well
     dnf -y install \
         git \
-        wayland-devel
+        wayland-devel \
+        python3-html5lib \
+        python3-importlib-metadata \
+        brotli brotli-devel \
+        double-conversion double-conversion-devel \
+        perl-IPC-Cmd \
+        perl-Digest-SHA \
+        python39 \
+        python39-devel \
+        python3.11 \
+        python3.11-devel \
+        python3.11-setuptools
+    dnf -y module install nodejs:18
     # If we really wanted libdb4 / libdb4-devel
     # dnf -y install
     #    https://pkgs.dyn.su/el8/base/x86_64/libdb4-4.8.30-30.el8.x86_64.rpm
@@ -236,8 +254,9 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     #    https://pkgs.dyn.su/el8/base/x86_64/openjpeg-libs-1.5.2-1.el8.x86_64.rpm
     #    https://pkgs.dyn.su/el8/base/x86_64/openjpeg-devel-1.5.2-1.el8.x86_64.rpm
 
-    # Make Python 3 the default Python
+    # Make Python 3.11 the default Python
     alternatives --set python /usr/bin/python3
+    alternatives --set python3 /usr/bin/python3.11
 else
     yum install -y \
         libdb4-devel \

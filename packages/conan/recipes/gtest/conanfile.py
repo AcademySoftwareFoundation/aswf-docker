@@ -14,7 +14,7 @@ class GTestConan(ConanFile):
     topics = ("gtest", "testing", "google-testing", "unit-test")
     exports_sources = ["CMakeLists.txt", "patches/*"]
     generators = "cmake"
-    settings = "os", "arch", "compiler", "build_type"
+    settings = "cppstd", "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "build_gmock": [True, False],

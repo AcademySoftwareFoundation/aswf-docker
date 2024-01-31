@@ -2,14 +2,14 @@
 #include <QObject>
 #include <QString>
 #include <QTimer>
-#include "greeter.h"
 #include <QFile>
 
 #include <QNetworkAccessManager>
-#include <QtConcurrent>
-#include <QDomText>
-#include <QDBusMessage>
 #include <QSqlDatabase>
+#include <qtconcurrentfilter.h>
+#include <QDomText>
+
+#include "greeter.h"
 
 int main(int argc, char *argv[]){
     QCoreApplication app(argc, argv);
@@ -35,11 +35,14 @@ int main(int argc, char *argv[]){
 
     QSqlDatabase sqlTester;
 
-    QFuture<void> future = QtConcurrent::run([](){});
+    QVector<int> v;
+    v << 1 << 2 << 3 << 4;
+    QtConcurrent::blockingFilter(v, [](int i)
+    {
+        return i % 2;
+    });
 
     QDomText xmlTester;
-
-    QDBusMessage dbusTester;
 
     return app.exec();
 }

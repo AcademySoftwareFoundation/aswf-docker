@@ -55,10 +55,10 @@ done
 
 # Zip files for 7.3.0 and newer, with some variability in ZIP filename and directory prefix
 
-declare -A OPTIX_VERSION_ZIP=( [7.3]=7.3.0 [7.4]=7.4.0 [7.5]=7.5 [7.6]=7.6 [7.7]=7.7 )
-declare -A OPTIX_VERSION_DIR=( [7.3]="" [7.4]="" [7.5]="include" [7.6]="include" [7.7]="include" )
+declare -A OPTIX_VERSION_ZIP=( [7.3]=7.3.0 [7.4]=7.4.0 [7.5]=7.5 [7.6]=7.6 [7.7]=7.7 [8.0]=8.0 )
+declare -A OPTIX_VERSION_DIR=( [7.3]="" [7.4]="" [7.5]="include" [7.6]="include" [7.7]="include" [8.0]="include" )
 
-for OPTIX_VERSION in 7.3 7.4 7.5 7.6 7.7
+for OPTIX_VERSION in 7.3 7.4 7.5 7.6 7.7 8.0
 do
     OPTIXLOC=https://developer.download.nvidia.com/redist/optix/v${OPTIX_VERSION}
     curl --retry 100 -m 120 --connect-timeout 30 \

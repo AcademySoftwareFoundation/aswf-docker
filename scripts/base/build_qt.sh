@@ -22,10 +22,10 @@ if [[ $ASWF_QT_VERSION == 5.6.1 ]]; then
     tar xf ../qt561-webkit.tgz
     EXTRA_CONFIGURE_ARGS=-qt-xcb
 else
-    if [[ $ASWF_QT_VERSION == 5.15.2 ]]; then
-        QT_ARCHIVE_PREFIX="qt-everywhere-src-"
-    else
+    if [[ $ASWF_QT_VERSION == 5.12.6 ]]; then
         QT_ARCHIVE_PREFIX="qt-everywhere-opensource-src-"
+    else
+        QT_ARCHIVE_PREFIX="qt-everywhere-src-"
     fi
     QT_MAJOR_MINOR=$(echo "${ASWF_QT_VERSION}" | cut -d. -f-2)
     if [ ! -f "$DOWNLOADS_DIR/qt-${ASWF_QT_VERSION}.tar.xz" ]; then
@@ -43,7 +43,9 @@ else
         mkdir -pv qtbase/.git
         ASWF_QT_CXX_STD=c++17
     fi
-    if [[ $QT_MAJOR_MINOR == 5.15 ]]; then
+    if [[ $QT_MAJOR_MINOR == 5.12 ]]; then
+        EXTRA_CONFIGURE_ARGS=-qt-xcb
+    else
         EXTRA_CONFIGURE_ARGS="-no-sql-mysql \
         -xcb \
         -qt-libjpeg \
@@ -57,8 +59,6 @@ else
         -skip qtnetworkauth \
         -skip qtpurchasing \
         -I /usr/include/openssl11 -L /usr/lib64/openssl11"
-    else
-        EXTRA_CONFIGURE_ARGS=-qt-xcb
     fi
 fi
 
@@ -82,9 +82,9 @@ fi
         -release \
         ${EXTRA_CONFIGURE_ARGS}
 
-make -j$(nproc)
+cmake --build . --parallel
 
-sudo make install
+cmake --install .
 
 cd ../..
 rm -rf qt

@@ -7,7 +7,12 @@ set -ex
 mkdir python
 cd python
 
-curl -C - --location "https://www.python.org/ftp/python/${ASWF_PYTHON_VERSION}/Python-${ASWF_PYTHON_VERSION}.tgz" -o "$DOWNLOADS_DIR/Python-${ASWF_PYTHON_VERSION}.tgz"
+# We may be building Python for multiple Clang versions at once, protect against concurrent downloads
+if [ -n "${ASWF_CLANG_VERSION}" ]; then
+  CLANG_DOWNLOAD_SUFFIX="_${ASWF_CLANG_VERSION}"
+fi
+
+curl -C - --location "https://www.python.org/ftp/python/${ASWF_PYTHON_VERSION}/Python-${ASWF_PYTHON_VERSION}.tgz" -o "$DOWNLOADS_DIR/Python-${ASWF_PYTHON_VERSION}${CLANG_DOWNLOAD_SUFFIX}.tgz"
 
 
 mkdir -p "${ASWF_INSTALL_PREFIX}/bin"
@@ -35,7 +40,7 @@ exec "${ASWF_INSTALL_PREFIX}/bin/run-with-system-python" /usr/bin/yum "\$@"
 EOF
 chmod a+x "${ASWF_INSTALL_PREFIX}/bin/yum"
 
-tar xf "$DOWNLOADS_DIR/Python-${ASWF_PYTHON_VERSION}.tgz"
+tar xf "$DOWNLOADS_DIR/Python-${ASWF_PYTHON_VERSION}${CLANG_DOWNLOAD_SUFFIX}.tgz"
 cd "Python-${ASWF_PYTHON_VERSION}"
 
 # Ensure configure, build and install is done with no reference to ${ASWF_INSTALL_PREFIX} as this somehow messes up the system install

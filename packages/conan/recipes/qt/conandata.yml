@@ -20,6 +20,13 @@ sources:
       - "https://www.funet.fi/pub/mirrors/download.qt-project.org/archive/qt/5.15/5.15.9/single/qt-everywhere-opensource-src-5.15.9.tar.xz"
       - "https://ftp.fau.de/qtproject/archive/qt/5.15/5.15.9/single/qt-everywhere-opensource-src-5.15.9.tar.xz"
     sha256: "26d5f36134db03abe4a6db794c7570d729c92a3fc1b0bf9b1c8f86d0573cd02f"
+  "6.5.3":
+    url:
+      - "https://qt.mirror.constant.com/archive/qt/6.5/6.5.3/single/qt-everywhere-src-6.5.3.tar.xz"
+      - "https://qt-mirror.dannhauer.de/archive/qt/6.5/6.5.3/single/qt-everywhere-src-6.5.3.tar.xz"
+      - "https://www.funet.fi/pub/mirrors/download.qt-project.org/archive/qt/6.5/6.5.3/single/qt-everywhere-src-6.5.3.tar.xz"
+      - "https://ftp.fau.de/qtproject/archive/qt/6.5/6.5.3/single/qt-everywhere-src-6.5.3.tar.xz"
+    sha256: "7cda4d119aad27a3887329cfc285f2aba5da85601212bcb0aea27bd6b7b544cb"
 patches:
   "5.12.6":
     - patch_file: "patches/c72097e.diff"
@@ -36,3 +43,10 @@ patches:
       base_path: "qt5"
     - patch_file: "patches/qtsan_impl.diff"
       base_path: "qt5"
+  "6.5.3":
+    - patch_file: "patches/qtbase-core-cmake.diff"
+      base_path: "qtbase"
+      patch_description: "ls is a shell script in RHEL"
+    - patch_file: "patches/c72097e.diff"
+      base_path: "qtwebengine"
+      patch_description: "Workaround for too long .rps file name"

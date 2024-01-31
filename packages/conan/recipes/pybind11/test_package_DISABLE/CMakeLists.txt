@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.5)
+project(test_package CXX)
+find_package(Python 3.11.7 COMPONENTS Interpreter Development REQUIRED)
+find_package(pybind11 CONFIG REQUIRED)
+pybind11_add_module(test_package MODULE test_package.cpp)
+set_property(TARGET test_package PROPERTY CXX_STANDARD 17)

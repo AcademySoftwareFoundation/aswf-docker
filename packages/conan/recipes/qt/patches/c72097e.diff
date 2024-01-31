@@ -14,14 +14,14 @@ le.rsp): Unable to create file. File name too long
 Task-number: QTBUG-59769
 Change-Id: I73c5e64ae5174412be2a675e35b0b6047f2bf4c1
 ---
- src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc | 9 +++++++++
+ src/3rdparty/gn/src/gn/ninja_action_target_writer.cc | 9 +++++++++
  1 file changed, 9 insertions(+)
 
-diff --git a/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc b/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
+diff --git a/src/3rdparty/gn/src/gn/ninja_action_target_writer.cc b/src/3rdparty/gn/src/gn/ninja_action_target_writer.cc
 index a5bc6cd..5cefbfe 100644
---- a/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
-+++ b/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
-@@ -118,9 +118,18 @@ std::string NinjaActionTargetWriter::WriteRuleDefinition() {
+--- a/src/3rdparty/gn/src/gn/ninja_action_target_writer.cc
++++ b/src/3rdparty/gn/tosrcols/gn/ninja_action_target_writer.cc
+@@ -122,9 +122,18 @@ std::string NinjaActionTargetWriter::WriteRuleDefinition() {
      // strictly necessary for regular one-shot actions, but it's easier to
      // just always define unique_name.
      std::string rspfile = custom_rule_name;
@@ -38,5 +38,5 @@ index a5bc6cd..5cefbfe 100644
      rspfile += ".rsp";
 +
      out_ << "  rspfile = " << rspfile << std::endl;
- 
+
      // Response file contents.

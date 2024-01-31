@@ -1,0 +1,12 @@
+diff -u -r a/src/3rdparty/chromium/third_party/Python-Markdown/markdown/util.py b/src/3rdparty/chromium/third_party/Python-Markdown/markdown/util.py
+--- a/src/3rdparty/chromium/third_party/Python-Markdown/markdown/util.py	2023-11-25 10:36:14.535016596 -0800
++++ b/src/3rdparty/chromium/third_party/Python-Markdown/markdown/util.py	2023-11-25 10:38:14.942776684 -0800
+@@ -32,7 +32,7 @@
+     from importlib import metadata
+ except ImportError:
+     # <PY38 use backport
+-    import importlib_metadata as metadata
++    import importlib.metadata as metadata
+
+ PY37 = (3, 7) <= sys.version_info
+
