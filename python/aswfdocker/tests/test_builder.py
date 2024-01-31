@@ -535,7 +535,7 @@ class TestBuilderCli(unittest.TestCase):
         bake_path = os.path.join(
             tempfile.gettempdir(),
             "docker-bake-IMAGE-common-1-clang10-1-clang6-1-clang7-1"
-            "-clang8-1-clang9-2-clang10-2-clang11-2-clang12-2-clang13-2-clang14-3-clang14-3-clang15-4-clang15-4-clang16.json",
+            "-clang8-1-clang9-2-clang10-2-clang11-2-clang12-2-clang13-2-clang14-3-clang14-3-clang15-4-clang16-4-clang17.json",
         )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
