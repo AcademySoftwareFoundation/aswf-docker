@@ -118,6 +118,19 @@ jobs:
           --source-branch $GITHUB_REF \
           --verbose \
           build \
+          --ci-image-type PACKAGE \
+          --group common \
+          --version ${{ matrix.common_version }}
+          --target ninja
+      name: ninja is pre-requisite for all other images
+
+    - run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
           --ci-image-type IMAGE \
           --group common \
           --version ${{ matrix.common_version }}
