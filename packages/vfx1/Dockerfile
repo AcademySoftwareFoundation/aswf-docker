@@ -164,56 +164,6 @@ LABEL io.aswf.docker.versions.openexr="${ASWF_OPENEXR_VERSION}"
 
 COPY --from=ci-openexr-builder /package/. /
 
-
-
-#################### ci-alembic-builder ####################
-FROM ci-openexr-builder AS ci-alembic-builder
-
-ARG ASWF_ALEMBIC_VERSION
-ENV ASWF_ALEMBIC_VERSION=${ASWF_ALEMBIC_VERSION}
-ARG ASWF_HDF5_VERSION
-ENV ASWF_HDF5_VERSION=${ASWF_HDF5_VERSION}
-
-COPY ../scripts/vfx/build_alembic.sh \
-     /tmp/
-
-RUN --mount=type=cache,target=/tmp/ccache \
-    --mount=type=cache,sharing=private,target=/tmp/downloads \
-    /tmp/before_build.sh && \
-    /tmp/build_alembic.sh && \
-    /tmp/copy_new_files.sh && \
-    ccache --show-stats
-
-
-#################### ci-package-alembic ####################
-FROM scratch AS ci-package-alembic
-
-ARG ASWF_ALEMBIC_VERSION
-ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_DTS_PREFIX
-ARG ASWF_HDF5_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-alembic"
-LABEL org.opencontainers.image.title="Alembic package built for ASWF Docker images"
-LABEL org.opencontainers.image.description="Alembic headers and binaries to be installed in ASWF Docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/alembic/alembic"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${ASWF_ALEMBIC_VERSION}"
-LABEL org.opencontainers.image.licenses="BSD-3-Clause"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.alembic="${ASWF_ALEMBIC_VERSION}"
-LABEL io.aswf.docker.versions.hdf5="${ASWF_HDF5_VERSION}"
-
-COPY --from=ci-alembic-builder /package/. /
-
-
 #################### ci-blosc-builder ####################
 FROM ci-base-builder AS ci-blosc-builder
 
@@ -266,12 +216,14 @@ ARG ASWF_VFXPLATFORM_VERSION
 ARG ASWF_CPPUNIT_VERSION
 ARG ASWF_GLEW_VERSION
 ARG ASWF_GLFW_VERSION
+ARG ASWF_QT_VERSION
 
 ENV ASWF_OPENVDB_VERSION=${ASWF_OPENVDB_VERSION}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 ENV ASWF_CPPUNIT_VERSION=${ASWF_CPPUNIT_VERSION}
 ENV ASWF_GLEW_VERSION=${ASWF_GLEW_VERSION}
 ENV ASWF_GLFW_VERSION=${ASWF_GLFW_VERSION}
+ENV ASWF_QT_VERSION=${ASWF_QT_VERSION}
 
 COPY ../scripts/vfx/build_openvdb.sh \
      ../scripts/vfx/openvdb-imath.patch \
@@ -290,6 +242,7 @@ COPY <<EOF /usr/local/conanfile.txt
 cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
@@ -337,7 +290,10 @@ COPY --from=ci-openvdb-builder /package/. /
 FROM ci-openvdb-builder AS ci-oiio-builder
 
 ARG ASWF_OIIO_VERSION
+ARG ASWF_CXX_STANDARD
+
 ENV ASWF_OIIO_VERSION=${ASWF_OIIO_VERSION}
+ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
 
 COPY --from=ci-package-pybind11-external /. /usr/local/
 
@@ -431,14 +387,29 @@ COPY --from=ci-ocio-builder /package/. /
 FROM ci-oiio-builder AS ci-osl-builder
 
 ARG ASWF_OSL_VERSION
-ENV ASWF_OSL_VERSION=${ASWF_OSL_VERSION}
+ARG ASWF_QT_VERSION
+ARG ASWF_CXX_STANDARD
 
-COPY --from=ci-package-clang-external /. /usr/local/
-COPY --from=ci-package-qt-external /. /usr/local/
+ENV ASWF_OSL_VERSION=${ASWF_OSL_VERSION}
+ENV ASWF_QT_VERSION=${ASWF_QT_VERSION}
+ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
+
 COPY --from=ci-package-partio /. /usr/local/
 
 COPY ../scripts/vfx/build_osl.sh \
      /tmp/
+
+COPY scripts/common/install_conanpackages.sh /tmp
+
+# Use conan to install some packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \

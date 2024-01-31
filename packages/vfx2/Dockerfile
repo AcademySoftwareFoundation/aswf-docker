@@ -36,14 +36,8 @@ ARG ASWF_QT_VERSION
 ARG ASWF_USD_VERSION
 
 # Required base packages built in previous stages
-FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} AS ci-package-qt-external
-FROM ${ASWF_ORG}/ci-package-pybind11:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYBIND11_VERSION} AS ci-package-pybind11-external
-FROM ${ASWF_ORG}/ci-package-pyside:${ASWF_VFXPLATFORM_VERSION}-${ASWF_PYSIDE_VERSION} AS ci-package-pyside-external
 
-FROM ${ASWF_ORG}/ci-package-imath:${ASWF_VFXPLATFORM_VERSION}-${ASWF_IMATH_VERSION} AS ci-package-imath-external
-FROM ${ASWF_ORG}/ci-package-openexr:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OPENEXR_VERSION} AS ci-package-openexr-external
 FROM ${ASWF_ORG}/ci-package-blosc:${ASWF_VFXPLATFORM_VERSION}-${ASWF_BLOSC_VERSION} AS ci-package-blosc-external
-FROM ${ASWF_ORG}/ci-package-alembic:${ASWF_VFXPLATFORM_VERSION}-${ASWF_ALEMBIC_VERSION} AS ci-package-alembic-external
 FROM ${ASWF_ORG}/ci-package-openvdb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OPENVDB_VERSION} AS ci-package-openvdb-external
 FROM ${ASWF_ORG}/ci-package-oiio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OIIO_VERSION} AS ci-package-oiio-external
 FROM ${ASWF_ORG}/ci-package-ocio:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OCIO_VERSION} AS ci-package-ocio-external
@@ -151,11 +145,20 @@ ARG ASWF_VFXPLATFORM_VERSION
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 ARG ASWF_TBB_VERSION
 ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
+ARG ASWF_CXX_STANDARD
+ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
+ARG ASWF_PYBIND11_VERSION
+ENV ASWF_PYBIND11_VERSION=${ASWF_PYBIND11_VERSION}
+ARG ASWF_QT_VERSION
+ENV ASWF_QT_VERSION=${ASWF_QT_VERSION}
+ARG ASWF_PYSIDE_VERSION
+ENV ASWF_PYSIDE_VERSION=${ASWF_PYSIDE_VERSION}
+ARG ASWF_IMATH_VERSION
+ENV ASWF_IMATH_VERSION=${ASWF_IMATH_VERSION}
+ARG ASWF_OPENEXR_VERSION
+ENV ASWF_OPENEXR_VERSION=${ASWF_OPENEXR_VERSION}
 
-COPY --from=ci-package-imath-external /. /usr/local/
-COPY --from=ci-package-openexr-external /. /usr/local/
 COPY --from=ci-package-oiio-external /. /usr/local/
-COPY --from=ci-package-pybind11-external /. /usr/local/
 COPY --from=ci-package-openvdb-external /. /usr/local/
 COPY --from=ci-package-blosc-external /. /usr/local/
 
@@ -164,13 +167,18 @@ COPY ../scripts/vfx/build_osl.sh \
 
 COPY scripts/common/install_conanpackages.sh /tmp
 
-# Use conan to install some packages
+# Use conan to install dependencies
 COPY <<EOF /usr/local/conanfile.txt
 [generators]
 [imports]
 ., * -> .
 [requires]
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
@@ -328,40 +336,51 @@ COPY --from=ci-opensubdiv-builder /package/. /
 #################### ci-usd-builder ####################
 FROM ci-opensubdiv-builder AS ci-usd-builder
 
-ARG ASWF_MATERIALX_VERSION
 ARG ASWF_PKG_ORG
 ARG ASWF_CONAN_CHANNEL
 ARG ASWF_USD_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_GLEW_VERSION
+ARG ASWF_PYBIND11_VERSION
 ARG ASWF_MATERIALX_VERSION
+ARG ASWF_QT_VERSION
+ARG ASWF_PYSIDE_VERSION
+ARG ASWF_ALEMBIC_VERSION
+ARG ASWF_IMATH_VERSION
+ARG ASWF_OPENEXR_VERSION
 
 ENV ASWF_USD_VERSION=${ASWF_USD_VERSION}
 ENV ASWF_NUMPY_VERSION=${ASWF_NUMPY_VERSION}
 ENV ASWF_GLEW_VERSION=${ASWF_GLEW_VERSION}
+ENV ASWF_PYBIND11_VERSION=${ASWF_PYBIND11_VERSION}
 ENV ASWF_MATERIALIX_VERSION=${ASWF_MATERIALX_VERSION}
+ENV ASWF_QT_VERSION=${ASWF_PYSIDE_VERSION}
+ENV ASWF_PYSIDE_VERSION=${ASWF_PYSIDE_VERSION}
+ENV ASWF_ALEMBIC_VERSION=${ASWF_ALEMBIC_VERSION}
+ENV ASWF_IMATH_VERSION=${ASWF_IMATH_VERSION}
+ENV ASWF_OPENEXR_VERSION=${ASWF_OPENEXR_VERSION}
 
-COPY --from=ci-package-imath-external /. /usr/local/
-COPY --from=ci-package-openexr-external /. /usr/local/
-COPY --from=ci-package-alembic-external /. /usr/local/
 COPY --from=ci-package-openvdb-external /. /usr/local/
 COPY --from=ci-package-oiio-external /. /usr/local/
 COPY --from=ci-package-ocio-external /. /usr/local/
-COPY --from=ci-package-qt-external /. /usr/local/
-COPY --from=ci-package-pyside-external /. /usr/local/
 
 COPY ../scripts/vfx/build_usd.sh \
      /tmp/
 
 COPY scripts/common/install_conanpackages.sh /tmp
 
-# Use conan to install MaterialX
+# Use conan to install dependencies
 COPY <<EOF /usr/local/conanfile.txt
 [generators]
 [imports]
 ., * -> .
 [requires]
+alembic/${ASWF_ALEMBIC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
@@ -408,10 +427,24 @@ COPY --from=ci-usd-builder /package/. /
 FROM ci-base-builder AS ci-otio-builder
 
 ARG ASWF_OTIO_VERSION
-ENV ASWF_OTIO_VERSION=${ASWF_OTIO_VERSION}
+ARG ASWF_QT_VERSION
+ARG ASWF_PYSIDE_VERSION
 
-COPY --from=ci-package-qt-external /. /usr/local/
-COPY --from=ci-package-pyside-external /. /usr/local/
+ENV ASWF_OTIO_VERSION=${ASWF_OTIO_VERSION}
+ENV ASWF_QT_VERSION=${ASWF_QT_VERSION}
+ENV ASWF_PYSIDE_VERSION=${ASWF_PYSIDE_VERSION}
+
+COPY scripts/common/install_conanpackages.sh /tmp
+
+# Use conan to install some packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
 
 COPY ../scripts/vfx/build_otio.sh \
      /tmp/

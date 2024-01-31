@@ -58,9 +58,9 @@ class Builder:
                         # Only one version per image needed
                         continue
                     # if version_info.ci_common_version != major_version:
-                    #    # Only bake conan images in ci_common container!
-                    #    version = version_info.ci_common_version
-                    #    major_version = utils.get_major_version(version)
+                    # Only bake conan images in ci_common container!
+                    # version = version_info.ci_common_version
+                    # major_version = utils.get_major_version(version)
                     versions_to_bake.add(version)
                     tags = list(
                         map(
@@ -86,8 +86,9 @@ class Builder:
                 tags = version_info.get_tags(version, self.build_info.docker_org, image)
                 docker_file = f"{image}/Dockerfile"
 
-            if version_info.ci_common_version == major_version:
-                channel = f"ci_common{major_version}"
+            major_version_no_clang = major_version.split("-")[0]
+            if version_info.ci_common_version == major_version_no_clang:
+                channel = f"ci_common{major_version_no_clang}"
             else:
                 channel = f"vfx{version_info.major_version}"
             args = {

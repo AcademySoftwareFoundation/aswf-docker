@@ -70,8 +70,9 @@ class GlewConan(ConanFile):
         cmake = self._configure_cmake()
         cmake.install()
 
-        tools.rmdir(os.path.join(self.package_folder, "lib", "pkgconfig"))
-        tools.rmdir(os.path.join(self.package_folder, "lib", "cmake"))
+        # Keep CMake files to package can be consumed outside Conan
+        # tools.rmdir(os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # tools.rmdir(os.path.join(self.package_folder, "lib", "cmake"))
         for pdb_file in glob.glob(os.path.join(self.package_folder, "lib", "*.pdb")):
             os.remove(pdb_file)
 

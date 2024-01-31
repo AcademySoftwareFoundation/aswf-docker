@@ -12,6 +12,12 @@ else()
     add_executable(${PROJECT_NAME} main.cpp test_package.cpp)
 endif()
 
+if(GTest_VERSION VERSION_LESS "1.13.0")
+    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_11)
+else()
+    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
+endif()
+
 if(WITH_MAIN)
     target_link_libraries(${PROJECT_NAME} GTest::gtest GTest::gtest_main )
     if(WITH_GMOCK)

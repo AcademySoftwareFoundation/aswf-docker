@@ -1,6 +1,10 @@
 from conans import AutoToolsBuildEnvironment, ConanFile, tools
 from contextlib import contextmanager
 from conan.tools.files.symlinks import absolute_to_relative_symlinks
+
+from jinja2 import Environment, FileSystemLoader
+
+from semver import SemVer
 import os
 import sysconfig
 import re
@@ -23,6 +27,7 @@ class PythonConan(ConanFile):
     options = {"with_numpy": [True, False]}
     default_options = {"with_numpy": True}
     generators = "pkg_config"
+    exports_sources = "*.cmake"
 
     _autotools = None
 
@@ -99,7 +104,52 @@ class PythonConan(ConanFile):
             autotools = self._configure_autotools()
             autotools.make()
 
+    @property
+    def _abi_suffix(self):
+        v = SemVer(self.version, False)
+        if self.settings.os == "Windows":
+            return f"{v.major}{v.minor}{self._exe_suffix}"
+        else:
+            return "{}.{}{}{}".format(
+                v.major,
+                v.minor,
+                "d" if self.settings.build_type == "Debug" and v.major >= 3 else "",
+                "m" if (v.major >= 3 and v.minor < 8) or v.major > 3 else "",
+            )
+
+    def _produce_config_files(self):
+        p = os.path.join(self.package_folder, "lib", "cmake", "python")
+        if not os.path.exists(p):
+            os.makedirs(p, exist_ok=True)
+
+        pyver = SemVer(self.version, False)
+        file_loader = FileSystemLoader(self.source_folder)
+        env = Environment(loader=file_loader)
+
+        def _configure(file_name):
+            data = {
+                "version_major": str(pyver.major),
+                "version_minor": str(pyver.minor),
+                "version_patch": str(pyver.patch),
+                "os": self.settings.os,
+                "bt": self.settings.build_type,
+                "abi_suffix": self._abi_suffix,
+            }
+
+            interpreter_template = env.get_template(file_name)
+            interpreter_template.stream(data).dump(
+                os.path.join(self.package_folder, "lib", "cmake", "python", file_name)
+            )
+
+        _configure("Python_InterpreterTargets.cmake")
+        _configure("Python_DevelopmentTargets.cmake")
+        _configure("Python_Macros.cmake")
+        _configure("PythonConfig.cmake")
+        _configure("PythonConfigVersion.cmake")
+
     def package(self):
+        self._produce_config_files()
+
         self.copy("COPYING", src=self._source_subfolder, dst="licenses")
 
         self.copy("yum", dst="bin")
@@ -195,4 +245,5 @@ class PythonConan(ConanFile):
                 r"^/opt/conan_home", r"/tmp/c", self.package_folder
             ),  # FIXME is there a better way? aswfdocker defines CONAN_USER_HOME
             self.install_folder,
+            strict=False,  # don't complain if it was already done in persistent cache
         )

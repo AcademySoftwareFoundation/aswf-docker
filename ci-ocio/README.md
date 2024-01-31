@@ -118,3 +118,23 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
+## [aswf/ci-ocio:2024.0](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.0)
+
+Contains:
+* python-3.11.7
+* pybind11-2.11.1
+* tbb-2020_U3
+* boost-1.82.0
+* glew-2.1.0
+* glfw-3.3.8
+* cmake-3.27.8
+* imath-3.1.10
+* openexr-3.2.1
+* oiio-2.5.6.0
+* blosc-1.21.5
+* partio-1.17.1
+* openvdb-11.0.0
+* osl-1.12.14.0
+* numpy-1.24.3
+* vfxplatform-2024
+

@@ -23,11 +23,6 @@ jobs:
       matrix:
         group: [img-common-1] # Extra groups come from the include next
         include:
-          - group: img-common-1
-            type: IMAGE
-            name: common
-            version: 1-clang7
-            test: common
           - group: img-common-2
             type: IMAGE
             name: common
@@ -38,41 +33,46 @@ jobs:
             name: common
             version: 3-clang14
             test: common
-          - group: pkg-base-2022
-            type: PACKAGE
-            name: base1
-            common_version: 2-clang10
-            version: 2021
-            test: ""
+          - group: img-common-4
+            type: IMAGE
+            name: common
+            version: 4-clang16
+            test: common
           - group: pkg-base-2023
             type: PACKAGE
             name: base1
             common_version: 3-clang14
             version: 2023
             test: ""
-          - group: img-base-2023
+          - group: pkg-base-2024
+            type: PACKAGE
+            name: base1
+            common_version: 4-clang16
+            version: 2024
+            test: ""
+          - group: img-base-2024
             type: IMAGE
             name: base
-            common_version: 3-clang14
-            version: 2023
+            common_version: 4-clang16
+            version: 2024
             test: base
-          - group: img-vfx1-2022
+          - group: img-vfx1-2024
             type: IMAGE
             name: vfx1
-            common_version: 2-clang10
-            version: 2022
+            common_version: 4-clang16
+            version: 2024
             test: openvdb
-          - group: img-vfx2-2023
+          - group: img-vfx2-2024
             type: IMAGE
             name: vfx2
-            common_version: 3-clang14
-            version: 2023
+            common_version: 4-clang16
+            version: 2024
             test: ""
-          - group: img-vfx3-2023
+          - group: img-vfx3-2024
             type: IMAGE
             name: vfx3
-            common_version: 3-clang14
-            version: 2023
+            common_version: 4-clang16
+            version: 2024
             test: ""
 
     steps:

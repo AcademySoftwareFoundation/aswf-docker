@@ -24,11 +24,16 @@ class MaterialXConan(ConanFile):
     _source_subfolder = "source_subfolder"
 
     def requirements(self):
-        self.requires(f"python/(latest)@{self.user}/{self.channel}")
-        self.requires(f"pybind11/(latest)@{self.user}/{self.channel}")
+        self.requires(
+            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
+        )
+        # Use vendored pybind11 for now
+        # self.requires(f"pybind11/{os.environ['ASWF_PYBIND11_VERSION']}@{self.user}/{self.channel}")
 
     def build_requirements(self):
-        self.build_requires(f"cmake/(latest)@{self.user}/{self.channel}")
+        self.build_requires(
+            f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}"
+        )
 
     def source(self):
         tools.get(
@@ -43,12 +48,15 @@ class MaterialXConan(ConanFile):
         with tools.environment_append(tools.RunEnvironment(self).vars):
             self._cmake = CMake(self)
             self._cmake.definitions["MATERIALX_BUILD_PYTHON"] = "ON"
+            self._cmake.definitions["MATERIALX_PYTHON_VERSION"] = os.environ[
+                "ASWF_PYTHON_VERSION"
+            ]
             self._cmake.configure(source_folder=self._source_subfolder)
             return self._cmake
 
     def build(self):
         cmake = self._configure_cmake()
-        cmake.build()
+        cmake.build(args=["--verbose"])
 
     def package(self):
         self.copy("LICENSE.md", src=self._source_subfolder, dst="licenses")
@@ -57,7 +65,8 @@ class MaterialXConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.requires.append("python::PythonLibs")
-        self.cpp_info.requires.append("pybind11::main")
+        # Use vendored pybind11 for now
+        # self.cpp_info.requires.append("pybind11::main")
         self.env_info.PYTHONPATH.append(os.path.join(self.package_folder, "python"))
         self.env_info.CMAKE_PREFIX_PATH.append(
             os.path.join(self.package_folder, "lib", "cmake")

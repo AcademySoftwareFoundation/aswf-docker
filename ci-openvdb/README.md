@@ -239,3 +239,37 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
+## [aswf/ci-openvdb:2024-clang15.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang15.0)
+
+Contains:
+* boost-1.82.0
+* cmake-3.27.8
+* gtest-1.14.0
+* cppunit-1.15.1
+* glfw-3.3.8
+* python-3.11.7
+* tbb-2020_U3
+* imath-3.1.10
+* openexr-3.2.1
+* blosc-1.21.5
+* pybind11-2.11.1
+* numpy-1.24.3
+* vfxplatform-2024
+
+## [aswf/ci-openvdb:2024-clang16.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang16.0)
+
+Contains:
+* boost-1.82.0
+* cmake-3.27.8
+* gtest-1.14.0
+* cppunit-1.15.1
+* glfw-3.3.8
+* python-3.11.7
+* tbb-2020_U3
+* imath-3.1.10
+* openexr-3.2.1
+* blosc-1.21.5
+* pybind11-2.11.1
+* numpy-1.24.3
+* vfxplatform-2024
+

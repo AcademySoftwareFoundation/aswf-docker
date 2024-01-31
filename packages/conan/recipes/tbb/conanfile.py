@@ -284,6 +284,13 @@ MALLOCPROXY.DEF =
                         )
                     )
 
+        self.copy(
+            pattern="*.cmake",
+            dst=os.path.join("lib", "cmake"),
+            src=self._source_subfolder,
+            keep_path=False,
+        )
+
     def package_info(self):
         self.cpp_info.names["cmake_find_package"] = "TBB"
         self.cpp_info.names["cmake_find_package_multi"] = "TBB"

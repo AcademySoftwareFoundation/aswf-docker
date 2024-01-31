@@ -21,7 +21,7 @@ class ClangConan(ConanFile):
         "targets": "ANY",
     }
     default_options = {
-        "components": "llvm;clang;clang-tools-extra;libcxx;libcxxabi;compiler-rt;lld",
+        "components": "llvm;clang;clang-tools-extra;compiler-rt;lld",
         "targets": "host;NVPTX",
     }
 
@@ -103,6 +103,9 @@ class ClangConan(ConanFile):
         cmake.definitions["CMAKE_SKIP_RPATH"] = True
         cmake.definitions["LLVM_ENABLE_PROJECTS"] = self.options.components
         cmake.definitions["LLVM_TARGETS_TO_BUILD"] = self.options.targets
+        cmake.definitions["LLVM_ENABLE_RUNTIMES"] = "libcxx;libcxxabi"
+        cmake.definitions["LLVM_TOOL_LIBCXX_BUILD"] = "ON"
+        cmake.definitions["LLVM_TOOL_LIBCXXABI_BUILD"] = "ON"
 
         if self.settings.compiler == "Visual Studio":
             build_type = str(self.settings.build_type).upper()

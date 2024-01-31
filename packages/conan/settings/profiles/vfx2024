@@ -1,0 +1,7 @@
+include(ci_common4)
+
+[settings]
+python=3.11
+[options]
+[build_requires]
+[env]

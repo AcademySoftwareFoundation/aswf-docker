@@ -22,35 +22,36 @@ class TestBuilder(unittest.TestCase):
             repo_uri="notauri", source_branch="testing", aswf_version="2019.123"
         )
 
-    def test_package_baseqt_2019_dict(self):
+    def test_package_blosc_2019_dict(self):
         b = builder.Builder(
             self.build_info,
             groupinfo.GroupInfo(
-                names=["base2"],
+                names=["vfx1"],
                 versions=["2019"],
                 type_=constants.ImageType.PACKAGE,
                 targets=[],
             ),
         )
-        qt_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "qt")
+        blosc_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "blosc")
         )[0]
         baked = b.make_bake_dict(False, False, False, False)
         self.assertEqual(
-            baked["target"]["ci-package-qt-2019"]["tags"],
+            baked["target"]["ci-package-blosc-2019"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:2019",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:{qt_version}",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:latest",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-qt:2019-5.12.6",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-blosc:2019",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-blosc:{blosc_version}",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-blosc:latest",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-blosc:2019-1.5.0",
             ],
         )
         self.assertEqual(
-            baked["target"]["ci-package-qt-2019"]["args"]["ASWF_VERSION"], qt_version
+            baked["target"]["ci-package-blosc-2019"]["args"]["ASWF_VERSION"],
+            blosc_version,
         )
         self.assertEqual(
-            baked["target"]["ci-package-qt-2019"]["dockerfile"],
-            "packages/base2/Dockerfile",
+            baked["target"]["ci-package-blosc-2019"]["dockerfile"],
+            "packages/vfx1/Dockerfile",
         )
 
     def test_package_baseqt_2019_dict_conan(self):
@@ -147,6 +148,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_CONAN_PYTHON_VERSION": "3.9.11",
                             "ASWF_CONAN_VERSION": "1.47.0",
                             "ASWF_CUDA_VERSION": "10.2",
+                            "ASWF_CXX_STANDARD": "14",
                             "ASWF_DTS_VERSION": "6",
                             "ASWF_DTS_PREFIX": "devtoolset",
                             "ASWF_GLEW_VERSION": "2.1.0",
@@ -232,6 +234,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_CONAN_CHANNEL": "vfx2020",
                             "ASWF_CONAN_PYTHON_VERSION": "3.9.11",
                             "ASWF_CONAN_VERSION": "1.47.0",
+                            "ASWF_CXX_STANDARD": "17",
                             "ASWF_DTS_VERSION": "6",
                             "ASWF_DTS_PREFIX": "devtoolset",
                             "ASWF_GLEW_VERSION": "2.1.0",
@@ -295,6 +298,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_CONAN_CHANNEL": "vfx2019",
                             "ASWF_CONAN_PYTHON_VERSION": "3.9.11",
                             "ASWF_CONAN_VERSION": "1.47.0",
+                            "ASWF_CXX_STANDARD": "14",
                             "ASWF_DTS_VERSION": "6",
                             "ASWF_DTS_PREFIX": "devtoolset",
                             "ASWF_GLEW_VERSION": "2.1.0",
@@ -531,7 +535,7 @@ class TestBuilderCli(unittest.TestCase):
         bake_path = os.path.join(
             tempfile.gettempdir(),
             "docker-bake-IMAGE-common-1-clang10-1-clang6-1-clang7-1"
-            "-clang8-1-clang9-2-clang10-2-clang11-2-clang12-2-clang13-2-clang14-3-clang14-3-clang15.json",
+            "-clang8-1-clang9-2-clang10-2-clang11-2-clang12-2-clang13-2-clang14-3-clang14-3-clang15-4-clang15-4-clang16.json",
         )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
