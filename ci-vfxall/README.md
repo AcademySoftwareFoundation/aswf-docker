@@ -431,7 +431,7 @@ Contains:
 * openexr-3.2.1
 * blosc-1.21.5
 * alembic-1.8.6
-* oiio-2.5.6.0
+* oiio-2.5.8.0
 * ocio-2.3.2
 * opensubdiv-3_6_0
 * ptex-2.4.2
@@ -439,7 +439,7 @@ Contains:
 * materialx-1.38.8
 * usd-23.11
 * partio-1.17.1
-* osl-1.12.14.0
+* osl-1.13.6.1
 * otio-0.15
 * numpy-1.24.3
 * hdf5-1.8.23
@@ -462,7 +462,7 @@ Contains:
 * openexr-3.2.1
 * blosc-1.21.5
 * alembic-1.8.6
-* oiio-2.5.6.0
+* oiio-2.5.8.0
 * ocio-2.3.2
 * opensubdiv-3_6_0
 * ptex-2.4.2
@@ -470,7 +470,7 @@ Contains:
 * materialx-1.38.8
 * usd-23.11
 * partio-1.17.1
-* osl-1.12.14.0
+* osl-1.13.6.1
 * otio-0.15
 * numpy-1.24.3
 * hdf5-1.8.23

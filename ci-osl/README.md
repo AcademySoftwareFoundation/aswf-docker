@@ -297,7 +297,7 @@ Contains:
 * qt-6.5.3
 * imath-3.1.10
 * openexr-3.2.1
-* oiio-2.5.6.0
+* oiio-2.5.8.0
 * ocio-2.3.2
 * partio-1.17.1
 * tbb-2020_U3
@@ -315,7 +315,7 @@ Contains:
 * qt-6.5.3
 * imath-3.1.10
 * openexr-3.2.1
-* oiio-2.5.6.0
+* oiio-2.5.8.0
 * ocio-2.3.2
 * partio-1.17.1
 * tbb-2020_U3
