@@ -61,7 +61,7 @@ jobs:
             type: IMAGE
             name: base
             common_version: 4-clang17
-            common_version_ninka: 4
+            common_version_ninja: 4
             version: 2024
             test: base
           - group: img-vfx1-2024
