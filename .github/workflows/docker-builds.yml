@@ -119,7 +119,7 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group common \
-          --version ${{ matrix.common_version }}
+          --version ${{ matrix.common_version }} \
           --target ninja
       name: ninja is pre-requisite for all other images
 
