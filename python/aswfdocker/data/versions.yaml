@@ -876,6 +876,7 @@ package_data:
 conan_only:
   - alembic
   - boost
+  - clang
   - cmake
   - cppunit
   - glew
@@ -883,6 +884,7 @@ conan_only:
   - gtest
   - log4cplus
   - materialx
+  - ninja
   - pybind11
   - python
   - qt
