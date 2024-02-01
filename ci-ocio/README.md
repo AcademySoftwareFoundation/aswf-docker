@@ -130,11 +130,11 @@ Contains:
 * cmake-3.27.8
 * imath-3.1.10
 * openexr-3.2.1
-* oiio-2.5.6.0
+* oiio-2.5.8.0
 * blosc-1.21.5
 * partio-1.17.1
 * openvdb-11.0.0
-* osl-1.12.14.0
+* osl-1.13.6.1
 * numpy-1.24.3
 * vfxplatform-2024
 

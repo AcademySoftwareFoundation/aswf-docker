@@ -160,7 +160,7 @@ Contains:
 * imath-3.1.10
 * materialx-1.38.8
 * openexr-3.2.1
-* oiio-2.5.6.0
+* oiio-2.5.8.0
 * ocio-2.3.2
 * ptex-2.4.2
 * opensubdiv-3_6_0

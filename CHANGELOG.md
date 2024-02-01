@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2024-01-29
+## 2024-02-01
 
 * New ci-common-v4 for VFX Platform 2024 based on:
   * C++17 (unchanged)
@@ -29,10 +29,10 @@ All notable changes to this project will be documented in this file.
   * NumPy 1.24.3 (from 1.23.5)
   * OpenColorIO 2.3.2 (from 2.2.1)
   * OpenEXR 3.2.1 (from 3.1.11)
-  * OpenImageIO 2.5.6.0 (from 2.4.13.0)
+  * OpenImageIO 2.5.8.0 (from 2.4.13.0)
   * OpenSubdiv 3.6.0 (from 3.5.0)
   * OpenVDB 11.0.0 (from 10.0.1)
-  * OpenShadingLanguage 1.12.14.0 (from 1.12.13.0)
+  * OpenShadingLanguage 1.13.6.1 (from 1.12.13.0)
   * OpenTimelineIO 0.15 (from 0.14.1)
   * PySide 6.5.3 (from 5.15.9.
   * Python 3.11.7 (from 3.10.11)
