@@ -28,8 +28,6 @@ ARG ASWF_BASEOS_DISTRO
 
 
 # Comment out this block to use Conan packages
-FROM ${ASWF_PKG_ORG}/ci-package-clang:$CI_COMMON_VERSION-$ASWF_CLANG_VERSION AS ci-package-clang
-FROM ${ASWF_PKG_ORG}/ci-package-ninja:$CI_COMMON_VERSION-$ASWF_NINJA_VERSION AS ci-package-ninja
 FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-devel-${ASWF_BASEOS_DISTRO} AS ci-common
 
 
@@ -94,8 +92,6 @@ ENV ASWF_CONAN_VERSION=$ASWF_CONAN_VERSION
 ENV ASWF_CONAN_PYTHON_VERSION=$ASWF_CONAN_PYTHON_VERSION
 
 
-COPY --from=ci-package-clang /. /usr/local/
-COPY --from=ci-package-ninja /. /usr/local/
 COPY ci-common/README.md ci-common/image.yaml /usr/local/aswf/
 
 USER root
@@ -168,8 +164,8 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
-# clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 

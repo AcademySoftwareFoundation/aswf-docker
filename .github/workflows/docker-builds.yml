@@ -26,63 +26,54 @@ jobs:
             type: IMAGE
             name: common
             common_version: 2-clang10
-            common_version_ninja: 2
             version: 2-clang10
             test: common
           - group: img-common-3
             type: IMAGE
             name: common
             common_version: 3-clang14
-            common_version_ninja: 3
             version: 3-clang14
             test: common
           - group: img-common-4
             type: IMAGE
             name: common
             common_version: 4-clang17
-            common_version_ninja: 4
             version: 4-clang17
             test: common
           - group: pkg-base-2023
             type: PACKAGE
             name: base1
             common_version: 3-clang14
-            common_version_ninja: 3
             version: 2023
             test: ""
           - group: pkg-base-2024
             type: PACKAGE
             name: base1
             common_version: 4-clang17
-            common_version_ninja: 4
             version: 2024
             test: ""
           - group: img-base-2024
             type: IMAGE
             name: base
             common_version: 4-clang17
-            common_version_ninja: 4
             version: 2024
             test: base
           - group: img-vfx1-2024
             type: IMAGE
             name: vfx1
             common_version: 4-clang17
-            common_version_ninja: 4
             version: 2024
             test: openvdb
           - group: img-vfx2-2024
             type: IMAGE
             name: vfx2
             common_version: 4-clang17
-            common_version_ninja: 4
             version: 2024
             test: ""
           - group: img-vfx3-2024
             type: IMAGE
             name: vfx3
             common_version: 4-clang17
-            common_version_ninja: 4
             version: 2024
             test: ""
 
@@ -118,19 +109,6 @@ jobs:
         sudo apt-get clean
         rm -rf /usr/share/dotnet/
         df -h
-
-    - run: |
-        set -ex
-        pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
-          --verbose \
-          build \
-          --ci-image-type PACKAGE \
-          --group common \
-          --version ${{ matrix.common_version_ninja }} \
-          --target ninja
-      name: ninja is pre-requisite for all other images
 
     - run: |
         set -ex
