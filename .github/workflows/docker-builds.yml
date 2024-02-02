@@ -117,18 +117,10 @@ jobs:
           --source-branch $GITHUB_REF \
           --verbose \
           build \
-          --ci-image-type PACKAGE \
-          --group common \
-          --version ${{ matrix.common_version }} \
-          --use-conan
-        pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
-          --verbose \
-          build \
           --ci-image-type IMAGE \
           --group common \
-          --version ${{ matrix.common_version }}
+          --version ${{ matrix.common_version }} \
+          --build-missing
       name: Optionally build local ci-common Docker Image for downstream images
       if: ${{ matrix.name != 'common' }}
 
@@ -142,7 +134,8 @@ jobs:
           --ci-image-type ${{ matrix.type }} \
           --group ${{ matrix.name }} \
           --version ${{ matrix.version }} \
-          --push NO
+          --push NO \
+          --build-missing
       name: Build Docker Images
 
     - run: |
