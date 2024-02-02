@@ -119,7 +119,7 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group common \
-          --version ${{ matrix.common_version }}
+          --version ${{ matrix.common_version }} \
           --use-conan
         pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
