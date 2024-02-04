@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2024-02-01
+## 2024-02-04
 
 * New ci-common-v4 for VFX Platform 2024 based on:
   * C++17 (unchanged)
