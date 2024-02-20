@@ -121,7 +121,7 @@ Contains:
 ## [aswf/ci-ocio:2024.0](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.0)
 
 Contains:
-* python-3.11.7
+* python-3.11.8
 * pybind11-2.11.1
 * tbb-2020_U3
 * boost-1.82.0
@@ -129,7 +129,7 @@ Contains:
 * glfw-3.3.8
 * cmake-3.27.8
 * imath-3.1.10
-* openexr-3.2.1
+* openexr-3.2.2
 * oiio-2.5.8.0
 * blosc-1.21.5
 * partio-1.17.1

@@ -417,7 +417,7 @@ Contains:
 ## [aswf/ci-vfxall:2024-clang16.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang16.0)
 
 Contains:
-* python-3.11.7
+* python-3.11.8
 * tbb-2020_U3
 * boost-1.82.0
 * cppunit-1.15.1
@@ -428,7 +428,7 @@ Contains:
 * pyside-6.5.3
 * cmake-3.27.8
 * imath-3.1.10
-* openexr-3.2.1
+* openexr-3.2.2
 * blosc-1.21.5
 * alembic-1.8.6
 * oiio-2.5.8.0
@@ -448,7 +448,7 @@ Contains:
 ## [aswf/ci-vfxall:2024-clang17.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang17.0)
 
 Contains:
-* python-3.11.7
+* python-3.11.8
 * tbb-2020_U3
 * boost-1.82.0
 * cppunit-1.15.1
@@ -459,7 +459,7 @@ Contains:
 * pyside-6.5.3
 * cmake-3.27.8
 * imath-3.1.10
-* openexr-3.2.1
+* openexr-3.2.2
 * blosc-1.21.5
 * alembic-1.8.6
 * oiio-2.5.8.0

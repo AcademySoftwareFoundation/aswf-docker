@@ -45,9 +45,6 @@ FROM ${ASWF_PKG_ORG}/ci-package-imath:$ASWF_VFXPLATFORM_VERSION-$ASWF_IMATH_VERS
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENEXR_VERSION AS ci-package-openexr
 FROM ${ASWF_PKG_ORG}/ci-package-oiio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OIIO_VERSION AS ci-package-oiio
 FROM ${ASWF_PKG_ORG}/ci-package-ocio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OCIO_VERSION AS ci-package-ocio
-FROM ${ASWF_PKG_ORG}/ci-package-ptex:$ASWF_VFXPLATFORM_VERSION-$ASWF_PTEX_VERSION AS ci-package-ptex
-FROM ${ASWF_PKG_ORG}/ci-package-opensubdiv:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENSUBDIV_VERSION AS ci-package-opensubdiv
-FROM ${ASWF_PKG_ORG}/ci-package-blosc:$ASWF_VFXPLATFORM_VERSION-$ASWF_BLOSC_VERSION AS ci-package-blosc
 FROM ${ASWF_PKG_ORG}/ci-package-openvdb:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENVDB_VERSION AS ci-package-openvdb
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-usd
 
@@ -160,9 +157,6 @@ COPY --from=ci-package-imath /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
 COPY --from=ci-package-ocio /. /usr/local/
-COPY --from=ci-package-ptex /. /usr/local/
-COPY --from=ci-package-opensubdiv /. /usr/local/
-COPY --from=ci-package-blosc /. /usr/local/
 COPY --from=ci-package-openvdb /. /usr/local/
 COPY ci-usd/README.md ci-usd/image.yaml /usr/local/aswf/
 
@@ -191,10 +185,10 @@ materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # oiio/${ASWF_OIIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # ocio/${ASWF_OCIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# ptex/${ASWF_PTEX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# opensubdiv/${ASWF_OPENSUBDIV_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+ptex/${ASWF_PTEX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+opensubdiv/${ASWF_OPENSUBDIV_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 alembic/${ASWF_ALEMBIC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # openvdb/${ASWF_OPENVDB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 

@@ -71,7 +71,7 @@ Contains:
 ## [aswf/ci-openexr:2024.0](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2024.0)
 
 Contains:
-* python-3.11.7
+* python-3.11.8
 * boost-1.82.0
 * cmake-3.27.8
 * pybind11-2.11.1

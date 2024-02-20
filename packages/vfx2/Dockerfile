@@ -89,53 +89,8 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
      ASWF_INSTALL_PREFIX=/usr/local \
      PYTHONPATH=${ASWF_INSTALL_PREFIX}/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:${PYTHONPATH}
 
-
-#################### ci-partio-builder ####################
-FROM ci-base-builder AS ci-partio-builder
-
-ARG ASWF_PARTIO_VERSION
-ENV ASWF_PARTIO_VERSION=${ASWF_PARTIO_VERSION}
-
-COPY ../scripts/vfx/build_partio.sh \
-     /tmp/
-
-RUN --mount=type=cache,target=/tmp/ccache \
-     --mount=type=cache,sharing=private,target=/tmp/downloads \
-     /tmp/before_build.sh && \
-     /tmp/build_partio.sh && \
-     /tmp/copy_new_files.sh && \
-     ccache --show-stats
-
-
-#################### ci-package-partio ####################
-FROM scratch AS ci-package-partio
-
-ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_DTS_PREFIX
-ARG ASWF_PARTIO_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-partio"
-LABEL org.opencontainers.image.title="Partio package built for ASWF Docker images"
-LABEL org.opencontainers.image.description="Partio headers and binaries to be installed in ASWF Docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/wdas/partio"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${ASWF_PARTIO_VERSION}"
-LABEL org.opencontainers.image.licenses="BSD-3-Clause"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.partio="${ASWF_PARTIO_VERSION}"
-
-COPY --from=ci-partio-builder /package/. /
-
-
 #################### ci-osl-builder ####################
-FROM ci-partio-builder AS ci-osl-builder
+FROM ci-base-builder AS ci-osl-builder
 
 ARG ASWF_OSL_VERSION
 ENV ASWF_OSL_VERSION=${ASWF_OSL_VERSION}
@@ -147,12 +102,18 @@ ARG ASWF_TBB_VERSION
 ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
 ARG ASWF_CXX_STANDARD
 ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
+ARG ASWF_PARTIO_VERSION
+ENV ASWF_PARTIO_VERSION=${ASWF_PARTIO_VERSION}
 ARG ASWF_PYBIND11_VERSION
 ENV ASWF_PYBIND11_VERSION=${ASWF_PYBIND11_VERSION}
 ARG ASWF_QT_VERSION
 ENV ASWF_QT_VERSION=${ASWF_QT_VERSION}
 ARG ASWF_PYSIDE_VERSION
 ENV ASWF_PYSIDE_VERSION=${ASWF_PYSIDE_VERSION}
+ARG ASWF_BLOSC_VERSION
+ENV ASWF_BLOSC_VERSION=${ASWF_BLOSC_VERSION}
+ARG ASWF_PTEX_VERSION
+ENV ASWF_PTEX_VERSION=${ASWF_PTEX_VERSION}
 ARG ASWF_IMATH_VERSION
 ENV ASWF_IMATH_VERSION=${ASWF_IMATH_VERSION}
 ARG ASWF_OPENEXR_VERSION
@@ -160,7 +121,6 @@ ENV ASWF_OPENEXR_VERSION=${ASWF_OPENEXR_VERSION}
 
 COPY --from=ci-package-oiio-external /. /usr/local/
 COPY --from=ci-package-openvdb-external /. /usr/local/
-COPY --from=ci-package-blosc-external /. /usr/local/
 
 COPY ../scripts/vfx/build_osl.sh \
      /tmp/
@@ -174,9 +134,12 @@ COPY <<EOF /usr/local/conanfile.txt
 ., * -> .
 [requires]
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+partio/${ASWF_PARTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+ptex/${ASWF_PTEX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
@@ -220,127 +183,15 @@ LABEL io.aswf.docker.versions.osl="${ASWF_OSL_VERSION}"
 COPY --from=ci-osl-builder /package/. /
 
 
-#################### ci-ptex-builder ####################
-FROM ci-base-builder AS ci-ptex-builder
-
-ARG ASWF_PTEX_VERSION
-ENV ASWF_PTEX_VERSION=${ASWF_PTEX_VERSION}
-
-COPY ../scripts/vfx/build_ptex.sh \
-     /tmp/
-
-RUN --mount=type=cache,target=/tmp/ccache \
-     --mount=type=cache,sharing=private,target=/tmp/downloads \
-     /tmp/before_build.sh && \
-     /tmp/build_ptex.sh && \
-     /tmp/copy_new_files.sh && \
-     ccache --show-stats
-
-
-#################### ci-package-ptex ####################
-FROM scratch AS ci-package-ptex
-
-ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_DTS_PREFIX
-ARG ASWF_PTEX_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-ptex"
-LABEL org.opencontainers.image.title="Ptex package built for ASWF Docker images"
-LABEL org.opencontainers.image.description="Ptex headers and binaries to be installed in ASWF Docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/wdas/ptex"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${ASWF_PTEX_VERSION}"
-LABEL org.opencontainers.image.licenses="BSD-3-Clause"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.ptex="${ASWF_PTEX_VERSION}"
-
-COPY --from=ci-ptex-builder /package/. /
-
-
-#################### ci-opensubdiv-builder ####################
-FROM ci-ptex-builder AS ci-opensubdiv-builder
-
-ARG ASWF_OPENSUBDIV_VERSION
-ENV ASWF_OPENSUBDIV_VERSION=${ASWF_OPENSUBDIV_VERSION}
-ARG ASWF_PKG_ORG
-ARG ASWF_CONAN_CHANNEL
-ARG ASWF_GLEW_VERSION
-ENV ASWF_GLEW_VERSION=${ASWF_GLEW_VERSION}
-ARG ASWF_GLFW_VERSION
-ENV ASWF_GLFW_VERSION=${ASWF_GLFW_VERSION}
-ARG ASWF_TBB_VERSION
-ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
-
-COPY ../scripts/vfx/build_opensubdiv.sh \
-     /tmp/
-
-COPY scripts/common/install_conanpackages.sh /tmp
-
-# Use conan to install some packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN --mount=type=cache,target=/opt/conan_home/d \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
-
-RUN --mount=type=cache,target=/tmp/ccache \
-     --mount=type=cache,sharing=private,target=/tmp/downloads \
-     /tmp/before_build.sh && \
-     /tmp/build_opensubdiv.sh && \
-     /tmp/copy_new_files.sh && \
-     ccache --show-stats
-
-
-#################### ci-package-opensubdiv ####################
-FROM scratch AS ci-package-opensubdiv
-
-ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_DTS_PREFIX
-ARG ASWF_OPENSUBDIV_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-opensubdiv"
-LABEL org.opencontainers.image.title="OpenSubdiv package built for ASWF Docker images"
-LABEL org.opencontainers.image.description="OpenSubdiv headers and binaries to be installed in ASWF Docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/PixarAnimationStudios/OpenSubdiv"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${ASWF_OPENSUBDIV_VERSION}"
-LABEL org.opencontainers.image.licenses="Apache-2.0"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.opensubdiv="${ASWF_OPENSUBDIV_VERSION}"
-
-COPY --from=ci-opensubdiv-builder /package/. /
-
-
 #################### ci-usd-builder ####################
-FROM ci-opensubdiv-builder AS ci-usd-builder
+FROM ci-base-builder AS ci-usd-builder
 
 ARG ASWF_PKG_ORG
 ARG ASWF_CONAN_CHANNEL
 ARG ASWF_USD_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_GLEW_VERSION
+ARG ASWF_GLFW_VERSION
 ARG ASWF_PYBIND11_VERSION
 ARG ASWF_MATERIALX_VERSION
 ARG ASWF_QT_VERSION
@@ -348,10 +199,14 @@ ARG ASWF_PYSIDE_VERSION
 ARG ASWF_ALEMBIC_VERSION
 ARG ASWF_IMATH_VERSION
 ARG ASWF_OPENEXR_VERSION
+ARG ASWF_OPENSUBDIV_VERSION
+ARG ASWF_PARTIO_VERSION
+ARG ASWF_PTEX_VERSION
 
 ENV ASWF_USD_VERSION=${ASWF_USD_VERSION}
 ENV ASWF_NUMPY_VERSION=${ASWF_NUMPY_VERSION}
 ENV ASWF_GLEW_VERSION=${ASWF_GLEW_VERSION}
+ENV ASWF_GLFW_VERSION=${ASWF_GLFW_VERSION}
 ENV ASWF_PYBIND11_VERSION=${ASWF_PYBIND11_VERSION}
 ENV ASWF_MATERIALIX_VERSION=${ASWF_MATERIALX_VERSION}
 ENV ASWF_QT_VERSION=${ASWF_PYSIDE_VERSION}
@@ -359,6 +214,9 @@ ENV ASWF_PYSIDE_VERSION=${ASWF_PYSIDE_VERSION}
 ENV ASWF_ALEMBIC_VERSION=${ASWF_ALEMBIC_VERSION}
 ENV ASWF_IMATH_VERSION=${ASWF_IMATH_VERSION}
 ENV ASWF_OPENEXR_VERSION=${ASWF_OPENEXR_VERSION}
+ENV ASWF_OPENSUBDIV_VERSION=${ASWF_OPENSUBDIV_VERSION}
+ENV ASWF_PARTIO_VERSION=${ASWF_PARTIO_VERSION}
+ENV ASWF_PTEX_VERSION=${ASWF_PTEX_VERSION}
 
 COPY --from=ci-package-openvdb-external /. /usr/local/
 COPY --from=ci-package-oiio-external /. /usr/local/
@@ -379,6 +237,8 @@ alembic/${ASWF_ALEMBIC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+opensubdiv/${ASWF_OPENSUBDIV_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+partio/${ASWF_PARTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}

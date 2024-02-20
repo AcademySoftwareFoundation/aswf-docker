@@ -48,14 +48,10 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 # Comment out this block to use Conan packages
 FROM ${ASWF_PKG_ORG}/ci-package-imath:$ASWF_VFXPLATFORM_VERSION-$ASWF_IMATH_VERSION AS ci-package-imath
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENEXR_VERSION AS ci-package-openexr
-FROM ${ASWF_PKG_ORG}/ci-package-blosc:$ASWF_VFXPLATFORM_VERSION-$ASWF_BLOSC_VERSION AS ci-package-blosc
 FROM ${ASWF_PKG_ORG}/ci-package-oiio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OIIO_VERSION AS ci-package-oiio
 FROM ${ASWF_PKG_ORG}/ci-package-ocio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OCIO_VERSION AS ci-package-ocio
-FROM ${ASWF_PKG_ORG}/ci-package-opensubdiv:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENSUBDIV_VERSION AS ci-package-opensubdiv
-FROM ${ASWF_PKG_ORG}/ci-package-ptex:$ASWF_VFXPLATFORM_VERSION-$ASWF_PTEX_VERSION AS ci-package-ptex
 FROM ${ASWF_PKG_ORG}/ci-package-openvdb:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENVDB_VERSION AS ci-package-openvdb
 FROM ${ASWF_PKG_ORG}/ci-package-usd:$ASWF_VFXPLATFORM_VERSION-$ASWF_USD_VERSION AS ci-package-usd
-FROM ${ASWF_PKG_ORG}/ci-package-partio:$ASWF_VFXPLATFORM_VERSION-$ASWF_PARTIO_VERSION AS ci-package-partio
 FROM ${ASWF_PKG_ORG}/ci-package-osl:$ASWF_VFXPLATFORM_VERSION-$ASWF_OSL_VERSION AS ci-package-osl
 FROM ${ASWF_PKG_ORG}/ci-package-otio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OTIO_VERSION AS ci-package-otio
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-vfxall
@@ -181,14 +177,10 @@ ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 COPY --from=ci-package-imath /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
-COPY --from=ci-package-blosc /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
 COPY --from=ci-package-ocio /. /usr/local/
-COPY --from=ci-package-opensubdiv /. /usr/local/
-COPY --from=ci-package-ptex /. /usr/local/
 COPY --from=ci-package-openvdb /. /usr/local/
 COPY --from=ci-package-usd /. /usr/local/
-COPY --from=ci-package-partio /. /usr/local/
 COPY --from=ci-package-osl /. /usr/local/
 COPY --from=ci-package-otio /. /usr/local/
 COPY ci-vfxall/README.md ci-vfxall/image.yaml /usr/local/aswf/
@@ -216,16 +208,16 @@ pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 alembic/${ASWF_ALEMBIC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # oiio/${ASWF_OIIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # ocio/${ASWF_OCIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# opensubdiv/${ASWF_OPENSUBDIV_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# ptex/${ASWF_PTEX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+opensubdiv/${ASWF_OPENSUBDIV_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+ptex/${ASWF_PTEX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # openvdb/${ASWF_OPENVDB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # usd/${ASWF_USD_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# partio/${ASWF_PARTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+partio/${ASWF_PARTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # osl/${ASWF_OSL_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # otio/${ASWF_OTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF

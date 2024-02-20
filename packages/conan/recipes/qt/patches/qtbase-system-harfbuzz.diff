@@ -1,0 +1,15 @@
+Recent CMake doesn't like code to find system Harfbuzz
+
+diff -u -r  a/cmake/FindWrapSystemHarfbuzz.cmake b/cmake/FindWrapSystemHarfbuzz.cmake
+--- a/cmake/FindWrapSystemHarfbuzz.cmake	2024-02-19 20:26:49.434247432 +0000
++++ b/cmake/FindWrapSystemHarfbuzz.cmake	2024-02-19 20:26:00.070310235 +0000
+@@ -69,7 +70,8 @@
+ include(FindPackageHandleStandardArgs)
+ find_package_handle_standard_args(WrapSystemHarfbuzz
+                                   REQUIRED_VARS ${WrapSystemHarfbuzz_REQUIRED_VARS}
+-                                  VERSION_VAR WrapSystemHarfbuzz_VERSION)
++#                                  VERSION_VAR WrapSystemHarfbuzz_VERSION)
++)
+ if(WrapSystemHarfbuzz_FOUND)
+     add_library(WrapSystemHarfbuzz::WrapSystemHarfbuzz INTERFACE IMPORTED)
+     target_link_libraries(WrapSystemHarfbuzz::WrapSystemHarfbuzz

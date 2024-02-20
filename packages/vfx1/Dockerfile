@@ -163,55 +163,12 @@ LABEL io.aswf.docker.versions.openexr="${ASWF_OPENEXR_VERSION}"
 
 COPY --from=ci-openexr-builder /package/. /
 
-#################### ci-blosc-builder ####################
-FROM ci-base-builder AS ci-blosc-builder
-
-ARG ASWF_BLOSC_VERSION
-ENV ASWF_BLOSC_VERSION=${ASWF_BLOSC_VERSION}
-
-COPY ../scripts/vfx/build_blosc.sh \
-     /tmp/
-
-RUN --mount=type=cache,target=/tmp/ccache \
-    --mount=type=cache,sharing=private,target=/tmp/downloads \
-    /tmp/before_build.sh && \
-    /tmp/build_blosc.sh && \
-    /tmp/copy_new_files.sh && \
-    ccache --show-stats
-
-
-#################### ci-package-blosc ####################
-FROM scratch AS ci-package-blosc
-
-ARG ASWF_ORG
-ARG ASWF_BLOSC_VERSION
-ARG CI_COMMON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_DTS_PREFIX
-ARG ASWF_VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-blosc"
-LABEL org.opencontainers.image.title="Blosc package built for ASWF Docker images"
-LABEL org.opencontainers.image.description="Blosc headers and binaries to be installed in ASWF Docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/Blosc/c-blosc"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${ASWF_BLOSC_VERSION}"
-LABEL org.opencontainers.image.licenses="BSD-3-Clause"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.blosc="${ASWF_BLOSC_VERSION}"
-
-COPY --from=ci-blosc-builder /package/. /
-
-
 #################### ci-openvdb-builder ####################
 FROM ci-openexr-builder AS ci-openvdb-builder
 
 ARG ASWF_OPENVDB_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
+ARG ASWF_BLOSC_VERSION
 ARG ASWF_CPPUNIT_VERSION
 ARG ASWF_GLEW_VERSION
 ARG ASWF_GLFW_VERSION
@@ -219,6 +176,7 @@ ARG ASWF_QT_VERSION
 
 ENV ASWF_OPENVDB_VERSION=${ASWF_OPENVDB_VERSION}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
+ENV ASWF_BLOSC_VERSION=${ASWF_BLOSC_VERSION}
 ENV ASWF_CPPUNIT_VERSION=${ASWF_CPPUNIT_VERSION}
 ENV ASWF_GLEW_VERSION=${ASWF_GLEW_VERSION}
 ENV ASWF_GLFW_VERSION=${ASWF_GLFW_VERSION}
@@ -228,8 +186,6 @@ COPY ../scripts/vfx/build_openvdb.sh \
      ../scripts/vfx/openvdb-imath.patch \
      /tmp/
 
-COPY --from=ci-package-blosc /. /usr/local/
-
 COPY scripts/common/install_conanpackages.sh /tmp
 
 # Use conan to install some packages
@@ -238,10 +194,12 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
+blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+
 EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
@@ -290,12 +248,30 @@ FROM ci-openvdb-builder AS ci-oiio-builder
 
 ARG ASWF_OIIO_VERSION
 ARG ASWF_CXX_STANDARD
+ARG ASWF_PTEX_VERSION
 
 ENV ASWF_OIIO_VERSION=${ASWF_OIIO_VERSION}
 ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
+ENV ASWF_PTEX_VERSION=${ASWF_PTEX_VERSION}
+
 
 COPY ../scripts/vfx/build_oiio.sh \
      /tmp/
+
+COPY scripts/common/install_conanpackages.sh /tmp
+
+# Use conan to install some packages
+COPY <<EOF /usr/local/conanfile.txt
+[generators]
+[imports]
+., * -> .
+[requires]
+ptex/${ASWF_PTEX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+EOF
+
+RUN --mount=type=cache,target=/opt/conan_home/d \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 RUN --mount=type=cache,target=/tmp/ccache \
     --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -378,40 +354,4 @@ LABEL io.aswf.docker.versions.ocio="${ASWF_OCIO_VERSION}"
 LABEL io.aswf.docker.versions.ocioconfigs="${ASWF_OCIO_CONFIGS_VERSION}"
 
 COPY --from=ci-ocio-builder /package/. /
-
-
-#################### ci-osl-builder ####################
-FROM ci-oiio-builder AS ci-osl-builder
-
-ARG ASWF_OSL_VERSION
-ARG ASWF_QT_VERSION
-ARG ASWF_CXX_STANDARD
-
-ENV ASWF_OSL_VERSION=${ASWF_OSL_VERSION}
-ENV ASWF_QT_VERSION=${ASWF_QT_VERSION}
-ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
-
-COPY --from=ci-package-partio /. /usr/local/
-
-COPY ../scripts/vfx/build_osl.sh \
-     /tmp/
-
-COPY scripts/common/install_conanpackages.sh /tmp
-
-# Use conan to install some packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN --mount=type=cache,target=/tmp/ccache \
-    --mount=type=cache,sharing=private,target=/tmp/downloads \
-    /tmp/before_build.sh && \
-    /tmp/build_osl.sh && \
-    /tmp/copy_new_files.sh && \
-    ccache --show-stats
 
