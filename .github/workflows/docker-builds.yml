@@ -20,10 +20,11 @@ jobs:
       DOCKER_BUILDKIT: '1'
 
     strategy:
+      # Don't let a failure for one year affect the others
+      fail-fast: false
       matrix:
         include:
           - group: img-common-3
-            type: IMAGE
             name: common
             common_version: 3-clang14
             common_version_noclang: 3
@@ -31,31 +32,20 @@ jobs:
             version_noclang: 3
             test: common
           - group: img-common-4
-            type: IMAGE
             name: common
             common_version: 4-clang17
             common_version_noclang: 4
             version: 4-clang17
             version_noclang: 4
             test: common
-          - group: pkg-base-2023
-            type: PACKAGE
-            name: base1
+          - group: img-base-2023
+            name: base
             common_version: 3-clang14
             common_version_noclang: 3
             version: 2023
             version_noclang: 2023
-            test: ""
-          - group: pkg-base-2024
-            type: PACKAGE
-            name: base1
-            common_version: 4-clang17
-            common_version_noclang: 4
-            version: 2024
-            version_noclang: 2024
-            test: ""
+            test: base
           - group: img-base-2024
-            type: IMAGE
             name: base
             common_version: 4-clang17
             common_version_noclang: 4
@@ -63,7 +53,6 @@ jobs:
             version_noclang: 2024
             test: base
           - group: img-vfx1-2024
-            type: IMAGE
             name: vfx1
             common_version: 4-clang17
             common_version_noclang: 4
@@ -71,7 +60,6 @@ jobs:
             version_noclang: 2024
             test: openvdb
           - group: img-vfx2-2024
-            type: IMAGE
             name: vfx2
             common_version: 4-clang17
             common_version_noclang: 4
@@ -79,11 +67,10 @@ jobs:
             version_noclang: 2024
             test: ""
           - group: img-vfx3-2024
-            type: IMAGE
             name: vfx3
             common_version: 4-clang17
             common_version_noclang: 4
-            version: 2024
+            version: 2024-clang17
             version_noclang: 2024
             test: ""
 
@@ -140,9 +127,9 @@ jobs:
           build \
           --ci-image-type IMAGE \
           --group common \
-          --version ${{ matrix.common_version }}
-      name: Optionally build local ci-common Docker Image for downstream images
-      if: ${{ matrix.name != 'common' }}
+          --version ${{ matrix.common_version }}\
+          --push NO
+      name: Always build local ci-common Docker Image for downstream images
 
     - run: |
         set -ex
@@ -152,9 +139,10 @@ jobs:
           --verbose \
           build \
           --ci-image-type PACKAGE \
-          --group ${{ matrix.name }} \
+          --group base1 \
+          --group base2 \
+          --group base3 \
           --version ${{ matrix.version_noclang }} \
-          --version ${{ matrix.version }} \
           --use-conan \
           --build-missing
         pipenv run aswfdocker \
@@ -162,11 +150,82 @@ jobs:
           --source-branch $GITHUB_REF \
           --verbose \
           build \
-          --ci-image-type ${{ matrix.type }} \
+          --ci-image-type PACKAGE \
+          --group base1 \
+          --group base2 \
+          --group base3 \
+          --version ${{ matrix.version_noclang }}
+      name: Build package dependencies for base image
+      if: ${{ matrix.name != 'common' }}
+
+    - run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type IMAGE \
           --group ${{ matrix.name }} \
           --version ${{ matrix.version }} \
           --push NO
-      name: Build Docker Images
+      name: Build base image if needed
+      if: ${{ matrix.name == 'base' }}
+
+    - run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group vfx1 \
+          --group vfx2 \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing \
+          --push NO
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group vfx1 \
+          --group vfx2 \
+          --version ${{ matrix.version_noclang }} \
+          --push NO
+      name: Build vfx1 / vfx2 packages if needed
+      if: ${{ matrix.name == 'vfx1' }} || ${{ matrix.name == 'vfx2' }} || ${{ matrix.name == 'vfx3' }}
+
+    - run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type IMAGE \
+          --group ${{ matrix.name }} \
+          --version ${{ matrix.version_noclang }} \
+          --push NO
+      name: Build vfx1/vfx2 image if needed
+      if: ${{ matrix.name == 'vfx1' }} || ${{ matrix.name == 'vfx2' }}
+
+    - run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type IMAGE \
+          --group ${{ matrix.name }} \
+          --version ${{ matrix.version }} \
+          --push NO
+      name: Build vfx3 image if needed
+      if: ${{ matrix.name == 'vfx3' }}
 
     - run: |
         set -ex
