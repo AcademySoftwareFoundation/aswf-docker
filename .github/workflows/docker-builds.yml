@@ -22,14 +22,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - group: img-common-2
-            type: IMAGE
-            name: common
-            common_version: 2-clang10
-            common_version_noclang: 2
-            version: 2-clang10
-            version_noclang: 2
-            test: common
           - group: img-common-3
             type: IMAGE
             name: common
