@@ -106,7 +106,7 @@ Contains:
 * glew-2.1.0
 * glfw-3.3.8
 * log4cplus-2.1.1
-* python-3.11.7
+* python-3.11.8
 * tbb-2020_U3
 * qt-6.5.3
 * pyside-6.5.3

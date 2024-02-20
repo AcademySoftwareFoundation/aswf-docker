@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 import configparser
 import glob
 import os
@@ -126,19 +130,19 @@ class QtConan(ConanFile):
         "with_vulkan": False,
         "openssl": True,
         "with_pcre2": True,
-        "with_glib": False,
+        "with_glib": True,
         "with_doubleconversion": True,
         "with_freetype": True,
         "with_fontconfig": True,
         "with_icu": True,
-        "with_harfbuzz": True,
-        "with_libjpeg": False,
+        "with_harfbuzz": False,
+        "with_libjpeg": "libjpeg",
         "with_libpng": True,
         "with_sqlite3": True,
         "with_mysql": False,
         "with_pq": False,
         "with_odbc": False,
-        "with_zstd": False,
+        "with_zstd": True,
         "with_brotli": True,
         "with_dbus": False,
         "with_libalsa": False,
@@ -243,6 +247,10 @@ class QtConan(ConanFile):
         self.options.qtdeclarative = True
         self.options.qttools = True
         self.options.qtlanguageserver = True
+        self.options.qtimageformats = True
+        self.options.qtshadertools = True
+        self.options.qtactiveqt = True
+        self.options.qtsvg = True
 
         if not self.options.gui:
             del self.options.opengl
@@ -409,33 +417,33 @@ class QtConan(ConanFile):
                 "gssapi cannot be enabled until conan-io/conan-center-index#4102 is closed"
             )
 
-        if (
-            self.options.get_safe("with_x11", False)
-            and not self.dependencies.direct_host["xkbcommon"].options.with_x11
-        ):
-            raise ConanInvalidConfiguration(
-                "The 'with_x11' option for the 'xkbcommon' package must be enabled when the 'with_x11' option is enabled"
-            )
-        if (
-            self.options.get_safe("qtwayland", False)
-            and not self.dependencies.direct_host["xkbcommon"].options.with_wayland
-        ):
-            raise ConanInvalidConfiguration(
-                "The 'with_wayland' option for the 'xkbcommon' package must be enabled when the 'qtwayland' option is enabled"
-            )
+        # if (
+        #    self.options.get_safe("with_x11", False)
+        #    and not self.dependencies.direct_host["xkbcommon"].options.with_x11
+        # ):
+        #    raise ConanInvalidConfiguration(
+        #        "The 'with_x11' option for the 'xkbcommon' package must be enabled when the 'with_x11' option is enabled"
+        #    )
+        # if (
+        #    self.options.get_safe("qtwayland", False)
+        #    and not self.dependencies.direct_host["xkbcommon"].options.with_wayland
+        # ):
+        #    raise ConanInvalidConfiguration(
+        #        "The 'with_wayland' option for the 'xkbcommon' package must be enabled when the 'qtwayland' option is enabled"
+        #    )
 
         if cross_building(self):
             raise ConanInvalidConfiguration(
                 "cross compiling qt 6 is not yet supported. Contributions are welcome"
             )
 
-        if (
-            self.options.with_sqlite3
-            and not self.dependencies["sqlite3"].options.enable_column_metadata
-        ):
-            raise ConanInvalidConfiguration(
-                "sqlite3 option enable_column_metadata must be enabled for qt"
-            )
+        # if (
+        #    self.options.with_sqlite3
+        #    and not self.dependencies["sqlite3"].options.enable_column_metadata
+        # ):
+        #    raise ConanInvalidConfiguration(
+        #        "sqlite3 option enable_column_metadata must be enabled for qt"
+        #    )
 
         if self.options.get_safe("qtspeech") and not self.options.qtdeclarative:
             raise ConanInvalidConfiguration(
@@ -446,48 +454,48 @@ class QtConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("zlib/[>=1.2.11 <2]")
-        if self.options.openssl:
-            self.requires("openssl/[>=1.1 <4]")
-        if self.options.with_pcre2:
-            self.requires("pcre2/10.42")
+        # self.requires("zlib/[>=1.2.11 <2]")
+        # if self.options.openssl:
+        #    self.requires("openssl/[>=1.1 <4]")
+        # if self.options.with_pcre2:
+        #    self.requires("pcre2/10.42")
         if self.options.get_safe("with_vulkan"):
             self.requires("vulkan-loader/1.3.239.0")
             if is_apple_os(self):
                 self.requires("moltenvk/1.2.2")
-        if self.options.with_glib:
-            self.requires("glib/2.77.0")
-        if self.options.with_doubleconversion and not self.options.multiconfiguration:
-            self.requires("double-conversion/3.3.0")
-        if (
-            self.options.get_safe("with_freetype", False)
-            and not self.options.multiconfiguration
-        ):
-            self.requires("freetype/2.13.0")
-        if self.options.get_safe("with_fontconfig", False):
-            self.requires("fontconfig/2.14.2")
-        if self.options.get_safe("with_icu", False):
-            self.requires("icu/73.2")
-        if (
-            self.options.get_safe("with_harfbuzz", False)
-            and not self.options.multiconfiguration
-        ):
-            self.requires("harfbuzz/8.2.1")
-        if (
-            self.options.get_safe("with_libjpeg", False)
-            and not self.options.multiconfiguration
-        ):
-            if self.options.with_libjpeg == "libjpeg-turbo":
-                self.requires("libjpeg-turbo/2.1.5")
-            else:
-                self.requires("libjpeg/9e")
-        if (
-            self.options.get_safe("with_libpng", False)
-            and not self.options.multiconfiguration
-        ):
-            self.requires("libpng/1.6.40")
-        if self.options.with_sqlite3 and not self.options.multiconfiguration:
-            self.requires("sqlite3/3.42.0")
+        # if self.options.with_glib:
+        #    self.requires("glib/2.77.0")
+        # if self.options.with_doubleconversion and not self.options.multiconfiguration:
+        #    self.requires("double-conversion/3.3.0")
+        # if (
+        #    self.options.get_safe("with_freetype", False)
+        #    and not self.options.multiconfiguration
+        # ):
+        #    self.requires("freetype/2.13.0")
+        # if self.options.get_safe("with_fontconfig", False):
+        #    self.requires("fontconfig/2.14.2")
+        # if self.options.get_safe("with_icu", False):
+        #    self.requires("icu/73.2")
+        # if (
+        #    self.options.get_safe("with_harfbuzz", False)
+        #    and not self.options.multiconfiguration
+        # ):
+        #    self.requires("harfbuzz/8.2.1")
+        # if (
+        #    self.options.get_safe("with_libjpeg", False)
+        #    and not self.options.multiconfiguration
+        # ):
+        #    if self.options.with_libjpeg == "libjpeg-turbo":
+        #        self.requires("libjpeg-turbo/2.1.5")
+        #    else:
+        #        self.requires("libjpeg/9e")
+        # if (
+        #    self.options.get_safe("with_libpng", False)
+        #    and not self.options.multiconfiguration
+        # ):
+        #    self.requires("libpng/1.6.40")
+        # if self.options.with_sqlite3 and not self.options.multiconfiguration:
+        #    self.requires("sqlite3/3.42.0")
         if self.options.get_safe("with_mysql", False):
             self.requires("libmysqlclient/8.0.31")
         if self.options.with_pq:
@@ -499,21 +507,21 @@ class QtConan(ConanFile):
             self.requires("openal/1.22.2")
         if self.options.get_safe("with_libalsa", False):
             self.requires("libalsa/1.2.7.2")
-        if self.options.get_safe("with_x11", False):
-            self.requires("xkbcommon/1.5.0")
-            self.requires("xorg/system")
-        if (
-            self.settings.os != "Windows"
-            and self.options.get_safe("opengl", "no") != "no"
-        ):
-            self.requires("opengl/system")
-        if self.options.with_zstd:
-            self.requires("zstd/1.5.5")
-        if self.options.qtwayland:
-            self.requires("xkbcommon/1.5.0")
-            self.requires("wayland/1.22.0")
-        if self.options.with_brotli:
-            self.requires("brotli/1.1.0")
+        # if self.options.get_safe("with_x11", False):
+        #    self.requires("xkbcommon/1.5.0")
+        #    self.requires("xorg/system")
+        # if (
+        #    self.settings.os != "Windows"
+        #    and self.options.get_safe("opengl", "no") != "no"
+        # ):
+        #    self.requires("opengl/system")
+        # if self.options.with_zstd:
+        #    self.requires("zstd/1.5.5")
+        # if self.options.qtwayland:
+        #    self.requires("xkbcommon/1.5.0")
+        #    self.requires("wayland/1.22.0")
+        # if self.options.with_brotli:
+        #    self.requires("brotli/1.1.0")
         if self.options.get_safe("qtwebengine") and self.settings.os == "Linux":
             self.requires("expat/2.5.0")
             self.requires("opus/1.3.1")
@@ -529,14 +537,20 @@ class QtConan(ConanFile):
             self.requires("dbus/1.15.6")
         if self.settings.os in ["Linux", "FreeBSD"] and self.options.with_gssapi:
             self.requires("krb5/1.18.3")  # conan-io/conan-center-index#4102
-        if self.options.get_safe("with_md4c", False):
-            self.requires("md4c/0.4.8")
+        # if self.options.get_safe("with_md4c", False):
+        #    self.requires("md4c/0.4.8")
 
     def build_requirements(self):
-        self.tool_requires("cmake/[>=3.21.1 <4]")
-        self.tool_requires("ninja/1.11.1")
-        if not self.conf.get("tools.gnu:pkg_config", check_type=str):
-            self.tool_requires("pkgconf/2.0.2")
+        # self.tool_requires("cmake/[>=3.21.1 <4]")
+        self.build_requires(
+            f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}"
+        )
+        # self.tool_requires("ninja/1.11.1")
+        self.build_requires(
+            f"ninja/{os.environ['ASWF_NINJA_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
+        )
+        # if not self.conf.get("tools.gnu:pkg_config", check_type=str):
+        #    self.tool_requires("pkgconf/2.0.2")
         if self.settings.os == "Windows":
             self.tool_requires("strawberryperl/5.32.1.1")
 
@@ -642,12 +656,12 @@ class QtConan(ConanFile):
             tc.variables["INPUT_openssl"] = "no"
         else:
             tc.variables["HAVE_openssl"] = "ON"
-            if self.dependencies["openssl"].options.shared:
-                tc.variables["INPUT_openssl"] = "runtime"
-                tc.variables["QT_FEATURE_openssl_runtime"] = "ON"
-            else:
-                tc.variables["INPUT_openssl"] = "linked"
-                tc.variables["QT_FEATURE_openssl_linked"] = "ON"
+            # if self.dependencies["openssl"].options.shared:
+            tc.variables["INPUT_openssl"] = "runtime"
+            tc.variables["QT_FEATURE_openssl_runtime"] = "ON"
+            # else:
+            #    tc.variables["INPUT_openssl"] = "linked"
+            #    tc.variables["QT_FEATURE_openssl_linked"] = "ON"
 
         # TODO: Remove after fixing https://github.com/conan-io/conan/issues/12012
         if is_msvc(self):

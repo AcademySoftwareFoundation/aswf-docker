@@ -148,7 +148,7 @@ Contains:
 ## [aswf/ci-usd:2024.0](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.0)
 
 Contains:
-* python-3.11.7
+* python-3.11.8
 * tbb-2020_U3
 * boost-1.82.0
 * glew-2.1.0
@@ -159,7 +159,7 @@ Contains:
 * cmake-3.27.8
 * imath-3.1.10
 * materialx-1.38.8
-* openexr-3.2.1
+* openexr-3.2.2
 * oiio-2.5.8.0
 * ocio-2.3.2
 * ptex-2.4.2

@@ -130,6 +130,7 @@ yum install --setopt=tsflags=nodocs -y \
     libXv-devel \
     libXvMC-devel \
     libXxf86vm-devel \
+    lz4-devel \
     make \
     mesa-libEGL-devel \
     mesa-libGL-devel \
@@ -155,6 +156,7 @@ yum install --setopt=tsflags=nodocs -y \
     readline-devel \
     rsync \
     ruby \
+    snappy-devel \
     speech-dispatcher-devel \
     speex-devel \
     sqlite-devel \

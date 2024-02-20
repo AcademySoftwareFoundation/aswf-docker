@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2024-02-04
+## 2024-02-19
 
 * New ci-common-v4 for VFX Platform 2024 based on:
   * C++17 (unchanged)
@@ -28,14 +28,14 @@ All notable changes to this project will be documented in this file.
   * MaterialX 1.38.8 (from 1.38.7)
   * NumPy 1.24.3 (from 1.23.5)
   * OpenColorIO 2.3.2 (from 2.2.1)
-  * OpenEXR 3.2.1 (from 3.1.11)
+  * OpenEXR 3.2.2 (from 3.1.11)
   * OpenImageIO 2.5.8.0 (from 2.4.13.0)
   * OpenSubdiv 3.6.0 (from 3.5.0)
   * OpenVDB 11.0.0 (from 10.0.1)
   * OpenShadingLanguage 1.13.6.1 (from 1.12.13.0)
   * OpenTimelineIO 0.15 (from 0.14.1)
   * PySide 6.5.3 (from 5.15.9.
-  * Python 3.11.7 (from 3.10.11)
+  * Python 3.11.8 (from 3.10.11)
   * Qt 6.5.3 (from 5.15.9)
   * USD 23.11 (from 23.05)
 * Unchanged 2024 Packages
@@ -60,6 +60,22 @@ All notable changes to this project will be documented in this file.
 * `aswf/ci-osl:2024-clang16.0`,`aswf/ci-osl:2024-clang17.0`
 * `aswf/ci-openvdb:2024-clang16.0`, `aswf/ci-openvdb:2024-clang17.0`
 * `aswf/ci-vfxall:2024-clang16.0`, `aswf/ci-vfxall:2024-clang17.0'
+
+### New Conan packages
+
+* blosc
+* opensubdiv
+* partio
+* ptex
+
+### Packages that are now Conan only
+
+* alembic
+* clang
+* ninja
+* pyside
+* pybind11
+* qt
 
 ## 2023-11-12
 

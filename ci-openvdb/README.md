@@ -247,10 +247,10 @@ Contains:
 * gtest-1.14.0
 * cppunit-1.15.1
 * glfw-3.3.8
-* python-3.11.7
+* python-3.11.8
 * tbb-2020_U3
 * imath-3.1.10
-* openexr-3.2.1
+* openexr-3.2.2
 * blosc-1.21.5
 * pybind11-2.11.1
 * numpy-1.24.3
@@ -264,10 +264,10 @@ Contains:
 * gtest-1.14.0
 * cppunit-1.15.1
 * glfw-3.3.8
-* python-3.11.7
+* python-3.11.8
 * tbb-2020_U3
 * imath-3.1.10
-* openexr-3.2.1
+* openexr-3.2.2
 * blosc-1.21.5
 * pybind11-2.11.1
 * numpy-1.24.3

@@ -22,6 +22,7 @@ sources:
     sha256: "26d5f36134db03abe4a6db794c7570d729c92a3fc1b0bf9b1c8f86d0573cd02f"
   "6.5.3":
     url:
+      - "https://mirrors.ocf.berkeley.edu/qt/official_releases/qt/6.5/6.5.3/single/qt-everywhere-src-6.5.3.tar.xz"
       - "https://qt.mirror.constant.com/archive/qt/6.5/6.5.3/single/qt-everywhere-src-6.5.3.tar.xz"
       - "https://qt-mirror.dannhauer.de/archive/qt/6.5/6.5.3/single/qt-everywhere-src-6.5.3.tar.xz"
       - "https://www.funet.fi/pub/mirrors/download.qt-project.org/archive/qt/6.5/6.5.3/single/qt-everywhere-src-6.5.3.tar.xz"
@@ -47,6 +48,9 @@ patches:
     - patch_file: "patches/qtbase-core-cmake.diff"
       base_path: "qtbase"
       patch_description: "ls is a shell script in RHEL"
+    - patch_file: "patches/qtbase-system-harfbuzz.diff"
+      base_path: "qtbase"
+      patch_description: "Recent CMake unhappy with code to find system Harfbuzz"
     - patch_file: "patches/c72097e.diff"
       base_path: "qtwebengine"
       patch_description: "Workaround for too long .rps file name"

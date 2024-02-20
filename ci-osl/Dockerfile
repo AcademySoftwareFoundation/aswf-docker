@@ -37,8 +37,6 @@ FROM ${ASWF_PKG_ORG}/ci-package-imath:$ASWF_VFXPLATFORM_VERSION-$ASWF_IMATH_VERS
 FROM ${ASWF_PKG_ORG}/ci-package-openexr:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENEXR_VERSION AS ci-package-openexr
 FROM ${ASWF_PKG_ORG}/ci-package-oiio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OIIO_VERSION AS ci-package-oiio
 FROM ${ASWF_PKG_ORG}/ci-package-ocio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OCIO_VERSION AS ci-package-ocio
-FROM ${ASWF_PKG_ORG}/ci-package-partio:$ASWF_VFXPLATFORM_VERSION-$ASWF_PARTIO_VERSION AS ci-package-partio
-FROM ${ASWF_PKG_ORG}/ci-package-blosc:$ASWF_VFXPLATFORM_VERSION-$ASWF_BLOSC_VERSION AS ci-package-blosc
 FROM ${ASWF_PKG_ORG}/ci-package-openvdb:$ASWF_VFXPLATFORM_VERSION-$ASWF_OPENVDB_VERSION AS ci-package-openvdb
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-osl
 
@@ -127,8 +125,6 @@ COPY --from=ci-package-imath /. /usr/local/
 COPY --from=ci-package-openexr /. /usr/local/
 COPY --from=ci-package-oiio /. /usr/local/
 COPY --from=ci-package-ocio /. /usr/local/
-COPY --from=ci-package-partio /. /usr/local/
-COPY --from=ci-package-blosc /. /usr/local/
 COPY --from=ci-package-openvdb /. /usr/local/
 COPY ci-osl/README.md ci-osl/image.yaml /usr/local/aswf/
 
@@ -151,9 +147,9 @@ qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # oiio/${ASWF_OIIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # ocio/${ASWF_OCIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# partio/${ASWF_PARTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+partio/${ASWF_PARTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # openvdb/${ASWF_OPENVDB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 

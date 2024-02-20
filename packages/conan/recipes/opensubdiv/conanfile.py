@@ -1,22 +1,25 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conans import ConanFile, tools, CMake
 import os
 
 required_conan_version = ">=1.38.0"
 
 
-class MaterialXConan(ConanFile):
-    name = "materialx"
-    description = "MaterialX is an open standard for the exchange of rich material and look-development content across applications and renderers."
-    topics = "conan", "materialx", "python", "vfx"
-    homepage = "https://github.com/AcademySoftwareFoundation/MaterialX"
-    license = "BSD-3-Clause"
+class OpenSubdivConan(ConanFile):
+    name = "opensubdiv"
+    description = "An Open-Source subdivision surface library."
+    topics = "conan", "opensubdiv", "vfx"
+    homepage = "https://github.com/PixarAnimationStudios/OpenSubdiv"
+    license = "Apache-2.0"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     settings = (
         "os",
         "arch",
         "compiler",
         "build_type",
-        "python",
     )
     options = {
         "shared": [True, False],
@@ -33,10 +36,17 @@ class MaterialXConan(ConanFile):
 
     def requirements(self):
         self.requires(
-            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
+            f"ptex/{os.environ['ASWF_PTEX_VERSION']}@{self.user}/{self.channel}"
         )
-        # Use vendored pybind11 for now
-        # self.requires(f"pybind11/{os.environ['ASWF_PYBIND11_VERSION']}@{self.user}/{self.channel}")
+        self.requires(
+            f"glfw/{os.environ['ASWF_GLFW_VERSION']}@{self.user}/{self.channel}"
+        )
+        self.requires(
+            f"glew/{os.environ['ASWF_GLEW_VERSION']}@{self.user}/{self.channel}"
+        )
+        self.requires(
+            f"tbb/{os.environ['ASWF_TBB_VERSION']}@{self.user}/{self.channel}"
+        )
 
     def build_requirements(self):
         self.build_requires(
@@ -45,9 +55,9 @@ class MaterialXConan(ConanFile):
 
     def source(self):
         tools.get(
-            f"https://github.com/AcademySoftwareFoundation/MaterialX/archive/v{self.version}.tar.gz"
+            f"https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v{self.version}.tar.gz"
         )
-        os.rename(f"MaterialX-{self.version}", self._source_subfolder)
+        os.rename(f"OpenSubdiv-{self.version}", self._source_subfolder)
 
     def _configure_cmake(self):
         if self._cmake:
@@ -58,12 +68,16 @@ class MaterialXConan(ConanFile):
 
         with tools.environment_append(tools.RunEnvironment(self).vars):
             self._cmake = CMake(self)
-            self._cmake.definitions["MATERIALX_BUILD_PYTHON"] = "ON"
-            self._cmake.definitions["MATERIALX_PYTHON_VERSION"] = os.environ[
-                "ASWF_PYTHON_VERSION"
-            ]
             if self.options.shared:
-                self._cmake.definitions["MATERIALX_BUILD_SHARED_LIBS"] = "ON"
+                self._cmake.definitions["BUILD_SHARED_LIBS"] = "1"
+            self._cmake.definitions["NO_EXAMPLES"] = "ON"
+            self._cmake.definitions["NO_REGRESSION"] = "1"
+            self._cmake.definitions["NO_DOC"] = "1"
+            self._cmake.definitions["NO_TUTORIAL"] = "ON"
+            # Do we need to have a dynamic table here for the GPU virtual architecture?
+            self._cmake.definitions[
+                "OSD_CUDA_NVCC_FLAGS"
+            ] = "--gpu-architecture compute_50"
             self._cmake.configure(source_folder=self._source_subfolder)
             return self._cmake
 
@@ -77,10 +91,6 @@ class MaterialXConan(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.requires.append("python::PythonLibs")
-        # Use vendored pybind11 for now
-        # self.cpp_info.requires.append("pybind11::main")
-        self.env_info.PYTHONPATH.append(os.path.join(self.package_folder, "python"))
         self.env_info.CMAKE_PREFIX_PATH.append(
             os.path.join(self.package_folder, "lib", "cmake")
         )
