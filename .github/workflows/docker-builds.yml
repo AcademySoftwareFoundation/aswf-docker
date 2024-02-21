@@ -24,50 +24,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - group: img-common-3
-            name: common
+          - group: vfx-2023
+            name: vfx-2023
             common_version: 3-clang14
             common_version_noclang: 3
-            version: 3-clang14
-            version_noclang: 3
-            test: common
-          - group: img-common-4
-            name: common
-            common_version: 4-clang17
-            common_version_noclang: 4
-            version: 4-clang17
-            version_noclang: 4
-            test: common
-          - group: img-base-2023
-            name: base
-            common_version: 3-clang14
-            common_version_noclang: 3
-            version: 2023
+            version: 2023-clang14
             version_noclang: 2023
-            test: base
-          - group: img-base-2024
-            name: base
-            common_version: 4-clang17
-            common_version_noclang: 4
-            version: 2024
-            version_noclang: 2024
-            test: base
-          - group: img-vfx1-2024
-            name: vfx1
-            common_version: 4-clang17
-            common_version_noclang: 4
-            version: 2024
-            version_noclang: 2024
-            test: openvdb
-          - group: img-vfx2-2024
-            name: vfx2
-            common_version: 4-clang17
-            common_version_noclang: 4
-            version: 2024
-            version_noclang: 2024
             test: ""
-          - group: img-vfx3-2024
-            name: vfx3
+          - group: vfx-2024
+            name: vfx-2024
             common_version: 4-clang17
             common_version_noclang: 4
             version: 2024-clang17
@@ -129,7 +94,7 @@ jobs:
           --group common \
           --version ${{ matrix.common_version }}\
           --push NO
-      name: Always build local ci-common Docker Image for downstream images
+      name: build ci-common Docker Image for downstream images
 
     - run: |
         set -ex
@@ -156,7 +121,6 @@ jobs:
           --group base3 \
           --version ${{ matrix.version_noclang }}
       name: Build package dependencies for base image
-      if: ${{ matrix.name != 'common' }}
 
     - run: |
         set -ex
@@ -166,11 +130,10 @@ jobs:
           --verbose \
           build \
           --ci-image-type IMAGE \
-          --group ${{ matrix.name }} \
+          --group base \
           --version ${{ matrix.version }} \
           --push NO
-      name: Build base image if needed
-      if: ${{ matrix.name == 'base' }}
+      name: Build base image
 
     - run: |
         set -ex
@@ -196,8 +159,7 @@ jobs:
           --group vfx2 \
           --version ${{ matrix.version_noclang }} \
           --push NO
-      name: Build vfx1 / vfx2 packages if needed
-      if: ${{ matrix.name == 'vfx1' }} || ${{ matrix.name == 'vfx2' }} || ${{ matrix.name == 'vfx3' }}
+      name: Build vfx1/vfx2 packages
 
     - run: |
         set -ex
@@ -207,11 +169,11 @@ jobs:
           --verbose \
           build \
           --ci-image-type IMAGE \
-          --group ${{ matrix.name }} \
+          --group vfx1 \
+          --group vfx2 \
           --version ${{ matrix.version_noclang }} \
           --push NO
-      name: Build vfx1/vfx2 image if needed
-      if: ${{ matrix.name == 'vfx1' }} || ${{ matrix.name == 'vfx2' }}
+      name: Build vfx1/vfx2 images
 
     - run: |
         set -ex
@@ -221,11 +183,10 @@ jobs:
           --verbose \
           build \
           --ci-image-type IMAGE \
-          --group ${{ matrix.name }} \
+          --group vfx3 \
           --version ${{ matrix.version }} \
           --push NO
-      name: Build vfx3 image if needed
-      if: ${{ matrix.name == 'vfx3' }}
+      name: Build vfx3 image
 
     - run: |
         set -ex
