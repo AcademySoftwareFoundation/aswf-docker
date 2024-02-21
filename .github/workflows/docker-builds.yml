@@ -24,13 +24,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - group: vfx-2023
-            name: vfx-2023
-            common_version: 3-clang14
-            common_version_noclang: 3
-            version: 2023-clang14
-            version_noclang: 2023
-            test: ""
           - group: vfx-2024
             name: vfx-2024
             common_version: 4-clang17
