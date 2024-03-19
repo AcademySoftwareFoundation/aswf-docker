@@ -28,7 +28,7 @@ pyyaml = "*"
 jinja2 = "*"
 requests = "*"
 importlib-resources = "*"
-conan = "==1.47"
+conan = "==1.63.0"
 pytest = "*"
 mypy = "*"
 
