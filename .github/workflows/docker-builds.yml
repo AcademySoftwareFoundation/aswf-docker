@@ -137,6 +137,30 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group vfx1 \
+          --target imath \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing \
+          --push NO
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group vfx1 \
+          --target openexr
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing \
+          --push NO
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group vfx1 \
           --group vfx2 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
