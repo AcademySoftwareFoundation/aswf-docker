@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04-8c-32g-300h
+    runs-on: ubuntu-20.04-16c-64g-600h
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: '1'
