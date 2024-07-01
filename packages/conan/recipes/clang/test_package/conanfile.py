@@ -36,5 +36,5 @@ class LLVMCoreTestPackageConan(ConanFile):
             self.run(command, run_environment=True)
 
         llvm_path = self.deps_cpp_info["clang"].rootpath
-        license_path = os.path.join(llvm_path, "licenses", "LICENSE.TXT")
+        license_path = os.path.join(llvm_path, "licenses", "clang", "LICENSE.TXT")
         assert os.path.exists(license_path)

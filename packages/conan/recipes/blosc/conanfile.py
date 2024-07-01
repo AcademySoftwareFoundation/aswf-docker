@@ -63,6 +63,8 @@ class CbloscConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
+        # We want DSOs in lib64
+        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         # Use system installed instead
@@ -120,24 +122,38 @@ class CbloscConan(ConanFile):
         cmake.build()
 
     def package(self):
-        licenses = ["BLOSC.txt", "BITSHUFFLE.txt", "FASTLZ.txt"]
+        licenses = [
+            "BLOSC.txt",
+            "BITSHUFFLE.txt",
+            "FASTLZ.txt",
+            "LZ4.txt",
+            "SNAPPY.txt",
+            "STDINT.txt",
+            "ZLIB-NG.txt",
+            "ZLIB.txt",
+        ]
         for license_file in licenses:
             copy(
                 self,
                 license_file,
                 src=os.path.join(self.source_folder, "LICENSES"),
-                dst=os.path.join(self.package_folder, "licenses"),
+                dst=os.path.join(self.package_folder, "licenses", self.name),
             )
+        copy(
+            self,
+            "LICENSE.txt",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses", self.name),
+        )
         cmake = CMake(self)
         cmake.install()
-        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
 
     def package_info(self):
-        self.cpp_info.set_property("pkg_config_name", "blosc")
         prefix = "lib" if is_msvc(self) and not self.options.shared else ""
         self.cpp_info.libs = [f"{prefix}blosc"]
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs.extend(["m", "pthread"])
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

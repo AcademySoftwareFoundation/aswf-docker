@@ -1,5 +1,6 @@
 unset(_python_install_prefix)
-get_filename_component(_python_install_prefix "${CMAKE_CURRENT_LIST_DIR}/../" ABSOLUTE)
+# CMake modules installed in {platlibdir}/cmake/python need 3 levels up to find bin
+get_filename_component(_python_install_prefix "${CMAKE_CURRENT_LIST_DIR}/../../../" ABSOLUTE)
 {% if os == "Macos" %}
 set(Python_INCLUDE_DIRS "${_python_install_prefix}/Python.framework/Versions/{{version_major}}.{{version_minor}}/Headers")
 set(Python_LIBRARIES "${_python_install_prefix}/Python.framework/Versions/{{version_major}}.{{version_minor}}/Python")
@@ -8,7 +9,7 @@ set(Python_INCLUDE_DIRS "${_python_install_prefix}/include")
 set(Python_LIBRARIES "${_python_install_prefix}/libs/python{{version_major}}{{version_minor}}{{ '_d' if bt == 'Debug' else ''}}.lib")
 {% else %}
 set(Python_INCLUDE_DIRS "${_python_install_prefix}/include/python{{abi_suffix}}")
-set(Python_LIBRARIES "${_python_install_prefix}/lib/libpython{{abi_suffix}}.so")
+set(Python_LIBRARIES "${_python_install_prefix}/lib64/libpython{{abi_suffix}}.so")
 {% endif %}
 if (NOT TARGET Python::Python)
     add_library(Python::Python SHARED IMPORTED)

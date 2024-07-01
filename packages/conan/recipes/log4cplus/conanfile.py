@@ -114,7 +114,11 @@ class Log4cplusConan(ConanFile):
         cmake.build()
 
     def package(self):
-        self.copy(pattern="LICENSE", dst="licenses", src=self._source_subfolder)
+        self.copy(
+            pattern="LICENSE",
+            dst=os.path.join("licenses", self.name),
+            src=self._source_subfolder,
+        )
         cmake = self._configure_cmake()
         cmake.install()
         tools.rmdir(os.path.join(self.package_folder, "lib", "cmake"))
@@ -131,4 +135,4 @@ class Log4cplusConan(ConanFile):
             self.cpp_info.system_libs = ["advapi32", "Ws2_32"]
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

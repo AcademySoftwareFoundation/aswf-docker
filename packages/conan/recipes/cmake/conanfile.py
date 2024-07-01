@@ -100,7 +100,11 @@ class CMakeConan(ConanFile):
         cmake.build()
 
     def package(self):
-        self.copy("Copyright.txt", dst="licenses", src=self._source_subfolder)
+        self.copy(
+            "Copyright.txt",
+            dst=os.path.join("licenses", self.name),
+            src=self._source_subfolder,
+        )
         cmake = self._configure_cmake()
         cmake.install()
         tools.rmdir(os.path.join(self.package_folder, "doc"))
@@ -124,4 +128,4 @@ class CMakeConan(ConanFile):
             raise ConanException("Module path not found: %s" % mod_path)
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

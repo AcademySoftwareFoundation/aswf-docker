@@ -142,11 +142,15 @@ class GTestConan(ConanFile):
         cmake.build()
 
     def package(self):
-        self.copy("LICENSE", dst="licenses", src=self._source_subfolder)
+        self.copy(
+            "LICENSE",
+            dst=os.path.join("licenses", self.name),
+            src=self._source_subfolder,
+        )
         cmake = self._configure_cmake()
         cmake.install()
         tools.rmdir(os.path.join(self.package_folder, "lib", "pkgconfig"))
-        tools.rmdir(os.path.join(self.package_folder, "lib", "cmake"))
+        # tools.rmdir(os.path.join(self.package_folder, "lib", "cmake"))
         tools.remove_files_by_mask(os.path.join(self.package_folder, "lib"), "*.pdb")
 
     def package_id(self):
@@ -195,4 +199,4 @@ class GTestConan(ConanFile):
                 self.cpp_info.components["gmock_main"].requires = ["gmock"]
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

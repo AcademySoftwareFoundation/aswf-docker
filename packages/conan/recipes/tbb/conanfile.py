@@ -224,7 +224,11 @@ MALLOCPROXY.DEF =
                 self.run("%s %s %s" % (make, extra, " ".join(targets)))
 
     def package(self):
-        self.copy("LICENSE", dst="licenses", src=self._source_subfolder)
+        self.copy(
+            "LICENSE",
+            dst=os.path.join("licenses", self.name),
+            src=self._source_subfolder,
+        )
         self.copy(
             pattern="*.h", dst="include", src="%s/include" % self._source_subfolder
         )
@@ -242,7 +246,10 @@ MALLOCPROXY.DEF =
             keep_path=False,
         )
         self.copy(
-            pattern="*%s*.a" % build_type, dst="lib", src=build_folder, keep_path=False
+            pattern="*%s*.a" % build_type,
+            dst="lib64",
+            src=build_folder,
+            keep_path=False,
         )
         self.copy(
             pattern="*%s*.dll" % build_type,
@@ -267,11 +274,11 @@ MALLOCPROXY.DEF =
             if self.options.shared:
                 self.copy(
                     "*%s*.%s.*" % (build_type, extension),
-                    "lib",
+                    "lib64",
                     build_folder,
                     keep_path=False,
                 )
-                outputlibdir = os.path.join(self.package_folder, "lib")
+                outputlibdir = os.path.join(self.package_folder, "lib64")
                 os.chdir(outputlibdir)
                 for fpath in os.listdir(outputlibdir):
                     self.run(
@@ -286,7 +293,7 @@ MALLOCPROXY.DEF =
 
         self.copy(
             pattern="*.cmake",
-            dst=os.path.join("lib", "cmake"),
+            dst=os.path.join("lib64", "cmake"),
             src=self._source_subfolder,
             keep_path=False,
         )
@@ -324,4 +331,4 @@ MALLOCPROXY.DEF =
         self.cpp_info.components[component_name].libs = [self._lib_name(lib)]
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

@@ -30,7 +30,6 @@ Contains:
 * cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
-* oiio-2.0.8
 * blosc-1.5.0
 * partio-1.10.1
 * openvdb-6.2.1
@@ -50,7 +49,6 @@ Contains:
 * cmake-3.18.4
 * imath-2.4.0
 * openexr-2.4.0
-* oiio-2.1.13.0
 * blosc-1.5.0
 * partio-1.10.1
 * openvdb-7.1.0
@@ -70,7 +68,6 @@ Contains:
 * cmake-3.19.3
 * imath-2.5.5
 * openexr-2.5.5
-* oiio-2.2.14.0
 * blosc-1.5.0
 * partio-1.14.0
 * openvdb-8.0.1
@@ -90,7 +87,6 @@ Contains:
 * cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
-* oiio-2.4.5.0
 * blosc-1.17.0
 * partio-1.14.0
 * openvdb-9.1.0
@@ -110,7 +106,6 @@ Contains:
 * cmake-3.27.2
 * imath-3.1.9
 * openexr-3.1.11
-* oiio-2.4.13.0
 * blosc-1.17.0
 * partio-1.17.1
 * openvdb-10.0.1
@@ -118,23 +113,22 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-ocio:2024.0](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.0)
+## [aswf/ci-ocio:2024.1](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.1)
 
 Contains:
-* python-3.11.8
-* pybind11-2.11.1
+* python-3.11.9
+* pybind11-2.12.0
 * tbb-2020_U3
 * boost-1.82.0
 * glew-2.1.0
 * glfw-3.3.8
-* cmake-3.27.8
-* imath-3.1.10
-* openexr-3.2.2
-* oiio-2.5.8.0
+* cmake-3.27.9
+* imath-3.1.11
+* openexr-3.2.4
 * blosc-1.21.5
 * partio-1.17.1
 * openvdb-11.0.0
-* osl-1.13.6.1
+* osl-1.13.10.0
 * numpy-1.24.3
 * vfxplatform-2024
 

@@ -1,4 +1,20 @@
-from conans import ConanFile, tools, CMake
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
+from conan import ConanFile
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.files import (
+    apply_conandata_patches,
+    collect_libs,
+    copy,
+    export_conandata_patches,
+    get,
+    rmdir,
+)
+from conan.tools.microsoft import is_msvc
+from conan.tools.scm import Version
+from conans import tools, RunEnvironment
 import os
 
 required_conan_version = ">=1.38.0"
@@ -18,17 +34,16 @@ class ImathConan(ConanFile):
         "build_type",
         "python",
     )
-    generators = "cmake_find_package_multi"
 
-    _cmake = None
-    _source_subfolder = "source_subfolder"
+    def export_sources(self):
+        export_conandata_patches(self)
 
-    def _is_dummy(self):
-        return tools.Version(self.version) < "3"
+    def layout(self):
+        cmake_layout(self, src_folder="src")
+        # We want DSOs in lib64
+        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
-        if self._is_dummy():
-            return
         self.requires(
             f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
         )
@@ -37,61 +52,85 @@ class ImathConan(ConanFile):
         )
 
     def build_requirements(self):
-        if self._is_dummy():
-            return
         self.build_requires(
             f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}"
         )
 
     def source(self):
-        if self._is_dummy():
-            with open("imath-2-is-a-dummy-package.txt", "w") as f:
-                f.write(
-                    "Imath only contains data starting from version 3. Use OpenEXR-2 for Imath-2"
-                )
-        else:
-            tools.get(
-                f"https://github.com/AcademySoftwareFoundation/Imath/archive/v{self.version}.tar.gz"
-            )
-            os.rename(f"Imath-{self.version}", self._source_subfolder)
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
-    def _configure_cmake(self):
-        if self._cmake:
-            return self._cmake
+    def generate(self):
+        tc = CMakeToolchain(self)
+        # Build Python bindings
+        tc.variables["PYTHON"] = "ON"
+        # FIXME: Python_ROOT and Boost_ROOT required to find Conan-installed packages?
+        tc.cache_variables["Python_ROOT"] = self.deps_cpp_info["python"].rootpath
+        tc.cache_variables["Boost_ROOT"] = self.deps_cpp_info["boost"].rootpath
+        tc.generate()
 
-        with tools.environment_append(tools.RunEnvironment(self).vars):
-            self._cmake = CMake(self)
-            self._cmake.definitions["PYTHON"] = "ON"
-            self._cmake.configure(source_folder=self._source_subfolder)
-            return self._cmake
+        deps = CMakeDeps(self)
+        deps.generate()
+
+    def _patch_sources(self):
+        apply_conandata_patches(self)
 
     def build(self):
-        if not self._is_dummy():
-            cmake = self._configure_cmake()
+        env_build = RunEnvironment(self)
+        with tools.environment_append(env_build.vars):
+            self._patch_sources()
+            cmake = CMake(self)
+            cmake.configure()
             cmake.build()
 
     def package(self):
-        if self._is_dummy():
-            self.copy("imath-2-is-a-dummy-package.txt")
-        else:
-            self.copy("LICENSE.md", src=self._source_subfolder, dst="licenses")
-            cmake = self._configure_cmake()
-            cmake.install()
+        copy(
+            self,
+            "LICENSE.md",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses", self.name),
+        )
+        cmake = CMake(self)
+        cmake.install()
+        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
 
     def package_info(self):
-        if self._is_dummy():
-            self.user_info.is_dummy = True
-            return
-        self.user_info.is_dummy = False
+        self.cpp_info.set_property("cmake_file_name", "Imath")
+        self.cpp_info.set_property("cmake_target_name", "Imath::Imath")
+        self.cpp_info.set_property("pkg_config_name", "Imath")
+
+        # Imath::ImathConfig - header only library
+        imath_config = self.cpp_info.components["imath_config"]
+        imath_config.set_property("cmake_target_name", "Imath::ImathConfig")
+        imath_config.includedirs.append(os.path.join("include", "Imath"))
+
+        # Imath::Imath - linkable library
+        imath_lib = self.cpp_info.components["imath_lib"]
+        imath_lib.set_property("cmake_target_name", "Imath::Imath")
+        imath_lib.set_property("pkg_config_name", "Imath")
+        imath_lib.libs = collect_libs(self)
+        imath_lib.requires = ["imath_config"]
+        if self.settings.os == "Windows" and self.options.shared:
+            imath_lib.defines.append("IMATH_DLL")
+
+        # TODO: to remove in conan v2 once cmake_find_package_* generators removed
+        self.cpp_info.names["cmake_find_package"] = "Imath"
+        self.cpp_info.names["cmake_find_package_multi"] = "Imath"
+        self.cpp_info.names["pkg_config"] = "Imath"
+        imath_config.names["cmake_find_package"] = "ImathConfig"
+        imath_config.names["cmake_find_package_multi"] = "ImathConfig"
+        imath_lib.names["cmake_find_package"] = "Imath"
+        imath_lib.names["cmake_find_package_multi"] = "Imath"
+        imath_lib.names["pkg_config"] = "Imath"
+
         self.cpp_info.requires.append("python::PythonLibs")
         self.cpp_info.requires.append("boost::python")
         pymajorminor = self.deps_user_info["python"].python_interp
         self.env_info.PYTHONPATH.append(
-            os.path.join(self.package_folder, "lib", pymajorminor, "site-packages")
+            os.path.join(self.package_folder, "lib64", pymajorminor, "site-packages")
         )
         self.env_info.CMAKE_PREFIX_PATH.append(
-            os.path.join(self.package_folder, "lib", "cmake")
+            os.path.join(self.package_folder, "lib64", "cmake")
         )
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

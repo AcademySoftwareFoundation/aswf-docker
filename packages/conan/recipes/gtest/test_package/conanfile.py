@@ -17,7 +17,9 @@ class TestPackageConan(ConanFile):
 
     def test(self):
         assert os.path.isfile(
-            os.path.join(self.deps_cpp_info["gtest"].rootpath, "licenses", "LICENSE")
+            os.path.join(
+                self.deps_cpp_info["gtest"].rootpath, "licenses", "gtest", "LICENSE"
+            )
         )
         if not tools.cross_building(self.settings):
             bin_path = os.path.join("bin", "test_package")

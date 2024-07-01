@@ -13,7 +13,7 @@ for further information, and participate in the discussion on the
 
 ## Common CI Docker Image
 
-Contains: GCC, Clang, Jinja, ccache and all base OS libraries
+Contains: GCC, Clang, CMake, Jinja, ccache and all base OS libraries
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-common/Dockerfile)
 
@@ -161,27 +161,27 @@ Contains:
 * sonar-4.8.0.2856
 * conan-1.58.0
 
-## [aswf/ci-common:4-clang16.0](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang16.0)
+## [aswf/ci-common:4-clang16.1](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang16.1)
 
 Contains:
-* clang-16.0.4
+* clang-16.0.6
 * ninja-1.11.1
 * cuda-12.3.0
 * glvnd-1.7.0
 * ccache-4.8.3
 * dts-11
 * sonar-5.0.1.3006
-* conan-1.62.0
+* conan-1.63.0
 
-## [aswf/ci-common:4-clang17.0](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang17.0)
+## [aswf/ci-common:4-clang17.1](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang17.1)
 
 Contains:
-* clang-17.0.1
+* clang-17.0.6
 * ninja-1.11.1
 * cuda-12.3.0
 * glvnd-1.7.0
 * ccache-4.8.3
 * dts-11
 * sonar-5.0.1.3006
-* conan-1.62.0
+* conan-1.63.0
 

@@ -1,5 +1,19 @@
-from conans import ConanFile, CMake, tools
-from conans.errors import ConanInvalidConfiguration
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
+from conan import ConanFile
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.files import (
+    apply_conandata_patches,
+    collect_libs,
+    copy,
+    export_conandata_patches,
+    get,
+    rmdir,
+)
+from conan.tools.microsoft import is_msvc
+from conan.tools.scm import Version
 import os
 
 
@@ -9,45 +23,55 @@ class NinjaConan(ConanFile):
     license = "Apache-2.0"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://github.com/ninja-build/ninja"
-    settings = "os", "arch", "compiler", "build_type"
-    exports_sources = ["CMakeLists.txt", "*.patch"]
-    generators = "cmake"
     topics = ("conan", "ninja", "build")
+    settings = (
+        "os",
+        "arch",
+        "compiler",
+        "build_type",
+    )
 
-    _source_subfolder = "source_subfolder"
-    _cmake = None
+    def export_sources(self):
+        export_conandata_patches(self)
+
+    def layout(self):
+        cmake_layout(self, src_folder="src")
 
     def package_id(self):
         del self.info.settings.compiler
 
-    def _configure_cmake(self):
-        if self._cmake:
-            return self._cmake
-
-        self._cmake = CMake(self)
-        self._cmake.definitions["BUILD_TESTING"] = "OFF"
-        self._cmake.configure(source_folder=self._source_subfolder)
-        return self._cmake
-
     def source(self):
-        tools.get(**self.conan_data["sources"][self.version])
-        os.rename("ninja-%s" % self.version, self._source_subfolder)
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.variables["BUILD_TESTING"] = "OFF"
+        tc.generate()
+
+    def _patch_sources(self):
+        apply_conandata_patches(self)
 
     def build(self):
-        for patch in self.conan_data.get("patches", {}).get(self.version, []):
-            tools.patch(**patch)
-
-        cmake = self._configure_cmake()
+        self._patch_sources()
+        cmake = CMake(self)
+        cmake.configure()
         cmake.build()
 
     def package(self):
-        self.copy(pattern="COPYING", dst="licenses", src=self._source_subfolder)
-        cmake = self._configure_cmake()
+        copy(
+            self,
+            "COPYING",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses", self.name),
+        )
+        cmake = CMake(self)
         cmake.install()
 
     def package_info(self):
+        self.cpp_info.includedirs = []
+        self.cpp_info.libdirs = []
         self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
         self.env_info.CONAN_CMAKE_GENERATOR = "Ninja"
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

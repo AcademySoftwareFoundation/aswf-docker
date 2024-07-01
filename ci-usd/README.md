@@ -34,6 +34,7 @@ Contains:
 * openexr-2.3.0
 * oiio-2.0.8
 * ocio-1.1.0
+* pybind11-2.4.3
 * ptex-2.1.33
 * opensubdiv-3_3_3
 * alembic-1.7.11
@@ -59,6 +60,7 @@ Contains:
 * openexr-2.4.0
 * oiio-2.1.13.0
 * ocio-1.1.1
+* pybind11-2.4.3
 * ptex-2.3.2
 * opensubdiv-3_4_3
 * alembic-1.7.12
@@ -84,6 +86,7 @@ Contains:
 * openexr-2.5.5
 * oiio-2.2.14.0
 * ocio-2.0.1
+* pybind11-2.6.2
 * ptex-2.3.2
 * opensubdiv-3_4_3
 * alembic-1.7.16
@@ -110,6 +113,7 @@ Contains:
 * openexr-3.1.5
 * oiio-2.4.5.0
 * ocio-2.1.1
+* pybind11-2.8.1
 * ptex-2.4.0
 * opensubdiv-3_4_4
 * alembic-1.8.2
@@ -136,6 +140,7 @@ Contains:
 * openexr-3.1.11
 * oiio-2.4.13.0
 * ocio-2.2.1
+* pybind11-2.9.2
 * ptex-2.4.2
 * opensubdiv-3_5_0
 * alembic-1.8.5
@@ -145,10 +150,10 @@ Contains:
 * hdf5-1.8.23
 * vfxplatform-2023
 
-## [aswf/ci-usd:2024.0](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.0)
+## [aswf/ci-usd:2024.1](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.1)
 
 Contains:
-* python-3.11.8
+* python-3.11.9
 * tbb-2020_U3
 * boost-1.82.0
 * glew-2.1.0
@@ -156,14 +161,15 @@ Contains:
 * log4cplus-2.1.1
 * qt-6.5.3
 * pyside-6.5.3
-* cmake-3.27.8
-* imath-3.1.10
-* materialx-1.38.8
-* openexr-3.2.2
-* oiio-2.5.8.0
+* cmake-3.27.9
+* imath-3.1.11
+* materialx-1.38.10
+* openexr-3.2.4
+* oiio-2.5.12.0
 * ocio-2.3.2
+* pybind11-2.12.0
 * ptex-2.4.2
-* opensubdiv-3_6_0
+* opensubdiv-3.6.0
 * alembic-1.8.6
 * blosc-1.21.5
 * openvdb-11.0.0

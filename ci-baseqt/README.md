@@ -20,12 +20,15 @@ Contains: Python, TBB, Boost, Qt, PySide and other base libraries
 ## [aswf/ci-baseqt:2019.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2019.2)
 
 Contains:
+* blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
 * cppunit-1.14.0
 * glew-2.1.0
 * glfw-3.1.2
+* gtest-1.8.1
 * log4cplus-1.1.2
+* pybind11-2.4.3
 * python-2.7.15
 * tbb-2018
 * qt-5.12.6
@@ -36,12 +39,15 @@ Contains:
 ## [aswf/ci-baseqt:2020.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2020.2)
 
 Contains:
+* blosc-1.5.0
 * boost-1.70.0
 * cmake-3.18.4
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
+* gtest-1.10.0
 * log4cplus-1.1.2
+* pybind11-2.4.3
 * python-3.7.3
 * tbb-2019_U6
 * qt-5.12.6
@@ -52,12 +58,15 @@ Contains:
 ## [aswf/ci-baseqt:2021.3](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2021.3)
 
 Contains:
+* blosc-1.5.0
 * boost-1.73.0
 * cmake-3.19.3
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
+* gtest-1.11.0
 * log4cplus-1.1.2
+* pybind11-2.6.2
 * python-3.7.9
 * tbb-2020_U2
 * qt-5.15.2
@@ -68,12 +77,15 @@ Contains:
 ## [aswf/ci-baseqt:2022.4](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2022.4)
 
 Contains:
+* blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
+* gtest-1.11.0
 * log4cplus-1.1.2
+* pybind11-2.8.1
 * python-3.9.15
 * tbb-2020_U3
 * qt-5.15.2
@@ -84,12 +96,15 @@ Contains:
 ## [aswf/ci-baseqt:2023.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2023.2)
 
 Contains:
+* blosc-1.17.0
 * boost-1.80.0
 * cmake-3.27.2
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
+* gtest-1.11.0
 * log4cplus-1.1.2
+* pybind11-2.9.2
 * python-3.10.11
 * tbb-2020_U3
 * qt-5.15.9
@@ -97,16 +112,19 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-baseqt:2024.0](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2024.0)
+## [aswf/ci-baseqt:2024.1](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2024.1)
 
 Contains:
+* blosc-1.21.5
 * boost-1.82.0
-* cmake-3.27.8
+* cmake-3.27.9
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.3.8
+* gtest-1.14.0
 * log4cplus-2.1.1
-* python-3.11.8
+* pybind11-2.12.0
+* python-3.11.9
 * tbb-2020_U3
 * qt-6.5.3
 * pyside-6.5.3

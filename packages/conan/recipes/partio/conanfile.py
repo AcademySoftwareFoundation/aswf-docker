@@ -2,7 +2,17 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 
-from conans import ConanFile, tools, CMake
+from conan import ConanFile
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.files import (
+    apply_conandata_patches,
+    collect_libs,
+    copy,
+    export_conandata_patches,
+    get,
+    rmdir,
+)
+from conan.tools.microsoft import is_msvc
 import os
 
 required_conan_version = ">=1.38.0"
@@ -29,10 +39,14 @@ class PartioConan(ConanFile):
         "shared": True,
         "fPIC": True,
     }
-    generators = "cmake_find_package_multi"
 
-    _cmake = None
-    _source_subfolder = "source_subfolder"
+    def export_sources(self):
+        export_conandata_patches(self)
+
+    def layout(self):
+        cmake_layout(self, src_folder="src")
+        # We want DSOs in lib64
+        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires(
@@ -45,34 +59,39 @@ class PartioConan(ConanFile):
         )
 
     def source(self):
-        tools.get(f"https://github.com/wdas/partio/archive/v{self.version}.tar.gz")
-        os.rename(f"partio-{self.version}", self._source_subfolder)
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
-    def _configure_cmake(self):
-        if self._cmake:
-            return self._cmake
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.generate()
 
-        if self.options.shared:
-            del self.options.fPIC
+        deps = CMakeDeps(self)
+        deps.generate()
 
-        with tools.environment_append(tools.RunEnvironment(self).vars):
-            self._cmake = CMake(self)
-            self._cmake.configure(source_folder=self._source_subfolder)
-            return self._cmake
+    def _patch_sources(self):
+        apply_conandata_patches(self)
 
     def build(self):
-        cmake = self._configure_cmake()
-        cmake.build(args=["--verbose"])
+        self._patch_sources()
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
 
     def package(self):
-        self.copy("LICENSE.md", src=self._source_subfolder, dst="licenses")
-        cmake = self._configure_cmake()
+        copy(
+            self,
+            "LICENSE",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses", self.name),
+        )
+        cmake = CMake(self)
         cmake.install()
+        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
 
     def package_info(self):
-        self.env_info.CMAKE_PREFIX_PATH.append(
-            os.path.join(self.package_folder, "lib", "cmake")
-        )
+        self.cpp_info.set_property("cmake_target_name", "Partio::Partio")
+        self.cpp_info.includedirs = ["include"]
+        self.cpp_info.libs = collect_libs(self)
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

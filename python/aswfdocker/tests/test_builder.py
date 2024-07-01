@@ -22,7 +22,7 @@ class TestBuilder(unittest.TestCase):
             repo_uri="notauri", source_branch="testing", aswf_version="2019.123"
         )
 
-    def test_package_imath_2019_dict(self):
+    def test_package_ocio_2019_dict(self):
         b = builder.Builder(
             self.build_info,
             groupinfo.GroupInfo(
@@ -32,25 +32,25 @@ class TestBuilder(unittest.TestCase):
                 targets=[],
             ),
         )
-        imath_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "imath")
+        ocio_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "ocio")
         )[0]
         baked = b.make_bake_dict(False, False, False, False)
         self.assertEqual(
-            baked["target"]["ci-package-imath-2019"]["tags"],
+            baked["target"]["ci-package-ocio-2019"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-imath:2019",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-imath:{imath_version}",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-imath:latest",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-imath:2019-2.3.0",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:2019",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:{ocio_version}",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:latest",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:2019-1.1.0",
             ],
         )
         self.assertEqual(
-            baked["target"]["ci-package-imath-2019"]["args"]["ASWF_VERSION"],
-            imath_version,
+            baked["target"]["ci-package-ocio-2019"]["args"]["ASWF_VERSION"],
+            ocio_version,
         )
         self.assertEqual(
-            baked["target"]["ci-package-imath-2019"]["dockerfile"],
+            baked["target"]["ci-package-ocio-2019"]["dockerfile"],
             "packages/vfx1/Dockerfile",
         )
 
@@ -367,7 +367,7 @@ class TestBuilderCli(unittest.TestCase):
                 "--version",
                 "2019",
                 "--target",
-                "openexr",
+                "ocio",
                 "--dry-run",
             ],
         )
@@ -449,7 +449,7 @@ class TestBuilderCli(unittest.TestCase):
                 "--version",
                 "2020",
                 "--target",
-                "openexr",
+                "ocio",
                 "--dry-run",
             ],
         )

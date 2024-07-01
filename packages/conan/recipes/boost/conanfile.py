@@ -1,5 +1,19 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conans import AutoToolsBuildEnvironment, ConanFile, tools
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.layout import basic_layout
 from contextlib import contextmanager
+from conan.tools.files import (
+    apply_conandata_patches,
+    collect_libs,
+    copy,
+    export_conandata_patches,
+    get,
+    rmdir,
+)
 import os
 
 CONFIGURE_OPTIONS = (
@@ -71,15 +85,19 @@ class BoostConan(ConanFile):
                 f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
             )
 
-    @property
-    def _source_subfolder(self):
-        return "source_subfolder"
+    def export_sources(self):
+        export_conandata_patches(self)
+
+    def layout(self):
+        basic_layout(self, src_folder="src")
+        # We want DSOs in lib64
+        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
-        tools.get(
-            f"https://sourceforge.net/projects/boost/files/boost/{self.version}/boost_{self.version.replace('.', '_')}.tar.gz"
-        )
-        os.rename(f"boost_{self.version.replace('.', '_')}", self._source_subfolder)
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
+
+    def _patch_sources(self):
+        apply_conandata_patches(self)
 
     def build(self):
         build_args = [
@@ -93,6 +111,7 @@ class BoostConan(ConanFile):
             "--abbreviate-paths",
             f"--prefix={self.package_folder}",
             f"--build-dir={self.build_folder}",
+            f"--libdir={os.path.join(self.package_folder,'lib64')}",
         ]
         for comp in CONFIGURE_OPTIONS:
             if self._with_component(comp):
@@ -117,28 +136,31 @@ class BoostConan(ConanFile):
 
             self.run(
                 f"sh bootstrap.sh --with-python=bin/python{major_minor} --with-python-version={major_minor}",
-                cwd=self._source_subfolder,
+                cwd=self.source_folder,
                 run_environment=True,
             )
             build_args.append(f"--user-config={py_jam}")
         else:
-            self.run(
-                "sh bootstrap.sh", cwd=self._source_subfolder, run_environment=True
-            )
+            self.run("sh bootstrap.sh", cwd=self.source_folder, run_environment=True)
         if not self.version.startswith("1.61"):
             build_args.append("cxxstd=14")
 
-        self.run(" ".join(build_args), cwd=self._source_subfolder, run_environment=True)
+        self.run(" ".join(build_args), cwd=self.source_folder, run_environment=True)
 
     def package(self):
-        self.copy(
+        copy(
+            self,
             "LICENSE_1_0.txt",
-            dst="licenses",
-            src=os.path.join(self.source_folder, self._source_subfolder),
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses", self.name),
         )
 
     def package_info(self):
         self.env_info.BOOST_ROOT = self.package_folder
+
+        self.env_info.CMAKE_PREFIX_PATH.append(
+            os.path.join(self.package_folder, "lib64", "cmake")
+        )
 
         self.cpp_info.filenames["cmake_find_package"] = "Boost"
         self.cpp_info.filenames["cmake_find_package_multi"] = "Boost"
@@ -276,4 +298,4 @@ class BoostConan(ConanFile):
             self.cpp_info.components["wave"].libs = ["boost_wave"]
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

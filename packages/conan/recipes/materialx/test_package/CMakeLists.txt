@@ -1,12 +1,9 @@
-cmake_minimum_required(VERSION 3.12)
-project(testmaterialx_exe LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.15)
 
-message("CMAKE_MODULE_PATH: $ENV{CMAKE_MODULE_PATH}")
+project(test_package  LANGUAGES CXX)
 
-find_package(materialx REQUIRED)
+find_package(materialx REQUIRED CONFIG)
 
-add_executable(${PROJECT_NAME} testmaterialx.cpp)
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${MaterialX_INCLUDE_DIRS})
-message("MATERIALX: ${MaterialX_INCLUDE_DIRS}")
-target_link_libraries(${PROJECT_NAME} materialx::materialx)
+add_executable(${PROJECT_NAME} test_package.cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE materialx::MaterialXCore materialx::MaterialXFormat)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)

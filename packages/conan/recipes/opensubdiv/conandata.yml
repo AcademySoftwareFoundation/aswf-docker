@@ -1,0 +1,10 @@
+sources:
+  "3.6.0":
+    url: "https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v3_6_0.tar.gz"
+    sha256: "bebfd61ab6657a4f4ff27845fb66a167d00395783bfbd253254d87447ed1d879"
+patches:
+  "3.6.0":
+    - patch_file: "patches/cmake-no-versions.diff"
+      patch_description: "Override TBB and Ptex version requirements"
+    - patch_file: "patches/cmake-ptex-lib64.diff"
+      patch_description: "Find Ptex DSO in lib64"

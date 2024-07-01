@@ -4,7 +4,7 @@
 
 set -ex
 
-export DEV_CCACHE_VERSION=4.0
+export DEV_CCACHE_VERSION=4.8.3
 
 mkdir ccache
 cd ccache

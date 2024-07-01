@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2024-06-30
+
+- blosc moved to base1
+- rework Conan packages to use CMakeToolChain, conandata.yml
+- Conan packages mostly install to lib64 instead of lib (partial #120)
+- libdeflate in base image for OpenEXR
+- oiio build container (#173)
+- Conan packages preserve DSO symlinks when installed (#194)
+- Conan packages don't overwrite each other's installed license files
+- Break circular dependency between OCIO and OIIO by compiling OCIO utils without OIIO (#54)
+- OpenEXR and Imath built as Conan packages only
+- MaterialX 1.38.10 (was 1.38.8)
+- Imath 3.1.11 (was 3.1.10)
+- OpenEXR 3.2.4 (was 3.2.2)
+- OpenImageIO 2.5.12.0 (was 2.5.8.0)
+- OpenShadingLanguage 1.13.10.0 (was 1.13.6.1)
+- OpenTimelineIO 0.17.0 (was 0.15)
+- Conan 1.63 (was 1.62)
+- CMake 3.27.9 (was 3.27.8)
+- Clang 16.0.6 (was 16.0.4), 17.0.6 (was 17.0.1)
+- pybind11 2.12.0 (was 2.11.1)
+- Python 3.11.9 (was 3.11.8)
+- USD 24.05 (was 23.11)
+
+### New CI Images
+
+* `aswf/ci-common:4-clang16.1`, `aswf/ci-common:4-clang17.1` : A base Rocky 8.9 image with GCC 11.2.1 (DTS 11), Clang 16.0/17.0 and CUDA 12.3.
+* `aswf/ci-base:2024.1`
+* `aswf/ci-baseqt:2024.1`
+* `aswf/ci-opencue:2024.1`
+* `aswf/ci-openexr:2024.1`
+* `aswf/ci-ocio:2024.1`
+* `aswf/ci-oiio:2024.1`
+* `aswf/ci-otio:2024.1`
+* `aswf/ci-materialx:2024.1`
+* `aswf/ci-usd:2024.1`
+* `aswf/ci-osl:2024-clang16.1`,`aswf/ci-osl:2024-clang17.1`
+* `aswf/ci-openvdb:2024-clang16.1`, `aswf/ci-openvdb:2024-clang17.1`
+* `aswf/ci-vfxall:2024-clang16.1`, `aswf/ci-vfxall:2024-clang17.1`
+
 ## 2024-02-19
 
 * New ci-common-v4 for VFX Platform 2024 based on:
@@ -10,6 +50,7 @@ All notable changes to this project will be documented in this file.
   * Clang 16.0.4 / 17.0.1
   * Conan 1.58.0 (from 1.47.0)
   * CUDA 12.3.0 (from 11.8.0)
+  * OptiX 8.0 (in addition to 7.x)
   * gcc-toolset 11 / gcc 11.2.1 (unchanged)
   * glibc 2.28 (unchanged)
   * libstdc++11 new ABI

@@ -13,7 +13,6 @@ packages:
   - cmake
   - imath
   - openexr
-  - oiio
   - blosc
   - partio
   - openvdb

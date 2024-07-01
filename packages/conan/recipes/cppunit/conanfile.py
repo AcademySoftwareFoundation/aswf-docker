@@ -99,7 +99,11 @@ class CppunitConan(ConanFile):
             autotools.make()
 
     def package(self):
-        self.copy("COPYING", src=self._source_subfolder, dst="licenses")
+        self.copy(
+            "COPYING",
+            src=self._source_subfolder,
+            dst=os.path.join("licenses", self.name),
+        )
         with self._build_context():
             autotools = self._configure_autotools()
             autotools.install()
@@ -127,4 +131,4 @@ class CppunitConan(ConanFile):
         self.cpp_info.filenames["pkg_config"] = "cppunit"
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

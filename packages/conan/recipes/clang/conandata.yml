@@ -1,0 +1,14 @@
+sources:
+  "16.0.4":
+    url: "https://github.com/llvm/llvm-project/archive/llvmorg-16.0.4.tar.gz"
+    sha256: "10c3fe1757d2e4f1cd7745dc548ecf687680a71824ec81701c38524c2a0753e2"
+  "16.0.6":
+    url: "https://github.com/llvm/llvm-project/archive/llvmorg-16.0.6.tar.gz"
+    sha256: "56b2f75fdaa95ad5e477a246d3f0d164964ab066b4619a01836ef08e475ec9d5"
+  "17.0.1":
+    url: "https://github.com/llvm/llvm-project/archive/llvmorg-17.0.1.tar.gz"
+    sha256: "d51b10be66c10a6a81f4c594b554ffbf1063ffbadcb810af37d1f88d6e0b49dd"
+  "17.0.6":
+    url: "https://github.com/llvm/llvm-project/archive/llvmorg-17.0.6.tar.gz"
+    sha256: "81494d32e6f12ea6f73d6d25424dbd2364646011bb8f7e345ca870750aa27de1"
+patches:

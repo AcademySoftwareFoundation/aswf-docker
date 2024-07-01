@@ -1,8 +1,18 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain
+from conan.tools.files import (
+    apply_conandata_patches,
+    collect_libs,
+    copy,
+    export_conandata_patches,
+    get,
+    replace_in_file,
+    rm,
+    rmdir,
+)
 from conan.tools.layout import basic_layout
-from conan.tools.files import get, copy, replace_in_file, rm, rmdir
 from conan.tools.scm import Version
+from conans import tools
 import os
 
 
@@ -24,8 +34,13 @@ class PyBind11Conan(ConanFile):
             f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
         )
 
+    def export_sources(self):
+        export_conandata_patches(self)
+
     def layout(self):
         basic_layout(self, src_folder="src")
+        # We want DSOs in lib64
+        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
         get(
@@ -39,14 +54,20 @@ class PyBind11Conan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables["PYBIND11_INSTALL"] = True
         tc.variables["PYBIND11_TEST"] = False
-        tc.variables["PYBIND11_CMAKECONFIG_INSTALL_DIR"] = "lib/cmake/pybind11"
-        # FIXME: why won't it accept our 3.11.7?
-        # tc.variables["PYBIND11_PYTHON_VERSION"] = os.environ['ASWF_PYTHON_VERSION']
-        # tc.variables["Python_ROOT_DIR"] = "/opt/conan_home/d/python/3.11.7/aswftesting/vfx2024/package/eb0612c29fa563d146125ecbdde95a96190e836b"
-        tc.variables["PYBIND11_PYTHON_VERSION"] = "3.11.5"
+        # FIXME: does this belong here?
+        tc.variables["PYBIND11_CMAKECONFIG_INSTALL_DIR"] = os.path.join(
+            "lib64", "cmake", "pybind11"
+        )
+        tc.variables["PYBIND11_PYTHON_VERSION"] = os.environ["ASWF_PYTHON_VERSION"]
+        # FIXME
+        # tc.variables["PYBIND11_FINDPYTHON"] = "ON"
         tc.generate()
 
+    def _patch_sources(self):
+        apply_conandata_patches(self)
+
     def build(self):
+        self._patch_sources()
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
@@ -56,31 +77,48 @@ class PyBind11Conan(ConanFile):
             self,
             "LICENSE",
             src=self.source_folder,
-            dst=os.path.join(self.package_folder, "licenses"),
+            dst=os.path.join(self.package_folder, "licenses", self.name),
         )
         cmake = CMake(self)
         cmake.install()
-        # Don't skip install of cmake files for standalone cmake use
+        # Don't remove cmake files for standalone cmake use
         # for filename in ["pybind11Targets.cmake", "pybind11Config.cmake", "pybind11ConfigVersion.cmake"]:
-        #    rm(self, filename, os.path.join(self.package_folder, "lib", "cmake", "pybind11"))
+        #   rm(self, filename, os.path.join(self.package_folder, "lib64", "cmake", "pybind11"))
 
-        # rmdir(self, os.path.join(self.package_folder, "share"))
+        rmdir(self, os.path.join(self.package_folder, "share"))
 
-        # checked_target = "lto" if self.version < Version("2.11.0") else "pybind11"
+        checked_target = "lto" if self.version < Version("2.11.0") else "pybind11"
 
-        # Don't mess with cmake files?
-        # replace_in_file(self, os.path.join(self.package_folder, "lib", "cmake", "pybind11", "pybind11Common.cmake"),
-        #                     f"if(TARGET pybind11::{checked_target})",
-        #                      "if(FALSE)")
-        # replace_in_file(self, os.path.join(self.package_folder, "lib", "cmake", "pybind11", "pybind11Common.cmake"),
-        #                      "add_library(",
-        #                      "# add_library(")
+        # FIXME Don't mess with cmake files?
+        replace_in_file(
+            self,
+            os.path.join(
+                self.package_folder,
+                "lib64",
+                "cmake",
+                "pybind11",
+                "pybind11Common.cmake",
+            ),
+            f"if(TARGET pybind11::{checked_target})",
+            "if(FALSE)",
+        )
+        # FIXME: do we really want to not add_library()?
+        # replace_in_file(self, os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11Common.cmake"),
+        #                     "add_library(",
+        #                     "# add_library(")
+        # FIXME? This should not be needed, CMake function names are case insensitive
+        # replace_in_file(self, os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11NewTools.cmake"),
+        #                     "python_add_library(",
+        #                     "Python_add_library(")
+        # replace_in_file(self, os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11NewTools.cmake"),
+        #                     "Development.Module OPTIONAL_COMPONENTS Development.Embed",
+        #                     "Development")
 
     def package_id(self):
         self.info.clear()
 
     def package_info(self):
-        cmake_base_path = os.path.join("lib", "cmake", "pybind11")
+        cmake_base_path = os.path.join("lib64", "cmake", "pybind11")
         self.cpp_info.set_property("cmake_target_name", "pybind11_all_do_not_use")
         self.cpp_info.components["headers"].includedirs = ["include"]
         self.cpp_info.components["pybind11_"].set_property(
@@ -107,5 +145,9 @@ class PyBind11Conan(ConanFile):
         self.cpp_info.components["opt_size"].requires = ["pybind11_"]
         self.cpp_info.components["python2_no_register"].requires = ["pybind11_"]
 
+        self.env_info.CMAKE_PREFIX_PATH.append(
+            os.path.join(self.package_folder, "lib64", "cmake")
+        )
+
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

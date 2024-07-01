@@ -21,7 +21,7 @@ class PySide6Conan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {
         "shared": [True],
-        "python_version": [3.11],
+        "python_version": [os.environ["ASWF_PYTHON_MAJOR_MINOR_VERSION"]],
     }
     # revision_mode = 'scm'
     package_originator = "External"
@@ -29,7 +29,7 @@ class PySide6Conan(ConanFile):
 
     default_options = {
         "shared": True,
-        "python_version": 3.11,
+        "python_version": os.environ["ASWF_PYTHON_MAJOR_MINOR_VERSION"],
     }
     no_copy_source = True
     short_paths = True
@@ -48,11 +48,11 @@ class PySide6Conan(ConanFile):
             f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
         )
         self.requires(f"qt/{os.environ['ASWF_QT_VERSION']}@{self.user}/{self.channel}")
-
-    def build_requirements(self):
-        self.build_requires(
+        self.requires(
             f"clang/{os.environ['ASWF_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
         )
+
+    def build_requirements(self):
         self.tool_requires(
             f"ninja/{os.environ['ASWF_NINJA_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
         )
@@ -64,7 +64,7 @@ class PySide6Conan(ConanFile):
         # Windows needs separate shiboken package built in release mode due to a stack overflow
         # when running shiboken built in Debug from source (also related to libclang)
         if self.settings.os == "Windows":
-            self.build_requires(f"pyside-shiboken/{self.version}")
+            self.tool_requires(f"pyside-shiboken/{self.version}")
 
     def configure(self):
         # self.options["qt"].with_webengine = False
@@ -167,10 +167,14 @@ class PySide6Conan(ConanFile):
             pythonInfo.bin_paths[0], self.deps_user_info["python"].python_interp
         )
 
+        # Shiboken finds the C++ includes from gcc-toolset but fails to add C includes,
+        # so cstddef doesn't find stddef.h for instance.
+        # This is not elegant but not clear how to do it differetly.
         env = {
             "LLVM_INSTALL_DIR": llvmInfo.rootpath,
             "LD_LIBRARY_PATH": pythonInfo.lib_paths,
             "CMAKE_PREFIX_PATH": qtInfo.rootpath,
+            "CPATH": f"/opt/rh/gcc-toolset-{os.environ['ASWF_DTS_VERSION']}/root/usr/lib/gcc/x86_64-redhat-linux/{os.environ['ASWF_DTS_VERSION']}/include",
         }
 
         with tools.environment_append(env):
@@ -278,8 +282,6 @@ class PySide6Conan(ConanFile):
         else:
             venv_name += "release"
 
-        print(f"BABAR: venv_name = {venv_name}")
-
         install_dir = os.path.join(src_dir, "build", venv_name, "install")
         if not os.path.isdir(install_dir):
             raise ConanException(f"Could not find the install directory {install_dir}")
@@ -365,4 +367,4 @@ class PySide6Conan(ConanFile):
             )
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

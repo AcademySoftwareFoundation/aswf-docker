@@ -1,0 +1,19 @@
+diff --git a/cmake/FindPTex.cmake b/cmake/FindPTex.cmake
+index fde70773..263bbe4b 100644
+--- a/cmake/FindPTex.cmake
++++ b/cmake/FindPTex.cmake
+@@ -102,11 +102,11 @@ else ()
+         NAMES
+             Ptex wdasPtex
+         HINTS
+-            "${PTEX_LOCATION}/lib"
+-            "$ENV{PTEX_LOCATION}/lib"
++            "${PTEX_LOCATION}/lib64"
++            "$ENV{PTEX_LOCATION}/lib64"
+         PATHS
+             /usr/lib
+-            /usr/local/lib
++            /usr/local/lib64
+             /usr/openwin/lib
+             /usr/X11R6/lib
+             DOC "The Ptex library")

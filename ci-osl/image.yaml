@@ -13,6 +13,7 @@ packages:
   - oiio
   - ocio
   - partio
+  - ptex
   - tbb
   - blosc
   - openvdb
