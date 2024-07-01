@@ -68,13 +68,13 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-openexr:2024.0](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2024.0)
+## [aswf/ci-openexr:2024.1](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2024.1)
 
 Contains:
-* python-3.11.8
+* python-3.11.9
 * boost-1.82.0
-* cmake-3.27.8
-* pybind11-2.11.1
+* cmake-3.27.9
+* pybind11-2.12.0
 * numpy-1.24.3
 * vfxplatform-2024
 

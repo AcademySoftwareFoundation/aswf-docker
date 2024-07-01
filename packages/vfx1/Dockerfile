@@ -31,6 +31,7 @@ FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
 
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_PYTHON_VERSION
+ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_BOOST_VERSION
 ARG ASWF_TBB_VERSION
@@ -41,6 +42,7 @@ ARG ASWF_VFXPLATFORM_VERSION
 
 ENV ASWF_CMAKE_VERSION=${ASWF_CMAKE_VERSION}
 ENV ASWF_PYTHON_VERSION=${ASWF_PYTHON_VERSION}
+ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=${ASWF_PYTHON_MAJOR_MINOR_VERSION}
 ENV ASWF_NUMPY_VERSION=${ASWF_NUMPY_VERSION}
 ENV ASWF_BOOST_VERSION=${ASWF_BOOST_VERSION}
 ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
@@ -243,8 +245,56 @@ LABEL io.aswf.docker.versions.openvdb="${ASWF_OPENVDB_VERSION}"
 COPY --from=ci-openvdb-builder /package/. /
 
 
+
+#################### ci-ocio-builder ####################
+FROM ci-openvdb-builder AS ci-ocio-builder
+
+ARG ASWF_OCIO_VERSION
+ENV ASWF_OCIO_VERSION=${ASWF_OCIO_VERSION}
+ARG ASWF_OCIO_CONFIGS_VERSION
+ENV ASWF_OCIO_CONFIGS_VERSION=${ASWF_OCIO_CONFIGS_VERSION}
+
+COPY ../scripts/vfx/build_ocio.sh \
+     /tmp/
+
+RUN --mount=type=cache,target=/tmp/ccache \
+    --mount=type=cache,sharing=private,target=/tmp/downloads \
+    /tmp/before_build.sh && \
+    /tmp/build_ocio.sh && \
+    /tmp/copy_new_files.sh && \
+    ccache --show-stats
+
+
+#################### ci-package-ocio ####################
+FROM scratch AS ci-package-ocio
+
+ARG ASWF_ORG
+ARG CI_COMMON_VERSION
+ARG ASWF_DTS_VERSION
+ARG ASWF_DTS_PREFIX
+ARG ASWF_OCIO_CONFIGS_VERSION
+ARG ASWF_OCIO_VERSION
+ARG ASWF_VFXPLATFORM_VERSION
+
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-ocio"
+LABEL org.opencontainers.image.title="OpenColorIO package built for ASWF Docker images"
+LABEL org.opencontainers.image.description="OpenColorIO headers and binaries to be installed in ASWF Docker images"
+LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
+LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
+LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/OpenColorIO"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
+LABEL org.opencontainers.image.version="${ASWF_OCIO_VERSION}"
+LABEL org.opencontainers.image.licenses="BSD-3-Clause"
+LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
+LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
+LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
+LABEL io.aswf.docker.versions.ocio="${ASWF_OCIO_VERSION}"
+LABEL io.aswf.docker.versions.ocioconfigs="${ASWF_OCIO_CONFIGS_VERSION}"
+
+COPY --from=ci-ocio-builder /package/. /
+
 #################### ci-oiio-builder ####################
-FROM ci-openvdb-builder AS ci-oiio-builder
+FROM ci-ocio-builder AS ci-oiio-builder
 
 ARG ASWF_OIIO_VERSION
 ARG ASWF_CXX_STANDARD
@@ -307,51 +357,4 @@ LABEL io.aswf.docker.versions.oiio="${ASWF_OIIO_VERSION}"
 
 COPY --from=ci-oiio-builder /package/. /
 
-
-#################### ci-ocio-builder ####################
-FROM ci-oiio-builder AS ci-ocio-builder
-
-ARG ASWF_OCIO_VERSION
-ENV ASWF_OCIO_VERSION=${ASWF_OCIO_VERSION}
-ARG ASWF_OCIO_CONFIGS_VERSION
-ENV ASWF_OCIO_CONFIGS_VERSION=${ASWF_OCIO_CONFIGS_VERSION}
-
-COPY ../scripts/vfx/build_ocio.sh \
-     /tmp/
-
-RUN --mount=type=cache,target=/tmp/ccache \
-    --mount=type=cache,sharing=private,target=/tmp/downloads \
-    /tmp/before_build.sh && \
-    /tmp/build_ocio.sh && \
-    /tmp/copy_new_files.sh && \
-    ccache --show-stats
-
-
-#################### ci-package-ocio ####################
-FROM scratch AS ci-package-ocio
-
-ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_DTS_PREFIX
-ARG ASWF_OCIO_CONFIGS_VERSION
-ARG ASWF_OCIO_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-ocio"
-LABEL org.opencontainers.image.title="OpenColorIO package built for ASWF Docker images"
-LABEL org.opencontainers.image.description="OpenColorIO headers and binaries to be installed in ASWF Docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/OpenColorIO"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${ASWF_OCIO_VERSION}"
-LABEL org.opencontainers.image.licenses="BSD-3-Clause"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.ocio="${ASWF_OCIO_VERSION}"
-LABEL io.aswf.docker.versions.ocioconfigs="${ASWF_OCIO_CONFIGS_VERSION}"
-
-COPY --from=ci-ocio-builder /package/. /
 

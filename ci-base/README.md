@@ -20,6 +20,7 @@ Contains: Python, TBB, Boost and other base libraries
 ## [aswf/ci-base:2019.9](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2019.9)
 
 Contains:
+* blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
 * cppunit-1.14.0
@@ -36,6 +37,7 @@ Contains:
 ## [aswf/ci-base:2020.9](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2020.9)
 
 Contains:
+* blosc-1.5.0
 * boost-1.70.0
 * cmake-3.18.4
 * cppunit-1.15.1
@@ -52,6 +54,7 @@ Contains:
 ## [aswf/ci-base:2021.6](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2021.6)
 
 Contains:
+* blosc-1.5.0
 * boost-1.73.0
 * cmake-3.19.3
 * cppunit-1.15.1
@@ -68,6 +71,7 @@ Contains:
 ## [aswf/ci-base:2022.4](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2022.4)
 
 Contains:
+* blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
 * cppunit-1.15.1
@@ -84,6 +88,7 @@ Contains:
 ## [aswf/ci-base:2023.2](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2023.2)
 
 Contains:
+* blosc-1.17.0
 * boost-1.80.0
 * cmake-3.27.2
 * cppunit-1.15.1
@@ -97,18 +102,19 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-base:2024.0](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2024.0)
+## [aswf/ci-base:2024.1](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2024.1)
 
 Contains:
+* blosc-1.21.5
 * boost-1.82.0
-* cmake-3.27.8
+* cmake-3.27.9
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.3.8
 * gtest-1.14.0
 * log4cplus-2.1.1
-* pybind11-2.11.1
-* python-3.11.8
+* pybind11-2.12.0
+* python-3.11.9
 * tbb-2020_U3
 * numpy-1.24.3
 * vfxplatform-2024

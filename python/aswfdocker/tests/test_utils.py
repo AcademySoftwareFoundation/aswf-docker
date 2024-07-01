@@ -72,18 +72,18 @@ class TestUtils(unittest.TestCase):
 
     def test_image_def_from_name(self):
         with self.assertRaises(RuntimeError):
-            utils.get_image_spec("aswf/ci-package-openexr_2018")
+            utils.get_image_spec("aswf/ci-package-openvdb_2018")
         self.assertEqual(
             utils.get_image_spec("aswftesting/ci-common:1"),
             ("aswftesting", constants.ImageType.IMAGE, "common", "1"),
         )
         self.assertEqual(
-            utils.get_image_spec("aswf/ci-package-openexr:2018"),
-            ("aswf", constants.ImageType.PACKAGE, "openexr", "2018"),
+            utils.get_image_spec("aswf/ci-package-openvdb:2018"),
+            ("aswf", constants.ImageType.PACKAGE, "openvdb", "2018"),
         )
         self.assertEqual(
-            utils.get_image_spec("refs/tags/aswf/ci-package-openexr/2018"),
-            ("aswf", constants.ImageType.PACKAGE, "openexr", "2018"),
+            utils.get_image_spec("refs/tags/aswf/ci-package-openvdb/2018"),
+            ("aswf", constants.ImageType.PACKAGE, "openvdb", "2018"),
         )
         self.assertEqual(
             utils.get_image_spec("aswf/ci-package-clang:1-clang6"),

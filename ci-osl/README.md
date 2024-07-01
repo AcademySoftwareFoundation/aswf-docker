@@ -30,6 +30,7 @@ Contains:
 * oiio-2.0.8
 * ocio-1.1.0
 * partio-1.10.1
+* ptex-2.1.33
 * tbb-2018
 * blosc-1.5.0
 * openvdb-6.2.1
@@ -48,6 +49,7 @@ Contains:
 * oiio-2.0.8
 * ocio-1.1.0
 * partio-1.10.1
+* ptex-2.1.33
 * tbb-2018
 * blosc-1.5.0
 * openvdb-6.2.1
@@ -66,6 +68,7 @@ Contains:
 * oiio-2.0.8
 * ocio-1.1.0
 * partio-1.10.1
+* ptex-2.1.33
 * tbb-2018
 * blosc-1.5.0
 * openvdb-6.2.1
@@ -84,6 +87,7 @@ Contains:
 * oiio-2.0.8
 * ocio-1.1.0
 * partio-1.10.1
+* ptex-2.1.33
 * tbb-2018
 * blosc-1.5.0
 * openvdb-6.2.1
@@ -102,6 +106,7 @@ Contains:
 * oiio-2.0.8
 * ocio-1.1.0
 * partio-1.10.1
+* ptex-2.1.33
 * tbb-2018
 * blosc-1.5.0
 * openvdb-6.2.1
@@ -120,6 +125,7 @@ Contains:
 * oiio-2.1.13.0
 * ocio-1.1.1
 * partio-1.10.1
+* ptex-2.3.2
 * tbb-2019_U6
 * blosc-1.5.0
 * openvdb-7.1.0
@@ -138,6 +144,7 @@ Contains:
 * oiio-2.2.14.0
 * ocio-2.0.1
 * partio-1.14.0
+* ptex-2.3.2
 * tbb-2020_U2
 * blosc-1.5.0
 * openvdb-8.0.1
@@ -156,6 +163,7 @@ Contains:
 * oiio-2.2.14.0
 * ocio-2.0.1
 * partio-1.14.0
+* ptex-2.3.2
 * tbb-2020_U2
 * blosc-1.5.0
 * openvdb-8.0.1
@@ -174,6 +182,7 @@ Contains:
 * oiio-2.4.5.0
 * ocio-2.1.1
 * partio-1.14.0
+* ptex-2.4.0
 * tbb-2020_U3
 * blosc-1.17.0
 * openvdb-9.1.0
@@ -192,6 +201,7 @@ Contains:
 * oiio-2.4.5.0
 * ocio-2.1.1
 * partio-1.14.0
+* ptex-2.4.0
 * tbb-2020_U3
 * blosc-1.17.0
 * openvdb-9.1.0
@@ -210,6 +220,7 @@ Contains:
 * oiio-2.4.5.0
 * ocio-2.1.1
 * partio-1.14.0
+* ptex-2.4.0
 * tbb-2020_U3
 * blosc-1.17.0
 * openvdb-9.1.0
@@ -228,6 +239,7 @@ Contains:
 * oiio-2.4.5.0
 * ocio-2.1.1
 * partio-1.14.0
+* ptex-2.4.0
 * tbb-2020_U3
 * blosc-1.17.0
 * openvdb-9.1.0
@@ -246,6 +258,7 @@ Contains:
 * oiio-2.4.5.0
 * ocio-2.1.1
 * partio-1.14.0
+* ptex-2.4.0
 * tbb-2020_U3
 * blosc-1.17.0
 * openvdb-9.1.0
@@ -264,6 +277,7 @@ Contains:
 * oiio-2.4.13.0
 * ocio-2.2.1
 * partio-1.17.1
+* ptex-2.4.2
 * tbb-2020_U3
 * blosc-1.17.0
 * openvdb-10.0.1
@@ -282,42 +296,45 @@ Contains:
 * oiio-2.4.13.0
 * ocio-2.2.1
 * partio-1.17.1
+* ptex-2.4.2
 * tbb-2020_U3
 * blosc-1.17.0
 * openvdb-10.0.1
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-osl:2024-clang16.0](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang16.0)
+## [aswf/ci-osl:2024-clang16.1](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang16.1)
 
 Contains:
 * boost-1.82.0
-* cmake-3.27.8
-* python-3.11.8
+* cmake-3.27.9
+* python-3.11.9
 * qt-6.5.3
-* imath-3.1.10
-* openexr-3.2.2
-* oiio-2.5.8.0
+* imath-3.1.11
+* openexr-3.2.4
+* oiio-2.5.12.0
 * ocio-2.3.2
 * partio-1.17.1
+* ptex-2.4.2
 * tbb-2020_U3
 * blosc-1.21.5
 * openvdb-11.0.0
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-osl:2024-clang17.0](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang17.0)
+## [aswf/ci-osl:2024-clang17.1](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang17.1)
 
 Contains:
 * boost-1.82.0
-* cmake-3.27.8
-* python-3.11.8
+* cmake-3.27.9
+* python-3.11.9
 * qt-6.5.3
-* imath-3.1.10
-* openexr-3.2.2
-* oiio-2.5.8.0
+* imath-3.1.11
+* openexr-3.2.4
+* oiio-2.5.12.0
 * ocio-2.3.2
 * partio-1.17.1
+* ptex-2.4.2
 * tbb-2020_U3
 * blosc-1.21.5
 * openvdb-11.0.0

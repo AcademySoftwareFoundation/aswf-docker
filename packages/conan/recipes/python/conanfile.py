@@ -1,7 +1,14 @@
 from conans import AutoToolsBuildEnvironment, ConanFile, tools
 from contextlib import contextmanager
 from conan.tools.files.symlinks import absolute_to_relative_symlinks
-
+from conan.tools.files import (
+    apply_conandata_patches,
+    collect_libs,
+    copy,
+    export_conandata_patches,
+    get,
+    rmdir,
+)
 from jinja2 import Environment, FileSystemLoader
 
 from semver import SemVer
@@ -37,17 +44,11 @@ class PythonConan(ConanFile):
         if "ASWF_NUMPY_VERSION" not in os.environ:
             self.options.with_numpy.value = False
 
-    @property
-    def _source_subfolder(self):
-        return "source_subfolder"
-
     def source(self):
-        tools.get(
-            f"https://www.python.org/ftp/python/{self.version}/Python-{self.version}.tgz"
-        )
-        os.rename(f"Python-{self.version}", self._source_subfolder)
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def export_sources(self):
+        export_conandata_patches(self)
         self.copy("run-with-system-python")
         self.copy("yum")
 
@@ -95,12 +96,18 @@ class PythonConan(ConanFile):
             "--enable-dot=no",
             "--enable-werror=no",
             "--enable-html-docs=no",
+            "--with-platlibdir=lib64",
+            "--libdir=${prefix}/lib64",
         ]
-        self._autotools.configure(args=conf_args, configure_dir=self._source_subfolder)
+        self._autotools.configure(args=conf_args)
         return self._autotools
+
+    def _patch_sources(self):
+        apply_conandata_patches(self)
 
     def build(self):
         with self._build_context():
+            self._patch_sources()
             autotools = self._configure_autotools()
             autotools.make()
 
@@ -118,7 +125,7 @@ class PythonConan(ConanFile):
             )
 
     def _produce_config_files(self):
-        p = os.path.join(self.package_folder, "lib", "cmake", "python")
+        p = os.path.join(self.package_folder, "lib64", "cmake", "python")
         if not os.path.exists(p):
             os.makedirs(p, exist_ok=True)
 
@@ -138,7 +145,7 @@ class PythonConan(ConanFile):
 
             interpreter_template = env.get_template(file_name)
             interpreter_template.stream(data).dump(
-                os.path.join(self.package_folder, "lib", "cmake", "python", file_name)
+                os.path.join(self.package_folder, "lib64", "cmake", "python", file_name)
             )
 
         _configure("Python_InterpreterTargets.cmake")
@@ -150,7 +157,12 @@ class PythonConan(ConanFile):
     def package(self):
         self._produce_config_files()
 
-        self.copy("COPYING", src=self._source_subfolder, dst="licenses")
+        copy(
+            self,
+            "COPYING",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses", self.name),
+        )
 
         self.copy("yum", dst="bin")
         self.copy("run-with-system-python", dst="bin")
@@ -178,7 +190,7 @@ class PythonConan(ConanFile):
         with tools.environment_append(
             {
                 "PATH": os.path.join(self.package_folder, "bin"),
-                "LD_LIBRARY_PATH": os.path.join(self.package_folder, "lib"),
+                "LD_LIBRARY_PATH": os.path.join(self.package_folder, "lib64"),
             }
         ):
             self.run(f"{py_exe} get-pip.py")
@@ -200,6 +212,7 @@ class PythonConan(ConanFile):
             _replaceShebang("wheel")
             _replaceShebang("2to3-")
 
+            # FIXME: how do you convince pip to write to lib64 instead of lib?
             self.run(f"{py_exe} -m pip install nose coverage docutils epydoc")
             if self.options.get_safe("with_numpy"):
                 self.run(
@@ -226,11 +239,15 @@ class PythonConan(ConanFile):
         self.cpp_info.components["PythonLibs"].libs = [
             f"python{self.major_minor}{suffix}"
         ]
+        self.cpp_info.components["PythonLibs"].libdirs = [
+            "lib64",
+            "lib",
+        ]
         if self.settings.os == "Windows":
             self.cpp_info.components["PythonLibs"].defines.append("PYTHON_DLL")
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)
 
         # Something of a hack: the generated _sysconfigdata__PLATFORM.py embeds build paths
         # This breaks tools that use sysconfig to find Python's INCLUDEDIR such as Qt.
@@ -239,7 +256,7 @@ class PythonConan(ConanFile):
         tools.replace_in_file(
             os.path.join(
                 self.install_folder,
-                f"lib/python{self.major_minor}/_sysconfigdata__{sysconfig.get_config_var('MACHDEP')}_{sysconfig.get_config_var('MULTIARCH')}.py",
+                f"lib64/python{self.major_minor}/_sysconfigdata__{sysconfig.get_config_var('MACHDEP')}_{sysconfig.get_config_var('MULTIARCH')}.py",
             ),
             re.sub(
                 r"^/opt/conan_home", r"/tmp/c", self.package_folder

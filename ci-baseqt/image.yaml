@@ -3,12 +3,15 @@ title: "Base with Qt and PySide CI Docker Image"
 description: |
   Contains: Python, TBB, Boost, Qt, PySide and other base libraries
 packages:
+  - blosc
   - boost
   - cmake
   - cppunit
   - glew
   - glfw
+  - gtest
   - log4cplus
+  - pybind11
   - python
   - tbb
   - qt

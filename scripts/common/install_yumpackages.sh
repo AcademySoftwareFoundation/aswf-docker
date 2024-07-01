@@ -216,6 +216,7 @@ yum install -y \
     lame-devel \
     libcaca-devel \
     libdc1394-devel \
+    libdeflate-devel \
     opencl-headers \
     patchelf \
     p7zip \

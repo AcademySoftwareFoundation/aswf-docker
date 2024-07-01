@@ -1,6 +1,19 @@
-from conans import ConanFile, CMake, tools
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
 
-import os.path
+from conan import ConanFile
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.files import (
+    apply_conandata_patches,
+    collect_libs,
+    copy,
+    export_conandata_patches,
+    get,
+    rmdir,
+)
+from conan.tools.microsoft import is_msvc
+from conans import tools
 import os
 
 
@@ -21,138 +34,126 @@ class ClangConan(ConanFile):
         "targets": "ANY",
     }
     default_options = {
-        "components": "llvm;clang;clang-tools-extra;compiler-rt;lld",
+        "components": "clang;clang-tools-extra;lld",
         "targets": "host;NVPTX",
     }
 
-    exports_sources = ["CMakeLists.txt", "patches/*"]
-    generators = ["cmake", "cmake_find_package"]
-    no_copy_source = True
+    def export_sources(self):
+        export_conandata_patches(self)
 
-    @property
-    def _source_subfolder(self):
-        return "source"
+    def layout(self):
+        cmake_layout(self, src_folder="src")
+        # We want DSOs in lib64
+        self.cpp.package.libdirs = ["lib64"]
 
-    # def build_requirements(self):
-    # if tools.Version(self.version) > "11":
-    # We can't use our python package for a few reasons:
-    # - it introduces a circular dependency between the clang package build, in ci_commonX context
-    #   and vfx20XX context
-    # - the Package ID won't match: the vfx20XX profile adds a python=3.x setting which the ci_commonX
-    #   doesn't have, and if you don't define ASWF_NUMPY_VERSION, the conanfile.py for the python package
-    #   sets the option with_numpy=False, which also invalidates the Package ID
-    #
-    # Also the process which installed Conan in our build container built a Python in /tmp/pyconan, but
-    # it cleans up up once Conan has been installed and turned into an executable with pyinstaller.
-    #
-    # We could of course make sure we have a Python 3 installed in the docker image.
-    #
-    # Instead we just go ahead and rebuild Python from scratch.
-    #
-    # self.build_requires(f"python/3.9.7@{self.user}/vfx2022")
+    def build_requirements(self):
+        self.build_requires(
+            f"ninja/{os.environ['ASWF_NINJA_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
+        )
+        # if tools.Version(self.version) > "11":
+        # We can't use our python package for a few reasons:
+        # - it introduces a circular dependency between the clang package build, in ci_commonX context
+        #   and vfx20XX context
+        # - the Package ID won't match: the vfx20XX profile adds a python=3.x setting which the ci_commonX
+        #   doesn't have, and if you don't define ASWF_NUMPY_VERSION, the conanfile.py for the python package
+        #   sets the option with_numpy=False, which also invalidates the Package ID
+        #
+        # Also the process which installed Conan in our build container built a Python in /tmp/pyconan, but
+        # it cleans up up once Conan has been installed and turned into an executable with pyinstaller.
+        #
+        # As of VFX 2023 we can assume a reasonably recent Python 3 in the base image.
+        #
+        # self.build_requires(f"python/3.9.7@{self.user}/vfx2022")
 
-    def configure(self):
+    def source(self):
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.variables["GCC_INSTALL_PREFIX"] = tools.get_env("GCC_INSTALL_PREFIX")
+        tc.variables["LLVM_BUILD_LLVM_DYLIB"] = True
+        tc.variables["CLANG_INCLUDE_DOCS"] = False
+        tc.variables["LIBCXX_INCLUDE_DOCS"] = False
+        tc.variables["LLVM_BUILD_TESTS"] = False
+        tc.variables["LLVM_INCLUDE_TESTS"] = False
+        tc.variables["LLVM_INCLUDE_TOOLS"] = True
+        tc.variables["LLVM_BUILD_TOOLS"] = True
+        tc.variables["LLVM_TOOL_LLVM_AR_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_AS_BUILD"] = True
+        tc.variables["LLVM_TOOL_LLVM_AS_FUZZER_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_BCANALYZER_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_COV_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_CXXDUMP_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_DIS_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_EXTRACT_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_C_TEST_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_DIFF_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_GO_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_JITLISTENER_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_LTO_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_MC_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_NM_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_OBJDUMP_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_BCANALYZER_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_PROFDATA_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_RTDYLD_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_SIZE_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_SPLIT_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_STRESS_BUILD"] = False
+        tc.variables["LLVM_TOOL_LLVM_SYMBOLIZER_BUILD"] = True
+        tc.variables["LLVM_TOOL_LLVM_LTO_BUILD"] = False
+        tc.variables["LLVM_INCLUDE_EXAMPLES"] = False
+        tc.variables["CMAKE_SKIP_RPATH"] = True
+        tc.variables["LLVM_ENABLE_PROJECTS"] = self.options.components
+        tc.variables["LLVM_TARGETS_TO_BUILD"] = self.options.targets
         compiler = self.settings.compiler.value
         version = tools.Version(self.settings.compiler.version)
         if (
             tools.Version(self.version) >= "13"
             and compiler == "gcc"
-            and int(version.major) == 9
+            and int(version.major) >= 9
         ):
-            # llvm-13 fails to build (mostly unused) libc++
+            # llvm-13 / gcc9 fails to build (mostly unused) libc++
             # see https://www.mail-archive.com/llvm-bugs@lists.llvm.org/msg53136.html
-            self.options.components.value = self.options.components.value.replace(
-                "libcxx;libcxxabi;", ""
-            )
-
-    def _configure_cmake(self):
-        cmake = CMake(self)
-        cmake.definitions["GCC_INSTALL_PREFIX"] = os.environ["GCC_INSTALL_PREFIX"]
-        cmake.definitions["LLVM_BUILD_LLVM_DYLIB"] = True
-        cmake.definitions["CLANG_INCLUDE_DOCS"] = False
-        cmake.definitions["LIBCXX_INCLUDE_DOCS"] = False
-        cmake.definitions["LLVM_BUILD_TESTS"] = False
-        cmake.definitions["LLVM_INCLUDE_TESTS"] = False
-        cmake.definitions["LLVM_INCLUDE_TOOLS"] = True
-        cmake.definitions["LLVM_BUILD_TOOLS"] = True
-        cmake.definitions["LLVM_TOOL_LLVM_AR_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_AS_BUILD"] = True
-        cmake.definitions["LLVM_TOOL_LLVM_AS_FUZZER_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_BCANALYZER_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_COV_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_CXXDUMP_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_DIS_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_EXTRACT_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_C_TEST_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_DIFF_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_GO_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_JITLISTENER_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_LTO_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_MC_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_NM_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_OBJDUMP_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_BCANALYZER_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_PROFDATA_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_RTDYLD_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_SIZE_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_SPLIT_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_STRESS_BUILD"] = False
-        cmake.definitions["LLVM_TOOL_LLVM_SYMBOLIZER_BUILD"] = True
-        cmake.definitions["LLVM_TOOL_LLVM_LTO_BUILD"] = False
-        cmake.definitions["LLVM_INCLUDE_EXAMPLES"] = False
-        cmake.definitions["CMAKE_SKIP_RPATH"] = True
-        cmake.definitions["LLVM_ENABLE_PROJECTS"] = self.options.components
-        cmake.definitions["LLVM_TARGETS_TO_BUILD"] = self.options.targets
-        cmake.definitions["LLVM_ENABLE_RUNTIMES"] = "libcxx;libcxxabi"
-        cmake.definitions["LLVM_TOOL_LIBCXX_BUILD"] = "ON"
-        cmake.definitions["LLVM_TOOL_LIBCXXABI_BUILD"] = "ON"
-
+            tc.variables["LLVM_ENABLE_RUNTIMES"] = "compiler-rt"
+            tc.variables["LLVM_TOOL_LIBCXX_BUILD"] = "OFF"
+            tc.variables["LLVM_TOOL_LIBCXXABI_BUILD"] = "OFF"
+        else:
+            tc.variables["LLVM_ENABLE_RUNTIMES"] = "libcxx;libcxxabi;compiler-rt"
+            tc.variables["LLVM_TOOL_LIBCXX_BUILD"] = "ON"
+            tc.variables["LLVM_TOOL_LIBCXXABI_BUILD"] = "ON"
+        tc.variables["LLVM_ENABLE_LIBXML2"] = "OFF"
         if self.settings.compiler == "Visual Studio":
             build_type = str(self.settings.build_type).upper()
-            cmake.definitions[
+            tc.variables[
                 "LLVM_USE_CRT_{}".format(build_type)
             ] = self.settings.compiler.runtime
+        # Libraries go to lib64
+        tc.variables["LLVM_LIBDIR_SUFFIX"] = "64"
+        tc.generate()
 
-        return cmake
+        deps = CMakeDeps(self)
+        deps.generate()
 
-    def source(self):
-        tools.get(
-            f"https://github.com/llvm/llvm-project/archive/llvmorg-{self.version}.tar.gz"
-        )
-        os.rename(
-            "llvm-project-llvmorg-{}".format(self.version), self._source_subfolder
-        )
+    def _patch_sources(self):
+        apply_conandata_patches(self)
 
     def build(self):
-        # See commented out build_requirements(): we have to build our own Python to break circular dependency
-        pyclangenv = {
-            "PATH": f"/tmp/pyclang/bin:{os.environ['PATH']}",
-            "LD_LIBRARY_PATH": f"/tmp/pyclang/lib:{os.environ['LD_LIBRARY_PATH']}",
-        }
-        tools.get(
-            f"https://www.python.org/ftp/python/{os.environ['ASWF_CONAN_PYTHON_VERSION']}/Python-{os.environ['ASWF_CONAN_PYTHON_VERSION']}.tgz"
-        )
-        with tools.environment_append(pyclangenv):
-            with tools.chdir(f"Python-{os.environ['ASWF_CONAN_PYTHON_VERSION']}"):
-                self.run(
-                    "./configure --prefix=/tmp/pyclang --enable-unicode=ucs4 --enable-shared"
-                )
-                self.run(f"make -j{tools.cpu_count()}")
-                self.run("make install")
-            with tools.environment_append(tools.RunEnvironment(self).vars):
-                cmake = self._configure_cmake()
-                cmake.configure(source_folder="source/llvm")
-                cmake.build()
+        self._patch_sources()
+        cmake = CMake(self)
+        cmake.configure(build_script_folder="llvm")
+        cmake.build()
 
     def package(self):
-        self.copy(
+        copy(
+            self,
             "LICENSE.TXT",
-            dst="licenses",
-            src=os.path.join(self._source_subfolder, "llvm"),
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses", self.name),
         )
-        with tools.environment_append(tools.RunEnvironment(self).vars):
-            cmake = self._configure_cmake()
-            cmake.install()
+        cmake = CMake(self)
+        cmake.install()
+        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
@@ -172,4 +173,4 @@ class ClangConan(ConanFile):
         self.env_info.CLANG_INSTALL_DIR = self.package_folder
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

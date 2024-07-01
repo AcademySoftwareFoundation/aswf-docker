@@ -1,0 +1,24 @@
+sources:
+  2.7.15:
+    url: "https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz"
+    sha256: "18617d1f15a380a919d517630a9cd85ce17ea602f9bbdc58ddc672df4b0239db"
+  3.7.3:
+    url: "https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz"
+    sha256: "d62e3015f2f89c970ac52343976b406694931742fbde2fed8d1ce8ebb4e1f8ff"
+  3.7.9:
+    url: "https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tgz"
+    sha256: "39b018bc7d8a165e59aa827d9ae45c45901739b0bbb13721e4f973f3521c166a"
+  3.9.15:
+    url: "https://www.python.org/ftp/python/3.9.15/Python-3.9.15.tgz"
+    sha256: "48d1ccb29d5fbaf1fb8f912271d09f7450e426d4dfe95978ef6aaada70ece4d8"
+  3.10.11:
+    url: "https://www.python.org/ftp/python/3.10.11/Python-3.10.11.tgz"
+    sha256: "f3db31b668efa983508bd67b5712898aa4247899a346f2eb745734699ccd3859"
+  3.11.8:
+    url: "https://www.python.org/ftp/python/3.11.8/Python-3.11.8.tgz"
+    sha256: "d3019a613b9e8761d260d9ebe3bd4df63976de30464e5c0189566e1ae3f61889"
+  3.11.9:
+    url: "https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tgz"
+    sha256: "d3019a613b9e8761d260d9ebe3bd4df63976de30464e5c0189566e1ae3f61889"
+    sha256: "e7de3240a8bc2b1e1ba5c81bf943f06861ff494b69fda990ce2722a504c6153d"
+patches:

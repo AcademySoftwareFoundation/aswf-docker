@@ -1,0 +1,24 @@
+name: "oiio"
+title: "OpenImageIO CI Docker Image"
+description: |
+  Contains: Python, Boost, OpenEXR, Partio and other OpenImageIO upstream dependencies
+  Warning: this image does *not* contain OpenImageIO itself as it is used to *build* OpenImageIO!
+packages:
+  - blosc
+  - boost
+  - cmake
+  - python
+  - imath
+  - ocio
+  - openexr
+  - openvdb
+  - partio
+  - pybind11
+  - ptex
+  - qt
+  - tbb
+implicit_packages:
+  - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION

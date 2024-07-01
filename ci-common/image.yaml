@@ -1,7 +1,7 @@
 name: "common"
 title: "Common CI Docker Image"
 description: |
-  Contains: GCC, Clang, Jinja, ccache and all base OS libraries
+  Contains: GCC, Clang, CMake, Jinja, ccache and all base OS libraries
 packages:
   - clang
   - ninja
@@ -12,6 +12,7 @@ implicit_packages:
   - dts
   - sonar
   - conan
+  - cmake
 docker_from: ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-devel-${ASWF_BASEOS_DISTRO}
 docker_package_version: $CI_COMMON_VERSION
 docker_commands: |

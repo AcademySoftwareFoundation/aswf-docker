@@ -3,7 +3,8 @@ if (TARGET Python::Interpreter)
 endif()
 
 unset(_python_install_prefix)
-get_filename_component(_python_install_prefix "${CMAKE_CURRENT_LIST_DIR}/../" ABSOLUTE)
+# CMake modules installed in {platlibdir}/cmake/python need 3 levels up to find bin
+get_filename_component(_python_install_prefix "${CMAKE_CURRENT_LIST_DIR}/../../../" ABSOLUTE)
 {% if os == "Macos" %}
 set(Python_EXECUTABLE "${_python_install_prefix}/Python.framework/Versions/{{version_major}}.{{version_minor}}/bin/python{{version_major}}.{{version_minor}}")
 {% elif os == "Windows" %}

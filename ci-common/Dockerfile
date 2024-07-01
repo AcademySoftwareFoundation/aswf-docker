@@ -19,6 +19,7 @@ ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_SONAR_VERSION
 ARG ASWF_CONAN_VERSION
+ARG ASWF_CMAKE_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
 
 
@@ -49,12 +50,13 @@ ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_SONAR_VERSION
 ARG ASWF_CONAN_VERSION
+ARG ASWF_CMAKE_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
 
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-common"
 LABEL org.opencontainers.image.title="Common CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: GCC, Clang, Jinja, ccache and all base OS libraries"
+LABEL org.opencontainers.image.description="Contains: GCC, Clang, CMake, Jinja, ccache and all base OS libraries"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-common/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
@@ -71,6 +73,7 @@ LABEL io.aswf.docker.versions.ccache="$ASWF_CCACHE_VERSION"
 LABEL io.aswf.docker.versions.dts="$ASWF_DTS_VERSION"
 LABEL io.aswf.docker.versions.sonar="$ASWF_SONAR_VERSION"
 LABEL io.aswf.docker.versions.conan="$ASWF_CONAN_VERSION"
+LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
 
 
 ENV ASWF_ORG=${ASWF_ORG}
@@ -89,6 +92,7 @@ ENV ASWF_CCACHE_VERSION=$ASWF_CCACHE_VERSION
 ENV ASWF_DTS_VERSION=$ASWF_DTS_VERSION
 ENV ASWF_SONAR_VERSION=$ASWF_SONAR_VERSION
 ENV ASWF_CONAN_VERSION=$ASWF_CONAN_VERSION
+ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
 ENV ASWF_CONAN_PYTHON_VERSION=$ASWF_CONAN_PYTHON_VERSION
 
 

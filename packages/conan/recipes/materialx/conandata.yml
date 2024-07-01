@@ -1,0 +1,14 @@
+sources:
+  "1.38.5":
+    url: "https://github.com/AcademySoftwareFoundation/MaterialX/archive/v1.38.5.tar.gz"
+    sha256: "af1e1ddb7980b299171803c0410d2a189653eb8624beb49541fd15978b784f1d"
+  "1.38.7":
+    url: "https://github.com/AcademySoftwareFoundation/MaterialX/archive/v1.38.7.tar.gz"
+    sha256: "54ea1193c77a8a3a5c80b5c00b1911d82985453f4d4d072737cf44b34325f6df"
+  "1.38.9":
+    url: "https://github.com/AcademySoftwareFoundation/MaterialX/archive/v1.38.9.tar.gz"
+    sha256: "8eb707bd9bc63ced7a8d64c2e3b2e1e39df71e2a8650daa178f564bec0c79291"
+  "1.38.10":
+    url: "https://github.com/AcademySoftwareFoundation/MaterialX/archive/v1.38.10.tar.gz"
+    sha256: "706f44100188bc283a135ad24b348e55b405ac9e70cb64b7457c381383cc2887"
+patches:

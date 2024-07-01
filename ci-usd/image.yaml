@@ -18,6 +18,7 @@ packages:
   - openexr
   - oiio
   - ocio
+  - pybind11
   - ptex
   - opensubdiv
   - alembic

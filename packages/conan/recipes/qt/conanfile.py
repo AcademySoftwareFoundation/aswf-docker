@@ -2027,4 +2027,4 @@ class QtConan(ConanFile):
         self.cpp_info.set_property("cmake_build_modules", build_modules_list)
 
     def deploy(self):
-        self.copy("*")
+        self.copy("*", symlinks=True)

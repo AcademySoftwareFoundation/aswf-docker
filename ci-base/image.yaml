@@ -3,6 +3,7 @@ title: "Base CI Docker Image"
 description: |
   Contains: Python, TBB, Boost and other base libraries
 packages:
+  - blosc
   - boost
   - cmake
   - cppunit

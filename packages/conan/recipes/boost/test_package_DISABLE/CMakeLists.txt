@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(test_package)
-
-include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
-conan_basic_setup(TARGETS)
+project(test_package LANGUAGES CXX)
 
 if(NOT HEADER_ONLY)
     if(WITH_RANDOM)
@@ -96,8 +93,7 @@ if(NOT HEADER_ONLY)
         add_library(hello_ext MODULE python.cpp)
         set_property(TARGET hello_ext PROPERTY PREFIX "")
 
-        find_package(PythonInterp REQUIRED)
-        find_package(PythonLibs REQUIRED)
+        find_package(Python COMPONENTS REQUIRED Interpreter Development)
 
         target_include_directories(hello_ext PRIVATE ${PYTHON_INCLUDE_DIRS})
         target_link_libraries(hello_ext PRIVATE Boost::python${PYTHON_COMPONENT_SUFFIX} ${PYTHON_LIBRARIES})

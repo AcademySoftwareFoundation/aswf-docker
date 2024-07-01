@@ -24,6 +24,25 @@ class TestPackageConan(ConanFile):
 
         toolchain = CMakeToolchain(self)
         # Used by FindPython.cmake in CMake
+        # toolchain.variables["Python_EXECUTABLE"] = PurePath(
+        #    self._python_interpreter
+        # ).as_posix()
+        # Used by FindPythonLibsNew.cmake in pybind11
+        # FIXME toolchain.variables["PYTHON_EXECUTABLE"] = PurePath(
+        #    self._python_interpreter
+        # ).as_posix()
+        # toolchain.variables["Python_INCLUDE_DIRS"] = self.deps_cpp_info[
+        #    "python"
+        # ].include_paths[0]
+        # FIXME toolchain.variables["PYTHON_INCLUDE_DIRS"] = self.deps_cpp_info[
+        #    "python"
+        # ].include_paths[0]
+        # toolchain.variables["Python_LIBRARY_DIR"] = self.deps_cpp_info["python"].lib_paths[0]
+        # FIXME toolchain.variables["PYTHON_LIBRARIES"] = self.deps_cpp_info[
+        #    "python"
+        # ].lib_paths[0]
+
+        # Used by FindPython.cmake in CMake
         toolchain.variables["Python_EXECUTABLE"] = PurePath(
             self._python_interpreter
         ).as_posix()
@@ -31,21 +50,15 @@ class TestPackageConan(ConanFile):
         toolchain.variables["PYTHON_EXECUTABLE"] = PurePath(
             self._python_interpreter
         ).as_posix()
-        toolchain.variables["Python_INCLUDE_DIR"] = self.deps_cpp_info[
-            "python"
-        ].include_paths[0]
-        toolchain.variables["PYTHON_INCLUDE_DIRS"] = self.deps_cpp_info[
-            "python"
-        ].include_paths[0]
-        toolchain.variables["Python_LIBRARY"] = self.deps_cpp_info["python"].lib_paths[
-            0
-        ]
-        toolchain.variables["PYTHON_LIBRARIES"] = self.deps_cpp_info[
-            "python"
-        ].lib_paths[0]
+
+        # FIXME: we shouldn't need the following two
+        # FIXME 2024-06-23: let CMake find python?
+        # toolchain.variables["PYBIND11_FINDPYTHON"] = "ON"
+        toolchain.variables["CMAKE_FIND_DEBUG_MODE"] = "ON"
         toolchain.generate()
 
         env = Environment()
+        # FIXME
         env.append_path(
             "PYTHONPATH", os.path.join(self.build_folder, self.cpp.build.libdirs[0])
         )
@@ -60,6 +73,7 @@ class TestPackageConan(ConanFile):
     def build(self):
         cmake = CMake(self)
         cmake.configure()
+        # FIXME
         cmake.build(cli_args=["--verbose"])
 
     @property

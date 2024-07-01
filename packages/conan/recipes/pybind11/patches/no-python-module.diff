@@ -1,0 +1,13 @@
+diff --git a/tools/pybind11NewTools.cmake b/tools/pybind11NewTools.cmake
+index 9fe2eb08..de6245ff 100644
+--- a/tools/pybind11NewTools.cmake
++++ b/tools/pybind11NewTools.cmake
+@@ -33,7 +33,7 @@ if(NOT Python_FOUND AND NOT Python3_FOUND)
+   endif()
+
+   # Development.Module support (required for manylinux) started in 3.18
+-  if(CMAKE_VERSION VERSION_LESS 3.18)
++  if(TRUE)
+     set(_pybind11_dev_component Development)
+   else()
+     set(_pybind11_dev_component Development.Module OPTIONAL_COMPONENTS Development.Embed)

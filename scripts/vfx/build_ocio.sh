@@ -24,11 +24,14 @@ mkdir build
 cd build
 cmake \
     -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
+    -DOCIO_USE_OIIO_FOR_APPS=OFF \
     -DOCIO_BUILD_STATIC=OFF \
     -DOCIO_BUILD_TRUELIGHT=OFF \
     -DOCIO_BUILD_APPS=OFF \
     -DOCIO_BUILD_NUKE=OFF \
     -DOCIO_INSTALL_EXT_PACKAGES=MISSING \
+    -Dpybind11_ROOT="${ASWF_INSTALL_PREFIX}" \
+    -DGLEW_ROOT="${ASWF_INSTALL_PREFIX}" \
     -DCMAKE_CXX_FLAGS="-Wno-error=unused-function -Wno-error=deprecated-declarations"\
     ..
 make -j$(nproc)
