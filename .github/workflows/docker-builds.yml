@@ -26,9 +26,9 @@ jobs:
         include:
           - group: vfx-2024
             name: vfx-2024
-            common_version: 4-clang17
+            common_version: 4-clang16
             common_version_noclang: 4
-            version: 2024-clang17
+            version: 2024-clang16
             version_noclang: 2024
             test: ""
 
