@@ -65,7 +65,8 @@ jobs:
         rm -rf /usr/share/dotnet/
         df -h
 
-    - run: |
+    - name: Build Ninja (Conan)
+      run: |
         set -ex
         pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
@@ -77,7 +78,27 @@ jobs:
           --version ${{ matrix.common_version_noclang }} \
           --version ${{ matrix.common_version }} \
           --use-conan \
-          --build-missing
+          --build-missing \
+          --target ninja
+
+    - name: Build Clang (Conan)
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group common \
+          --version ${{ matrix.common_version_noclang }} \
+          --version ${{ matrix.common_version }} \
+          --use-conan \
+          --build-missing \
+          --target clang
+
+    - name: build ci-common Docker Image for downstream images
+      run: |
         pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
           --source-branch $GITHUB_REF \
@@ -87,9 +108,9 @@ jobs:
           --group common \
           --version ${{ matrix.common_version }}\
           --push NO
-      name: build ci-common Docker Image for downstream images
 
-    - run: |
+    - name: Build base1 Conan packages for base image
+      run: |
         set -ex
         pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
@@ -103,19 +124,37 @@ jobs:
           --version ${{ matrix.version_noclang }} \
           --use-conan \
           --build-missing
+
+    - name: Build base2 Conan packages (Qt) for base image
+      run: |
+        set -ex
         pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
           --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
-          --group base1 \
           --group base2 \
-          --group base3 \
-          --version ${{ matrix.version_noclang }}
-      name: Build package dependencies for base image
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing
 
-    - run: |
+    - name: Build base3 Conan packages (PySide) for base image
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group base3 \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing
+
+    - name: Build base image
+      run: |
         set -ex
         pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
@@ -126,7 +165,6 @@ jobs:
           --group base \
           --version ${{ matrix.version }} \
           --push NO
-      name: Build base image
 
     - run: |
         set -ex
