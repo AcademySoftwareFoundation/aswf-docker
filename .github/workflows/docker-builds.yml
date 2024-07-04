@@ -33,13 +33,10 @@ jobs:
             test: ""
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Activate Docker buildx
-      run: |
-        mkdir -p ~/.docker/cli-plugins
-        curl --location https://github.com/docker/buildx/releases/download/v0.11.2/buildx-v0.11.2.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
-        chmod a+x ~/.docker/cli-plugins/docker-buildx
+      uses: docker/setup-buildx-action@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -187,7 +184,7 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group vfx1 \
-          --target openexr
+          --target openexr \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
           --build-missing \
