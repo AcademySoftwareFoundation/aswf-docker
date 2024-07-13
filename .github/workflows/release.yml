@@ -28,6 +28,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Activate Docker buildx
+      uses: docker/setup-buildx-action@v3
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -41,15 +45,6 @@ jobs:
     - name: Login to DockerHub
       if: ${{ matrix.build }}
       run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u aswfdocker --password-stdin
-
-    - name: Activate Docker buildx
-      if: ${{ matrix.build }}
-      run: |
-        mkdir -p ~/.docker/cli-plugins
-        curl --location https://github.com/docker/buildx/releases/download/v0.11.2/buildx-v0.11.2.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
-        chmod a+x ~/.docker/cli-plugins/docker-buildx
-        docker buildx create --name forpushing --use
-        docker buildx inspect --bootstrap
 
     - name: Build and Push
       if: ${{ matrix.build }}
