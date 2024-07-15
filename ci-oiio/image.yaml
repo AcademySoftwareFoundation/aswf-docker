@@ -12,7 +12,6 @@ packages:
   - ocio
   - openexr
   - openvdb
-  - partio
   - pybind11
   - ptex
   - qt

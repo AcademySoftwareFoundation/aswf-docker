@@ -36,6 +36,7 @@ Contains:
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
+* pybind11-2.4.3
 * opensubdiv-3_3_3
 * ptex-2.1.33
 * openvdb-6.2.1
@@ -66,6 +67,7 @@ Contains:
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
+* pybind11-2.4.3
 * opensubdiv-3_3_3
 * ptex-2.1.33
 * openvdb-6.2.1
@@ -96,6 +98,7 @@ Contains:
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
+* pybind11-2.4.3
 * opensubdiv-3_3_3
 * ptex-2.1.33
 * openvdb-6.2.1
@@ -126,6 +129,7 @@ Contains:
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
+* pybind11-2.4.3
 * opensubdiv-3_3_3
 * ptex-2.1.33
 * openvdb-6.2.1
@@ -156,6 +160,7 @@ Contains:
 * alembic-1.7.12
 * oiio-2.1.13.0
 * ocio-1.1.1
+* pybind11-2.4.3
 * opensubdiv-3_4_3
 * ptex-2.3.2
 * openvdb-7.1.0
@@ -186,6 +191,7 @@ Contains:
 * alembic-1.7.16
 * oiio-2.2.14.0
 * ocio-2.0.1
+* pybind11-2.6.2
 * opensubdiv-3_4_3
 * ptex-2.3.2
 * openvdb-8.0.1
@@ -216,6 +222,7 @@ Contains:
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
+* pybind11-2.8.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
@@ -247,6 +254,7 @@ Contains:
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
+* pybind11-2.8.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
@@ -278,6 +286,7 @@ Contains:
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
+* pybind11-2.8.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
@@ -309,6 +318,7 @@ Contains:
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
+* pybind11-2.8.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
@@ -340,6 +350,7 @@ Contains:
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
+* pybind11-2.8.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
@@ -371,6 +382,7 @@ Contains:
 * alembic-1.8.5
 * oiio-2.4.13.0
 * ocio-2.2.1
+* pybind11-2.9.2
 * opensubdiv-3_5_0
 * ptex-2.4.2
 * openvdb-10.0.1
@@ -402,6 +414,7 @@ Contains:
 * alembic-1.8.5
 * oiio-2.4.13.0
 * ocio-2.2.1
+* pybind11-2.9.2
 * opensubdiv-3_5_0
 * ptex-2.4.2
 * openvdb-10.0.1
@@ -433,6 +446,7 @@ Contains:
 * alembic-1.8.6
 * oiio-2.5.12.0
 * ocio-2.3.2
+* pybind11-2.12.0
 * opensubdiv-3.6.0
 * ptex-2.4.2
 * openvdb-11.0.0
@@ -464,6 +478,7 @@ Contains:
 * alembic-1.8.6
 * oiio-2.5.12.0
 * ocio-2.3.2
+* pybind11-2.12.0
 * opensubdiv-3.6.0
 * ptex-2.4.2
 * openvdb-11.0.0

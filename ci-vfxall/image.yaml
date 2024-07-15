@@ -19,6 +19,7 @@ packages:
   - alembic
   - oiio
   - ocio
+  - pybind11
   - opensubdiv
   - ptex
   - openvdb

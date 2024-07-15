@@ -29,7 +29,6 @@ Contains:
 * ocio-2.3.2
 * openexr-3.2.4
 * openvdb-11.0.0
-* partio-1.17.1
 * pybind11-2.12.0
 * ptex-2.4.2
 * qt-6.5.3
