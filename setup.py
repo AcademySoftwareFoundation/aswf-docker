@@ -42,7 +42,7 @@ setup(
         "patch-ng==1.17.4",
         "pluginbase==1.0.1",
         "pygithub==1.54.1",
-        "pygments==2.12.0; python_version >= '3.6'",
+        "pygments==2.15.0; python_version >= '3.6'",
         "pyjwt==1.7.1",
         "python-dateutil==2.8.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
         "pyyaml==5.4.1",
