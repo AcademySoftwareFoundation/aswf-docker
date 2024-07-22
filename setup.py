@@ -46,7 +46,7 @@ setup(
         "pyjwt==1.7.1",
         "python-dateutil==2.8.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
         "pyyaml==5.4.1",
-        "requests==2.27.1",
+        "requests==2.31.0",
         "six==1.16.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
         "tqdm==4.64.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
         "urllib3==1.26.9; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
