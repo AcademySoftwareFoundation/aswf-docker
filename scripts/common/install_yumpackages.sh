@@ -235,7 +235,6 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     dnf -y install \
         git \
         wayland-devel \
-        python3-html5lib \
         python3-importlib-metadata \
         brotli brotli-devel \
         double-conversion double-conversion-devel \
