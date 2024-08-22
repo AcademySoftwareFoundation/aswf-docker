@@ -151,6 +151,7 @@ yum install --setopt=tsflags=nodocs -y \
     pkgconfig \
     procps-ng-devel \
     pulseaudio-libs \
+    pulseaudio-libs-glib2 \
     pulseaudio-libs-devel \
     readline \
     readline-devel \
@@ -220,6 +221,8 @@ yum install -y \
     opencl-headers \
     patchelf \
     p7zip \
+    portaudio \
+    portaudio-devel \
     xcb-util-cursor \
     xcb-util-cursor-devel \
     yasm-devel \
