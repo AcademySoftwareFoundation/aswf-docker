@@ -18,7 +18,7 @@ ARG {{ arg }}
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
-ARG ASWF_{{package.upper()}}_VERSION
+ARG ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
@@ -35,7 +35,7 @@ ARG ASWF_BASEOS_DISTRO
 # Comment out this block to use Conan packages
 {% for package in packages -%}
 {% if not index.is_conan_only_package(package) -%}
-FROM ${ASWF_PKG_ORG}/ci-package-{{ package }}:{{docker_package_version}}-$ASWF_{{package.upper()}}_VERSION AS ci-package-{{ package }}
+FROM ${ASWF_PKG_ORG}/ci-package-{{ package }}:{{docker_package_version}}-$ASWF_{{package|upper|replace("-", "_")}}_VERSION AS ci-package-{{ package }}
 {% endif -%}
 {% endfor -%}
 
@@ -58,7 +58,7 @@ ARG {{ arg }}
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
-ARG ASWF_{{package.upper()}}_VERSION
+ARG ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
@@ -81,7 +81,7 @@ LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
 {% endif %}
 
 {% for package in packages + implicit_packages -%}
-LABEL io.aswf.docker.versions.{{ package }}="$ASWF_{{ package.upper() }}_VERSION"
+LABEL io.aswf.docker.versions.{{ package }}="$ASWF_{{ package|upper|replace("-", "_") }}_VERSION"
 {% endfor %}
 
 ENV ASWF_ORG=${ASWF_ORG}
@@ -99,7 +99,7 @@ ENV {{ arg }}=${{ arg }}
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
-ENV ASWF_{{package.upper()}}_VERSION=$ASWF_{{package.upper()}}_VERSION
+ENV ASWF_{{package|upper|replace("-", "_")}}_VERSION=$ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
 
 {% for package in packages + implicit_packages -%}
@@ -132,9 +132,9 @@ COPY <<EOF /usr/local/conanfile.txt
 [requires]
 {% for package in packages -%}
 {% if index.is_conan_only_package(package) -%}
-{{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+{{package}}/${ASWF_{{package|upper|replace("-", "_")}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 {% else -%}
-# {{package}}/${ASWF_{{package.upper()}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+# {{package}}/${ASWF_{{package|upper|replace("-", "_")}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 {% endif -%}
 {% endfor -%}
 EOF

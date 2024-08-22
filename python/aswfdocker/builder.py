@@ -105,7 +105,8 @@ class Builder:
                         "ASWF_PKG_NAME": image.replace("ci-package-", ""),
                         "ASWF_PKG_VERSION": version_info.package_versions.get(
                             "ASWF_"
-                            + image.replace("ci-package-", "").upper()
+                            # Handle dependencies with hyhpen in their name.
+                            + image.replace("ci-package-", "").upper().replace("-", "_")
                             + "_VERSION"
                         ),
                         "CONAN_USER_HOME": constants.CONAN_USER_HOME,
