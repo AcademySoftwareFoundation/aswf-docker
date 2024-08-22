@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import is_apple_os
@@ -25,7 +29,7 @@ class OpenALConan(ConanFile):
     name = "openal"
     description = "OpenAL Soft is a software implementation of the OpenAL 3D audio API."
     topics = ("openal", "audio", "api")
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://openal-soft.org/"
     license = "LGPL-2.0-or-later"
 
@@ -77,7 +81,9 @@ class OpenALConan(ConanFile):
 
     def requirements(self):
         if self.settings.os == "Linux":
-            self.requires("libalsa/1.2.7.2")
+            self.requires(
+                f"libalsa/{os.environ['ASWF_LIBALSA_VERSION']}@{self.user}/{self.channel}"
+            )
 
     def validate(self):
         if self._openal_cxx_backend:

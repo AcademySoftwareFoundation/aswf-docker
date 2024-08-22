@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 import os
 
 from conan import ConanFile
@@ -13,7 +17,7 @@ class LinuxHeadersGenericConan(ConanFile):
     name = "linux-headers-generic"
     description = "Generic Linux kernel headers"
     license = "GPL-2.0-only"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://www.kernel.org/"
     topics = ("linux", "headers", "generic", "header-only")
 

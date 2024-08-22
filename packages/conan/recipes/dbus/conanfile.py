@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import fix_apple_shared_install_name, is_apple_os
@@ -17,7 +21,7 @@ class DbusConan(ConanFile):
     name = "dbus"
     # license is AFL-2.1 OR GPL-2.0-or-later with several other compatible licenses for smaller sections of code
     license = "(AFL-2.1 OR GPL-2.0-or-later) AND DocumentRef-COPYING"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://www.freedesktop.org/wiki/Software/dbus"
     description = "D-Bus is a simple system for interprocess communication and coordination."
     topics = "bus", "interprocess", "message"
@@ -78,7 +82,8 @@ class DbusConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("expat/[>=2.6.2 <3]")
+        #self.requires("expat/[>=2.6.2 <3]")
+        self.requires(f"expat/{os.environ['ASWF_EXPAT_VERSION']}@{self.user}/{self.channel}")
         if self.options.get_safe("with_systemd"):
             self.requires("libsystemd/253.6")
         if self.options.get_safe("with_selinux"):
@@ -99,9 +104,9 @@ class DbusConan(ConanFile):
             raise ConanInvalidConfiguration(f"{self.ref} requires at least gcc 7.")
 
     def build_requirements(self):
-        self.tool_requires("meson/1.4.0")
+        self.tool_requires(f"meson/{os.environ['ASWF_MESON_VERSION']}@{self.user}/{self.channel}")
         if not self.conf.get("tools.gnu:pkg_config",check_type=str):
-            self.tool_requires("pkgconf/2.1.0")
+            self.tool_requires(f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

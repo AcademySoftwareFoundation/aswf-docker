@@ -1,3 +1,9 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
+import os
+
 from conan import ConanFile
 from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import copy, get, rmdir, apply_conandata_patches, replace_in_file, export_conandata_patches
@@ -16,7 +22,7 @@ class AutoconfConan(ConanFile):
         "scripts to automatically configure software source code packages"
     )
     license = ("GPL-2.0-or-later", "GPL-3.0-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://www.gnu.org/software/autoconf/"
     topics = ("configure", "build")
 
@@ -35,13 +41,13 @@ class AutoconfConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("m4/1.4.19") # Needed at runtime by downstream clients as well
+        self.requires(f"m4/{os.environ['ASWF_M4_VERSION']}@{self.user}/{self.channel}") # Needed at runtime by downstream clients as well
 
     def package_id(self):
         self.info.clear()
 
     def build_requirements(self):
-        self.tool_requires("m4/1.4.19")
+        self.tool_requires(f"m4/{os.environ['ASWF_M4_VERSION']}@{self.user}/{self.channel}")
         if self._settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):

@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 import os
 
 from conan import ConanFile
@@ -11,7 +15,7 @@ class NodejsConan(ConanFile):
     name = "nodejs"
     description = "Node.js is an open-source, cross-platform JavaScript runtime environment."
     license = "MIT"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://nodejs.org"
     topics = ("node", "javascript", "runtime", "pre-built")
 

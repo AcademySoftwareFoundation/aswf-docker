@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.tools.build import cross_building, can_run
 from conan.tools.env import Environment, VirtualBuildEnv, VirtualRunEnv
@@ -33,8 +37,8 @@ class TestPackageConan(ConanFile):
         if hasattr(self, "settings_build") and not cross_building(self):
             self.tool_requires(self.tested_reference_str) # We are testing libtool/libtoolize
     
-        self.tool_requires("autoconf/2.71")
-        self.tool_requires("automake/1.16.5")
+        self.tool_requires(f"autoconf/{os.environ['ASWF_AUTOCONF_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}")
         if self._settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):

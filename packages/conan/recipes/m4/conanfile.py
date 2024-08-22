@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.tools.build import cross_building
 from conan.tools.env import VirtualBuildEnv
@@ -18,7 +22,7 @@ class M4Conan(ConanFile):
     description = "GNU M4 is an implementation of the traditional Unix macro processor"
     topics = ("macro", "preprocessor")
     homepage = "https://www.gnu.org/software/m4/"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     license = "GPL-3.0-only"
     settings = "os", "arch", "compiler", "build_type"
 

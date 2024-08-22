@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 import os
 
 from conan import ConanFile
@@ -12,7 +16,7 @@ required_conan_version = ">=1.53.0"
 
 class FlexConan(ConanFile):
     name = "flex"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://github.com/westes/flex"
     description = "Flex, the fast lexical analyzer generator"
     topics = ("lex", "lexer", "lexical analyzer generator")
@@ -37,10 +41,10 @@ class FlexConan(ConanFile):
     def requirements(self):
         # Flex requires M4 to be compiled. If consumer does not have M4
         # installed, Conan will need to know that Flex requires it.
-        self.requires("m4/1.4.19")
+        self.requires(f"m4/{os.environ['ASWF_M4_VERSION']}@{self.user}/{self.channel}")
 
     def build_requirements(self):
-        self.tool_requires("m4/1.4.19")
+        self.tool_requires(f"m4/{os.environ['ASWF_M4_VERSION']}@{self.user}/{self.channel}")
         if hasattr(self, "settings_build") and cross_building(self):
             self.tool_requires(f"{self.name}/{self.version}")
 

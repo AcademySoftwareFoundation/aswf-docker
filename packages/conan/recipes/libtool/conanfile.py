@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.errors import ConanException
 from conan.tools.apple import is_apple_os, fix_apple_shared_install_name
@@ -19,7 +23,7 @@ class LibtoolConan(ConanFile):
     # most common use is as "application", but library traits
     # are a superset of application so this should cover all cases
     package_type = "library"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://www.gnu.org/software/libtool/"
     description = "GNU libtool is a generic library support script. "
     topics = ("configure", "library", "shared", "static")
@@ -55,7 +59,7 @@ class LibtoolConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("automake/1.16.5")
+        self.requires(f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}")
 
         #TODO: consider adding m4 as direct dependency, perhaps when we start using version ranges.
         # https://github.com/conan-io/conan-center-index/pull/16248#discussion_r1116332095
@@ -67,10 +71,12 @@ class LibtoolConan(ConanFile):
 
     def build_requirements(self):
         if self._has_dual_profiles:
-            self.tool_requires("automake/<host_version>")
-            self.tool_requires("m4/1.4.19")               # Needed by configure
+            self.tool_requires(f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}")
+            self.tool_requires(
+                f"m4/{os.environ['ASWF_M4_VERSION']}@{self.user}/{self.channel}"
+            ) # Needed by configure
 
-        self.tool_requires("gnu-config/cci.20210814")
+        self.tool_requires(f"gnu-config/{os.environ['ASWF_GNU_CONFIG_VERSION']}@{self.user}/{self.channel}")
         if self._settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):

@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 import os
 
 from conan import ConanFile
@@ -17,7 +21,7 @@ class LibxshmfenceConan(ConanFile):
     name = "libxshmfence"
     description = "Shared memory 'SyncFence' synchronization primitive"
     license = "X11"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://gitlab.freedesktop.org/xorg/lib/libxshmfence"
     topics = ("shared", "memory", "syncfence", "synchronization", "interprocess")
 
@@ -54,16 +58,19 @@ class LibxshmfenceConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("xorg-proto/2022.2", transitive_headers=True)
+        self.requires(
+            f"xorg-proto/{os.environ['ASWF_XORG_PROTO_VERSION']}@{self.user}/{self.channel}",
+            transitive_headers=True
+        )
 
     def validate(self):
         if self.settings.os == "Windows":
             raise ConanInvalidConfiguration("Windows is not supported by libxshmfence recipe. Contributions are welcome")
 
     def build_requirements(self):
-        self.tool_requires("automake/1.16.5")
+        self.tool_requires(f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}")
         if not self.conf.get("tools.gnu:pkg_config", default=False, check_type=str):
-            self.tool_requires("pkgconf/2.0.3")
+            self.tool_requires(f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}")
         if self._settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):

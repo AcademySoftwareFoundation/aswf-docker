@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.errors import ConanException
 from conan.tools.files import copy, get, load, save, apply_conandata_patches, export_conandata_patches
@@ -11,7 +15,7 @@ class GnuConfigConan(ConanFile):
     name = "gnu-config"
     description = "The GNU config.guess and config.sub scripts"
     homepage = "https://savannah.gnu.org/projects/config/"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     topics = ("gnu", "config", "autotools", "canonical", "host", "build", "target", "triplet")
     license = "GPL-3.0-or-later", "autoconf-special-exception"
     package_type = "build-scripts"
