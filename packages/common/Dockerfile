@@ -38,6 +38,12 @@ COPY ../scripts/common/install_yumpackages.sh \
 RUN --mount=type=cache,sharing=private,target=/var/cache/yum \
     /tmp/install_yumpackages.sh
 
+COPY scripts/common/install_pippackages.sh \
+    /tmp/
+
+RUN --mount=type=cache,sharing=private,target=/root/.cache/pip \
+    /tmp/install_pippackages.sh
+
 COPY ../scripts/common/install_dev_ccache.sh \
      ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
