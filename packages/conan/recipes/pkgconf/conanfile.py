@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 import os
 
 from conan import ConanFile
@@ -14,7 +18,7 @@ required_conan_version = ">=1.57.0"
 
 class PkgConfConan(ConanFile):
     name = "pkgconf"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     topics = ("build", "configuration")
     homepage = "https://git.sr.ht/~kaniini/pkgconf"
     license = "ISC"
@@ -56,7 +60,7 @@ class PkgConfConan(ConanFile):
             del self.info.settings.compiler
 
     def build_requirements(self):
-        self.tool_requires("meson/1.2.2")
+        self.tool_requires(f"meson/{os.environ['ASWF_MESON_VERSION']}@{self.user}/{self.channel}")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

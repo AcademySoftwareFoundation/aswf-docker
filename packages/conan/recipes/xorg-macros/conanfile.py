@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rmdir
 from conan.tools.env import VirtualBuildEnv
@@ -16,7 +20,7 @@ class XorgMacrosConan(ConanFile):
     topics = ("autoconf", "macros", "build", "system", "m4")
     license = "MIT"
     homepage = "https://gitlab.freedesktop.org/xorg/util/macros"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     settings = "os"
 
     def layout(self):
@@ -37,7 +41,7 @@ class XorgMacrosConan(ConanFile):
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
                 self.tool_requires("msys2/cci.latest")
-        self.tool_requires("automake/1.16.5")
+        self.tool_requires(f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}")
 
     def package_id(self):
         self.info.clear()

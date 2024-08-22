@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.tools.files import rmdir, mkdir, save, load, get, apply_conandata_patches, export_conandata_patches, copy
 from conan.tools.gnu import AutotoolsToolchain, Autotools
@@ -20,7 +24,7 @@ class XorgProtoConan(ConanFile):
     topics = ("specification", "x-window")
     license = "X11"
     homepage = "https://gitlab.freedesktop.org/xorg/proto/xorgproto"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     settings = "os", "arch", "compiler", "build_type"
     generators = "PkgConfigDeps"
 
@@ -32,9 +36,9 @@ class XorgProtoConan(ConanFile):
         return getattr(self, "settings_build", self.settings)
 
     def build_requirements(self):
-        self.tool_requires("automake/1.16.5")
-        self.tool_requires("xorg-macros/1.19.3")
-        self.tool_requires("pkgconf/2.0.3")
+        self.tool_requires(f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(f"xorg-macros/{os.environ['ASWF_XORG_MACROS_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}")
         if self._settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
@@ -42,7 +46,7 @@ class XorgProtoConan(ConanFile):
 
     def requirements(self):
         if hasattr(self, "settings_build"):
-            self.requires("xorg-macros/1.19.3")
+            self.requires(f"xorg-macros/{os.environ['ASWF_XORG_MACROS_VERSION']}@{self.user}/{self.channel}")
 
     def package_id(self):
         self.info.clear()

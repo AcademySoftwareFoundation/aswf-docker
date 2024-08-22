@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 import os
 import shutil
 
@@ -20,7 +24,7 @@ class NsprConan(ConanFile):
     description = ("Netscape Portable Runtime (NSPR) provides a platform-neutral API"
                    " for system level and libc-like functions.")
     license = "MPL-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSPR"
     topics = ("libc",)
 
@@ -33,7 +37,7 @@ class NsprConan(ConanFile):
         "win32_target": ["winnt", "win95"],
     }
     default_options = {
-        "shared": False,
+        "shared": True,
         "fPIC": True,
         "with_mozilla": True,
         "win32_target": "winnt",

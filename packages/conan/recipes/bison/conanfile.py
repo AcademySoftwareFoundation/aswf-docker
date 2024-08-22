@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.env import VirtualBuildEnv
@@ -12,7 +16,7 @@ required_conan_version = ">=1.54.0"
 
 class BisonConan(ConanFile):
     name = "bison"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://www.gnu.org/software/bison/"
     description = "Bison is a general-purpose parser generator"
     topics = ("bison", "parser")
@@ -44,7 +48,7 @@ class BisonConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("m4/1.4.19")
+        self.requires(f"m4/{os.environ['ASWF_M4_VERSION']}@{self.user}/{self.channel}")
 
     def validate(self):
         if is_msvc(self) and self.version == "3.8.2":
@@ -61,7 +65,7 @@ class BisonConan(ConanFile):
         if is_msvc(self):
             self.tool_requires("automake/1.16.5")
         if self.settings.os != "Windows":
-            self.tool_requires("flex/2.6.4")
+            self.tool_requires(f"flex/{os.environ['ASWF_FLEX_VERSION']}@{self.user}/{self.channel}")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

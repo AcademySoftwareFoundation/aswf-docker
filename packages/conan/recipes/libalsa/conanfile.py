@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.env import VirtualBuildEnv
@@ -21,7 +25,7 @@ required_conan_version = ">=1.53.0"
 class LibalsaConan(ConanFile):
     name = "libalsa"
     license = "LGPL-2.1-or-later"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://github.com/alsa-project/alsa-lib"
     topics = ("alsa", "sound", "audio", "midi")
     description = (
@@ -58,7 +62,9 @@ class LibalsaConan(ConanFile):
             raise ConanInvalidConfiguration(f"{self.ref} only supports Linux")
 
     def build_requirements(self):
-        self.tool_requires("libtool/2.4.7")
+        self.tool_requires(
+            f"libtool/{os.environ['ASWF_LIBTOOL_VERSION']}@{self.user}/{self.channel}"
+        )
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)

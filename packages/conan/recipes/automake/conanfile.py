@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 import os
 
 from conan import ConanFile
@@ -17,7 +21,7 @@ class AutomakeConan(ConanFile):
         " compliant with the GNU Coding Standards."
     )
     license = ("GPL-2.0-or-later", "GPL-3.0-or-later")
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://www.gnu.org/software/automake/"
     topics = ("autotools", "configure", "build")
 
@@ -39,7 +43,7 @@ class AutomakeConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("autoconf/2.71")
+        self.requires(f"autoconf/{os.environ['ASWF_AUTOCONF_VERSION']}@{self.user}/{self.channel}")
         # automake requires perl-Thread-Queue package
 
     def package_id(self):
@@ -49,7 +53,7 @@ class AutomakeConan(ConanFile):
 
     def build_requirements(self):
         if hasattr(self, "settings_build"):
-            self.tool_requires("autoconf/2.71")
+            self.tool_requires(f"autoconf/{os.environ['ASWF_AUTOCONF_VERSION']}@{self.user}/{self.channel}")
         if self._settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):

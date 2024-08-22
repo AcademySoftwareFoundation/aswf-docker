@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.microsoft import msvc_runtime_flag
@@ -14,7 +18,7 @@ class NSSConan(ConanFile):
     name = "nss"
     license = "MPL-2.0"
     homepage = "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     description = "Network Security Services"
     topics = ("network", "security", "crypto", "ssl")
     settings = "os", "compiler", "build_type", "arch"
@@ -36,7 +40,7 @@ class NSSConan(ConanFile):
         if self.settings.os == "Windows":
             self.build_requires("mozilla-build/3.3")
         if hasattr(self, "settings_build"):
-            self.build_requires("sqlite3/3.41.2")
+            self.build_requires(f"sqlite3/{os.environ['ASWF_SQLITE3_VERSION']}@{self.user}/{self.channel}")
 
     def configure(self):
         self.options["nspr"].shared = True
@@ -48,9 +52,9 @@ class NSSConan(ConanFile):
         del self.settings.compiler.cppstd
 
     def requirements(self):
-        self.requires("nspr/4.35")
-        self.requires("sqlite3/3.41.2")
-        self.requires("zlib/1.2.13")
+        self.requires(f"nspr/{os.environ['ASWF_NSPR_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"sqlite3/{os.environ['ASWF_SQLITE3_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"zlib/{os.environ['ASWF_ZLIB_VERSION']}@{self.user}/{self.channel}")
 
     def validate(self):
         if not self.options.shared:

@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 import os
 import textwrap
 
@@ -13,7 +17,7 @@ class MesonConan(ConanFile):
     name = "meson"
     description = "a project to create the best possible next-generation build system"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
+    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://github.com/mesonbuild/meson"
     topics = ("mesonbuild", "build-system")
     package_type = "application"
@@ -24,7 +28,9 @@ class MesonConan(ConanFile):
 
     def requirements(self):
         if self.conf.get("tools.meson.mesontoolchain:backend", default="ninja", check_type=str) == "ninja":
-            self.requires("ninja/1.11.1")
+            self.requires(
+                f"ninja/{os.environ['ASWF_NINJA_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
+            )
 
     def package_id(self):
         self.info.clear()
