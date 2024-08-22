@@ -3,5 +3,13 @@ include(ci_common4)
 [settings]
 python=3.11
 [options]
+# These options affects Qt only.
+qt:qtwebengine=True
+qt:gui=True
+qt:qtdeclarative=True
+qt:qtwebchannel=True
+qt:with_dbus=True
+qt:qtwebsockets=True
+qt:qtmultimedia=True
 [build_requires]
 [env]

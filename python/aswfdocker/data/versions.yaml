@@ -151,7 +151,7 @@ versions:
     package_versions:
       ASWF_DTS_VERSION: "11"
       ASWF_DTS_PREFIX: "gcc-toolset"
-      ASWF_CONAN_VERSION: "1.63.0"
+      ASWF_CONAN_VERSION: "1.64.0"
       ASWF_CONAN_PYTHON_VERSION: "3.11.8"
       ASWF_CUDA_VERSION: "12.3.0"
       ASWF_GLVND_VERSION: "1.7.0"
@@ -443,35 +443,61 @@ versions:
     conan_profile: "vfx2024"
     package_versions:
       ASWF_ALEMBIC_VERSION: "1.8.6"
+      ASWF_AUTOCONF_VERSION: "2.71"
+      ASWF_AUTOMAKE_VERSION: "1.16.5"
+      ASWF_BISON_VERSION: "3.8.2"
       ASWF_BLOSC_VERSION: "1.21.5"
       ASWF_BOOST_VERSION: "1.82.0"
       ASWF_CMAKE_VERSION: "3.27.9"
       ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_DBUS_VERSION: "1.15.6"
+      ASWF_EXPAT_VERSION: "2.5.0"
+      ASWF_FLEX_VERSION: "2.6.4"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.3.8"
+      ASWF_GNU_CONFIG_VERSION: "cci.20210814"
+      ASWF_GPERF_VERSION: "3.1"
       ASWF_GTEST_VERSION: "1.14.0"
       ASWF_HDF5_VERSION: "1.8.23"
       ASWF_IMATH_VERSION: "3.1.11"
+      ASWF_LIBALSA_VERSION: "1.2.7.2"
+      ASWF_LIBDRM_VERSION: "2.4.114"
+      ASWF_LIBTOOL_VERSION: "2.4.7"
+      ASWF_LIBPCIACCESS_VERSION: "0.17"
+      ASWF_LIBXSHMFENCE_VERSION: "1.3"
+      ASWF_LINUX_HEADERS_GENERIC_VERSION: "6.5.9"
       ASWF_LOG4CPLUS_VERSION: "2.1.1"
+      ASWF_M4_VERSION: "1.4.19"
       ASWF_MATERIALX_VERSION: "1.38.10"
+      ASWF_MESON_VERSION: "1.2.2"
+      ASWF_NODEJS_VERSION: "18.15.0"
       ASWF_NUMPY_VERSION: "1.24.3"
+      ASWF_NSPR_VERSION: "4.35"
+      ASWF_NSS_VERSION: "3.89"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.3.2"
       ASWF_OIIO_VERSION: "2.5.12.0"
+      ASWF_OPENAL_VERSION: "1.23.1"
       ASWF_OPENEXR_VERSION: "3.2.4"
       ASWF_OPENSUBDIV_VERSION: "3.6.0"
       ASWF_OPENVDB_VERSION: "11.0.0"
+      ASWF_OPUS_VERSION: "1.3.1"
       ASWF_OSL_VERSION: "1.13.10.0"
       ASWF_OTIO_VERSION: "0.17.0"
       ASWF_PARTIO_VERSION: "1.17.1"
+      ASWF_PKGCONF_VERSION: "2.0.3"
       ASWF_PTEX_VERSION: "2.4.2"
       ASWF_PYBIND11_VERSION: "2.12.0"
       ASWF_PYSIDE_VERSION: "6.5.3"
       ASWF_PYTHON_VERSION: "3.11.9"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.11"
+      ASWF_SQLITE3_VERSION: "3.41.2"
       ASWF_QT_VERSION: "6.5.3"
       ASWF_TBB_VERSION: "2020_U3"
       ASWF_USD_VERSION: "24.05"
+      ASWF_XORG_MACROS_VERSION: "1.19.3"
+      ASWF_XORG_PROTO_VERSION: "2022.2"
+      ASWF_ZLIB_VERSION: "1.2.13"
       ASWF_VFXPLATFORM_VERSION: "2024"
       ASWF_CXX_STANDARD: "17"
   "2024-clang16":
@@ -687,6 +713,58 @@ ci-packages:
     - "2022.1"
     - "2023.2"
     - "2024.1"
+  autoconf:
+    - "2024.1"
+  automake:
+    - "2024.1"
+  bison:
+    - "2024.1"
+  dbus:
+    - "2024.1"
+  expat:
+    - "2024.1"
+  flex:
+    - "2024.1"
+  gperf:
+    - "2024.1"
+  gnu-config:
+    - "2024.1"
+  libalsa:
+    - "2024.1"
+  libdrm:
+    - "2024.1"
+  libpciaccess:
+    - "2024.1"
+  libtool:
+    - "2024.1"
+  libxshmfence:
+    - "2024.1"
+  linux-headers-generic:
+    - "2024.1"
+  m4:
+    - "2024.1"
+  meson:
+    - "2024.1"
+  nodejs:
+    - "2024.1"
+  nspr:
+    - "2024.1"
+  nss:
+    - "2024.1"
+  pkgconf:
+    - "2024.1"
+  openal:
+    - "2024.1"
+  opus:
+    - "2024.1"
+  sqlite3:
+    - "2024.1"
+  xorg-macros:
+    - "2024.1"
+  xorg-proto:
+    - "2024.1"
+  zlib:
+    - "2024.1"
 
 ci-images:
   common:
@@ -828,6 +906,32 @@ groups:
         - gtest
         - blosc
       base2:
+        - m4
+        - autoconf
+        - automake
+        - flex
+        - bison
+        - expat
+        - meson
+        - pkgconf
+        - dbus
+        - gnu-config
+        - libalsa
+        - libtool
+        - xorg-macros
+        - libpciaccess
+        - linux-headers-generic
+        - nspr
+        - sqlite3
+        - zlib
+        - nss
+        - openal
+        - opus
+        - xorg-proto
+        - libxshmfence
+        - libdrm
+        - gperf
+        - nodejs
         - qt
       base3:
         - pyside
@@ -878,24 +982,50 @@ package_data:
 
 conan_only:
   - alembic
+  - autoconf
+  - automake
   - blosc
   - boost
   - clang
   - cmake
   - cppunit
+  - bison
+  - dbus
+  - expat
+  - flex
   - glew
   - glfw
+  - gnu-config
+  - gperf
   - gtest
   - imath
+  - libalsa
+  - libdrm
+  - libpciaccess
+  - libtool
+  - libxshmfence
+  - linux-headers-generic
   - log4cplus
+  - m4
   - materialx
+  - meson
   - ninja
+  - nodejs
+  - openal
   - openexr
   - opensubdiv
+  - opus
+  - nspr
+  - nss
   - partio
   - ptex
+  - pkgconf
   - pybind11
   - python
+  - sqlite3
   - qt
   - pyside
   - tbb
+  - xorg-macros
+  - xorg-proto
+  - zlib
