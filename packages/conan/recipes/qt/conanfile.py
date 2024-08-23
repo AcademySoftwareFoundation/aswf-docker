@@ -503,14 +503,16 @@ class QtConan(ConanFile):
         if self.options.with_odbc:
             if self.settings.os != "Windows":
                 self.requires("odbc/2.3.11")
-        if self.options.get_safe("with_openal", False):
-            self.requires(
-                f"openal/{os.environ['ASWF_OPENAL_VERSION']}@{self.user}/{self.channel}"
-            )
-        if self.options.get_safe("with_libalsa", False):
-            self.requires(
-                f"libalsa/{os.environ['ASWF_LIBALSA_VERSION']}@{self.user}/{self.channel}"
-            )
+
+        # Use from system
+        # if self.options.get_safe("with_openal", False):
+        #     self.requires(
+        #         f"openal/{os.environ['ASWF_OPENAL_VERSION']}@{self.user}/{self.channel}"
+        #     )
+        # if self.options.get_safe("with_libalsa", False):
+        #     self.requires(
+        #         f"libalsa/{os.environ['ASWF_LIBALSA_VERSION']}@{self.user}/{self.channel}"
+        #     )
         # if self.options.get_safe("with_x11", False):
         #    self.requires("xkbcommon/1.5.0")
         #    self.requires("xorg/system")
@@ -526,34 +528,37 @@ class QtConan(ConanFile):
         #    self.requires("wayland/1.22.0")
         # if self.options.with_brotli:
         #    self.requires("brotli/1.1.0")
+
         if self.options.get_safe("qtwebengine") and self.settings.os == "Linux":
             self.requires(
                 f"expat/{os.environ['ASWF_EXPAT_VERSION']}@{self.user}/{self.channel}"
             )
-            self.requires(
-                f"opus/{os.environ['ASWF_OPUS_VERSION']}@{self.user}/{self.channel}"
-            )
-            self.requires(
-                f"xorg-proto/{os.environ['ASWF_XORG_PROTO_VERSION']}@{self.user}/{self.channel}"
-            )
-            self.requires(
-                f"libxshmfence/{os.environ['ASWF_LIBXSHMFENCE_VERSION']}@{self.user}/{self.channel}"
-            )
-            self.requires(
-                f"nss/{os.environ['ASWF_NSS_VERSION']}@{self.user}/{self.channel}"
-            )
-            self.requires(
-                f"libdrm/{os.environ['ASWF_LIBDRM_VERSION']}@{self.user}/{self.channel}"
-            )
+
+            # Use from system
+        #     self.requires(
+        #         f"opus/{os.environ['ASWF_OPUS_VERSION']}@{self.user}/{self.channel}"
+        #     )
+        #     self.requires(
+        #         f"xorg-proto/{os.environ['ASWF_XORG_PROTO_VERSION']}@{self.user}/{self.channel}"
+        #     )
+        #     self.requires(
+        #         f"libxshmfence/{os.environ['ASWF_LIBXSHMFENCE_VERSION']}@{self.user}/{self.channel}"
+        #     )
+        #     self.requires(
+        #         f"nss/{os.environ['ASWF_NSS_VERSION']}@{self.user}/{self.channel}"
+        #     )
+        #     self.requires(
+        #         f"libdrm/{os.environ['ASWF_LIBDRM_VERSION']}@{self.user}/{self.channel}"
+        #     )
         if self.options.get_safe("with_gstreamer", False):
             self.requires("gst-plugins-base/1.19.2")
         if self.options.get_safe("with_pulseaudio", False):
             self.requires("pulseaudio/14.2")
-        # Need dbus for Qt6 WebEngine
-        if self.options.with_dbus:
-            self.requires(
-                f"dbus/{os.environ['ASWF_DBUS_VERSION']}@{self.user}/{self.channel}"
-            )
+        # Use from system
+        # if self.options.with_dbus:
+        #     self.requires(
+        #         f"dbus/{os.environ['ASWF_DBUS_VERSION']}@{self.user}/{self.channel}"
+        #     )
         if self.settings.os in ["Linux", "FreeBSD"] and self.options.with_gssapi:
             self.requires("krb5/1.18.3")  # conan-io/conan-center-index#4102
         # if self.options.get_safe("with_md4c", False):
@@ -573,23 +578,24 @@ class QtConan(ConanFile):
         if self.settings.os == "Windows":
             self.tool_requires("strawberryperl/5.32.1.1")
 
-        if self.options.get_safe("qtwebengine"):
-            self.tool_requires(
-                f"nodejs/{os.environ['ASWF_NODEJS_VERSION']}@{self.user}/{self.channel}"
-            )
-            self.tool_requires(
-                f"gperf/{os.environ['ASWF_GPERF_VERSION']}@{self.user}/{self.channel}"
-            )
-            # gperf, bison, flex, python >= 2.7.5 & < 3
-            if self.settings.os != "Windows":
-                self.tool_requires(
-                    f"bison/{os.environ['ASWF_BISON_VERSION']}@{self.user}/{self.channel}"
-                )
-                self.tool_requires(
-                    f"flex/{os.environ['ASWF_FLEX_VERSION']}@{self.user}/{self.channel}"
-                )
-            else:
-                self.tool_requires("winflexbison/2.5.24")
+        # Use from system
+        # if self.options.get_safe("qtwebengine"):
+        #     self.tool_requires(
+        #         f"nodejs/{os.environ['ASWF_NODEJS_VERSION']}@{self.user}/{self.channel}"
+        #     )
+        #     self.tool_requires(
+        #         f"gperf/{os.environ['ASWF_GPERF_VERSION']}@{self.user}/{self.channel}"
+        #     )
+        #     # gperf, bison, flex, python >= 2.7.5 & < 3
+        #     if self.settings.os != "Windows":
+        #         self.tool_requires(
+        #             f"bison/{os.environ['ASWF_BISON_VERSION']}@{self.user}/{self.channel}"
+        #         )
+        #         self.tool_requires(
+        #             f"flex/{os.environ['ASWF_FLEX_VERSION']}@{self.user}/{self.channel}"
+        #         )
+        #     else:
+        #         self.tool_requires("winflexbison/2.5.24")
 
         if self.options.qtwayland:
             self.tool_requires("wayland/1.22.0")

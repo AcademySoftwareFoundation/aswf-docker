@@ -180,7 +180,9 @@ yum install --setopt=tsflags=nodocs -y \
     xcb-util-wm \
     xcb-util-wm-devel \
     xkeyboard-config-devel \
+    xorg-x11-proto-devel \
     xorg-x11-server-Xvfb \
+    xorg-x11-util-macros \
     xorg-x11-xkb-utils \
     xorg-x11-xkb-utils-devel \
     xorg-x11-xtrans-devel \
@@ -213,11 +215,18 @@ yum install -y epel-release
 
 # Additional packages that are not found initially
 yum install -y \
+    alsa-lib \
+    alsa-lib-devel \
     audiofile-devel \
     lame-devel \
     libcaca-devel \
     libdc1394-devel \
     libdeflate-devel \
+    libdrm-devel \
+    libdrm \
+    libxshmfence \
+    libxshmfence-devel \
+    nss-devel \
     opencl-headers \
     patchelf \
     p7zip \
