@@ -13,7 +13,9 @@ class TestPackageConan(ConanFile):
 
     def build_requirements(self):
         self.build_requires(self.tested_reference_str)
-        if self._settings_build.os == "Windows" and not tools.get_env("CONAN_BASH_PATH"):
+        if self._settings_build.os == "Windows" and not tools.get_env(
+            "CONAN_BASH_PATH"
+        ):
             self.build_requires("msys2/cci.latest")
 
     def build(self):
@@ -23,7 +25,9 @@ class TestPackageConan(ConanFile):
 
     @property
     def _mc_parser_source(self):
-        return os.path.join(self.source_folder, os.pardir, "test_package", "mc_parser.yy")
+        return os.path.join(
+            self.source_folder, os.pardir, "test_package", "mc_parser.yy"
+        )
 
     def test(self):
         self.run("bison --version")

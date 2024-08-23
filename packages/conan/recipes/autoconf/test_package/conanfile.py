@@ -22,7 +22,9 @@ class TestPackageConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires(self.tested_reference_str)
-        if self._settings_build.os == "Windows" and not self.conf.get("tools.microsoft.bash:path", check_type=str):
+        if self._settings_build.os == "Windows" and not self.conf.get(
+            "tools.microsoft.bash:path", check_type=str
+        ):
             self.tool_requires("msys2/cci.latest")
 
     def generate(self):
@@ -40,7 +42,13 @@ class TestPackageConan(ConanFile):
             env.vars(self).save_script("conanbuild_msvc")
 
     def build(self):
-        for src in ("configure.ac", "config.h.in", "Makefile.in", "test_package_c.c", "test_package_cpp.cpp"):
+        for src in (
+            "configure.ac",
+            "config.h.in",
+            "Makefile.in",
+            "test_package_c.c",
+            "test_package_cpp.cpp",
+        ):
             copy(self, src, self.source_folder, self.build_folder)
         self.run("autoconf --verbose")
         autotools = Autotools(self)

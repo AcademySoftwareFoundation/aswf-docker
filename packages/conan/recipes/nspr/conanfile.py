@@ -13,7 +13,12 @@ from conan.tools.env import Environment
 from conan.tools.files import chdir, copy, get, rename, replace_in_file, rmdir, mkdir
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
-from conan.tools.microsoft import is_msvc, is_msvc_static_runtime, msvc_runtime_flag, unix_path_package_info_legacy
+from conan.tools.microsoft import (
+    is_msvc,
+    is_msvc_static_runtime,
+    msvc_runtime_flag,
+    unix_path_package_info_legacy,
+)
 from conan.tools.scm import Version
 
 required_conan_version = ">=1.57.0"
@@ -21,8 +26,10 @@ required_conan_version = ">=1.57.0"
 
 class NsprConan(ConanFile):
     name = "nspr"
-    description = ("Netscape Portable Runtime (NSPR) provides a platform-neutral API"
-                   " for system level and libc-like functions.")
+    description = (
+        "Netscape Portable Runtime (NSPR) provides a platform-neutral API"
+        " for system level and libc-like functions."
+    )
     license = "MPL-2.0"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSPR"
@@ -66,7 +73,9 @@ class NsprConan(ConanFile):
         # https://bugzilla.mozilla.org/show_bug.cgi?id=1658671
         if Version(self.version) < "4.29":
             if is_apple_os(self) and self.settings.arch == "armv8":
-                raise ConanInvalidConfiguration("NSPR does not support mac M1 before 4.29")
+                raise ConanInvalidConfiguration(
+                    "NSPR does not support mac M1 before 4.29"
+                )
         if cross_building(self):
             raise ConanInvalidConfiguration("Cross-building is not supported")
 
@@ -88,15 +97,24 @@ class NsprConan(ConanFile):
         yes_no = lambda v: "yes" if v else "no"
         tc.configure_args += [
             "--with-mozilla={}".format(yes_no(self.options.with_mozilla)),
-            "--enable-64bit={}".format(yes_no(self.settings.arch in ("armv8", "x86_64", "mips64", "ppc64", "ppc64le"))),
-            "--enable-strip={}".format(yes_no(self.settings.build_type not in ("Debug", "RelWithDebInfo"))),
+            "--enable-64bit={}".format(
+                yes_no(
+                    self.settings.arch
+                    in ("armv8", "x86_64", "mips64", "ppc64", "ppc64le")
+                )
+            ),
+            "--enable-strip={}".format(
+                yes_no(self.settings.build_type not in ("Debug", "RelWithDebInfo"))
+            ),
             "--enable-debug={}".format(yes_no(self.settings.build_type == "Debug")),
             "--datarootdir=${prefix}/res",
             "--disable-cplus",
         ]
         if is_msvc(self):
             tc.configure_args += [
-                "{}-pc-mingw32".format("x86_64" if self.settings.arch == "x86_64" else "x86"),
+                "{}-pc-mingw32".format(
+                    "x86_64" if self.settings.arch == "x86_64" else "x86"
+                ),
                 "--enable-static-rtl={}".format(yes_no(is_msvc_static_runtime(self))),
                 "--enable-debug-rtl={}".format(yes_no("d" in msvc_runtime_flag(self))),
             ]
@@ -105,10 +123,14 @@ class NsprConan(ConanFile):
                 "--with-android-ndk={}".format(os.environ.get("NDK_ROOT", "")),
                 "--with-android-version={}".format(self.settings.os.api_level),
                 "--with-android-platform={}".format(os.environ.get("ANDROID_PLATFORM")),
-                "--with-android-toolchain={}".format(os.environ.get("ANDROID_TOOLCHAIN")),
+                "--with-android-toolchain={}".format(
+                    os.environ.get("ANDROID_TOOLCHAIN")
+                ),
             ]
         elif self.settings.os == "Windows":
-            tc.configure_args.append("--enable-win32-target={}".format(self.options.win32_target))
+            tc.configure_args.append(
+                "--enable-win32-target={}".format(self.options.win32_target)
+            )
         if is_apple_os(self) and self.settings.arch == "armv8":
             # conan adds `-arch`, which conflicts with nspr's apple silicon support
             tc.cflags.remove("-arch arm64")
@@ -125,14 +147,23 @@ class NsprConan(ConanFile):
     def build(self):
         with chdir(self, self.source_folder):
             # relocatable shared libs on macOS
-            replace_in_file(self, "configure", "-install_name @executable_path/", "-install_name @rpath/")
+            replace_in_file(
+                self,
+                "configure",
+                "-install_name @executable_path/",
+                "-install_name @rpath/",
+            )
             autotools = Autotools(self)
             autotools.configure()
             autotools.make()
 
     def package(self):
-        copy(self, "LICENSE",
-             dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
+        copy(
+            self,
+            "LICENSE",
+            dst=os.path.join(self.package_folder, "licenses"),
+            src=self.source_folder,
+        )
         with chdir(self, self.source_folder):
             autotools = Autotools(self)
             autotools.install()
@@ -151,27 +182,49 @@ class NsprConan(ConanFile):
                 libsuffix = "lib" if is_msvc(self) else "a"
                 libprefix = "" if is_msvc(self) else "lib"
                 if self.options.shared:
-                    os.unlink(os.path.join(self.package_folder, "lib", f"{libprefix}{lib}_s.{libsuffix}"))
-                    rename(self,
-                           os.path.join(self.package_folder, "lib", f"{lib}.dll"),
-                           os.path.join(self.package_folder, "bin", f"{lib}.dll"))
+                    os.unlink(
+                        os.path.join(
+                            self.package_folder,
+                            "lib",
+                            f"{libprefix}{lib}_s.{libsuffix}",
+                        )
+                    )
+                    rename(
+                        self,
+                        os.path.join(self.package_folder, "lib", f"{lib}.dll"),
+                        os.path.join(self.package_folder, "bin", f"{lib}.dll"),
+                    )
                 else:
-                    os.unlink(os.path.join(self.package_folder, "lib", f"{libprefix}{lib}.{libsuffix}"))
+                    os.unlink(
+                        os.path.join(
+                            self.package_folder, "lib", f"{libprefix}{lib}.{libsuffix}"
+                        )
+                    )
                     os.unlink(os.path.join(self.package_folder, "lib", f"{lib}.dll"))
             if not self.options.shared:
-                replace_in_file(self, os.path.join(self.package_folder, "include", "nspr", "prtypes.h"),
-                                "#define NSPR_API(__type) PR_IMPORT(__type)",
-                                "#define NSPR_API(__type) extern __type")
-                replace_in_file(self, os.path.join(self.package_folder, "include", "nspr", "prtypes.h"),
-                                "#define NSPR_DATA_API(__type) PR_IMPORT_DATA(__type)",
-                                "#define NSPR_DATA_API(__type) extern __type")
+                replace_in_file(
+                    self,
+                    os.path.join(self.package_folder, "include", "nspr", "prtypes.h"),
+                    "#define NSPR_API(__type) PR_IMPORT(__type)",
+                    "#define NSPR_API(__type) extern __type",
+                )
+                replace_in_file(
+                    self,
+                    os.path.join(self.package_folder, "include", "nspr", "prtypes.h"),
+                    "#define NSPR_DATA_API(__type) PR_IMPORT_DATA(__type)",
+                    "#define NSPR_DATA_API(__type) extern __type",
+                )
         else:
             shared_ext = "dylib" if is_apple_os(self) else "so"
             for lib in self._library_names:
                 if self.options.shared:
                     os.unlink(os.path.join(self.package_folder, "lib", f"lib{lib}.a"))
                 else:
-                    os.unlink(os.path.join(self.package_folder, "lib", f"lib{lib}.{shared_ext}"))
+                    os.unlink(
+                        os.path.join(
+                            self.package_folder, "lib", f"lib{lib}.{shared_ext}"
+                        )
+                    )
 
         if is_msvc(self):
             if self.settings.build_type == "Debug":
@@ -206,6 +259,10 @@ class NsprConan(ConanFile):
         self.cpp_info.resdirs = ["res"]
 
         # TODO: the following can be removed when the recipe supports Conan >= 2.0 only
-        aclocal = unix_path_package_info_legacy(self, os.path.join(self.package_folder, "res", "aclocal"))
-        self.output.info(f"Appending AUTOMAKE_CONAN_INCLUDES environment variable: {aclocal}")
+        aclocal = unix_path_package_info_legacy(
+            self, os.path.join(self.package_folder, "res", "aclocal")
+        )
+        self.output.info(
+            f"Appending AUTOMAKE_CONAN_INCLUDES environment variable: {aclocal}"
+        )
         self.env_info.AUTOMAKE_CONAN_INCLUDES.append(aclocal)

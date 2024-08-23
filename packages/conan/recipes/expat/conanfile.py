@@ -1,6 +1,13 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
-from conan.tools.files import apply_conandata_patches, collect_libs, copy, export_conandata_patches, get, rmdir
+from conan.tools.files import (
+    apply_conandata_patches,
+    collect_libs,
+    copy,
+    export_conandata_patches,
+    get,
+    rmdir,
+)
 from conan.tools.microsoft import is_msvc, is_msvc_static_runtime
 import os
 
@@ -69,7 +76,12 @@ class ExpatConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(
+            self,
+            "COPYING",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses"),
+        )
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))

@@ -3,7 +3,13 @@
 # SPDX-License-Identifier: MIT
 
 from conan import ConanFile
-from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rmdir
+from conan.tools.files import (
+    apply_conandata_patches,
+    copy,
+    export_conandata_patches,
+    get,
+    rmdir,
+)
 from conan.tools.env import VirtualBuildEnv
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
@@ -34,14 +40,21 @@ class XorgMacrosConan(ConanFile):
         export_conandata_patches(self)
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version], destination=self.source_folder, strip_root=True)
+        get(
+            self,
+            **self.conan_data["sources"][self.version],
+            destination=self.source_folder,
+            strip_root=True,
+        )
 
     def build_requirements(self):
         if self._settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
                 self.tool_requires("msys2/cci.latest")
-        self.tool_requires(f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(
+            f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}"
+        )
 
     def package_id(self):
         self.info.clear()
@@ -52,9 +65,7 @@ class XorgMacrosConan(ConanFile):
 
     def generate(self):
         tc = AutotoolsToolchain(self)
-        tc.configure_args.extend(
-            ["--datarootdir=${prefix}/bin/share"]
-        )
+        tc.configure_args.extend(["--datarootdir=${prefix}/bin/share"])
         tc.generate()
 
         buildenv = VirtualBuildEnv(self)
@@ -69,7 +80,12 @@ class XorgMacrosConan(ConanFile):
         autotools.make()
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(
+            self,
+            "COPYING",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses"),
+        )
         autotools = Autotools(self)
         autotools.install()
 
@@ -80,20 +96,29 @@ class XorgMacrosConan(ConanFile):
         self.cpp_info.names["pkg_config"] = "xorg-macros"
         self.cpp_info.libdirs = []
         self.cpp_info.includedirs = []
-        self.cpp_info.set_property("pkg_config_custom_content", textwrap.dedent("""\
+        self.cpp_info.set_property(
+            "pkg_config_custom_content",
+            textwrap.dedent(
+                """\
             datarootdir={datarootdir}
             datadir=${{datarootdir}}
             PACKAGE={name}
             pkgdatadir=${{datadir}}/${{PACKAGE}}
             docdir=${{pkgdatadir}}
-        """).format(
-            datarootdir=self._datarootdir,
-            name="util-macros",
-        ))
+        """
+            ).format(
+                datarootdir=self._datarootdir,
+                name="util-macros",
+            ),
+        )
 
         aclocal = os.path.join(self._datarootdir, "aclocal")
         self.buildenv_info.append_path("ACLOCAL_PATH", aclocal)
 
         # TODO: remove once recipe only supports Conan >= 2.0 only
-        self.output.info("Appending AUTOMAKE_CONAN_INCLUDES environment variable: {}".format(aclocal))
-        self.env_info.AUTOMAKE_CONAN_INCLUDES.append(unix_path_package_info_legacy(self, aclocal ))
+        self.output.info(
+            "Appending AUTOMAKE_CONAN_INCLUDES environment variable: {}".format(aclocal)
+        )
+        self.env_info.AUTOMAKE_CONAN_INCLUDES.append(
+            unix_path_package_info_legacy(self, aclocal)
+        )

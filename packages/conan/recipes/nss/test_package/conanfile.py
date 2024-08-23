@@ -11,7 +11,6 @@ class TestPackageConan(ConanFile):
         cmake.configure()
         cmake.build()
 
-
     def test(self):
         if not tools.cross_building(self):
             bin_path = os.path.join("bin", "test_package")

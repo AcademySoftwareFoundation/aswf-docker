@@ -4,7 +4,14 @@
 
 from conan import ConanFile
 from conan.tools.env import Environment, VirtualBuildEnv
-from conan.tools.files import apply_conandata_patches, chdir, copy, export_conandata_patches, get, rmdir
+from conan.tools.files import (
+    apply_conandata_patches,
+    chdir,
+    copy,
+    export_conandata_patches,
+    get,
+    rmdir,
+)
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, check_min_vs, unix_path
@@ -48,8 +55,12 @@ class GperfConan(ConanFile):
             self.tool_requires("make/4.4.1")
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version],
-            destination=self.source_folder, strip_root=True)
+        get(
+            self,
+            **self.conan_data["sources"][self.version],
+            destination=self.source_folder,
+            strip_root=True,
+        )
 
     def generate(self):
         env = VirtualBuildEnv(self)
@@ -63,21 +74,25 @@ class GperfConan(ConanFile):
 
         if is_msvc(self):
             env = Environment()
-            compile_wrapper = unix_path(self, os.path.join(self.source_folder, "build-aux", "compile"))
-            ar_wrapper = unix_path(self, os.path.join(self.source_folder, "build-aux", "ar-lib"))
+            compile_wrapper = unix_path(
+                self, os.path.join(self.source_folder, "build-aux", "compile")
+            )
+            ar_wrapper = unix_path(
+                self, os.path.join(self.source_folder, "build-aux", "ar-lib")
+            )
             env.define("CC", f"{compile_wrapper} cl -nologo")
             env.define("CXX", f"{compile_wrapper} cl -nologo")
             env.append("CPPFLAGS", "-D_WIN32_WINNT=_WIN32_WINNT_WIN8")
             env.define("LD", "link -nologo")
-            env.define("AR", f"{ar_wrapper} \"lib -nologo\"")
+            env.define("AR", f'{ar_wrapper} "lib -nologo"')
             env.define("NM", "dumpbin -symbols")
             env.define("OBJDUMP", ":")
             env.define("RANLIB", ":")
             env.define("STRIP", ":")
-            
-            #Prevent msys2 from performing erroneous path conversions for C++ files
+
+            # Prevent msys2 from performing erroneous path conversions for C++ files
             # when invoking cl.exe as this is already handled by the compile wrapper.
-            env.define("MSYS2_ARG_CONV_EXCL", "-Tp") 
+            env.define("MSYS2_ARG_CONV_EXCL", "-Tp")
             env.vars(self).save_script("conanbuild_gperf_msvc")
 
     def build(self):
@@ -88,7 +103,12 @@ class GperfConan(ConanFile):
             autotools.make()
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(
+            self,
+            "COPYING",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses"),
+        )
         autotools = Autotools(self)
         with chdir(self, self.source_folder):
             # TODO: replace by autotools.install() once https://github.com/conan-io/conan/issues/12153 fixed

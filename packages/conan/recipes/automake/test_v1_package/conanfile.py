@@ -9,7 +9,12 @@ required_conan_version = ">=1.45.0"
 
 class TestPackageConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    exports_sources = "configure.ac", "Makefile.am", "test_package_1.c", "test_package.cpp"
+    exports_sources = (
+        "configure.ac",
+        "Makefile.am",
+        "test_package_1.c",
+        "test_package.cpp",
+    )
     # DON'T COPY extra.m4 TO BUILD FOLDER!!!
     test_type = "explicit"
 
@@ -22,14 +27,21 @@ class TestPackageConan(ConanFile):
 
     def build_requirements(self):
         self.build_requires(self.tested_reference_str)
-        if self._settings_build.os == "Windows" and not tools.get_env("CONAN_BASH_PATH"):
+        if self._settings_build.os == "Windows" and not tools.get_env(
+            "CONAN_BASH_PATH"
+        ):
             self.build_requires("msys2/cci.latest")
 
     @contextmanager
     def _build_context(self):
         if is_msvc(self):
             with tools.vcvars(self):
-                with tools.environment_append({"CC": "cl -nologo", "CXX": "cl -nologo",}):
+                with tools.environment_append(
+                    {
+                        "CC": "cl -nologo",
+                        "CXX": "cl -nologo",
+                    }
+                ):
                     yield
         else:
             yield
@@ -47,7 +59,7 @@ class TestPackageConan(ConanFile):
         if not system_cc:
             system_cc = self._default_cc.get(str(self.settings.compiler))
         return system_cc
-    
+
     @property
     def _user_info(self):
         return getattr(self, "user_info_build", self.deps_user_info)
@@ -61,13 +73,28 @@ class TestPackageConan(ConanFile):
 
         if self._system_cc:
             with tools.vcvars(self) if is_msvc(self) else tools.no_op():
-                self.run("{} {} test_package_1.c -o script_test".format(tools.unix_path(compile_script), self._system_cc), win_bash=tools.os_info.is_windows)
+                self.run(
+                    "{} {} test_package_1.c -o script_test".format(
+                        tools.unix_path(compile_script), self._system_cc
+                    ),
+                    win_bash=tools.os_info.is_windows,
+                )
 
     def _build_autotools(self):
         """Test autoreconf + configure + make"""
-        with tools.environment_append({"AUTOMAKE_CONAN_INCLUDES": [tools.unix_path(self.source_folder)]}):
-            self.run("{} -fiv".format(os.environ["AUTORECONF"]), win_bash=tools.os_info.is_windows)
-        self.run("{} --help".format(os.path.join(self.build_folder, "configure").replace("\\", "/")), win_bash=tools.os_info.is_windows)
+        with tools.environment_append(
+            {"AUTOMAKE_CONAN_INCLUDES": [tools.unix_path(self.source_folder)]}
+        ):
+            self.run(
+                "{} -fiv".format(os.environ["AUTORECONF"]),
+                win_bash=tools.os_info.is_windows,
+            )
+        self.run(
+            "{} --help".format(
+                os.path.join(self.build_folder, "configure").replace("\\", "/")
+            ),
+            win_bash=tools.os_info.is_windows,
+        )
         autotools = AutoToolsBuildEnvironment(self, win_bash=tools.os_info.is_windows)
         with self._build_context():
             autotools.configure()
