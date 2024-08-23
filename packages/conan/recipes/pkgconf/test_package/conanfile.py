@@ -48,19 +48,19 @@ class TestPackageConan(ConanFile):
 
         # Check build environment postconditions
         buildenv = VirtualBuildEnv(self)
-        env = buildenv.vars(scope='build')
-        assert 'PKG_CONFIG' in env.keys()
-        assert 'ACLOCAL_PATH' in env.keys()
-        assert 'AUTOMAKE_CONAN_INCLUDES' in env.keys()
+        env = buildenv.vars(scope="build")
+        assert "PKG_CONFIG" in env.keys()
+        assert "ACLOCAL_PATH" in env.keys()
+        assert "AUTOMAKE_CONAN_INCLUDES" in env.keys()
         buildenv.generate()
 
     @property
     def _testing_library(self):
         # Workaround, in Conan >=2.0 we should be able to remove this in favour of:
         # self.dependencies[self.tested_reference_str].options.enable_lib
-        has_toolchain = sorted(Path(self.build_folder).rglob('conan_toolchain.cmake'))
+        has_toolchain = sorted(Path(self.build_folder).rglob("conan_toolchain.cmake"))
         return has_toolchain
-        
+
     def build(self):
         if self._testing_library:
             cmake = CMake(self)
@@ -69,6 +69,7 @@ class TestPackageConan(ConanFile):
 
     def test(self):
         self.run("pkgconf --version")
+
     #     # Check that we can find pkgconf in build environment
     #     # and that it is the expected version
     #     if can_run(self):
@@ -78,10 +79,10 @@ class TestPackageConan(ConanFile):
     #         # to: self.dependencies['pkgconf'].ref.version
     #         tokens = re.split('[@#]', self.tested_reference_str)
     #         pkgconf_expected_version = tokens[0].split("/", 1)[1]
-    #         assert f"pkgconf {pkgconf_expected_version}" in output.getvalue() 
+    #         assert f"pkgconf {pkgconf_expected_version}" in output.getvalue()
 
     #         self.run("pkgconf libexample1 -cflags", env="conanrun")
-            
+
     #     # Test that executable linked against library runs as expected
     #     if can_run(self) and self._testing_library:
     #         test_executable = unix_path(self, os.path.join(self.cpp.build.bindirs[0], "test_package"))

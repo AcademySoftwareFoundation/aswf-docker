@@ -57,8 +57,12 @@ class TestPackageConan(ConanFile):
 
         env = Environment()
 
-        compile_script = unix_path(self,
-            self.dependencies.build["automake"].conf_info.get("user.automake:compile-wrapper"))
+        compile_script = unix_path(
+            self,
+            self.dependencies.build["automake"].conf_info.get(
+                "user.automake:compile-wrapper"
+            ),
+        )
 
         # define CC and CXX such that if the user hasn't already defined it
         # via `tools.build:compiler_executables` or buildenv variables,
@@ -78,9 +82,13 @@ class TestPackageConan(ConanFile):
     def build(self):
         # Test compilation through compile wrapper script
         compiler = self._system_compiler()
-        source_file = unix_path(self, os.path.join(self.source_folder, "test_package_1.c"))
+        source_file = unix_path(
+            self, os.path.join(self.source_folder, "test_package_1.c")
+        )
         with chdir(self, self.build_folder):
-            self.run(f"$COMPILE {compiler} {source_file} -o script_test", env="conanbuild")
+            self.run(
+                f"$COMPILE {compiler} {source_file} -o script_test", env="conanbuild"
+            )
 
         # Build test project
         autotools = Autotools(self)

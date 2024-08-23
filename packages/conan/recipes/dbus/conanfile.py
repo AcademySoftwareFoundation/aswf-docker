@@ -6,7 +6,17 @@ from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import fix_apple_shared_install_name, is_apple_os
 from conan.tools.env import VirtualBuildEnv
-from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rename, replace_in_file, rm, rmdir, save
+from conan.tools.files import (
+    apply_conandata_patches,
+    copy,
+    export_conandata_patches,
+    get,
+    rename,
+    replace_in_file,
+    rm,
+    rmdir,
+    save,
+)
 from conan.tools.gnu import PkgConfigDeps
 from conan.tools.layout import basic_layout
 from conan.tools.meson import Meson, MesonToolchain
@@ -23,7 +33,9 @@ class DbusConan(ConanFile):
     license = "(AFL-2.1 OR GPL-2.0-or-later) AND DocumentRef-COPYING"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://www.freedesktop.org/wiki/Software/dbus"
-    description = "D-Bus is a simple system for interprocess communication and coordination."
+    description = (
+        "D-Bus is a simple system for interprocess communication and coordination."
+    )
     topics = "bus", "interprocess", "message"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
@@ -82,8 +94,10 @@ class DbusConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        #self.requires("expat/[>=2.6.2 <3]")
-        self.requires(f"expat/{os.environ['ASWF_EXPAT_VERSION']}@{self.user}/{self.channel}")
+        # self.requires("expat/[>=2.6.2 <3]")
+        self.requires(
+            f"expat/{os.environ['ASWF_EXPAT_VERSION']}@{self.user}/{self.channel}"
+        )
         if self.options.get_safe("with_systemd"):
             self.requires("libsystemd/253.6")
         if self.options.get_safe("with_selinux"):
@@ -100,13 +114,20 @@ class DbusConan(ConanFile):
         self.info.options.rm_safe("dbus_user")
 
     def validate(self):
-        if self.settings.compiler == "gcc" and Version(self.settings.compiler.version) < 7:
+        if (
+            self.settings.compiler == "gcc"
+            and Version(self.settings.compiler.version) < 7
+        ):
             raise ConanInvalidConfiguration(f"{self.ref} requires at least gcc 7.")
 
     def build_requirements(self):
-        self.tool_requires(f"meson/{os.environ['ASWF_MESON_VERSION']}@{self.user}/{self.channel}")
-        if not self.conf.get("tools.gnu:pkg_config",check_type=str):
-            self.tool_requires(f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(
+            f"meson/{os.environ['ASWF_MESON_VERSION']}@{self.user}/{self.channel}"
+        )
+        if not self.conf.get("tools.gnu:pkg_config", check_type=str):
+            self.tool_requires(
+                f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}"
+            )
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -123,10 +144,16 @@ class DbusConan(ConanFile):
         tc.project_options["ducktype_docs"] = "disabled"
         tc.project_options["qt_help"] = "disabled"
         tc.project_options["modular_tests"] = "disabled"
-        tc.project_options["selinux"] = "enabled" if self.options.get_safe("with_selinux") else "disabled"
+        tc.project_options["selinux"] = (
+            "enabled" if self.options.get_safe("with_selinux") else "disabled"
+        )
         if self.options.session_socket_dir:
-            tc.project_options["session_socket_dir"] = str(self.options.session_socket_dir)
-        tc.project_options["systemd"] = "enabled" if self.options.get_safe("with_systemd") else "disabled"
+            tc.project_options["session_socket_dir"] = str(
+                self.options.session_socket_dir
+            )
+        tc.project_options["systemd"] = (
+            "enabled" if self.options.get_safe("with_systemd") else "disabled"
+        )
         if self.options.get_safe("with_systemd"):
             tc.project_options["systemd_system_unitdir"] = "/res/lib/systemd/system"
             tc.project_options["systemd_user_unitdir"] = "/res/usr/lib/systemd/system"
@@ -139,8 +166,12 @@ class DbusConan(ConanFile):
         if self.options.system_socket:
             tc.project_options["system_socket"] = str(self.options.system_socket)
         if is_apple_os(self):
-            tc.project_options["launchd_agent_dir"] = os.path.join("res", "LaunchAgents")
-        tc.project_options["x11_autolaunch"] = "enabled" if self.options.get_safe("with_x11") else "disabled"
+            tc.project_options["launchd_agent_dir"] = os.path.join(
+                "res", "LaunchAgents"
+            )
+        tc.project_options["x11_autolaunch"] = (
+            "enabled" if self.options.get_safe("with_x11") else "disabled"
+        )
         tc.project_options["xml_docs"] = "disabled"
         tc.generate()
         deps = PkgConfigDeps(self)
@@ -148,8 +179,12 @@ class DbusConan(ConanFile):
 
     def _patch_sources(self):
         apply_conandata_patches(self)
-        replace_in_file(self, os.path.join(self.source_folder, "meson.build"),
-                        "subdir('test')", "# subdir('test')")
+        replace_in_file(
+            self,
+            os.path.join(self.source_folder, "meson.build"),
+            "subdir('test')",
+            "# subdir('test')",
+        )
 
     def build(self):
         self._patch_sources()
@@ -158,8 +193,18 @@ class DbusConan(ConanFile):
         meson.build()
 
     def package(self):
-        copy(self, "COPYING", self.source_folder, os.path.join(self.package_folder, "licenses"))
-        copy(self, "*", os.path.join(self.source_folder, "LICENSES"), os.path.join(self.package_folder, "licenses"))
+        copy(
+            self,
+            "COPYING",
+            self.source_folder,
+            os.path.join(self.package_folder, "licenses"),
+        )
+        copy(
+            self,
+            "*",
+            os.path.join(self.source_folder, "LICENSES"),
+            os.path.join(self.package_folder, "licenses"),
+        )
         meson = Meson(self)
         meson.install()
 
@@ -170,23 +215,29 @@ class DbusConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         fix_apple_shared_install_name(self)
         if self.settings.os == "Windows" and not self.options.shared:
-            rename(self, os.path.join(self.package_folder, "lib", "libdbus-1.a"), os.path.join(self.package_folder, "lib", "dbus-1.lib"))
+            rename(
+                self,
+                os.path.join(self.package_folder, "lib", "libdbus-1.a"),
+                os.path.join(self.package_folder, "lib", "dbus-1.lib"),
+            )
 
         # TODO: to remove in conan v2 once cmake_find_package_* generators removed
         self._create_cmake_module_alias_targets(
             os.path.join(self.package_folder, self._module_file_rel_path),
-            {"dbus-1": "dbus-1::dbus-1"}
+            {"dbus-1": "dbus-1::dbus-1"},
         )
 
     def _create_cmake_module_alias_targets(self, module_file, targets):
         content = ""
         for alias, aliased in targets.items():
-            content += textwrap.dedent(f"""\
+            content += textwrap.dedent(
+                f"""\
                 if(TARGET {aliased} AND NOT TARGET {alias})
                     add_library({alias} INTERFACE IMPORTED)
                     set_property(TARGET {alias} PROPERTY INTERFACE_LINK_LIBRARIES {aliased})
                 endif()
-            """)
+            """
+            )
         save(self, module_file, content)
 
     @property
@@ -197,10 +248,12 @@ class DbusConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "DBus1")
         self.cpp_info.set_property("cmake_target_name", "dbus-1")
         self.cpp_info.set_property("pkg_config_name", "dbus-1")
-        self.cpp_info.includedirs.extend([
-            os.path.join("include", "dbus-1.0"),
-            os.path.join("lib", "dbus-1.0", "include"),
-        ])
+        self.cpp_info.includedirs.extend(
+            [
+                os.path.join("include", "dbus-1.0"),
+                os.path.join("lib", "dbus-1.0", "include"),
+            ]
+        )
         self.cpp_info.resdirs = ["res"]
         self.cpp_info.libs = ["dbus-1"]
         if self.settings.os == "Linux":
@@ -225,5 +278,7 @@ class DbusConan(ConanFile):
         self.cpp_info.names["cmake_find_package"] = "dbus-1"
         self.cpp_info.names["cmake_find_package_multi"] = "dbus-1"
         self.cpp_info.build_modules["cmake_find_package"] = [self._module_file_rel_path]
-        self.cpp_info.build_modules["cmake_find_package_multi"] = [self._module_file_rel_path]
+        self.cpp_info.build_modules["cmake_find_package_multi"] = [
+            self._module_file_rel_path
+        ]
         self.cpp_info.names["pkg_config"] = "dbus-1"

@@ -38,7 +38,9 @@ class LinuxHeadersGenericConan(ConanFile):
         return not hasattr(self, "settings_build")
 
     def validate(self):
-        if self.settings.os != "Linux" or (not self._is_legacy_one_profile and self.settings_build.os != "Linux"):
+        if self.settings.os != "Linux" or (
+            not self._is_legacy_one_profile and self.settings_build.os != "Linux"
+        ):
             raise ConanInvalidConfiguration("linux-headers-generic supports only Linux")
 
     def source(self):
@@ -54,12 +56,18 @@ class LinuxHeadersGenericConan(ConanFile):
             autotools.make(target="headers")
 
     def package(self):
-        copy(self, "COPYING",
-             dst=os.path.join(self.package_folder, "licenses"),
-             src=self.source_folder)
-        copy(self, "include/*.h",
-             dst=self.package_folder,
-             src=os.path.join(self.source_folder, "usr"))
+        copy(
+            self,
+            "COPYING",
+            dst=os.path.join(self.package_folder, "licenses"),
+            src=self.source_folder,
+        )
+        copy(
+            self,
+            "include/*.h",
+            dst=self.package_folder,
+            src=os.path.join(self.source_folder, "usr"),
+        )
 
     def package_info(self):
         self.cpp_info.bindirs = []

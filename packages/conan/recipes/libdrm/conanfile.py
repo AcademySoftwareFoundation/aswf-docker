@@ -18,8 +18,10 @@ required_conan_version = ">=1.64.0 <2 || >=2.2.0"
 
 class LibdrmConan(ConanFile):
     name = "libdrm"
-    description = ("User space library for accessing the Direct Rendering Manager, "
-                   "on operating systems that support the ioctl interface")
+    description = (
+        "User space library for accessing the Direct Rendering Manager, "
+        "on operating systems that support the ioctl interface"
+    )
     license = "MIT"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://gitlab.freedesktop.org/mesa/drm"
@@ -83,18 +85,26 @@ class LibdrmConan(ConanFile):
 
     def requirements(self):
         if self.options.intel:
-            self.requires(f"libpciaccess/{os.environ['ASWF_LIBPCIACCESS_VERSION']}@{self.user}/{self.channel}")
+            self.requires(
+                f"libpciaccess/{os.environ['ASWF_LIBPCIACCESS_VERSION']}@{self.user}/{self.channel}"
+            )
         if self.settings.os == "Linux":
-            self.requires(f"linux-headers-generic/{os.environ['ASWF_LINUX_HEADERS_GENERIC_VERSION']}@{self.user}/{self.channel}")
+            self.requires(
+                f"linux-headers-generic/{os.environ['ASWF_LINUX_HEADERS_GENERIC_VERSION']}@{self.user}/{self.channel}"
+            )
 
     def validate(self):
         if self.settings.os not in ["Linux", "FreeBSD"]:
             raise ConanInvalidConfiguration("libdrm supports only Linux or FreeBSD")
 
     def build_requirements(self):
-        self.tool_requires(f"meson/{os.environ['ASWF_MESON_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(
+            f"meson/{os.environ['ASWF_MESON_VERSION']}@{self.user}/{self.channel}"
+        )
         if not self.conf.get("tools.gnu:pkg_config", default=False, check_type=str):
-            self.tool_requires(f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}")
+            self.tool_requires(
+                f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}"
+            )
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -104,25 +114,45 @@ class LibdrmConan(ConanFile):
         tc.generate()
 
         tc = MesonToolchain(self)
-        tc.project_options["cairo-tests"] = "disabled" if Version(self.version) >= "2.4.113" else "false"
+        tc.project_options["cairo-tests"] = (
+            "disabled" if Version(self.version) >= "2.4.113" else "false"
+        )
         tc.project_options["install-test-programs"] = "false"
 
         if Version(self.version) < "2.4.111":
             tc.project_options["libkms"] = "true" if self.options.libkms else "false"
 
-        tc.project_options["freedreno-kgsl"] = "true" if getattr(self.options, "freedreno-kgsl") else "false"
+        tc.project_options["freedreno-kgsl"] = (
+            "true" if getattr(self.options, "freedreno-kgsl") else "false"
+        )
         tc.project_options["udev"] = "true" if self.options.udev else "false"
 
-        for o in ["intel", "radeon", "amdgpu", "nouveau", "vmwgfx", "omap",
-                  "exynos", "freedreno", "tegra", "vc4", "etnaviv", "valgrind"]:
+        for o in [
+            "intel",
+            "radeon",
+            "amdgpu",
+            "nouveau",
+            "vmwgfx",
+            "omap",
+            "exynos",
+            "freedreno",
+            "tegra",
+            "vc4",
+            "etnaviv",
+            "valgrind",
+        ]:
             if Version(self.version) >= "2.4.113":
-                tc.project_options[o] = "enabled" if getattr(self.options, o) else "disabled"
+                tc.project_options[o] = (
+                    "enabled" if getattr(self.options, o) else "disabled"
+                )
             else:
                 tc.project_options[o] = "true" if getattr(self.options, o) else "false"
 
         tc.project_options["datadir"] = "res"
         tc.project_options["mandir"] = os.path.join("res", "man")
-        tc.project_options["man-pages"] = "disabled" if Version(self.version) >= "2.4.113" else "false"
+        tc.project_options["man-pages"] = (
+            "disabled" if Version(self.version) >= "2.4.113" else "false"
+        )
         tc.generate()
 
     def build(self):
@@ -138,55 +168,99 @@ class LibdrmConan(ConanFile):
         # Extract the License/s from the header to a file
         tmp = load(self, os.path.join(self.source_folder, "include", "drm", "drm.h"))
         license_contents = re.search(r"\*/.*(/\*(\*(?!/)|[^*])*\*/)", tmp, re.DOTALL)[1]
-        save(self, os.path.join(self.package_folder, "licenses", "LICENSE"), license_contents)
+        save(
+            self,
+            os.path.join(self.package_folder, "licenses", "LICENSE"),
+            license_contents,
+        )
 
     def package_info(self):
         self.cpp_info.components["libdrm_libdrm"].libs = ["drm"]
-        self.cpp_info.components["libdrm_libdrm"].includedirs.append(os.path.join("include", "libdrm"))
-        self.cpp_info.components["libdrm_libdrm"].set_property("pkg_config_name", "libdrm")
+        self.cpp_info.components["libdrm_libdrm"].includedirs.append(
+            os.path.join("include", "libdrm")
+        )
+        self.cpp_info.components["libdrm_libdrm"].set_property(
+            "pkg_config_name", "libdrm"
+        )
         if self.settings.os == "Linux":
-            self.cpp_info.components["libdrm_libdrm"].requires = ["linux-headers-generic::linux-headers-generic"]
+            self.cpp_info.components["libdrm_libdrm"].requires = [
+                "linux-headers-generic::linux-headers-generic"
+            ]
 
         if Version(self.version) < "2.4.111":
             if self.options.libkms:
                 self.cpp_info.components["libdrm_libkms"].libs = ["kms"]
-                self.cpp_info.components["libdrm_libkms"].includedirs.append(os.path.join("include", "libkms"))
+                self.cpp_info.components["libdrm_libkms"].includedirs.append(
+                    os.path.join("include", "libkms")
+                )
                 self.cpp_info.components["libdrm_libkms"].requires = ["libdrm_libdrm"]
-                self.cpp_info.components["libdrm_libkms"].set_property("pkg_config_name", "libkms")
+                self.cpp_info.components["libdrm_libkms"].set_property(
+                    "pkg_config_name", "libkms"
+                )
 
         if self.options.vc4:
             self.cpp_info.components["libdrm_vc4"].requires = ["libdrm_libdrm"]
-            self.cpp_info.components["libdrm_vc4"].set_property("pkg_config_name", "libdrm_vc4")
+            self.cpp_info.components["libdrm_vc4"].set_property(
+                "pkg_config_name", "libdrm_vc4"
+            )
 
         if self.options.freedreno:
             self.cpp_info.components["libdrm_freedreno"].libs = ["drm_freedreno"]
-            self.cpp_info.components["libdrm_freedreno"].includedirs.append(os.path.join("include", "libdrm"))
-            self.cpp_info.components["libdrm_freedreno"].includedirs.append(os.path.join("include", "freedreno"))
+            self.cpp_info.components["libdrm_freedreno"].includedirs.append(
+                os.path.join("include", "libdrm")
+            )
+            self.cpp_info.components["libdrm_freedreno"].includedirs.append(
+                os.path.join("include", "freedreno")
+            )
             self.cpp_info.components["libdrm_freedreno"].requires = ["libdrm_libdrm"]
-            self.cpp_info.components["libdrm_freedreno"].set_property("pkg_config_name", "libdrm_freedreno")
+            self.cpp_info.components["libdrm_freedreno"].set_property(
+                "pkg_config_name", "libdrm_freedreno"
+            )
 
         if self.options.amdgpu:
             self.cpp_info.components["libdrm_amdgpu"].libs = ["drm_amdgpu"]
-            self.cpp_info.components["libdrm_amdgpu"].includedirs.append(os.path.join("include", "libdrm"))
+            self.cpp_info.components["libdrm_amdgpu"].includedirs.append(
+                os.path.join("include", "libdrm")
+            )
             self.cpp_info.components["libdrm_amdgpu"].requires = ["libdrm_libdrm"]
-            self.cpp_info.components["libdrm_amdgpu"].set_property("pkg_config_name", "libdrm_amdgpu")
+            self.cpp_info.components["libdrm_amdgpu"].set_property(
+                "pkg_config_name", "libdrm_amdgpu"
+            )
 
         if self.options.nouveau:
             self.cpp_info.components["libdrm_nouveau"].libs = ["drm_nouveau"]
-            self.cpp_info.components["libdrm_nouveau"].includedirs.extend([os.path.join("include", "libdrm"), os.path.join("include", "libdrm", "nouveau")])
+            self.cpp_info.components["libdrm_nouveau"].includedirs.extend(
+                [
+                    os.path.join("include", "libdrm"),
+                    os.path.join("include", "libdrm", "nouveau"),
+                ]
+            )
             self.cpp_info.components["libdrm_nouveau"].requires = ["libdrm_libdrm"]
-            self.cpp_info.components["libdrm_nouveau"].set_property("pkg_config_name", "libdrm_nouveau")
+            self.cpp_info.components["libdrm_nouveau"].set_property(
+                "pkg_config_name", "libdrm_nouveau"
+            )
             if self.settings.os in ["Linux", "FreeBSD"]:
                 self.cpp_info.components["libdrm_nouveau"].system_libs = ["pthread"]
 
         if self.options.intel:
             self.cpp_info.components["libdrm_intel"].libs = ["drm_intel"]
-            self.cpp_info.components["libdrm_intel"].includedirs.append(os.path.join("include", "libdrm"))
-            self.cpp_info.components["libdrm_intel"].requires = ["libdrm_libdrm", "libpciaccess::libpciaccess"]
-            self.cpp_info.components["libdrm_intel"].set_property("pkg_config_name", "libdrm_intel")
+            self.cpp_info.components["libdrm_intel"].includedirs.append(
+                os.path.join("include", "libdrm")
+            )
+            self.cpp_info.components["libdrm_intel"].requires = [
+                "libdrm_libdrm",
+                "libpciaccess::libpciaccess",
+            ]
+            self.cpp_info.components["libdrm_intel"].set_property(
+                "pkg_config_name", "libdrm_intel"
+            )
 
         if self.options.radeon:
             self.cpp_info.components["libdrm_radeon"].libs = ["drm_radeon"]
-            self.cpp_info.components["libdrm_radeon"].includedirs.append(os.path.join("include", "libdrm"))
+            self.cpp_info.components["libdrm_radeon"].includedirs.append(
+                os.path.join("include", "libdrm")
+            )
             self.cpp_info.components["libdrm_radeon"].requires = ["libdrm_libdrm"]
-            self.cpp_info.components["libdrm_radeon"].set_property("pkg_config_name", "libdrm_radeon")
+            self.cpp_info.components["libdrm_radeon"].set_property(
+                "pkg_config_name", "libdrm_radeon"
+            )

@@ -4,7 +4,14 @@
 
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
-from conan.tools.files import apply_conandata_patches, export_conandata_patches, get, load, replace_in_file, save
+from conan.tools.files import (
+    apply_conandata_patches,
+    export_conandata_patches,
+    get,
+    load,
+    replace_in_file,
+    save,
+)
 from conan.tools.scm import Version
 import os
 
@@ -17,8 +24,10 @@ class ZlibConan(ConanFile):
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://zlib.net"
     license = "Zlib"
-    description = ("A Massively Spiffy Yet Delicately Unobtrusive Compression Library "
-                   "(Also Free, Not to Mention Unencumbered by Patents)")
+    description = (
+        "A Massively Spiffy Yet Delicately Unobtrusive Compression Library "
+        "(Also Free, Not to Mention Unencumbered by Patents)"
+    )
     topics = ("zlib", "compression")
 
     settings = "os", "arch", "compiler", "build_type"
@@ -52,8 +61,12 @@ class ZlibConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version],
-            destination=self.source_folder, strip_root=True)
+        get(
+            self,
+            **self.conan_data["sources"][self.version],
+            destination=self.source_folder,
+            strip_root=True,
+        )
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -70,18 +83,27 @@ class ZlibConan(ConanFile):
     def _patch_sources(self):
         apply_conandata_patches(self)
 
-        is_apple_clang12 = self.settings.compiler == "apple-clang" and Version(self.settings.compiler.version) >= "12.0"
+        is_apple_clang12 = (
+            self.settings.compiler == "apple-clang"
+            and Version(self.settings.compiler.version) >= "12.0"
+        )
         if not is_apple_clang12:
-            for filename in ['zconf.h', 'zconf.h.cmakein', 'zconf.h.in']:
+            for filename in ["zconf.h", "zconf.h.cmakein", "zconf.h.in"]:
                 filepath = os.path.join(self.source_folder, filename)
-                replace_in_file(self, filepath,
-                                      '#ifdef HAVE_UNISTD_H    '
-                                      '/* may be set to #if 1 by ./configure */',
-                                      '#if defined(HAVE_UNISTD_H) && (1-HAVE_UNISTD_H-1 != 0)')
-                replace_in_file(self, filepath,
-                                      '#ifdef HAVE_STDARG_H    '
-                                      '/* may be set to #if 1 by ./configure */',
-                                      '#if defined(HAVE_STDARG_H) && (1-HAVE_STDARG_H-1 != 0)')
+                replace_in_file(
+                    self,
+                    filepath,
+                    "#ifdef HAVE_UNISTD_H    "
+                    "/* may be set to #if 1 by ./configure */",
+                    "#if defined(HAVE_UNISTD_H) && (1-HAVE_UNISTD_H-1 != 0)",
+                )
+                replace_in_file(
+                    self,
+                    filepath,
+                    "#ifdef HAVE_STDARG_H    "
+                    "/* may be set to #if 1 by ./configure */",
+                    "#if defined(HAVE_STDARG_H) && (1-HAVE_STDARG_H-1 != 0)",
+                )
 
     def build(self):
         self._patch_sources()
@@ -91,11 +113,15 @@ class ZlibConan(ConanFile):
 
     def _extract_license(self):
         tmp = load(self, os.path.join(self.source_folder, "zlib.h"))
-        license_contents = tmp[2:tmp.find("*/", 1)]
+        license_contents = tmp[2 : tmp.find("*/", 1)]
         return license_contents
 
     def package(self):
-        save(self, os.path.join(self.package_folder, "licenses", "LICENSE"), self._extract_license())
+        save(
+            self,
+            os.path.join(self.package_folder, "licenses", "LICENSE"),
+            self._extract_license(),
+        )
         cmake = CMake(self)
         cmake.install()
 

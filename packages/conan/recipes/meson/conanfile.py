@@ -27,7 +27,12 @@ class MesonConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        if self.conf.get("tools.meson.mesontoolchain:backend", default="ninja", check_type=str) == "ninja":
+        if (
+            self.conf.get(
+                "tools.meson.mesontoolchain:backend", default="ninja", check_type=str
+            )
+            == "ninja"
+        ):
             self.requires(
                 f"ninja/{os.environ['ASWF_NINJA_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
             )
@@ -39,22 +44,44 @@ class MesonConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-        copy(self, "*", src=self.source_folder, dst=os.path.join(self.package_folder, "bin"))
+        copy(
+            self,
+            "COPYING",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses"),
+        )
+        copy(
+            self,
+            "*",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "bin"),
+        )
         rmdir(self, os.path.join(self.package_folder, "bin", "test cases"))
 
         # create wrapper scripts
-        save(self, os.path.join(self.package_folder, "bin", "meson.cmd"), textwrap.dedent("""\
+        save(
+            self,
+            os.path.join(self.package_folder, "bin", "meson.cmd"),
+            textwrap.dedent(
+                """\
             @echo off
             set PYTHONDONTWRITEBYTECODE=1
             CALL python %~dp0/meson.py %*
-        """))
-        save(self, os.path.join(self.package_folder, "bin", "meson"), textwrap.dedent("""\
+        """
+            ),
+        )
+        save(
+            self,
+            os.path.join(self.package_folder, "bin", "meson"),
+            textwrap.dedent(
+                """\
             #!/usr/bin/env bash
             meson_dir=$(dirname "$0")
             export PYTHONDONTWRITEBYTECODE=1
             exec "$meson_dir/meson.py" "$@"
-        """))
+        """
+            ),
+        )
 
     @staticmethod
     def _chmod_plus_x(filename):

@@ -3,7 +3,16 @@
 # SPDX-License-Identifier: MIT
 
 from conan import ConanFile
-from conan.tools.files import rmdir, mkdir, save, load, get, apply_conandata_patches, export_conandata_patches, copy
+from conan.tools.files import (
+    rmdir,
+    mkdir,
+    save,
+    load,
+    get,
+    apply_conandata_patches,
+    export_conandata_patches,
+    copy,
+)
 from conan.tools.gnu import AutotoolsToolchain, Autotools
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, unix_path
@@ -19,8 +28,10 @@ required_conan_version = ">=1.54.0"
 class XorgProtoConan(ConanFile):
     name = "xorg-proto"
     package_type = "header-library"
-    description = "This package provides the headers and specification documents defining " \
+    description = (
+        "This package provides the headers and specification documents defining "
         "the core protocol and (many) extensions for the X Window System."
+    )
     topics = ("specification", "x-window")
     license = "X11"
     homepage = "https://gitlab.freedesktop.org/xorg/proto/xorgproto"
@@ -36,9 +47,15 @@ class XorgProtoConan(ConanFile):
         return getattr(self, "settings_build", self.settings)
 
     def build_requirements(self):
-        self.tool_requires(f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}")
-        self.tool_requires(f"xorg-macros/{os.environ['ASWF_XORG_MACROS_VERSION']}@{self.user}/{self.channel}")
-        self.tool_requires(f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(
+            f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}"
+        )
+        self.tool_requires(
+            f"xorg-macros/{os.environ['ASWF_XORG_MACROS_VERSION']}@{self.user}/{self.channel}"
+        )
+        self.tool_requires(
+            f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}"
+        )
         if self._settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
@@ -46,7 +63,9 @@ class XorgProtoConan(ConanFile):
 
     def requirements(self):
         if hasattr(self, "settings_build"):
-            self.requires(f"xorg-macros/{os.environ['ASWF_XORG_MACROS_VERSION']}@{self.user}/{self.channel}")
+            self.requires(
+                f"xorg-macros/{os.environ['ASWF_XORG_MACROS_VERSION']}@{self.user}/{self.channel}"
+            )
 
     def package_id(self):
         self.info.clear()
@@ -55,13 +74,20 @@ class XorgProtoConan(ConanFile):
         export_conandata_patches(self)
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version], destination=self.source_folder, strip_root=True)
+        get(
+            self,
+            **self.conan_data["sources"][self.version],
+            destination=self.source_folder,
+            strip_root=True,
+        )
 
     def generate(self):
         tc = AutotoolsToolchain(self)
         env = tc.environment()
         if is_msvc(self):
-            compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper"))
+            compile_wrapper = unix_path(
+                self, self.conf.get("user.automake:compile-wrapper")
+            )
             env.define("CC", f"{compile_wrapper} cl -nologo")
         tc.generate(env)
 
@@ -77,17 +103,28 @@ class XorgProtoConan(ConanFile):
         return os.path.join(self.package_folder, "res", "pc_data.yml")
 
     def package(self):
-        copy(self, "COPYING-*", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(
+            self,
+            "COPYING-*",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses"),
+        )
 
         autotools = Autotools(self)
         autotools.install()
 
         pc_data = {}
-        for fn in glob.glob(os.path.join(self.package_folder, "share", "pkgconfig", "*.pc")):
+        for fn in glob.glob(
+            os.path.join(self.package_folder, "share", "pkgconfig", "*.pc")
+        ):
             pc_text = load(self, fn)
             filename = os.path.basename(fn)[:-3]
-            name = next(re.finditer("^Name: ([^\n$]+)[$\n]", pc_text, flags=re.MULTILINE)).group(1)
-            version = next(re.finditer("^Version: ([^\n$]+)[$\n]", pc_text, flags=re.MULTILINE)).group(1)
+            name = next(
+                re.finditer("^Name: ([^\n$]+)[$\n]", pc_text, flags=re.MULTILINE)
+            ).group(1)
+            version = next(
+                re.finditer("^Version: ([^\n$]+)[$\n]", pc_text, flags=re.MULTILINE)
+            ).group(1)
             pc_data[filename] = {
                 "version": version,
                 "name": name,
@@ -102,8 +139,12 @@ class XorgProtoConan(ConanFile):
             self.cpp_info.components[filename].filenames["pkg_config"] = filename
             self.cpp_info.components[filename].libdirs = []
             if hasattr(self, "settings_build"):
-                self.cpp_info.components[filename].requires = ["xorg-macros::xorg-macros"]
+                self.cpp_info.components[filename].requires = [
+                    "xorg-macros::xorg-macros"
+                ]
             self.cpp_info.components[filename].version = name_version["version"]
             self.cpp_info.components[filename].set_property("pkg_config_name", filename)
 
-        self.cpp_info.components["xproto"].includedirs.append(os.path.join("include", "X11"))
+        self.cpp_info.components["xproto"].includedirs.append(
+            os.path.join("include", "X11")
+        )

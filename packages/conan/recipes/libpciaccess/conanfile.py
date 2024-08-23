@@ -50,15 +50,25 @@ class LibPciAccessConan(ConanFile):
         def is_supported(settings):
             if settings.os in ("Linux", "FreeBSD", "SunOS"):
                 return True
-            return settings.os == "Windows" and settings.get_safe("os.subsystem") == "cygwin"
+            return (
+                settings.os == "Windows"
+                and settings.get_safe("os.subsystem") == "cygwin"
+            )
+
         if not is_supported(self.settings):
             raise ConanInvalidConfiguration("Unsupported architecture.")
 
     def build_requirements(self):
-        self.tool_requires(f"libtool/{os.environ['ASWF_LIBTOOL_VERSION']}@{self.user}/{self.channel}")
-        self.tool_requires(f"xorg-macros/{os.environ['ASWF_XORG_MACROS_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(
+            f"libtool/{os.environ['ASWF_LIBTOOL_VERSION']}@{self.user}/{self.channel}"
+        )
+        self.tool_requires(
+            f"xorg-macros/{os.environ['ASWF_XORG_MACROS_VERSION']}@{self.user}/{self.channel}"
+        )
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
-            self.tool_requires(f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}")
+            self.tool_requires(
+                f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}"
+            )
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -76,7 +86,12 @@ class LibPciAccessConan(ConanFile):
         autotools.make()
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(
+            self,
+            "COPYING",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses"),
+        )
         autotools = Autotools(self)
         autotools.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))

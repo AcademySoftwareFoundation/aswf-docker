@@ -6,7 +6,16 @@ import os
 
 from conan import ConanFile
 from conan.tools.env import VirtualBuildEnv
-from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rename, rm, rmdir, replace_in_file
+from conan.tools.files import (
+    apply_conandata_patches,
+    copy,
+    export_conandata_patches,
+    get,
+    rename,
+    rm,
+    rmdir,
+    replace_in_file,
+)
 from conan.tools.layout import basic_layout
 from conan.tools.meson import Meson, MesonToolchain
 from conan.tools.microsoft import is_msvc, unix_path_package_info_legacy
@@ -60,7 +69,9 @@ class PkgConfConan(ConanFile):
             del self.info.settings.compiler
 
     def build_requirements(self):
-        self.tool_requires(f"meson/{os.environ['ASWF_MESON_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(
+            f"meson/{os.environ['ASWF_MESON_VERSION']}@{self.user}/{self.channel}"
+        )
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -69,12 +80,18 @@ class PkgConfConan(ConanFile):
         apply_conandata_patches(self)
 
         if not self.options.get_safe("shared", False):
-            replace_in_file(self, os.path.join(self.source_folder, "meson.build"),
-                                  "'-DLIBPKGCONF_EXPORT'",
-                                  "'-DPKGCONFIG_IS_STATIC'")
-            replace_in_file(self, os.path.join(self.source_folder, "meson.build"),
-            "project('pkgconf', 'c',",
-            "project('pkgconf', 'c',\ndefault_options : ['c_std=gnu99'],")
+            replace_in_file(
+                self,
+                os.path.join(self.source_folder, "meson.build"),
+                "'-DLIBPKGCONF_EXPORT'",
+                "'-DPKGCONFIG_IS_STATIC'",
+            )
+            replace_in_file(
+                self,
+                os.path.join(self.source_folder, "meson.build"),
+                "project('pkgconf', 'c',",
+                "project('pkgconf', 'c',\ndefault_options : ['c_std=gnu99'],",
+            )
 
     def generate(self):
         env = VirtualBuildEnv(self)
@@ -97,7 +114,12 @@ class PkgConfConan(ConanFile):
         meson.build()
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder,"licenses"))
+        copy(
+            self,
+            "COPYING",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses"),
+        )
 
         meson = Meson(self)
         meson.install()
@@ -105,17 +127,22 @@ class PkgConfConan(ConanFile):
         if is_msvc(self):
             rm(self, "*.pdb", os.path.join(self.package_folder, "bin"))
             if self.options.enable_lib and not self.options.shared:
-                rename(self, os.path.join(self.package_folder, "lib", "libpkgconf.a"),
-                          os.path.join(self.package_folder, "lib", "pkgconf.lib"),)
+                rename(
+                    self,
+                    os.path.join(self.package_folder, "lib", "libpkgconf.a"),
+                    os.path.join(self.package_folder, "lib", "pkgconf.lib"),
+                )
 
         if not self.options.enable_lib:
             rmdir(self, os.path.join(self.package_folder, "lib"))
             rmdir(self, os.path.join(self.package_folder, "include"))
 
-
         rmdir(self, os.path.join(self.package_folder, "share", "man"))
-        rename(self, os.path.join(self.package_folder, "share", "aclocal"),
-                  os.path.join(self.package_folder, "bin", "aclocal"))
+        rename(
+            self,
+            os.path.join(self.package_folder, "share", "aclocal"),
+            os.path.join(self.package_folder, "bin", "aclocal"),
+        )
         rmdir(self, os.path.join(self.package_folder, "share"))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 
@@ -144,6 +171,8 @@ class PkgConfConan(ConanFile):
         self.buildenv_info.prepend_path("AUTOMAKE_CONAN_INCLUDES", pkgconf_aclocal)
 
         # TODO: remove in conanv2
-        automake_extra_includes = unix_path_package_info_legacy(self, pkgconf_aclocal.replace("\\", "/"))
+        automake_extra_includes = unix_path_package_info_legacy(
+            self, pkgconf_aclocal.replace("\\", "/")
+        )
         self.env_info.PKG_CONFIG = pkg_config
         self.env_info.AUTOMAKE_CONAN_INCLUDES.append(automake_extra_includes)

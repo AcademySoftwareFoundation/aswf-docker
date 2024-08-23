@@ -17,9 +17,8 @@ class TestPackageConan(ConanFile):
         self.tool_requires(self.tested_reference_str)
 
     def _assert_expected_version(self):
-
         def tested_reference_version():
-            tokens = re.split('[@#]', self.tested_reference_str)
+            tokens = re.split("[@#]", self.tested_reference_str)
             return tokens[0].split("/", 1)[1]
 
         output = StringIO()
@@ -29,7 +28,7 @@ class TestPackageConan(ConanFile):
         expected_version = tested_reference_version()
         self.output.info("Expected version: {}".format(expected_version))
         assert_flex_version = "flex {}".format(expected_version)
-        assert(assert_flex_version in output_str)
+        assert assert_flex_version in output_str
 
     def build(self):
         # Let's check flex version installed

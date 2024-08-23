@@ -1,6 +1,12 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
-from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rmdir
+from conan.tools.files import (
+    apply_conandata_patches,
+    copy,
+    export_conandata_patches,
+    get,
+    rmdir,
+)
 from conan.tools.microsoft import check_min_vs
 import os
 
@@ -49,8 +55,12 @@ class OpusConan(ConanFile):
         check_min_vs(self, 190)
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version],
-            destination=self.source_folder, strip_root=True)
+        get(
+            self,
+            **self.conan_data["sources"][self.version],
+            destination=self.source_folder,
+            strip_root=True,
+        )
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -65,7 +75,12 @@ class OpusConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(
+            self,
+            "COPYING",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses"),
+        )
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
@@ -77,7 +92,9 @@ class OpusConan(ConanFile):
         self.cpp_info.set_property("pkg_config_name", "opus")
         # TODO: back to global scope in conan v2 once cmake_find_package_* generators removed
         self.cpp_info.components["libopus"].libs = ["opus"]
-        self.cpp_info.components["libopus"].includedirs.append(os.path.join("include", "opus"))
+        self.cpp_info.components["libopus"].includedirs.append(
+            os.path.join("include", "opus")
+        )
         if self.settings.os in ["Linux", "FreeBSD", "Android"]:
             self.cpp_info.components["libopus"].system_libs.append("m")
         if self.settings.os == "Windows" and self.settings.compiler == "gcc":
@@ -88,5 +105,7 @@ class OpusConan(ConanFile):
         self.cpp_info.names["cmake_find_package_multi"] = "Opus"
         self.cpp_info.components["libopus"].names["cmake_find_package"] = "opus"
         self.cpp_info.components["libopus"].names["cmake_find_package_multi"] = "opus"
-        self.cpp_info.components["libopus"].set_property("cmake_target_name", "Opus::opus")
+        self.cpp_info.components["libopus"].set_property(
+            "cmake_target_name", "Opus::opus"
+        )
         self.cpp_info.components["libopus"].set_property("pkg_config_name", "opus")

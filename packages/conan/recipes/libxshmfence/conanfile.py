@@ -9,7 +9,14 @@ from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import fix_apple_shared_install_name
 from conan.tools.build import cross_building
 from conan.tools.env import Environment, VirtualBuildEnv, VirtualRunEnv
-from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rm, rmdir
+from conan.tools.files import (
+    apply_conandata_patches,
+    copy,
+    export_conandata_patches,
+    get,
+    rm,
+    rmdir,
+)
 from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps
 from conan.tools.layout import basic_layout
 from conan.tools.microsoft import is_msvc, unix_path
@@ -60,17 +67,23 @@ class LibxshmfenceConan(ConanFile):
     def requirements(self):
         self.requires(
             f"xorg-proto/{os.environ['ASWF_XORG_PROTO_VERSION']}@{self.user}/{self.channel}",
-            transitive_headers=True
+            transitive_headers=True,
         )
 
     def validate(self):
         if self.settings.os == "Windows":
-            raise ConanInvalidConfiguration("Windows is not supported by libxshmfence recipe. Contributions are welcome")
+            raise ConanInvalidConfiguration(
+                "Windows is not supported by libxshmfence recipe. Contributions are welcome"
+            )
 
     def build_requirements(self):
-        self.tool_requires(f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(
+            f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}"
+        )
         if not self.conf.get("tools.gnu:pkg_config", default=False, check_type=str):
-            self.tool_requires(f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}")
+            self.tool_requires(
+                f"pkgconf/{os.environ['ASWF_PKGCONF_VERSION']}@{self.user}/{self.channel}"
+            )
         if self._settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
@@ -93,7 +106,9 @@ class LibxshmfenceConan(ConanFile):
         if is_msvc(self):
             env = Environment()
             automake_conf = self.dependencies.build["automake"].conf_info
-            compile_wrapper = unix_path(self, automake_conf.get("user.automake:compile-wrapper", check_type=str))
+            compile_wrapper = unix_path(
+                self, automake_conf.get("user.automake:compile-wrapper", check_type=str)
+            )
             env.define("CC", f"{compile_wrapper} cl -nologo")
             env.vars(self).save_script("conanbuild_msvc")
 
@@ -104,9 +119,12 @@ class LibxshmfenceConan(ConanFile):
         autotools.make()
 
     def package(self):
-        copy(self, "COPYING",
-             src=self.source_folder,
-             dst=os.path.join(self.package_folder, "licenses"))
+        copy(
+            self,
+            "COPYING",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses"),
+        )
         autotools = Autotools(self)
         autotools.install()
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))

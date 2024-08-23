@@ -1,4 +1,3 @@
-
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
@@ -21,8 +20,12 @@ class TestPackageConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires(self.tested_reference_str)
-        self.build_requires(f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}")
-        if self._settings_build.os == "Windows" and not self.conf.get("tools.microsoft.bash:path", check_type=str):
+        self.build_requires(
+            f"automake/{os.environ['ASWF_AUTOMAKE_VERSION']}@{self.user}/{self.channel}"
+        )
+        if self._settings_build.os == "Windows" and not self.conf.get(
+            "tools.microsoft.bash:path", check_type=str
+        ):
             self.tool_requires("msys2/cci.latest")
 
     def layout(self):

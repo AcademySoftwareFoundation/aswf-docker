@@ -6,7 +6,14 @@ import os
 
 from conan import ConanFile
 from conan.tools.env import VirtualBuildEnv
-from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, replace_in_file, rmdir
+from conan.tools.files import (
+    apply_conandata_patches,
+    copy,
+    export_conandata_patches,
+    get,
+    replace_in_file,
+    rmdir,
+)
 from conan.tools.gnu import Autotools, AutotoolsToolchain
 from conan.tools.layout import basic_layout
 from conan.tools.scm import Version
@@ -43,7 +50,9 @@ class AutomakeConan(ConanFile):
         basic_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires(f"autoconf/{os.environ['ASWF_AUTOCONF_VERSION']}@{self.user}/{self.channel}")
+        self.requires(
+            f"autoconf/{os.environ['ASWF_AUTOCONF_VERSION']}@{self.user}/{self.channel}"
+        )
         # automake requires perl-Thread-Queue package
 
     def package_id(self):
@@ -53,7 +62,9 @@ class AutomakeConan(ConanFile):
 
     def build_requirements(self):
         if hasattr(self, "settings_build"):
-            self.tool_requires(f"autoconf/{os.environ['ASWF_AUTOCONF_VERSION']}@{self.user}/{self.channel}")
+            self.tool_requires(
+                f"autoconf/{os.environ['ASWF_AUTOCONF_VERSION']}@{self.user}/{self.channel}"
+            )
         if self._settings_build.os == "Windows":
             self.win_bash = True
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
@@ -67,9 +78,11 @@ class AutomakeConan(ConanFile):
         env.generate()
 
         tc = AutotoolsToolchain(self)
-        tc.configure_args.extend([
-            "--datarootdir=${prefix}/res",
-        ])
+        tc.configure_args.extend(
+            [
+                "--datarootdir=${prefix}/res",
+            ]
+        )
         tc.generate()
 
     def _patch_sources(self):
@@ -77,14 +90,21 @@ class AutomakeConan(ConanFile):
         if self.settings.os == "Windows":
             # tracing using m4 on Windows returns Windows paths => use cygpath to convert to unix paths
             ac_local_in = os.path.join(self.source_folder, "bin", "aclocal.in")
-            replace_in_file(self, ac_local_in,
-                                "          $map_traced_defs{$arg1} = $file;",
-                                "          $file = `cygpath -u $file`;\n"
-                                "          $file =~ s/^\\s+|\\s+$//g;\n"
-                                "          $map_traced_defs{$arg1} = $file;")
+            replace_in_file(
+                self,
+                ac_local_in,
+                "          $map_traced_defs{$arg1} = $file;",
+                "          $file = `cygpath -u $file`;\n"
+                "          $file =~ s/^\\s+|\\s+$//g;\n"
+                "          $map_traced_defs{$arg1} = $file;",
+            )
             # handle relative paths during aclocal.m4 creation
-            replace_in_file(self, ac_local_in, "$map{$m} eq $map_traced_defs{$m}",
-                                "abs_path($map{$m}) eq abs_path($map_traced_defs{$m})")
+            replace_in_file(
+                self,
+                ac_local_in,
+                "$map{$m} eq $map_traced_defs{$m}",
+                "abs_path($map{$m}) eq abs_path($map_traced_defs{$m})",
+            )
 
     def build(self):
         self._patch_sources()
@@ -99,7 +119,12 @@ class AutomakeConan(ConanFile):
     def package(self):
         autotools = Autotools(self)
         autotools.install()
-        copy(self, "COPYING*", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(
+            self,
+            "COPYING*",
+            src=self.source_folder,
+            dst=os.path.join(self.package_folder, "licenses"),
+        )
 
         rmdir(self, os.path.join(self._datarootdir, "info"))
         rmdir(self, os.path.join(self._datarootdir, "man"))

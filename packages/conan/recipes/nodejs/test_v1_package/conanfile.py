@@ -18,7 +18,9 @@ class TestPackageConan(ConanFile):
             if self.settings.os in ["Linux", "FreeBSD"]:
                 libc_version = Version(platform.libc_ver()[1])
                 if libc_version < "2.29":
-                    self.output.warning(f"System libc version {libc_version} < 2.29, skipping test_package")
+                    self.output.warning(
+                        f"System libc version {libc_version} < 2.29, skipping test_package"
+                    )
                     return
             self.output.info("Node version:")
             self.run("node --version")

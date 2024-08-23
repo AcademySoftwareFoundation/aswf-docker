@@ -16,23 +16,31 @@ class TestPackageConan(ConanFile):
         return getattr(self, "settings_build", self.settings)
 
     def requirements(self):
-        self.requires(self.tested_reference_str) # Needed as a requirement for CMake to see libraries
+        self.requires(
+            self.tested_reference_str
+        )  # Needed as a requirement for CMake to see libraries
 
     def build_requirements(self):
         if hasattr(self, "settings_build") and not tools.cross_building(self):
             self.build_requires(self.tested_reference_str)
-        self.build_requires("automake/1.16.5") # Needed for aclocal called by autoreconf
-        if self._settings_build.os == "Windows" and not tools.get_env("CONAN_BASH_PATH"):
+        self.build_requires(
+            "automake/1.16.5"
+        )  # Needed for aclocal called by autoreconf
+        if self._settings_build.os == "Windows" and not tools.get_env(
+            "CONAN_BASH_PATH"
+        ):
             self.build_requires("msys2/cci.latest")
 
     @contextmanager
     def _build_context(self):
         if self.settings.compiler == "Visual Studio":
             with tools.vcvars(self.settings):
-                with tools.environment_append({
-                    "CC": "cl -nologo",
-                    "CXX": "cl -nologo",
-                }):
+                with tools.environment_append(
+                    {
+                        "CC": "cl -nologo",
+                        "CXX": "cl -nologo",
+                    }
+                ):
                     yield
         else:
             yield
@@ -42,24 +50,36 @@ class TestPackageConan(ConanFile):
         return os.path.join(self.build_folder, "package")
 
     def _build_autotools(self):
-        """ Test autotools integration """
+        """Test autotools integration"""
         # Copy autotools directory to build folder
-        shutil.copytree(os.path.join(self.source_folder, "autotools"), os.path.join(self.build_folder, "autotools"))
+        shutil.copytree(
+            os.path.join(self.source_folder, "autotools"),
+            os.path.join(self.build_folder, "autotools"),
+        )
         with tools.chdir("autotools"):
-            self.run("autoreconf --install --verbose -Wall", win_bash=tools.os_info.is_windows)
+            self.run(
+                "autoreconf --install --verbose -Wall",
+                win_bash=tools.os_info.is_windows,
+            )
 
         tools.mkdir(self._package_folder)
         conf_args = [
             "--prefix={}".format(tools.unix_path(self._package_folder)),
-            "--enable-shared", "--enable-static",
+            "--enable-shared",
+            "--enable-static",
         ]
 
         os.mkdir("bin_autotools")
         with tools.chdir("bin_autotools"):
             with self._build_context():
-                autotools = AutoToolsBuildEnvironment(self, win_bash=tools.os_info.is_windows)
+                autotools = AutoToolsBuildEnvironment(
+                    self, win_bash=tools.os_info.is_windows
+                )
                 autotools.libs = []
-                autotools.configure(args=conf_args, configure_dir=os.path.join(self.build_folder, "autotools"))
+                autotools.configure(
+                    args=conf_args,
+                    configure_dir=os.path.join(self.build_folder, "autotools"),
+                )
                 autotools.make(args=["V=1"])
                 autotools.install()
 
@@ -69,10 +89,13 @@ class TestPackageConan(ConanFile):
         assert os.path.isdir(os.path.join(self._package_folder, "lib"))
 
         if not tools.cross_building(self):
-            self.run(os.path.join(self._package_folder, "bin", "test_package"), run_environment=True)
+            self.run(
+                os.path.join(self._package_folder, "bin", "test_package"),
+                run_environment=True,
+            )
 
     def _build_ltdl(self):
-        """ Build library using ltdl library """
+        """Build library using ltdl library"""
         with self._build_context():
             if self.settings.compiler == "Visual Studio":
                 cmake = CMake(self, generator="NMake Makefiles")
@@ -82,7 +105,7 @@ class TestPackageConan(ConanFile):
             cmake.build()
 
     def _test_ltdl(self):
-        """ Test library using ltdl library"""
+        """Test library using ltdl library"""
         lib_suffix = {
             "Linux": "so",
             "FreeBSD": "so",
@@ -93,11 +116,17 @@ class TestPackageConan(ConanFile):
         if not tools.cross_building(self):
             bin_path = tools.unix_path(os.path.join("bin", "test_package"))
             libdir = "bin" if self.settings.os == "Windows" else "lib"
-            lib_path = tools.unix_path(os.path.join(libdir, "liba.{}".format(lib_suffix)))
-            self.run("{} {}".format(bin_path, lib_path), run_environment=True, win_bash=tools.os_info.is_windows)
+            lib_path = tools.unix_path(
+                os.path.join(libdir, "liba.{}".format(lib_suffix))
+            )
+            self.run(
+                "{} {}".format(bin_path, lib_path),
+                run_environment=True,
+                win_bash=tools.os_info.is_windows,
+            )
 
     def _build_static_lib_in_shared(self):
-        """ Build shared library using libtool (while linking to a static library) """
+        """Build shared library using libtool (while linking to a static library)"""
 
         # Copy static-in-shared directory to build folder
         autotools_folder = os.path.join(self.build_folder, "sis")
@@ -112,7 +141,10 @@ class TestPackageConan(ConanFile):
             else:
                 cmake = CMake(self)
             cmake.definitions["CMAKE_INSTALL_PREFIX"] = install_prefix
-            cmake.configure(source_folder=autotools_folder, build_folder=os.path.join(autotools_folder, "cmake_build"))
+            cmake.configure(
+                source_folder=autotools_folder,
+                build_folder=os.path.join(autotools_folder, "cmake_build"),
+            )
             cmake.build()
             cmake.install()
 
@@ -127,15 +159,19 @@ class TestPackageConan(ConanFile):
                 "--prefix={}".format(tools.unix_path(os.path.join(install_prefix))),
             ]
             with self._build_context():
-                autotools = AutoToolsBuildEnvironment(self, win_bash=tools.os_info.is_windows)
+                autotools = AutoToolsBuildEnvironment(
+                    self, win_bash=tools.os_info.is_windows
+                )
                 autotools.libs = []
-                autotools.link_flags.append("-L{}".format(tools.unix_path(os.path.join(install_prefix, "lib"))))
+                autotools.link_flags.append(
+                    "-L{}".format(tools.unix_path(os.path.join(install_prefix, "lib")))
+                )
                 autotools.configure(args=conf_args, configure_dir=autotools_folder)
                 autotools.make(args=["V=1"])
                 autotools.install()
 
     def _test_static_lib_in_shared(self):
-        """ Test existence of shared library """
+        """Test existence of shared library"""
         install_prefix = os.path.join(self.build_folder, "sis", "prefix")
 
         with tools.chdir(install_prefix):
