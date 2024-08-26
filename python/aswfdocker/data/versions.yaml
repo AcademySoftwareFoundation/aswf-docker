@@ -762,6 +762,8 @@ ci-images:
     - "2022.1"
     - "2023.2"
     - "2024.1"
+  openrv:
+    - "2024.1"
   osl:
     - "2019-clang6.5"
     - "2019-clang7.5"
@@ -869,6 +871,8 @@ groups:
         - osl
         - openvdb
         - vfxall
+      review:
+        - openrv
 
 package_data:
   python:
