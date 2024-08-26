@@ -1,0 +1,25 @@
+name: "openrv"
+title: "OpenRV CI Docker Image"
+description: |
+  Contains: Python, Boost, OpenEXR and other OpenRV upstream dependencies
+  Warning: this image does *not* contain OpenRV itself as it is used to *build* OpenRV!
+packages:
+  - cmake
+  - python
+  - expat
+  - qt
+implicit_packages:
+  - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION
+docker_commands: |
+  # Dependencies missing for OpenRV
+  RUN sudo dnf install -y meson nasm libaio-devel mesa-vulkan-devel mesa-libOSMesa mesa-libOSMesa-devel
+docker_post_commands: |
+  # Workaround: Reinstall Qt to a temporary location to prevent conflicts with PySide during OpenRV builds.
+  # This is effectively a copy since Qt is already in the cache from previous steps.
+  # This approach may be revisited if OpenRV uses PySide2 package from Artifactory.
+  RUN --mount=type=cache,target=/opt/conan_home/d \
+      --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+      conan install qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /tmp/qttemp
