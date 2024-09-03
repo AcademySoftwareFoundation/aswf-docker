@@ -244,6 +244,7 @@ Contains:
 Contains:
 * boost-1.82.0
 * cmake-3.27.9
+* expat-2.5.0
 * gtest-1.14.0
 * cppunit-1.15.1
 * glfw-3.3.8
@@ -261,6 +262,7 @@ Contains:
 Contains:
 * boost-1.82.0
 * cmake-3.27.9
+* expat-2.5.0
 * gtest-1.14.0
 * cppunit-1.15.1
 * glfw-3.3.8

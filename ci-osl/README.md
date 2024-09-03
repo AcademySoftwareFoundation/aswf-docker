@@ -308,11 +308,12 @@ Contains:
 Contains:
 * boost-1.82.0
 * cmake-3.27.9
+* expat-2.5.0
 * python-3.11.9
 * qt-6.5.3
 * imath-3.1.11
 * openexr-3.2.4
-* oiio-2.5.12.0
+* oiio-2.5.15.0
 * ocio-2.3.2
 * partio-1.17.1
 * ptex-2.4.2
@@ -327,11 +328,12 @@ Contains:
 Contains:
 * boost-1.82.0
 * cmake-3.27.9
+* expat-2.5.0
 * python-3.11.9
 * qt-6.5.3
 * imath-3.1.11
 * openexr-3.2.4
-* oiio-2.5.12.0
+* oiio-2.5.15.0
 * ocio-2.3.2
 * partio-1.17.1
 * ptex-2.4.2

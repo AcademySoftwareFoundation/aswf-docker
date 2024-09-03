@@ -120,6 +120,7 @@ Contains:
 * pybind11-2.12.0
 * tbb-2020_U3
 * boost-1.82.0
+* expat-2.5.0
 * glew-2.1.0
 * glfw-3.3.8
 * cmake-3.27.9

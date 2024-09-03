@@ -207,6 +207,7 @@ versions:
       ASWF_PTEX_VERSION: "2.1.33"
       ASWF_PYBIND11_VERSION: "2.4.3"
       ASWF_PYSIDE_VERSION: "5.12.6"
+      ASWF_PYSIDE_CLANG_VERSION: "7.1.0"
       ASWF_PYTHON_VERSION: "2.7.15"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "2.7"
       ASWF_QT_VERSION: "5.12.6"
@@ -266,6 +267,7 @@ versions:
       ASWF_PTEX_VERSION: "2.3.2"
       ASWF_PYBIND11_VERSION: "2.4.3"
       ASWF_PYSIDE_VERSION: "5.12.6"
+      ASWF_PYSIDE_CLANG_VERSION: "7.1.0"
       ASWF_PYTHON_VERSION: "3.7.3"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.7"
       ASWF_QT_VERSION: "5.12.6"
@@ -419,6 +421,7 @@ versions:
       ASWF_PTEX_VERSION: "2.4.2"
       ASWF_PYBIND11_VERSION: "2.9.2"
       ASWF_PYSIDE_VERSION: "5.15.9"
+      ASWF_PYSIDE_CLANG_VERSION: "14.0.6"
       ASWF_PYTHON_VERSION: "3.10.11"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.10"
       ASWF_QT_VERSION: "5.15.9"
@@ -458,7 +461,7 @@ versions:
       ASWF_NUMPY_VERSION: "1.24.3"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.3.2"
-      ASWF_OIIO_VERSION: "2.5.12.0"
+      ASWF_OIIO_VERSION: "2.5.15.0"
       ASWF_OPENEXR_VERSION: "3.2.4"
       ASWF_OPENSUBDIV_VERSION: "3.6.0"
       ASWF_OPENVDB_VERSION: "11.0.0"
@@ -468,6 +471,7 @@ versions:
       ASWF_PTEX_VERSION: "2.4.2"
       ASWF_PYBIND11_VERSION: "2.12.0"
       ASWF_PYSIDE_VERSION: "6.5.3"
+      ASWF_PYSIDE_CLANG_VERSION: "16.0.6"
       ASWF_PYTHON_VERSION: "3.11.9"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.11"
       ASWF_QT_VERSION: "6.5.3"
@@ -824,6 +828,7 @@ groups:
         - pybind11
         - boost
         - cppunit
+        - expat
         - glew
         - glfw
         - log4cplus
@@ -831,7 +836,6 @@ groups:
         - gtest
         - blosc
       base2:
-        - expat
         - qt
       base3:
         - pyside

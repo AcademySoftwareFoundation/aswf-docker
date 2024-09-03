@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2024-06-30
+## 2024-09-02
 
 - blosc moved to base1
 - rework Conan packages to use CMakeToolChain, conandata.yml
@@ -12,14 +12,16 @@ All notable changes to this project will be documented in this file.
 - Conan packages preserve DSO symlinks when installed (#194)
 - Conan packages don't overwrite each other's installed license files
 - Break circular dependency between OCIO and OIIO by compiling OCIO utils without OIIO (#54)
+- Expat is now a Conan package (version in base image is too old)
+- Qt now builds qtwebengine and qtmultimedia (will be needed for OpenRV)
 - OpenEXR and Imath built as Conan packages only
 - MaterialX 1.38.10 (was 1.38.8)
 - Imath 3.1.11 (was 3.1.10)
 - OpenEXR 3.2.4 (was 3.2.2)
-- OpenImageIO 2.5.12.0 (was 2.5.8.0)
+- OpenImageIO 2.5.15.0 (was 2.5.8.0)
 - OpenShadingLanguage 1.13.10.0 (was 1.13.6.1)
 - OpenTimelineIO 0.17.0 (was 0.15)
-- Conan 1.63 (was 1.62)
+- Conan 1.64 (was 1.62)
 - CMake 3.27.9 (was 3.27.8)
 - Clang 16.0.6 (was 16.0.4), 17.0.6 (was 17.0.1)
 - pybind11 2.12.0 (was 2.11.1)
