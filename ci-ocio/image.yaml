@@ -8,6 +8,7 @@ packages:
   - pybind11
   - tbb
   - boost
+  - expat
   - glew
   - glfw
   - cmake

@@ -6,6 +6,7 @@ description: |
 packages:
   - boost
   - cmake
+  - expat
   - gtest
   - cppunit
   - glfw

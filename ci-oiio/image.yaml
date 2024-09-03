@@ -7,6 +7,7 @@ packages:
   - blosc
   - boost
   - cmake
+  - expat
   - python
   - imath
   - ocio

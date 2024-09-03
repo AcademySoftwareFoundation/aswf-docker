@@ -434,6 +434,7 @@ Contains:
 * tbb-2020_U3
 * boost-1.82.0
 * cppunit-1.15.1
+* expat-2.5.0
 * log4cplus-2.1.1
 * glew-2.1.0
 * glfw-3.3.8
@@ -444,7 +445,7 @@ Contains:
 * openexr-3.2.4
 * blosc-1.21.5
 * alembic-1.8.6
-* oiio-2.5.12.0
+* oiio-2.5.15.0
 * ocio-2.3.2
 * pybind11-2.12.0
 * opensubdiv-3.6.0
@@ -466,6 +467,7 @@ Contains:
 * tbb-2020_U3
 * boost-1.82.0
 * cppunit-1.15.1
+* expat-2.5.0
 * log4cplus-2.1.1
 * glew-2.1.0
 * glfw-3.3.8
@@ -476,7 +478,7 @@ Contains:
 * openexr-3.2.4
 * blosc-1.21.5
 * alembic-1.8.6
-* oiio-2.5.12.0
+* oiio-2.5.15.0
 * ocio-2.3.2
 * pybind11-2.12.0
 * opensubdiv-3.6.0

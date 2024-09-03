@@ -156,6 +156,7 @@ Contains:
 * python-3.11.9
 * tbb-2020_U3
 * boost-1.82.0
+* expat-2.5.0
 * glew-2.1.0
 * glfw-3.3.8
 * log4cplus-2.1.1
@@ -165,7 +166,7 @@ Contains:
 * imath-3.1.11
 * materialx-1.38.10
 * openexr-3.2.4
-* oiio-2.5.12.0
+* oiio-2.5.15.0
 * ocio-2.3.2
 * pybind11-2.12.0
 * ptex-2.4.2
