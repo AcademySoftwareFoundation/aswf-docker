@@ -116,8 +116,6 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group base1 \
-          --group base2 \
-          --group base3 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
           --build-missing

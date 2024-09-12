@@ -49,7 +49,7 @@ class PySide6Conan(ConanFile):
         )
         self.requires(f"qt/{os.environ['ASWF_QT_VERSION']}@{self.user}/{self.channel}")
         self.requires(
-            f"clang/{os.environ['ASWF_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
+            f"clang/{os.environ['ASWF_PYSIDE_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
         )
 
     def build_requirements(self):
@@ -190,9 +190,11 @@ class PySide6Conan(ConanFile):
                 for f in glob.glob(
                     os.path.join(qtInfo.rootpath, "lib", f"libQt6{lib}.so*")
                 ):
-                    shutil.copy(f, installBinDir)
-            for f in glob.glob(os.path.join(llvmInfo.rootpath, "lib", "libclang.so*")):
-                shutil.copy(f, installBinDir)
+                    shutil.copy(f, installBinDir, follow_symlinks=False)
+            for f in glob.glob(
+                os.path.join(llvmInfo.rootpath, "lib64", "libclang.so*")
+            ):
+                shutil.copy(f, installBinDir, follow_symlinks=False)
 
     def _buildMac(self, srcDir):
         qtInfo = self.deps_cpp_info["qt"]
@@ -350,10 +352,14 @@ class PySide6Conan(ConanFile):
         # Shiboken needs LLVM available on Linux to be able to determine
         # system include paths while parsing. For simplicity, just copying
         # the whole package into this one.
-        if self.settings.os == "Linux":
-            self.copy(
-                pattern="*", src=self.deps_cpp_info["clang"].rootpath, dst="clang"
-            )
+        #
+        # Let's not do that as it hugely increases the size of the package,
+        # let Conan install the right dependencies
+        #
+        # if self.settings.os == "Linux":
+        #     self.copy(
+        #         pattern="*", src=self.deps_cpp_info["clang"].rootpath, dst="clang"
+        #     )
 
     def package_info(self):
         v = tools.Version(self.deps_cpp_info["python"].version)
