@@ -60,9 +60,6 @@ class TestMigrater(unittest.TestCase):
                 f"docker tag {reg}/dst/ci-package-openexr:{current_version} "
                 f"{reg}/dst/ci-package-openexr:2019",
                 f"docker push {reg}/dst/ci-package-openexr:2019",
-                f"docker tag {reg}/dst/ci-package-openexr:{current_version} "
-                f"{reg}/dst/ci-package-openexr:latest",
-                f"docker push {reg}/dst/ci-package-openexr:latest",
             ],
         )
 

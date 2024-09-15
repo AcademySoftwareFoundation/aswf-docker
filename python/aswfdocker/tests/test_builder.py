@@ -35,13 +35,12 @@ class TestBuilder(unittest.TestCase):
         ocio_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "ocio")
         )[0]
-        baked = b.make_bake_dict(False, False, False, False)
+        baked = b.make_bake_dict(False, False, False)
         self.assertEqual(
             baked["target"]["ci-package-ocio-2019"]["tags"],
             [
                 f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:2019",
                 f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:{ocio_version}",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:latest",
                 f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:2019-1.1.0",
             ],
         )
@@ -65,7 +64,7 @@ class TestBuilder(unittest.TestCase):
             ),
             use_conan=True,
         )
-        baked = b.make_bake_dict(False, False, False, False)
+        baked = b.make_bake_dict(False, False, False)
         self.assertIn("ASWF_QT_VERSION", baked["target"]["ci-package-qt-2019"]["args"])
         self.assertEqual(
             baked["target"]["ci-package-qt-2019"]["tags"],
@@ -95,13 +94,12 @@ class TestBuilder(unittest.TestCase):
         base_version = list(
             index.Index().iter_versions(constants.ImageType.IMAGE, "base")
         )[0]
-        baked = b.make_bake_dict(False, False, False, False)
+        baked = b.make_bake_dict(False, False, False)
         self.assertEqual(
             baked["target"]["ci-base-2019"]["tags"],
             [
                 f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2019",
                 f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_version}",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:latest",
             ],
         )
         self.assertEqual(
@@ -122,7 +120,7 @@ class TestBuilder(unittest.TestCase):
             index.Index().iter_versions(constants.ImageType.IMAGE, "openvdb")
         )[3]
         self.assertEqual(
-            b.make_bake_dict(False, False, False, False),
+            b.make_bake_dict(False, False, False),
             {
                 "group": {"default": {"targets": ["ci-openvdb-2019-clang9"]}},
                 "target": {
@@ -209,7 +207,7 @@ class TestBuilder(unittest.TestCase):
             index.Index().iter_versions(constants.ImageType.IMAGE, "base")
         )
         self.assertEqual(
-            b.make_bake_dict(False, False, False, False),
+            b.make_bake_dict(False, False, False),
             {
                 "group": {"default": {"targets": ["ci-base-2019", "ci-base-2020"]}},
                 "target": {
@@ -340,7 +338,6 @@ class TestBuilder(unittest.TestCase):
                         "tags": [
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:2019",
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[0]}",
-                            f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:latest",
                         ],
                         "output": ["type=docker"],
                     },

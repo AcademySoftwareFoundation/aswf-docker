@@ -24,7 +24,7 @@ Contains:
 * blosc-1.21.5
 * boost-1.82.0
 * cmake-3.27.9
-* expat-2.5.0
+* expat-2.6.3
 * python-3.11.9
 * imath-3.1.11
 * ocio-2.3.2

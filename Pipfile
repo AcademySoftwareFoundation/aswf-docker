@@ -7,7 +7,7 @@ verify_ssl = true
 pytest = "*"
 atomicwrites = {version = "*", markers = "platform_system == 'Windows'"}
 pytest-cov = "*"
-pylint = "==2.17.4"
+pylint = "==3.2.7"
 black = "==22.12"
 mypy = "*"
 pre-commit = "*"
@@ -33,7 +33,7 @@ pytest = "*"
 mypy = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.11"
 
 [pipenv]
 allow_prereleases = true
