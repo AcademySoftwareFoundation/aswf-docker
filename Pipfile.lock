@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fae81c87f62cc4f2f31d911adbedb453e11845bcf2604f77daeee5c49b76fa77"
+            "sha256": "ea6d39e8a9a28d738bd228c18bd491b416f1d8ec2b75f74713c7b3d7dc6a3a61"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.11"
+            "python_version": "3.9"
         },
         "sources": [
             {
@@ -33,7 +33,7 @@
                 "sha256:0569859f95fc761b18b45ef421b1290a0f65f147e92a1e5eb3e635f9a5e4e66f",
                 "sha256:dc383c07b76109f368f6106eee2b593b04a011ea4d55f652c6ca24a754d1cdd1"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_version >= '3.6'",
             "version": "==2024.2.2"
         },
         "cffi": {
@@ -202,7 +202,7 @@
                 "sha256:fd1abc0d89e30cc4e02e4064dc67fcc51bd941eb395c502aac3ec19fab46b519",
                 "sha256:ff8fa367d09b717b2a17a052544193ad76cd49979c805768879cb63d9ca50561"
             ],
-            "markers": "python_version >= '3'",
+            "markers": "python_full_version >= '3.7.0'",
             "version": "==3.3.2"
         },
         "click": {
@@ -275,7 +275,7 @@
                 "sha256:02e111d1dc6a50abb8eed6bf31c3e48ed8b0830d1ea2a1b78c61765c2513fdd8",
                 "sha256:99522ca3e365cac527b44bde033f64c6945d90eb9f769703caaec52b09bbd3ff"
             ],
-            "markers": "python_version >= '3.6'",
+            "markers": "sys_platform == 'linux' or sys_platform == 'linux2'",
             "version": "==1.8.0"
         },
         "exceptiongroup": {
@@ -299,7 +299,7 @@
                 "sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca",
                 "sha256:c05567e9c24a6b9faaa835c4821bad0590fbb9d5779e7caa6e1cc4978e7eb24f"
             ],
-            "markers": "python_version >= '3'",
+            "markers": "python_version >= '3.5'",
             "version": "==3.6"
         },
         "importlib-resources": {
@@ -792,7 +792,7 @@
                 "sha256:0569859f95fc761b18b45ef421b1290a0f65f147e92a1e5eb3e635f9a5e4e66f",
                 "sha256:dc383c07b76109f368f6106eee2b593b04a011ea4d55f652c6ca24a754d1cdd1"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_version >= '3.6'",
             "version": "==2024.2.2"
         },
         "cffi": {
@@ -977,7 +977,7 @@
                 "sha256:fd1abc0d89e30cc4e02e4064dc67fcc51bd941eb395c502aac3ec19fab46b519",
                 "sha256:ff8fa367d09b717b2a17a052544193ad76cd49979c805768879cb63d9ca50561"
             ],
-            "markers": "python_version >= '3'",
+            "markers": "python_full_version >= '3.7.0'",
             "version": "==3.3.2"
         },
         "click": {
@@ -1146,7 +1146,7 @@
                 "sha256:02e111d1dc6a50abb8eed6bf31c3e48ed8b0830d1ea2a1b78c61765c2513fdd8",
                 "sha256:99522ca3e365cac527b44bde033f64c6945d90eb9f769703caaec52b09bbd3ff"
             ],
-            "markers": "python_version >= '3.6'",
+            "markers": "sys_platform == 'linux' or sys_platform == 'linux2'",
             "version": "==1.8.0"
         },
         "docutils": {
@@ -1194,7 +1194,7 @@
                 "sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca",
                 "sha256:c05567e9c24a6b9faaa835c4821bad0590fbb9d5779e7caa6e1cc4978e7eb24f"
             ],
-            "markers": "python_version >= '3'",
+            "markers": "python_version >= '3.5'",
             "version": "==3.6"
         },
         "importlib-metadata": {
