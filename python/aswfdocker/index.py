@@ -61,15 +61,13 @@ class Index:
         """
         Iterates over all images by image type.
         """
-        for image in self._versions[self._get_key(image_type)]:
-            yield image
+        yield from self._versions[self._get_key(image_type)]
 
     def iter_versions(self, image_type: constants.ImageType, name: str):
         """
         Iterates over all versions by image type and image name.
         """
-        for version in self._versions[self._get_key(image_type)][name]:
-            yield version
+        yield from self._versions[self._get_key(image_type)][name]
 
     def iter_version_info(self):
         return self._version_infos.values()

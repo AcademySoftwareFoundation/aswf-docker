@@ -156,7 +156,7 @@ Contains:
 * python-3.11.9
 * tbb-2020_U3
 * boost-1.82.0
-* expat-2.5.0
+* expat-2.6.3
 * glew-2.1.0
 * glfw-3.3.8
 * log4cplus-2.1.1

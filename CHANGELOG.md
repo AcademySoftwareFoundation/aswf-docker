@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2024-09-15
+
+- update latest / preview / draft tags for Docker images
+- update Python dependencies
+- update pylint and fix pylint / pytest warnings
+- Conan 1.65 (was 1.64)
+- Expat 2.6.3 (was 2.5.0) to address CVEs CVE-2024-45492 CVE-2024-45491 CVE-2024-45490
+
 ## 2024-09-02
 
 - blosc moved to base1

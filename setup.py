@@ -32,7 +32,7 @@ setup(
         "colorama==0.4.6; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6'",
         "conan==1.65.0",  # this can jump a lot but can change a lot too
         "deprecated==1.2.14; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
-        "distro==1.9.0; sys_platform == 'linux' or sys_platform == 'linux2'",
+        "distro==1.8.0; sys_platform == 'linux' or sys_platform == 'linux2'",
         "fasteners==0.19; python_version >= '3.7'",
         "idna==3.6; python_version >= '3'",
         "importlib-resources==5.12.0",  # above this drops 3.7

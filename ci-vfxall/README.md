@@ -434,7 +434,7 @@ Contains:
 * tbb-2020_U3
 * boost-1.82.0
 * cppunit-1.15.1
-* expat-2.5.0
+* expat-2.6.3
 * log4cplus-2.1.1
 * glew-2.1.0
 * glfw-3.3.8
@@ -467,7 +467,7 @@ Contains:
 * tbb-2020_U3
 * boost-1.82.0
 * cppunit-1.15.1
-* expat-2.5.0
+* expat-2.6.3
 * log4cplus-2.1.1
 * glew-2.1.0
 * glfw-3.3.8
