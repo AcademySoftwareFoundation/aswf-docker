@@ -13,11 +13,11 @@ ARG ASWF_QT_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 # Required base packages built in previous stages
-FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} as ci-package-qt-external
+FROM ${ASWF_ORG}/ci-package-qt:${ASWF_VFXPLATFORM_VERSION}-${ASWF_QT_VERSION} AS ci-package-qt-external
 
 
 #################### ci-baseos-gl-packages ####################
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} as ci-baseos-gl-packages
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-baseos-gl-packages
 
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_PKG_ORG
@@ -53,7 +53,7 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
 
 
 #################### ci-pyside-builder ####################
-FROM ci-baseos-gl-packages as ci-pyside-builder
+FROM ci-baseos-gl-packages AS ci-pyside-builder
 
 ARG ASWF_PYTHON_VERSION
 ARG ASWF_PYSIDE_VERSION
@@ -100,7 +100,7 @@ RUN --mount=type=cache,target=/tmp/ccache \
 
 
 #################### ci-package-pyside ####################
-FROM scratch as ci-package-pyside
+FROM scratch AS ci-package-pyside
 
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
