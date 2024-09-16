@@ -45,7 +45,7 @@ jobs:
         export SONAR_SCANNER_OPTS="-server"
         sonar-scanner \
           -Dsonar.organization=academysoftwarefoundation \
-          -Dsonar.projectKey=AcademySoftwareFoundation_aswf_docker \
+          -Dsonar.projectKey=AcademySoftwareFoundation_aswf-docker \
           -Dsonar.sources=. \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=$SONAR_TOKEN \
