@@ -184,7 +184,7 @@ class PythonConan(ConanFile):
             )
 
         py_exe = os.path.join(self.package_folder, "bin", f"python{self.major_minor}")
-        py_exe_nover = os.path.join(self.package_folder, "bin", f"python")
+        py_exe_nover = os.path.join(self.package_folder, "bin", "python")
         self.run(f"ln -s {py_exe} {py_exe_nover}")
 
         with tools.environment_append(
