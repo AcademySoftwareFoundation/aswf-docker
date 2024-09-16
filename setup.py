@@ -49,7 +49,7 @@ setup(
         "requests==2.31.0",
         "six==1.16.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
         "typing_extensions==4.7.1; python_version >= '3.7'",
-        "tqdm==4.66.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6'",
+        "tqdm==4.66.3; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6'",
         "urllib3==1.26.19; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5' and python_version < '4'",  # capped by conan
         "wrapt==1.16.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'",
         "zipp==3.19.1; python_version < '3.10'",
