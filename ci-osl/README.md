@@ -308,7 +308,7 @@ Contains:
 Contains:
 * boost-1.82.0
 * cmake-3.27.9
-* expat-2.5.0
+* expat-2.6.3
 * python-3.11.9
 * qt-6.5.3
 * imath-3.1.11
@@ -328,7 +328,7 @@ Contains:
 Contains:
 * boost-1.82.0
 * cmake-3.27.9
-* expat-2.5.0
+* expat-2.6.3
 * python-3.11.9
 * qt-6.5.3
 * imath-3.1.11

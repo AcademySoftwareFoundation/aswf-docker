@@ -36,8 +36,8 @@ class Builder:
         keep_source: bool,
         keep_build: bool,
         build_missing: bool,
-        conan_login: bool,
     ) -> typing.Dict[str, dict]:
+        # pylint: disable=too-many-locals
         root: typing.Dict[str, dict] = {}
         root["target"] = {}
         for image, version in self.group_info.iter_images_versions():
@@ -147,9 +147,8 @@ class Builder:
         keep_source: bool,
         keep_build: bool,
         build_missing: bool,
-        conan_login: bool,
     ) -> typing.Optional[str]:
-        d = self.make_bake_dict(keep_source, keep_build, build_missing, conan_login)
+        d = self.make_bake_dict(keep_source, keep_build, build_missing)
         if not d["group"]["default"]["targets"]:
             return None
         groups = "-".join(self.group_info.names)
@@ -231,12 +230,10 @@ class Builder:
         version,
         dry_run,
         progress,
-        keep_source,
-        keep_build,
         conan_login,
-        build_missing,
         bake_jsonfile,
     ):
+        # pylint: disable=consider-using-f-string
         major_version = utils.get_major_version(version)
         version_info = self.index.version_info(major_version)
         base_cmd = self._get_conan_base_cmd(version_info)
@@ -272,18 +269,30 @@ class Builder:
         #    f"@{self.build_info.docker_org}/{version_info.conan_profile}"
         # )
 
-        # buildx bake --set allows us to override settings in the bake file and avoid having to rewrite it.
-        # output=type=cacheonly : no container is produced, we only want the cache containing the output of conan builds
-        # target.target=ci-conan-package-builder : see packages/common/Dockerfile for the Conan build container which runs:
+        # buildx bake --set allows us to override settings in the bake file and avoid having
+        #   to rewrite it.
+        # output=type=cacheonly : no container is produced, we only want the cache containing
+        #   the output of conan builds
+        # target.target=ci-conan-package-builder : see packages/common/Dockerfile for the Conan
+        #   build container which runs:
         #
         # - conan user (conditional)
         # - conan create
         # - conan alias
         # - conan upload main version (conditional)
         # - conan upload latest alias version (conditional)
-        # FIXME: not sure about ci-package-{image}-3
+        #
+        # not sure about ci-package-{image}-{major_version}
+        #
+        # Make pylint / pytest happy, they get confused by f-string
+        runcmd = (
+            "docker buildx bake -f {} --set=*.output=type=cacheonly "
+            "--set=*.target.target=ci-conan-package-builder --progress {} "
+            "ci-package-{}-{}".format(bake_jsonfile, progress, image, major_version)
+        )
+
         self._run(
-            f"docker buildx bake -f {bake_jsonfile} --set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder --progress {progress} ci-package-{image}-{major_version}",
+            runcmd,
             dry_run=dry_run,
         )
 
@@ -310,9 +319,7 @@ class Builder:
         if not images_and_versions:
             return
 
-        path = self.make_bake_jsonfile(
-            keep_source, keep_build, build_missing, conan_login
-        )
+        path = self.make_bake_jsonfile(keep_source, keep_build, build_missing)
         if path:
             self._run(
                 f"docker buildx bake -f {path} --progress {progress}", dry_run=dry_run
@@ -331,9 +338,6 @@ class Builder:
                 version,
                 dry_run,
                 progress,
-                keep_source,
-                keep_build,
                 conan_login,
-                build_missing,
                 path,
             )

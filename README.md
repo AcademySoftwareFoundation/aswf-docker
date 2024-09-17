@@ -1,7 +1,7 @@
 # Docker Images for the Academy Software Foundation
 
 [![License](https://img.shields.io/github/license/AcademySoftwareFoundation/aswf-docker)](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/LICENSE) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)  
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AcademySoftwareFoundation_aswf_docker&metric=coverage)](https://sonarcloud.io/dashboard?id=AcademySoftwareFoundation_aswf_docker) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=AcademySoftwareFoundation_aswf_docker&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AcademySoftwareFoundation_aswf_docker)  
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AcademySoftwareFoundation_aswf-docker&metric=coverage)](https://sonarcloud.io/dashboard?id=AcademySoftwareFoundation_aswf-docker) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=AcademySoftwareFoundation_aswf-docker&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AcademySoftwareFoundation_aswf-docker)  
 [![Test Build Docker Images](https://github.com/AcademySoftwareFoundation/aswf-docker/workflows/Test%20Build%20Docker%20Images/badge.svg)](https://github.com/AcademySoftwareFoundation/aswf-docker/actions?query=workflow%3A%22Test+Build+Docker+Images%22) [![Test Python aswfdocker Library](https://github.com/AcademySoftwareFoundation/aswf-docker/workflows/Test%20Python%20aswfdocker%20Library/badge.svg)](https://github.com/AcademySoftwareFoundation/aswf-docker/actions?query=workflow%3A%22Test+Python+aswfdocker+Library%22)  
 
 More information:
@@ -107,13 +107,15 @@ as the branch is called `testing`. Images in this org will change without
 notice and could be broken in many unexpected ways!
 
 To get write access to the `aswftesting` Docker Hub organization you can open
-a Jira issue [there](https://jira.aswf.io).
+a ticket with the [Linux Foundation Project IT Services Support Portal]
+(https://jira.linuxfoundation.org/plugins/servlet/desk/portal/2). You may need
+to first create a free [Linux Foundation account](https://sso.linuxfoundation.org).
 
 ### Status
 
-As of November 2021 there are full 2018, 2019, 2020, 2021 and 2022
-[VFX Platform](https://vfxplatform.com) compliant images. N.B. that the
-2018 version of the images still exist but are not maintained/rebuilt anymore, which
+As of September 2024 there are full 2018, 2019, 2020, 2021, 2022,
+2023 and 2024 [VFX Platform](https://vfxplatform.com) compliant images. N.B. that the
+pre-2024 versions of the images still exist but are not maintained/rebuilt anymore, which
 means they might be obsolete (especially the OS part).
 
 ## CI Packages
@@ -134,6 +136,11 @@ Also, CI packages are built using experimental Docker syntax that allows cache
 folders to be mounted at build time, and is built with `docker buildx`. The new
 Docker BuildKit system allows the building of many packages in parallel in an
 efficient way with support for [ccache](https://ccache.dev/).
+
+Starting with the 2023 versions, the non-ASWF dependencies and several of the ASWF
+projects are being built as Conan packages only, with the eventual goal of getting
+rid of all the ci-package-{packagename} intermediate Docker images, and mostly
+assembling the CI build images from Conan packages.
 
 ## Python Utilities
 

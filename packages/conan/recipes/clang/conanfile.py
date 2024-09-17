@@ -94,14 +94,12 @@ class ClangConan(ConanFile):
         tc.variables["LLVM_TOOL_LLVM_MC_BUILD"] = False
         tc.variables["LLVM_TOOL_LLVM_NM_BUILD"] = False
         tc.variables["LLVM_TOOL_LLVM_OBJDUMP_BUILD"] = False
-        tc.variables["LLVM_TOOL_LLVM_BCANALYZER_BUILD"] = False
         tc.variables["LLVM_TOOL_LLVM_PROFDATA_BUILD"] = False
         tc.variables["LLVM_TOOL_LLVM_RTDYLD_BUILD"] = False
         tc.variables["LLVM_TOOL_LLVM_SIZE_BUILD"] = False
         tc.variables["LLVM_TOOL_LLVM_SPLIT_BUILD"] = False
         tc.variables["LLVM_TOOL_LLVM_STRESS_BUILD"] = False
         tc.variables["LLVM_TOOL_LLVM_SYMBOLIZER_BUILD"] = True
-        tc.variables["LLVM_TOOL_LLVM_LTO_BUILD"] = False
         tc.variables["LLVM_INCLUDE_EXAMPLES"] = False
         tc.variables["CMAKE_SKIP_RPATH"] = True
         tc.variables["LLVM_ENABLE_PROJECTS"] = self.options.components

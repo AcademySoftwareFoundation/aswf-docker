@@ -7,7 +7,7 @@ verify_ssl = true
 pytest = "*"
 atomicwrites = {version = "*", markers = "platform_system == 'Windows'"}
 pytest-cov = "*"
-pylint = "==2.17.4"
+pylint = "==3.2.7"
 black = "==22.12"
 mypy = "*"
 pre-commit = "*"
@@ -28,7 +28,7 @@ pyyaml = "*"
 jinja2 = "*"
 requests = "*"
 importlib-resources = "*"
-conan = "==1.47"
+conan = "==1.65.0"
 pytest = "*"
 mypy = "*"
 
