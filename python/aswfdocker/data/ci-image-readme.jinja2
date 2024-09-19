@@ -15,7 +15,7 @@ for further information, and participate in the discussion on the
 
 {{ description | trim }}
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-{{ name }}/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-{{ name }}/Dockerfile)
 
 {% for version in index.iter_versions(constants.ImageType.IMAGE, name) -%}
 ## [aswf/ci-{{name}}:{{version}}](https://hub.docker.com/r/aswf/ci-{{name}}/tags?page=1&name={{version}})

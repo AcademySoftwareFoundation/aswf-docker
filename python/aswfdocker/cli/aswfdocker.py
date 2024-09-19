@@ -382,9 +382,9 @@ def release(
     )
 
     if not sha:
-        if utils.get_current_branch() != "master":
+        if utils.get_current_branch() != "main":
             click.secho(
-                "Cannot release from non-master branch! Specify --sha to create a release on a given commit.",
+                "Cannot release from non-main branch! Specify --sha to create a release on a given commit.",
                 fg="red",
             )
             sys.exit(1)

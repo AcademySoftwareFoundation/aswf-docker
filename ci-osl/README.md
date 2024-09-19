@@ -16,7 +16,7 @@ for further information, and participate in the discussion on the
 Contains: Python, Boost, Qt, OpenEXR, OpenImageIO, Partio and other OpenShadingLanguage upstream dependencies
 Warning: this image does *not* contain OpenShadingLanguage itself as it is used to *build* OpenShadingLanguage!
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-osl/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-osl/Dockerfile)
 
 ## [aswf/ci-osl:2019-clang6.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang6.5)
 

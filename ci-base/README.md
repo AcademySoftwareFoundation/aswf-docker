@@ -15,7 +15,7 @@ for further information, and participate in the discussion on the
 
 Contains: Python, TBB, Boost and other base libraries
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-base/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-base/Dockerfile)
 
 ## [aswf/ci-base:2019.9](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2019.9)
 

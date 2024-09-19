@@ -16,7 +16,7 @@ for further information, and participate in the discussion on the
 Contains: Python, TBB, Boost and other OpenColorIO upstream dependencies
 Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-ocio/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-ocio/Dockerfile)
 
 ## [aswf/ci-ocio:2019.9](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2019.9)
 

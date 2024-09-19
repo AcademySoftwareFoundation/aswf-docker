@@ -75,7 +75,7 @@ Every commit must be signed off.  That is, every commit log message
 must include a “`Signed-off-by`” line (generated, for example, with
 “`git commit --signoff`”), indicating that the committer wrote the
 code and has the right to release it under the [Apache-2.0](LICENSE.md)
-license. See [Contribution Sign-Off](https://github.com/AcademySoftwareFoundation/tac/blob/master/process/contributing.md#contribution-sign-off)
+license. See [Contribution Sign-Off](https://github.com/AcademySoftwareFoundation/tac/blob/main/process/contributing.md#contribution-sign-off)
 for more information on this requirement.
 
 ## Development Workflow
@@ -106,21 +106,21 @@ Please read the Python [README.md](python/README.md) file for further instructio
 
 The aswf-docker repository uses a simple branching and merging strategy.
 
-All development work is done directly on the master branch. The master
+All development work is done directly on the main branch. The main
 branch represents the bleeding-edge of the project and most
 contributions should be done on top of it.
 
-After sufficient work is done on the master branch and the aswf-docker
+After sufficient work is done on the main branch and the aswf-docker
 leadership determines that a release is due, we will bump the relevant
 internal versioning and tag a commit with the corresponding version
 number, e.g. v2.0.1. Each Minor version also has its own “Release
 Branch”, e.g. RB-1.1. This marks a branch of code dedicated to that
 Major.Minor version, which allows upstream bug fixes to be
-cherry-picked to a given version while still allowing the master
+cherry-picked to a given version while still allowing the main
 branch to continue forward onto higher versions. This basic repository
 structure keeps maintenance low, while remaining simple to understand.
 
-To reiterate, the master branch represents the latest development
+To reiterate, the main branch represents the latest development
 version, so beware that it may include untested features and is not
 generally stable enough for release.  To retrieve a stable version of
 the source code, use one of the release branches.
@@ -181,7 +181,7 @@ the work.
 
 6. Upon receiving the required number of Committer approvals (as
 outlined in [Required Approvals](#required-approvals)), a Committer
-other than the PR contributor may merge changes into the master
+other than the PR contributor may merge changes into the main
 branch.
 
 ### Code Review and Required Approvals
@@ -354,7 +354,7 @@ E.g. to build and push a new `ninja` package these commands can be run to push t
 # push to aswftesting
 aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/testing build -t PACKAGE --group common --version 1 --target ninja --push YES
 # push to aswf
-aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/master build -t PACKAGE --group common --version 1 --target ninja --push YES
+aswfdocker --verbose --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/main build -t PACKAGE --group common --version 1 --target ninja --push YES
 ```
 
 ### Manual GitHub release creation
@@ -437,7 +437,7 @@ aswfdocker release -t PACKAGE -g base2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -
 # Wait for Qt builds to finish (2-6 hours!)
 
 # Usually some Qt build will fail as too big and too slow for free GitHub actions... So here's how to build qt locally:
-aswfdocker --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/master --verbose build -n aswf/ci-package-qt:2024
+aswfdocker --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/main --verbose build -n aswf/ci-package-qt:2024
 docker push aswf/ci-package-qt:2024
 docker push aswf/ci-package-qt:2024-6.5.3
 docker push aswf/ci-package-qt:preview

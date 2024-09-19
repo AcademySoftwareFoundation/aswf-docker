@@ -40,7 +40,7 @@ def get_docker_org(repo_uri: str, source_branch: str) -> str:
     if not source_branch and not repo_uri:
         return constants.TESTING_DOCKER_ORG
     if (
-        source_branch == "refs/heads/master"
+        source_branch == "refs/heads/main"
         and constants.MAIN_GITHUB_ASWF_DOCKER_URL.endswith(repo_uri)
     ):
         docker_org = constants.PUBLISH_DOCKER_ORG
@@ -53,7 +53,7 @@ def get_docker_org(repo_uri: str, source_branch: str) -> str:
 
 def get_docker_push(repo_uri: str, source_branch: str) -> bool:
     if (
-        source_branch == "refs/heads/master"
+        source_branch == "refs/heads/main"
         and repo_uri == constants.MAIN_GITHUB_ASWF_DOCKER_URL
     ) or source_branch == "refs/heads/testing":
         return True

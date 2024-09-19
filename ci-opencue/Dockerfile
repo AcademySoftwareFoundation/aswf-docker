@@ -48,7 +48,7 @@ LABEL org.opencontainers.image.title="OpenCue CI Docker Image"
 LABEL org.opencontainers.image.description="Contains: Python, CMake and other OpenCue upstream dependencies\
 Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!"
 LABEL org.opencontainers.image.url="http://aswf.io/"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-opencue/Dockerfile"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-opencue/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"

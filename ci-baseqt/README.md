@@ -15,7 +15,7 @@ for further information, and participate in the discussion on the
 
 Contains: Python, TBB, Boost, Qt, PySide and other base libraries
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-baseqt/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-baseqt/Dockerfile)
 
 ## [aswf/ci-baseqt:2019.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2019.2)
 

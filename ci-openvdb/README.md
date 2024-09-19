@@ -16,7 +16,7 @@ for further information, and participate in the discussion on the
 Contains: Python, Boost, TBB and other OpenVDB upstream dependencies
 Warning: this image does *not* contain OpenVDB itself as it is used to *build* OpenVDB!
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-openvdb/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-openvdb/Dockerfile)
 
 ## [aswf/ci-openvdb:2019-clang6.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang6.8)
 

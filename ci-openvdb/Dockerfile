@@ -68,7 +68,7 @@ LABEL org.opencontainers.image.title="OpenVDB CI Docker Image"
 LABEL org.opencontainers.image.description="Contains: Python, Boost, TBB and other OpenVDB upstream dependencies\
 Warning: this image does *not* contain OpenVDB itself as it is used to *build* OpenVDB!"
 LABEL org.opencontainers.image.url="http://aswf.io/"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-openvdb/Dockerfile"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-openvdb/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"

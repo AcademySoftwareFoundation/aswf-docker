@@ -16,7 +16,7 @@ for further information, and participate in the discussion on the
 Contains: Python, Boost and other OpenEXR upstream dependencies
 Warning: this image does *not* contain OpenEXR itself as it is used to *build* OpenEXR!
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-openexr/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-openexr/Dockerfile)
 
 ## [aswf/ci-openexr:2019.8](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2019.8)
 

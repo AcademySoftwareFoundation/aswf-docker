@@ -16,7 +16,7 @@ for further information, and participate in the discussion on the
 Contains: Python, Qt, PySide and other OpenTimelineIO upstream dependencies
 Warning: this image does *not* contain OpenTimelineIO itself as it is used to *build* OpenTimelineIO!
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-otio/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-otio/Dockerfile)
 
 ## [aswf/ci-otio:2019.3](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2019.3)
 

@@ -15,7 +15,7 @@ for further information, and participate in the discussion on the
 
 Contains: all supported VFX packages
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-vfxall/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-vfxall/Dockerfile)
 
 ## [aswf/ci-vfxall:2019-clang6.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang6.12)
 

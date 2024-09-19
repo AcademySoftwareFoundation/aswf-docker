@@ -16,7 +16,7 @@ for further information, and participate in the discussion on the
 Contains: Python, Boost, OpenEXR, Partio and other OpenImageIO upstream dependencies
 Warning: this image does *not* contain OpenImageIO itself as it is used to *build* OpenImageIO!
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-oiio/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-oiio/Dockerfile)
 
 ## [aswf/ci-oiio:2024.1](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2024.1)
 
