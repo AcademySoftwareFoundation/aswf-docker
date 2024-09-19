@@ -3,7 +3,7 @@ name: Test Python aswfdocker Library - Sonar
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   sonar:

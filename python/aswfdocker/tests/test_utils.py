@@ -21,7 +21,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(
             utils.get_docker_org(
                 constants.MAIN_GITHUB_ASWF_DOCKER_URL,
-                "refs/heads/master",
+                "refs/heads/main",
             ),
             "aswf",
         )
@@ -34,7 +34,7 @@ class TestUtils(unittest.TestCase):
         )
         self.assertEqual(
             utils.get_docker_org(
-                "https://github.com/randomfork/aswf-docker", "refs/heads/master"
+                "https://github.com/randomfork/aswf-docker", "refs/heads/main"
             ),
             "aswflocaltesting",
         )
@@ -50,7 +50,7 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(
             utils.get_docker_push(
                 constants.MAIN_GITHUB_ASWF_DOCKER_URL,
-                "refs/heads/master",
+                "refs/heads/main",
             )
         )
         self.assertTrue(
@@ -61,7 +61,7 @@ class TestUtils(unittest.TestCase):
         )
         self.assertFalse(
             utils.get_docker_push(
-                "https://github.com/randomfork/aswf-docker", "refs/heads/master"
+                "https://github.com/randomfork/aswf-docker", "refs/heads/main"
             )
         )
         self.assertFalse(
@@ -114,7 +114,7 @@ class TestUtilsCli(unittest.TestCase):
                 "--repo-uri",
                 "https://github.com/AcademySoftwareFoundation/aswf-docker",
                 "--source-branch",
-                "refs/heads/master",
+                "refs/heads/main",
                 "getdockerorg",
             ],
         )

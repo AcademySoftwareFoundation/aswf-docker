@@ -15,7 +15,7 @@ for further information, and participate in the discussion on the
 
 Contains: GCC, Clang, CMake, Jinja, ccache and all base OS libraries
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-common/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-common/Dockerfile)
 
 ## [aswf/ci-common:1-clang6.8](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=1-clang6.8)
 

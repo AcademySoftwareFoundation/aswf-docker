@@ -16,7 +16,7 @@ for further information, and participate in the discussion on the
 Contains: Python, Qt, PySide and other USD upstream dependencies
 Warning: this image does *not* contain USD itself as it is used to *build* USD!
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-usd/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-usd/Dockerfile)
 
 ## [aswf/ci-usd:2019.9](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2019.9)
 

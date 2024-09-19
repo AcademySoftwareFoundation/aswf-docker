@@ -16,7 +16,7 @@ for further information, and participate in the discussion on the
 Contains: Python, CMake and other OpenCue upstream dependencies
 Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-opencue/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-opencue/Dockerfile)
 
 ## [aswf/ci-opencue:2019.10](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2019.10)
 

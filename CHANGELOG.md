@@ -765,7 +765,7 @@ tbb/latest@aswf/vfx2021
 
 ### Changed
 
-* Next image releases will contain newer [OCI Annotations](https://github.com/opencontainers/image-spec/blob/master/annotations.md)
+* Next image releases will contain newer [OCI Annotations](https://github.com/opencontainers/image-spec/blob/main/annotations.md)
 
 
 

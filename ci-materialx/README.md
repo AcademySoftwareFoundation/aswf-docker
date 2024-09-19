@@ -16,7 +16,7 @@ for further information, and participate in the discussion on the
 Contains: Python, Boost and other MaterialX upstream dependencies
 Warning: this image does *not* contain MaterialX itself as it is used to *build* MaterialX!
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-materialx/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-materialx/Dockerfile)
 
 ## [aswf/ci-materialx:2022.1](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2022.1)
 

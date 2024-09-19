@@ -72,7 +72,7 @@ LABEL org.opencontainers.image.title="OpenImageIO CI Docker Image"
 LABEL org.opencontainers.image.description="Contains: Python, Boost, OpenEXR, Partio and other OpenImageIO upstream dependencies\
 Warning: this image does *not* contain OpenImageIO itself as it is used to *build* OpenImageIO!"
 LABEL org.opencontainers.image.url="http://aswf.io/"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-oiio/Dockerfile"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-oiio/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
