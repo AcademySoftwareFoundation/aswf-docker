@@ -16,14 +16,14 @@ for further information, and participate in the discussion on the
 Contains: Python, Boost, OpenEXR and other OpenRV upstream dependencies
 Warning: this image does *not* contain OpenRV itself as it is used to *build* OpenRV!
 
-[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-openrv/Dockerfile)
+[Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-openrv/Dockerfile)
 
 ## [aswf/ci-openrv:2024.1](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2024.1)
 
 Contains:
 * cmake-3.27.9
 * python-3.11.9
-* expat-2.5.0
+* expat-2.6.3
 * qt-6.5.3
 * numpy-1.24.3
 * vfxplatform-2024

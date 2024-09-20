@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-# 2024-09-15
+# 2024-09-19
 
 - update latest / preview / draft tags for Docker images
 - update Python dependencies (resolve dependabot PRs)
@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 - Fix SonarCloud scanning
 - Conan 1.65 (was 1.64)
 - Expat 2.6.3 (was 2.5.0) to address CVEs CVE-2024-45492 CVE-2024-45491 CVE-2024-45490
+- ci-openrv build container
+- rename master branch to main
 
 ## 2024-09-02
 

@@ -36,7 +36,7 @@ setup(
         "fasteners==0.19; python_version >= '3.7'",
         "idna==3.7; python_version >= '3'",
         "importlib-resources==5.12.0",  # above this drops 3.7
-        "jinja2==3.1.3",
+        "jinja2==3.1.4",
         "markupsafe==2.1.5; python_version >= '3.7'",
         "node-semver==0.6.1",  # capped by conan
         "patch-ng==1.17.4",
@@ -46,7 +46,7 @@ setup(
         "pyjwt==2.8.0",
         "python-dateutil==2.9.0.post0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
         "pyyaml==5.4.1",  # capped by conan
-        "requests==2.31.0",
+        "requests==2.32.0",
         "six==1.16.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
         "typing_extensions==4.7.1; python_version >= '3.7'",
         "tqdm==4.66.3; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6'",
