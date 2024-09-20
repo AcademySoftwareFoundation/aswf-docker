@@ -8,6 +8,7 @@ ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
+ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_CONAN_CHANNEL
 
 ARG ASWF_VFXPLATFORM_VERSION
@@ -32,6 +33,7 @@ ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG ASWF_VERSION
 ARG CI_COMMON_VERSION
+ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_CONAN_CHANNEL
 
 
@@ -50,7 +52,7 @@ LABEL org.opencontainers.image.title="OpenRV CI Docker Image"
 LABEL org.opencontainers.image.description="Contains: Python, Boost, OpenEXR and other OpenRV upstream dependencies\
 Warning: this image does *not* contain OpenRV itself as it is used to *build* OpenRV!"
 LABEL org.opencontainers.image.url="http://aswf.io/"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-openrv/Dockerfile"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-openrv/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
@@ -70,6 +72,7 @@ LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
 ENV ASWF_INSTALL_PREFIX=/usr/local
+ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
 
 
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
