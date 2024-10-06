@@ -102,7 +102,7 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-base:2024.1](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2024.1)
+## [aswf/ci-base:2024.2](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2024.2)
 
 Contains:
 * blosc-1.21.5
@@ -115,7 +115,7 @@ Contains:
 * gtest-1.14.0
 * log4cplus-2.1.1
 * pybind11-2.12.0
-* python-3.11.9
+* python-3.11.10
 * tbb-2020_U3
 * numpy-1.24.3
 * vfxplatform-2024

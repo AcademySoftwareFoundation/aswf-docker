@@ -13,9 +13,6 @@ implicit_packages:
   - vfxplatform
 docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
 docker_package_version: $ASWF_VFXPLATFORM_VERSION
-docker_commands: |
-  # Dependencies missing for OpenRV
-  RUN sudo dnf install -y meson nasm libaio-devel mesa-vulkan-devel mesa-libOSMesa mesa-libOSMesa-devel
 docker_post_commands: |
   # Workaround: Reinstall Qt to a temporary location to prevent conflicts with PySide during OpenRV builds.
   # This is effectively a copy since Qt is already in the cache from previous steps.

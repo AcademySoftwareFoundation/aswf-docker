@@ -127,7 +127,7 @@ class QtConan(ConanFile):
     default_options = {
         "shared": True,
         "opengl": "desktop",
-        "with_vulkan": False,
+        "with_vulkan": True,
         "openssl": True,
         "with_pcre2": True,
         "with_glib": True,
@@ -459,10 +459,10 @@ class QtConan(ConanFile):
         #    self.requires("openssl/[>=1.1 <4]")
         # if self.options.with_pcre2:
         #    self.requires("pcre2/10.42")
-        if self.options.get_safe("with_vulkan"):
-            self.requires("vulkan-loader/1.3.239.0")
-            if is_apple_os(self):
-                self.requires("moltenvk/1.2.2")
+        # if self.options.get_safe("with_vulkan"):
+        #    self.requires("vulkan-loader/1.3.239.0")
+        #    if is_apple_os(self):
+        #      self.requires("moltenvk/1.2.2")
         # if self.options.with_glib:
         #    self.requires("glib/2.77.0")
         # if self.options.with_doubleconversion and not self.options.multiconfiguration:

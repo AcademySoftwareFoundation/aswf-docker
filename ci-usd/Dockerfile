@@ -207,3 +207,4 @@ RUN --mount=type=cache,target=/opt/conan_home/d \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 
+RUN sudo pip3 install jinja2 PyOpenGL

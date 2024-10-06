@@ -18,15 +18,15 @@ Warning: this image does *not* contain OpenImageIO itself as it is used to *buil
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-oiio/Dockerfile)
 
-## [aswf/ci-oiio:2024.1](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2024.1)
+## [aswf/ci-oiio:2024.2](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2024.2)
 
 Contains:
 * blosc-1.21.5
 * boost-1.82.0
 * cmake-3.27.9
 * expat-2.6.3
-* python-3.11.9
-* imath-3.1.11
+* python-3.11.10
+* imath-3.1.12
 * ocio-2.3.2
 * openexr-3.2.4
 * openvdb-11.0.0

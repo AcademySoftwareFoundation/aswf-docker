@@ -161,24 +161,24 @@ Contains:
 * sonar-4.8.0.2856
 * conan-1.58.0
 
-## [aswf/ci-common:4-clang16.1](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang16.1)
+## [aswf/ci-common:4-clang16.2](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang16.2)
 
 Contains:
 * clang-16.0.6
 * ninja-1.11.1
-* cuda-12.3.0
+* cuda-12.6.1
 * glvnd-1.7.0
 * ccache-4.8.3
 * dts-11
 * sonar-5.0.1.3006
 * conan-1.65.0
 
-## [aswf/ci-common:4-clang17.1](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang17.1)
+## [aswf/ci-common:4-clang17.2](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang17.2)
 
 Contains:
 * clang-17.0.6
 * ninja-1.11.1
-* cuda-12.3.0
+* cuda-12.6.1
 * glvnd-1.7.0
 * ccache-4.8.3
 * dts-11

@@ -61,6 +61,7 @@ yum install --setopt=tsflags=nodocs -y \
     gtk2-devel \
     harfbuzz-devel \
     java-1.8.0-openjdk \
+    libaio-devel \
     libbluray-devel \
     libcap-devel \
     libcdio-paranoia-devel \
@@ -132,12 +133,16 @@ yum install --setopt=tsflags=nodocs -y \
     libXxf86vm-devel \
     lz4-devel \
     make \
+    meson \
     mesa-libEGL-devel \
     mesa-libGL-devel \
     mesa-libGLU-devel \
     mesa-libGLw-devel \
+    mesa-libOSMesa-devel \
+    mesa-vulkan-devel \
     motif \
     motif-devel \
+    nasm \
     ncurses \
     ncurses-devel \
     nss \

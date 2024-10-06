@@ -2,16 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
-# 2024-09-19
+# 2024-10-05
 
+- 2024.2 images
 - update latest / preview / draft tags for Docker images
 - update Python dependencies (resolve dependabot PRs)
 - update pylint and fix pylint / pytest warnings
 - Fix SonarCloud scanning
 - Conan 1.65 (was 1.64)
 - Expat 2.6.3 (was 2.5.0) to address CVEs CVE-2024-45492 CVE-2024-45491 CVE-2024-45490
-- ci-openrv build container
-- rename master branch to main
+- fixes #196 : ci-openrv build container. OpenRV doesn't build yet, waiting for Qt6 support.
+  For now openrv builds in non-default review group.
+- fixes #150 : rename master branch to main
+- fixes #218 : only attempt to use larger runners when running in context of ASWF GitHub org.
+- fixes #221 : ci-usd now includes Python dependencies
+- fixes #148 : Vulkan SDK and runtime now included in all images, initially required
+  for ci-openrv, but useful in general. Also Qt now built with Vulkan support
+- CUDA 12.6.1 (was 12.3.0)
+- Java 17 (was 11) for ci-opencue image
+- Imath 3.1.12 (was 3.1.11)
+- MaterialX 1.39.1 (was 1.38.10)
+- OpenImageIO 2.15.16.0 (was 2.15.15.0)
+- OpenShadingLanguage 1.13.11.0 (was 1.13.10.0)
+- Python 3.11.10 (was 3.11.9)
+- USD 24.08 (was 24.05)
+
+### New CI Images
+
+* `aswf/ci-common:4-clang16.2`, `aswf/ci-common:4-clang17.2` : A base Rocky 8.10 image with GCC 11.2.1 (DTS 11), Clang 16.0/17.0 and CUDA 12.3.
+* `aswf/ci-base:2024.2`
+* `aswf/ci-baseqt:2024.2`
+* `aswf/ci-opencue:2024.2`
+* `aswf/ci-openexr:2024.2`
+* `aswf/ci-ocio:2024.2`
+* `aswf/ci-oiio:2024.2`
+* `aswf/ci-otio:2024.2`
+* `aswf/ci-materialx:2024.2`
+* `aswf/ci-usd:2024.2`
+* `aswf/ci-openrv:2024.2`
+* `aswf/ci-osl:2024-clang16.2`,`aswf/ci-osl:2024-clang17.2`
+* `aswf/ci-openvdb:2024-clang16.2`, `aswf/ci-openvdb:2024-clang17.2`
+* `aswf/ci-vfxall:2024-clang16.1`, `aswf/ci-vfxall:2024-clang17.1`
 
 ## 2024-09-02
 
