@@ -89,8 +89,6 @@ ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=$ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 COPY ci-openrv/README.md ci-openrv/image.yaml /usr/local/aswf/
 
-# Dependencies missing for OpenRV
-RUN sudo dnf install -y meson nasm libaio-devel mesa-vulkan-devel mesa-libOSMesa mesa-libOSMesa-devel
 
 
 ENV PYTHONPATH=/usr/local/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib64/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:/usr/local/lib/python:${PYTHONPATH}

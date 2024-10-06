@@ -14,4 +14,7 @@ sources:
   "1.39.0":
     url: "https://github.com/AcademySoftwareFoundation/MaterialX/archive/v1.39.0.tar.gz"
     sha256: "cc470da839cdc0e31e4b46ee46ff434d858c38c803b1d4a1012ed12546ace541"
+  "1.39.1":
+    url: "https://github.com/AcademySoftwareFoundation/MaterialX/archive/v1.39.1.tar.gz"
+    sha256: "a392fd0aa372bbea7a6f27d20160829ec9380a801976ff467949a90e6555258d"
 patches:

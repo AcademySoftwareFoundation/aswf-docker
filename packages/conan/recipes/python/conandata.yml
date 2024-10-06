@@ -19,6 +19,8 @@ sources:
     sha256: "d3019a613b9e8761d260d9ebe3bd4df63976de30464e5c0189566e1ae3f61889"
   3.11.9:
     url: "https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tgz"
-    sha256: "d3019a613b9e8761d260d9ebe3bd4df63976de30464e5c0189566e1ae3f61889"
     sha256: "e7de3240a8bc2b1e1ba5c81bf943f06861ff494b69fda990ce2722a504c6153d"
+  3.11.10:
+    url: "https://www.python.org/ftp/python/3.11.10/Python-3.11.10.tgz"
+    sha256: "92f2faf242681bfa406d53a51e17d42c5373affe23a130cd9697e132ef574706"
 patches:

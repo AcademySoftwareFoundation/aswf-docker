@@ -18,6 +18,11 @@ if [[ $ASWF_USD_VERSION == 23.05 && $ASWF_MATERIALX_VERSION == 1.38.7 ]]; then
     curl --location "https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/USD/pull/2402.diff" | patch -p1
 fi 
 
+if [[ $ASWF_USD_VERSION == 24.08 && $ASWF_MATERIALX_VERSION == 1.39.1 ]]; then
+    # Apply patch from https://github.com/PixarAnimationStudios/USD/pull/3159
+    curl --location "https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/OpenUSD/pull/3159.diff" | patch -p1
+fi
+
 if [[ $ASWF_USD_VERSION == 19.* ]]; then
      VT_SRC_FOLDER=base/lib/vt
 else
