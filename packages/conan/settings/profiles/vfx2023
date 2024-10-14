@@ -3,5 +3,8 @@ include(ci_common3)
 [settings]
 python=3.10
 [options]
-[build_requires]
-[env]
+[tool_requires]
+[platform_requires]
+bzip2/1.0.6
+zlib/1.2.11
+[buildenv]

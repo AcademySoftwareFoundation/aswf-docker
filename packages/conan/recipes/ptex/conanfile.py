@@ -90,6 +90,3 @@ class PtexConan(ConanFile):
         self.cpp_info.set_property("cmake_target_name", "Ptex::Ptex")
         self.cpp_info.includedirs = ["include"]
         self.cpp_info.libs = collect_libs(self)
-
-    def deploy(self):
-        self.copy("*", symlinks=True)

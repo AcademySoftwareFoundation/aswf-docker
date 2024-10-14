@@ -26,6 +26,9 @@ sources:
   "2.12.0":
     url: "https://github.com/pybind/pybind11/archive/v2.12.0.tar.gz"
     sha256: "bf8f242abd1abcd375d516a7067490fb71abd79519a282d22b6e4d19282185a7"
+  "2.13.6":
+    url: "https://github.com/pybind/pybind11/archive/v2.13.6.tar.gz"
+    sha256: "e08cb87f4773da97fa7b5f035de8763abc656d87d5773e62f6da0587d1f0ec20"
 patches:
 #  "2.12.0":
 #    - patch_file: "patches/no-python-module.diff"

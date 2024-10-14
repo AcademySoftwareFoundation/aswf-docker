@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conans import AutoToolsBuildEnvironment, ConanFile, tools
 from contextlib import contextmanager
 from conan.tools.files.symlinks import absolute_to_relative_symlinks

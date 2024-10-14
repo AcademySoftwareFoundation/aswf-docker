@@ -120,3 +120,21 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
+## [aswf/ci-base:2025.0](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2025.0)
+
+Contains:
+* blosc-1.21.6
+* boost-1.85.0
+* cmake-3.30.5
+* cppunit-1.15.1
+* expat-2.6.3
+* glew-2.2.0
+* glfw-3.4
+* gtest-1.15.2
+* log4cplus-2.1.1
+* pybind11-2.13.6
+* python-3.11.10
+* tbb-2020_U3
+* numpy-1.26.4
+* vfxplatform-2025
+

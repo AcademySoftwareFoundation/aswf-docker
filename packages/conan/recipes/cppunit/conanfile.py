@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conans import AutoToolsBuildEnvironment, ConanFile, tools
 from contextlib import contextmanager
 import os
@@ -129,6 +133,3 @@ class CppunitConan(ConanFile):
         if self.options.shared and self.settings.os == "Windows":
             self.cpp_info.defines.append("CPPUNIT_DLL")
         self.cpp_info.filenames["pkg_config"] = "cppunit"
-
-    def deploy(self):
-        self.copy("*", symlinks=True)

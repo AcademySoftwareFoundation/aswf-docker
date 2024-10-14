@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain
 from conan.tools.files import (
@@ -148,6 +152,3 @@ class PyBind11Conan(ConanFile):
         self.env_info.CMAKE_PREFIX_PATH.append(
             os.path.join(self.package_folder, "lib64", "cmake")
         )
-
-    def deploy(self):
-        self.copy("*", symlinks=True)

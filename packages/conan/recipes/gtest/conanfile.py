@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 from conans import ConanFile, CMake, tools
 from conans.errors import ConanInvalidConfiguration
 import os
@@ -197,6 +201,3 @@ class GTestConan(ConanFile):
                     "gmock_main{}".format(self._postfix)
                 ]
                 self.cpp_info.components["gmock_main"].requires = ["gmock"]
-
-    def deploy(self):
-        self.copy("*", symlinks=True)

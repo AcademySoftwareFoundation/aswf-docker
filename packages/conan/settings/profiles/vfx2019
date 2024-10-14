@@ -3,5 +3,5 @@ include(ci_common1)
 [settings]
 python=2.7
 [options]
-[build_requires]
-[env]
+[tool_requires]
+[buildenv]

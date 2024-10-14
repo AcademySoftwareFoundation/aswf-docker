@@ -1,3 +1,7 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 import os
 from conans import ConanFile, tools
 from conans.errors import ConanInvalidConfiguration
@@ -329,6 +333,3 @@ MALLOCPROXY.DEF =
         self.cpp_info.components[component_name].names["cmake_find_package"] = lib
         self.cpp_info.components[component_name].names["cmake_find_package_multi"] = lib
         self.cpp_info.components[component_name].libs = [self._lib_name(lib)]
-
-    def deploy(self):
-        self.copy("*", symlinks=True)

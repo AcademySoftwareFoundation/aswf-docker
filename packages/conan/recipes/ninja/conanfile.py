@@ -19,20 +19,18 @@ import os
 
 class NinjaConan(ConanFile):
     name = "ninja"
+    package_type = "application"
     description = "Ninja is a small build system with a focus on speed"
     license = "Apache-2.0"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "https://github.com/ninja-build/ninja"
-    topics = ("conan", "ninja", "build")
+    topics = ("ninja", "build")
     settings = (
         "os",
         "arch",
         "compiler",
         "build_type",
     )
-
-    def export_sources(self):
-        export_conandata_patches(self)
 
     def layout(self):
         cmake_layout(self, src_folder="src")
@@ -42,17 +40,20 @@ class NinjaConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        cmakelists = os.path.join(self.source_folder, "CMakeLists.txt")
 
     def generate(self):
         tc = CMakeToolchain(self)
         tc.variables["BUILD_TESTING"] = "OFF"
+        if self.settings.os == "Linux" and "libstdc++" in self.settings.compiler.libcxx:
+            # Link C++ library statically on Linux so that it can run on systems
+            # with an older C++ runtime
+            tc.cache_variables[
+                "CMAKE_EXE_LINKER_FLAGS"
+            ] = "-static-libstdc++ -static-libgcc"
         tc.generate()
 
-    def _patch_sources(self):
-        apply_conandata_patches(self)
-
     def build(self):
-        self._patch_sources()
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
@@ -72,6 +73,3 @@ class NinjaConan(ConanFile):
         self.cpp_info.libdirs = []
         self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
         self.env_info.CONAN_CMAKE_GENERATOR = "Ninja"
-
-    def deploy(self):
-        self.copy("*", symlinks=True)
