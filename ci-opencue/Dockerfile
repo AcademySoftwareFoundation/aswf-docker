@@ -102,9 +102,11 @@ python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
+ENV CONAN_HOME=${CONAN_USER_HOME}/.conan2
+
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 

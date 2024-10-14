@@ -251,6 +251,14 @@ class QtConan(ConanFile):
         self.options.qtshadertools = True
         self.options.qtactiveqt = True
         self.options.qtsvg = True
+        # Needed by OpenRV
+        self.options.qtwebengine = True
+        self.options.qtgui = True
+        # self.options.qtdeclarative = True
+        self.options.qtwebchannel = True
+        self.options.with_dbus = True
+        self.options.qtwebsockets = True
+        self.options.qtmultimedia = True
 
         if not self.options.gui:
             del self.options.opengl
@@ -2058,6 +2066,3 @@ class QtConan(ConanFile):
             _add_build_modules_for_component(c)
 
         self.cpp_info.set_property("cmake_build_modules", build_modules_list)
-
-    def deploy(self):
-        self.copy("*", symlinks=True)

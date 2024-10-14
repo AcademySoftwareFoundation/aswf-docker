@@ -11,4 +11,10 @@ sources:
   "17.0.6":
     url: "https://github.com/llvm/llvm-project/archive/llvmorg-17.0.6.tar.gz"
     sha256: "81494d32e6f12ea6f73d6d25424dbd2364646011bb8f7e345ca870750aa27de1"
+  "18.1.8":
+    url: "https://github.com/llvm/llvm-project/archive/llvmorg-18.1.8.tar.gz"
+    sha256: "09c08693a9afd6236f27a2ebae62cda656eba19021ef3f94d59e931d662d4856"
+  "19.1.0":
+    url: "https://github.com/llvm/llvm-project/archive/llvmorg-19.1.0.tar.gz"
+    sha256: "0a08341036ca99a106786f50f9c5cb3fbe458b3b74cab6089fd368d0edb2edfe"
 patches:

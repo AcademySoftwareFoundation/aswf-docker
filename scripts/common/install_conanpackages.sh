@@ -23,16 +23,20 @@ if [[ $ASWF_CONAN_CHANNEL == ci_common* ]]; then
     VFXYEAR=$(( $VFXYEAR + 2020 ))
 fi
 
-conan config set general.default_profile=$2
-
 cd $1
 if (( $VFXYEAR < 2023 )); then
-    # Install conan packages listed in conanfile.txt in current directory
+    # Install conan packages listed in conanfile.txt in current directory.
+    # This won't work with Conan 2
+    conan config set general.default_profile=$2
     conan install .
 else
     # Extract references from conanfile.txt and install them by reference
     for CONANREF in $(awk 'NR == 1, /\[requires\]/ { next } /^[^#]/ { print }' conanfile.txt)
     do
-        conan install $CONANREF --install-folder $1
+        CONANPACKAGE=$(echo $CONANREF | cut -d\/ -f1)
+        conan install --requires=$CONANREF --profile:all=${CONAN_USER_HOME}/.conan2/profiles/${ASWF_CONAN_CHANNEL} --deployer-folder $1 --deployer=direct_deploy
+        # No way to tell Conan 2 to flatten the deployment destination, we move the files after the fact
+        rsync --remove-source-files -a $1/direct_deploy/${CONANPACKAGE}/ $1/
     done
+    rm -rf $1/direct_deploy
 fi

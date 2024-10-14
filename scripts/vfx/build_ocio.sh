@@ -37,15 +37,10 @@ cmake \
 make -j$(nproc)
 make install
 
-cd ../..
-
-curl --location "https://github.com/imageworks/OpenColorIO-Configs/archive/v${ASWF_OCIO_CONFIGS_VERSION}.tar.gz" -o "ocio-configs.tar.gz"
-tar -zxf ocio-configs.tar.gz
-cd "OpenColorIO-Configs-${ASWF_OCIO_CONFIGS_VERSION}"
-
-mkdir "${ASWF_INSTALL_PREFIX}/openColorIO"
-cp nuke-default/config.ocio "${ASWF_INSTALL_PREFIX}/openColorIO/"
-cp -r nuke-default/luts "${ASWF_INSTALL_PREFIX}/openColorIO/"
+# As per the OCIO Slack #dev channel, we no longer need to download  OCIO configs
+# separately, the 2.x configs are now built-in to the library.
+# Legacy 1.x configs: https://github.com/colour-science/OpenColorIO-Configs
+# 2.x config source: https://github.com/AcademySoftwareFoundation/OpenColorIO-Config-ACES
 
 cd ../..
 rm -rf ocio

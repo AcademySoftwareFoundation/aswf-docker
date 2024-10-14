@@ -1,0 +1,9 @@
+include(ci_common4)
+
+[settings]
+[options]
+[tool_requires]
+[platform_requires]
+bzip2/1.0.6
+zlib/1.2.11
+[buildenv]

@@ -6,9 +6,8 @@ set -ex
 mkdir python
 cd python
 
-curl -C - --location "https://www.python.org/ftp/python/${ASWF_CONAN_PYTHON_VERSION}/Python-${ASWF_CONAN_PYTHON_VERSION}.tgz" -o "$DOWNLOADS_DIR/Python-${ASWF_CONAN_PYTHON_VERSION}.tgz"
+curl --location "https://www.python.org/ftp/python/${ASWF_CONAN_PYTHON_VERSION}/Python-${ASWF_CONAN_PYTHON_VERSION}.tgz" | tar xfz -
 
-tar xf "$DOWNLOADS_DIR/Python-${ASWF_CONAN_PYTHON_VERSION}.tgz"
 cd "Python-${ASWF_CONAN_PYTHON_VERSION}"
 
 export LD_LIBRARY_PATH=/tmp/pyconan/lib:${LD_LIBRARY_PATH}
@@ -29,8 +28,8 @@ python3 get-pip.py
 pip3 install pyinstaller
 
 cd ..
-git clone --branch ${ASWF_CONAN_VERSION} https://github.com/conan-io/conan.git
-cd conan
+curl --location https://github.com/conan-io/conan/archive/refs/tags/${ASWF_CONAN_VERSION}.tar.gz | tar xfz -
+cd conan-${ASWF_CONAN_VERSION}
 pip3 install -r conans/requirements.txt
 python3 pyinstaller.py
 cp -r pyinstaller/dist/conan /opt
@@ -44,4 +43,3 @@ chmod a+x "${ASWF_INSTALL_PREFIX}/bin/conan"
 cd ../..
 rm -rf python
 rm -rf /tmp/pyconan
-rm "$DOWNLOADS_DIR/Python-${ASWF_CONAN_PYTHON_VERSION}.tgz"

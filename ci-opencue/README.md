@@ -66,3 +66,11 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
+## [aswf/ci-opencue:2025.0](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2025.0)
+
+Contains:
+* python-3.11.10
+* cmake-3.30.5
+* numpy-1.26.4
+* vfxplatform-2025
+

@@ -181,6 +181,3 @@ class OpenSubdivConan(ConanFile):
         self.cpp_info.components["osdgpu"].names[
             "cmake_find_package_multi"
         ] = f"osdgpu{target_suffix}"
-
-    def deploy(self):
-        self.copy("*", symlinks=True)

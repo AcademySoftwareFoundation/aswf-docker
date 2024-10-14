@@ -154,6 +154,3 @@ class CbloscConan(ConanFile):
         self.cpp_info.libs = [f"{prefix}blosc"]
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs.extend(["m", "pthread"])
-
-    def deploy(self):
-        self.copy("*", symlinks=True)

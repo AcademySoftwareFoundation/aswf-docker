@@ -371,6 +371,3 @@ class PySide6Conan(ConanFile):
             self.user_info.site_package = os.path.join(
                 self.package_folder, f"lib/python{v.major}.{v.minor}/site-packages"
             )
-
-    def deploy(self):
-        self.copy("*", symlinks=True)
