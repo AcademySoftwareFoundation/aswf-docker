@@ -24,7 +24,7 @@ class TestMigrater(unittest.TestCase):
     def test_migrate_pkgfilter(self):
         m = migrater.Migrater("src", "dst")
         m.gather("openexr", "")
-        self.assertEqual(len(m.migration_list), 6)
+        self.assertEqual(len(m.migration_list), 7)
 
     def test_migrate_versionfilter(self):
         m = migrater.Migrater("src", "dst")
