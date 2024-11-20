@@ -4,6 +4,12 @@ description: |
   Contains: Python, Boost, Qt, OpenEXR, OpenImageIO, Partio and other OpenShadingLanguage upstream dependencies
   Warning: this image does *not* contain OpenShadingLanguage itself as it is used to *build* OpenShadingLanguage!
 packages:
+  - lz4
+  - snappy
+  - zlib
+  - zstd
+  - blosc
+  - libbacktrace
   - boost
   - cmake
   - expat
@@ -16,7 +22,6 @@ packages:
   - partio
   - ptex
   - tbb
-  - blosc
   - openvdb
 implicit_packages:
   - numpy

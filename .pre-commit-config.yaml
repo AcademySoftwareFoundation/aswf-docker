@@ -2,8 +2,10 @@ repos:
 -   repo: https://github.com/ambv/black
     rev: 22.12.0
     hooks:
+    # Don't reformat vendored Conan recipes
     - id: black
       language_version: python3.9
+      exclude: packages/conan/recipes/
 -   repo: local
     hooks:
       - id: pytest

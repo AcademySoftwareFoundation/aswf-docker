@@ -1,18 +1,13 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/22dfbd2b42eed730eca55e14025e8ffa65f723b2/recipes/glew/all/conanfile.py
 
 from conan import ConanFile
 from conan.tools.apple import is_apple_os
-from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import (
-    apply_conandata_patches,
-    copy,
-    export_conandata_patches,
-    get,
-    rm,
-    rmdir,
-)
+from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
+from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rm, rmdir
 import os
 
 required_conan_version = ">=1.53.0"
@@ -23,7 +18,7 @@ class GlewConan(ConanFile):
     description = "The GLEW library"
     url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
     homepage = "http://github.com/nigels-com/glew"
-    topics = ("conan", "glew", "opengl", "wrangler", "loader", "binding")
+    topics = ("glew", "opengl", "wrangler", "loader", "binding")
     license = "MIT"
     package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
@@ -32,7 +27,11 @@ class GlewConan(ConanFile):
         "fPIC": [True, False],
         "with_egl": [True, False],
     }
-    default_options = {"shared": True, "fPIC": True, "with_egl": False}
+    default_options = {
+        "shared": True,
+        "fPIC": True,
+        "with_egl": False,
+    }
 
     def export_sources(self):
         export_conandata_patches(self)
@@ -60,7 +59,7 @@ class GlewConan(ConanFile):
             self.requires("glu/system", transitive_headers=True)
         else:
             # Don't depend on external GLU recipe
-            # self.requires("mesa-glu/9.0.3", transitive_headers=True)
+            # self.requires("mesa-glu/9.0.0", transitive_headers=True)
             self.requires("glu/system", transitive_headers=True)
 
     def source(self):
@@ -75,18 +74,11 @@ class GlewConan(ConanFile):
     def build(self):
         apply_conandata_patches(self)
         cmake = CMake(self)
-        cmake.configure(
-            build_script_folder=os.path.join(self.source_folder, "build", "cmake")
-        )
+        cmake.configure(build_script_folder=os.path.join(self.source_folder, "build", "cmake"))
         cmake.build()
 
     def package(self):
-        copy(
-            self,
-            "LICENSE.txt",
-            src=self.source_folder,
-            dst=os.path.join(self.package_folder, "licenses", self.name),
-        )
+        copy(self, "LICENSE.txt", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
 
@@ -102,12 +94,8 @@ class GlewConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "glew")
         self.cpp_info.set_property("cmake_target_name", "GLEW::GLEW")
         self.cpp_info.set_property("pkg_config_name", "glew")
-        self.cpp_info.components["glewlib"].set_property(
-            "cmake_module_target_name", "GLEW::GLEW"
-        )
-        self.cpp_info.components["glewlib"].set_property(
-            "cmake_target_name", f"GLEW::{glewlib_target_name}"
-        )
+        self.cpp_info.components["glewlib"].set_property("cmake_module_target_name", "GLEW::GLEW")
+        self.cpp_info.components["glewlib"].set_property("cmake_target_name", f"GLEW::{glewlib_target_name}")
         self.cpp_info.components["glewlib"].set_property("pkg_config_name", "glew")
 
         if self.settings.os == "Windows":
@@ -120,11 +108,12 @@ class GlewConan(ConanFile):
         if self.settings.os == "Windows" and not self.options.shared:
             self.cpp_info.components["glewlib"].defines.append("GLEW_STATIC")
         self.cpp_info.components["glewlib"].requires = ["opengl::opengl"]
-        # We dont' want to depend on self installed GLU, and no cmake module for system GLU
-        # if is_apple_os(self) or self.settings.os == "Windows":
-        #    self.cpp_info.components["glewlib"].requires.append("glu::glu")
-        # else:
-        #    self.cpp_info.components["glewlib"].requires.append("mesa-glu::mesa-glu")
+        if is_apple_os(self) or self.settings.os == "Windows":
+           self.cpp_info.components["glewlib"].requires.append("glu::glu")
+        else:
+           # Use system GLU
+           # self.cpp_info.components["glewlib"].requires.append("mesa-glu::mesa-glu")
+           self.cpp_info.components["glewlib"].requires.append("glu::glu")
 
         # TODO: to remove in conan v2 once cmake_find_package_* generators removed
         self.cpp_info.filenames["cmake_find_package"] = "GLEW"
@@ -132,9 +121,7 @@ class GlewConan(ConanFile):
         self.cpp_info.names["cmake_find_package"] = "GLEW"
         self.cpp_info.names["cmake_find_package_multi"] = "GLEW"
         self.cpp_info.components["glewlib"].names["cmake_find_package"] = "GLEW"
-        self.cpp_info.components["glewlib"].names[
-            "cmake_find_package_multi"
-        ] = glewlib_target_name
+        self.cpp_info.components["glewlib"].names["cmake_find_package_multi"] = glewlib_target_name
 
         self.env_info.CMAKE_PREFIX_PATH.append(
             os.path.join(self.package_folder, "lib64", "cmake")

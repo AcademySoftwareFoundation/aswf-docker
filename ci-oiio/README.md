@@ -13,7 +13,7 @@ for further information, and participate in the discussion on the
 
 ## OpenImageIO CI Docker Image
 
-Contains: Python, Boost, OpenEXR, Partio and other OpenImageIO upstream dependencies
+Contains: Python, OpenEXR, Partio and other OpenImageIO upstream dependencies
 Warning: this image does *not* contain OpenImageIO itself as it is used to *build* OpenImageIO!
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-oiio/Dockerfile)
@@ -21,15 +21,18 @@ Warning: this image does *not* contain OpenImageIO itself as it is used to *buil
 ## [aswf/ci-oiio:2024.2](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2024.2)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
 * blosc-1.21.5
-* boost-1.82.0
 * cmake-3.27.9
-* expat-2.6.3
+* expat-2.6.4
 * python-3.11.10
 * imath-3.1.12
 * ocio-2.3.2
 * openexr-3.2.4
-* openvdb-11.0.0
+* openvdb-12.0.0
 * pybind11-2.12.0
 * ptex-2.4.2
 * qt-6.5.3
@@ -40,10 +43,13 @@ Contains:
 ## [aswf/ci-oiio:2025.0](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2025.0)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
 * blosc-1.21.6
-* boost-1.85.0
 * cmake-3.30.5
-* expat-2.6.3
+* expat-2.6.4
 * python-3.11.10
 * imath-3.1.12
 * ocio-2.4.0

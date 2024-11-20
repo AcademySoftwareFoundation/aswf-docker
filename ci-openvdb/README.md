@@ -21,6 +21,7 @@ Warning: this image does *not* contain OpenVDB itself as it is used to *build* O
 ## [aswf/ci-openvdb:2019-clang6.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang6.8)
 
 Contains:
+* blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
 * gtest-1.8.1
@@ -30,7 +31,6 @@ Contains:
 * tbb-2018
 * imath-2.3.0
 * openexr-2.3.0
-* blosc-1.5.0
 * pybind11-2.4.3
 * numpy-1.14
 * vfxplatform-2019
@@ -38,6 +38,7 @@ Contains:
 ## [aswf/ci-openvdb:2019-clang7.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang7.8)
 
 Contains:
+* blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
 * gtest-1.8.1
@@ -47,7 +48,6 @@ Contains:
 * tbb-2018
 * imath-2.3.0
 * openexr-2.3.0
-* blosc-1.5.0
 * pybind11-2.4.3
 * numpy-1.14
 * vfxplatform-2019
@@ -55,6 +55,7 @@ Contains:
 ## [aswf/ci-openvdb:2019-clang8.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang8.8)
 
 Contains:
+* blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
 * gtest-1.8.1
@@ -64,7 +65,6 @@ Contains:
 * tbb-2018
 * imath-2.3.0
 * openexr-2.3.0
-* blosc-1.5.0
 * pybind11-2.4.3
 * numpy-1.14
 * vfxplatform-2019
@@ -72,6 +72,7 @@ Contains:
 ## [aswf/ci-openvdb:2019-clang9.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2019-clang9.8)
 
 Contains:
+* blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
 * gtest-1.8.1
@@ -81,7 +82,6 @@ Contains:
 * tbb-2018
 * imath-2.3.0
 * openexr-2.3.0
-* blosc-1.5.0
 * pybind11-2.4.3
 * numpy-1.14
 * vfxplatform-2019
@@ -89,6 +89,7 @@ Contains:
 ## [aswf/ci-openvdb:2020-clang7.8](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2020-clang7.8)
 
 Contains:
+* blosc-1.5.0
 * boost-1.70.0
 * cmake-3.18.4
 * gtest-1.10.0
@@ -98,7 +99,6 @@ Contains:
 * tbb-2019_U6
 * imath-2.4.0
 * openexr-2.4.0
-* blosc-1.5.0
 * pybind11-2.4.3
 * numpy-1.16
 * vfxplatform-2020
@@ -106,6 +106,7 @@ Contains:
 ## [aswf/ci-openvdb:2021-clang10.6](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2021-clang10.6)
 
 Contains:
+* blosc-1.5.0
 * boost-1.73.0
 * cmake-3.19.3
 * gtest-1.11.0
@@ -115,7 +116,6 @@ Contains:
 * tbb-2020_U2
 * imath-2.5.5
 * openexr-2.5.5
-* blosc-1.5.0
 * pybind11-2.6.2
 * numpy-1.19
 * vfxplatform-2021
@@ -123,6 +123,7 @@ Contains:
 ## [aswf/ci-openvdb:2022-clang10.12](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang10.12)
 
 Contains:
+* blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
 * gtest-1.11.0
@@ -132,7 +133,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
@@ -140,6 +140,7 @@ Contains:
 ## [aswf/ci-openvdb:2022-clang11.12](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang11.12)
 
 Contains:
+* blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
 * gtest-1.11.0
@@ -149,7 +150,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
@@ -157,6 +157,7 @@ Contains:
 ## [aswf/ci-openvdb:2022-clang12.3](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang12.3)
 
 Contains:
+* blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
 * gtest-1.11.0
@@ -166,7 +167,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
@@ -174,6 +174,7 @@ Contains:
 ## [aswf/ci-openvdb:2022-clang13.3](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang13.3)
 
 Contains:
+* blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
 * gtest-1.11.0
@@ -183,7 +184,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
@@ -191,6 +191,7 @@ Contains:
 ## [aswf/ci-openvdb:2022-clang14.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2022-clang14.2)
 
 Contains:
+* blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
 * gtest-1.11.0
@@ -200,7 +201,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
@@ -208,6 +208,7 @@ Contains:
 ## [aswf/ci-openvdb:2023-clang14.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang14.2)
 
 Contains:
+* blosc-1.17.0
 * boost-1.80.0
 * cmake-3.27.2
 * gtest-1.11.0
@@ -217,7 +218,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.9
 * openexr-3.1.11
-* blosc-1.17.0
 * pybind11-2.9.2
 * numpy-1.23.5
 * vfxplatform-2023
@@ -225,6 +225,7 @@ Contains:
 ## [aswf/ci-openvdb:2023-clang15.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang15.2)
 
 Contains:
+* blosc-1.17.0
 * boost-1.80.0
 * cmake-3.27.2
 * gtest-1.11.0
@@ -234,7 +235,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.9
 * openexr-3.1.11
-* blosc-1.17.0
 * pybind11-2.9.2
 * numpy-1.23.5
 * vfxplatform-2023
@@ -242,9 +242,15 @@ Contains:
 ## [aswf/ci-openvdb:2024-clang16.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang16.2)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.5
+* libbacktrace-cci.20210118
 * boost-1.82.0
 * cmake-3.27.9
-* expat-2.6.3
+* expat-2.6.4
 * gtest-1.14.0
 * cppunit-1.15.1
 * glfw-3.3.8
@@ -252,7 +258,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.12
 * openexr-3.2.4
-* blosc-1.21.5
 * pybind11-2.12.0
 * numpy-1.24.3
 * vfxplatform-2024
@@ -260,9 +265,15 @@ Contains:
 ## [aswf/ci-openvdb:2024-clang17.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang17.2)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.5
+* libbacktrace-cci.20210118
 * boost-1.82.0
 * cmake-3.27.9
-* expat-2.6.3
+* expat-2.6.4
 * gtest-1.14.0
 * cppunit-1.15.1
 * glfw-3.3.8
@@ -270,7 +281,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.12
 * openexr-3.2.4
-* blosc-1.21.5
 * pybind11-2.12.0
 * numpy-1.24.3
 * vfxplatform-2024
@@ -278,9 +288,15 @@ Contains:
 ## [aswf/ci-openvdb:2025-clang18.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2025-clang18.0)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.6
+* libbacktrace-cci.20210118
 * boost-1.85.0
 * cmake-3.30.5
-* expat-2.6.3
+* expat-2.6.4
 * gtest-1.15.2
 * cppunit-1.15.1
 * glfw-3.4
@@ -288,7 +304,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.12
 * openexr-3.3.1
-* blosc-1.21.6
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025
@@ -296,9 +311,15 @@ Contains:
 ## [aswf/ci-openvdb:2025-clang19.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2025-clang19.0)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.6
+* libbacktrace-cci.20210118
 * boost-1.85.0
 * cmake-3.30.5
-* expat-2.6.3
+* expat-2.6.4
 * gtest-1.15.2
 * cppunit-1.15.1
 * glfw-3.4
@@ -306,7 +327,6 @@ Contains:
 * tbb-2020_U3
 * imath-3.1.12
 * openexr-3.3.1
-* blosc-1.21.6
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025

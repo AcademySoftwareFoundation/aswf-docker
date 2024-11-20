@@ -1,3 +1,9 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/22dfbd2b42eed730eca55e14025e8ffa65f723b2/recipes/c-blosc/all/conandata.yml
+
 sources:
   "1.21.6":
     url: "https://github.com/Blosc/c-blosc/archive/v1.21.6.tar.gz"
@@ -33,6 +39,10 @@ sources:
     url: "https://github.com/Blosc/c-blosc/archive/v1.17.1.tar.gz"
     sha256: "19a6948b579c27e8ac440b4f077f99fc90e7292b1d9cb896bec0fd781d68fba2"
 patches:
+  "1.21.6":
+    - patch_file: "patches/cmake-dependencies-1.21.4+.patch"
+      patch_description: "use cci package"
+      patch_type: "conan"
   "1.21.5":
     - patch_file: "patches/cmake-dependencies-1.21.4+.patch"
       patch_description: "use cci package"

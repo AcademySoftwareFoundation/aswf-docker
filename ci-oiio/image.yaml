@@ -1,11 +1,14 @@
 name: "oiio"
 title: "OpenImageIO CI Docker Image"
 description: |
-  Contains: Python, Boost, OpenEXR, Partio and other OpenImageIO upstream dependencies
+  Contains: Python, OpenEXR, Partio and other OpenImageIO upstream dependencies
   Warning: this image does *not* contain OpenImageIO itself as it is used to *build* OpenImageIO!
 packages:
+  - lz4
+  - snappy
+  - zlib
+  - zstd
   - blosc
-  - boost
   - cmake
   - expat
   - python

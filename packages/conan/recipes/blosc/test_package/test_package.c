@@ -1,4 +1,11 @@
 /*
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/22dfbd2b42eed730eca55e14025e8ffa65f723b2/recipes/c-blosc/all/test_package/test_package.c
+*/
+/*
     Copyright (C) 2014  Francesc Alted
     http://blosc.org
     License: MIT (see LICENSE.txt)

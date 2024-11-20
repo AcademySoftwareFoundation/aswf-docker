@@ -13,7 +13,7 @@ for further information, and participate in the discussion on the
 
 ## OpenEXR CI Docker Image
 
-Contains: Python, Boost and other OpenEXR upstream dependencies
+Contains: Python and other OpenEXR upstream dependencies
 Warning: this image does *not* contain OpenEXR itself as it is used to *build* OpenEXR!
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-openexr/Dockerfile)
@@ -22,7 +22,6 @@ Warning: this image does *not* contain OpenEXR itself as it is used to *build* O
 
 Contains:
 * python-2.7.15
-* boost-1.66.0
 * cmake-3.12.4
 * pybind11-2.4.3
 * numpy-1.14
@@ -32,7 +31,6 @@ Contains:
 
 Contains:
 * python-3.7.3
-* boost-1.70.0
 * cmake-3.18.4
 * pybind11-2.4.3
 * numpy-1.16
@@ -42,7 +40,6 @@ Contains:
 
 Contains:
 * python-3.7.9
-* boost-1.73.0
 * cmake-3.19.3
 * pybind11-2.6.2
 * numpy-1.19
@@ -52,7 +49,6 @@ Contains:
 
 Contains:
 * python-3.9.15
-* boost-1.76.0
 * cmake-3.22.0
 * pybind11-2.8.1
 * numpy-1.20
@@ -62,7 +58,6 @@ Contains:
 
 Contains:
 * python-3.10.11
-* boost-1.80.0
 * cmake-3.27.2
 * pybind11-2.9.2
 * numpy-1.23.5
@@ -72,7 +67,6 @@ Contains:
 
 Contains:
 * python-3.11.10
-* boost-1.82.0
 * cmake-3.27.9
 * pybind11-2.12.0
 * numpy-1.24.3
@@ -82,7 +76,6 @@ Contains:
 
 Contains:
 * python-3.11.10
-* boost-1.85.0
 * cmake-3.30.5
 * pybind11-2.13.6
 * numpy-1.26.4

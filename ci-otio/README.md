@@ -73,7 +73,7 @@ Contains:
 Contains:
 * python-3.11.10
 * cmake-3.27.9
-* expat-2.6.3
+* expat-2.6.4
 * qt-6.5.3
 * pyside-6.5.3
 * numpy-1.24.3
@@ -84,7 +84,7 @@ Contains:
 Contains:
 * python-3.11.10
 * cmake-3.30.5
-* expat-2.6.3
+* expat-2.6.4
 * qt-6.5.3
 * pyside-6.5.3
 * numpy-1.26.4

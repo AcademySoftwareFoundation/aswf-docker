@@ -21,16 +21,15 @@ Warning: this image does *not* contain OpenColorIO itself as it is used to *buil
 ## [aswf/ci-ocio:2019.9](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2019.9)
 
 Contains:
+* blosc-1.5.0
 * python-2.7.15
 * pybind11-2.4.3
 * tbb-2018
-* boost-1.66.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
-* blosc-1.5.0
 * partio-1.10.1
 * openvdb-6.2.1
 * osl-1.10.9
@@ -40,16 +39,15 @@ Contains:
 ## [aswf/ci-ocio:2020.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2020.8)
 
 Contains:
+* blosc-1.5.0
 * python-3.7.3
 * pybind11-2.4.3
 * tbb-2019_U6
-* boost-1.70.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.18.4
 * imath-2.4.0
 * openexr-2.4.0
-* blosc-1.5.0
 * partio-1.10.1
 * openvdb-7.1.0
 * osl-1.10.10
@@ -59,16 +57,15 @@ Contains:
 ## [aswf/ci-ocio:2021.6](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2021.6)
 
 Contains:
+* blosc-1.5.0
 * python-3.7.9
 * pybind11-2.6.2
 * tbb-2020_U2
-* boost-1.73.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.19.3
 * imath-2.5.5
 * openexr-2.5.5
-* blosc-1.5.0
 * partio-1.14.0
 * openvdb-8.0.1
 * osl-1.11.13.0
@@ -78,16 +75,15 @@ Contains:
 ## [aswf/ci-ocio:2022.4](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2022.4)
 
 Contains:
+* blosc-1.17.0
 * python-3.9.15
 * pybind11-2.8.1
 * tbb-2020_U3
-* boost-1.76.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * partio-1.14.0
 * openvdb-9.1.0
 * osl-1.12.7.0
@@ -97,16 +93,15 @@ Contains:
 ## [aswf/ci-ocio:2023.2](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2023.2)
 
 Contains:
+* blosc-1.17.0
 * python-3.10.11
 * pybind11-2.9.2
 * tbb-2020_U3
-* boost-1.80.0
 * glew-2.1.0
 * glfw-3.1.2
 * cmake-3.27.2
 * imath-3.1.9
 * openexr-3.1.11
-* blosc-1.17.0
 * partio-1.17.1
 * openvdb-10.0.1
 * osl-1.12.13.0
@@ -116,19 +111,22 @@ Contains:
 ## [aswf/ci-ocio:2024.2](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.2)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.5
 * python-3.11.10
 * pybind11-2.12.0
 * tbb-2020_U3
-* boost-1.82.0
-* expat-2.6.3
+* expat-2.6.4
 * glew-2.1.0
 * glfw-3.3.8
 * cmake-3.27.9
 * imath-3.1.12
 * openexr-3.2.4
-* blosc-1.21.5
 * partio-1.17.1
-* openvdb-11.0.0
+* openvdb-12.0.0
 * osl-1.13.11.0
 * numpy-1.24.3
 * vfxplatform-2024
@@ -136,17 +134,20 @@ Contains:
 ## [aswf/ci-ocio:2025.0](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2025.0)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.6
 * python-3.11.10
 * pybind11-2.13.6
 * tbb-2020_U3
-* boost-1.85.0
-* expat-2.6.3
+* expat-2.6.4
 * glew-2.2.0
 * glfw-3.4
 * cmake-3.30.5
 * imath-3.1.12
 * openexr-3.3.1
-* blosc-1.21.6
 * partio-1.17.3
 * openvdb-11.0.0
 * osl-1.13.11.0

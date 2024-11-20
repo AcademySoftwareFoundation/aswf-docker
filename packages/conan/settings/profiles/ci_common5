@@ -9,7 +9,5 @@ build_type=Release
 [options]
 [tool_requires]
 [platform_requires]
-bzip2/1.0.6
-zlib/1.2.11
 [buildenv]
 GCC_INSTALL_PREFIX=/opt/rh/gcc-toolset-11/root/usr

@@ -195,7 +195,7 @@ Contains:
 * ccache-4.10.2
 * dts-11
 * sonar-6.2.1.4610
-* conan-2.8.0
+* conan-2.9.2
 
 ## [aswf/ci-common:5-clang19.0](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang19.0)
 
@@ -207,5 +207,5 @@ Contains:
 * ccache-4.10.2
 * dts-11
 * sonar-6.2.1.4610
-* conan-2.8.0
+* conan-2.9.2
 

@@ -140,6 +140,7 @@ yum install --setopt=tsflags=nodocs -y \
     mesa-libGLw-devel \
     mesa-libOSMesa-devel \
     mesa-vulkan-devel \
+    mpdecimal-devel \
     motif \
     motif-devel \
     nasm \

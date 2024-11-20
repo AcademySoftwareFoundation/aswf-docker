@@ -15,7 +15,6 @@ ARG ASWF_VFXPLATFORM_VERSION
 
 
 ARG ASWF_PYTHON_VERSION
-ARG ASWF_BOOST_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_PYBIND11_VERSION
 ARG ASWF_NUMPY_VERSION
@@ -39,7 +38,6 @@ ARG ASWF_CONAN_CHANNEL
 
 
 ARG ASWF_PYTHON_VERSION
-ARG ASWF_BOOST_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_PYBIND11_VERSION
 ARG ASWF_NUMPY_VERSION
@@ -49,7 +47,7 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-openexr"
 LABEL org.opencontainers.image.title="OpenEXR CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: Python, Boost and other OpenEXR upstream dependencies\
+LABEL org.opencontainers.image.description="Contains: Python and other OpenEXR upstream dependencies\
 Warning: this image does *not* contain OpenEXR itself as it is used to *build* OpenEXR!"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-openexr/Dockerfile"
@@ -62,7 +60,6 @@ LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
 
 
 LABEL io.aswf.docker.versions.python="$ASWF_PYTHON_VERSION"
-LABEL io.aswf.docker.versions.boost="$ASWF_BOOST_VERSION"
 LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
 LABEL io.aswf.docker.versions.pybind11="$ASWF_PYBIND11_VERSION"
 LABEL io.aswf.docker.versions.numpy="$ASWF_NUMPY_VERSION"
@@ -79,7 +76,6 @@ ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
 
 ENV ASWF_PYTHON_VERSION=$ASWF_PYTHON_VERSION
-ENV ASWF_BOOST_VERSION=$ASWF_BOOST_VERSION
 ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
 ENV ASWF_PYBIND11_VERSION=$ASWF_PYBIND11_VERSION
 ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
@@ -101,7 +97,6 @@ COPY <<EOF /usr/local/conanfile.txt
 ., * -> .
 [requires]
 python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
