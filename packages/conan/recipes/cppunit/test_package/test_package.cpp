@@ -1,3 +1,11 @@
+/*
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/cppunit/all/test_package/test_package.cpp
+*/
+
 #include "cppunit/BriefTestProgressListener.h"
 #include "cppunit/CompilerOutputter.h"
 #include "cppunit/extensions/TestFactoryRegistry.h"
@@ -118,7 +126,6 @@ void ExampleTestCase::testEquals()
   CPPUNIT_ASSERT_DOUBLES_EQUAL( 12.0, 11.99, 0.5 );
 }
 
-#ifdef CPPUNIT_TEST_FIXTURE_AVAILABLE
 class FixtureTest : public CPPUNIT_NS::TestFixture
 {
 };
@@ -133,4 +140,3 @@ CPPUNIT_TEST_FIXTURE(FixtureTest, testAdd)
   double result = 2.0 + 2.0;
   CPPUNIT_ASSERT( result == 4.0 );
 }
-#endif

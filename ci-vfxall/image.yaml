@@ -3,8 +3,14 @@ title: "VFX All CI Docker Image"
 description: |
   Contains: all supported VFX packages
 packages:
+  - lz4
+  - snappy
+  - zlib
+  - zstd
+  - blosc
   - python
   - tbb
+  - libbacktrace
   - boost
   - cppunit
   - expat
@@ -16,7 +22,6 @@ packages:
   - cmake
   - imath
   - openexr
-  - blosc
   - alembic
   - oiio
   - ocio

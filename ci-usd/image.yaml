@@ -4,9 +4,13 @@ description: |
   Contains: Python, Qt, PySide and other USD upstream dependencies
   Warning: this image does *not* contain USD itself as it is used to *build* USD!
 packages:
+  - lz4
+  - snappy
+  - zlib
+  - zstd
+  - blosc
   - python
   - tbb
-  - boost
   - expat
   - glew
   - glfw
@@ -23,7 +27,6 @@ packages:
   - ptex
   - opensubdiv
   - alembic
-  - blosc
   - openvdb
 implicit_packages:
   - numpy

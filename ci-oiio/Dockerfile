@@ -14,8 +14,11 @@ ARG ASWF_CONAN_CHANNEL
 ARG ASWF_VFXPLATFORM_VERSION
 
 
+ARG ASWF_LZ4_VERSION
+ARG ASWF_SNAPPY_VERSION
+ARG ASWF_ZLIB_VERSION
+ARG ASWF_ZSTD_VERSION
 ARG ASWF_BLOSC_VERSION
-ARG ASWF_BOOST_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_EXPAT_VERSION
 ARG ASWF_PYTHON_VERSION
@@ -49,8 +52,11 @@ ARG ASWF_CONAN_CHANNEL
 
 
 
+ARG ASWF_LZ4_VERSION
+ARG ASWF_SNAPPY_VERSION
+ARG ASWF_ZLIB_VERSION
+ARG ASWF_ZSTD_VERSION
 ARG ASWF_BLOSC_VERSION
-ARG ASWF_BOOST_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_EXPAT_VERSION
 ARG ASWF_PYTHON_VERSION
@@ -69,7 +75,7 @@ ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-oiio"
 LABEL org.opencontainers.image.title="OpenImageIO CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: Python, Boost, OpenEXR, Partio and other OpenImageIO upstream dependencies\
+LABEL org.opencontainers.image.description="Contains: Python, OpenEXR, Partio and other OpenImageIO upstream dependencies\
 Warning: this image does *not* contain OpenImageIO itself as it is used to *build* OpenImageIO!"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-oiio/Dockerfile"
@@ -81,8 +87,11 @@ LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
 
 
+LABEL io.aswf.docker.versions.lz4="$ASWF_LZ4_VERSION"
+LABEL io.aswf.docker.versions.snappy="$ASWF_SNAPPY_VERSION"
+LABEL io.aswf.docker.versions.zlib="$ASWF_ZLIB_VERSION"
+LABEL io.aswf.docker.versions.zstd="$ASWF_ZSTD_VERSION"
 LABEL io.aswf.docker.versions.blosc="$ASWF_BLOSC_VERSION"
-LABEL io.aswf.docker.versions.boost="$ASWF_BOOST_VERSION"
 LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
 LABEL io.aswf.docker.versions.expat="$ASWF_EXPAT_VERSION"
 LABEL io.aswf.docker.versions.python="$ASWF_PYTHON_VERSION"
@@ -107,8 +116,11 @@ ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
 
+ENV ASWF_LZ4_VERSION=$ASWF_LZ4_VERSION
+ENV ASWF_SNAPPY_VERSION=$ASWF_SNAPPY_VERSION
+ENV ASWF_ZLIB_VERSION=$ASWF_ZLIB_VERSION
+ENV ASWF_ZSTD_VERSION=$ASWF_ZSTD_VERSION
 ENV ASWF_BLOSC_VERSION=$ASWF_BLOSC_VERSION
-ENV ASWF_BOOST_VERSION=$ASWF_BOOST_VERSION
 ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
 ENV ASWF_EXPAT_VERSION=$ASWF_EXPAT_VERSION
 ENV ASWF_PYTHON_VERSION=$ASWF_PYTHON_VERSION
@@ -140,8 +152,11 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
+lz4/${ASWF_LZ4_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+snappy/${ASWF_SNAPPY_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+zlib/${ASWF_ZLIB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+zstd/${ASWF_ZSTD_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 blosc/${ASWF_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 expat/${ASWF_EXPAT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 python/${ASWF_PYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}

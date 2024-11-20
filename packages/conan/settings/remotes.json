@@ -7,7 +7,7 @@
     },
     {
       "name": "conan-central",
-      "url": "https://center.conan.io",
+      "url": "https://center2.conan.io",
       "verify_ssl": true
     },
     {

@@ -1,3 +1,9 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# https://github.com/conan-io/conan-center-index/blob/22dfbd2b42eed730eca55e14025e8ffa65f723b2/recipes/glfw/all/test_package/conanfile.py
+
 from conan import ConanFile
 from conan.tools.build import can_run
 from conan.tools.cmake import CMake, cmake_layout

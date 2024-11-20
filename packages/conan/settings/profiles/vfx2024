@@ -1,10 +1,33 @@
 include(ci_common4)
 
 [settings]
-python=3.11
 [options]
 [tool_requires]
+[replace_requires]
+gdbm/1.23: gdbm/1.18@system
+libffi/3.4.4: libffi/3.1@system
+libxcrypt/4.4.36: libxcrypt/4.1.1@system
+ncurses/6.4: ncurses/6.1@system
+sqlite3/3.45.2: sqlite3/3.26.0@system
+tcl/8.6.10: tcl/8.6.8@system
+tk/8.6.10: tk/8.6.8@system
+util-linux-libuuid/2.39.2: util-linux-libuuid/2.32.1@system
+xz_utils/5.4.5: xz_utils/5.2.4@system
+[replace_tool_requires]
+pkgconf/2.1.0: pkgconf/1.4.2@system
 [platform_requires]
-bzip2/1.0.6
-zlib/1.2.11
+gdbm/1.18
+libffi/3.1
+libxcrypt/4.1.1
+mpdecimal/2.5.1
+ncurses/6.1
+openssl/1.1.1
+pkgconf/1.4.2
+sqlite3/3.26.0
+tcl/8.6.8
+tk/8.6.8
+util-linux-libuuid/2.32.1
+xz_utils/5.2.4
+[platform_tool_requires]
+pkgconf/1.4.2
 [buildenv]

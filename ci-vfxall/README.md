@@ -20,6 +20,7 @@ Contains: all supported VFX packages
 ## [aswf/ci-vfxall:2019-clang6.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang6.12)
 
 Contains:
+* blosc-1.5.0
 * python-2.7.15
 * tbb-2018
 * boost-1.66.0
@@ -32,7 +33,6 @@ Contains:
 * cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
-* blosc-1.5.0
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
@@ -51,6 +51,7 @@ Contains:
 ## [aswf/ci-vfxall:2019-clang7.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang7.12)
 
 Contains:
+* blosc-1.5.0
 * python-2.7.15
 * tbb-2018
 * boost-1.66.0
@@ -63,7 +64,6 @@ Contains:
 * cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
-* blosc-1.5.0
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
@@ -82,6 +82,7 @@ Contains:
 ## [aswf/ci-vfxall:2019-clang8.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang8.12)
 
 Contains:
+* blosc-1.5.0
 * python-2.7.15
 * tbb-2018
 * boost-1.66.0
@@ -94,7 +95,6 @@ Contains:
 * cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
-* blosc-1.5.0
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
@@ -113,6 +113,7 @@ Contains:
 ## [aswf/ci-vfxall:2019-clang9.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang9.12)
 
 Contains:
+* blosc-1.5.0
 * python-2.7.15
 * tbb-2018
 * boost-1.66.0
@@ -125,7 +126,6 @@ Contains:
 * cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
-* blosc-1.5.0
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
@@ -144,6 +144,7 @@ Contains:
 ## [aswf/ci-vfxall:2020-clang7.10](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2020-clang7.10)
 
 Contains:
+* blosc-1.5.0
 * python-3.7.3
 * tbb-2019_U6
 * boost-1.70.0
@@ -156,7 +157,6 @@ Contains:
 * cmake-3.18.4
 * imath-2.4.0
 * openexr-2.4.0
-* blosc-1.5.0
 * alembic-1.7.12
 * oiio-2.1.13.0
 * ocio-1.1.1
@@ -175,6 +175,7 @@ Contains:
 ## [aswf/ci-vfxall:2021-clang10.7](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2021-clang10.7)
 
 Contains:
+* blosc-1.5.0
 * python-3.7.9
 * tbb-2020_U2
 * boost-1.73.0
@@ -187,7 +188,6 @@ Contains:
 * cmake-3.19.3
 * imath-2.5.5
 * openexr-2.5.5
-* blosc-1.5.0
 * alembic-1.7.16
 * oiio-2.2.14.0
 * ocio-2.0.1
@@ -206,6 +206,7 @@ Contains:
 ## [aswf/ci-vfxall:2022-clang10.13](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang10.13)
 
 Contains:
+* blosc-1.17.0
 * python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
@@ -218,7 +219,6 @@ Contains:
 * cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
@@ -238,6 +238,7 @@ Contains:
 ## [aswf/ci-vfxall:2022-clang11.13](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang11.13)
 
 Contains:
+* blosc-1.17.0
 * python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
@@ -250,7 +251,6 @@ Contains:
 * cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
@@ -270,6 +270,7 @@ Contains:
 ## [aswf/ci-vfxall:2022-clang12.4](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang12.4)
 
 Contains:
+* blosc-1.17.0
 * python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
@@ -282,7 +283,6 @@ Contains:
 * cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
@@ -302,6 +302,7 @@ Contains:
 ## [aswf/ci-vfxall:2022-clang13.4](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang13.4)
 
 Contains:
+* blosc-1.17.0
 * python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
@@ -314,7 +315,6 @@ Contains:
 * cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
@@ -334,6 +334,7 @@ Contains:
 ## [aswf/ci-vfxall:2022-clang14.3](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang14.3)
 
 Contains:
+* blosc-1.17.0
 * python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
@@ -346,7 +347,6 @@ Contains:
 * cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
-* blosc-1.17.0
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
@@ -366,6 +366,7 @@ Contains:
 ## [aswf/ci-vfxall:2023-clang14.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang14.2)
 
 Contains:
+* blosc-1.17.0
 * python-3.10.11
 * tbb-2020_U3
 * boost-1.80.0
@@ -378,7 +379,6 @@ Contains:
 * cmake-3.27.2
 * imath-3.1.9
 * openexr-3.1.11
-* blosc-1.17.0
 * alembic-1.8.5
 * oiio-2.4.13.0
 * ocio-2.2.1
@@ -398,6 +398,7 @@ Contains:
 ## [aswf/ci-vfxall:2023-clang15.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang15.2)
 
 Contains:
+* blosc-1.17.0
 * python-3.10.11
 * tbb-2020_U3
 * boost-1.80.0
@@ -410,7 +411,6 @@ Contains:
 * cmake-3.27.2
 * imath-3.1.9
 * openexr-3.1.11
-* blosc-1.17.0
 * alembic-1.8.5
 * oiio-2.4.13.0
 * ocio-2.2.1
@@ -430,11 +430,17 @@ Contains:
 ## [aswf/ci-vfxall:2024-clang16.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang16.2)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.5
 * python-3.11.10
 * tbb-2020_U3
+* libbacktrace-cci.20210118
 * boost-1.82.0
 * cppunit-1.15.1
-* expat-2.6.3
+* expat-2.6.4
 * log4cplus-2.1.1
 * glew-2.1.0
 * glfw-3.3.8
@@ -443,14 +449,13 @@ Contains:
 * cmake-3.27.9
 * imath-3.1.12
 * openexr-3.2.4
-* blosc-1.21.5
 * alembic-1.8.6
 * oiio-2.5.16.0
 * ocio-2.3.2
 * pybind11-2.12.0
 * opensubdiv-3.6.0
 * ptex-2.4.2
-* openvdb-11.0.0
+* openvdb-12.0.0
 * materialx-1.39.1
 * usd-24.08
 * partio-1.17.1
@@ -463,11 +468,17 @@ Contains:
 ## [aswf/ci-vfxall:2024-clang17.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang17.2)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.5
 * python-3.11.10
 * tbb-2020_U3
+* libbacktrace-cci.20210118
 * boost-1.82.0
 * cppunit-1.15.1
-* expat-2.6.3
+* expat-2.6.4
 * log4cplus-2.1.1
 * glew-2.1.0
 * glfw-3.3.8
@@ -476,14 +487,13 @@ Contains:
 * cmake-3.27.9
 * imath-3.1.12
 * openexr-3.2.4
-* blosc-1.21.5
 * alembic-1.8.6
 * oiio-2.5.16.0
 * ocio-2.3.2
 * pybind11-2.12.0
 * opensubdiv-3.6.0
 * ptex-2.4.2
-* openvdb-11.0.0
+* openvdb-12.0.0
 * materialx-1.39.1
 * usd-24.08
 * partio-1.17.1
@@ -496,12 +506,18 @@ Contains:
 ## [aswf/ci-vfxall:2025-clang18.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang18.0)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.6
 * python-3.11.10
 * tbb-2020_U3
+* libbacktrace-cci.20210118
 * boost-1.85.0
 * cppunit-1.15.1
-* expat-2.6.3
-* log4cplus-2.1.1
+* expat-2.6.4
+* log4cplus-2.1.2
 * glew-2.2.0
 * glfw-3.4
 * qt-6.5.3
@@ -509,9 +525,8 @@ Contains:
 * cmake-3.30.5
 * imath-3.1.12
 * openexr-3.3.1
-* blosc-1.21.6
 * alembic-1.8.7
-* oiio-2.5.16.0
+* oiio-3.0.0.1-beta2
 * ocio-2.4.0
 * pybind11-2.13.6
 * opensubdiv-3.6.0
@@ -529,12 +544,18 @@ Contains:
 ## [aswf/ci-vfxall:2025-clang19.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang19.0)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.6
 * python-3.11.10
 * tbb-2020_U3
+* libbacktrace-cci.20210118
 * boost-1.85.0
 * cppunit-1.15.1
-* expat-2.6.3
-* log4cplus-2.1.1
+* expat-2.6.4
+* log4cplus-2.1.2
 * glew-2.2.0
 * glfw-3.4
 * qt-6.5.3
@@ -542,9 +563,8 @@ Contains:
 * cmake-3.30.5
 * imath-3.1.12
 * openexr-3.3.1
-* blosc-1.21.6
 * alembic-1.8.7
-* oiio-2.5.16.0
+* oiio-3.0.0.1-beta2
 * ocio-2.4.0
 * pybind11-2.13.6
 * opensubdiv-3.6.0

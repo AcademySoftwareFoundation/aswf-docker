@@ -115,14 +115,19 @@ Contains:
 ## [aswf/ci-baseqt:2024.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2024.2)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
 * blosc-1.21.5
 * boost-1.82.0
 * cmake-3.27.9
 * cppunit-1.15.1
-* expat-2.6.3
+* expat-2.6.4
 * glew-2.1.0
 * glfw-3.3.8
 * gtest-1.14.0
+* libbacktrace-cci.20210118
 * log4cplus-2.1.1
 * pybind11-2.12.0
 * python-3.11.10
@@ -135,15 +140,20 @@ Contains:
 ## [aswf/ci-baseqt:2025.0](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2025.0)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
 * blosc-1.21.6
 * boost-1.85.0
 * cmake-3.30.5
 * cppunit-1.15.1
-* expat-2.6.3
+* expat-2.6.4
 * glew-2.2.0
 * glfw-3.4
 * gtest-1.15.2
-* log4cplus-2.1.1
+* libbacktrace-cci.20210118
+* log4cplus-2.1.2
 * pybind11-2.13.6
 * python-3.11.10
 * tbb-2020_U3

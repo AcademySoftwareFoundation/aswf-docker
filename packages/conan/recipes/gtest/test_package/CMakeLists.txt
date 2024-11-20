@@ -1,17 +1,16 @@
-cmake_minimum_required(VERSION 3.1.2)
-project(test_package CXX)
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/gtest/all/test_package/CMakeLists.txt
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+cmake_minimum_required(VERSION 3.8)
+project(test_package LANGUAGES CXX)
 
 find_package(GTest REQUIRED)
 
-if(WITH_MAIN)
-    add_executable(${PROJECT_NAME} test_package.cpp)
-else()
-    add_executable(${PROJECT_NAME} main.cpp test_package.cpp)
-endif()
-
+add_executable(${PROJECT_NAME} test_package.cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gtest)
 if(GTest_VERSION VERSION_LESS "1.13.0")
     target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_11)
 else()
@@ -19,18 +18,15 @@ else()
 endif()
 
 if(WITH_MAIN)
-    target_link_libraries(${PROJECT_NAME} GTest::gtest GTest::gtest_main )
+    target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gtest_main)
     if(WITH_GMOCK)
-        target_link_libraries(${PROJECT_NAME} GTest::gmock GTest::gmock_main)
+        target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gmock_main)
     endif()
 else()
-    target_link_libraries(${PROJECT_NAME} GTest::gtest)
-    if(WITH_GMOCK)
-        target_link_libraries(${PROJECT_NAME} GTest::gmock)
-    endif()
+    target_sources(${PROJECT_NAME} PRIVATE main.cpp)
 endif()
 
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 if(WITH_GMOCK)
+    target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gmock)
     target_compile_definitions(${PROJECT_NAME} PRIVATE WITH_GMOCK)
 endif()

@@ -181,7 +181,7 @@ versions:
     package_versions:
       ASWF_DTS_VERSION: "11"
       ASWF_DTS_PREFIX: "gcc-toolset"
-      ASWF_CONAN_VERSION: "2.8.0"
+      ASWF_CONAN_VERSION: "2.9.2"
       ASWF_CONAN_PYTHON_VERSION: "3.11.10"
       ASWF_CUDA_VERSION: "12.6.1"
       ASWF_GLVND_VERSION: "1.7.0"
@@ -470,17 +470,21 @@ versions:
     conan_profile: "vfx2024"
     package_versions:
       ASWF_ALEMBIC_VERSION: "1.8.6"
+      ASWF_B2_VERSION: "5.2.1"
       ASWF_BLOSC_VERSION: "1.21.5"
       ASWF_BOOST_VERSION: "1.82.0"
+      ASWF_BZIP2_VERSION: "1.0.8"
       ASWF_CMAKE_VERSION: "3.27.9"
       ASWF_CPPUNIT_VERSION: "1.15.1"
-      ASWF_EXPAT_VERSION: "2.6.3"
+      ASWF_EXPAT_VERSION: "2.6.4"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.3.8"
       ASWF_GTEST_VERSION: "1.14.0"
       ASWF_HDF5_VERSION: "1.8.23"
       ASWF_IMATH_VERSION: "3.1.12"
+      ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
       ASWF_LOG4CPLUS_VERSION: "2.1.1"
+      ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MATERIALX_VERSION: "1.39.1"
       ASWF_NUMPY_VERSION: "1.24.3"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
@@ -489,7 +493,7 @@ versions:
       ASWF_OPENEXR_VERSION: "3.2.4"
       ASWF_OPENRV_VERSION: "2.1.0"
       ASWF_OPENSUBDIV_VERSION: "3.6.0"
-      ASWF_OPENVDB_VERSION: "11.0.0"
+      ASWF_OPENVDB_VERSION: "12.0.0"
       ASWF_OSL_VERSION: "1.13.11.0"
       ASWF_OTIO_VERSION: "0.17.0"
       ASWF_PARTIO_VERSION: "1.17.1"
@@ -500,9 +504,12 @@ versions:
       ASWF_PYTHON_VERSION: "3.11.10"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.11"
       ASWF_QT_VERSION: "6.5.3"
+      ASWF_SNAPPY_VERSION: "1.1.10"
       ASWF_TBB_VERSION: "2020_U3"
       ASWF_USD_VERSION: "24.08"
       ASWF_VFXPLATFORM_VERSION: "2024"
+      ASWF_ZLIB_VERSION: "1.3.1"
+      ASWF_ZSTD_VERSION: "1.5.6"
       ASWF_CXX_STANDARD: "17"
   "2024-clang16":
     parent_versions: ["4", "4-clang16", "2024"]
@@ -522,22 +529,26 @@ versions:
     conan_profile: "vfx2025"
     package_versions:
       ASWF_ALEMBIC_VERSION: "1.8.7"
+      ASWF_B2_VERSION: "5.2.1"
       ASWF_BLOSC_VERSION: "1.21.6"
       ASWF_BOOST_VERSION: "1.85.0"
+      ASWF_BZIP2_VERSION: "1.0.8"
       ASWF_CMAKE_VERSION: "3.30.5"
       ASWF_CPPUNIT_VERSION: "1.15.1"
-      ASWF_EXPAT_VERSION: "2.6.3"
+      ASWF_EXPAT_VERSION: "2.6.4"
       ASWF_GLEW_VERSION: "2.2.0"
       ASWF_GLFW_VERSION: "3.4"
       ASWF_GTEST_VERSION: "1.15.2"
       ASWF_HDF5_VERSION: "1.8.23"
       ASWF_IMATH_VERSION: "3.1.12"
-      ASWF_LOG4CPLUS_VERSION: "2.1.1"
+      ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
+      ASWF_LOG4CPLUS_VERSION: "2.1.2"
+      ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MATERIALX_VERSION: "1.39.1"
       ASWF_NUMPY_VERSION: "1.26.4"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.4.0"
-      ASWF_OIIO_VERSION: "2.5.16.0"
+      ASWF_OIIO_VERSION: "3.0.0.1-beta2"
       ASWF_OPENEXR_VERSION: "3.3.1"
       ASWF_OPENRV_VERSION: "2.1.0"
       ASWF_OPENSUBDIV_VERSION: "3.6.0"
@@ -552,9 +563,12 @@ versions:
       ASWF_PYTHON_VERSION: "3.11.10"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.11"
       ASWF_QT_VERSION: "6.5.3"
+      ASWF_SNAPPY_VERSION: "1.1.10"
       ASWF_TBB_VERSION: "2020_U3"
       ASWF_USD_VERSION: "24.08"
       ASWF_VFXPLATFORM_VERSION: "2025"
+      ASWF_ZLIB_VERSION: "1.3.1"
+      ASWF_ZSTD_VERSION: "1.5.6"
       ASWF_CXX_STANDARD: "17"
   "2025-clang18":
     parent_versions: ["5", "5-clang18", "2025"]
@@ -613,6 +627,12 @@ ci-packages:
     - "2021.0"
     - "2022.3"
     - "2023.2"
+    - "2024.2"
+    - "2025.0"
+  b2:
+    - "2024.2"
+    - "2025.0"
+  libbacktrace:
     - "2024.2"
     - "2025.0"
   boost:
@@ -805,6 +825,21 @@ ci-packages:
   expat:
     - "2024.2"
     - "2025.0"
+  bzip2:
+    - "2024.2"
+    - "2025.0"
+  lz4:
+    - "2024.2"
+    - "2025.0"
+  snappy:
+    - "2024.2"
+    - "2025.0"
+  zlib:
+    - "2024.2"
+    - "2025.0"
+  zstd:
+    - "2024.2"
+    - "2025.0"
 
 ci-images:
   common:
@@ -954,6 +989,9 @@ groups:
         - clang
         - ninja
       base1:
+        - b2
+        - blosc
+        - bzip2
         - cmake
         - python
         - pybind11
@@ -962,10 +1000,14 @@ groups:
         - expat
         - glew
         - glfw
-        - log4cplus
-        - tbb
         - gtest
-        - blosc
+        - libbacktrace
+        - log4cplus
+        - lz4
+        - snappy
+        - tbb
+        - zlib
+        - zstd
       base2:
         - qt
       base3:
@@ -1021,8 +1063,10 @@ package_data:
 
 conan_only:
   - alembic
+  - b2
   - blosc
   - boost
+  - bzip2
   - clang
   - cmake
   - cppunit
@@ -1031,7 +1075,9 @@ conan_only:
   - glfw
   - gtest
   - imath
+  - libbacktrace
   - log4cplus
+  - lz4
   - materialx
   - ninja
   - openexr
@@ -1042,4 +1088,7 @@ conan_only:
   - python
   - qt
   - pyside
+  - snappy
   - tbb
+  - zlib
+  - zstd

@@ -21,9 +21,9 @@ Warning: this image does *not* contain USD itself as it is used to *build* USD!
 ## [aswf/ci-usd:2019.9](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2019.9)
 
 Contains:
+* blosc-1.5.0
 * python-2.7.15
 * tbb-2018
-* boost-1.66.0
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
@@ -38,7 +38,6 @@ Contains:
 * ptex-2.1.33
 * opensubdiv-3_3_3
 * alembic-1.7.11
-* blosc-1.5.0
 * openvdb-6.2.1
 * numpy-1.14
 * hdf5-1.8.21
@@ -47,9 +46,9 @@ Contains:
 ## [aswf/ci-usd:2020.8](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2020.8)
 
 Contains:
+* blosc-1.5.0
 * python-3.7.3
 * tbb-2019_U6
-* boost-1.70.0
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
@@ -64,7 +63,6 @@ Contains:
 * ptex-2.3.2
 * opensubdiv-3_4_3
 * alembic-1.7.12
-* blosc-1.5.0
 * openvdb-7.1.0
 * numpy-1.16
 * hdf5-1.8.21
@@ -73,9 +71,9 @@ Contains:
 ## [aswf/ci-usd:2021.6](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2021.6)
 
 Contains:
+* blosc-1.5.0
 * python-3.7.9
 * tbb-2020_U2
-* boost-1.73.0
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
@@ -90,7 +88,6 @@ Contains:
 * ptex-2.3.2
 * opensubdiv-3_4_3
 * alembic-1.7.16
-* blosc-1.5.0
 * openvdb-8.0.1
 * numpy-1.19
 * hdf5-1.8.21
@@ -99,9 +96,9 @@ Contains:
 ## [aswf/ci-usd:2022.4](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2022.4)
 
 Contains:
+* blosc-1.17.0
 * python-3.9.15
 * tbb-2020_U3
-* boost-1.76.0
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
@@ -117,7 +114,6 @@ Contains:
 * ptex-2.4.0
 * opensubdiv-3_4_4
 * alembic-1.8.2
-* blosc-1.17.0
 * openvdb-9.1.0
 * numpy-1.20
 * hdf5-1.8.21
@@ -126,9 +122,9 @@ Contains:
 ## [aswf/ci-usd:2023.2](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2023.2)
 
 Contains:
+* blosc-1.17.0
 * python-3.10.11
 * tbb-2020_U3
-* boost-1.80.0
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
@@ -144,7 +140,6 @@ Contains:
 * ptex-2.4.2
 * opensubdiv-3_5_0
 * alembic-1.8.5
-* blosc-1.17.0
 * openvdb-10.0.1
 * numpy-1.23.5
 * hdf5-1.8.23
@@ -153,10 +148,14 @@ Contains:
 ## [aswf/ci-usd:2024.2](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.2)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.5
 * python-3.11.10
 * tbb-2020_U3
-* boost-1.82.0
-* expat-2.6.3
+* expat-2.6.4
 * glew-2.1.0
 * glfw-3.3.8
 * log4cplus-2.1.1
@@ -172,8 +171,7 @@ Contains:
 * ptex-2.4.2
 * opensubdiv-3.6.0
 * alembic-1.8.6
-* blosc-1.21.5
-* openvdb-11.0.0
+* openvdb-12.0.0
 * numpy-1.24.3
 * hdf5-1.8.23
 * vfxplatform-2024
@@ -181,26 +179,29 @@ Contains:
 ## [aswf/ci-usd:2025.0](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2025.0)
 
 Contains:
+* lz4-1.10.0
+* snappy-1.1.10
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.6
 * python-3.11.10
 * tbb-2020_U3
-* boost-1.85.0
-* expat-2.6.3
+* expat-2.6.4
 * glew-2.2.0
 * glfw-3.4
-* log4cplus-2.1.1
+* log4cplus-2.1.2
 * qt-6.5.3
 * pyside-6.5.3
 * cmake-3.30.5
 * imath-3.1.12
 * materialx-1.39.1
 * openexr-3.3.1
-* oiio-2.5.16.0
+* oiio-3.0.0.1-beta2
 * ocio-2.4.0
 * pybind11-2.13.6
 * ptex-2.4.3
 * opensubdiv-3.6.0
 * alembic-1.8.7
-* blosc-1.21.6
 * openvdb-11.0.0
 * numpy-1.26.4
 * hdf5-1.8.23

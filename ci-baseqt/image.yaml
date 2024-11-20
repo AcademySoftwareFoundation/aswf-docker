@@ -3,6 +3,10 @@ title: "Base with Qt and PySide CI Docker Image"
 description: |
   Contains: Python, TBB, Boost, Qt, PySide and other base libraries
 packages:
+  - lz4
+  - snappy
+  - zlib
+  - zstd 
   - blosc
   - boost
   - cmake
@@ -11,6 +15,7 @@ packages:
   - glew
   - glfw
   - gtest
+  - libbacktrace
   - log4cplus
   - pybind11
   - python
