@@ -62,7 +62,7 @@ jobs:
             libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev \
             libmagickcore-dev libmagickwand-dev libmagic-dev \
             libpq-dev libssl-dev libxft-dev \
-            mercurial microsoft-edge-stable mongodb-org mono-complete  \
+            mercurial microsoft-edge-stable mono-complete  \
             pollinate postgresql-client powershell rpm ruby-full \
             snmp shellcheck sphinxsearch subversion \
             unixodbc-dev xorriso yarn zsync
@@ -76,6 +76,7 @@ jobs:
             /usr/share/swift \
             /usr/local/.ghcup \
             /usr/lib/jvm || true
+        docker system prune -a
         df -h
 
     - name: Build Ninja (Conan)
