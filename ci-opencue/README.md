@@ -21,7 +21,6 @@ Warning: this image does *not* contain OpenCue itself as it is used to *build* O
 ## [aswf/ci-opencue:2019.10](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2019.10)
 
 Contains:
-* python-2.7.15
 * cmake-3.12.4
 * numpy-1.14
 * vfxplatform-2019
@@ -29,7 +28,6 @@ Contains:
 ## [aswf/ci-opencue:2020.10](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2020.10)
 
 Contains:
-* python-3.7.3
 * cmake-3.18.4
 * numpy-1.16
 * vfxplatform-2020
@@ -37,7 +35,6 @@ Contains:
 ## [aswf/ci-opencue:2021.7](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2021.7)
 
 Contains:
-* python-3.7.9
 * cmake-3.19.3
 * numpy-1.19
 * vfxplatform-2021
@@ -45,7 +42,6 @@ Contains:
 ## [aswf/ci-opencue:2022.3](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2022.3)
 
 Contains:
-* python-3.9.15
 * cmake-3.22.0
 * numpy-1.20
 * vfxplatform-2022
@@ -53,7 +49,6 @@ Contains:
 ## [aswf/ci-opencue:2023.2](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2023.2)
 
 Contains:
-* python-3.10.11
 * cmake-3.27.2
 * numpy-1.23.5
 * vfxplatform-2023
@@ -61,7 +56,6 @@ Contains:
 ## [aswf/ci-opencue:2024.2](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2024.2)
 
 Contains:
-* python-3.11.10
 * cmake-3.27.9
 * numpy-1.24.3
 * vfxplatform-2024
@@ -69,7 +63,6 @@ Contains:
 ## [aswf/ci-opencue:2025.0](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2025.0)
 
 Contains:
-* python-3.11.10
 * cmake-3.30.5
 * numpy-1.26.4
 * vfxplatform-2025

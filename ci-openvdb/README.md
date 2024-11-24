@@ -27,7 +27,6 @@ Contains:
 * gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
-* python-2.7.15
 * tbb-2018
 * imath-2.3.0
 * openexr-2.3.0
@@ -44,7 +43,6 @@ Contains:
 * gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
-* python-2.7.15
 * tbb-2018
 * imath-2.3.0
 * openexr-2.3.0
@@ -61,7 +59,6 @@ Contains:
 * gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
-* python-2.7.15
 * tbb-2018
 * imath-2.3.0
 * openexr-2.3.0
@@ -78,7 +75,6 @@ Contains:
 * gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
-* python-2.7.15
 * tbb-2018
 * imath-2.3.0
 * openexr-2.3.0
@@ -95,7 +91,6 @@ Contains:
 * gtest-1.10.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.7.3
 * tbb-2019_U6
 * imath-2.4.0
 * openexr-2.4.0
@@ -112,7 +107,6 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.7.9
 * tbb-2020_U2
 * imath-2.5.5
 * openexr-2.5.5
@@ -129,7 +123,6 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.9.15
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
@@ -146,7 +139,6 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.9.15
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
@@ -163,7 +155,6 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.9.15
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
@@ -180,7 +171,6 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.9.15
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
@@ -197,7 +187,6 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.9.15
 * tbb-2020_U3
 * imath-3.1.5
 * openexr-3.1.5
@@ -214,7 +203,6 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.10.11
 * tbb-2020_U3
 * imath-3.1.9
 * openexr-3.1.11
@@ -231,7 +219,6 @@ Contains:
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
-* python-3.10.11
 * tbb-2020_U3
 * imath-3.1.9
 * openexr-3.1.11
@@ -254,7 +241,6 @@ Contains:
 * gtest-1.14.0
 * cppunit-1.15.1
 * glfw-3.3.8
-* python-3.11.10
 * tbb-2020_U3
 * imath-3.1.12
 * openexr-3.2.4
@@ -277,7 +263,6 @@ Contains:
 * gtest-1.14.0
 * cppunit-1.15.1
 * glfw-3.3.8
-* python-3.11.10
 * tbb-2020_U3
 * imath-3.1.12
 * openexr-3.2.4
@@ -300,10 +285,9 @@ Contains:
 * gtest-1.15.2
 * cppunit-1.15.1
 * glfw-3.4
-* python-3.11.10
 * tbb-2020_U3
 * imath-3.1.12
-* openexr-3.3.1
+* openexr-3.3.2
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025
@@ -323,10 +307,9 @@ Contains:
 * gtest-1.15.2
 * cppunit-1.15.1
 * glfw-3.4
-* python-3.11.10
 * tbb-2020_U3
 * imath-3.1.12
-* openexr-3.3.1
+* openexr-3.3.2
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025

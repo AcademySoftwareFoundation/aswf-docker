@@ -21,7 +21,6 @@ Contains: all supported VFX packages
 
 Contains:
 * blosc-1.5.0
-* python-2.7.15
 * tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
@@ -52,7 +51,6 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* python-2.7.15
 * tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
@@ -83,7 +81,6 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* python-2.7.15
 * tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
@@ -114,7 +111,6 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* python-2.7.15
 * tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
@@ -145,7 +141,6 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* python-3.7.3
 * tbb-2019_U6
 * boost-1.70.0
 * cppunit-1.15.1
@@ -176,7 +171,6 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* python-3.7.9
 * tbb-2020_U2
 * boost-1.73.0
 * cppunit-1.15.1
@@ -207,7 +201,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
 * cppunit-1.15.1
@@ -239,7 +232,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
 * cppunit-1.15.1
@@ -271,7 +263,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
 * cppunit-1.15.1
@@ -303,7 +294,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
 * cppunit-1.15.1
@@ -335,7 +325,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.9.15
 * tbb-2020_U3
 * boost-1.76.0
 * cppunit-1.15.1
@@ -367,7 +356,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.10.11
 * tbb-2020_U3
 * boost-1.80.0
 * cppunit-1.15.1
@@ -399,7 +387,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.10.11
 * tbb-2020_U3
 * boost-1.80.0
 * cppunit-1.15.1
@@ -435,7 +422,6 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
-* python-3.11.10
 * tbb-2020_U3
 * libbacktrace-cci.20210118
 * boost-1.82.0
@@ -455,7 +441,7 @@ Contains:
 * pybind11-2.12.0
 * opensubdiv-3.6.0
 * ptex-2.4.2
-* openvdb-12.0.0
+* openvdb-11.0.0
 * materialx-1.39.1
 * usd-24.08
 * partio-1.17.1
@@ -473,7 +459,6 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
-* python-3.11.10
 * tbb-2020_U3
 * libbacktrace-cci.20210118
 * boost-1.82.0
@@ -493,7 +478,7 @@ Contains:
 * pybind11-2.12.0
 * opensubdiv-3.6.0
 * ptex-2.4.2
-* openvdb-12.0.0
+* openvdb-11.0.0
 * materialx-1.39.1
 * usd-24.08
 * partio-1.17.1
@@ -511,7 +496,6 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* python-3.11.10
 * tbb-2020_U3
 * libbacktrace-cci.20210118
 * boost-1.85.0
@@ -524,14 +508,14 @@ Contains:
 * pyside-6.5.3
 * cmake-3.30.5
 * imath-3.1.12
-* openexr-3.3.1
+* openexr-3.3.2
 * alembic-1.8.7
-* oiio-3.0.0.1-beta2
+* oiio-3.0.0.3
 * ocio-2.4.0
 * pybind11-2.13.6
 * opensubdiv-3.6.0
 * ptex-2.4.3
-* openvdb-11.0.0
+* openvdb-12.0.0
 * materialx-1.39.1
 * usd-24.08
 * partio-1.17.3
@@ -549,7 +533,6 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* python-3.11.10
 * tbb-2020_U3
 * libbacktrace-cci.20210118
 * boost-1.85.0
@@ -562,14 +545,14 @@ Contains:
 * pyside-6.5.3
 * cmake-3.30.5
 * imath-3.1.12
-* openexr-3.3.1
+* openexr-3.3.2
 * alembic-1.8.7
-* oiio-3.0.0.1-beta2
+* oiio-3.0.0.3
 * ocio-2.4.0
 * pybind11-2.13.6
 * opensubdiv-3.6.0
 * ptex-2.4.3
-* openvdb-11.0.0
+* openvdb-12.0.0
 * materialx-1.39.1
 * usd-24.08
 * partio-1.17.3

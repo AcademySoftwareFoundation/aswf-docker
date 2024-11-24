@@ -24,7 +24,6 @@ Contains:
 * blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
-* python-2.7.15
 * qt-5.12.6
 * imath-2.3.0
 * openexr-2.3.0
@@ -43,7 +42,6 @@ Contains:
 * blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
-* python-2.7.15
 * qt-5.12.6
 * imath-2.3.0
 * openexr-2.3.0
@@ -62,7 +60,6 @@ Contains:
 * blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
-* python-2.7.15
 * qt-5.12.6
 * imath-2.3.0
 * openexr-2.3.0
@@ -81,7 +78,6 @@ Contains:
 * blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
-* python-2.7.15
 * qt-5.12.6
 * imath-2.3.0
 * openexr-2.3.0
@@ -100,7 +96,6 @@ Contains:
 * blosc-1.5.0
 * boost-1.66.0
 * cmake-3.12.4
-* python-2.7.15
 * qt-5.12.6
 * imath-2.3.0
 * openexr-2.3.0
@@ -119,7 +114,6 @@ Contains:
 * blosc-1.5.0
 * boost-1.70.0
 * cmake-3.18.4
-* python-3.7.3
 * qt-5.12.6
 * imath-2.4.0
 * openexr-2.4.0
@@ -138,7 +132,6 @@ Contains:
 * blosc-1.5.0
 * boost-1.73.0
 * cmake-3.19.3
-* python-3.7.9
 * qt-5.15.2
 * imath-2.5.5
 * openexr-2.5.5
@@ -157,7 +150,6 @@ Contains:
 * blosc-1.5.0
 * boost-1.73.0
 * cmake-3.19.3
-* python-3.7.9
 * qt-5.15.2
 * imath-2.5.5
 * openexr-2.5.5
@@ -176,7 +168,6 @@ Contains:
 * blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.15
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
@@ -195,7 +186,6 @@ Contains:
 * blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.15
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
@@ -214,7 +204,6 @@ Contains:
 * blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.15
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
@@ -233,7 +222,6 @@ Contains:
 * blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.15
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
@@ -252,7 +240,6 @@ Contains:
 * blosc-1.17.0
 * boost-1.76.0
 * cmake-3.22.0
-* python-3.9.15
 * qt-5.15.2
 * imath-3.1.5
 * openexr-3.1.5
@@ -271,7 +258,6 @@ Contains:
 * blosc-1.17.0
 * boost-1.80.0
 * cmake-3.27.2
-* python-3.10.11
 * qt-5.15.9
 * imath-3.1.9
 * openexr-3.1.11
@@ -290,7 +276,6 @@ Contains:
 * blosc-1.17.0
 * boost-1.80.0
 * cmake-3.27.2
-* python-3.10.11
 * qt-5.15.9
 * imath-3.1.9
 * openexr-3.1.11
@@ -315,7 +300,6 @@ Contains:
 * boost-1.82.0
 * cmake-3.27.9
 * expat-2.6.4
-* python-3.11.10
 * qt-6.5.3
 * imath-3.1.12
 * openexr-3.2.4
@@ -324,7 +308,7 @@ Contains:
 * partio-1.17.1
 * ptex-2.4.2
 * tbb-2020_U3
-* openvdb-12.0.0
+* openvdb-11.0.0
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -340,7 +324,6 @@ Contains:
 * boost-1.82.0
 * cmake-3.27.9
 * expat-2.6.4
-* python-3.11.10
 * qt-6.5.3
 * imath-3.1.12
 * openexr-3.2.4
@@ -349,7 +332,7 @@ Contains:
 * partio-1.17.1
 * ptex-2.4.2
 * tbb-2020_U3
-* openvdb-12.0.0
+* openvdb-11.0.0
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -365,16 +348,15 @@ Contains:
 * boost-1.85.0
 * cmake-3.30.5
 * expat-2.6.4
-* python-3.11.10
 * qt-6.5.3
 * imath-3.1.12
-* openexr-3.3.1
-* oiio-3.0.0.1-beta2
+* openexr-3.3.2
+* oiio-3.0.0.3
 * ocio-2.4.0
 * partio-1.17.3
 * ptex-2.4.3
 * tbb-2020_U3
-* openvdb-11.0.0
+* openvdb-12.0.0
 * numpy-1.26.4
 * vfxplatform-2025
 
@@ -390,16 +372,15 @@ Contains:
 * boost-1.85.0
 * cmake-3.30.5
 * expat-2.6.4
-* python-3.11.10
 * qt-6.5.3
 * imath-3.1.12
-* openexr-3.3.1
-* oiio-3.0.0.1-beta2
+* openexr-3.3.2
+* oiio-3.0.0.3
 * ocio-2.4.0
 * partio-1.17.3
 * ptex-2.4.3
 * tbb-2020_U3
-* openvdb-11.0.0
+* openvdb-12.0.0
 * numpy-1.26.4
 * vfxplatform-2025
 

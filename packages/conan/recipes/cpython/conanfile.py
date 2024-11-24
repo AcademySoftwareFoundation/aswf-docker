@@ -22,7 +22,7 @@ required_conan_version = ">=1.58.0"
 
 
 class CPythonConan(ConanFile):
-    name = "python" # ASWF: backwards compatibility
+    name = "cpython"
     description = "Python is a programming language that lets you work quickly and integrate systems more effectively."
     license = "Python-2.0 and numpy (BSD-3-Clause license)" # ASWF: bundle numpy
     url = "https://github.com/conan-io/conan-center-index"
@@ -135,7 +135,7 @@ class CPythonConan(ConanFile):
             # For the sake of this recipe, we only have later patch versions, so this version check
             # may be slightly inaccurate if a lower patch version is desired.
             transitive_crypt = Version(self.version) < "3.9"
-            self.requires("libxcrypt/4.4.36", transitive_headers=transitive_crypt, transitive_libs=transitive_crypt)
+            self.requires(f"libxcrypt/4.4.36@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}", transitive_headers=transitive_crypt, transitive_libs=transitive_crypt)
         if self.options.get_safe("with_bz2"):
             self.requires(f"bzip2/1.0.8@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}")
         if self.options.get_safe("with_gdbm", False):
@@ -185,15 +185,13 @@ class CPythonConan(ConanFile):
                 # 3.10 fails during the test, 3.11 fails during the build (missing symbol that seems to be DLL specific: PyWin_DLLhModule)
                 raise ConanInvalidConfiguration("Static msvc build disabled (>=3.10) due to \"AttributeError: module 'sys' has no attribute 'winver'\"")
 
-        # ASWF: getting ncurses from platform, cannot query specific configuration
-        # if self.options.get_safe("with_curses", False) and not self.dependencies["ncurses"].options.with_widec:
-        #     raise ConanInvalidConfiguration("cpython requires ncurses with wide character support")
+        if self.options.get_safe("with_curses", False) and not self.dependencies["ncurses"].options.with_widec:
+            raise ConanInvalidConfiguration("cpython requires ncurses with wide character support")
 
-        # ASWF: getting mpdecimal from platform, cannot query specific configuration
-        # if self._supports_modules:
-        #     if Version(self.version) >= "3.9.0":
-        #         if self.dependencies["mpdecimal"].ref.version < Version("2.5.0"):
-        #             raise ConanInvalidConfiguration("cpython 3.9.0 (and newer) requires (at least) mpdecimal 2.5.0")
+        if self._supports_modules:
+            if Version(self.version) >= "3.9.0":
+                if self.dependencies["mpdecimal"].ref.version < Version("2.5.0"):
+                    raise ConanInvalidConfiguration("cpython 3.9.0 (and newer) requires (at least) mpdecimal 2.5.0")
 
         if self.settings.compiler == "gcc" and Version(self.settings.compiler.version).major == 9 and Version(self.version) >= "3.12":
             raise ConanInvalidConfiguration("FIXME: GCC 9 produces an internal compiler error locally, and a link error in CCI")
@@ -215,7 +213,9 @@ class CPythonConan(ConanFile):
             "--with-lto={}".format(yes_no(self.options.lto)),
             "--with-pydebug={}".format(yes_no(self.settings.build_type == "Debug")),
             "--with-system-libmpdec",
+            # ASWF: our openssl wrapper can still get in the way, force /usr
             # "--with-openssl={}".format(self.dependencies["openssl"].package_folder),
+            "--with-openssl=/usr",
             "--with-platlibdir=lib64", # ASWF use lib64 on RHEL distros
             "--libdir=${prefix}/lib64", # ASWF use lib64 on RHEL distros
         ]
@@ -224,11 +224,8 @@ class CPythonConan(ConanFile):
         if Version(self.version) >= "3.10":
             tc.configure_args.append("--disable-test-modules")
         if self.options.get_safe("with_sqlite3"):
-            # ASWF: using system sqlite3 which has OMIT_LOAD_EXTENSION = 0
-            # sqlite> .dbconfig
-            #    load_extension on
             tc.configure_args.append("--enable-loadable-sqlite-extensions={}".format(
-                "yes" # yes_no(not self.dependencies["sqlite3"].options.omit_load_extension)
+                yes_no(not self.dependencies["sqlite3"].options.omit_load_extension)
             ))
         if self.options.with_tkinter and Version(self.version) < "3.11":
             tcltk_includes = []
@@ -248,6 +245,13 @@ class CPythonConan(ConanFile):
             ]
         if not is_apple_os(self):
             tc.extra_ldflags.append('-Wl,--as-needed')
+
+        # ASWF: as per https://github.com/python/cpython/issues/95957 starting with
+        # version 3.11 options --with-tcltk-libs and --with-tcltk-includes are no longer
+        # recognized and configure relies on pkgconf to find those. Our Tcl/Tk wrapper
+        # packages don't provide those, inject them via TCLTK_LIBS env var
+        if Version(self.version) >= "3.11":
+            os.environ["TCLTK_LIBS"] = "-ltcl -ltk"
 
         tc.generate()
 
@@ -293,33 +297,30 @@ class CPythonConan(ConanFile):
             replace_in_file(self, setup_py, ":libmpdec.so.2", "mpdec")
 
         if self.options.get_safe("with_curses", False):
-            # ASWF: using system ncurses, can't query dependencies
-            # libcurses = self.dependencies["ncurses"].cpp_info.components["libcurses"]
-            # tinfo = self.dependencies["ncurses"].cpp_info.components["tinfo"]
-            # libs = libcurses.libs + libcurses.system_libs + tinfo.libs + tinfo.system_libs
-            # replace_in_file(self, setup_py,
-            #     "curses_libs = ",
-            #     "curses_libs = {} #".format(repr(libs)))
-            pass
+            libcurses = self.dependencies["ncurses"].cpp_info.components["libcurses"]
+            tinfo = self.dependencies["ncurses"].cpp_info.components["tinfo"]
+            libs = libcurses.libs + libcurses.system_libs + tinfo.libs + tinfo.system_libs
+            replace_in_file(self, setup_py,
+                "curses_libs = ",
+                "curses_libs = {} #".format(repr(libs)))
 
         if self._supports_modules:
             # ASWF: using system openssl, can't query dependencies
-            # openssl = self.dependencies["openssl"].cpp_info.aggregated_components()
-            # zlib = self.dependencies["zlib"].cpp_info.aggregated_components()
-            #  if Version(self.version) < "3.11":
-            #      replace_in_file(self, setup_py,
-            #                      "openssl_includes = ",
-            #                      f"openssl_includes = {openssl.includedirs + zlib.includedirs} #")
-            #      replace_in_file(self, setup_py,
-            #                      "openssl_libdirs = ",
-            #                      f"openssl_libdirs = {openssl.libdirs + zlib.libdirs} #")
-            #      replace_in_file(self, setup_py,
-            #                      "openssl_libs = ",
-            #                      f"openssl_libs = {openssl.libs + zlib.libs} #")
-            #
-            #  if Version(self.version) < "3.11":
-            #     replace_in_file(self, setup_py, "if (MACOS and self.detect_tkinter_darwin())", "if (False)")
-            pass
+            openssl = self.dependencies["openssl"].cpp_info.aggregated_components()
+            zlib = self.dependencies["zlib"].cpp_info.aggregated_components()
+            if Version(self.version) < "3.11":
+                replace_in_file(self, setup_py,
+                                "openssl_includes = ",
+                                f"openssl_includes = {openssl.includedirs + zlib.includedirs} #")
+                replace_in_file(self, setup_py,
+                                "openssl_libdirs = ",
+                                f"openssl_libdirs = {openssl.libdirs + zlib.libdirs} #")
+                replace_in_file(self, setup_py,
+                                "openssl_libs = ",
+                                f"openssl_libs = {openssl.libs + zlib.libs} #")
+ 
+            if Version(self.version) < "3.11":
+                replace_in_file(self, setup_py, "if (MACOS and self.detect_tkinter_darwin())", "if (False)")
 
     def _patch_msvc_projects(self):
         # Don't build vendored bz2

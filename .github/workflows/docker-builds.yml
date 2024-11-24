@@ -57,9 +57,25 @@ jobs:
         sudo apt-get remove -y '^clang.*'
         sudo apt-get remove -y '^gfortran.*'
         sudo apt-get remove -y google-chrome-stable firefox powershell mono-devel monodoc-http
+        sudo apt-get remove -y ant ant-optional apt-transport-https aria2 ansible azure-cli chrpath dotnet \
+            esl-erlang firefox google-cloud-sdk imagemagick kubectl \
+            libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev \
+            libmagickcore-dev libmagickwand-dev libmagic-dev libmysqlclient \
+            libpq-dev libssl-dev libxft-dev \
+            mercurial microsoft-edge-stable mongob-org mono-complete ria2 \
+            mysql pollinate postgresql-client powershell rpm ruby-full \
+            snmp shellcheck sphinxsearch subversion \
+            unixodbc-dev xorriso yarn zsync
         sudo apt-get autoremove -y
         sudo apt-get clean
-        rm -rf /usr/share/dotnet/
+        sudo rm -rf \
+            /usr/share/dotnet/ \
+            /usr/local/lib/android \
+            /opt/ghc \
+            /usr/local/share/powershell \
+            /usr/share/swift \
+            /usr/local/.ghcup \
+            /usr/lib/jvm || true
         df -h
 
     - name: Build Ninja (Conan)

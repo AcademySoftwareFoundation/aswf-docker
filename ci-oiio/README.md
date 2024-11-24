@@ -28,11 +28,10 @@ Contains:
 * blosc-1.21.5
 * cmake-3.27.9
 * expat-2.6.4
-* python-3.11.10
 * imath-3.1.12
 * ocio-2.3.2
 * openexr-3.2.4
-* openvdb-12.0.0
+* openvdb-11.0.0
 * pybind11-2.12.0
 * ptex-2.4.2
 * qt-6.5.3
@@ -50,11 +49,10 @@ Contains:
 * blosc-1.21.6
 * cmake-3.30.5
 * expat-2.6.4
-* python-3.11.10
 * imath-3.1.12
 * ocio-2.4.0
-* openexr-3.3.1
-* openvdb-11.0.0
+* openexr-3.3.2
+* openvdb-12.0.0
 * pybind11-2.13.6
 * ptex-2.4.3
 * qt-6.5.3
