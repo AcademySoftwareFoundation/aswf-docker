@@ -147,7 +147,7 @@ versions:
     package_versions:
       ASWF_DTS_VERSION: "11"
       ASWF_DTS_PREFIX: "gcc-toolset"
-      ASWF_CONAN_VERSION: "1.65.0"
+      ASWF_CONAN_VERSION: "2.9.2"
       ASWF_CONAN_PYTHON_VERSION: "3.11.8"
       ASWF_CUDA_VERSION: "12.6.1"
       ASWF_GLVND_VERSION: "1.7.0"
