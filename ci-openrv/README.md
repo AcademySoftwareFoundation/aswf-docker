@@ -22,7 +22,6 @@ Warning: this image does *not* contain OpenRV itself as it is used to *build* Op
 
 Contains:
 * cmake-3.27.9
-* python-3.11.10
 * expat-2.6.4
 * qt-6.5.3
 * numpy-1.24.3
@@ -32,7 +31,6 @@ Contains:
 
 Contains:
 * cmake-3.30.5
-* python-3.11.10
 * expat-2.6.4
 * qt-6.5.3
 * numpy-1.26.4

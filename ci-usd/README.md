@@ -22,7 +22,6 @@ Warning: this image does *not* contain USD itself as it is used to *build* USD!
 
 Contains:
 * blosc-1.5.0
-* python-2.7.15
 * tbb-2018
 * glew-2.1.0
 * glfw-3.1.2
@@ -47,7 +46,6 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* python-3.7.3
 * tbb-2019_U6
 * glew-2.1.0
 * glfw-3.1.2
@@ -72,7 +70,6 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* python-3.7.9
 * tbb-2020_U2
 * glew-2.1.0
 * glfw-3.1.2
@@ -97,7 +94,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.9.15
 * tbb-2020_U3
 * glew-2.1.0
 * glfw-3.1.2
@@ -123,7 +119,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.10.11
 * tbb-2020_U3
 * glew-2.1.0
 * glfw-3.1.2
@@ -153,7 +148,6 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
-* python-3.11.10
 * tbb-2020_U3
 * expat-2.6.4
 * glew-2.1.0
@@ -171,7 +165,7 @@ Contains:
 * ptex-2.4.2
 * opensubdiv-3.6.0
 * alembic-1.8.6
-* openvdb-12.0.0
+* openvdb-11.0.0
 * numpy-1.24.3
 * hdf5-1.8.23
 * vfxplatform-2024
@@ -184,7 +178,6 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* python-3.11.10
 * tbb-2020_U3
 * expat-2.6.4
 * glew-2.2.0
@@ -195,14 +188,14 @@ Contains:
 * cmake-3.30.5
 * imath-3.1.12
 * materialx-1.39.1
-* openexr-3.3.1
-* oiio-3.0.0.1-beta2
+* openexr-3.3.2
+* oiio-3.0.0.3
 * ocio-2.4.0
 * pybind11-2.13.6
 * ptex-2.4.3
 * opensubdiv-3.6.0
 * alembic-1.8.7
-* openvdb-11.0.0
+* openvdb-12.0.0
 * numpy-1.26.4
 * hdf5-1.8.23
 * vfxplatform-2025

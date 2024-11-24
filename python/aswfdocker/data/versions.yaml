@@ -218,6 +218,7 @@ versions:
       ASWF_BOOST_VERSION: "1.66.0"
       ASWF_CMAKE_VERSION: "3.12.4"
       ASWF_CPPUNIT_VERSION: "1.14.0"
+      ASWF_CPYTHON_VERSION: "2.7.15"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_GTEST_VERSION: "1.8.1"
@@ -238,7 +239,6 @@ versions:
       ASWF_PYBIND11_VERSION: "2.4.3"
       ASWF_PYSIDE_VERSION: "5.12.6"
       ASWF_PYSIDE_CLANG_VERSION: "7.1.0"
-      ASWF_PYTHON_VERSION: "2.7.15"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "2.7"
       ASWF_QT_VERSION: "5.12.6"
       ASWF_TBB_VERSION: "2018"
@@ -277,6 +277,7 @@ versions:
       ASWF_BOOST_VERSION: "1.70.0"
       ASWF_CMAKE_VERSION: "3.18.4"
       ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_CPYTHON_VERSION: "3.7.3"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_GTEST_VERSION: "1.10.0"
@@ -297,7 +298,6 @@ versions:
       ASWF_PYBIND11_VERSION: "2.4.3"
       ASWF_PYSIDE_VERSION: "5.12.6"
       ASWF_PYSIDE_CLANG_VERSION: "7.1.0"
-      ASWF_PYTHON_VERSION: "3.7.3"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.7"
       ASWF_QT_VERSION: "5.12.6"
       ASWF_TBB_VERSION: "2019_U6"
@@ -320,6 +320,7 @@ versions:
       ASWF_BOOST_VERSION: "1.73.0"
       ASWF_CMAKE_VERSION: "3.19.3"
       ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_CPYTHON_VERSION: "3.7.9"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_GTEST_VERSION: "1.11.0"
@@ -339,7 +340,6 @@ versions:
       ASWF_PTEX_VERSION: "2.3.2"
       ASWF_PYBIND11_VERSION: "2.6.2"
       ASWF_PYSIDE_VERSION: "5.15.2"
-      ASWF_PYTHON_VERSION: "3.7.9"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.7"
       ASWF_QT_VERSION: "5.15.2"
       ASWF_TBB_VERSION: "2020_U2"
@@ -366,6 +366,7 @@ versions:
       ASWF_BOOST_VERSION: "1.76.0"
       ASWF_CMAKE_VERSION: "3.22.0"
       ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_CPYTHON_VERSION: "3.9.15"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_GTEST_VERSION: "1.11.0"
@@ -386,7 +387,6 @@ versions:
       ASWF_PTEX_VERSION: "2.4.0"
       ASWF_PYBIND11_VERSION: "2.8.1"
       ASWF_PYSIDE_VERSION: "5.15.2"
-      ASWF_PYTHON_VERSION: "3.9.15"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.9"
       ASWF_QT_VERSION: "5.15.2"
       ASWF_TBB_VERSION: "2020_U3"
@@ -425,6 +425,7 @@ versions:
       ASWF_BOOST_VERSION: "1.80.0"
       ASWF_CMAKE_VERSION: "3.27.2"
       ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_CPYTHON_VERSION: "3.10.11"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.1.2"
       ASWF_GTEST_VERSION: "1.11.0"
@@ -446,7 +447,6 @@ versions:
       ASWF_PYBIND11_VERSION: "2.9.2"
       ASWF_PYSIDE_VERSION: "5.15.9"
       ASWF_PYSIDE_CLANG_VERSION: "14.0.6"
-      ASWF_PYTHON_VERSION: "3.10.11"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.10"
       ASWF_QT_VERSION: "5.15.9"
       ASWF_TBB_VERSION: "2020_U3"
@@ -476,24 +476,32 @@ versions:
       ASWF_BZIP2_VERSION: "1.0.8"
       ASWF_CMAKE_VERSION: "3.27.9"
       ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_CPYTHON_VERSION: "3.11.10"
       ASWF_EXPAT_VERSION: "2.6.4"
+      ASWF_GDBM_VERSION: "wrapper"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.3.8"
       ASWF_GTEST_VERSION: "1.14.0"
       ASWF_HDF5_VERSION: "1.8.23"
       ASWF_IMATH_VERSION: "3.1.12"
       ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
+      ASWF_LIBFFI_VERSION: "wrapper"
+      ASWF_UTIL_LINUX_LIBUUID_VERSION: "wrapper"
+      ASWF_LIBXCRYPT_VERSION: "4.4.36"
       ASWF_LOG4CPLUS_VERSION: "2.1.1"
       ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MATERIALX_VERSION: "1.39.1"
+      ASWF_MPDECIMAL_VERSION: "wrapper"
+      ASWF_NCURSES_VERSION: "wrapper"
       ASWF_NUMPY_VERSION: "1.24.3"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.3.2"
       ASWF_OIIO_VERSION: "2.5.16.0"
       ASWF_OPENEXR_VERSION: "3.2.4"
       ASWF_OPENRV_VERSION: "2.1.0"
+      ASWF_OPENSSL_VERSION: "wrapper"
       ASWF_OPENSUBDIV_VERSION: "3.6.0"
-      ASWF_OPENVDB_VERSION: "12.0.0"
+      ASWF_OPENVDB_VERSION: "11.0.0"
       ASWF_OSL_VERSION: "1.13.11.0"
       ASWF_OTIO_VERSION: "0.17.0"
       ASWF_PARTIO_VERSION: "1.17.1"
@@ -501,15 +509,18 @@ versions:
       ASWF_PYBIND11_VERSION: "2.12.0"
       ASWF_PYSIDE_VERSION: "6.5.3"
       ASWF_PYSIDE_CLANG_VERSION: "16.0.6"
-      ASWF_PYTHON_VERSION: "3.11.10"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.11"
       ASWF_QT_VERSION: "6.5.3"
       ASWF_SNAPPY_VERSION: "1.1.10"
+      ASWF_SQLITE3_VERSION: "wrapper"
       ASWF_TBB_VERSION: "2020_U3"
+      ASWF_TCL_VERSION: "wrapper"
+      ASWF_TK_VERSION: "wrapper"
       ASWF_USD_VERSION: "24.08"
-      ASWF_VFXPLATFORM_VERSION: "2024"
+      ASWF_XZ_UTILS_VERSION: "wrapper"
       ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_ZSTD_VERSION: "1.5.6"
+      ASWF_VFXPLATFORM_VERSION: "2024"
       ASWF_CXX_STANDARD: "17"
   "2024-clang16":
     parent_versions: ["4", "4-clang16", "2024"]
@@ -535,24 +546,32 @@ versions:
       ASWF_BZIP2_VERSION: "1.0.8"
       ASWF_CMAKE_VERSION: "3.30.5"
       ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_CPYTHON_VERSION: "3.11.10"
       ASWF_EXPAT_VERSION: "2.6.4"
+      ASWF_GDBM_VERSION: "wrapper"
       ASWF_GLEW_VERSION: "2.2.0"
       ASWF_GLFW_VERSION: "3.4"
       ASWF_GTEST_VERSION: "1.15.2"
       ASWF_HDF5_VERSION: "1.8.23"
       ASWF_IMATH_VERSION: "3.1.12"
       ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
+      ASWF_LIBFFI_VERSION: "wrapper"
+      ASWF_UTIL_LINUX_LIBUUID_VERSION: "wrapper"
+      ASWF_LIBXCRYPT_VERSION: "4.4.36"
       ASWF_LOG4CPLUS_VERSION: "2.1.2"
       ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MATERIALX_VERSION: "1.39.1"
+      ASWF_MPDECIMAL_VERSION: "wrapper"
+      ASWF_NCURSES_VERSION: "wrapper"
       ASWF_NUMPY_VERSION: "1.26.4"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.4.0"
-      ASWF_OIIO_VERSION: "3.0.0.1-beta2"
-      ASWF_OPENEXR_VERSION: "3.3.1"
+      ASWF_OIIO_VERSION: "3.0.0.3"
+      ASWF_OPENEXR_VERSION: "3.3.2"
       ASWF_OPENRV_VERSION: "2.1.0"
+      ASWF_OPENSSL_VERSION: "wrapper"
       ASWF_OPENSUBDIV_VERSION: "3.6.0"
-      ASWF_OPENVDB_VERSION: "11.0.0"
+      ASWF_OPENVDB_VERSION: "12.0.0"
       ASWF_OSL_VERSION: "1.13.11.0"
       ASWF_OTIO_VERSION: "0.17.0"
       ASWF_PARTIO_VERSION: "1.17.3"
@@ -560,15 +579,18 @@ versions:
       ASWF_PYBIND11_VERSION: "2.13.6"
       ASWF_PYSIDE_VERSION: "6.5.3"
       ASWF_PYSIDE_CLANG_VERSION: "18.1.8"
-      ASWF_PYTHON_VERSION: "3.11.10"
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.11"
       ASWF_QT_VERSION: "6.5.3"
       ASWF_SNAPPY_VERSION: "1.1.10"
+      ASWF_SQLITE3_VERSION: "wrapper"
       ASWF_TBB_VERSION: "2020_U3"
+      ASWF_TCL_VERSION: "wrapper"
+      ASWF_TK_VERSION: "wrapper"
       ASWF_USD_VERSION: "24.08"
-      ASWF_VFXPLATFORM_VERSION: "2025"
+      ASWF_XZ_UTILS_VERSION: "wrapper"
       ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_ZSTD_VERSION: "1.5.6"
+      ASWF_VFXPLATFORM_VERSION: "2025"
       ASWF_CXX_STANDARD: "17"
   "2025-clang18":
     parent_versions: ["5", "5-clang18", "2025"]
@@ -613,7 +635,7 @@ ci-packages:
     - "2023.2"
     - "2024.2"
     - "2025.0"
-  python:
+  cpython:
     - "2019.2"
     - "2020.2"
     - "2021.2"
@@ -828,10 +850,43 @@ ci-packages:
   bzip2:
     - "2024.2"
     - "2025.0"
+  gdbm:
+    - "2024.2"
+    - "2025.0"
+  libffi:
+    - "2024.2"
+    - "2025.0"
+  libxcrypt:
+    - "2024.2"
+    - "2025.0"
   lz4:
     - "2024.2"
     - "2025.0"
+  mpdecimal:
+    - "2024.2"
+    - "2025.0"
+  ncurses:
+    - "2024.2"
+    - "2025.0"
+  openssl:
+    - "2024.2"
+    - "2025.0"
   snappy:
+    - "2024.2"
+    - "2025.0"
+  sqlite3:
+    - "2024.2"
+    - "2025.0"
+  tcl:
+    - "2024.2"
+    - "2025.0"
+  tk:
+    - "2024.2"
+    - "2025.0"
+  util-linux-libuuid:
+    - "2024.2"
+    - "2025.0"
+  xz_utils:
     - "2024.2"
     - "2025.0"
   zlib:
@@ -993,19 +1048,30 @@ groups:
         - blosc
         - bzip2
         - cmake
-        - python
+        - cpython
         - pybind11
         - boost
         - cppunit
         - expat
+        - gdbm
         - glew
         - glfw
         - gtest
         - libbacktrace
+        - libffi
+        - libxcrypt
         - log4cplus
         - lz4
+        - mpdecimal
+        - ncurses
+        - openssl
         - snappy
+        - sqlite3
         - tbb
+        - tcl
+        - tk
+        - util-linux-libuuid
+        - xz_utils
         - zlib
         - zstd
       base2:
@@ -1070,25 +1136,36 @@ conan_only:
   - clang
   - cmake
   - cppunit
+  - cpython
   - expat
+  - gdbm
   - glew
   - glfw
   - gtest
   - imath
   - libbacktrace
+  - libffi
+  - libxcrypt
   - log4cplus
   - lz4
   - materialx
+  - mpdecimal
+  - ncurses
   - ninja
   - openexr
+  - openssl
   - opensubdiv
   - partio
   - ptex
   - pybind11
-  - python
   - qt
   - pyside
   - snappy
+  - sqlite3
   - tbb
+  - tcl
+  - tk
+  - util-linux-libuuid
+  - xz_utils
   - zlib
   - zstd

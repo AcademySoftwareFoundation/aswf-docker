@@ -57,4 +57,4 @@ PyInit_spam(void)
     Py_INCREF(SpamError);
     PyModule_AddObject(m, "error", SpamError);
     return m;
-}}
+}

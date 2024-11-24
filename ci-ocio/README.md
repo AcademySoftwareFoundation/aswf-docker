@@ -22,7 +22,6 @@ Warning: this image does *not* contain OpenColorIO itself as it is used to *buil
 
 Contains:
 * blosc-1.5.0
-* python-2.7.15
 * pybind11-2.4.3
 * tbb-2018
 * glew-2.1.0
@@ -40,7 +39,6 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* python-3.7.3
 * pybind11-2.4.3
 * tbb-2019_U6
 * glew-2.1.0
@@ -58,7 +56,6 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* python-3.7.9
 * pybind11-2.6.2
 * tbb-2020_U2
 * glew-2.1.0
@@ -76,7 +73,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.9.15
 * pybind11-2.8.1
 * tbb-2020_U3
 * glew-2.1.0
@@ -94,7 +90,6 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* python-3.10.11
 * pybind11-2.9.2
 * tbb-2020_U3
 * glew-2.1.0
@@ -116,7 +111,6 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
-* python-3.11.10
 * pybind11-2.12.0
 * tbb-2020_U3
 * expat-2.6.4
@@ -126,7 +120,7 @@ Contains:
 * imath-3.1.12
 * openexr-3.2.4
 * partio-1.17.1
-* openvdb-12.0.0
+* openvdb-11.0.0
 * osl-1.13.11.0
 * numpy-1.24.3
 * vfxplatform-2024
@@ -139,7 +133,6 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* python-3.11.10
 * pybind11-2.13.6
 * tbb-2020_U3
 * expat-2.6.4
@@ -147,9 +140,9 @@ Contains:
 * glfw-3.4
 * cmake-3.30.5
 * imath-3.1.12
-* openexr-3.3.1
+* openexr-3.3.2
 * partio-1.17.3
-* openvdb-11.0.0
+* openvdb-12.0.0
 * osl-1.13.11.0
 * numpy-1.26.4
 * vfxplatform-2025

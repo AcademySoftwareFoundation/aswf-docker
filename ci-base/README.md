@@ -29,7 +29,6 @@ Contains:
 * gtest-1.8.1
 * log4cplus-1.1.2
 * pybind11-2.4.3
-* python-2.7.15
 * tbb-2018
 * numpy-1.14
 * vfxplatform-2019
@@ -46,7 +45,6 @@ Contains:
 * gtest-1.10.0
 * log4cplus-1.1.2
 * pybind11-2.4.3
-* python-3.7.3
 * tbb-2019_U6
 * numpy-1.16
 * vfxplatform-2020
@@ -63,7 +61,6 @@ Contains:
 * gtest-1.11.0
 * log4cplus-1.1.2
 * pybind11-2.6.2
-* python-3.7.9
 * tbb-2020_U2
 * numpy-1.19
 * vfxplatform-2021
@@ -80,7 +77,6 @@ Contains:
 * gtest-1.11.0
 * log4cplus-1.1.2
 * pybind11-2.8.1
-* python-3.9.15
 * tbb-2020_U3
 * numpy-1.20
 * vfxplatform-2022
@@ -97,7 +93,6 @@ Contains:
 * gtest-1.11.0
 * log4cplus-1.1.2
 * pybind11-2.9.2
-* python-3.10.11
 * tbb-2020_U3
 * numpy-1.23.5
 * vfxplatform-2023
@@ -120,7 +115,6 @@ Contains:
 * libbacktrace-cci.20210118
 * log4cplus-2.1.1
 * pybind11-2.12.0
-* python-3.11.10
 * tbb-2020_U3
 * numpy-1.24.3
 * vfxplatform-2024
@@ -143,7 +137,6 @@ Contains:
 * libbacktrace-cci.20210118
 * log4cplus-2.1.2
 * pybind11-2.13.6
-* python-3.11.10
 * tbb-2020_U3
 * numpy-1.26.4
 * vfxplatform-2025

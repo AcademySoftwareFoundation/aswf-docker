@@ -258,6 +258,7 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
         double-conversion double-conversion-devel \
         perl-IPC-Cmd \
         perl-Digest-SHA \
+        perl-open \
         python39 \
         python39-devel \
         python3.11 \
