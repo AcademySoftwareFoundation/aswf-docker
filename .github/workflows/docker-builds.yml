@@ -57,13 +57,13 @@ jobs:
         sudo apt-get remove -y '^clang.*'
         sudo apt-get remove -y '^gfortran.*'
         sudo apt-get remove -y google-chrome-stable firefox powershell mono-devel monodoc-http
-        sudo apt-get remove -y ant ant-optional apt-transport-https aria2 ansible azure-cli chrpath dotnet \
-            esl-erlang firefox google-cloud-sdk imagemagick kubectl \
+        sudo apt-get remove -y ant ant-optional apt-transport-https aria2 ansible azure-cli chrpath \
+            imagemagick kubectl \
             libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev \
-            libmagickcore-dev libmagickwand-dev libmagic-dev libmysqlclient \
+            libmagickcore-dev libmagickwand-dev libmagic-dev \
             libpq-dev libssl-dev libxft-dev \
-            mercurial microsoft-edge-stable mongob-org mono-complete ria2 \
-            mysql pollinate postgresql-client powershell rpm ruby-full \
+            mercurial microsoft-edge-stable mongodb-org mono-complete  \
+            pollinate postgresql-client powershell rpm ruby-full \
             snmp shellcheck sphinxsearch subversion \
             unixodbc-dev xorriso yarn zsync
         sudo apt-get autoremove -y
