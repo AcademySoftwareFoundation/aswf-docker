@@ -57,16 +57,17 @@ jobs:
         sudo apt-get remove -y '^clang.*'
         sudo apt-get remove -y '^gfortran.*'
         sudo apt-get remove -y google-chrome-stable firefox powershell mono-devel monodoc-http
-        sudo apt-get remove -y ant ant-optional apt-transport-https aria2 azure-cli \
-            imagemagick kubectl \
-            libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev \
-            libmagickcore-dev libmagickwand-dev libmagic-dev \
-            libpq-dev libssl-dev \
-            mercurial microsoft-edge-stable  \
-            pollinate rpm ruby-full \
-            snmp shellcheck sphinxsearch subversion \
-            unixodbc-dev xorriso yarn zsync
-        # sudo apt-get autoremove -y
+        #sudo apt-get remove -y ant ant-optional apt-transport-https aria2 azure-cli \
+        #    imagemagick kubectl \
+        #    libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev \
+        #    libmagickcore-dev libmagickwand-dev libmagic-dev \
+        #    libpq-dev libssl-dev \
+        #    mercurial microsoft-edge-stable  \
+        #    pollinate rpm ruby-full \
+        #    snmp shellcheck sphinxsearch subversion \
+        #    unixodbc-dev xorriso yarn zsync
+        sudo apt-get remove -y mercurial microsoft-edge-stable
+        sudo apt-get autoremove -y
         sudo apt-get clean
         sudo rm -rf \
             /usr/share/dotnet/ \
