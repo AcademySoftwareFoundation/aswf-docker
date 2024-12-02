@@ -351,7 +351,7 @@ Contains:
 * qt-6.5.3
 * imath-3.1.12
 * openexr-3.3.2
-* oiio-3.0.0.3
+* oiio-3.0.1.0
 * ocio-2.4.0
 * partio-1.17.3
 * ptex-2.4.3
@@ -375,7 +375,7 @@ Contains:
 * qt-6.5.3
 * imath-3.1.12
 * openexr-3.3.2
-* oiio-3.0.0.3
+* oiio-3.0.1.0
 * ocio-2.4.0
 * partio-1.17.3
 * ptex-2.4.3

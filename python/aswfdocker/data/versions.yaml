@@ -492,7 +492,6 @@ versions:
       ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MATERIALX_VERSION: "1.39.1"
       ASWF_MPDECIMAL_VERSION: "wrapper"
-      ASWF_NCURSES_VERSION: "wrapper"
       ASWF_NUMPY_VERSION: "1.24.3"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.3.2"
@@ -562,11 +561,10 @@ versions:
       ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MATERIALX_VERSION: "1.39.1"
       ASWF_MPDECIMAL_VERSION: "wrapper"
-      ASWF_NCURSES_VERSION: "wrapper"
       ASWF_NUMPY_VERSION: "1.26.4"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.4.0"
-      ASWF_OIIO_VERSION: "3.0.0.3"
+      ASWF_OIIO_VERSION: "3.0.1.0"
       ASWF_OPENEXR_VERSION: "3.3.2"
       ASWF_OPENRV_VERSION: "2.1.0"
       ASWF_OPENSSL_VERSION: "wrapper"
@@ -865,9 +863,6 @@ ci-packages:
   mpdecimal:
     - "2024.2"
     - "2025.0"
-  ncurses:
-    - "2024.2"
-    - "2025.0"
   openssl:
     - "2024.2"
     - "2025.0"
@@ -1063,7 +1058,6 @@ groups:
         - log4cplus
         - lz4
         - mpdecimal
-        - ncurses
         - openssl
         - snappy
         - sqlite3
@@ -1150,7 +1144,6 @@ conan_only:
   - lz4
   - materialx
   - mpdecimal
-  - ncurses
   - ninja
   - openexr
   - openssl

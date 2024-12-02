@@ -109,7 +109,7 @@ class CPythonConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # We want DSOs in lib64
+        # ASWF We want DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def build_requirements(self):
@@ -117,10 +117,10 @@ class CPythonConan(ConanFile):
             self.tool_requires("pkgconf/2.1.0")
 
     def requirements(self):
-        self.requires(f"zlib/[>=1.2.11 <2]@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}")
+        self.requires("zlib/[>=1.2.11 <2]")
         if self._supports_modules:
             self.requires("openssl/[>=1.1 <4]")
-            self.requires(f"expat/[>=2.6.4 <3]@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}")
+            self.requires("expat/[>=2.6.2 <3]")
             self.requires("libffi/3.4.4")
             if Version(self.version) < "3.10" or is_apple_os(self):
                 # FIXME: mpdecimal > 2.5.0 on MacOS causes the _decimal module to not be importable
@@ -135,9 +135,9 @@ class CPythonConan(ConanFile):
             # For the sake of this recipe, we only have later patch versions, so this version check
             # may be slightly inaccurate if a lower patch version is desired.
             transitive_crypt = Version(self.version) < "3.9"
-            self.requires(f"libxcrypt/4.4.36@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}", transitive_headers=transitive_crypt, transitive_libs=transitive_crypt)
+            self.requires("libxcrypt/4.4.36", transitive_headers=transitive_crypt, transitive_libs=transitive_crypt)
         if self.options.get_safe("with_bz2"):
-            self.requires(f"bzip2/1.0.8@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}")
+            self.requires("bzip2/1.0.8")
         if self.options.get_safe("with_gdbm", False):
             self.requires("gdbm/1.23")
         if self.options.get_safe("with_nis", False):
@@ -147,10 +147,11 @@ class CPythonConan(ConanFile):
             self.requires("sqlite3/3.45.2")
         if self.options.get_safe("with_tkinter"):
             self.requires("tk/8.6.10")
-        if self.options.get_safe("with_curses", False):
-            # Used in a public header
-            # https://github.com/python/cpython/blob/v3.10.13/Include/py_curses.h#L34
-            self.requires("ncurses/6.4", transitive_headers=True, transitive_libs=True)
+        # ASWF: ncurses as Conan wrapper isn't working
+        # if self.options.get_safe("with_curses", False):
+        #     # Used in a public header
+        #     # https://github.com/python/cpython/blob/v3.10.13/Include/py_curses.h#L34
+        #     self.requires("ncurses/6.4", transitive_headers=True, transitive_libs=True)
         if self.options.get_safe("with_lzma", False):
             self.requires("xz_utils/5.4.5")
 
@@ -185,8 +186,9 @@ class CPythonConan(ConanFile):
                 # 3.10 fails during the test, 3.11 fails during the build (missing symbol that seems to be DLL specific: PyWin_DLLhModule)
                 raise ConanInvalidConfiguration("Static msvc build disabled (>=3.10) due to \"AttributeError: module 'sys' has no attribute 'winver'\"")
 
-        if self.options.get_safe("with_curses", False) and not self.dependencies["ncurses"].options.with_widec:
-            raise ConanInvalidConfiguration("cpython requires ncurses with wide character support")
+        # ASWF: ncurses not a Conan package
+        # if self.options.get_safe("with_curses", False) and not self.dependencies["ncurses"].options.with_widec:
+        #     raise ConanInvalidConfiguration("cpython requires ncurses with wide character support")
 
         if self._supports_modules:
             if Version(self.version) >= "3.9.0":
@@ -297,12 +299,16 @@ class CPythonConan(ConanFile):
             replace_in_file(self, setup_py, ":libmpdec.so.2", "mpdec")
 
         if self.options.get_safe("with_curses", False):
-            libcurses = self.dependencies["ncurses"].cpp_info.components["libcurses"]
-            tinfo = self.dependencies["ncurses"].cpp_info.components["tinfo"]
-            libs = libcurses.libs + libcurses.system_libs + tinfo.libs + tinfo.system_libs
+            # ASWF: ncurses not a Conan package
+            # libcurses = self.dependencies["ncurses"].cpp_info.components["libcurses"]
+            # tinfo = self.dependencies["ncurses"].cpp_info.components["tinfo"]
+            # libs = libcurses.libs + libcurses.system_libs + tinfo.libs + tinfo.system_libs
+            # replace_in_file(self, setup_py,
+            #     "curses_libs = ",
+            #     "curses_libs = {} #".format(repr(libs)))
             replace_in_file(self, setup_py,
-                "curses_libs = ",
-                "curses_libs = {} #".format(repr(libs)))
+                "curses_libs =",
+                "curses_libs = ['ncursesw'] #")
 
         if self._supports_modules:
             # ASWF: using system openssl, can't query dependencies
@@ -911,8 +917,9 @@ class CPythonConan(ConanFile):
                 self.cpp_info.components["_hidden"].requires.append("gdbm::gdbm")
             if self.options.with_sqlite3:
                 self.cpp_info.components["_hidden"].requires.append("sqlite3::sqlite3")
-            if self.options.get_safe("with_curses", False):
-                self.cpp_info.components["_hidden"].requires.append("ncurses::ncurses")
+            # ASWF: ncurses not a Conan package
+            # if self.options.get_safe("with_curses", False):
+            #     self.cpp_info.components["_hidden"].requires.append("ncurses::ncurses")
             if self.options.get_safe("with_lzma"):
                 self.cpp_info.components["_hidden"].requires.append("xz_utils::xz_utils")
             if self.options.get_safe("with_tkinter"):
