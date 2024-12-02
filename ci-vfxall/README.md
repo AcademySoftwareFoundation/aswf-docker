@@ -510,7 +510,7 @@ Contains:
 * imath-3.1.12
 * openexr-3.3.2
 * alembic-1.8.7
-* oiio-3.0.0.3
+* oiio-3.0.1.0
 * ocio-2.4.0
 * pybind11-2.13.6
 * opensubdiv-3.6.0
@@ -547,7 +547,7 @@ Contains:
 * imath-3.1.12
 * openexr-3.3.2
 * alembic-1.8.7
-* oiio-3.0.0.3
+* oiio-3.0.1.0
 * ocio-2.4.0
 * pybind11-2.13.6
 * opensubdiv-3.6.0
