@@ -1,16 +1,17 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/imath/all/test_package/conanfile.py
 
 from conan import ConanFile
 from conan.tools.build import can_run
-from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conans import tools, RunEnvironment
+from conan.tools.cmake import CMake, cmake_layout
 import os
 
 
 class TestPackageConan(ConanFile):
-    settings = "os", "compiler", "build_type", "arch", "python"
+    settings = "os", "arch", "compiler", "build_type"
     generators = "CMakeToolchain", "CMakeDeps", "VirtualRunEnv"
     test_type = "explicit"
 
@@ -22,9 +23,8 @@ class TestPackageConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        with tools.environment_append(tools.RunEnvironment(self).vars):
-            cmake.configure()
-            cmake.build()
+        cmake.configure()
+        cmake.build()
 
     def test(self):
         if can_run(self):

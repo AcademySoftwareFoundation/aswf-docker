@@ -21,6 +21,7 @@ Warning: this image does *not* contain MaterialX itself as it is used to *build*
 ## [aswf/ci-materialx:2022.1](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2022.1)
 
 Contains:
+* cpython-3.9.15
 * pybind11-2.8.1
 * cmake-3.22.0
 * numpy-1.20
@@ -29,6 +30,7 @@ Contains:
 ## [aswf/ci-materialx:2023.2](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2023.2)
 
 Contains:
+* cpython-3.10.11
 * pybind11-2.9.2
 * cmake-3.27.2
 * numpy-1.23.5
@@ -37,6 +39,7 @@ Contains:
 ## [aswf/ci-materialx:2024.2](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2024.2)
 
 Contains:
+* cpython-3.11.10
 * pybind11-2.12.0
 * cmake-3.27.9
 * numpy-1.24.3
@@ -45,8 +48,9 @@ Contains:
 ## [aswf/ci-materialx:2025.0](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2025.0)
 
 Contains:
+* cpython-3.11.10
 * pybind11-2.13.6
-* cmake-3.30.5
+* cmake-3.31.1
 * numpy-1.26.4
 * vfxplatform-2025
 

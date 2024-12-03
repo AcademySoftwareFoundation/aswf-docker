@@ -4,7 +4,7 @@ description: |
   Contains: Python, CMake and other OpenCue upstream dependencies
   Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!
 packages:
-  - python
+  - cpython
   - cmake
 implicit_packages:
   - numpy

@@ -30,7 +30,7 @@ tar -zxf "$DOWNLOADS_DIR/alembic-${ASWF_ALEMBIC_VERSION}.tar.gz"
 cd "alembic-${ASWF_ALEMBIC_VERSION}"
 
 # Boost Python3 not found by cmake for PyAlembic as of Alembic 1.7.12
-if [[ $ASWF_PYTHON_VERSION == 2.7* ]]; then
+if [[ $ASWF_CPYTHON_VERSION == 2.7* ]]; then
     USE_PYALEMBIC=TRUE
 else
     USE_PYALEMBIC=FALSE

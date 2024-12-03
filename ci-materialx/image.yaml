@@ -4,7 +4,7 @@ description: |
   Contains: Python, Boost and other MaterialX upstream dependencies
   Warning: this image does *not* contain MaterialX itself as it is used to *build* MaterialX!
 packages:
-  - python
+  - cpython
   - pybind11
   - cmake
 implicit_packages:

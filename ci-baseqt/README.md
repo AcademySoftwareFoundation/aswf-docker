@@ -29,6 +29,7 @@ Contains:
 * gtest-1.8.1
 * log4cplus-1.1.2
 * pybind11-2.4.3
+* cpython-2.7.15
 * tbb-2018
 * qt-5.12.6
 * pyside-5.12.6
@@ -47,7 +48,8 @@ Contains:
 * gtest-1.10.0
 * log4cplus-1.1.2
 * pybind11-2.4.3
-* tbb-2019_U6
+* cpython-3.7.3
+* tbb-2019_u6
 * qt-5.12.6
 * pyside-5.12.6
 * numpy-1.16
@@ -65,7 +67,8 @@ Contains:
 * gtest-1.11.0
 * log4cplus-1.1.2
 * pybind11-2.6.2
-* tbb-2020_U2
+* cpython-3.7.9
+* tbb-2020_u2
 * qt-5.15.2
 * pyside-5.15.2
 * numpy-1.19
@@ -83,7 +86,8 @@ Contains:
 * gtest-1.11.0
 * log4cplus-1.1.2
 * pybind11-2.8.1
-* tbb-2020_U3
+* cpython-3.9.15
+* tbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * numpy-1.20
@@ -101,7 +105,8 @@ Contains:
 * gtest-1.11.0
 * log4cplus-1.1.2
 * pybind11-2.9.2
-* tbb-2020_U3
+* cpython-3.10.11
+* tbb-2020_u3
 * qt-5.15.9
 * pyside-5.15.9
 * numpy-1.23.5
@@ -125,7 +130,8 @@ Contains:
 * libbacktrace-cci.20210118
 * log4cplus-2.1.1
 * pybind11-2.12.0
-* tbb-2020_U3
+* cpython-3.11.10
+* tbb-2020_u3
 * qt-6.5.3
 * pyside-6.5.3
 * numpy-1.24.3
@@ -140,7 +146,7 @@ Contains:
 * zstd-1.5.6
 * blosc-1.21.6
 * boost-1.85.0
-* cmake-3.30.5
+* cmake-3.31.1
 * cppunit-1.15.1
 * expat-2.6.4
 * glew-2.2.0
@@ -149,7 +155,8 @@ Contains:
 * libbacktrace-cci.20210118
 * log4cplus-2.1.2
 * pybind11-2.13.6
-* tbb-2020_U3
+* cpython-3.11.10
+* tbb-2020_u3
 * qt-6.5.3
 * pyside-6.5.3
 * numpy-1.26.4

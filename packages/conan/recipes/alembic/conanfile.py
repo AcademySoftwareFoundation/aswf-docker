@@ -1,17 +1,13 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/alembic/all/conanfile.py
 
 from conan import ConanFile
+from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import (
-    apply_conandata_patches,
-    collect_libs,
-    copy,
-    export_conandata_patches,
-    get,
-    rmdir,
-)
+from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rmdir
 from conan.tools.scm import Version
 import os
 
@@ -21,25 +17,20 @@ required_conan_version = ">=1.53.0"
 class AlembicConan(ConanFile):
     name = "alembic"
     license = "BSD-3-Clause"
-    description = "Alembic is an open framework for storing and sharing scene data that includes a C++ library, a file format, and client plugins and applications."
-    topics = "conan", "alembic", "python", "binding"
-    homepage = "https://www.alembic.io"
-    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
+    url = "https://github.com/conan-io/conan-center-index"
+    homepage = "http://www.alembic.io"
+    description = "Open framework for storing and sharing scene data."
+    topics = ("3d", "scene", "geometry", "graphics")
+
     package_type = "library"
-    settings = (
-        "os",
-        "arch",
-        "compiler",
-        "build_type",
-        "python",
-    )
+    settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
         "with_hdf5": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": True, # ASWF: build shared libs
         "fPIC": True,
         "with_hdf5": False,
     }
@@ -57,27 +48,23 @@ class AlembicConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # We want DSOs in lib64
+        # ASWF: We want DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
-        self.requires(
-            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
-        )
-        self.requires(
-            f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}"
-        )
-        self.requires(
-            f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}"
-        )
-        self.requires(
-            f"openexr/{os.environ['ASWF_OPENEXR_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"openexr/{os.environ['ASWF_OPENEXR_VERSION']}@{self.user}/{self.channel}")
+        if self.options.with_hdf5:
+            self.requires("hdf5/1.14.3")
 
     def build_requirements(self):
-        self.build_requires(
-            f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.build_requires(f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}")
+
+    def validate(self):
+        if self.settings.compiler.get_safe("cppstd"):
+            check_min_cppstd(self, 11)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -93,9 +80,7 @@ class AlembicConan(ConanFile):
         tc.variables["USE_HDF5"] = self.options.with_hdf5
         tc.variables["USE_TESTS"] = False
         tc.variables["ALEMBIC_BUILD_LIBS"] = True
-        tc.variables[
-            "ALEMBIC_ILMBASE_LINK_STATIC"
-        ] = False  # for -DOPENEXR_DLL, handled by OpenEXR package
+        tc.variables["ALEMBIC_ILMBASE_LINK_STATIC"] = False  # for -DOPENEXR_DLL, handled by OpenEXR package
         tc.variables["ALEMBIC_SHARED_LIBS"] = self.options.shared
         tc.variables["ALEMBIC_USING_IMATH_3"] = True
         tc.variables["ALEMBIC_ILMBASE_FOUND"] = 1
@@ -113,17 +98,14 @@ class AlembicConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(
-            self,
-            "LICENSE.txt",
-            src=self.source_folder,
-            dst=os.path.join(self.package_folder, "licenses", self.name),
-        )
+        # ASWF: separate license files per package
+        copy(self, "LICENSE.txt", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
 
     def package_info(self):
+        # ASWF help resolve dependencies
         self.cpp_info.requires.append("python::PythonLibs")
         self.cpp_info.requires.append("boost::python")
         pymajorminor = self.deps_user_info["python"].python_interp
@@ -134,6 +116,7 @@ class AlembicConan(ConanFile):
         # self.cpp_info.libs = ["IlmImf", "IlmImfUtils"]
         # if Version(self.version) >= "3":
         self.cpp_info.requires.append("Imath::Imath")
+        # ASWF end block
 
         self.cpp_info.set_property("cmake_file_name", "Alembic")
         self.cpp_info.set_property("cmake_target_name", "Alembic::Alembic")

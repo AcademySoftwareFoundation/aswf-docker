@@ -16,7 +16,7 @@ packages:
   - gtest
   - cppunit
   - glfw
-  - python
+  - cpython
   - tbb
   - imath
   - openexr

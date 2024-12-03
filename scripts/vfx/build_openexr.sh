@@ -34,7 +34,7 @@ else
 
     # TODO: add support for python-3 PyIlmBase when it works...
     if [[ $ASWF_OPENEXR_VERSION == 2.3.0 ]]; then
-        if [[ $ASWF_PYTHON_VERSION == 2.7* ]]; then
+        if [[ $ASWF_CPYTHON_VERSION == 2.7* ]]; then
             BUILD_PYILMBASE=on
         else
             BUILD_PYILMBASE=off

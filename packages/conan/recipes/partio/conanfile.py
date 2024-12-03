@@ -50,7 +50,7 @@ class PartioConan(ConanFile):
 
     def requirements(self):
         self.requires(
-            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
+            f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}"
         )
 
     def build_requirements(self):

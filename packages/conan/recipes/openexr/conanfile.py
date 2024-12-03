@@ -1,67 +1,92 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/openexr/3.x/conanfile.py
 
 from conan import ConanFile
+from conan.errors import ConanInvalidConfiguration
+from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import (
-    apply_conandata_patches,
-    copy,
-    export_conandata_patches,
-    get,
-    rmdir,
-)
-from conan.tools.microsoft import is_msvc
+from conan.tools.files import apply_conandata_patches, export_conandata_patches, copy, get, rmdir, replace_in_file
+from conan.tools.scm import Version
 import os
 
-required_conan_version = ">=1.38.0"
+required_conan_version = ">=1.53.0"
 
 
 class OpenEXRConan(ConanFile):
     name = "openexr"
-    description = "The OpenEXR project provides the specification and reference implementation of the EXR file format, the professional-grade image storage format of the motion picture industry."
-    topics = "conan", "openexr", "python", "binding"
-    homepage = "https://www.qt.io/qt-for-python"
-    license = "LGPL-3.0"
-    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
-    settings = (
-        "os",
-        "arch",
-        "compiler",
-        "build_type",
-        "python",
-    )
+    description = "OpenEXR is a high dynamic-range (HDR) image file format developed by Industrial Light & " \
+                  "Magic for use in computer imaging applications."
+    license = "BSD-3-Clause"
+    url = "https://github.com/conan-io/conan-center-index"
+    homepage = "https://github.com/AcademySoftwareFoundation/openexr"
+    topics = ("openexr", "hdr", "image", "picture")
+    package_type = "library"
+    settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": True, # ASWF: build shared libraries
         "fPIC": True,
     }
+
+    @property
+    def _min_cppstd(self):
+        if Version(self.version) >= "3.3":
+            return 17
+        return 11
+
+    @property
+    def _minimum_compiler_version(self):
+        return {
+            "17": {
+                "gcc": "9"
+            }
+        }.get(str(self._min_cppstd), {})
+
+    @property
+    def _with_libdeflate(self):
+        return Version(self.version) >= "3.2"
 
     def export_sources(self):
         export_conandata_patches(self)
 
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+
+    def configure(self):
+        if self.options.shared:
+            self.options.rm_safe("fPIC")
+
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # We want DSOs in lib64
+        # ASWF: We want DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
-        self.requires(
-            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
-        )
-        self.requires(
-            f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}"
-        )
-        self.requires(
-            f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.requires("zlib/[>=1.2.11 <2]")
+        # Note: OpenEXR and Imath are versioned independently.
+        self.requires(f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}")
+        if self._with_libdeflate:
+            self.requires("libdeflate/1.19")
+        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}")
 
     def build_requirements(self):
-        self.build_requires(
-            f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.build_requires(f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}")
+
+    def validate(self):
+        if self.settings.compiler.get_safe("cppstd"):
+            check_min_cppstd(self, self._min_cppstd)
+
+        minimum_version = self._minimum_compiler_version.get(str(self.settings.compiler))
+        if minimum_version and Version(self.settings.compiler.version) < minimum_version:
+            raise ConanInvalidConfiguration(f"{self.ref} requires {self.settings.compiler} >= {minimum_version}")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -70,15 +95,21 @@ class OpenEXRConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables["OPENEXR_BUILD_PYTHON_LIBS"] = "ON"
         tc.variables["OPENEXR_INSTALL_EXAMPLES"] = False
+        tc.variables["BUILD_TESTING"] = False
         tc.variables["BUILD_WEBSITE"] = False
         tc.variables["DOCS"] = False
         tc.generate()
-
-        deps = CMakeDeps(self)
-        deps.generate()
+        cd = CMakeDeps(self)
+        cd.generate()
 
     def _patch_sources(self):
         apply_conandata_patches(self)
+
+        if Version(self.version) >= "3.2":
+            # Even with BUILD_WEBSITE, Website target is compiled in 3.2
+            replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"),
+                            "add_subdirectory(website/src)",
+                            "#  add_subdirectory(website/src)")
 
     def build(self):
         self._patch_sources()
@@ -87,15 +118,14 @@ class OpenEXRConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(
-            self,
-            "LICENSE.md",
-            src=self.source_folder,
-            dst=os.path.join(self.package_folder, "licenses", self.name),
-        )
+        # ASWF: licenses separate per package
+        copy(self, "LICENSE.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
+        rmdir(self, os.path.join(self.package_folder, "share"))
+        # ASWF: modules in lib64, keep cmake for non-Conan clients
         rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
 
     @staticmethod
     def _conan_comp(name):
@@ -113,7 +143,7 @@ class OpenEXRConan(ConanFile):
         self.cpp_info.set_property("pkg_config_name", "OpenEXR")
 
         self.cpp_info.names["cmake_find_package"] = "OpenEXR"
-        self.cpp_info.names["cmake_find_pacakge_multi"] = "OpenEXR"
+        self.cpp_info.names["cmake_find_package_multi"] = "OpenEXR"
         self.cpp_info.names["pkg_config"] = "OpenEXR"
 
         lib_suffix = ""
@@ -146,8 +176,7 @@ class OpenEXRConan(ConanFile):
         IlmThread = self._add_component("IlmThread")
         IlmThread.libs = [f"IlmThread{lib_suffix}"]
         IlmThread.requires = [
-            self._conan_comp("IlmThreadConfig"),
-            self._conan_comp("Iex"),
+            self._conan_comp("IlmThreadConfig"), self._conan_comp("Iex"),
         ]
         if self.settings.os in ["Linux", "FreeBSD"]:
             IlmThread.system_libs = ["pthread", "m"]
@@ -155,10 +184,9 @@ class OpenEXRConan(ConanFile):
         # OpenEXR::OpenEXRCore
         OpenEXRCore = self._add_component("OpenEXRCore")
         OpenEXRCore.libs = [f"OpenEXRCore{lib_suffix}"]
-        # We assume zlib-devel and libdeflate-devel are installed in base image
-        # OpenEXRCore.requires = [self._conan_comp("OpenEXRConfig"), "zlib::zlib"]
-        # if self._with_libdeflate:
-        #    OpenEXRCore.requires.append("libdeflate::libdeflate")
+        OpenEXRCore.requires = [self._conan_comp("OpenEXRConfig"), "zlib::zlib"]
+        if self._with_libdeflate:
+            OpenEXRCore.requires.append("libdeflate::libdeflate")
         if self.settings.os in ["Linux", "FreeBSD"]:
             OpenEXRCore.system_libs = ["m"]
 
@@ -166,10 +194,8 @@ class OpenEXRConan(ConanFile):
         OpenEXR = self._add_component("OpenEXR")
         OpenEXR.libs = [f"OpenEXR{lib_suffix}"]
         OpenEXR.requires = [
-            self._conan_comp("OpenEXRCore"),
-            self._conan_comp("IlmThread"),
-            self._conan_comp("Iex"),
-            "imath::imath",
+            self._conan_comp("OpenEXRCore"), self._conan_comp("IlmThread"),
+            self._conan_comp("Iex"), "imath::imath",
         ]
         if self.settings.os in ["Linux", "FreeBSD"]:
             OpenEXR.system_libs = ["m"]
@@ -184,13 +210,10 @@ class OpenEXRConan(ConanFile):
         # Add tools directory to PATH
         self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
 
-        self.cpp_info.requires.append("python::PythonLibs")
-        self.cpp_info.requires.append("boost::python")
-
-        pymajorminor = self.deps_user_info["python"].python_interp
-        self.env_info.PYTHONPATH.append(
-            os.path.join(self.package_folder, "lib64", pymajorminor, "site-packages")
-        )
-        self.env_info.CMAKE_PREFIX_PATH.append(
-            os.path.join(self.package_folder, "lib64", "cmake")
-        )
+        # ASWF FIXME: do we still need this?
+        # self.cpp_info.requires.append("python::PythonLibs")
+        # self.cpp_info.requires.append("boost::python")
+        #
+        # pymajorminor = self.deps_user_info["python"].python_interp
+        # self.env_info.PYTHONPATH.append(os.path.join(self.package_folder, "lib64", pymajorminor, "site-packages"))
+        # self.env_info.CMAKE_PREFIX_PATH.append(os.path.join(self.package_folder, "lib64", "cmake"))

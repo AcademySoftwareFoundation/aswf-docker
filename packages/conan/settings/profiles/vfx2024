@@ -7,6 +7,8 @@ include(ci_common4)
 bzip2/*: bzip2/1.0.8@aswftesting/vfx2024
 expat/*: expat/2.6.4@aswftesting/vfx2024
 gdbm/*: gdbm/wrapper@aswftesting/vfx2024
+libbacktrace/*: libbacktrace/cci.20210118@aswftesting/vfx2024
+libdeflate/*: libdeflate/wrapper@aswftesting/vfx2024
 libffi/*: libffi/wrapper@aswftesting/vfx2024
 libxcrypt/*: libxcrypt/4.4.36@aswftestng/vfx2024
 mpdecimal/*: mpdecimal/wrapper@aswftesting/vfx2024

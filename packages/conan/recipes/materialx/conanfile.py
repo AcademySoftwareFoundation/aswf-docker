@@ -81,7 +81,7 @@ class MaterialXConan(ConanFile):
                 f"openimageio/{os.environ['ASWF_OIIO_VERSION']}@{self.user}/{self.channel}"
             )
         self.requires(
-            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
+            f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}"
         )
         # Comment out to use vendored pybind11
         self.requires(
@@ -104,7 +104,7 @@ class MaterialXConan(ConanFile):
         tc.variables["MATERIALX_BUILD_TESTS"] = False
         tc.variables["MATERIALX_TEST_RENDER"] = False
         tc.variables["MATERIALX_BUILD_PYTHON"] = "ON"
-        tc.variables["MATERIALX_PYTHON_VERSION"] = os.environ["ASWF_PYTHON_VERSION"]
+        tc.variables["MATERIALX_PYTHON_VERSION"] = os.environ["ASWF_CPYTHON_VERSION"]
         if self.options.shared:
             tc.variables["MATERIALX_BUILD_SHARED_LIBS"] = "ON"
         tc.variables["MATERIALX_BUILD_GEN_MSL"] = (

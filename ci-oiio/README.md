@@ -28,6 +28,7 @@ Contains:
 * blosc-1.21.5
 * cmake-3.27.9
 * expat-2.6.4
+* cpython-3.11.10
 * imath-3.1.12
 * ocio-2.3.2
 * openexr-3.2.4
@@ -35,7 +36,7 @@ Contains:
 * pybind11-2.12.0
 * ptex-2.4.2
 * qt-6.5.3
-* tbb-2020_U3
+* tbb-2020_u3
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -47,8 +48,9 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* cmake-3.30.5
+* cmake-3.31.1
 * expat-2.6.4
+* cpython-3.11.10
 * imath-3.1.12
 * ocio-2.4.0
 * openexr-3.3.2
@@ -56,7 +58,7 @@ Contains:
 * pybind11-2.13.6
 * ptex-2.4.3
 * qt-6.5.3
-* tbb-2020_U3
+* tbb-2020_u3
 * numpy-1.26.4
 * vfxplatform-2025
 

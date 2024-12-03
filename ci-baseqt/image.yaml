@@ -18,7 +18,7 @@ packages:
   - libbacktrace
   - log4cplus
   - pybind11
-  - python
+  - cpython
   - tbb
   - qt
   - pyside

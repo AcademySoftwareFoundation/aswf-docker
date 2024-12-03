@@ -7,8 +7,10 @@ include(ci_common5)
 bzip2/*: bzip2/1.0.8@aswftesting/vfx2025
 expat/*: expat/2.6.4@aswftesting/vfx2025
 gdbm/*: gdbm/wrapper@aswftesting/vfx2025
+libbacktrace/*: libbacktrace/cci.20210118@aswftesting/vfx2025
 libffi/*: libffi/wrapper@aswftesting/vfx2025
 libxcrypt/*: libxcrypt/4.4.36@aswftesting/vfx2025
+libdeflate/*: libdeflate/wrapper@aswftesting/vfx2025
 mpdecimal/*: mpdecimal/wrapper@aswftesting/vfx2025
 ncurses/*: ncurses/wrapper@aswftesting/vfx2025
 openssl/*: openssl/wrapper@aswftesting/vfx2025

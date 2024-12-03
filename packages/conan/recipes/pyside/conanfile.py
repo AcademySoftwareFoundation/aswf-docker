@@ -45,7 +45,7 @@ class PySide6Conan(ConanFile):
 
     def requirements(self):
         self.requires(
-            f"python/{os.environ['ASWF_PYTHON_VERSION']}@{self.user}/{self.channel}"
+            f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}"
         )
         self.requires(f"qt/{os.environ['ASWF_QT_VERSION']}@{self.user}/{self.channel}")
         self.requires(

@@ -22,6 +22,7 @@ Warning: this image does *not* contain OpenRV itself as it is used to *build* Op
 
 Contains:
 * cmake-3.27.9
+* cpython-3.11.10
 * expat-2.6.4
 * qt-6.5.3
 * numpy-1.24.3
@@ -30,7 +31,8 @@ Contains:
 ## [aswf/ci-openrv:2025.0](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2025.0)
 
 Contains:
-* cmake-3.30.5
+* cmake-3.31.1
+* cpython-3.11.10
 * expat-2.6.4
 * qt-6.5.3
 * numpy-1.26.4

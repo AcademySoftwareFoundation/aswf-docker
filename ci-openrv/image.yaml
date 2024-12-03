@@ -5,7 +5,7 @@ description: |
   Warning: this image does *not* contain OpenRV itself as it is used to *build* OpenRV!
 packages:
   - cmake
-  - python
+  - cpython
   - expat
   - qt
 implicit_packages:

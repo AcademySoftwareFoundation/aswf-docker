@@ -1,3 +1,11 @@
+/*
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/onetbb/2020.x/test_package/test_package.cpp
+*/
+
 #include "tbb/task_group.h"
 #include "tbb/flow_graph.h"
 #include "tbb/compat/tuple"

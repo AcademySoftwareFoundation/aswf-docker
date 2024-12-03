@@ -4,7 +4,7 @@ description: |
   Contains: Python, Qt, PySide and other OpenTimelineIO upstream dependencies
   Warning: this image does *not* contain OpenTimelineIO itself as it is used to *build* OpenTimelineIO!
 packages:
-  - python
+  - cpython
   - cmake
   - expat
   - qt

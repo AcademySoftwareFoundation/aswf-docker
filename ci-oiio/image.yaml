@@ -11,7 +11,7 @@ packages:
   - blosc
   - cmake
   - expat
-  - python
+  - cpython
   - imath
   - ocio
   - openexr
