@@ -21,6 +21,7 @@ Contains: all supported VFX packages
 
 Contains:
 * blosc-1.5.0
+* cpython-2.7.15
 * tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
@@ -51,6 +52,7 @@ Contains:
 
 Contains:
 * blosc-1.5.0
+* cpython-2.7.15
 * tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
@@ -81,6 +83,7 @@ Contains:
 
 Contains:
 * blosc-1.5.0
+* cpython-2.7.15
 * tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
@@ -111,6 +114,7 @@ Contains:
 
 Contains:
 * blosc-1.5.0
+* cpython-2.7.15
 * tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
@@ -141,7 +145,8 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* tbb-2019_U6
+* cpython-3.7.3
+* tbb-2019_u6
 * boost-1.70.0
 * cppunit-1.15.1
 * log4cplus-1.1.2
@@ -171,7 +176,8 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* tbb-2020_U2
+* cpython-3.7.9
+* tbb-2020_u2
 * boost-1.73.0
 * cppunit-1.15.1
 * log4cplus-1.1.2
@@ -201,7 +207,8 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* tbb-2020_U3
+* cpython-3.9.15
+* tbb-2020_u3
 * boost-1.76.0
 * cppunit-1.15.1
 * log4cplus-1.1.2
@@ -232,7 +239,8 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* tbb-2020_U3
+* cpython-3.9.15
+* tbb-2020_u3
 * boost-1.76.0
 * cppunit-1.15.1
 * log4cplus-1.1.2
@@ -263,7 +271,8 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* tbb-2020_U3
+* cpython-3.9.15
+* tbb-2020_u3
 * boost-1.76.0
 * cppunit-1.15.1
 * log4cplus-1.1.2
@@ -294,7 +303,8 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* tbb-2020_U3
+* cpython-3.9.15
+* tbb-2020_u3
 * boost-1.76.0
 * cppunit-1.15.1
 * log4cplus-1.1.2
@@ -325,7 +335,8 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* tbb-2020_U3
+* cpython-3.9.15
+* tbb-2020_u3
 * boost-1.76.0
 * cppunit-1.15.1
 * log4cplus-1.1.2
@@ -356,7 +367,8 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* tbb-2020_U3
+* cpython-3.10.11
+* tbb-2020_u3
 * boost-1.80.0
 * cppunit-1.15.1
 * log4cplus-1.1.2
@@ -387,7 +399,8 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* tbb-2020_U3
+* cpython-3.10.11
+* tbb-2020_u3
 * boost-1.80.0
 * cppunit-1.15.1
 * log4cplus-1.1.2
@@ -422,7 +435,8 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
-* tbb-2020_U3
+* cpython-3.11.10
+* tbb-2020_u3
 * libbacktrace-cci.20210118
 * boost-1.82.0
 * cppunit-1.15.1
@@ -459,7 +473,8 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
-* tbb-2020_U3
+* cpython-3.11.10
+* tbb-2020_u3
 * libbacktrace-cci.20210118
 * boost-1.82.0
 * cppunit-1.15.1
@@ -496,7 +511,8 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* tbb-2020_U3
+* cpython-3.11.10
+* tbb-2020_u3
 * libbacktrace-cci.20210118
 * boost-1.85.0
 * cppunit-1.15.1
@@ -506,7 +522,7 @@ Contains:
 * glfw-3.4
 * qt-6.5.3
 * pyside-6.5.3
-* cmake-3.30.5
+* cmake-3.31.1
 * imath-3.1.12
 * openexr-3.3.2
 * alembic-1.8.7
@@ -533,7 +549,8 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* tbb-2020_U3
+* cpython-3.11.10
+* tbb-2020_u3
 * libbacktrace-cci.20210118
 * boost-1.85.0
 * cppunit-1.15.1
@@ -543,7 +560,7 @@ Contains:
 * glfw-3.4
 * qt-6.5.3
 * pyside-6.5.3
-* cmake-3.30.5
+* cmake-3.31.1
 * imath-3.1.12
 * openexr-3.3.2
 * alembic-1.8.7

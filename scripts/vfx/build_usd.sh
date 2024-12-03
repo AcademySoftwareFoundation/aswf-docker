@@ -32,7 +32,7 @@ fi
 mkdir build
 cd build
 
-if [[ $ASWF_PYTHON_VERSION == 2.7* ]]; then
+if [[ $ASWF_CPYTHON_VERSION == 2.7* ]]; then
     USD_EXTRA_ARGS=
 else
     USD_EXTRA_ARGS=-DPXR_USE_PYTHON_3=ON

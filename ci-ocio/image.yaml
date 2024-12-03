@@ -9,7 +9,7 @@ packages:
   - zlib
   - zstd
   - blosc
-  - python
+  - cpython
   - pybind11
   - tbb
   - expat

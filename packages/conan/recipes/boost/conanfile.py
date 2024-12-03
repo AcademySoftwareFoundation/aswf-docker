@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/7abb9ee39e6009e3dbc45043307a1098246d4ad7/recipes/boost/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/boost/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanException, ConanInvalidConfiguration
@@ -119,7 +119,7 @@ class BoostConan(ConanFile):
     options.update({f"without_{_name}": [True, False] for _name in CONFIGURE_OPTIONS})
 
     default_options = {
-        "shared": True,
+        "shared": True, # ASWF: we want shared libs
         "fPIC": True,
         "header_only": False,
         "error_code_header_only": False,
@@ -594,6 +594,10 @@ class BoostConan(ConanFile):
                 elif not self._has_cppstd_14_supported:
                     disable_graph()
 
+            if self.settings.os == "iOS":
+                # the process library doesn't build (and doesn't even make sense) on iOS
+                self.options.without_process = True
+
             # TODO: Revisit on Boost 1.87.0
             # It's not possible to disable process only when having shared parsed already.
             # https://github.com/boostorg/process/issues/408
@@ -674,7 +678,7 @@ class BoostConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        ## We want DSOs in lib64
+        # ASWF: We want DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     @property
@@ -815,20 +819,24 @@ class BoostConan(ConanFile):
 
     def requirements(self):
         if self._with_zlib:
-            self.requires(f"zlib/[>=1.2.11 <2]@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}")
+            self.requires("zlib/[>=1.2.11 <2]")
         if self._with_bzip2:
-            self.requires(f"bzip2/1.0.8@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}")
+            self.requires("bzip2/1.0.8")
         if self._with_lzma:
             self.requires("xz_utils/[>=5.4.5 <6]")
         if self._with_zstd:
             self.requires("zstd/[>=1.5 <1.6]")
         if self._with_stacktrace_backtrace:
-            self.requires(f"libbacktrace/cci.20210118@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}", transitive_headers=True, transitive_libs=True)
+            self.requires("libbacktrace/cci.20210118", transitive_headers=True, transitive_libs=True)
 
         if self._with_icu:
             self.requires("icu/74.2")
         if self._with_iconv:
             self.requires("libiconv/1.17")
+
+        # ASWF: make sure to pick up our own Python
+        # For now that breaks dependency checking
+        # self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}", transitive_headers=True, transitive_libs=True)
 
     def package_id(self):
         del self.info.options.i18n_backend
@@ -845,7 +853,7 @@ class BoostConan(ConanFile):
 
     def build_requirements(self):
         if not self.options.header_only:
-            self.tool_requires(f"b2/[>=5.2 <6]@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}")
+            self.tool_requires("b2/[>=5.2 <6]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version],
@@ -1615,9 +1623,6 @@ class BoostConan(ConanFile):
         self.output.warning(contents)
         filename = f"{folder}/user-config.jam"
         save(self, filename, contents)
-        print(f"BABAR: {folder}/user-config.jam")
-        print(contents)
-        print("BABAR BABAR BABAR")
 
     @property
     def _toolset_version(self):
@@ -1722,7 +1727,7 @@ class BoostConan(ConanFile):
         # Boost Build doesn't create the libraries, but it gets close,
         # leaving .bc files where the libraries would be.
         staged_libs = os.path.join(
-            self.package_folder, "lib64"
+            self.package_folder, "lib64" # ASWF DSOs in lib64
         )
         if not os.path.exists(staged_libs):
             self.output.warning(f"Lib folder doesn't exist, can't collect libraries: {staged_libs}")
@@ -1739,7 +1744,7 @@ class BoostConan(ConanFile):
         return {
             "lzma": "xz_utils",
             "iconv": "libiconv",
-            "python": None,  # FIXME: change to cpython when it becomes available
+            "cpython": None,  # FIXME: change to cpython when it becomes available ASWF package now called cpython
         }.get(name, name)
 
     def package_info(self):

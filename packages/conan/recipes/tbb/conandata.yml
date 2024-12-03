@@ -1,13 +1,31 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/onetbb/2020.x/conandata.yml
+
 sources:
+  "2020_u3.3":
+    url: "https://github.com/oneapi-src/oneTBB/archive/v2020.3.3.tar.gz"
+    sha256: "494ac15f60e91d95ed7aec04f4e1d389b8a55bffc581d0fe9116b99336401963"
+  "2020_u3":
+    url: "https://github.com/oneapi-src/oneTBB/archive/v2020.3.tar.gz"
+    sha256: "ebc4f6aa47972daed1f7bf71d100ae5bf6931c2e3144cf299c8cc7d041dca2f3"
+  "2020_u2":
+    url: "https://github.com/oneapi-src/oneTBB/archive/v2020.2.tar.gz"
+    sha256: "4804320e1e6cbe3a5421997b52199e3c1a3829b2ecb6489641da4b8e32faf500"
+  "2020_u1":
+    url: "https://github.com/oneapi-src/oneTBB/archive/v2020.1.tar.gz"
+    sha256: "7c96a150ed22bc3c6628bc3fef9ed475c00887b26d37bca61518d76a56510971"
+  "2020":
+    url: "https://github.com/oneapi-src/oneTBB/archive/v2020.0.tar.gz"
+    sha256: "57714f2d2cf33935db33cee93af57eb3ecd5a7bef40c1fb7ca4a41d79684b118"
+  "2019_u9":
+    url: "https://github.com/oneapi-src/oneTBB/archive/2019_U9.tar.gz"
+    sha256: "3f5ea81b9caa195f1967a599036b473b2e7c347117330cda99b79cfcf5b77c84"
+  "2019_u6":
+    url: "https://github.com/oneapi-src/oneTBB/archive/2019_U6.tar.gz"
+    sha256: "21cd496ac768560e70d35e5423878aa3bcf0285f7194be77935d8febf0b18f47"
   "2018":
     url: "https://github.com/oneapi-src/oneTBB/archive/2018.tar.gz"
     sha256: "d427c58a59863c5f9510fffb3d05cd1bcc7abb94cdde1613407559e88b1263ab"
-  "2019_U6":
-    url: "https://github.com/oneapi-src/oneTBB/archive/2019_U6.tar.gz"
-    sha256: "21cd496ac768560e70d35e5423878aa3bcf0285f7194be77935d8febf0b18f47"
-  "2020_U2":
-    url: "https://github.com/oneapi-src/oneTBB/archive/2020_U2.tar.gz"
-    sha256: "99dcf20cd593f821dd97a9bccc1ea8e9d6155ad45a0e1186839b8d4e98834d59"
-  "2020_U3":
-    url: "https://github.com/oneapi-src/oneTBB/archive/2020_U3.tar.gz"
-    sha256: "2103cc6238c935664f87680618f6684d57501d4a2fa8ea8f6c97ad6ff7dc722a"

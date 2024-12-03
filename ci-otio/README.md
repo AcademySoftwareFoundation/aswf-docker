@@ -21,6 +21,7 @@ Warning: this image does *not* contain OpenTimelineIO itself as it is used to *b
 ## [aswf/ci-otio:2019.3](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2019.3)
 
 Contains:
+* cpython-2.7.15
 * cmake-3.12.4
 * qt-5.12.6
 * pyside-5.12.6
@@ -30,6 +31,7 @@ Contains:
 ## [aswf/ci-otio:2020.3](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2020.3)
 
 Contains:
+* cpython-3.7.3
 * cmake-3.18.4
 * qt-5.12.6
 * pyside-5.12.6
@@ -39,6 +41,7 @@ Contains:
 ## [aswf/ci-otio:2021.5](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2021.5)
 
 Contains:
+* cpython-3.7.9
 * cmake-3.19.3
 * qt-5.15.2
 * pyside-5.15.2
@@ -48,6 +51,7 @@ Contains:
 ## [aswf/ci-otio:2022.3](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2022.3)
 
 Contains:
+* cpython-3.9.15
 * cmake-3.22.0
 * qt-5.15.2
 * pyside-5.15.2
@@ -57,6 +61,7 @@ Contains:
 ## [aswf/ci-otio:2023.2](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2023.2)
 
 Contains:
+* cpython-3.10.11
 * cmake-3.27.2
 * qt-5.15.9
 * pyside-5.15.9
@@ -66,6 +71,7 @@ Contains:
 ## [aswf/ci-otio:2024.2](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2024.2)
 
 Contains:
+* cpython-3.11.10
 * cmake-3.27.9
 * expat-2.6.4
 * qt-6.5.3
@@ -76,7 +82,8 @@ Contains:
 ## [aswf/ci-otio:2025.0](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2025.0)
 
 Contains:
-* cmake-3.30.5
+* cpython-3.11.10
+* cmake-3.31.1
 * expat-2.6.4
 * qt-6.5.3
 * pyside-6.5.3

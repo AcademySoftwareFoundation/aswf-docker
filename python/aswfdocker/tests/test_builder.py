@@ -260,7 +260,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_PYTHON_MAJOR_MINOR_VERSION": "3.7",
                             "ASWF_QT_VERSION": "5.12.6",
                             "ASWF_SONAR_VERSION": "4.6.2.2472",
-                            "ASWF_TBB_VERSION": "2019_U6",
+                            "ASWF_TBB_VERSION": "2019_u6",
                             "ASWF_USD_VERSION": "20.11",
                             "ASWF_VERSION": base_versions[1],
                             "ASWF_VFXPLATFORM_VERSION": "2020",

@@ -21,6 +21,7 @@ Warning: this image does *not* contain OpenEXR itself as it is used to *build* O
 ## [aswf/ci-openexr:2019.8](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2019.8)
 
 Contains:
+* cpython-2.7.15
 * cmake-3.12.4
 * pybind11-2.4.3
 * numpy-1.14
@@ -29,6 +30,7 @@ Contains:
 ## [aswf/ci-openexr:2020.8](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2020.8)
 
 Contains:
+* cpython-3.7.3
 * cmake-3.18.4
 * pybind11-2.4.3
 * numpy-1.16
@@ -37,6 +39,7 @@ Contains:
 ## [aswf/ci-openexr:2021.5](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2021.5)
 
 Contains:
+* cpython-3.7.9
 * cmake-3.19.3
 * pybind11-2.6.2
 * numpy-1.19
@@ -45,6 +48,7 @@ Contains:
 ## [aswf/ci-openexr:2022.3](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2022.3)
 
 Contains:
+* cpython-3.9.15
 * cmake-3.22.0
 * pybind11-2.8.1
 * numpy-1.20
@@ -53,6 +57,7 @@ Contains:
 ## [aswf/ci-openexr:2023.2](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2023.2)
 
 Contains:
+* cpython-3.10.11
 * cmake-3.27.2
 * pybind11-2.9.2
 * numpy-1.23.5
@@ -61,6 +66,7 @@ Contains:
 ## [aswf/ci-openexr:2024.2](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2024.2)
 
 Contains:
+* cpython-3.11.10
 * cmake-3.27.9
 * pybind11-2.12.0
 * numpy-1.24.3
@@ -69,7 +75,8 @@ Contains:
 ## [aswf/ci-openexr:2025.0](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2025.0)
 
 Contains:
-* cmake-3.30.5
+* cpython-3.11.10
+* cmake-3.31.1
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025

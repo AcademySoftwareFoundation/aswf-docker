@@ -12,7 +12,7 @@ if [ -n "${ASWF_CLANG_VERSION}" ]; then
   CLANG_DOWNLOAD_SUFFIX="_${ASWF_CLANG_VERSION}"
 fi
 
-curl -C - --location "https://www.python.org/ftp/python/${ASWF_PYTHON_VERSION}/Python-${ASWF_PYTHON_VERSION}.tgz" -o "$DOWNLOADS_DIR/Python-${ASWF_PYTHON_VERSION}${CLANG_DOWNLOAD_SUFFIX}.tgz"
+curl -C - --location "https://www.python.org/ftp/python/${ASWF_CPYTHON_VERSION}/Python-${ASWF_CPYTHON_VERSION}.tgz" -o "$DOWNLOADS_DIR/Python-${ASWF_CPYTHON_VERSION}${CLANG_DOWNLOAD_SUFFIX}.tgz"
 
 
 mkdir -p "${ASWF_INSTALL_PREFIX}/bin"
@@ -40,8 +40,8 @@ exec "${ASWF_INSTALL_PREFIX}/bin/run-with-system-python" /usr/bin/yum "\$@"
 EOF
 chmod a+x "${ASWF_INSTALL_PREFIX}/bin/yum"
 
-tar xf "$DOWNLOADS_DIR/Python-${ASWF_PYTHON_VERSION}${CLANG_DOWNLOAD_SUFFIX}.tgz"
-cd "Python-${ASWF_PYTHON_VERSION}"
+tar xf "$DOWNLOADS_DIR/Python-${ASWF_CPYTHON_VERSION}${CLANG_DOWNLOAD_SUFFIX}.tgz"
+cd "Python-${ASWF_CPYTHON_VERSION}"
 
 # Ensure configure, build and install is done with no reference to ${ASWF_INSTALL_PREFIX} as this somehow messes up the system install
 run-with-system-python ./configure \
@@ -52,7 +52,7 @@ run-with-system-python make -j$(nproc)
 
 run-with-system-python make install
 
-if [[ $ASWF_PYTHON_VERSION == 3* ]]; then
+if [[ $ASWF_CPYTHON_VERSION == 3* ]]; then
     # Create symlink from python3 to python
     ln -s python3 "${ASWF_INSTALL_PREFIX}/bin/python"
     export PIP=pip3
@@ -63,7 +63,7 @@ fi
 cd ../..
 rm -rf python
 
-if [[ $ASWF_PYTHON_VERSION == 3* ]]; then
+if [[ $ASWF_CPYTHON_VERSION == 3* ]]; then
     curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 else
     curl "https://bootstrap.pypa.io/pip/2.7/get-pip.py" -o "get-pip.py"
