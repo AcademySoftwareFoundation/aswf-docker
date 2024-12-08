@@ -32,7 +32,7 @@ class ImathConan(ConanFile):
         "fPIC": [True, False],
     }
     default_options = {
-        "shared": True, # ASWF: build shared libraries
+        "shared": False,
         "fPIC": True,
     }
 
@@ -49,7 +49,7 @@ class ImathConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: We want DSOs in lib64
+        # ASWF: DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def validate(self):
@@ -60,11 +60,10 @@ class ImathConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def requirements(self):
+        # ASWF: explicit requirements
         self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
         self.requires(f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}")
-
-    def build_requirements(self):
-        self.build_requires(f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"pybind11/{os.environ['ASWF_PYBIND11_VERSION']}@{self.user}/{self.channel}")
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -72,8 +71,9 @@ class ImathConan(ConanFile):
             # when msvc is working with a C++ standard level higher
             # than the default, we need the __cplusplus macro to be correct
             tc.variables["CMAKE_CXX_FLAGS"] = "/Zc:__cplusplus"
-        # ASWF: Build Python bindings
+        # ASWF: Build Python and Pybind11 bindings
         tc.variables["PYTHON"] = "ON"
+        tc.variables["PYBIND11"] = "ON"
         # ASWF: FIXME: Python_ROOT and Boost_ROOT required to find Conan-installed packages?
         # tc.cache_variables["Python_ROOT"] = self.deps_cpp_info["python"].rootpath
         # tc.cache_variables["Boost_ROOT"] = self.deps_cpp_info["boost"].rootpath
@@ -82,9 +82,6 @@ class ImathConan(ConanFile):
     def build(self):
         apply_conandata_patches(self)
 
-        # ASWF FIXME: still need this?
-        #env_build = RunEnvironment(self)
-        #with tools.environment_append(env_build.vars):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
@@ -127,10 +124,3 @@ class ImathConan(ConanFile):
         imath_lib.names["cmake_find_package"] = "Imath"
         imath_lib.names["cmake_find_package_multi"] = "Imath"
         imath_lib.names["pkg_config"] = "Imath"
-
-        # FIXME ASWF: is this block still needed?
-        # self.cpp_info.requires.append("cpython::PythonLibs")
-        # self.cpp_info.requires.append("boost::python")
-        #pymajorminor = self.deps_user_info["python"].python_interp
-        #self.env_info.PYTHONPATH.append(os.path.join(self.package_folder, "lib64", pymajorminor, "site-packages"))
-        # self.env_info.CMAKE_PREFIX_PATH.append(os.path.join(self.package_folder, "lib64", "cmake"))

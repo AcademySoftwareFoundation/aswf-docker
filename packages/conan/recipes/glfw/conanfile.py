@@ -37,7 +37,7 @@ class GlfwConan(ConanFile):
         "with_wayland": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": False,
         "fPIC": True,
         "vulkan_static": False,
         "with_x11": True,
@@ -70,7 +70,7 @@ class GlfwConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # We want DSOs in lib64
+        # ASWF: DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):

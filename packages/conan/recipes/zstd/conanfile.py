@@ -29,7 +29,7 @@ class ZstdConan(ConanFile):
         "build_programs": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": False,
         "fPIC": True,
         "threading": True,
         "build_programs": True,
@@ -88,7 +88,8 @@ class ZstdConan(ConanFile):
             # If we build programs we have to build static libs (see logic in generate()),
             # but if shared is True, we only want shared lib in package folder.
             rm(self, "*_static.*", os.path.join(self.package_folder, "lib64"))
-            for lib in glob.glob(os.path.join(self.package_folder, "lib", "*.a")):
+            # ASWF: also clean up static libs in lib64
+            for lib in glob.glob(os.path.join(self.package_folder, "lib64", "*.a")):
                 if not lib.endswith(".dll.a"):
                     os.remove(lib)
 

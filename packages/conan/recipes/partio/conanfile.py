@@ -4,14 +4,7 @@
 
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import (
-    apply_conandata_patches,
-    collect_libs,
-    copy,
-    export_conandata_patches,
-    get,
-    rmdir,
-)
+from conan.tools.files import apply_conandata_patches, collect_libs, copy, export_conandata_patches, get, rmdir
 from conan.tools.microsoft import is_msvc
 import os
 
@@ -36,7 +29,7 @@ class PartioConan(ConanFile):
         "fPIC": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": False,
         "fPIC": True,
     }
 
@@ -45,24 +38,19 @@ class PartioConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # We want DSOs in lib64
+        # ASWF: DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
-        self.requires(
-            f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}"
-        )
-
-    def build_requirements(self):
-        self.build_requires(
-            f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
+        self.requires("zlib/[>=1.2.11 <2]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
         tc = CMakeToolchain(self)
+        tc.variables["CMAKE_INSTALL_LIBDIR"] = "lib64" # ASWF: DSOs in lib64
         tc.generate()
 
         deps = CMakeDeps(self)
@@ -75,15 +63,10 @@ class PartioConan(ConanFile):
         self._patch_sources()
         cmake = CMake(self)
         cmake.configure()
-        cmake.build()
+        cmake.build(cli_args=["--verbose"]) # ASWF FIXME
 
     def package(self):
-        copy(
-            self,
-            "LICENSE",
-            src=self.source_folder,
-            dst=os.path.join(self.package_folder, "licenses", self.name),
-        )
+        copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
@@ -92,3 +75,4 @@ class PartioConan(ConanFile):
         self.cpp_info.set_property("cmake_target_name", "Partio::Partio")
         self.cpp_info.includedirs = ["include"]
         self.cpp_info.libs = collect_libs(self)
+        self.cpp_info.requires = ["zlib::zlib", "cpython::cpython"]

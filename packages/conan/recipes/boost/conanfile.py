@@ -119,7 +119,7 @@ class BoostConan(ConanFile):
     options.update({f"without_{_name}": [True, False] for _name in CONFIGURE_OPTIONS})
 
     default_options = {
-        "shared": True, # ASWF: we want shared libs
+        "shared": False,
         "fPIC": True,
         "header_only": False,
         "error_code_header_only": False,
@@ -835,8 +835,8 @@ class BoostConan(ConanFile):
             self.requires("libiconv/1.17")
 
         # ASWF: make sure to pick up our own Python
-        # For now that breaks dependency checking
-        # self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}", transitive_headers=True, transitive_libs=True)
+        if not self.options.without_python:
+          self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}", transitive_headers=True, transitive_libs=True)
 
     def package_id(self):
         del self.info.options.i18n_backend
@@ -2055,7 +2055,8 @@ class BoostConan(ConanFile):
 
             if not self.options.without_python:
                 pyversion = Version(self._python_version)
-                self.cpp_info.components[f"python{pyversion.major}{pyversion.minor}"].requires = ["python"]
+                # ASWF: Python package is called cpython
+                self.cpp_info.components[f"python{pyversion.major}{pyversion.minor}"].requires = ["cpython::cpython"]
                 if not self._shared:
                     self.cpp_info.components["python"].defines.append("BOOST_PYTHON_STATIC_LIB")
 

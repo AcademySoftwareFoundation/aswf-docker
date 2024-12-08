@@ -37,7 +37,7 @@ class Log4cplusConan(ConanFile):
         "thread_pool": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": False,
         "fPIC": True,
         "single_threaded": False,
         "build_logging_server": False,

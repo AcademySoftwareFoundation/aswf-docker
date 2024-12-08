@@ -30,7 +30,7 @@ class OpenEXRConan(ConanFile):
         "fPIC": [True, False],
     }
     default_options = {
-        "shared": True, # ASWF: build shared libraries
+        "shared": False,
         "fPIC": True,
     }
 
@@ -65,20 +65,17 @@ class OpenEXRConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: We want DSOs in lib64
+        # ASWF: DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires("zlib/[>=1.2.11 <2]")
         # Note: OpenEXR and Imath are versioned independently.
-        self.requires(f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}", transitive_headers=True)
         if self._with_libdeflate:
             self.requires("libdeflate/1.19")
+        # ASWF: add explicit dependencies on cpython
         self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
-        self.requires(f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}")
-
-    def build_requirements(self):
-        self.build_requires(f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}")
 
     def validate(self):
         if self.settings.compiler.get_safe("cppstd"):
@@ -93,7 +90,8 @@ class OpenEXRConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["OPENEXR_BUILD_PYTHON_LIBS"] = "ON"
+        # ASWF FIXME: does not work for now
+        # tc.variables["OPENEXR_BUILD_PYTHON"] = True # ASWF Build Python bindings
         tc.variables["OPENEXR_INSTALL_EXAMPLES"] = False
         tc.variables["BUILD_TESTING"] = False
         tc.variables["BUILD_WEBSITE"] = False
@@ -110,6 +108,10 @@ class OpenEXRConan(ConanFile):
             replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"),
                             "add_subdirectory(website/src)",
                             "#  add_subdirectory(website/src)")
+            # ASWF FIXME: pybind11
+            # replace_in_file(self, os.path.join(self.source_folder, "src", "wrappers", "python", "CMakeLists.txt"),
+            #                 "find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)",
+            #                 "find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)")
 
     def build(self):
         self._patch_sources()
@@ -210,10 +212,9 @@ class OpenEXRConan(ConanFile):
         # Add tools directory to PATH
         self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
 
-        # ASWF FIXME: do we still need this?
-        # self.cpp_info.requires.append("python::PythonLibs")
-        # self.cpp_info.requires.append("boost::python")
-        #
+        # ASWF: add explicit dependencies to cpython
+        self.cpp_info.requires.append("cpython::python")
+        # ASWF: FIXME do we still need this?
         # pymajorminor = self.deps_user_info["python"].python_interp
         # self.env_info.PYTHONPATH.append(os.path.join(self.package_folder, "lib64", pymajorminor, "site-packages"))
         # self.env_info.CMAKE_PREFIX_PATH.append(os.path.join(self.package_folder, "lib64", "cmake"))

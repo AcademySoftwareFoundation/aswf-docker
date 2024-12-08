@@ -29,7 +29,7 @@ class Bzip2Conan(ConanFile):
         "build_executable": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": False,
         "fPIC": True,
         "build_executable": True,
     }
@@ -72,6 +72,7 @@ class Bzip2Conan(ConanFile):
         cmake.build()
 
     def package(self):
+        # ASWF: license files in package subdirs
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
@@ -98,6 +99,7 @@ class Bzip2Conan(ConanFile):
 
     @property
     def _module_file_rel_path(self):
+        # ASWF: cmake modules in lib64
         return os.path.join("lib64", "cmake", f"conan-official-{self.name}-variables.cmake")
 
     def package_info(self):

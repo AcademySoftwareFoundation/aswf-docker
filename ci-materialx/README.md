@@ -50,7 +50,7 @@ Contains:
 Contains:
 * cpython-3.11.10
 * pybind11-2.13.6
-* cmake-3.31.1
+* cmake-3.31.2
 * numpy-1.26.4
 * vfxplatform-2025
 

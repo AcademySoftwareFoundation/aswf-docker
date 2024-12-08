@@ -31,7 +31,7 @@ class SnappyConan(ConanFile):
         "with_ssse3": [True, False, "auto"],
     }
     default_options = {
-        "shared": True, # ASWF: build as shared libs
+        "shared": False,
         "fPIC": True,
         "with_bmi2": "auto",
         "with_ssse3": "auto",

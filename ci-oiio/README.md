@@ -48,7 +48,7 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* cmake-3.31.1
+* cmake-3.31.2
 * expat-2.6.4
 * cpython-3.11.10
 * imath-3.1.12

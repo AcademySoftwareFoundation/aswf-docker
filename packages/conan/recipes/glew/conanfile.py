@@ -16,7 +16,7 @@ required_conan_version = ">=1.53.0"
 class GlewConan(ConanFile):
     name = "glew"
     description = "The GLEW library"
-    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
+    url = "https://github.com/conan-io/conan-center-index"
     homepage = "http://github.com/nigels-com/glew"
     topics = ("glew", "opengl", "wrangler", "loader", "binding")
     license = "MIT"
@@ -28,7 +28,7 @@ class GlewConan(ConanFile):
         "with_egl": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": False,
         "fPIC": True,
         "with_egl": False,
     }
@@ -49,7 +49,7 @@ class GlewConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # We want DSOs in lib64
+        # ASWF: DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
@@ -78,12 +78,14 @@ class GlewConan(ConanFile):
         cmake.build()
 
     def package(self):
+        # ASWF: licenses in package subdirs
         copy(self, "LICENSE.txt", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
 
+        # ASWF: libraries and cmake modules in lib64 
         rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # Keep CMake files to package can be consumed outside Conan
+        # ASWF: Keep CMake files to package can be consumed outside Conan
         # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
         rm(self, "*.pdb", os.path.join(self.package_folder, "lib64"))
 
@@ -108,6 +110,7 @@ class GlewConan(ConanFile):
         if self.settings.os == "Windows" and not self.options.shared:
             self.cpp_info.components["glewlib"].defines.append("GLEW_STATIC")
         self.cpp_info.components["glewlib"].requires = ["opengl::opengl"]
+
         if is_apple_os(self) or self.settings.os == "Windows":
            self.cpp_info.components["glewlib"].requires.append("glu::glu")
         else:

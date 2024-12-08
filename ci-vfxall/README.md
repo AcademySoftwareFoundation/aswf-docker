@@ -522,10 +522,10 @@ Contains:
 * glfw-3.4
 * qt-6.5.3
 * pyside-6.5.3
-* cmake-3.31.1
+* cmake-3.31.2
 * imath-3.1.12
 * openexr-3.3.2
-* alembic-1.8.7
+* alembic-1.8.8
 * oiio-3.0.1.0
 * ocio-2.4.0
 * pybind11-2.13.6
@@ -535,7 +535,7 @@ Contains:
 * materialx-1.39.1
 * usd-24.08
 * partio-1.17.3
-* osl-1.13.11.0
+* osl-1.13.12.0
 * otio-0.17.0
 * numpy-1.26.4
 * hdf5-1.8.23
@@ -560,10 +560,10 @@ Contains:
 * glfw-3.4
 * qt-6.5.3
 * pyside-6.5.3
-* cmake-3.31.1
+* cmake-3.31.2
 * imath-3.1.12
 * openexr-3.3.2
-* alembic-1.8.7
+* alembic-1.8.8
 * oiio-3.0.1.0
 * ocio-2.4.0
 * pybind11-2.13.6
@@ -573,7 +573,7 @@ Contains:
 * materialx-1.39.1
 * usd-24.08
 * partio-1.17.3
-* osl-1.13.11.0
+* osl-1.13.12.0
 * otio-0.17.0
 * numpy-1.26.4
 * hdf5-1.8.23

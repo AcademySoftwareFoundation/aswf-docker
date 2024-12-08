@@ -33,7 +33,7 @@ class CbloscConan(ConanFile):
         "with_zstd": [True, False],
     }
     default_options = {
-        "shared": True, # ASWF: build as shared libs
+        "shared": False,
         "fPIC": True,
         "simd_intrinsics": "sse2",
         "with_lz4": True,
