@@ -83,7 +83,7 @@ Contains:
 
 Contains:
 * cpython-3.11.10
-* cmake-3.31.1
+* cmake-3.31.2
 * expat-2.6.4
 * qt-6.5.3
 * pyside-6.5.3

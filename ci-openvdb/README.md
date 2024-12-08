@@ -295,7 +295,7 @@ Contains:
 * blosc-1.21.6
 * libbacktrace-cci.20210118
 * boost-1.85.0
-* cmake-3.31.1
+* cmake-3.31.2
 * expat-2.6.4
 * gtest-1.15.2
 * cppunit-1.15.1
@@ -318,7 +318,7 @@ Contains:
 * blosc-1.21.6
 * libbacktrace-cci.20210118
 * boost-1.85.0
-* cmake-3.31.1
+* cmake-3.31.2
 * expat-2.6.4
 * gtest-1.15.2
 * cppunit-1.15.1

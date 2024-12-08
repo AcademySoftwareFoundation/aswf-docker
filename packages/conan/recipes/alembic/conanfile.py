@@ -30,7 +30,7 @@ class AlembicConan(ConanFile):
         "with_hdf5": [True, False],
     }
     default_options = {
-        "shared": True, # ASWF: build shared libs
+        "shared": False,
         "fPIC": True,
         "with_hdf5": False,
     }
@@ -48,19 +48,16 @@ class AlembicConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: We want DSOs in lib64
+        # ASWF: DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
         self.requires(f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}")
-        self.requires(f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}", transitive_headers = True, transitive_libs = True)
         self.requires(f"openexr/{os.environ['ASWF_OPENEXR_VERSION']}@{self.user}/{self.channel}")
         if self.options.with_hdf5:
             self.requires("hdf5/1.14.3")
-
-    def build_requirements(self):
-        self.build_requires(f"cmake/{os.environ['ASWF_CMAKE_VERSION']}@{self.user}/{self.channel}")
 
     def validate(self):
         if self.settings.compiler.get_safe("cppstd"):
@@ -105,29 +102,20 @@ class AlembicConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
 
     def package_info(self):
-        # ASWF help resolve dependencies
-        self.cpp_info.requires.append("python::PythonLibs")
-        self.cpp_info.requires.append("boost::python")
-        pymajorminor = self.deps_user_info["python"].python_interp
-        self.env_info.PYTHONPATH.append(
-            os.path.join(self.package_folder, "lib64", pymajorminor, "site-packages")
-        )
-
-        # self.cpp_info.libs = ["IlmImf", "IlmImfUtils"]
-        # if Version(self.version) >= "3":
-        self.cpp_info.requires.append("Imath::Imath")
-        # ASWF end block
-
         self.cpp_info.set_property("cmake_file_name", "Alembic")
         self.cpp_info.set_property("cmake_target_name", "Alembic::Alembic")
         self.cpp_info.libs = ["Alembic"]
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs.extend(["m", "pthread"])
 
+        # ASWF add explicit package requirements
+        self.cpp_info.requires.append("cpython::cpython")
+        self.cpp_info.requires.append("boost::boost")
+        self.cpp_info.requires.append("imath::imath")
+        self.cpp_info.requires.append("openexr::openexr")
+
         # TODO: to remove in conan v2 once cmake_find_package* generators removed
         self.cpp_info.names["cmake_find_package"] = "Alembic"
         self.cpp_info.names["cmake_find_package_multi"] = "Alembic"
 
-        self.env_info.CMAKE_PREFIX_PATH.append(
-            os.path.join(self.package_folder, "lib64", "cmake")
-        )
+

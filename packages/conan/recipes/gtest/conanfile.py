@@ -34,7 +34,7 @@ class GTestConan(ConanFile):
         "disable_pthreads": [True, False],
     }
     default_options = {
-        "shared": True, # ASWF: build as shared libs
+        "shared": False,
         "fPIC": True,
         "build_gmock": True,
         "no_main": False,

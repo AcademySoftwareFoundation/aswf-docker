@@ -363,7 +363,7 @@ Contains:
 * blosc-1.21.6
 * libbacktrace-cci.20210118
 * boost-1.85.0
-* cmake-3.31.1
+* cmake-3.31.2
 * expat-2.6.4
 * cpython-3.11.10
 * qt-6.5.3
@@ -388,7 +388,7 @@ Contains:
 * blosc-1.21.6
 * libbacktrace-cci.20210118
 * boost-1.85.0
-* cmake-3.31.1
+* cmake-3.31.2
 * expat-2.6.4
 * cpython-3.11.10
 * qt-6.5.3

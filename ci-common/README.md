@@ -171,7 +171,7 @@ Contains:
 * ccache-4.8.3
 * dts-11
 * sonar-5.0.1.3006
-* conan-2.9.2
+* conan-2.10.1
 
 ## [aswf/ci-common:4-clang17.2](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang17.2)
 
@@ -183,7 +183,7 @@ Contains:
 * ccache-4.8.3
 * dts-11
 * sonar-5.0.1.3006
-* conan-2.9.2
+* conan-2.10.1
 
 ## [aswf/ci-common:5-clang18.0](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang18.0)
 
@@ -195,7 +195,7 @@ Contains:
 * ccache-4.10.2
 * dts-11
 * sonar-6.2.1.4610
-* conan-2.9.2
+* conan-2.10.1
 
 ## [aswf/ci-common:5-clang19.0](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang19.0)
 
@@ -207,5 +207,5 @@ Contains:
 * ccache-4.10.2
 * dts-11
 * sonar-6.2.1.4610
-* conan-2.9.2
+* conan-2.10.1
 

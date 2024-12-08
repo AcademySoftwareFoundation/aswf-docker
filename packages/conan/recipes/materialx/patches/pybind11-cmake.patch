@@ -1,0 +1,10 @@
+--- a/source/PyMaterialX/CMakeLists.txt
++++ b/source/PyMaterialX/CMakeLists.txt
+@@ -9,6 +9,7 @@
+
+ # First look for a PyBind11 package via CMake.
+ if(MATERIALX_PYTHON_PYBIND11_DIR STREQUAL "")
++    find_package(Python3 COMPONENTS Interpreter Development)
+     find_package(pybind11 QUIET)
+     if(pybind11_FOUND)
+         include_directories(${PYBIND11_INCLUDE_DIR})

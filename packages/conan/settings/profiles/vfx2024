@@ -2,6 +2,8 @@ include(ci_common4)
 
 [settings]
 [options]
+# Build everything as shared libs by default
+*:shared=True
 [tool_requires]
 [replace_requires]
 bzip2/*: bzip2/1.0.8@aswftesting/vfx2024

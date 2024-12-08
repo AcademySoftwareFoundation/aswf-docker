@@ -31,7 +31,7 @@ Contains:
 ## [aswf/ci-openrv:2025.0](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2025.0)
 
 Contains:
-* cmake-3.31.1
+* cmake-3.31.2
 * cpython-3.11.10
 * expat-2.6.4
 * qt-6.5.3

@@ -31,7 +31,7 @@ class LibbacktraceConan(ConanFile):
         "fPIC": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": False,
         "fPIC": True,
     }
 
@@ -54,7 +54,7 @@ class LibbacktraceConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        ## We want DSOs in lib64
+        # ASWF: DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def validate(self):
@@ -102,9 +102,11 @@ class LibbacktraceConan(ConanFile):
         autotools.make()
 
     def package(self):
+        # ASWF: license files in package subdirs
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses",self.name))
         autotools = Autotools(self)
         autotools.install()
+        # ASWF: libraries and modules in lib64
         lib_folder = os.path.join(self.package_folder, "lib64")
         rm(self, "*.la", lib_folder)
         fix_apple_shared_install_name(self)

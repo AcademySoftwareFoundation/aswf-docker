@@ -31,7 +31,7 @@ class LibxcryptConan(ConanFile):
         "fPIC": [True, False],
     }
     default_options = {
-        "shared": True, # ASWF: : build as shared libs
+        "shared": False,
         "fPIC": True,
     }
 

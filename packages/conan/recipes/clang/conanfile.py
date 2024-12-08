@@ -100,7 +100,7 @@ class ClangConan(ConanFile):
         "with_z3": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": False,
         "fPIC": True,
         "components": "all",
         "targets": "host;NVPTX",

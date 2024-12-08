@@ -1,0 +1,35 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -206,7 +206,6 @@
+
+ # HDF5
+ IF (USE_HDF5)
+-    FIND_PACKAGE(ZLIB REQUIRED)
+     SET(ALEMBIC_WITH_HDF5 "1")
+     INCLUDE("./cmake/AlembicHDF5.cmake")
+     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DH5_USE_18_API")
+--- a/lib/Alembic/CMakeLists.txt
++++ b/lib/Alembic/CMakeLists.txt
+@@ -68,20 +68,18 @@
+
+   if (ALEMBIC_USING_IMATH_3)
+     if (APPLE OR UNIX)
+-      set_target_properties(Alembic PROPERTIES INSTALL_RPATH "$<TARGET_FILE_DIR:${ALEMBIC_ILMBASE_LIBS}>")
+     endif ()
+   endif ()
+ ENDIF()
+
+
+ TARGET_LINK_LIBRARIES(Alembic
+-    LINK_PUBLIC
++    PUBLIC
+     ${ALEMBIC_ILMBASE_LIBS}
+     ${CMAKE_THREAD_LIBS_INIT}
+     ${EXTERNAL_MATH_LIBS}
+-    LINK_PRIVATE
++    PRIVATE
+     ${HDF5_LIBRARIES}
+-    ${ZLIB_LIBRARY}
+   )
+
+ INSTALL(TARGETS Alembic

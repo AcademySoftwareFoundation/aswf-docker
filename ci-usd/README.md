@@ -192,7 +192,7 @@ Contains:
 * log4cplus-2.1.2
 * qt-6.5.3
 * pyside-6.5.3
-* cmake-3.31.1
+* cmake-3.31.2
 * imath-3.1.12
 * materialx-1.39.1
 * openexr-3.3.2
@@ -201,7 +201,7 @@ Contains:
 * pybind11-2.13.6
 * ptex-2.4.3
 * opensubdiv-3.6.0
-* alembic-1.8.7
+* alembic-1.8.8
 * openvdb-12.0.0
 * numpy-1.26.4
 * hdf5-1.8.23

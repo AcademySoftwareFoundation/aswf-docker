@@ -145,12 +145,12 @@ Contains:
 * expat-2.6.4
 * glew-2.2.0
 * glfw-3.4
-* cmake-3.31.1
+* cmake-3.31.2
 * imath-3.1.12
 * openexr-3.3.2
 * partio-1.17.3
 * openvdb-12.0.0
-* osl-1.13.11.0
+* osl-1.13.12.0
 * numpy-1.26.4
 * vfxplatform-2025
 
