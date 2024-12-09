@@ -152,7 +152,7 @@ versions:
       ASWF_CUDA_VERSION: "12.6.1"
       ASWF_GLVND_VERSION: "1.7.0"
       ASWF_CCACHE_VERSION: "4.8.3"
-      ASWF_NINJA_VERSION: "1.11.1"
+      ASWF_NINJA_VERSION: "1.12.1"
       ASWF_SONAR_VERSION: "5.0.1.3006"
       ASWF_BASEOS_DISTRO: "rockylinux8"
       ASWF_BASEOS_IMAGE: "nvidia/cuda"
@@ -517,6 +517,7 @@ versions:
       ASWF_TCL_VERSION: "wrapper"
       ASWF_TK_VERSION: "wrapper"
       ASWF_USD_VERSION: "24.08"
+      ASWF_XKBCOMMON_VERSION: "wrapper"
       ASWF_XZ_UTILS_VERSION: "wrapper"
       ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_ZSTD_VERSION: "1.5.6"
@@ -587,6 +588,7 @@ versions:
       ASWF_TCL_VERSION: "wrapper"
       ASWF_TK_VERSION: "wrapper"
       ASWF_USD_VERSION: "24.08"
+      ASWF_XKBCOMMON_VERSION: "wrapper"
       ASWF_XZ_UTILS_VERSION: "wrapper"
       ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_ZSTD_VERSION: "1.5.6"
@@ -886,6 +888,9 @@ ci-packages:
   util-linux-libuuid:
     - "2024.2"
     - "2025.0"
+  xkbcommon:
+    - "2024.2"
+    - "2025.0"
   xz_utils:
     - "2024.2"
     - "2025.0"
@@ -1071,6 +1076,7 @@ groups:
         - tcl
         - tk
         - util-linux-libuuid
+        - xkbcommon
         - xz_utils
         - zlib
         - zstd
@@ -1166,6 +1172,7 @@ conan_only:
   - tcl
   - tk
   - util-linux-libuuid
+  - xkbcommon
   - xz_utils
   - zlib
   - zstd
