@@ -9,9 +9,11 @@ class SystemSqlite3Conan(ConanFile):
     
     settings = "os", "arch", "compiler", "build_type"
     options = {
+        "enable_column_metadata": [True, False],
         "omit_load_extension": [True, False],
     }
     default_options = {
+        "enable_column_metadata": True,
         "omit_load_extension": False,
     }
    

@@ -11,6 +11,7 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     dnf -y install 'dnf-command(config-manager)'
     dnf config-manager --set-enabled powertools
     # libbluray-devel is in EPEL 9, we may no longer need devel repo then
+    # same for yasm-devel and libdc1393-devel
     dnf config-manager --set-enabled devel
     # Rocky 8 base image doesn't have a system Python (3), install and make default
     dnf -y install python3
@@ -253,6 +254,7 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     dnf -y install \
         git \
         wayland-devel \
+        wayland-protocols-devel \
         python3-importlib-metadata \
         brotli brotli-devel \
         double-conversion double-conversion-devel \

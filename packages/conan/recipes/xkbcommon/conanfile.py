@@ -3,22 +3,21 @@
 
 from conan import ConanFile
 
-class SystemOpenSSLConan(ConanFile):
-    name = "openssl"
+class SystemXkbcommonConan(ConanFile):
+    name = "xkbcommon"
     version = "wrapper"
     
     settings = "os", "arch", "compiler", "build_type"
     options = {
-        "shared": [True, False],
+        "with_x11": [True, False],
     }
     default_options = {
-        "shared": True,
+        "with_x11": True,
     }
    
     def package_info(self):
         self.cpp_info.includedirs = ["/usr/include"]
         self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["ssl", "crypto"]
         
-        self.cpp_info.set_property("cmake_file_name", "OpenSSL")
-        self.cpp_info.set_property("cmake_target_name", "OpenSSL::OpenSSL")
+        self.cpp_info.components["libxkbcommon"].libs = ["xkbcommon"]
+        self.cpp_info.components["libxkbcommon-x11"].libs = ["xkbcommon-x11"]

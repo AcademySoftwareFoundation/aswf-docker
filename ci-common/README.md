@@ -165,7 +165,7 @@ Contains:
 
 Contains:
 * clang-16.0.6
-* ninja-1.11.1
+* ninja-1.12.1
 * cuda-12.6.1
 * glvnd-1.7.0
 * ccache-4.8.3
@@ -177,7 +177,7 @@ Contains:
 
 Contains:
 * clang-17.0.6
-* ninja-1.11.1
+* ninja-1.12.1
 * cuda-12.6.1
 * glvnd-1.7.0
 * ccache-4.8.3
