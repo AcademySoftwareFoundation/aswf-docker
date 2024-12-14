@@ -59,17 +59,17 @@ jobs:
         sudo apt-get remove -y '^g\+\+.*'
         sudo apt-get remove -y '^clang.*'
         sudo apt-get remove -y '^gfortran.*'
-        sudo apt-get remove -y google-chrome-stable firefox powershell mono-devel monodoc-http
+        sudo apt-get remove -y '^dotnet-.*'
+        sudo apt-get remove -y '^libmono-.*' '^mono-.*' monodoc-http
+        sudo apt-get remove -y '^r-.*'
+        sudo apt-get remove -y firefox google-chrome-stable microsoft-edge-stable powershell \
+            imagemagic '^imagemagick-6.*' '^libmagickcore-.*' '^libmagickwand-.*'  kubectl mercurial mercurial-common subversion
         #sudo apt-get remove -y ant ant-optional apt-transport-https aria2 azure-cli \
-        #    imagemagick kubectl \
         #    libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev \
-        #    libmagickcore-dev libmagickwand-dev libmagic-dev \
         #    libpq-dev libssl-dev \
-        #    mercurial microsoft-edge-stable  \
         #    pollinate rpm ruby-full \
-        #    snmp shellcheck sphinxsearch subversion \
+        #    snmp shellcheck sphinxsearch \
         #    unixodbc-dev xorriso yarn zsync
-        sudo apt-get remove -y mercurial microsoft-edge-stable
         sudo apt-get autoremove -y
         sudo apt-get clean
         sudo rm -rf \
@@ -82,8 +82,8 @@ jobs:
             /usr/lib/jvm || true
         sudo docker system prune -a
         df -h
-        du -ksh /opt/
-        du -ksh /usr/local/
+        du -ksh /opt/*
+        du -ksh /usr/local/*
         dpkg -l 
 
     - name: Build Ninja (Conan)
