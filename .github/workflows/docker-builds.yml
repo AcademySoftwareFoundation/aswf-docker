@@ -63,7 +63,7 @@ jobs:
         sudo apt-get remove -y '^libmono-.*' '^mono-.*' monodoc-http
         sudo apt-get remove -y '^r-.*'
         sudo apt-get remove -y firefox google-chrome-stable microsoft-edge-stable powershell \
-            imagemagic '^imagemagick-6.*' '^libmagickcore-.*' '^libmagickwand-.*'  kubectl mercurial mercurial-common subversion
+            imagemagick '^imagemagick-.*' '^libmagickcore-.*' '^libmagickwand-.*'  kubectl mercurial mercurial-common subversion
         #sudo apt-get remove -y ant ant-optional apt-transport-https aria2 azure-cli \
         #    libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev \
         #    libpq-dev libssl-dev \
