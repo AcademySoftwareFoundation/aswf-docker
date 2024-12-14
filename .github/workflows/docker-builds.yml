@@ -51,8 +51,8 @@ jobs:
       run: pipenv install
 
     - name: Free up disk space
-      df -h
       run: |
+        df -h
         sudo apt-get remove -y '^llvm-.*'
         sudo apt-get remove -y 'php.*'
         sudo apt-get remove -y '^cpp.*'
