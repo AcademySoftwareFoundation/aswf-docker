@@ -53,17 +53,9 @@ jobs:
     - name: Free up disk space
       run: |
         df -h
-        sudo apt-get remove -y '^llvm-.*'
-        sudo apt-get remove -y 'php.*'
-        sudo apt-get remove -y '^cpp.*'
-        sudo apt-get remove -y '^g\+\+.*'
-        sudo apt-get remove -y '^clang.*'
-        sudo apt-get remove -y '^gfortran.*'
-        sudo apt-get remove -y '^dotnet-.*'
-        sudo apt-get remove -y '^libmono-.*' '^mono-.*' monodoc-http
-        sudo apt-get remove -y '^r-.*'
-        sudo apt-get remove -y '^ruby.*'
-        sudo apt-get remove -y ant ant-optional aria2 azure-cli firefox google-chrome-stable microsoft-edge-stable powershell \
+        sudo apt-get remove -y '^llvm-.*' 'php.*' '^cpp.*' '^g\+\+.*' '^clang.*' '^gfortran.*' \
+            '^dotnet-.*' '^libmono-.*' '^mono-.*' monodoc-http '^r-.*' '^ruby.*' \
+            ant ant-optional aria2 azure-cli firefox google-chrome-stable microsoft-edge-stable powershell \
             imagemagick '^imagemagick-.*' '^libmagickcore-.*' '^libmagickwand-.*'  kubectl mercurial mercurial-common subversion
         sudo apt-get autoremove -y
         sudo apt-get clean
@@ -80,9 +72,6 @@ jobs:
             /usr/lib/jvm || true
         sudo docker system prune -a
         df -h
-        du -ksh /opt/*
-        du -ksh /usr/local/*
-        du -ksh /opt/hostedtoolcache/*
         dpkg -l 
 
     - name: Build Ninja (Conan)
