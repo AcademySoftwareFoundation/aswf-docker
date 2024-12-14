@@ -62,14 +62,9 @@ jobs:
         sudo apt-get remove -y '^dotnet-.*'
         sudo apt-get remove -y '^libmono-.*' '^mono-.*' monodoc-http
         sudo apt-get remove -y '^r-.*'
-        sudo apt-get remove -y firefox google-chrome-stable microsoft-edge-stable powershell \
+        sudo apt-get remove -y '^ruby.*'
+        sudo apt-get remove -y ant ant-optional aria2 azure-cli firefox google-chrome-stable microsoft-edge-stable powershell \
             imagemagick '^imagemagick-.*' '^libmagickcore-.*' '^libmagickwand-.*'  kubectl mercurial mercurial-common subversion
-        #sudo apt-get remove -y ant ant-optional apt-transport-https aria2 azure-cli \
-        #    libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev \
-        #    libpq-dev libssl-dev \
-        #    pollinate rpm ruby-full \
-        #    snmp shellcheck sphinxsearch \
-        #    unixodbc-dev xorriso yarn zsync
         sudo apt-get autoremove -y
         sudo apt-get clean
         sudo rm -rf \
@@ -79,11 +74,15 @@ jobs:
             /usr/local/share/powershell \
             /usr/share/swift \
             /usr/local/.ghcup \
+            /usr/local/aws-cli \
+            /usr/local/aws-sam-cli \
+            /usr/local/julia* \
             /usr/lib/jvm || true
         sudo docker system prune -a
         df -h
         du -ksh /opt/*
         du -ksh /usr/local/*
+        du -ksh /opt/hostedtoolcache/*
         dpkg -l 
 
     - name: Build Ninja (Conan)
