@@ -197,7 +197,7 @@ Contains:
 * materialx-1.39.1
 * openexr-3.3.2
 * oiio-3.0.1.0
-* ocio-2.4.0
+* ocio-2.4.1
 * pybind11-2.13.6
 * ptex-2.4.3
 * opensubdiv-3.6.0

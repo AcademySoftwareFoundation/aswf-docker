@@ -527,7 +527,7 @@ Contains:
 * openexr-3.3.2
 * alembic-1.8.8
 * oiio-3.0.1.0
-* ocio-2.4.0
+* ocio-2.4.1
 * pybind11-2.13.6
 * opensubdiv-3.6.0
 * ptex-2.4.3
@@ -565,7 +565,7 @@ Contains:
 * openexr-3.3.2
 * alembic-1.8.8
 * oiio-3.0.1.0
-* ocio-2.4.0
+* ocio-2.4.1
 * pybind11-2.13.6
 * opensubdiv-3.6.0
 * ptex-2.4.3
