@@ -370,7 +370,7 @@ Contains:
 * imath-3.1.12
 * openexr-3.3.2
 * oiio-3.0.1.0
-* ocio-2.4.0
+* ocio-2.4.1
 * partio-1.17.3
 * ptex-2.4.3
 * tbb-2020_u3
@@ -395,7 +395,7 @@ Contains:
 * imath-3.1.12
 * openexr-3.3.2
 * oiio-3.0.1.0
-* ocio-2.4.0
+* ocio-2.4.1
 * partio-1.17.3
 * ptex-2.4.3
 * tbb-2020_u3

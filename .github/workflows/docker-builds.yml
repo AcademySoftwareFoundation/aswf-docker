@@ -37,6 +37,8 @@ jobs:
 
     - name: Activate Docker buildx
       uses: docker/setup-buildx-action@v3
+      with: 
+        driver-opts: env.BUILDKIT_STEP_LOG_MAX_SIZE=10485760
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -49,6 +51,7 @@ jobs:
       run: pipenv install
 
     - name: Free up disk space
+      df -h
       run: |
         sudo apt-get remove -y '^llvm-.*'
         sudo apt-get remove -y 'php.*'
@@ -79,6 +82,9 @@ jobs:
             /usr/lib/jvm || true
         sudo docker system prune -a
         df -h
+        du -ksh /opt/
+        du -ksh /usr/local/
+        dpkg -l 
 
     - name: Build Ninja (Conan)
       run: |

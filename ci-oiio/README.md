@@ -52,7 +52,7 @@ Contains:
 * expat-2.6.4
 * cpython-3.11.10
 * imath-3.1.12
-* ocio-2.4.0
+* ocio-2.4.1
 * openexr-3.3.2
 * openvdb-12.0.0
 * pybind11-2.13.6
