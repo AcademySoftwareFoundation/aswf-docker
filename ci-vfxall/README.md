@@ -435,7 +435,7 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
-* cpython-3.11.10
+* cpython-3.11.11
 * tbb-2020_u3
 * libbacktrace-cci.20210118
 * boost-1.82.0
@@ -473,7 +473,7 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
-* cpython-3.11.10
+* cpython-3.11.11
 * tbb-2020_u3
 * libbacktrace-cci.20210118
 * boost-1.82.0
@@ -511,7 +511,7 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* cpython-3.11.10
+* cpython-3.11.11
 * tbb-2020_u3
 * libbacktrace-cci.20210118
 * boost-1.85.0
@@ -549,7 +549,7 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* cpython-3.11.10
+* cpython-3.11.11
 * tbb-2020_u3
 * libbacktrace-cci.20210118
 * boost-1.85.0

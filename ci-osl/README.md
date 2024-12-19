@@ -315,7 +315,7 @@ Contains:
 * boost-1.82.0
 * cmake-3.27.9
 * expat-2.6.4
-* cpython-3.11.10
+* cpython-3.11.11
 * qt-6.5.3
 * imath-3.1.12
 * openexr-3.2.4
@@ -340,7 +340,7 @@ Contains:
 * boost-1.82.0
 * cmake-3.27.9
 * expat-2.6.4
-* cpython-3.11.10
+* cpython-3.11.11
 * qt-6.5.3
 * imath-3.1.12
 * openexr-3.2.4
@@ -365,7 +365,7 @@ Contains:
 * boost-1.85.0
 * cmake-3.31.2
 * expat-2.6.4
-* cpython-3.11.10
+* cpython-3.11.11
 * qt-6.5.3
 * imath-3.1.12
 * openexr-3.3.2
@@ -390,7 +390,7 @@ Contains:
 * boost-1.85.0
 * cmake-3.31.2
 * expat-2.6.4
-* cpython-3.11.10
+* cpython-3.11.11
 * qt-6.5.3
 * imath-3.1.12
 * openexr-3.3.2

@@ -149,6 +149,8 @@ yum install --setopt=tsflags=nodocs -y \
     ncurses-devel \
     nss \
     nss-devel \
+    openal-soft \
+    openal-soft-devel \
     openjpeg2-devel \
     openssl-devel \
     opus-devel \

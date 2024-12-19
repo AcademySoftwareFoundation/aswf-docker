@@ -71,7 +71,7 @@ Contains:
 ## [aswf/ci-otio:2024.2](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2024.2)
 
 Contains:
-* cpython-3.11.10
+* cpython-3.11.11
 * cmake-3.27.9
 * expat-2.6.4
 * qt-6.5.3
@@ -82,7 +82,7 @@ Contains:
 ## [aswf/ci-otio:2025.0](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2025.0)
 
 Contains:
-* cpython-3.11.10
+* cpython-3.11.11
 * cmake-3.31.2
 * expat-2.6.4
 * qt-6.5.3
