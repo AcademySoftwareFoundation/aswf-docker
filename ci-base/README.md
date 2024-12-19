@@ -120,7 +120,7 @@ Contains:
 * libbacktrace-cci.20210118
 * log4cplus-2.1.1
 * pybind11-2.12.0
-* cpython-3.11.10
+* cpython-3.11.11
 * tbb-2020_u3
 * numpy-1.24.3
 * vfxplatform-2024
@@ -143,7 +143,7 @@ Contains:
 * libbacktrace-cci.20210118
 * log4cplus-2.1.2
 * pybind11-2.13.6
-* cpython-3.11.10
+* cpython-3.11.11
 * tbb-2020_u3
 * numpy-1.26.4
 * vfxplatform-2025

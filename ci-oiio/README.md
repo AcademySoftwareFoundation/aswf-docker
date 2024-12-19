@@ -28,7 +28,7 @@ Contains:
 * blosc-1.21.5
 * cmake-3.27.9
 * expat-2.6.4
-* cpython-3.11.10
+* cpython-3.11.11
 * imath-3.1.12
 * ocio-2.3.2
 * openexr-3.2.4
@@ -50,7 +50,7 @@ Contains:
 * blosc-1.21.6
 * cmake-3.31.2
 * expat-2.6.4
-* cpython-3.11.10
+* cpython-3.11.11
 * imath-3.1.12
 * ocio-2.4.1
 * openexr-3.3.2

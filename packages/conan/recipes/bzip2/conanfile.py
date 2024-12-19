@@ -51,7 +51,7 @@ class Bzip2Conan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        ## We want DSOs in lib64
+        # ASWF: DSOs in lib64
         self.cpp.package.libdirs = ["lib64"]
 
     def source(self):

@@ -1,0 +1,62 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/openimageio/all/conandata.yml
+
+sources:
+  "3.0.1.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.1.0.tar.gz"
+    sha256: "7f84c2b9c13be74c4a187fefe3844b391374ba329aa63fbbca21fa232e43c87b"
+  "2.5.16.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.16.0.tar.gz"
+    sha256: "e5438e28d34a5b0a09428ed77ec310edd47c141db1b259364859110847e161e7"
+  "2.4.13.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.4.13.0.tar.gz"
+    sha256: "bb10a7ab6dff5dae2c6d854e9da38136546232235913237e8b1b3c99abb7dd0b"
+  "2.4.7.1":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.4.7.1.tar.gz"
+    sha256: "a3dc6fdb3693eb5f1e22191e41c05800a4944f3c76daffe90bd203f956180126"
+  "2.4.17.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.4.17.0.tar.gz"
+    sha256: "7fe81d8e5bce30cc4a212f020ac3cc4344e6b7c1c0842475e3a048515099c65c"
+  "2.5.14.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.14.0.tar.gz"
+    sha256: "0e74372c658f083820872311d126867f10d59b526a856672746de7b2c772034d"
+  "2.5.15.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.15.0.tar.gz"
+    sha256: "7779ef2c3d03c5ed95e13ff292de85c3f8cee301cd46baad0d2dc83c93bfe85c"
+  "2.5.16.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.16.0.tar.gz"
+    sha256: "e5438e28d34a5b0a09428ed77ec310edd47c141db1b259364859110847e161e7"
+  "2.5.17.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.17.0.tar.gz"
+    sha256: "9cf1b98762ce5aa5f3f7cd34672549034f5716da1eba26eb5173c18aa21e6583"
+patches:
+  "2.4.7.1":
+    - patch_file: "patches/2.4.7.1-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+    - patch_file: "patches/2.4.7.1-fix-msvc2017.patch"
+      patch_description: "Fix compile error with MSVC 2017"
+      patch_type: "official"
+  "2.4.17.0":
+    - patch_file: "patches/2.4.17.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+  "2.5.14.0":
+    - patch_file: "patches/2.5.14.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+  "2.5.15.0":
+    - patch_file: "patches/2.5.14.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+  "2.5.16.0":
+    - patch_file: "patches/2.5.14.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+  "2.5.17.0":
+    - patch_file: "patches/2.5.17.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"

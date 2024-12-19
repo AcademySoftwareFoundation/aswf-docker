@@ -22,7 +22,7 @@ class TestBuilder(unittest.TestCase):
             repo_uri="notauri", source_branch="testing", aswf_version="2019.123"
         )
 
-    def test_package_ocio_2019_dict(self):
+    def test_package_openvdb_2019_dict(self):
         b = builder.Builder(
             self.build_info,
             groupinfo.GroupInfo(
@@ -32,53 +32,59 @@ class TestBuilder(unittest.TestCase):
                 targets=[],
             ),
         )
-        ocio_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "ocio")
+        openvdb_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "openvdb")
         )[0]
         baked = b.make_bake_dict(False, False, False)
         self.assertEqual(
-            baked["target"]["ci-package-ocio-2019"]["tags"],
+            baked["target"]["ci-package-openvdb-2019"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:2019",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:{ocio_version}",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-ocio:2019-1.1.0",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-openvdb:2019",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-openvdb:{openvdb_version}",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-openvdb:2019-6.2.1",
             ],
         )
         self.assertEqual(
-            baked["target"]["ci-package-ocio-2019"]["args"]["ASWF_VERSION"],
-            ocio_version,
+            baked["target"]["ci-package-openvdb-2019"]["args"]["ASWF_VERSION"],
+            openvdb_version,
         )
         self.assertEqual(
-            baked["target"]["ci-package-ocio-2019"]["dockerfile"],
+            baked["target"]["ci-package-openvdb-2019"]["dockerfile"],
             "packages/vfx1/Dockerfile",
         )
 
-    def test_package_baseqt_2019_dict_conan(self):
+    def test_package_osl_2019_dict_conan(self):
         b = builder.Builder(
             self.build_info,
             groupinfo.GroupInfo(
-                names=["base2"],
+                names=["vfx2"],
                 versions=["2019"],
                 type_=constants.ImageType.PACKAGE,
                 targets=[],
             ),
-            use_conan=True,
         )
+        osl_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "osl")
+        )[0]
         baked = b.make_bake_dict(False, False, False)
-        self.assertIn("ASWF_QT_VERSION", baked["target"]["ci-package-qt-2019"]["args"])
+        self.assertIn(
+            "ASWF_OSL_VERSION", baked["target"]["ci-package-osl-2019"]["args"]
+        )
         self.assertEqual(
-            baked["target"]["ci-package-qt-2019"]["tags"],
+            baked["target"]["ci-package-osl-2019"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-baseos-gl-conan:2019.2",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-baseos-gl-conan:2019",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-osl:2019",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-osl:{osl_version}",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-osl:2019-1.10.9",
             ],
         )
         self.assertEqual(
-            baked["target"]["ci-package-qt-2019"]["args"]["ASWF_VERSION"], "2019.2"
+            baked["target"]["ci-package-osl-2019"]["args"]["ASWF_VERSION"],
+            osl_version,
         )
         self.assertEqual(
-            baked["target"]["ci-package-qt-2019"]["dockerfile"],
-            "packages/common/Dockerfile",
+            baked["target"]["ci-package-osl-2019"]["dockerfile"],
+            "packages/vfx2/Dockerfile",
         )
 
     def test_image_base_2019_dict(self):
@@ -367,7 +373,7 @@ class TestBuilderCli(unittest.TestCase):
                 "--version",
                 "2019",
                 "--target",
-                "ocio",
+                "openvdb",
                 "--dry-run",
             ],
         )
@@ -449,7 +455,7 @@ class TestBuilderCli(unittest.TestCase):
                 "--version",
                 "2020",
                 "--target",
-                "ocio",
+                "openvdb",
                 "--dry-run",
             ],
         )

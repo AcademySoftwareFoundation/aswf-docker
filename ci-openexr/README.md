@@ -66,7 +66,7 @@ Contains:
 ## [aswf/ci-openexr:2024.2](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2024.2)
 
 Contains:
-* cpython-3.11.10
+* cpython-3.11.11
 * cmake-3.27.9
 * pybind11-2.12.0
 * numpy-1.24.3
@@ -75,7 +75,7 @@ Contains:
 ## [aswf/ci-openexr:2025.0](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2025.0)
 
 Contains:
-* cpython-3.11.10
+* cpython-3.11.11
 * cmake-3.31.2
 * pybind11-2.13.6
 * numpy-1.26.4

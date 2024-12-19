@@ -101,7 +101,7 @@ class QtConan(ConanFile):
         "with_freetype": True,
         "with_fontconfig": True,
         "with_icu": True,
-        "with_harfbuzz": False,
+        "with_harfbuzz": False, # ASWF: we would need harfbuzz 2.0
         "with_libjpeg": "libjpeg",
         "with_libpng": True,
         "with_sqlite3": True,
@@ -376,37 +376,43 @@ class QtConan(ConanFile):
     def layout(self):
         cmake_layout(self, src_folder="src")
         # ASWF: DSOs in lib64
+        self.cpp.build.libdirs = ["lib64"]
         self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires("zlib/[>=1.2.11 <2]")
         # if self.options.openssl:
         #    self.requires("openssl/[>=1.1 <4]")
-        # if self.options.with_pcre2:
-        #    self.requires("pcre2/10.42")
-        # if self.options.get_safe("with_vulkan"):
-        #    self.requires("vulkan-loader/1.3.239.0")
-        #    if is_apple_os(self):
-        #      self.requires("moltenvk/1.2.2")
-        # if self.options.with_glib:
-        #    self.requires("glib/2.77.0")
-        # if self.options.with_doubleconversion and not self.options.multiconfiguration:
-        #    self.requires("double-conversion/3.3.0")
-        # if self.options.get_safe("with_freetype", False) and not self.options.multiconfiguration:
-        #    self.requires("freetype/2.13.0")
-        # if self.options.get_safe("with_fontconfig", False):
-        #    self.requires("fontconfig/2.14.2")
-        # if self.options.get_safe("with_icu", False):
-        #    self.requires("icu/73.2")
-        # if self.options.get_safe("with_harfbuzz", False) and not self.options.multiconfiguration:
-        #    self.requires("harfbuzz/8.2.1")
-        # if self.options.get_safe("with_libjpeg", False) and not self.options.multiconfiguration:
-        #    if self.options.with_libjpeg == "libjpeg-turbo":
-        #        self.requires("libjpeg-turbo/2.1.5")
-        #    else:
-        #        self.requires("libjpeg/9e")
-        # if self.options.get_safe("with_libpng", False) and not self.options.multiconfiguration:
-        #    self.requires("libpng/1.6.40")
+        if self.options.with_pcre2:
+            self.requires("pcre2/10.42")
+        if self.options.get_safe("with_vulkan"):
+            # Note: the versions of vulkan-loader and moltenvk
+            #       must be exactly part of the same Vulkan SDK version
+            #       do not update either without checking both
+            #       require exactly the same version of vulkan-headers
+            self.requires("vulkan-loader/1.3.239.0")
+            self.requires("vulkan-headers/1.3.239.0", transitive_headers=True)
+            if is_apple_os(self):
+                self.requires("moltenvk/1.2.2")
+        if self.options.with_glib:
+            self.requires("glib/2.78.3")
+        if self.options.with_doubleconversion and not self.options.multiconfiguration:
+            self.requires("double-conversion/3.3.0")
+        if self.options.get_safe("with_freetype", False) and not self.options.multiconfiguration:
+            self.requires("freetype/2.13.2")
+        if self.options.get_safe("with_fontconfig", False):
+            self.requires("fontconfig/2.15.0")
+        if self.options.get_safe("with_icu", False):
+            self.requires("icu/74.2")
+        if self.options.get_safe("with_harfbuzz", False) and not self.options.multiconfiguration:
+            self.requires("harfbuzz/8.3.0")
+        if self.options.get_safe("with_libjpeg", False) and not self.options.multiconfiguration:
+            if self.options.with_libjpeg == "libjpeg-turbo":
+                self.requires("libjpeg-turbo/[>=3.0 <3.1]")
+            else:
+                self.requires("libjpeg/9e")
+        if self.options.get_safe("with_libpng", False) and not self.options.multiconfiguration:
+            self.requires("libpng/[>=1.6 <2]")
         if self.options.with_sqlite3 and not self.options.multiconfiguration:
             self.requires("sqlite3/[>=3.45.0 <4]")
         if self.options.get_safe("with_mysql", False):
@@ -416,56 +422,57 @@ class QtConan(ConanFile):
         if self.options.with_odbc:
             if self.settings.os != "Windows":
                 self.requires("odbc/2.3.11")
-        # if self.options.get_safe("with_openal", False):
-        #     self.requires(f"openal-soft/1.22.2")
+        if self.options.get_safe("with_openal", False):
+            self.requires("openal-soft/1.22.2")
         if self.options.get_safe("with_libalsa", False):
-            self.requires(f"libalsa/1.2.10")
+            self.requires("libalsa/1.2.10")
+        if self.options.get_safe("with_x11") or self.options.qtwayland:
+            self.requires("xkbcommon/1.5.0")
         if self.options.get_safe("with_x11", False):
-            self.requires("xkbcommon/1.5.0")
             self.requires("xorg/system")
+        if self.options.get_safe("with_egl"):
+            self.requires("egl/system")
         if self.settings.os != "Windows" and self.options.get_safe("opengl", "no") != "no":
-             self.requires("opengl/system")
+            self.requires("opengl/system")
         if self.options.with_zstd:
-             self.requires("zstd/1.5.5")
+            self.requires("zstd/1.5.5")
         if self.options.qtwayland:
-            self.requires("xkbcommon/1.5.0")
-            # self.requires("wayland/1.22.0")
-        # if self.options.with_brotli:
-        #    self.requires("brotli/1.1.0")
-
+            self.requires("wayland/1.22.0")
+        if self.options.with_brotli:
+            self.requires("brotli/1.1.0")
         if self.options.get_safe("qtwebengine") and self.settings.os == "Linux":
-            self.requires(f"expat/{os.environ['ASWF_EXPAT_VERSION']}@{self.user}/{self.channel}")
-            # self.requires("opus/1.4")
-            # self.requires("xorg-proto/2022.2")
-            # self.requires("libxshmfence/1.3")
-            # self.requires("nss/3.83")
-            # self.requires("libdrm/2.4.119")
+            self.requires("expat/[>=2.6.2 <3]")
+            self.requires("opus/1.4")
+            self.requires("xorg-proto/2022.2")
+            self.requires("libxshmfence/1.3")
+            self.requires("nss/3.93")
+            self.requires("libdrm/2.4.119")
         if self.options.get_safe("with_gstreamer", False):
             self.requires("gstreamer/1.19.2")
             self.requires("gst-plugins-base/1.19.2")
         if self.options.get_safe("with_pulseaudio", False):
             self.requires("pulseaudio/14.2")
-        # if self.options.with_dbus:
-        #     self.requires("dbus/1.15.8")
-        if self.settings.os in ["Linux", "FreeBSD"] and self.options.with_gssapi:
-            self.requires("krb5/1.18.3")  # conan-io/conan-center-index#4102
-        # if self.options.get_safe("with_md4c", False):
-        #    self.requires("md4c/0.4.8")
+        if self.options.with_dbus:
+            self.requires("dbus/1.15.8")
+        if self.settings.os in ['Linux', 'FreeBSD'] and self.options.with_gssapi:
+            self.requires("krb5/1.18.3") # conan-io/conan-center-index#4102
+        if self.options.get_safe("with_md4c", False):
+            self.requires("md4c/0.4.8")
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.21.1 <4]")
         self.tool_requires("ninja/[>=1.12 <2]")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
-            self.tool_requires("pkgconf/2.0.2")
+            self.tool_requires("pkgconf/[>=2.2 <3]")
         if self.settings.os == "Windows":
-            self.tool_requires("strawberryperl/5.32.1.1")
+            self.tool_requires('strawberryperl/5.32.1.1')
 
         if self.options.get_safe("qtwebengine"):
             self.tool_requires("nodejs/18.15.0")
             self.tool_requires("gperf/3.1")
             # gperf, bison, flex, python >= 2.7.5 & < 3
-            if self.settings.os == "Windows":
-                self.tool_requires("winflexbison/2.5.24")
+            if self._settings_build.os == "Windows":
+                self.tool_requires("winflexbison/2.5.25")
             else:
                 self.tool_requires("bison/3.8.2")
                 self.tool_requires("flex/2.6.4")
@@ -692,6 +699,9 @@ class QtConan(ConanFile):
         tc.variables["QT_USE_VCPKG"] = False
         tc.cache_variables["QT_USE_VCPKG"] = False
 
+        # ASWF: qt cmake configuration doesn't follow layout(), force DSOs in lib64
+        tc.variables["INSTALL_LIBDIR"] = "lib64"
+
         tc.generate()
 
     def package_id(self):
@@ -889,7 +899,7 @@ class QtConan(ConanFile):
         rm(self, "*.la*", os.path.join(self.package_folder, "lib64"), recursive=True)
         rm(self, "*.pdb*", self.package_folder, recursive=True)
         rm(self, "ensure_pro_file.cmake", self.package_folder, recursive=True)
-        os.remove(os.path.join(self.package_folder, "bin", "qt-cmake-private-install.cmake"))
+        os.remove(os.path.join(self.package_folder, "libexec" if Version(self.version) >= "6.5.0" and self.settings.os != "Windows" else "bin", "qt-cmake-private-install.cmake"))
 
         # ASWF: cmake modules in lib64
         for m in os.listdir(os.path.join(self.package_folder, "lib64", "cmake")):
@@ -1100,8 +1110,9 @@ class QtConan(ConanFile):
             core_reqs.append("zstd::zstd")
         if self.options.with_glib:
             core_reqs.append("glib::glib")
-        if self.options.openssl:
-            core_reqs.append("openssl::openssl") # used by QCryptographicHash
+        # ASWF: openssl dependency is tricky
+        # if self.options.openssl:
+        #     core_reqs.append("openssl::openssl") # used by QCryptographicHash
 
         _create_module("Core", core_reqs)
         pkg_config_vars = [
@@ -1261,8 +1272,9 @@ class QtConan(ConanFile):
             else:
                 self.cpp_info.components["QODBCDriverPlugin"].system_libs.append("odbc32")
         networkReqs = []
-        if self.options.openssl:
-            networkReqs.append("openssl::openssl")
+        # ASWF: openssl dependency is tricky
+        # if self.options.openssl:
+        #     networkReqs.append("openssl::openssl")
         if self.options.with_brotli:
             networkReqs.append("brotli::brotli")
         if self.settings.os in ['Linux', 'FreeBSD'] and self.options.with_gssapi:

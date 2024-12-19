@@ -84,6 +84,9 @@ patches:
       "patch_source": "https://codereview.qt-project.org/c/yocto/meta-qt5/+/192172"
       "patch_type": "bugfix"
   "6.5.3":
+    - "base_path": "qtwebengine"
+      "patch_description": "issue with spellcheck_buildflags.h not found"
+      "patch_file": "patches/spellcheck_buildflags.diff"
     - "base_path": "qtbase"
       "patch_description": "ls is a shell script in RHEL"
       "patch_file": "patches/qtbase-core-cmake.diff"
