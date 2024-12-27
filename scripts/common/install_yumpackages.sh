@@ -73,6 +73,7 @@ yum install --setopt=tsflags=nodocs -y \
     libgcrypt-devel \
     libgudev1-devel \
     libicu-devel \
+    libinput-devel \
     libjpeg \
     libjpeg-devel \
     libmng-devel \

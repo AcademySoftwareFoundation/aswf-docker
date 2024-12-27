@@ -46,7 +46,7 @@ util-linux-libuuid/*: util-linux-libuuid/wrapper@aswftesting/vfx2024
 vulkan-headers/*: vulkan-headers/wrapper@aswftesting/vfx2024
 vulkan-loader/*: vulkan-loader/wrapper@aswftesting/vfx2024
 wayland/*: wayland/wrapper@aswftesting/vfx2024
-xkbcommon/*: xkbcommon/wrapper@aswftesting/vfx2024
+xkbcommon/*: xkbcommon/0.9.1@aswftesting/vfx2024
 xorg-proto/*: xorg-proto/wrapper@aswftesting/vfx2024
 xz_utils/*: xz_utiles/wrapper@aswftesting/vfx2024
 yaml-cpp/*: yaml-cpp/0.8.0@aswftesting/vfx2024

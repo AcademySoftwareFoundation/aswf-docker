@@ -17,6 +17,7 @@ class SystemOpusConan(ConanFile):
 
         self.cpp_info.set_property("cmake_file_name", "Opus")
         self.cpp_info.set_property("cmake_target_name", "Opus::opus")
-        self.cpp_info.components["libopus"].libs = ["opus"]
-        self.cpp_info.components["libopus"].includedirs.append("/usr/include/opus")
-        self.cpp_info.components["libopus"].system_libs.append("m")
+        self.cpp_info.set_property("pkg_config_name", "opus")
+        self.cpp_info.libs = ["opus"]
+        self.cpp_info.includedirs.append("/usr/include/opus")
+        self.cpp_info.system_libs.append("m")
