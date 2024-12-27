@@ -84,6 +84,81 @@ patches:
       "patch_source": "https://codereview.qt-project.org/c/yocto/meta-qt5/+/192172"
       "patch_type": "bugfix"
   "6.5.3":
+    - "base_path": "qtbase"
+      "patch_file": "patches/0001-CVE-2023-51714-qtbase-6.5.diff"
+      "patch_source": "https://download.qt.io/archive/qt/6.5/0001-CVE-2023-51714-qtbase-6.5.diff"
+      "patch_description": "CVE-2023-51714 https vulnerability"
+    - "base_path": "qtbase"
+      "patch_file": "patches/0002-CVE-2023-51714-qtbase-6.5.diff"
+      "patch_source": "https://download.qt.io/archive/qt/6.5/0002-CVE-2023-51714-qtbase-6.5.diff"
+      "patch_description": "CVE-2023-51714 http2 vulnerability"
+    # Does not apply against 6.5.3, http2 vulnerability
+    # - "base_path": "qtbase"
+    #  "patch_file": "patches/CVE-2024-39936-qtbase-6.5.patch"
+    #  "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2024-39936-qtbase-6.5.patch"
+    - "base_path": "qtnetworkauth"
+      "patch_file": "patches/CVE-2024-36048-qtnetworkauth-6.5.diff"
+      "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2024-36048-qtnetworkauth-6.5.diff"
+      "patch_description": "CVE-2024-36048 vulnerability in QAbstractOAuth"
+    # Does not apply against 6.5.3
+    # - "base_path": "qtbase"
+    #   "patch_file": "patches/CVE-2024-33861-qtbase-6.5.diff"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2024-33861-qtbase-6.5.diff"
+    #   "patch_description": "CVE-2024-33861 vulnerability in QStringConverter"
+    # Only in 6.5.4, 6.5.5 and 6.6.2
+    # - "base_path": "qtbase"
+    #   "patch_file": "patches/CVE-2024-30161-qtbase-6.5.diff"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2024-30161-qtbase-6.5.diff"
+    #   "patch_description": "CVE-2024-30161 vulnerability in QNetworkReply"
+    - "base_path": "qtbase"
+      "patch_file": "patches/CVE-2024-25580-qtbase-6.5.diff"
+      "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2024-25580-qtbase-6.5.diff"
+      "patch_description": "CVE-2024-25580 buffer overflow in KTX image parsing"
+    # Does not apply against 6.5.3
+    # - "base_path": "qtbase"
+    #   "patch_file": "patches/CVE-2023-43114-6.5.patch"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2023-43114-6.5.patch"
+    #   "patch_description": "CVE-2023-43114 Windows GDI font engine patch"
+    # Already fixed in 6.5.3
+    # - "base_path": "qtbase"
+    #   "patch_file": "patches/CVE-2023-38197-qtbase-6.5.diff"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2023-38197-qtbase-6.5.diff"
+    #   "patch_description": "CVE-2023-38197 potential infinite loop"
+    # Already fixed in 6.5.2 
+    # - "base_path": "qtbase"
+    #   "patch_file": "patches/CVE-2023-37369-qtbase-6.5.diff"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2023-37369-qtbase-6.5.diff"
+    #   "patch_description": "CVE-2023-37369 crash in QXmlStreamReader
+    # Already fixed in 6.5.2 
+    # - "base_path": "qtbase"
+    #   "patch_file": "patches/CVE-2023-34410-qtbase-6.5.diff"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2023-34410-qtbase-6.5.diff"
+    #   "patch_description": "CVE-2023-34410: certificate validation in TLS"
+    # Already fixed in 6.5.1
+    # - "base_path": "qtbase"
+    #   "patch_file": "patches/CVE-2023-33285-qtbase-6.5.diff"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2023-33285-qtbase-6.5.diff"
+    #   "patch_description": "CVE-2023-33285 DNS lookup vuln
+    # Already fixed in 6.5.1
+    # - "base_path": "qtbase"
+    #   "patch_file": "patches/CVE-2023-32763-qtbase-6.5.diff"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2023-32763-qtbase-6.5.diff"
+    #   "patch_description": "CVE-2023-32763 SVG parsing buffer overflow 
+    # Already fixed in 6.5.1
+    # - "base_path": "qtbase"
+    #   "patch_file": "patches/CVE-2023-32762-qtbase-6.5.diff"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2023-32762-qtbase-6.5.diff"
+    #   "patch_description": "CVE-2023-32762 HSTS network header parsing
+    # Already fixed in 6.5.1
+    # - "base_path": "qtsvg"
+    #   "patch_file": "patches/CVE-2023-32573-qtsvg-6.5.diff"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2023-32573-qtsvg-6.5.diff"
+    #   "patch_description": "CVE-2023-32573 SVG font parsing
+    # We don't currently build against WebP or on Windows
+    # - "base_path": "qtbase"
+    #   "patch_file": "patches/CVE-2023-4863-6.5.patch"
+    #   "patch_source": "https://download.qt.io/archive/qt/6.5/CVE-2023-4863-6.5.patch"
+    #   "patch_description": "GDI Font Engine & WebP image format"
     - "base_path": "qtwebengine"
       "patch_description": "issue with spellcheck_buildflags.h not found"
       "patch_file": "patches/spellcheck_buildflags.diff"
