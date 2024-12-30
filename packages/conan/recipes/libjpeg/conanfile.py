@@ -9,7 +9,7 @@ from conan import ConanFile
 class SystemLibjpegConan(ConanFile):
     # RHEL 8 really has libjpeg-turbo but this is less confusing
     name = "libjpeg"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    

@@ -8,7 +8,7 @@ from conan import ConanFile
 
 class SystemNsprConan(ConanFile):
     name = "nspr"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
 

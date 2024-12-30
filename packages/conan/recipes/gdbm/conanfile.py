@@ -5,7 +5,7 @@ from conan import ConanFile
 
 class SystemGdbmConan(ConanFile):
     name = "gdbm"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    

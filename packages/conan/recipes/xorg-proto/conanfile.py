@@ -10,7 +10,7 @@ import os
 
 class SystemXorgProtoConan(ConanFile):
     name = "xorg-proto"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
 

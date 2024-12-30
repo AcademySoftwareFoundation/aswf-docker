@@ -8,7 +8,7 @@ from conan import ConanFile
 
 class SystemOpenALSoftConan(ConanFile):
     name = "openal-soft"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    

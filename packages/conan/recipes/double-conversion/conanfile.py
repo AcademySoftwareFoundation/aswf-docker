@@ -8,7 +8,7 @@ from conan import ConanFile
 
 class SystemDoubleConversionConan(ConanFile):
     name = "double-conversion"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    

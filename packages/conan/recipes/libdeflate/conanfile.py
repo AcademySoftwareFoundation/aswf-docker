@@ -5,7 +5,7 @@ from conan import ConanFile
 
 class SystemLibdeflateConan(ConanFile):
     name = "libdeflate"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    

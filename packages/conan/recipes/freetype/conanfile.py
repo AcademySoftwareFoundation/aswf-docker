@@ -5,7 +5,7 @@ from conan import ConanFile
 
 class SystemFreetypeConan(ConanFile):
     name = "freetype"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    

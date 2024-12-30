@@ -5,7 +5,7 @@ from conan import ConanFile
 
 class SystemLibffiConan(ConanFile):
     name = "libffi"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    

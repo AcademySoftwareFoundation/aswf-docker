@@ -8,7 +8,7 @@ from conan import ConanFile
 
 class SystemBrotliConan(ConanFile):
     name = "brotli"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    
