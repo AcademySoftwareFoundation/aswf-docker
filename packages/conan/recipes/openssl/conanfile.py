@@ -5,7 +5,7 @@ from conan import ConanFile
 
 class SystemOpenSSLConan(ConanFile):
     name = "openssl"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
     options = {

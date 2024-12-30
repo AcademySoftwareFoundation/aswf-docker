@@ -8,7 +8,7 @@ from conan import ConanFile
 
 class SystemOpusConan(ConanFile):
     name = "opus"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
 

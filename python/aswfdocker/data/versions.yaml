@@ -152,7 +152,7 @@ versions:
       ASWF_CUDA_VERSION: "12.6.1"
       ASWF_GLVND_VERSION: "1.7.0"
       ASWF_CCACHE_VERSION: "4.8.3"
-      ASWF_NINJA_VERSION: "1.11.1"
+      ASWF_NINJA_VERSION: "1.12.1"
       ASWF_SONAR_VERSION: "5.0.1.3006"
       ASWF_BASEOS_DISTRO: "rockylinux8"
       ASWF_BASEOS_IMAGE: "nvidia/cuda"
@@ -186,7 +186,7 @@ versions:
       ASWF_CUDA_VERSION: "12.6.1"
       ASWF_GLVND_VERSION: "1.7.0"
       ASWF_CCACHE_VERSION: "4.10.2"
-      ASWF_NINJA_VERSION: "1.11.1"
+      ASWF_NINJA_VERSION: "1.12.1"
       ASWF_SONAR_VERSION: "6.2.1.4610"
       ASWF_BASEOS_DISTRO: "rockylinux8"
       ASWF_BASEOS_IMAGE: "nvidia/cuda"
@@ -470,37 +470,39 @@ versions:
     conan_profile: "vfx2024"
     package_versions:
       # Conan wrapper packages for system components
-      ASWF_BROTLI_VERSION: "wrapper"
-      ASWF_DBUS_VERSION: "wrapper"
-      ASWF_DOUBLE_CONVERSION_VERSION: "wrapper"
-      ASWF_FONTCONFIG_VERSION: "wrapper"
-      ASWF_FREETYPE_VERSION: "wrapper"
-      ASWF_GDBM_VERSION: "wrapper"
+      ASWF_BROTLI_VERSION: "system"
+      ASWF_DBUS_VERSION: "system"
+      ASWF_DOUBLE_CONVERSION_VERSION: "system"
+      ASWF_FONTCONFIG_VERSION: "system"
+      ASWF_FREETYPE_VERSION: "system"
+      ASWF_GDBM_VERSION: "system"
       ASWF_GLIB_VERSION: "2.78.3"
-      ASWF_ICU_VERSION: "wrapper"
-      ASWF_LIBDEFLATE_VERSION: "wrapper"
-      ASWF_LIBDRM_VERSION: "wrapper"
-      ASWF_LIBFFI_VERSION: "wrapper"
-      ASWF_LIBJPEG_VERSION: "wrapper"
-      ASWF_LIBPNG_VERSION: "wrapper"
-      ASWF_LIBXSHMFENCE_VERSION: "wrapper"
-      ASWF_MPDECIMAL_VERSION: "wrapper"
-      ASWF_NSPR_VERSION: "wrapper"
+      ASWF_ICU_VERSION: "system"
+      ASWF_LIBDEFLATE_VERSION: "system"
+      ASWF_LIBDRM_VERSION: "system"
+      ASWF_LIBFFI_VERSION: "system"
+      ASWF_LIBJPEG_VERSION: "system"
+      ASWF_LIBPNG_VERSION: "system"
+      ASWF_LIBXSHMFENCE_VERSION: "system"
+      ASWF_MPDECIMAL_VERSION: "system"
+      ASWF_NSPR_VERSION: "system"
       ASWF_NSS_VERSION: "3.93"
-      ASWF_OPENAL_SOFT_VERSION: "wrapper"
-      ASWF_OPENSSL_VERSION: "wrapper"
-      ASWF_OPUS_VERSION: "wrapper"
-      ASWF_PCRE2_VERSION: "wrapper"
-      ASWF_SQLITE3_VERSION: "wrapper"
-      ASWF_TCL_VERSION: "wrapper"
-      ASWF_TK_VERSION: "wrapper"
-      ASWF_UTIL_LINUX_LIBUUID_VERSION: "wrapper"
-      ASWF_VULKAN_HEADERS_VERSION: "wrapper"
-      ASWF_VULKAN_LOADER_VERSION: "wrapper"
-      ASWF_WAYLAND_VERSION: "wrapper"
+      ASWF_OPENAL_SOFT_VERSION: "system"
+      ASWF_OPENGL_VERSION: "system"
+      ASWF_OPENSSL_VERSION: "system"
+      ASWF_OPUS_VERSION: "system"
+      ASWF_PCRE2_VERSION: "system"
+      ASWF_SQLITE3_VERSION: "system"
+      ASWF_TCL_VERSION: "system"
+      ASWF_TK_VERSION: "system"
+      ASWF_UTIL_LINUX_LIBUUID_VERSION: "system"
+      ASWF_VULKAN_HEADERS_VERSION: "system"
+      ASWF_VULKAN_LOADER_VERSION: "system"
+      ASWF_WAYLAND_VERSION: "system"
       ASWF_XKBCOMMON_VERSION: "0.9.1"
-      ASWF_XORG_PROTO_VERSION: "wrapper"
-      ASWF_XZ_UTILS_VERSION: "wrapper"
+      ASWF_XORG_VERSION: "system"
+      ASWF_XORG_PROTO_VERSION: "system"
+      ASWF_XZ_UTILS_VERSION: "system"
       # Packages not specified by VFX Platform
       ASWF_ALEMBIC_VERSION: "1.8.6"
       ASWF_B2_VERSION: "5.2.1"
@@ -571,37 +573,39 @@ versions:
     conan_profile: "vfx2025"
     package_versions:
       # Conan wrapper packages for system components
-      ASWF_BROTLI_VERSION: "wrapper"
-      ASWF_DBUS_VERSION: "wrapper"
-      ASWF_DOUBLE_CONVERSION_VERSION: "wrapper"
-      ASWF_FONTCONFIG_VERSION: "wrapper"
-      ASWF_FREETYPE_VERSION: "wrapper"
-      ASWF_GDBM_VERSION: "wrapper"
+      ASWF_BROTLI_VERSION: "system"
+      ASWF_DBUS_VERSION: "system"
+      ASWF_DOUBLE_CONVERSION_VERSION: "system"
+      ASWF_FONTCONFIG_VERSION: "system"
+      ASWF_FREETYPE_VERSION: "system"
+      ASWF_GDBM_VERSION: "system"
       ASWF_GLIB_VERSION: "2.78.3"
-      ASWF_ICU_VERSION: "wrapper"
-      ASWF_LIBDEFLATE_VERSION: "wrapper"
-      ASWF_LIBDRM_VERSION: "wrapper"
-      ASWF_LIBFFI_VERSION: "wrapper"
-      ASWF_LIBJPEG_VERSION: "wrapper"
-      ASWF_LIBPNG_VERSION: "wrapper"
-      ASWF_LIBXSHMFENCE_VERSION: "wrapper"
-      ASWF_MPDECIMAL_VERSION: "wrapper"
-      ASWF_NSPR_VERSION: "wrapper"
+      ASWF_ICU_VERSION: "system"
+      ASWF_LIBDEFLATE_VERSION: "system"
+      ASWF_LIBDRM_VERSION: "system"
+      ASWF_LIBFFI_VERSION: "system"
+      ASWF_LIBJPEG_VERSION: "system"
+      ASWF_LIBPNG_VERSION: "system"
+      ASWF_LIBXSHMFENCE_VERSION: "system"
+      ASWF_MPDECIMAL_VERSION: "system"
+      ASWF_NSPR_VERSION: "system"
       ASWF_NSS_VERSION: "3.93"
-      ASWF_OPENAL_SOFT_VERSION: "wrapper"
-      ASWF_OPENSSL_VERSION: "wrapper"
-      ASWF_OPUS_VERSION: "wrapper"
-      ASWF_PCRE2_VERSION: "wrapper"
-      ASWF_SQLITE3_VERSION: "wrapper"
-      ASWF_TCL_VERSION: "wrapper"
-      ASWF_TK_VERSION: "wrapper"
-      ASWF_UTIL_LINUX_LIBUUID_VERSION: "wrapper"
-      ASWF_VULKAN_HEADERS_VERSION: "wrapper"
-      ASWF_VULKAN_LOADER_VERSION: "wrapper"
-      ASWF_WAYLAND_VERSION: "wrapper"
+      ASWF_OPENAL_SOFT_VERSION: "system"
+      ASWF_OPENGL_VERSION: "system"
+      ASWF_OPENSSL_VERSION: "system"
+      ASWF_OPUS_VERSION: "system"
+      ASWF_PCRE2_VERSION: "system"
+      ASWF_SQLITE3_VERSION: "system"
+      ASWF_TCL_VERSION: "system"
+      ASWF_TK_VERSION: "system"
+      ASWF_UTIL_LINUX_LIBUUID_VERSION: "system"
+      ASWF_VULKAN_HEADERS_VERSION: "system"
+      ASWF_VULKAN_LOADER_VERSION: "system"
+      ASWF_WAYLAND_VERSION: "system"
       ASWF_XKBCOMMON_VERSION: "0.9.1"
-      ASWF_XORG_PROTO_VERSION: "wrapper"
-      ASWF_XZ_UTILS_VERSION: "wrapper"
+      ASWF_XORG_VERSION: "system"
+      ASWF_XORG_PROTO_VERSION: "system"
+      ASWF_XZ_UTILS_VERSION: "system"
       # Packages not specified by VFX Platform
       ASWF_ALEMBIC_VERSION: "1.8.8"
       ASWF_B2_VERSION: "5.2.1"
@@ -984,6 +988,9 @@ ci-packages:
   openal-soft:
     - "2024.2"
     - "2025.0"
+  opengl:
+    - "2024.2"
+    - "2025.0"
   openssl:
     - "2024.2"
     - "2025.0"
@@ -1021,6 +1028,9 @@ ci-packages:
     - "2024.2"
     - "2025.0"
   xkbcommon:
+    - "2024.2"
+    - "2025.0"
+  xorg:
     - "2024.2"
     - "2025.0"
   xorg-proto:
@@ -1224,6 +1234,7 @@ groups:
         - nspr
         - nss
         - openal-soft
+        - opengl
         - openssl
         - opus
         - pcre2
@@ -1239,6 +1250,7 @@ groups:
         - vulkan-loader
         - wayland
         - xkbcommon
+        - xorg
         - xorg-proto
         - xz_utils
         - yaml-cpp
@@ -1343,6 +1355,7 @@ conan_only:
   - oiio
   - openal-soft
   - openexr
+  - opengl
   - openssl
   - opensubdiv
   - opus
@@ -1363,6 +1376,7 @@ conan_only:
   - vulkan-loader
   - wayland
   - xkbcommon
+  - xorg
   - xorg-proto
   - xz_utils
   - yaml-cpp

@@ -8,7 +8,7 @@ from conan import ConanFile
 
 class SystemPCRE2Conan(ConanFile):
     name = "pcre2"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    

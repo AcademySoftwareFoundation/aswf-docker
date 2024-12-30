@@ -8,7 +8,7 @@ from conan import ConanFile
 
 class SystemFontconfigConan(ConanFile):
     name = "fontconfig"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    

@@ -8,7 +8,7 @@ from conan import ConanFile
 
 class SystemICUConan(ConanFile):
     name = "icu"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    

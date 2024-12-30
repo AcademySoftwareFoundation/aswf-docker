@@ -1,0 +1,10 @@
+--- src/core/configure/BUILD.root.gn.in.orig	2024-12-29 22:07:43.661647014 -0800
++++ src/core/configure/BUILD.root.gn.in	2024-12-29 22:08:25.534597628 -0800
+@@ -220,6 +220,7 @@
+ source_set("devtools_sources") {
+   configs += [ ":cpp17_config" ]
+   deps = [
++    "//chrome/app:generated_resources",
+     "//components/zoom",
+     "//third_party/blink/public/mojom:mojom_platform",
+     ]

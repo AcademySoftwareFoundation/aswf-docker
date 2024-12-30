@@ -10,22 +10,23 @@ import os
 
 class SystemVulkanHeadersConan(ConanFile):
     name = "vulkan-headers"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    
     def package_info(self):
-        self.cpp_info.includedirs = ["/usr/include/vulkan"]
+        self.cpp_info.includedirs = ["/usr/include"]
         self.cpp_info.libdirs = ["/usr/lib64"]
         self.cpp_info.libs = ["vulkan"]
         self.cpp_info.system_libs = ["dl", "pthread", "m"]
 
         self.cpp_info.set_property("cmake_file_name", "VulkanHeaders")
         self.cpp_info.components["vulkanheaders"].set_property("cmake_target_name", "Vulkan::Headers")
+        self.cpp_info.components["vulkanheaders"].includedirs = ["/usr/include"]
         self.cpp_info.components["vulkanheaders"].bindirs = []
         self.cpp_info.components["vulkanheaders"].libdirs = []
         self.cpp_info.components["vulkanregistry"].set_property("cmake_target_name", "Vulkan::Registry")
-        self.cpp_info.components["vulkanregistry"].includedirs = [os.path.join("res", "vulkan", "registry")]
+        self.cpp_info.components["vulkanregistry"].includedirs = ["/usr/share/vulkan/registry"]
         self.cpp_info.components["vulkanregistry"].bindirs = []
         self.cpp_info.components["vulkanregistry"].libdirs = []
         self.cpp_info.components["vulkanregistry"].resdirs = ["res"]

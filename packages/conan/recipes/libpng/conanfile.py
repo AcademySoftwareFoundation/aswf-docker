@@ -8,7 +8,7 @@ from conan import ConanFile
 
 class SystemLibpngConan(ConanFile):
     name = "libpng"
-    version = "wrapper"
+    version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
    
