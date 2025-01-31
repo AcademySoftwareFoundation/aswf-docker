@@ -1,0 +1,14 @@
+On RHEL and derivatives /bin/ls is a shell script.
+
+diff -u -r  a/src/corelib/CMakeLists.txt b/src/corelib/CMakeLists.txt
+--- a/src/corelib/CMakeLists.txt
++++ b/src/corelib/CMakeLists.txt
+@@ -403,7 +403,7 @@
+ # Find ELF interpreter and define a macro for that:
+ if ((LINUX OR HURD) AND NOT CMAKE_CROSSCOMPILING AND BUILD_SHARED_LIBS)
+     if (NOT DEFINED ELF_INTERPRETER)
+-        execute_process(COMMAND ${CMAKE_COMMAND} -E env LC_ALL=C readelf -l /bin/ls
++        execute_process(COMMAND ${CMAKE_COMMAND} -E env LC_ALL=C readelf -l /bin/grep
+                         RESULT_VARIABLE readelf_ok
+                         OUTPUT_VARIABLE readelf_output
+                        )

@@ -35,7 +35,7 @@ Contains:
 * openvdb-11.0.0
 * pybind11-2.12.0
 * ptex-2.4.2
-* qt-6.5.3
+* qt-6.5.4
 * tbb-2020_u3
 * numpy-1.24.3
 * vfxplatform-2024
@@ -57,7 +57,7 @@ Contains:
 * openvdb-12.0.0
 * pybind11-2.13.6
 * ptex-2.4.3
-* qt-6.5.3
+* qt-6.5.4
 * tbb-2020_u3
 * numpy-1.26.4
 * vfxplatform-2025

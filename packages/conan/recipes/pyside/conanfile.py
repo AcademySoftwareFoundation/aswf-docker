@@ -5,10 +5,12 @@ import os
 import sys
 import glob
 import shutil
+import platform
 
-from conans import ConanFile, tools
-from conans.model.version import Version
-from conans.errors import ConanException
+from conan import ConanFile
+from conan.tools.env import Environment
+from conan.tools.scm import Version
+from conan.errors import ConanException
 from conan.tools.files import get, apply_conandata_patches
 
 
@@ -77,7 +79,7 @@ class PySide6Conan(ConanFile):
 
     def source(self):
         destination = os.path.join(self.source_folder, self._checkout_folder)
-        if self.info.settings.os == "Windows":
+        if platform.system() == "Windows":
             # Don't use os.path.join, or it removes the \\?\ prefix, which enables long paths
             destination = rf"\\?\{self.source_folder}"
         get(
@@ -147,7 +149,7 @@ class PySide6Conan(ConanFile):
             "--make-spec",
             "ninja",
             "--parallel",
-            str(tools.cpu_count()),
+            str(os.cpu_count()),
             "--ignore-git",
             "--reuse-build",
         ]
@@ -156,28 +158,31 @@ class PySide6Conan(ConanFile):
         return " ".join(args)
 
     def _buildLinux(self, srcDir):
-        qtInfo = self.deps_cpp_info["qt"]
-        qtBinPath = qtInfo.bin_paths[0]
+        qtInfo = self.dependencies["qt"]
+        qtBinPath = qtInfo.cpp_info.bindirs[0]
         qmakePath = os.path.join(qtBinPath, "qtpaths6")
 
-        llvmInfo = self.deps_cpp_info["clang"]
+        llvmInfo = self.dependencies["clang"]
 
-        pythonInfo = self.deps_cpp_info["python"]
+        pythonInfo = self.dependencies["cpython"]
         pythonBinPath = os.path.join(
-            pythonInfo.bin_paths[0], self.deps_user_info["python"].python_interp
+            pythonInfo.package_folder,
+            pythonInfo.cpp_info.bindirs[0],
+            "python"
         )
 
         # Shiboken finds the C++ includes from gcc-toolset but fails to add C includes,
         # so cstddef doesn't find stddef.h for instance.
         # This is not elegant but not clear how to do it differetly.
-        env = {
-            "LLVM_INSTALL_DIR": llvmInfo.rootpath,
-            "LD_LIBRARY_PATH": pythonInfo.lib_paths,
-            "CMAKE_PREFIX_PATH": qtInfo.rootpath,
-            "CPATH": f"/opt/rh/gcc-toolset-{os.environ['ASWF_DTS_VERSION']}/root/usr/lib/gcc/x86_64-redhat-linux/{os.environ['ASWF_DTS_VERSION']}/include",
-        }
 
-        with tools.environment_append(env):
+        env = Environment()
+        env.define("LLVM_INSTALL_DIR", llvmInfo.package_folder)
+        env.define("LD_LIBRARY_PATH", pythonInfo.cpp_info.libdirs[0])
+        env.define("CMAKE_PREFIX_PATH", qtInfo.package_folder)
+        env.define("CPATH", f"/opt/rh/gcc-toolset-{os.environ['ASWF_DTS_VERSION']}/root/usr/lib/gcc/x86_64-redhat-linux/{os.environ['ASWF_DTS_VERSION']}/include")
+        env_vars = env.vars(self)
+
+        with env_vars.apply():
             buildCmd = self._buildCommand(pythonBinPath, srcDir, qmakePath)
             self.run(buildCmd)
 
@@ -203,9 +208,9 @@ class PySide6Conan(ConanFile):
 
         llvmInfo = self.deps_cpp_info["clang"]
 
-        pythonInfo = self.deps_cpp_info["python"]
+        pythonInfo = self.deps_cpp_info["cpython"]
         pythonBinPath = os.path.join(
-            pythonInfo.bin_paths[0], self.deps_user_info["python"].python_interp
+            pythonInfo.bin_paths[0], self.deps_user_info["cpython"].python_interp
         )
 
         env = {
@@ -225,7 +230,7 @@ class PySide6Conan(ConanFile):
         llvmInfo = self.deps_cpp_info["clang"]
 
         pythonBinPath = os.path.join(
-            self.pythonLocalRoot, "bin", self.deps_user_info["python"].python_interp
+            self.pythonLocalRoot, "bin", self.deps_user_info["cpython"].python_interp
         )
 
         # from Python 3.8 DLL loading is more restrictive, disallowing PATH, see https://bugs.python.org/issue43173
@@ -268,7 +273,7 @@ class PySide6Conan(ConanFile):
 
     @property
     def _installDir(self):
-        pythonVersion = tools.Version(self.deps_cpp_info["python"].version)
+        pythonVersion = tools.Version(self.deps_cpp_info["cpython"].version)
         pythonVersionMajorMinor = f"{pythonVersion.major}.{pythonVersion.minor}"
         qtVersion = self.deps_cpp_info["qt"].version
 
@@ -328,7 +333,7 @@ class PySide6Conan(ConanFile):
         libs = _getFilesByExt(libDir, ".dylib")
         # self._set_r_paths(libs, '@loader_path/../bin')
 
-        v = tools.Version(self.deps_cpp_info["python"].version)
+        v = tools.Version(self.deps_cpp_info["cpython"].version)
         sitePkgDir = os.path.join(
             self.package_folder, f"lib/python{v.major}.{v.minor}/site-packages"
         )
@@ -362,7 +367,7 @@ class PySide6Conan(ConanFile):
         #     )
 
     def package_info(self):
-        v = tools.Version(self.deps_cpp_info["python"].version)
+        v = tools.Version(self.deps_cpp_info["cpython"].version)
         if self.settings.os == "Windows":
             self.user_info.site_package = os.path.join(
                 self.package_folder, "lib/site-packages"
