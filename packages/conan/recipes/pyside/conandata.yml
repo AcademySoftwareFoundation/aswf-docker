@@ -11,6 +11,9 @@ sources:
   "6.5.3":
     url: "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.3-src/pyside-setup-everywhere-src-6.5.3.tar.xz"
     sha256: "6606b1634fb2981f9ca7ce2e206cc92c252401de328df4ce23f63e8c998de8d3"
+  "6.5.4":
+    url: "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.4-src/pyside-setup-opensource-src-6.5.4.tar.xz"
+    sha256: "1bd5e63bede4ac2930579abd09a2803f8a508693d210c77efe7e838c8da360ae"
 patches:
   "5.12.6":
     # typing-patch.zip from https://codereview.qt-project.org/changes/pyside%2Fpyside-setup~271412/revisions/4/patch?zip

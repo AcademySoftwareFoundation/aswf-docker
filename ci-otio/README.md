@@ -74,8 +74,8 @@ Contains:
 * cpython-3.11.11
 * cmake-3.27.9
 * expat-2.6.4
-* qt-6.5.3
-* pyside-6.5.3
+* qt-6.5.4
+* pyside-6.5.4
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -85,8 +85,8 @@ Contains:
 * cpython-3.11.11
 * cmake-3.31.2
 * expat-2.6.4
-* qt-6.5.3
-* pyside-6.5.3
+* qt-6.5.4
+* pyside-6.5.4
 * numpy-1.26.4
 * vfxplatform-2025
 
