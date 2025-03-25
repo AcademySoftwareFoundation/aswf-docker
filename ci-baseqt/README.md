@@ -22,7 +22,6 @@ Contains: Python, TBB, Boost, Qt, PySide and other base libraries
 Contains:
 * blosc-1.5.0
 * boost-1.66.0
-* cmake-3.12.4
 * cppunit-1.14.0
 * glew-2.1.0
 * glfw-3.1.2
@@ -41,7 +40,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.70.0
-* cmake-3.18.4
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
@@ -60,7 +58,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.73.0
-* cmake-3.19.3
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
@@ -79,7 +76,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
@@ -98,7 +94,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.80.0
-* cmake-3.27.2
 * cppunit-1.15.1
 * glew-2.1.0
 * glfw-3.1.2
@@ -121,7 +116,6 @@ Contains:
 * zstd-1.5.6
 * blosc-1.21.5
 * boost-1.82.0
-* cmake-3.27.9
 * cppunit-1.15.1
 * expat-2.6.4
 * glew-2.1.0
@@ -146,7 +140,6 @@ Contains:
 * zstd-1.5.6
 * blosc-1.21.6
 * boost-1.85.0
-* cmake-3.31.2
 * cppunit-1.15.1
 * expat-2.6.4
 * glew-2.2.0

@@ -30,7 +30,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.12.6
 * pyside-5.12.6
-* cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
 * alembic-1.7.11
@@ -61,7 +60,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.12.6
 * pyside-5.12.6
-* cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
 * alembic-1.7.11
@@ -92,7 +90,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.12.6
 * pyside-5.12.6
-* cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
 * alembic-1.7.11
@@ -123,7 +120,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.12.6
 * pyside-5.12.6
-* cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
 * alembic-1.7.11
@@ -154,7 +150,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.12.6
 * pyside-5.12.6
-* cmake-3.18.4
 * imath-2.4.0
 * openexr-2.4.0
 * alembic-1.7.12
@@ -185,7 +180,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.2
 * pyside-5.15.2
-* cmake-3.19.3
 * imath-2.5.5
 * openexr-2.5.5
 * alembic-1.7.16
@@ -216,7 +210,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.2
 * pyside-5.15.2
-* cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
 * alembic-1.8.2
@@ -248,7 +241,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.2
 * pyside-5.15.2
-* cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
 * alembic-1.8.2
@@ -280,7 +272,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.2
 * pyside-5.15.2
-* cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
 * alembic-1.8.2
@@ -312,7 +303,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.2
 * pyside-5.15.2
-* cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
 * alembic-1.8.2
@@ -344,7 +334,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.2
 * pyside-5.15.2
-* cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
 * alembic-1.8.2
@@ -376,7 +365,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.9
 * pyside-5.15.9
-* cmake-3.27.2
 * imath-3.1.9
 * openexr-3.1.11
 * alembic-1.8.5
@@ -408,7 +396,6 @@ Contains:
 * glfw-3.1.2
 * qt-5.15.9
 * pyside-5.15.9
-* cmake-3.27.2
 * imath-3.1.9
 * openexr-3.1.11
 * alembic-1.8.5
@@ -446,7 +433,6 @@ Contains:
 * glfw-3.3.8
 * qt-6.5.4
 * pyside-6.5.4
-* cmake-3.27.9
 * imath-3.1.12
 * openexr-3.2.4
 * alembic-1.8.6
@@ -484,7 +470,6 @@ Contains:
 * glfw-3.3.8
 * qt-6.5.4
 * pyside-6.5.4
-* cmake-3.27.9
 * imath-3.1.12
 * openexr-3.2.4
 * alembic-1.8.6
@@ -522,17 +507,16 @@ Contains:
 * glfw-3.4
 * qt-6.5.4
 * pyside-6.5.4
-* cmake-3.31.2
 * imath-3.1.12
-* openexr-3.3.2
+* openexr-3.3.3
 * alembic-1.8.8
-* oiio-3.0.2.0
-* ocio-2.4.1
+* oiio-3.0.4.0
+* ocio-2.4.2
 * pybind11-2.13.6
 * opensubdiv-3.6.0
 * ptex-2.4.3
 * openvdb-12.0.0
-* materialx-1.39.2
+* materialx-1.39.3
 * usd-24.08
 * partio-1.17.3
 * osl-1.13.12.0
@@ -560,17 +544,16 @@ Contains:
 * glfw-3.4
 * qt-6.5.4
 * pyside-6.5.4
-* cmake-3.31.2
 * imath-3.1.12
-* openexr-3.3.2
+* openexr-3.3.3
 * alembic-1.8.8
-* oiio-3.0.2.0
-* ocio-2.4.1
+* oiio-3.0.4.0
+* ocio-2.4.2
 * pybind11-2.13.6
 * opensubdiv-3.6.0
 * ptex-2.4.3
 * openvdb-12.0.0
-* materialx-1.39.2
+* materialx-1.39.3
 * usd-24.08
 * partio-1.17.3
 * osl-1.13.12.0

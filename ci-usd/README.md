@@ -29,7 +29,6 @@ Contains:
 * log4cplus-1.1.2
 * qt-5.12.6
 * pyside-5.12.6
-* cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
 * oiio-2.0.8
@@ -54,7 +53,6 @@ Contains:
 * log4cplus-1.1.2
 * qt-5.12.6
 * pyside-5.12.6
-* cmake-3.18.4
 * imath-2.4.0
 * openexr-2.4.0
 * oiio-2.1.13.0
@@ -79,7 +77,6 @@ Contains:
 * log4cplus-1.1.2
 * qt-5.15.2
 * pyside-5.15.2
-* cmake-3.19.3
 * imath-2.5.5
 * openexr-2.5.5
 * oiio-2.2.14.0
@@ -104,7 +101,6 @@ Contains:
 * log4cplus-1.1.2
 * qt-5.15.2
 * pyside-5.15.2
-* cmake-3.22.0
 * imath-3.1.5
 * materialx-1.38.5
 * openexr-3.1.5
@@ -130,7 +126,6 @@ Contains:
 * log4cplus-1.1.2
 * qt-5.15.9
 * pyside-5.15.9
-* cmake-3.27.2
 * imath-3.1.9
 * materialx-1.38.7
 * openexr-3.1.11
@@ -161,7 +156,6 @@ Contains:
 * log4cplus-2.1.1
 * qt-6.5.4
 * pyside-6.5.4
-* cmake-3.27.9
 * imath-3.1.12
 * materialx-1.39.2
 * openexr-3.2.4
@@ -192,12 +186,11 @@ Contains:
 * log4cplus-2.1.2
 * qt-6.5.4
 * pyside-6.5.4
-* cmake-3.31.2
 * imath-3.1.12
-* materialx-1.39.2
-* openexr-3.3.2
-* oiio-3.0.2.0
-* ocio-2.4.1
+* materialx-1.39.3
+* openexr-3.3.3
+* oiio-3.0.4.0
+* ocio-2.4.2
 * pybind11-2.13.6
 * ptex-2.4.3
 * opensubdiv-3.6.0

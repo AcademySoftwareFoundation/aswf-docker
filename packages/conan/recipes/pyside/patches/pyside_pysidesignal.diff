@@ -1,0 +1,39 @@
+diff --git a/sources/pyside6/libpyside/pysidesignal.cpp b/sources/pyside6/libpyside/pysidesignal.cpp
+index 996968f..a072dfd 100644
+--- a/sources/pyside6/libpyside/pysidesignal.cpp
++++ b/sources/pyside6/libpyside/pysidesignal.cpp
+@@ -8,6 +8,7 @@
+ #include "pysidestaticstrings.h"
+ #include "pysideweakref.h"
+ #include "signalmanager.h"
++#include "pysideqobject.h"
+
+ #include <shiboken.h>
+
+@@ -799,7 +800,7 @@
+
+     for (Py_ssize_t idx = 0; idx < n; idx++) {
+         auto *sub_type = reinterpret_cast<PyTypeObject *>(PyTuple_GET_ITEM(mro, idx));
+-        AutoDecRef tpDict(PepType_GetDict(sub_type));
++        Shiboken::AutoDecRef tpDict(PepType_GetDict(sub_type));
+         auto *hom = PyDict_GetItem(tpDict, name);
+         PyObject *realFunc{};
+         if (hom && PyCallable_Check(hom) && (realFunc = _getRealCallable(hom)))
+@@ -909,7 +910,7 @@
+         Py_ssize_t pos = 0;
+         PyObject *key, *value;
+         auto *type = reinterpret_cast<PyTypeObject *>(mroItem.object());
+-        AutoDecRef tpDict(PepType_GetDict(type));
++        Shiboken::AutoDecRef tpDict(PepType_GetDict(type));
+         while (PyDict_Next(tpDict, &pos, &key, &value)) {
+             if (PyObject_TypeCheck(value, PySideSignal_TypeF())) {
+                 // PYSIDE-1751: We only insert an instance into the instance dict, if a signal
+@@ -1118,7 +1119,7 @@
+
+ static void _addSignalToWrapper(PyTypeObject *wrapperType, const char *signalName, PySideSignal *signal)
+ {
+-    AutoDecRef tpDict(PepType_GetDict(wrapperType));
++    Shiboken::AutoDecRef tpDict(PepType_GetDict(wrapperType));
+     auto typeDict = tpDict.object();
+     PyObject *homonymousMethod;
+     if ((homonymousMethod = PyDict_GetItemString(typeDict, signalName))) {

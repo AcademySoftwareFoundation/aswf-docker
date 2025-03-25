@@ -5,7 +5,6 @@ description: |
   Warning: this image does *not* contain OpenTimelineIO itself as it is used to *build* OpenTimelineIO!
 packages:
   - cpython
-  - cmake
   - expat
   - qt
   - pyside

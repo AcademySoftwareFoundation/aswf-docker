@@ -26,7 +26,6 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
-* cmake-3.27.9
 * expat-2.6.4
 * cpython-3.11.11
 * imath-3.1.12
@@ -48,12 +47,11 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* cmake-3.31.2
 * expat-2.6.4
 * cpython-3.11.11
 * imath-3.1.12
-* ocio-2.4.1
-* openexr-3.3.2
+* ocio-2.4.2
+* openexr-3.3.3
 * openvdb-12.0.0
 * pybind11-2.13.6
 * ptex-2.4.3

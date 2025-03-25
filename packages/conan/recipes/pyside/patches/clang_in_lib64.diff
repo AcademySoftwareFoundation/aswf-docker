@@ -1,0 +1,13 @@
+diff --git a/sources/shiboken6/ApiExtractor/clangparser/compilerSupport.cpp b/sources/shiboken6/ApiExtractor/clangparser/compilerSupport.cpp
+index 996968f..a072dfd 100644
+--- a/sources/shiboken6/ApiExtractor/clangparser/compilersupport.cpp
++++ b/sources/shiboken6/ApiExtractor/clangparser/compilersupport.cpp
+@@ -261,7 +261,7 @@
+ {
+     for (const char *envVar : {"LLVM_INSTALL_DIR", "CLANG_INSTALL_DIR"}) {
+         if (qEnvironmentVariableIsSet(envVar)) {
+-            const QString path = QFile::decodeName(qgetenv(envVar)) + u"/lib"_s;
++            const QString path = QFile::decodeName(qgetenv(envVar)) + u"/lib64"_s;
+             if (QFileInfo::exists(path))
+                 return path;
+             qWarning("%s: %s as pointed to by %s does not exist.", __FUNCTION__, qPrintable(path), envVar);

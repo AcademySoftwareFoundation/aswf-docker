@@ -27,7 +27,6 @@ Contains:
 * tbb-2018
 * glew-2.1.0
 * glfw-3.1.2
-* cmake-3.12.4
 * imath-2.3.0
 * openexr-2.3.0
 * partio-1.10.1
@@ -45,7 +44,6 @@ Contains:
 * tbb-2019_u6
 * glew-2.1.0
 * glfw-3.1.2
-* cmake-3.18.4
 * imath-2.4.0
 * openexr-2.4.0
 * partio-1.10.1
@@ -63,7 +61,6 @@ Contains:
 * tbb-2020_u2
 * glew-2.1.0
 * glfw-3.1.2
-* cmake-3.19.3
 * imath-2.5.5
 * openexr-2.5.5
 * partio-1.14.0
@@ -81,7 +78,6 @@ Contains:
 * tbb-2020_u3
 * glew-2.1.0
 * glfw-3.1.2
-* cmake-3.22.0
 * imath-3.1.5
 * openexr-3.1.5
 * partio-1.14.0
@@ -99,7 +95,6 @@ Contains:
 * tbb-2020_u3
 * glew-2.1.0
 * glfw-3.1.2
-* cmake-3.27.2
 * imath-3.1.9
 * openexr-3.1.11
 * partio-1.17.1
@@ -122,7 +117,6 @@ Contains:
 * expat-2.6.4
 * glew-2.1.0
 * glfw-3.3.8
-* cmake-3.27.9
 * imath-3.1.12
 * openexr-3.2.4
 * partio-1.17.1
@@ -145,9 +139,8 @@ Contains:
 * expat-2.6.4
 * glew-2.2.0
 * glfw-3.4
-* cmake-3.31.2
 * imath-3.1.12
-* openexr-3.3.2
+* openexr-3.3.3
 * partio-1.17.3
 * openvdb-12.0.0
 * osl-1.13.12.0

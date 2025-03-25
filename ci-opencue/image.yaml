@@ -5,7 +5,6 @@ description: |
   Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!
 packages:
   - cpython
-  - cmake
 implicit_packages:
   - numpy
   - vfxplatform

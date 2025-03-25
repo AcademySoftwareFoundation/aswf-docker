@@ -11,7 +11,7 @@ from conan import ConanFile
 from conan.tools.env import Environment
 from conan.tools.scm import Version
 from conan.errors import ConanException
-from conan.tools.files import get, apply_conandata_patches
+from conan.tools.files import copy, get, export_conandata_patches, apply_conandata_patches
 
 
 class PySide6Conan(ConanFile):
@@ -46,13 +46,10 @@ class PySide6Conan(ConanFile):
         return self.options.GLBackend == "OpenGL"
 
     def requirements(self):
-        self.requires(
-            f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
         self.requires(f"qt/{os.environ['ASWF_QT_VERSION']}@{self.user}/{self.channel}")
-        self.requires(
-            f"clang/{os.environ['ASWF_PYSIDE_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
-        )
+        self.requires(f"clang/{os.environ['ASWF_PYSIDE_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
+        self.requires(f"md4c/{os.environ['ASWF_MD4C_VERSION']}@{self.user}/{self.channel}")
 
     def build_requirements(self):
         self.tool_requires(
@@ -67,6 +64,9 @@ class PySide6Conan(ConanFile):
         # when running shiboken built in Debug from source (also related to libclang)
         if self.settings.os == "Windows":
             self.tool_requires(f"pyside-shiboken/{self.version}")
+
+    def export_sources(self):
+        export_conandata_patches(self)
 
     def configure(self):
         # self.options["qt"].with_webengine = False
@@ -115,7 +115,7 @@ class PySide6Conan(ConanFile):
             if rpath != "":
                 rpath = "/" + rpath
             # Assume installed on system
-            # patchelfPath = os.path.join(self.deps_cpp_info["patchelf"].bin_paths[0], "patchelf")
+            # patchelfPath = os.path.join(self.dependencies["patchelf"].cpp_info.bin_paths[0], "patchelf")
             patchelfPath = "/usr/bin/patchelf"
             for bin in binaries:
                 self.run(f"{patchelfPath} --set-rpath \$ORIGIN{rpath} {bin}")
@@ -178,7 +178,10 @@ class PySide6Conan(ConanFile):
         env = Environment()
         env.define("LLVM_INSTALL_DIR", llvmInfo.package_folder)
         env.define("LD_LIBRARY_PATH", pythonInfo.cpp_info.libdirs[0])
-        env.define("CMAKE_PREFIX_PATH", qtInfo.package_folder)
+        # Something in Qt depends on md4c
+        md4cInfo = self.dependencies["md4c"]
+        env.append("LD_LIBRARY_PATH", md4cInfo.cpp_info.libdirs[0],separator=':')
+        env.define("CMAKE_PREFIX_PATH", f"{qtInfo.package_folder}:{llvmInfo.package_folder}")
         env.define("CPATH", f"/opt/rh/gcc-toolset-{os.environ['ASWF_DTS_VERSION']}/root/usr/lib/gcc/x86_64-redhat-linux/{os.environ['ASWF_DTS_VERSION']}/include")
         env_vars = env.vars(self)
 
@@ -193,44 +196,45 @@ class PySide6Conan(ConanFile):
             # Copy the shared libraries shiboken needs to be able to run into the package
             for lib in ("Core", "Gui", "Network", "OpenGL", "Widgets", "Xml"):
                 for f in glob.glob(
-                    os.path.join(qtInfo.rootpath, "lib", f"libQt6{lib}.so*")
+                    os.path.join(qtInfo.package_folder, "lib64", f"libQt6{lib}.so*")
                 ):
                     shutil.copy(f, installBinDir, follow_symlinks=False)
             for f in glob.glob(
-                os.path.join(llvmInfo.rootpath, "lib64", "libclang.so*")
+                os.path.join(llvmInfo.package_folder, "lib64", "libclang.so*")
             ):
                 shutil.copy(f, installBinDir, follow_symlinks=False)
 
     def _buildMac(self, srcDir):
-        qtInfo = self.deps_cpp_info["qt"]
-        qtBinPath = qtInfo.bin_paths[0]
+        qtInfo = self.dependencies["qt"]
+        qtBinPath = qtInfo.cpp_info.bin_paths[0]
         qmakePath = os.path.join(qtBinPath, "qtpaths6")
 
-        llvmInfo = self.deps_cpp_info["clang"]
+        llvmInfo = self.dependencies["clang"]
 
-        pythonInfo = self.deps_cpp_info["cpython"]
+        pythonInfo = self.dependencies["cpython"]
         pythonBinPath = os.path.join(
-            pythonInfo.bin_paths[0], self.deps_user_info["cpython"].python_interp
+            pythonInfo.cpp_info.bin_paths[0], self.dependencies["cpython"].conf_info.python_interp
         )
 
-        env = {
-            "LLVM_INSTALL_DIR": llvmInfo.rootpath,
-            "CMAKE_PREFIX_PATH": pythonInfo.rootpath,
-            "CXXFLAGS": f"-I{pythonInfo.include_paths[0]}",
-        }
+        env = Environment()
+        env.define("LLVM_INSTALL_DIR", llvmInfo.package_folder)
+        env.define("CMAKE_PREFIX_PATH", f"{qtInfo.package_folder}:{llvmInfo.package_folder}")
+        env.defiine("CXXFLAGS", f"-I{pythonInfo.cpp_info.includedirs[0]}")
+        env_vars = env.vars(self)
 
-        with tools.environment_append(env):
+        with env_vars.apply():
             buildCmd = self._buildCommand(pythonBinPath, srcDir, qmakePath)
             self.run(buildCmd)
 
     def _buildWindows(self, srcDir):
-        qtInfo = self.deps_cpp_info["qt"]
-        qtBinPath = qtInfo.bin_paths[0]
+        qtInfo = self.dependencies["qt"]
+        qtBinPath = qtInfo.cpp_info.bin_paths[0]
         qmakePath = os.path.join(qtBinPath, "qtpaths6.exe")
-        llvmInfo = self.deps_cpp_info["clang"]
+
+        llvmInfo = self.dependencies["clang"]
 
         pythonBinPath = os.path.join(
-            self.pythonLocalRoot, "bin", self.deps_user_info["cpython"].python_interp
+            self.pythonLocalRoot, "bin", self.dependencies["cpython"].conf_info.python_interp
         )
 
         # from Python 3.8 DLL loading is more restrictive, disallowing PATH, see https://bugs.python.org/issue43173
@@ -238,14 +242,14 @@ class PySide6Conan(ConanFile):
         os.add_dll_directory(qtBinPath)
         os.environ["PATH"] += os.pathsep + qtBinPath
 
-        env = {
-            "LLVM_INSTALL_DIR": llvmInfo.rootpath,
-            "CMAKE_PREFIX_PATH": self.pythonLocalRoot,
-            "CC": "cl.exe",  # pick up MSVC rather than clang from LLVM
-            "CXX": "cl.exe",
-        }
+        env = Environment()
+        env.define("LLVM_INSTALL_DIR", llvmInfo.package_folder)
+        env.define("CMAKE_PREFIX_PATH", f"{qtInfo.package_folder}:{llvmInfo.package_folder}")
+        env.define("CC", "cl.exe")  # pic up MSVC rather than clang from LLVM
+        env.define("CXX", "cl.exe")
+        env_vars = env.vars(self)
 
-        with tools.environment_append(env):
+        with env_vars.apply():
             # don't run the full build in one go, as that fails in Debug builds due to a stack overflow
             # in (Debug) libclang while running shiboken - bring in a release build of shiboken to build PySide6
             # seems to be related to https://bugreports.qt.io/browse/PYSIDE-739
@@ -253,9 +257,9 @@ class PySide6Conan(ConanFile):
             buildCmd = self._buildCommand(pythonBinPath, srcDir, qmakePath)
             self.run(buildCmd + " --build-type=shiboken")
 
-            shibokenInfo = self.deps_cpp_info["pyside-shiboken"]
+            shibokenInfo = self.dependencies["pyside-shiboken"]
             installBinDir = os.path.join(self._installDir, "bin")
-            for f in glob.glob(os.path.join(shibokenInfo.rootpath, "bin", "*")):
+            for f in glob.glob(os.path.join(shibokenInfo.package_folder, "bin", "*")):
                 shutil.copy(f, installBinDir)
 
             self.run(buildCmd + " --build-type=pyside")
@@ -273,9 +277,9 @@ class PySide6Conan(ConanFile):
 
     @property
     def _installDir(self):
-        pythonVersion = tools.Version(self.deps_cpp_info["cpython"].version)
+        pythonVersion = Version(self.dependencies["cpython"].ref.version)
         pythonVersionMajorMinor = f"{pythonVersion.major}.{pythonVersion.minor}"
-        qtVersion = self.deps_cpp_info["qt"].version
+        qtVersion = self.dependencies["qt"].ref.version
 
         src_dir = os.path.join(self.source_folder, self._checkout_folder)
 
@@ -305,18 +309,18 @@ class PySide6Conan(ConanFile):
         for lib in ("Core", "Gui", "Network", "OpenGL", "Qml", "Widgets", "Xml"):
             framework = f"Qt{lib}.framework"
             self.copy(
-                src=os.path.join(self.deps_cpp_info["qt"].lib_paths[0], framework),
+                src=os.path.join(self.dependencies["qt"].cpp_info.lib_paths[0], framework),
                 pattern="*",
                 dst=f"bin/{framework}",
             )
             self.copy(
-                src=os.path.join(self.deps_cpp_info["qt"].lib_paths[0], framework),
+                src=os.path.join(self.dependencies["qt"].cpp_info.lib_paths[0], framework),
                 pattern="*",
-                dst=f"lib/{framework}",
+                dst=f"lib64/{framework}",
             )
 
         self.copy(
-            src=os.path.join(self.deps_cpp_info["clang"].rootpath, "lib"),
+            src=os.path.join(self.dependencies["clang"].package_folder, "lib64"),
             pattern="libclang.dylib",
             dst="bin",
         )
@@ -329,13 +333,13 @@ class PySide6Conan(ConanFile):
                     files.append(fullFilePath)
             return files
 
-        libDir = os.path.join(self.package_folder, "lib")
+        libDir = os.path.join(self.package_folder, "lib64")
         libs = _getFilesByExt(libDir, ".dylib")
         # self._set_r_paths(libs, '@loader_path/../bin')
 
-        v = tools.Version(self.deps_cpp_info["cpython"].version)
+        v = Version(self.dependencies["cpython"].ref.version)
         sitePkgDir = os.path.join(
-            self.package_folder, f"lib/python{v.major}.{v.minor}/site-packages"
+            self.package_folder, f"lib64/python{v.major}.{v.minor}/site-packages"
         )
 
         libDir = os.path.join(self.package_folder, sitePkgDir, "shiboken")
@@ -348,8 +352,8 @@ class PySide6Conan(ConanFile):
         # self._set_r_paths(libs, '@loader_path/../../../../bin')
 
     def package(self):
-        self.copy(pattern="*", src=self._installDir, symlinks=True)
-        self.copy(pattern="*", src="cmake", dst="cmake")
+        copy(self,pattern="*", src=self._installDir, dst=self.package_folder )
+        # copy(self,pattern="*", src="cmake", dst="cmake")
 
         if self.settings.os == "Macos":
             self._configure_package_mac()
@@ -362,17 +366,15 @@ class PySide6Conan(ConanFile):
         # let Conan install the right dependencies
         #
         # if self.settings.os == "Linux":
-        #     self.copy(
-        #         pattern="*", src=self.deps_cpp_info["clang"].rootpath, dst="clang"
-        #     )
+        #     copy(self,pattern="*", src=self.deps_cpp_info["clang"].package_folder, dst="clang")
 
     def package_info(self):
-        v = tools.Version(self.deps_cpp_info["cpython"].version)
+        v = Version(self.dependencies["cpython"].ref.version)
         if self.settings.os == "Windows":
             self.user_info.site_package = os.path.join(
-                self.package_folder, "lib/site-packages"
+                self.package_folder, "lib64/site-packages"
             )
         else:
             self.user_info.site_package = os.path.join(
-                self.package_folder, f"lib/python{v.major}.{v.minor}/site-packages"
+                self.package_folder, f"lib64/python{v.major}.{v.minor}/site-packages"
             )

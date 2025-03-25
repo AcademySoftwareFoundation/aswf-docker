@@ -17,7 +17,6 @@ packages:
   - log4cplus
   - qt
   - pyside
-  - cmake
   - imath
   - materialx
   - openexr

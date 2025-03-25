@@ -152,8 +152,9 @@ versions:
       ASWF_CUDA_VERSION: "12.6.1"
       ASWF_GLVND_VERSION: "1.7.0"
       ASWF_CCACHE_VERSION: "4.8.3"
+      ASWF_CMAKE_VERSION: "3.27.9"
       ASWF_NINJA_VERSION: "1.12.1"
-      ASWF_SONAR_VERSION: "5.0.1.3006"
+      ASWF_SONAR_VERSION: "6.2.1.4610"
       ASWF_BASEOS_DISTRO: "rockylinux8"
       ASWF_BASEOS_IMAGE: "nvidia/cuda"
   "4-clang16":
@@ -185,7 +186,8 @@ versions:
       ASWF_CONAN_PYTHON_VERSION: "3.11.11"
       ASWF_CUDA_VERSION: "12.6.1"
       ASWF_GLVND_VERSION: "1.7.0"
-      ASWF_CCACHE_VERSION: "4.10.2"
+      ASWF_CCACHE_VERSION: "4.9.1"
+      ASWF_CMAKE_VERSION: "3.31.6"
       ASWF_NINJA_VERSION: "1.12.1"
       ASWF_SONAR_VERSION: "6.2.1.4610"
       ASWF_BASEOS_DISTRO: "rockylinux8"
@@ -206,7 +208,7 @@ versions:
     use_major_version_as_tag: true
     package_versions:
       ASWF_CLANG_MAJOR_VERSION: "19"
-      ASWF_CLANG_VERSION: "19.1.0"
+      ASWF_CLANG_VERSION: "19.1.1"
   "2019":
     parent_versions: ["1", "1-clang7"]
     major_version: "2019"
@@ -508,7 +510,6 @@ versions:
       ASWF_B2_VERSION: "5.2.1"
       ASWF_BLOSC_VERSION: "1.21.5"
       ASWF_BZIP2_VERSION: "1.0.8"
-      ASWF_CMAKE_VERSION: "3.27.9"
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_EXPAT_VERSION: "2.6.4"
       ASWF_GLEW_VERSION: "2.1.0"
@@ -523,8 +524,8 @@ versions:
       ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MD4C_VERSION: "0.4.8"
       ASWF_MINIZIP_NG_VERSION: "4.0.3"
-      ASWF_PARTIO_VERSION: "1.17.1"
       ASWF_OPENSUBDIV_VERSION: "3.6.0"
+      ASWF_PARTIO_VERSION: "1.17.1"
       ASWF_PTEX_VERSION: "2.4.2"
       ASWF_PYBIND11_VERSION: "2.12.0"
       ASWF_PYSTRING_VERSION: "1.1.4"
@@ -611,7 +612,6 @@ versions:
       ASWF_B2_VERSION: "5.2.1"
       ASWF_BLOSC_VERSION: "1.21.6"
       ASWF_BZIP2_VERSION: "1.0.8"
-      ASWF_CMAKE_VERSION: "3.31.2"
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_EXPAT_VERSION: "2.6.4"
       ASWF_GLEW_VERSION: "2.2.0"
@@ -649,11 +649,11 @@ versions:
       ASWF_CXX_STANDARD: "17"
       # ASWF packages
       ASWF_IMATH_VERSION: "3.1.12"
-      ASWF_MATERIALX_VERSION: "1.39.2"
+      ASWF_MATERIALX_VERSION: "1.39.3"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
-      ASWF_OCIO_VERSION: "2.4.1"
-      ASWF_OIIO_VERSION: "3.0.2.0"
-      ASWF_OPENEXR_VERSION: "3.3.2"
+      ASWF_OCIO_VERSION: "2.4.2"
+      ASWF_OIIO_VERSION: "3.0.4.0"
+      ASWF_OPENEXR_VERSION: "3.3.3"
       ASWF_OPENRV_VERSION: "2.1.0"
       ASWF_OPENVDB_VERSION: "12.0.0"
       ASWF_OSL_VERSION: "1.13.12.0"
@@ -694,13 +694,11 @@ ci-packages:
     - "4.2"
     - "5.0"
   cmake:
-    - "2019.0"
-    - "2020.0"
-    - "2021.1"
-    - "2022.1"
-    - "2023.2"
-    - "2024.2"
-    - "2025.0"
+    - "1.3"
+    - "2.2"
+    - "3.2"
+    - "4.2"
+    - "5.0"
   cpython:
     - "2019.2"
     - "2020.2"
@@ -1195,6 +1193,7 @@ groups:
   package:
       common: 
         - clang
+        - cmake
         - ninja
       base1:
         - b2
@@ -1202,7 +1201,6 @@ groups:
         - brotli
         - double-conversion
         - bzip2
-        - cmake
         - cpython
         - boost
         - cppunit

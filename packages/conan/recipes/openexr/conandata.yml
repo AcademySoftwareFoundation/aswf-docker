@@ -5,12 +5,15 @@
 # From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/openexr/3.x/conandata.yml
 
 sources:
+  "3.3.3":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.3/openexr-3.3.3.tar.gz"
+    sha256: "d819b9f76cbe63cc6b7476267659900f00aab79b636a83f0ecac2be669ca97b5"
   "3.3.2":
     url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.2/openexr-3.3.2.tar.gz"
     sha256: "4fb4c643b39f04b67e8f4138e4d5a7804b62fdc15b8f6bcdd32ccc8ecd515683"
   "3.3.1":
-    url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.3.1.tar.gz"
-    sha256: "58aad2b32c047070a52f1205b309bdae007442e0f983120e4ff57551eb6f10f1"
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.1/openexr-v3.3.1.tar.gz"
+    sha256: "2d602128b53f6f9df84482bdfdf1d19dc0cb552c9fba0af9205a8937dd2633e9"
   "3.3.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.3.0.tar.gz"
     sha256: "58b00f50d2012f3107573c4b7371f70516d2972c2b301a50925e1b4a60a7be6f"

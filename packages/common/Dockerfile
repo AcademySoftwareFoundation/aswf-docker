@@ -126,6 +126,8 @@ ARG ASWF_GLFW_VERSION
 ENV ASWF_GLFW_VERSION=${ASWF_GLFW_VERSION}
 ARG ASWF_TBB_VERSION
 ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
+ARG ASWF_MD4C_VERSION
+ENV ASWF_MD4C_VERSION=${ASWF_MD4C_VERSION}
 
 # These are a bit of a circular dependency, but ci-conan-package-builder
 # is also used to build vfx1/vfx2 packages
@@ -164,7 +166,7 @@ RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
       ${ASWF_CONAN_KEEP_SOURCE} \
       ${ASWF_CONAN_KEEP_BUILD} \
       ${ASWF_CONAN_BUILD_MISSING} \
-      --profile:all ${CONAN_USER_HOME}/.conan2/profiles/${ASWF_CONAN_CHANNEL} \
+      --profile:all ${CONAN_USER_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} \
       --name ${ASWF_PKG_NAME} \
       --version ${ASWF_PKG_VERSION} \
       --user ${ASWF_PKG_ORG} \
@@ -177,7 +179,7 @@ RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
     --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan2,source=packages/conan/settings \
     --mount=type=bind,rw,target=${CONAN_USER_HOME}/recipes,source=packages/conan/recipes \
     if [ -n "${ASWF_CONAN_PUSH}" ] ; then \
-      conan upload --all -r ${ASWF_PKG_ORG} ${ASWF_PKG_NAME}/${ASWF_PKG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} ;\
+      conan upload --all --remote ${ASWF_PKG_ORG} ${ASWF_PKG_NAME}/${ASWF_PKG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} ;\
     else \
       echo "conan upload of package ${ASWF_PKG_NAME} skipped" ; \
     fi

@@ -6,7 +6,6 @@ description: |
 packages:
   - cpython
   - pybind11
-  - cmake
 implicit_packages:
   - numpy
   - vfxplatform
