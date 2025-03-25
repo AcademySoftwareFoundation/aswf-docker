@@ -22,7 +22,6 @@ Warning: this image does *not* contain OpenTimelineIO itself as it is used to *b
 
 Contains:
 * cpython-2.7.15
-* cmake-3.12.4
 * qt-5.12.6
 * pyside-5.12.6
 * numpy-1.14
@@ -32,7 +31,6 @@ Contains:
 
 Contains:
 * cpython-3.7.3
-* cmake-3.18.4
 * qt-5.12.6
 * pyside-5.12.6
 * numpy-1.16
@@ -42,7 +40,6 @@ Contains:
 
 Contains:
 * cpython-3.7.9
-* cmake-3.19.3
 * qt-5.15.2
 * pyside-5.15.2
 * numpy-1.19
@@ -52,7 +49,6 @@ Contains:
 
 Contains:
 * cpython-3.9.15
-* cmake-3.22.0
 * qt-5.15.2
 * pyside-5.15.2
 * numpy-1.20
@@ -62,7 +58,6 @@ Contains:
 
 Contains:
 * cpython-3.10.11
-* cmake-3.27.2
 * qt-5.15.9
 * pyside-5.15.9
 * numpy-1.23.5
@@ -72,7 +67,6 @@ Contains:
 
 Contains:
 * cpython-3.11.11
-* cmake-3.27.9
 * expat-2.6.4
 * qt-6.5.4
 * pyside-6.5.4
@@ -83,7 +77,6 @@ Contains:
 
 Contains:
 * cpython-3.11.11
-* cmake-3.31.2
 * expat-2.6.4
 * qt-6.5.4
 * pyside-6.5.4

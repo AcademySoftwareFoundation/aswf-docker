@@ -1,0 +1,12 @@
+diff --git a/sources/shiboken6/libshiboken/sbkcontainer.cpp b/sources/shiboken6/libshiboken/sbkcontainer.cpp
+index 996968f..a072dfd 100644
+--- a/sources/shiboken6/libshiboken/sbkcontainer.cpp
++++ b/sources/shiboken6/libshiboken/sbkcontainer.cpp
+@@ -3,6 +3,7 @@
+
+ #include "sbkcontainer.h"
+ #include "sbkstaticstrings.h"
++#include "autodecref.h"
+
+ namespace Shiboken
+ {

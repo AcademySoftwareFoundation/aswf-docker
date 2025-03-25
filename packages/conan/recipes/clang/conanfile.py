@@ -1,6 +1,8 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/1f8a9d826fdf0c0e3cedf798b44a10dadb3223fe/recipes/llvm-core/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -17,7 +19,7 @@ from conan.tools.files import (
     export_conandata_patches,
     rm,
     rename,
-    replace_in_file,
+    replace_in_file
 )
 from conan.tools.microsoft import is_msvc, msvc_runtime_flag
 from conan.tools.scm import Version
@@ -53,7 +55,7 @@ LLVM_TARGETS = {
     "VE",
     "WebAssembly",
     "X86",
-    "XCore",
+    "XCore"
 }
 
 
@@ -64,10 +66,9 @@ class ClangConan(ConanFile):
         "optimizers, and runtime environments."
     )
     license = "Apache-2.0 WITH LLVM-exception"
-    topics = ("clang", "compiler")
+    topics = ("llvm", "compiler")
     homepage = "https://llvm.org"
-    url = "https://github.com/AcademySoftwareFoundation/aswf-docker"
-
+    url = "https://github.com/conan-io/conan-center-index"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
@@ -90,7 +91,7 @@ class ClangConan(ConanFile):
             "Thread",
             "DataFlow",
             "Address;Undefined",
-            "None",
+            "None"
         ],
         "with_ffi": [True, False],
         "with_libedit": [True, False],
@@ -118,7 +119,7 @@ class ClangConan(ConanFile):
         "with_terminfo": False,  # differs from LLVM default
         "with_xml2": False,
         "with_z3": False,
-        "with_zlib": True,
+        "with_zlib": False,
     }
 
     @property
@@ -157,51 +158,38 @@ class ClangConan(ConanFile):
             self.requires("libffi/3.4.4")
         if self.options.get_safe("with_libedit"):
             self.requires("editline/3.1")
-        # if self.options.with_zlib:
-        #     self.requires("zlib/[>=1.2.11 <2]")
-        # if self.options.with_xml2:
-        #     self.requires("libxml2/[>=2.12.5 <3]")
+        if self.options.with_zlib:
+            self.requires("zlib/[>=1.2.11 <2]")
+        if self.options.with_xml2:
+            self.requires("libxml2/[>=2.12.5 <3]")
         if self.options.with_z3:
             self.requires("z3/4.13.0")
 
     def build_requirements(self):
-        self.tool_requires(
-            f"ninja/{os.environ['ASWF_NINJA_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
-        )
+        self.tool_requires(f"ninja/{os.environ['ASWF_NINJA_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
 
     def validate(self):
         if self.settings.compiler.cppstd:
             check_min_cppstd(self, self._min_cppstd)
-        minimum_version = self._compilers_minimum_version.get(
-            str(self.settings.compiler), False
-        )
-        if (
-            minimum_version
-            and Version(self.settings.compiler.version) < minimum_version
-        ):
+        minimum_version = self._compilers_minimum_version.get(str(self.settings.compiler), False)
+        if minimum_version and Version(self.settings.compiler.version) < minimum_version:
             raise ConanInvalidConfiguration(
                 f"{self.ref} requires C++{self._min_cppstd}, which your compiler does not support."
             )
 
         if self.options.shared:
             if self.settings.os == "Windows":
-                raise ConanInvalidConfiguration(
-                    "Shared builds are currently not supported on Windows"
-                )
+                raise ConanInvalidConfiguration("Shared builds are currently not supported on Windows")
             if is_apple_os(self):
                 # FIXME iconv contains duplicate symbols in the libiconv and libcharset libraries (both of which are
                 #  provided by libiconv). This may be an issue with how conan packages libiconv
                 iconv_dep = self.dependencies.get("libiconv")
                 if iconv_dep and not iconv_dep.options.shared:
-                    raise ConanInvalidConfiguration(
-                        "Static iconv cannot be linked into a shared library on macos "
-                        "due to duplicate symbols. Use libxml2/*:iconv=False."
-                    )
+                    raise ConanInvalidConfiguration("Static iconv cannot be linked into a shared library on macos "
+                                                    "due to duplicate symbols. Use libxml2/*:iconv=False.")
 
         if self.options.exceptions and not self.options.rtti:
-            raise ConanInvalidConfiguration(
-                "Cannot enable exceptions without rtti support"
-            )
+            raise ConanInvalidConfiguration("Cannot enable exceptions without rtti support")
 
         if cross_building(self):
             # FIXME support cross compilation
@@ -209,23 +197,14 @@ class ClangConan(ConanFile):
             #  This subdirectory would need to have the conan cmake configuration files for the build platform
             #  installed into it for a cross build to be successful.
             #  see also https://llvm.org/docs/HowToCrossCompileLLVM.html
-            raise ConanInvalidConfiguration(
-                "Cross compilation is not supported. Contributions are welcome!"
-            )
+            raise ConanInvalidConfiguration("Cross compilation is not supported. Contributions are welcome!")
 
     def validate_build(self):
-        if (
-            os.getenv("CONAN_CENTER_BUILD_SERVICE")
-            and self.settings.build_type == "Debug"
-        ):
+        if os.getenv("CONAN_CENTER_BUILD_SERVICE") and self.settings.build_type == "Debug":
             if self.settings.os == "Linux":
-                raise ConanInvalidConfiguration(
-                    "Debug build is not supported on CCI due to resource limitations"
-                )
+                raise ConanInvalidConfiguration("Debug build is not supported on CCI due to resource limitations")
             elif self.options.shared:
-                raise ConanInvalidConfiguration(
-                    "Shared Debug build is not supported on CCI due to resource limitations"
-                )
+                raise ConanInvalidConfiguration("Shared Debug build is not supported on CCI due to resource limitations")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -239,31 +218,21 @@ class ClangConan(ConanFile):
             default_ram_per_compile_job = None
             default_ram_per_link_job = None
 
-        ram_per_compile_job = self.conf.get(
-            "user.llvm-core:ram_per_compile_job", default_ram_per_compile_job
-        )
+        ram_per_compile_job = self.conf.get("user.llvm-core:ram_per_compile_job", default_ram_per_compile_job)
         if ram_per_compile_job:
             cmake_definitions["LLVM_RAM_PER_COMPILE_JOB"] = ram_per_compile_job
 
-        ram_per_link_job = self.conf.get(
-            "user.llvm-core:ram_per_link_job", default_ram_per_link_job
-        )
+        ram_per_link_job = self.conf.get("user.llvm-core:ram_per_link_job", default_ram_per_link_job)
         if ram_per_link_job:
             cmake_definitions["LLVM_RAM_PER_LINK_JOB"] = ram_per_link_job
 
     @property
     def _targets_to_build(self):
-        return (
-            self.options.targets if self.options.targets != "all" else self._all_targets
-        )
+        return self.options.targets if self.options.targets != "all" else self._all_targets
 
     @property
     def _all_targets(self):
-        targets = (
-            LLVM_TARGETS
-            if Version(self.version) >= 14
-            else LLVM_TARGETS - {"LoongArch", "VE"}
-        )
+        targets = LLVM_TARGETS if Version(self.version) >= 14 else LLVM_TARGETS - {"LoongArch", "VE"}
         return ";".join(targets)
 
     def generate(self):
@@ -278,6 +247,7 @@ class ClangConan(ConanFile):
             # "LLVM_BUILD_LLVM_DYLIB" builds a single shared library containing all components.
             # It is likely the latter that the user expects by a "shared library" build.
             "BUILD_SHARED_LIBS": False,
+            "LLVM_ENABLE_PROJECTS": "clang;clang-tools-extra;lld",
             "LLVM_BUILD_LLVM_DYLIB": self.options.shared,
             "LLVM_LINK_LLVM_DYLIB": self.options.shared,
             "LLVM_DYLIB_COMPONENTS": self.options.components,
@@ -301,7 +271,7 @@ class ClangConan(ConanFile):
             "LLVM_ENABLE_ZLIB": "FORCE_ON" if self.options.with_zlib else False,
             "LLVM_ENABLE_LIBXML2": "FORCE_ON" if self.options.with_xml2 else False,
             "LLVM_ENABLE_TERMINFO": self.options.with_terminfo,
-            "GCC_INSTALL_PREFIX": os.environ["GCC_INSTALL_PREFIX"],
+            "LLVM_ENABLE_ZSTD": False # ASWF: remove zstd dependency
         }
         if self.options.targets != "all":
             cmake_variables["LLVM_TARGETS_TO_BUILD"] = self.options.targets
@@ -313,12 +283,10 @@ class ClangConan(ConanFile):
             cmake_variables[f"LLVM_USE_CRT_{build_type}"] = msvc_runtime_flag(self)
 
         if not self.options.shared:
-            cmake_variables.update(
-                {
-                    "DISABLE_LLVM_LINK_LLVM_DYLIB": True,
-                    "LLVM_ENABLE_PIC": self.options.get_safe("fPIC", default=True),
-                }
-            )
+            cmake_variables.update({
+                "DISABLE_LLVM_LINK_LLVM_DYLIB": True,
+                "LLVM_ENABLE_PIC": self.options.get_safe("fPIC", default=True),
+            })
 
         if self.options.use_sanitizer == "None":
             cmake_variables["LLVM_USE_SANITIZER"] = ""
@@ -326,32 +294,14 @@ class ClangConan(ConanFile):
             cmake_variables["LLVM_USE_SANITIZER"] = self.options.use_sanitizer
 
         if self.settings.os == "Linux":
+            # ASWF: Older LLVM versions need to know where DTS gcc is installed. But clang 19 deprecates GCC_INSTALL_DIR
+            if Version(self.version) < "18"  and compiler == "gcc":
+                cmake_variables["GCC_INSTALL_PREFIX"] = os.environ["GCC_INSTALL_PREFIX"]
             # Workaround for: https://github.com/conan-io/conan/issues/13560
-            libdirs_host = [
-                l
-                for dependency in self.dependencies.host.values()
-                for l in dependency.cpp_info.aggregated_components().libdirs
-            ]
+            libdirs_host = [l for dependency in self.dependencies.host.values() for l in dependency.cpp_info.aggregated_components().libdirs]
             tc.variables["CMAKE_BUILD_RPATH"] = ";".join(libdirs_host)
 
         tc.cache_variables.update(cmake_variables)
-
-        # compiler = self.settings.compiler.value
-        # version = Version(self.settings.compiler.version)
-        # if (
-        #     Version(self.version) >= "13"
-        #     and compiler == "gcc"
-        #     and version.major >= 9
-        # ):
-        #     # llvm-13 / gcc9 fails to build (mostly unused) libc++
-        #     # see https://www.mail-archive.com/llvm-bugs@lists.llvm.org/msg53136.html
-        #     tc.variables["LLVM_ENABLE_RUNTIMES"] = "compiler-rt"
-        #     tc.variables["LLVM_TOOL_LIBCXX_BUILD"] = "OFF"
-        #     tc.variables["LLVM_TOOL_LIBCXXABI_BUILD"] = "OFF"
-        # else:
-        #     tc.variables["LLVM_ENABLE_RUNTIMES"] = "libcxx;libcxxabi;compiler-rt"
-        #     tc.variables["LLVM_TOOL_LIBCXX_BUILD"] = "ON"
-        #     tc.variables["LLVM_TOOL_LIBCXXABI_BUILD"] = "ON"
 
         # Libraries go to lib64
         tc.variables["LLVM_LIBDIR_SUFFIX"] = "64"
@@ -375,7 +325,7 @@ class ClangConan(ConanFile):
             match_genex = re.compile(r"""\\\$<LINK_ONLY:(.+)>""")
             replacements = {
                 "LibXml2::LibXml2": "libxml2::libxml2",
-                "ZLIB::ZLIB": "zlib::zlib",
+                "ZLIB::ZLIB": "zlib::zlib"
             }
             for dep in deps_list.split(";"):
                 match = match_genex.search(dep)
@@ -391,7 +341,10 @@ class ClangConan(ConanFile):
                         yield dep
 
         def _parse_deps(deps_list):
-            data = {"requires": [], "system_libs": []}
+            data = {
+                "requires": [],
+                "system_libs": []
+            }
             windows_system_libs = [
                 "ole32",
                 "delayimp",
@@ -400,7 +353,7 @@ class ClangConan(ConanFile):
                 "-delayload:shell32.dll",
                 "uuid",
                 "psapi",
-                "-delayload:ole32.dll",
+                "-delayload:ole32.dll"
             ]
             for component in _sanitized_components(deps_list):
                 if component in windows_system_libs:
@@ -412,41 +365,29 @@ class ClangConan(ConanFile):
             return data
 
         # Can't use tools.files.load due to CRLF endings on Windows causing issues with Regular Expressions
-        cmake_exports = (
-            self._package_folder_path / "lib64" / "cmake" / "llvm" / "LLVMExports.cmake"
-        ).read_text("utf-8")
+        cmake_exports = (self._package_folder_path / "lib64" / "cmake" / "llvm" / "LLVMExports.cmake").read_text("utf-8")
         match_dependencies = re.compile(
-            r'''^set_target_properties\((\w+).*\n?\s*INTERFACE_LINK_LIBRARIES\s+"(\S+)"''',
-            re.MULTILINE,
-        )
+            r'''^set_target_properties\((\w+).*\n?\s*INTERFACE_LINK_LIBRARIES\s+"(\S+)"''', re.MULTILINE)
 
         for llvm_lib, dependencies in match_dependencies.findall(cmake_exports):
             if llvm_lib in components:
                 components[llvm_lib].update(_parse_deps(dependencies))
 
     def _llvm_build_info(self):
-        cmake_config = (
-            self._package_folder_path / "lib64" / "cmake" / "llvm" / "LLVMConfig.cmake"
-        ).read_text("utf-8")
+        cmake_config = (self._package_folder_path / "lib64" / "cmake" / "llvm" / "LLVMConfig.cmake").read_text("utf-8")
 
-        match_cmake_var = re.compile(
-            r"""^set\(LLVM_AVAILABLE_LIBS (?P<components>.*)\)$""", re.MULTILINE
-        )
+        match_cmake_var = re.compile(r"""^set\(LLVM_AVAILABLE_LIBS (?P<components>.*)\)$""", re.MULTILINE)
         match = match_cmake_var.search(cmake_config)
         if match is None:
             self.output.warning("Could not find components in LLVMConfig.cmake")
             return None
 
-        components = {
-            component: {} for component in match.groupdict()["components"].split(";")
-        }
+        components = {component: {} for component in match.groupdict()["components"].split(";")}
         self._update_component_dependencies(components)
 
         return {
             "components": components,
-            "native_arch": re.search(
-                r"""^set\(LLVM_NATIVE_ARCH (\S*)\)$""", cmake_config, re.MULTILINE
-            ).group(1),
+            "native_arch": re.search(r"""^set\(LLVM_NATIVE_ARCH (\S*)\)$""", cmake_config, re.MULTILINE).group(1)
         }
 
     @property
@@ -455,11 +396,7 @@ class ClangConan(ConanFile):
 
     @property
     def _build_info_file(self):
-        return (
-            self._package_folder_path
-            / self._cmake_module_path
-            / "conan_llvm_build_info.json"
-        )
+        return self._package_folder_path / self._cmake_module_path / "conan_llvm_build_info.json"
 
     @property
     def _build_module_file_rel_path(self):
@@ -467,8 +404,7 @@ class ClangConan(ConanFile):
 
     def _create_cmake_build_module(self, build_info, module_file):
         targets_with_jit = ["X86", "PowerPC", "AArch64", "ARM", "Mips", "SystemZ"]
-        content = textwrap.dedent(
-            f"""\
+        content = textwrap.dedent(f"""\
             set(LLVM_TOOLS_BINARY_DIR "${{CMAKE_CURRENT_LIST_DIR}}/../../../bin")
             cmake_path(NORMAL_PATH LLVM_TOOLS_BINARY_DIR)
             set(LLVM_PACKAGE_VERSION "{self.version}")
@@ -490,8 +426,7 @@ class ClangConan(ConanFile):
             if (NOT TARGET acc_gen)
               add_custom_target(acc_gen)
             endif()
-           """
-        )
+           """)
         save(self, module_file, content)
 
     def _write_build_info(self):
@@ -506,12 +441,7 @@ class ClangConan(ConanFile):
             return json.load(fp)
 
     def package(self):
-        copy(
-            self,
-            "LICENSE.TXT",
-            src=self.source_folder,
-            dst=os.path.join(self.package_folder, "licenses", self.name),
-        )
+        copy(self, "LICENSE.TXT", self.source_folder, (self._package_folder_path / "licenses" / self.name).as_posix())
         cmake = CMake(self)
         cmake.install()
 
@@ -526,35 +456,24 @@ class ClangConan(ConanFile):
         rm(self, "*.pdb", (self._package_folder_path / "bin").as_posix())
         # need to rename this as Conan will flag it, but it's not actually a Config file and is needed by
         # downstream packages
-        rename(
-            self,
-            (cmake_folder / "LLVM-Config.cmake").as_posix(),
-            (cmake_folder / "LLVM-ConfigInternal.cmake").as_posix(),
-        )
-        replace_in_file(
-            self,
-            (cmake_folder / "AddLLVM.cmake").as_posix(),
-            "LLVM-Config",
-            "LLVM-ConfigInternal",
-        )
+        rename(self, (cmake_folder / "LLVM-Config.cmake").as_posix(), (cmake_folder / "LLVM-ConfigInternal.cmake").as_posix())
+        replace_in_file(self, (cmake_folder / "AddLLVM.cmake").as_posix(), "LLVM-Config", "LLVM-ConfigInternal")
+        replace_in_file(self, (cmake_folder / "LLVMConfig.cmake").as_posix(), "LLVM-Config", "LLVM-ConfigInternal")
         rmdir(self, (self._package_folder_path / "share").as_posix())
         if self.options.shared:
             rm(self, "*.a", (self._package_folder_path / "lib64").as_posix())
 
         self._create_cmake_build_module(
             build_info,
-            (self._package_folder_path / self._build_module_file_rel_path).as_posix(),
+            (self._package_folder_path / self._build_module_file_rel_path).as_posix()
         )
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "LLVM")
-        self.cpp_info.set_property(
-            "cmake_build_modules",
-            [
-                self._build_module_file_rel_path,
-                (self._cmake_module_path / "LLVM-ConfigInternal.cmake").as_posix(),
-            ],
-        )
+        self.cpp_info.set_property("cmake_build_modules",
+                                   [self._build_module_file_rel_path,
+                                    (self._cmake_module_path / "LLVM-ConfigInternal.cmake").as_posix()]
+                                   )
         self.cpp_info.builddirs.append(self._cmake_module_path)
 
         if not self.options.shared:
@@ -562,9 +481,7 @@ class ClangConan(ConanFile):
             components = build_info["components"]
 
             for component_name, data in components.items():
-                self.cpp_info.components[component_name].set_property(
-                    "cmake_target_name", component_name
-                )
+                self.cpp_info.components[component_name].set_property("cmake_target_name", component_name)
                 self.cpp_info.components[component_name].libs = [component_name]
                 requires = data.get("requires")
                 if requires is not None:

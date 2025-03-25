@@ -22,7 +22,6 @@ Warning: this image does *not* contain OpenEXR itself as it is used to *build* O
 
 Contains:
 * cpython-2.7.15
-* cmake-3.12.4
 * pybind11-2.4.3
 * numpy-1.14
 * vfxplatform-2019
@@ -31,7 +30,6 @@ Contains:
 
 Contains:
 * cpython-3.7.3
-* cmake-3.18.4
 * pybind11-2.4.3
 * numpy-1.16
 * vfxplatform-2020
@@ -40,7 +38,6 @@ Contains:
 
 Contains:
 * cpython-3.7.9
-* cmake-3.19.3
 * pybind11-2.6.2
 * numpy-1.19
 * vfxplatform-2021
@@ -49,7 +46,6 @@ Contains:
 
 Contains:
 * cpython-3.9.15
-* cmake-3.22.0
 * pybind11-2.8.1
 * numpy-1.20
 * vfxplatform-2022
@@ -58,7 +54,6 @@ Contains:
 
 Contains:
 * cpython-3.10.11
-* cmake-3.27.2
 * pybind11-2.9.2
 * numpy-1.23.5
 * vfxplatform-2023
@@ -67,7 +62,6 @@ Contains:
 
 Contains:
 * cpython-3.11.11
-* cmake-3.27.9
 * pybind11-2.12.0
 * numpy-1.24.3
 * vfxplatform-2024
@@ -76,7 +70,6 @@ Contains:
 
 Contains:
 * cpython-3.11.11
-* cmake-3.31.2
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025

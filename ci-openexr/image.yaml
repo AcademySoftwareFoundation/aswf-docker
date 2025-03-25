@@ -5,7 +5,6 @@ description: |
   Warning: this image does *not* contain OpenEXR itself as it is used to *build* OpenEXR!
 packages:
   - cpython
-  - cmake
   - pybind11
 implicit_packages:
   - numpy

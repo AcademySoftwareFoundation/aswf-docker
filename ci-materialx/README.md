@@ -23,7 +23,6 @@ Warning: this image does *not* contain MaterialX itself as it is used to *build*
 Contains:
 * cpython-3.9.15
 * pybind11-2.8.1
-* cmake-3.22.0
 * numpy-1.20
 * vfxplatform-2022
 
@@ -32,7 +31,6 @@ Contains:
 Contains:
 * cpython-3.10.11
 * pybind11-2.9.2
-* cmake-3.27.2
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -41,7 +39,6 @@ Contains:
 Contains:
 * cpython-3.11.11
 * pybind11-2.12.0
-* cmake-3.27.9
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -50,7 +47,6 @@ Contains:
 Contains:
 * cpython-3.11.11
 * pybind11-2.13.6
-* cmake-3.31.2
 * numpy-1.26.4
 * vfxplatform-2025
 

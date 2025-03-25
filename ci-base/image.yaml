@@ -9,7 +9,6 @@ packages:
   - zstd
   - blosc
   - boost
-  - cmake
   - cppunit
   - expat
   - glew

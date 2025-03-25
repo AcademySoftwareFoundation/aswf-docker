@@ -23,7 +23,6 @@ Warning: this image does *not* contain OpenVDB itself as it is used to *build* O
 Contains:
 * blosc-1.5.0
 * boost-1.66.0
-* cmake-3.12.4
 * gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
@@ -40,7 +39,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.66.0
-* cmake-3.12.4
 * gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
@@ -57,7 +55,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.66.0
-* cmake-3.12.4
 * gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
@@ -74,7 +71,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.66.0
-* cmake-3.12.4
 * gtest-1.8.1
 * cppunit-1.14.0
 * glfw-3.1.2
@@ -91,7 +87,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.70.0
-* cmake-3.18.4
 * gtest-1.10.0
 * cppunit-1.15.1
 * glfw-3.1.2
@@ -108,7 +103,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.73.0
-* cmake-3.19.3
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
@@ -125,7 +119,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
@@ -142,7 +135,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
@@ -159,7 +151,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
@@ -176,7 +167,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
@@ -193,7 +183,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
@@ -210,7 +199,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.80.0
-* cmake-3.27.2
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
@@ -227,7 +215,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.80.0
-* cmake-3.27.2
 * gtest-1.11.0
 * cppunit-1.15.1
 * glfw-3.1.2
@@ -249,7 +236,6 @@ Contains:
 * blosc-1.21.5
 * libbacktrace-cci.20210118
 * boost-1.82.0
-* cmake-3.27.9
 * expat-2.6.4
 * gtest-1.14.0
 * cppunit-1.15.1
@@ -272,7 +258,6 @@ Contains:
 * blosc-1.21.5
 * libbacktrace-cci.20210118
 * boost-1.82.0
-* cmake-3.27.9
 * expat-2.6.4
 * gtest-1.14.0
 * cppunit-1.15.1
@@ -295,7 +280,6 @@ Contains:
 * blosc-1.21.6
 * libbacktrace-cci.20210118
 * boost-1.85.0
-* cmake-3.31.2
 * expat-2.6.4
 * gtest-1.15.2
 * cppunit-1.15.1
@@ -303,7 +287,7 @@ Contains:
 * cpython-3.11.11
 * tbb-2020_u3
 * imath-3.1.12
-* openexr-3.3.2
+* openexr-3.3.3
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025
@@ -318,7 +302,6 @@ Contains:
 * blosc-1.21.6
 * libbacktrace-cci.20210118
 * boost-1.85.0
-* cmake-3.31.2
 * expat-2.6.4
 * gtest-1.15.2
 * cppunit-1.15.1
@@ -326,7 +309,7 @@ Contains:
 * cpython-3.11.11
 * tbb-2020_u3
 * imath-3.1.12
-* openexr-3.3.2
+* openexr-3.3.3
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025

@@ -23,7 +23,6 @@ Warning: this image does *not* contain OpenShadingLanguage itself as it is used 
 Contains:
 * blosc-1.5.0
 * boost-1.66.0
-* cmake-3.12.4
 * cpython-2.7.15
 * qt-5.12.6
 * imath-2.3.0
@@ -42,7 +41,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.66.0
-* cmake-3.12.4
 * cpython-2.7.15
 * qt-5.12.6
 * imath-2.3.0
@@ -61,7 +59,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.66.0
-* cmake-3.12.4
 * cpython-2.7.15
 * qt-5.12.6
 * imath-2.3.0
@@ -80,7 +77,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.66.0
-* cmake-3.12.4
 * cpython-2.7.15
 * qt-5.12.6
 * imath-2.3.0
@@ -99,7 +95,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.66.0
-* cmake-3.12.4
 * cpython-2.7.15
 * qt-5.12.6
 * imath-2.3.0
@@ -118,7 +113,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.70.0
-* cmake-3.18.4
 * cpython-3.7.3
 * qt-5.12.6
 * imath-2.4.0
@@ -137,7 +131,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.73.0
-* cmake-3.19.3
 * cpython-3.7.9
 * qt-5.15.2
 * imath-2.5.5
@@ -156,7 +149,6 @@ Contains:
 Contains:
 * blosc-1.5.0
 * boost-1.73.0
-* cmake-3.19.3
 * cpython-3.7.9
 * qt-5.15.2
 * imath-2.5.5
@@ -175,7 +167,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * cpython-3.9.15
 * qt-5.15.2
 * imath-3.1.5
@@ -194,7 +185,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * cpython-3.9.15
 * qt-5.15.2
 * imath-3.1.5
@@ -213,7 +203,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * cpython-3.9.15
 * qt-5.15.2
 * imath-3.1.5
@@ -232,7 +221,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * cpython-3.9.15
 * qt-5.15.2
 * imath-3.1.5
@@ -251,7 +239,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.76.0
-* cmake-3.22.0
 * cpython-3.9.15
 * qt-5.15.2
 * imath-3.1.5
@@ -270,7 +257,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.80.0
-* cmake-3.27.2
 * cpython-3.10.11
 * qt-5.15.9
 * imath-3.1.9
@@ -289,7 +275,6 @@ Contains:
 Contains:
 * blosc-1.17.0
 * boost-1.80.0
-* cmake-3.27.2
 * cpython-3.10.11
 * qt-5.15.9
 * imath-3.1.9
@@ -313,7 +298,6 @@ Contains:
 * blosc-1.21.5
 * libbacktrace-cci.20210118
 * boost-1.82.0
-* cmake-3.27.9
 * expat-2.6.4
 * cpython-3.11.11
 * qt-6.5.4
@@ -338,7 +322,6 @@ Contains:
 * blosc-1.21.5
 * libbacktrace-cci.20210118
 * boost-1.82.0
-* cmake-3.27.9
 * expat-2.6.4
 * cpython-3.11.11
 * qt-6.5.4
@@ -363,14 +346,13 @@ Contains:
 * blosc-1.21.6
 * libbacktrace-cci.20210118
 * boost-1.85.0
-* cmake-3.31.2
 * expat-2.6.4
 * cpython-3.11.11
 * qt-6.5.4
 * imath-3.1.12
-* openexr-3.3.2
-* oiio-3.0.2.0
-* ocio-2.4.1
+* openexr-3.3.3
+* oiio-3.0.4.0
+* ocio-2.4.2
 * partio-1.17.3
 * ptex-2.4.3
 * tbb-2020_u3
@@ -388,14 +370,13 @@ Contains:
 * blosc-1.21.6
 * libbacktrace-cci.20210118
 * boost-1.85.0
-* cmake-3.31.2
 * expat-2.6.4
 * cpython-3.11.11
 * qt-6.5.4
 * imath-3.1.12
-* openexr-3.3.2
-* oiio-3.0.2.0
-* ocio-2.4.1
+* openexr-3.3.3
+* oiio-3.0.4.0
+* ocio-2.4.2
 * partio-1.17.3
 * ptex-2.4.3
 * tbb-2020_u3

@@ -9,7 +9,6 @@ packages:
   - zlib
   - zstd
   - blosc
-  - cmake
   - expat
   - cpython
   - imath

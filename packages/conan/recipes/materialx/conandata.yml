@@ -5,6 +5,12 @@
 # From: https://github.com/conan-io/conan-center-index/blob/2a3cb93885141024c1b405a01a79fb3abc239b12/recipes/materialx/all/conandata.yml
 
 sources:
+  "1.39.3":
+    url: "https://github.com/AcademySoftwareFoundation/MaterialX/archive/v1.39.3.tar.gz"
+    sha256: "1f299d14c1243a4834e2363921d98465cc002b37e7f5cddb6f8747ab58fbf6d1"
+  "1.39.2":
+    url: "https://github.com/AcademySoftwareFoundation/MaterialX/archive/v1.39.2.tar.gz"
+    sha256: "2816ca27398f8199106606368c07b379e4751cda0c63a99c8a735a05f62f98bd"
   "1.39.1":
     url: "https://github.com/AcademySoftwareFoundation/MaterialX/archive/v1.39.1.tar.gz"
     sha256: "a392fd0aa372bbea7a6f27d20160829ec9380a801976ff467949a90e6555258d"

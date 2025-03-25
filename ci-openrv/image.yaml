@@ -4,7 +4,6 @@ description: |
   Contains: Python, Boost, OpenEXR and other OpenRV upstream dependencies
   Warning: this image does *not* contain OpenRV itself as it is used to *build* OpenRV!
 packages:
-  - cmake
   - cpython
   - expat
   - qt

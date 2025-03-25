@@ -15,7 +15,6 @@ packages:
   - expat
   - glew
   - glfw
-  - cmake
   - imath
   - openexr
   - partio
