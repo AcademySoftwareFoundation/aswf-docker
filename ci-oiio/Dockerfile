@@ -136,6 +136,9 @@ COPY ci-oiio/README.md ci-oiio/image.yaml /usr/local/aswf/
 
 COPY scripts/common/install_conanpackages.sh /tmp/
 
+ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
+ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=${ASWF_PYTHON_MAJOR_MINOR_VERSION}
+
 # conan-only packages
 COPY <<EOF /usr/local/conanfile.txt
 [generators]

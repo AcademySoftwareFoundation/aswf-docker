@@ -102,7 +102,7 @@ class QtConan(ConanFile):
         "with_fontconfig": True,
         "with_icu": True,
         "with_harfbuzz": False, # ASWF: we would need harfbuzz 2.0
-        "with_libjpeg": "libjpeg",
+        "with_libjpeg": "libjpeg-turbo", # ASWF: EL distros have -turbo
         "with_libpng": True,
         "with_sqlite3": True,
         "with_mysql": False,

@@ -8,7 +8,7 @@ from conan import ConanFile
 
 class SystemLibpngConan(ConanFile):
     name = "libpng"
-    version = "system"
+    version = "1.6.34" # For oiio recipe
     
     settings = "os", "arch", "compiler", "build_type"
    

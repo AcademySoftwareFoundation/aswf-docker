@@ -53,17 +53,17 @@ class OpenImageIOConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "with_libjpeg": "libjpeg",
+        "with_libjpeg": "libjpeg-turbo", # ASWF: EL distros default to -turbo
         "with_libpng": True,
         "with_freetype": True,
-        "with_hdf5": True,
+        "with_hdf5": False,   # ASWF: disable until we resolve dependencies
         "with_opencolorio": True,
         "with_opencv": False,
         "with_tbb": False,
         "with_dicom": False,  # Heavy dependency, disabled by default
-        "with_ffmpeg": True,
+        "with_ffmpeg": False, # ASWF: disable until we resolve dependencies
         "with_giflib": True,
-        "with_libheif": True,
+        "with_libheif": False,# ASWF: disable until we resolve dependencies
         "with_raw": False,  # libraw is available under CDDL-1.0 or LGPL-2.1, for this reason it is disabled by default
         "with_openjpeg": True,
         "with_openvdb": False,  # FIXME: broken on M1
@@ -109,7 +109,7 @@ class OpenImageIOConan(ConanFile):
         if self.options.with_hdf5:
             self.requires("hdf5/1.14.3")
         if self.options.with_opencolorio:
-            self.requires("opencolorio/2.3.1")
+            self.requires("ocio/2.3.1")  # ASWF: ocio for backwards compatibility
         if self.options.with_opencv:
             self.requires("opencv/4.8.1")
         if self.options.with_tbb:

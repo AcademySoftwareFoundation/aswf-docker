@@ -110,6 +110,7 @@ Contains:
 ## [aswf/ci-baseqt:2024.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2024.2)
 
 Contains:
+* md4c-0.4.8
 * lz4-1.10.0
 * snappy-1.1.10
 * zlib-1.3.1
@@ -134,6 +135,7 @@ Contains:
 ## [aswf/ci-baseqt:2025.0](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2025.0)
 
 Contains:
+* md4c-0.4.8
 * lz4-1.10.0
 * snappy-1.1.10
 * zlib-1.3.1
