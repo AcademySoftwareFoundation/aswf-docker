@@ -60,7 +60,7 @@ class OpenColorIOConan(ConanFile):
             self.requires("openexr/2.5.7")
         else:
             self.requires("openexr/3.2.3")
-            self.requires("imath/3.1.9")
+            self.requires("imath/3.1.9", transitive_libs=True)
 
         if Version(self.version) < "2.0.0":
             self.requires("tinyxml/2.6.2")
@@ -70,13 +70,16 @@ class OpenColorIOConan(ConanFile):
             self.requires("yaml-cpp/0.8.0")
 
         if Version(self.version) >= "2.3.0":
-            self.requires("minizip-ng/4.0.3")
+            self.requires("minizip-ng/4.0.3", transitive_libs=True)
         elif Version(self.version) >= "2.2.0":
-            self.requires("minizip-ng/3.0.9")
+            self.requires("minizip-ng/3.0.9", transitive_libs=True)
 
         # for tools only
         self.requires("lcms/2.16")
         # TODO: add GLUT (needed for ociodisplay tool)
+
+        # ASWF: needs glew
+        self.requires("glew/2.1.0")
 
     def validate(self):
         check_min_cppstd(self, 11)
@@ -147,6 +150,7 @@ class OpenColorIOConan(ConanFile):
 
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0077"] = "NEW"
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0091"] = "NEW"
+        tc.variables["CMAKE_CXX_STANDARD"] = self.settings.compiler.cppstd # ASWF
         tc.generate()
 
         deps = CMakeDeps(self)

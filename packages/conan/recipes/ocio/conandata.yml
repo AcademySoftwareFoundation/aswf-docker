@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/opencolorio/all/conandata.yml
 
 sources:
+  "2.4.2":
+    url: "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v2.4.2.tar.gz"
+    sha256: "2d8f2c47c40476d6e8cea9d878f6601d04f6d5642b47018eaafa9e9f833f3690"
   "2.4.1":
     url: "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v2.4.1.tar.gz"
     sha256: "d4eb15408b33dffd6ba0bba9a53328085b40bdd9319fa3d0d7348d06a8cbe842"
@@ -24,9 +27,13 @@ sources:
     url: "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v1.1.1.tar.gz"
     sha256: "c9b5b9def907e1dafb29e37336b702fff22cc6306d445a13b1621b8a754c14c8"
 patches:
+  "2.4.2":
+    - patch_file: "patches/2.4.2-0001-fix-cmake-source-dir-and-targets.patch"
+      patch_description: "use cci package, use project_binary_dir/project_source_dir"
+      patch_type: "conan"
   "2.4.1":
     - patch_file: "patches/2.4.1-0001-fix-cmake-source-dir-and-targets.patch"
-      patch_description: "use cci package, use PROJECT_BINARY_DIR/PROJECT_SOURCE_DIR"
+      patch_description: "use cci package, use project_binary_dir/project_source_dir"
       patch_type: "conan"
   "2.4.0":
     - patch_file: "patches/2.4.0-0001-fix-cmake-source-dir-and-targets.patch"

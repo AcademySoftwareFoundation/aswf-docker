@@ -34,7 +34,7 @@ else
     for CONANREF in $(awk 'NR == 1, /\[requires\]/ { next } /^[^#]/ { print }' conanfile.txt)
     do
         CONANPACKAGE=$(echo $CONANREF | cut -d\/ -f1)
-        conan install --requires=$CONANREF --profile:all=${CONAN_USER_HOME}/.conan2/profiles/${ASWF_CONAN_CHANNEL} --deployer-folder $1 --deployer=direct_deploy
+        conan install --requires=$CONANREF --profile:all=${CONAN_USER_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --deployer-folder $1 --deployer=direct_deploy
         # No way to tell Conan 2 to flatten the deployment destination, we move the files after the fact
         rsync --remove-source-files -a $1/direct_deploy/${CONANPACKAGE}/ $1/
     done

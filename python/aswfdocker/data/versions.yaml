@@ -478,26 +478,41 @@ versions:
       ASWF_FONTCONFIG_VERSION: "system"
       ASWF_FREETYPE_VERSION: "system"
       ASWF_GDBM_VERSION: "system"
+      ASWF_GIFLIB_VERSION: "5.1.4"
       ASWF_GLIB_VERSION: "2.78.3"
       ASWF_ICU_VERSION: "system"
+      ASWF_LIBALSA_VERSION: "system"
+      ASWF_LIBAOM_AV1_VERSION: "system"
       ASWF_LIBDEFLATE_VERSION: "system"
       ASWF_LIBDRM_VERSION: "system"
       ASWF_LIBFFI_VERSION: "system"
-      ASWF_LIBJPEG_VERSION: "system"
-      ASWF_LIBPNG_VERSION: "system"
+      ASWF_LIBMP3LAME_VERSION: "system"
+      ASWF_LIBPNG_VERSION: "1.6.34"
+      ASWF_LIBSNDFILE_VERSION: "system"
+      ASWF_LIBSQUISH_VERSION: "system"
+      ASWF_LIBSVTAV1_VERSION: "system"
+      ASWF_LIBTIFF_VERSION: "4.0.9"
+      ASWF_LIBVPX_VERSION: "system"
+      ASWF_LIBWEBP_VERSION: "system"
       ASWF_LIBXSHMFENCE_VERSION: "system"
       ASWF_MPDECIMAL_VERSION: "system"
+      ASWF_MPG123_VERSION: "system"
+      ASWF_NASM_VERSION: "system"
       ASWF_NSPR_VERSION: "system"
       ASWF_NSS_VERSION: "3.93"
+      ASWF_OGG_VERSION: "system"
       ASWF_OPENAL_SOFT_VERSION: "system"
       ASWF_OPENGL_VERSION: "system"
+      ASWF_OPENJPEG_VERSION: "2.4.0"
       ASWF_OPENSSL_VERSION: "system"
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
+      ASWF_PULSEAUDIO_VERSION: "system"
       ASWF_SQLITE3_VERSION: "system"
       ASWF_TCL_VERSION: "system"
       ASWF_TK_VERSION: "system"
       ASWF_UTIL_LINUX_LIBUUID_VERSION: "system"
+      ASWF_VORBIS_VERSION: "system"
       ASWF_VULKAN_HEADERS_VERSION: "system"
       ASWF_VULKAN_LOADER_VERSION: "system"
       ASWF_WAYLAND_VERSION: "system"
@@ -512,21 +527,26 @@ versions:
       ASWF_BZIP2_VERSION: "1.0.8"
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_EXPAT_VERSION: "2.6.4"
+      ASWF_FMT_VERSION: "11.1.4"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.3.8"
       ASWF_GTEST_VERSION: "1.14.0"
       ASWF_HDF5_VERSION: "1.8.23"
+      ASWF_HIGHWAY_VERSION: "1.2.0"
       ASWF_LCMS_VERSION: "2.16"
       ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
       ASWF_LIBICONV_VERSION: "1.17"
+      ASWF_LIBJPEG_TURBO_VERSION: "3.0.4"
+      ASWF_LIBJXL_VERSION: "0.11.1"
       ASWF_LIBXCRYPT_VERSION: "4.4.36"
       ASWF_LOG4CPLUS_VERSION: "2.1.1"
       ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MD4C_VERSION: "0.4.8"
-      ASWF_MINIZIP_NG_VERSION: "4.0.3"
+      ASWF_MINIZIP_NG_VERSION: "4.0.8"
       ASWF_OPENSUBDIV_VERSION: "3.6.0"
       ASWF_PARTIO_VERSION: "1.17.1"
       ASWF_PTEX_VERSION: "2.4.2"
+      ASWF_PUGIXML_VERSION: "1.14"
       ASWF_PYBIND11_VERSION: "2.12.0"
       ASWF_PYSTRING_VERSION: "1.1.4"
       ASWF_SNAPPY_VERSION: "1.1.10"
@@ -580,26 +600,41 @@ versions:
       ASWF_FONTCONFIG_VERSION: "system"
       ASWF_FREETYPE_VERSION: "system"
       ASWF_GDBM_VERSION: "system"
+      ASWF_GIFLIB_VERSION: "5.1.4"
       ASWF_GLIB_VERSION: "2.78.3"
       ASWF_ICU_VERSION: "system"
+      ASWF_LIBALSA_VERSION: "system"
+      ASWF_LIBAOM_AV1_VERSION: "system"
       ASWF_LIBDEFLATE_VERSION: "system"
       ASWF_LIBDRM_VERSION: "system"
       ASWF_LIBFFI_VERSION: "system"
-      ASWF_LIBJPEG_VERSION: "system"
-      ASWF_LIBPNG_VERSION: "system"
+      ASWF_LIBMP3LAME_VERSION: "system"
+      ASWF_LIBPNG_VERSION: "1.6.34"
+      ASWF_LIBSNDFILE_VERSION: "system"
+      ASWF_LIBSQUISH_VERSION: "system"
+      ASWF_LIBSVTAV1_VERSION: "system"
+      ASWF_LIBTIFF_VERSION: "4.0.9"
+      ASWF_LIBVPX_VERSION: "system"
+      ASWF_LIBWEBP_VERSION: "system"
       ASWF_LIBXSHMFENCE_VERSION: "system"
       ASWF_MPDECIMAL_VERSION: "system"
+      ASWF_MPG123_VERSION: "system"
+      ASWF_NASM_VERSION: "system"
       ASWF_NSPR_VERSION: "system"
       ASWF_NSS_VERSION: "3.93"
+      ASWF_OGG_VERSION: "system"
       ASWF_OPENAL_SOFT_VERSION: "system"
       ASWF_OPENGL_VERSION: "system"
+      ASWF_OPENJPEG_VERSION: "2.4.0"
       ASWF_OPENSSL_VERSION: "system"
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
+      ASWF_PULSEAUDIO_VERSION: "system"
       ASWF_SQLITE3_VERSION: "system"
       ASWF_TCL_VERSION: "system"
       ASWF_TK_VERSION: "system"
       ASWF_UTIL_LINUX_LIBUUID_VERSION: "system"
+      ASWF_VORBIS_VERSION: "system"
       ASWF_VULKAN_HEADERS_VERSION: "system"
       ASWF_VULKAN_LOADER_VERSION: "system"
       ASWF_WAYLAND_VERSION: "system"
@@ -614,21 +649,26 @@ versions:
       ASWF_BZIP2_VERSION: "1.0.8"
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_EXPAT_VERSION: "2.6.4"
+      ASWF_FMT_VERSION: "11.1.4"
       ASWF_GLEW_VERSION: "2.2.0"
       ASWF_GLFW_VERSION: "3.4"
       ASWF_GTEST_VERSION: "1.15.2"
       ASWF_HDF5_VERSION: "1.8.23"
+      ASWF_HIGHWAY_VERSION: "1.2.0"
       ASWF_LCMS_VERSION: "2.16"
       ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
       ASWF_LIBICONV_VERSION: "1.17"
+      ASWF_LIBJPEG_TURBO_VERSION: "3.0.4"
+      ASWF_LIBJXL_VERSION: "0.11.1"
       ASWF_LIBXCRYPT_VERSION: "4.4.36"
       ASWF_LOG4CPLUS_VERSION: "2.1.2"
       ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MD4C_VERSION: "0.4.8"
-      ASWF_MINIZIP_NG_VERSION: "4.0.3"
+      ASWF_MINIZIP_NG_VERSION: "4.0.8"
       ASWF_OPENSUBDIV_VERSION: "3.6.0"
       ASWF_PARTIO_VERSION: "1.17.3"
       ASWF_PTEX_VERSION: "2.4.3"
+      ASWF_PUGIXML_VERSION: "1.14"
       ASWF_PYBIND11_VERSION: "2.13.6"
       ASWF_PYSTRING_VERSION: "1.1.4"
       ASWF_SNAPPY_VERSION: "1.1.10"
@@ -926,6 +966,9 @@ ci-packages:
   bzip2:
     - "2024.2"
     - "2025.0"
+  fmt:
+    - "2024.2"
+    - "2025.0"
   fontconfig:
     - "2024.2"
     - "2025.0"
@@ -935,13 +978,25 @@ ci-packages:
   gdbm:
     - "2024.2"
     - "2025.0"
+  giflib:
+    - "2024.2"
+    - "2025.0"
   glib:
+    - "2024.2"
+    - "2025.0"
+  highway:
     - "2024.2"
     - "2025.0"
   icu:
     - "2024.2"
     - "2025.0"
   lcms:
+    - "2024.2"
+    - "2025.0"
+  libalsa:
+    - "2024.0"
+    - "2025.0"
+  libaom-av1:
     - "2024.2"
     - "2025.0"
   libdeflate:
@@ -956,13 +1011,37 @@ ci-packages:
   libiconv:
     - "2024.2"
     - "2025.0"
-  libjpeg:
+  libjpeg-turbo:
+    - "2024.2"
+    - "2025.0"
+  libjxl:
+    - "2024.2"
+    - "2025.0"
+  libmp3lame:
     - "2024.2"
     - "2025.0"
   libpng:
     - "2024.2"
     - "2025.0"
+  libsndfile:
+    - "2024.2"
+    - "2025.0"
+  libsquish:
+    - "2024.2"
+    - "2025.0"
+  libsvtav1:
+    - "2024.2"
+    - "2025.0"
+  libtiff:
+    - "2024.2"
+    - "2025.0"
   libxcrypt:
+    - "2024.2"
+    - "2025.0"
+  libvpx:
+    - "2024.2"
+    - "2025.0"
+  libwebp:
     - "2024.2"
     - "2025.0"
   libxshmfence:
@@ -977,16 +1056,28 @@ ci-packages:
   mpdecimal:
     - "2024.2"
     - "2025.0"
+  mpg123:
+    - "2024.2"
+    - "2025.0"
+  nasm:
+    - "2024.2"
+    - "2025.0"
   nspr:
     - "2024.2"
     - "2025.0"
   nss:
     - "2024.2"
     - "2025.0"
+  ogg:
+    - "2024.2"
+    - "2025.0"
   openal-soft:
     - "2024.2"
     - "2025.0"
   opengl:
+    - "2024.2"
+    - "2025.0"
+  openjpeg:
     - "2024.2"
     - "2025.0"
   openssl:
@@ -996,6 +1087,12 @@ ci-packages:
     - "2024.2"
     - "2025.0"
   pcre2:
+    - "2024.2"
+    - "2025.0"
+  pugixml:
+    - "2024.2"
+    - "2025.0"
+  pulseaudio:
     - "2024.2"
     - "2025.0"
   pystring:
@@ -1014,6 +1111,9 @@ ci-packages:
     - "2024.2"
     - "2025.0"
   util-linux-libuuid:
+    - "2024.2"
+    - "2025.0"
+  vorbis:
     - "2024.2"
     - "2025.0"
   vulkan-headers:
@@ -1206,22 +1306,35 @@ groups:
         - cppunit
         - dbus
         - expat
+        - fmt
         - fontconfig
         - freetype
         - gdbm
+        - giflib
         - glib
         - glew
         - glfw
         - gtest
         - icu
+        - highway
         - lcms
+        - libalsa
+        - libaom-av1
         - libbacktrace
         - libdeflate
         - libdrm
         - libffi
-        - libjpeg
-        - libpng
         - libiconv
+        - libjpeg-turbo
+        - libjxl
+        - libmp3lame
+        - libpng
+        - libsndfile
+        - libsquish
+        - libsvtav1
+        - libtiff
+        - libvpx
+        - libwebp
         - libxcrypt
         - libxshmfence
         - log4cplus
@@ -1229,13 +1342,19 @@ groups:
         - md4c
         - minizip-ng
         - mpdecimal
+        - mpg123
+        - nasm
         - nspr
         - nss
+        - ogg
         - openal-soft
         - opengl
+        - openjpeg
         - openssl
         - opus
         - pcre2
+        - pugixml
+        - pulseaudio
         - pybind11
         - pystring
         - snappy
@@ -1244,6 +1363,7 @@ groups:
         - tcl
         - tk
         - util-linux-libuuid
+        - vorbis
         - vulkan-headers
         - vulkan-loader
         - wayland
@@ -1321,23 +1441,36 @@ conan_only:
   - dbus
   - double-conversion
   - expat
+  - fmt
   - fontconfig
   - freetype
   - gdbm
+  - giflib
   - glib
   - glew
   - glfw
   - gtest
+  - highway
   - icu
   - imath
   - lcms
+  - libalsa
+  - libaom-av1
   - libbacktrace
   - libdeflate
   - libdrm
   - libffi
   - libiconv
-  - libjpeg
+  - libjpeg-turbo
+  - libjxl
+  - libmp3lame
   - libpng
+  - libsndfile
+  - libsquish
+  - libsvtav1
+  - libtiff
+  - libvpx
+  - libwebp
   - libxcrypt
   - libxshmfence
   - log4cplus
@@ -1346,19 +1479,25 @@ conan_only:
   - md4c
   - minizip-ng
   - mpdecimal
+  - mpg123
+  - nasm
   - ninja
   - nspr
   - nss
   - ocio
   - oiio
+  - ogg
   - openal-soft
   - openexr
   - opengl
+  - openjpeg
   - openssl
   - opensubdiv
   - opus
   - partio
   - pcre2
+  - pugixml
+  - pulseaudio
   - ptex
   - pybind11
   - pystring
@@ -1370,6 +1509,7 @@ conan_only:
   - tcl
   - tk
   - util-linux-libuuid
+  - vorbis
   - vulkan-headers
   - vulkan-loader
   - wayland

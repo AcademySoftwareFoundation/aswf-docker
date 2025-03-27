@@ -81,6 +81,7 @@ yum install --setopt=tsflags=nodocs -y \
     libpng \
     libpng-devel \
     LibRaw-devel \
+    libsndfile-devel \
     libtheora-devel \
     libtiff \
     libtiff-devel \
@@ -143,6 +144,7 @@ yum install --setopt=tsflags=nodocs -y \
     mesa-libOSMesa-devel \
     mesa-vulkan-devel \
     mpdecimal-devel \
+    mpg123-devel \
     motif \
     motif-devel \
     nasm \
@@ -229,11 +231,13 @@ yum install -y \
     alsa-lib-devel \
     audiofile-devel \
     lame-devel \
+    libaom-devel \
     libcaca-devel \
     libdc1394-devel \
     libdeflate-devel \
     libdrm-devel \
     libdrm \
+    libsquish-devel \
     libxshmfence \
     libxshmfence-devel \
     nss-devel \
@@ -242,6 +246,7 @@ yum install -y \
     p7zip \
     portaudio \
     portaudio-devel \
+    svt-av1-devel \
     xcb-util-cursor \
     xcb-util-cursor-devel \
     yasm-devel \
