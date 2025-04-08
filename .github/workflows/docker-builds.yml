@@ -24,24 +24,24 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - group: vfx-2024
-            name: vfx-2024
-            common_version: 4-clang16
-            common_version_noclang: 4
-            version: 2024-clang16
-            version_noclang: 2024
+          - group: vfx-2025
+            name: vfx-2025
+            common_version: 5-clang18
+            common_version_noclang: 5
+            version: 2025-clang18
+            version_noclang: 2025
             test: ""
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
     - name: Activate Docker buildx
-      uses: docker/setup-buildx-action@v3
+      uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
       with: 
         driver-opts: env.BUILDKIT_STEP_LOG_MAX_SIZE=10485760
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
       with:
         python-version: 3.9
         cache: 'pipenv'
@@ -74,7 +74,7 @@ jobs:
         df -h
         dpkg -l 
 
-    - name: Build Ninja (Conan)
+    - name: Build Ninja and CMake (Conan)
       run: |
         set -ex
         pipenv run aswfdocker \
@@ -88,7 +88,8 @@ jobs:
           --version ${{ matrix.common_version }} \
           --use-conan \
           --build-missing \
-          --target ninja
+          --target ninja \
+          --target cmake
 
     - name: Build Clang (Conan)
       run: |
@@ -106,7 +107,7 @@ jobs:
           --build-missing \
           --target clang
 
-    - name: build ci-common Docker Image for downstream images
+    - name: Build ci-common Docker Image for downstream images
       run: |
         pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
@@ -118,7 +119,35 @@ jobs:
           --version ${{ matrix.common_version }}\
           --push NO
 
-    - name: Build base1 Conan packages for base image
+    - name: Build base1 level 1 Conan packages
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group base1-1 \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing
+
+    - name: Build base1 level 2 Conan packages
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group base1-2 \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing
+
+    - name: Build base1 level 3 Conan packages
       run: |
         set -ex
         pipenv run aswfdocker \
@@ -132,7 +161,7 @@ jobs:
           --use-conan \
           --build-missing
 
-    - name: Build base2 Conan packages (Qt) for base image
+    - name: Build base2 level 1 Conan packages (Qt) for base image
       run: |
         set -ex
         pipenv run aswfdocker \
@@ -141,7 +170,21 @@ jobs:
           --verbose \
           build \
           --ci-image-type PACKAGE \
-          --group base2 \
+          --group base2-1 \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing
+
+    - name: Build base2 level 2 Conan packages (Qt) for base image
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group base2-2 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
           --build-missing
@@ -160,7 +203,7 @@ jobs:
           --use-conan \
           --build-missing
 
-    - name: Build base image
+    - name: Build base and baseqt images
       run: |
         set -ex
         pipenv run aswfdocker \
@@ -173,7 +216,68 @@ jobs:
           --version ${{ matrix.version }} \
           --push NO
 
-    - run: |
+    - name: Build vfx1 level 1 Conan packages
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group vfx1-1 \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing \
+          --push NO
+
+    - name: Build vfx1 level 2 Conan packages
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group vfx1-2 \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing \
+          --push NO
+
+    - name: Build vfx1 level 3 Conan packages
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group vfx1-3 \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing \
+          --push NO
+
+    - name: Build vfx1 level 4 Conan packages
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group vfx1-4 \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing \
+          --push NO
+
+    - name: Build vfx1 level 5 non-Conan packages
+      run: |
         set -ex
         pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
@@ -182,48 +286,41 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group vfx1 \
-          --target imath \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
-        pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
-          --verbose \
-          build \
-          --ci-image-type PACKAGE \
-          --group vfx1 \
-          --target openexr \
-          --version ${{ matrix.version_noclang }} \
-          --use-conan \
-          --build-missing \
-          --push NO
-        pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
-          --verbose \
-          build \
-          --ci-image-type PACKAGE \
-          --group vfx1 \
-          --group vfx2 \
-          --version ${{ matrix.version_noclang }} \
-          --use-conan \
-          --build-missing \
-          --push NO
-        pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
-          --verbose \
-          build \
-          --ci-image-type PACKAGE \
-          --group vfx1 \
-          --group vfx2 \
-          --version ${{ matrix.version_noclang }} \
-          --push NO
-      name: Build vfx1/vfx2 packages
 
-    - run: |
+    - name: Build vfx2 level 1 Conan packages
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group vfx2-1 \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing \
+          --push NO
+
+    - name: Build vfx2 level 2 non-Conan packages
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group vfx2 \
+          --version ${{ matrix.version_noclang }} \
+          --build-missing \
+          --push NO
+
+    - name: Build vfx1 / vfx2 images   
+      run: |
         set -ex
         pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
@@ -235,9 +332,9 @@ jobs:
           --group vfx2 \
           --version ${{ matrix.version_noclang }} \
           --push NO
-      name: Build vfx1/vfx2 images
 
-    - run: |
+    - name: Build vfx images
+      run: |
         set -ex
         pipenv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
@@ -248,7 +345,6 @@ jobs:
           --group vfx3 \
           --version ${{ matrix.version }} \
           --push NO
-      name: Build vfx3 image
 
     - run: |
         set -ex

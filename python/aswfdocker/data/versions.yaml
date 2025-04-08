@@ -147,7 +147,7 @@ versions:
     package_versions:
       ASWF_DTS_VERSION: "11"
       ASWF_DTS_PREFIX: "gcc-toolset"
-      ASWF_CONAN_VERSION: "2.10.1"
+      ASWF_CONAN_VERSION: "2.14.0"
       ASWF_CONAN_PYTHON_VERSION: "3.11.11"
       ASWF_CUDA_VERSION: "12.6.1"
       ASWF_GLVND_VERSION: "1.7.0"
@@ -182,7 +182,7 @@ versions:
     package_versions:
       ASWF_DTS_VERSION: "11"
       ASWF_DTS_PREFIX: "gcc-toolset"
-      ASWF_CONAN_VERSION: "2.10.1"
+      ASWF_CONAN_VERSION: "2.14.0"
       ASWF_CONAN_PYTHON_VERSION: "3.11.11"
       ASWF_CUDA_VERSION: "12.6.1"
       ASWF_GLVND_VERSION: "1.7.0"
@@ -476,14 +476,12 @@ versions:
       ASWF_DBUS_VERSION: "system"
       ASWF_DOUBLE_CONVERSION_VERSION: "system"
       ASWF_FONTCONFIG_VERSION: "system"
-      ASWF_FREETYPE_VERSION: "system"
       ASWF_GDBM_VERSION: "system"
       ASWF_GIFLIB_VERSION: "5.1.4"
       ASWF_GLIB_VERSION: "2.78.3"
       ASWF_ICU_VERSION: "system"
       ASWF_LIBALSA_VERSION: "system"
       ASWF_LIBAOM_AV1_VERSION: "system"
-      ASWF_LIBDEFLATE_VERSION: "system"
       ASWF_LIBDRM_VERSION: "system"
       ASWF_LIBFFI_VERSION: "system"
       ASWF_LIBMP3LAME_VERSION: "system"
@@ -493,7 +491,6 @@ versions:
       ASWF_LIBSVTAV1_VERSION: "system"
       ASWF_LIBTIFF_VERSION: "4.0.9"
       ASWF_LIBVPX_VERSION: "system"
-      ASWF_LIBWEBP_VERSION: "system"
       ASWF_LIBXSHMFENCE_VERSION: "system"
       ASWF_MPDECIMAL_VERSION: "system"
       ASWF_MPG123_VERSION: "system"
@@ -515,7 +512,6 @@ versions:
       ASWF_VORBIS_VERSION: "system"
       ASWF_VULKAN_HEADERS_VERSION: "system"
       ASWF_VULKAN_LOADER_VERSION: "system"
-      ASWF_WAYLAND_VERSION: "system"
       ASWF_XKBCOMMON_VERSION: "0.9.1"
       ASWF_XORG_VERSION: "system"
       ASWF_XORG_PROTO_VERSION: "system"
@@ -528,6 +524,7 @@ versions:
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_EXPAT_VERSION: "2.6.4"
       ASWF_FMT_VERSION: "11.1.4"
+      ASWF_FREETYPE_VERSION: "2.13.2"
       ASWF_GLEW_VERSION: "2.1.0"
       ASWF_GLFW_VERSION: "3.3.8"
       ASWF_GTEST_VERSION: "1.14.0"
@@ -535,9 +532,12 @@ versions:
       ASWF_HIGHWAY_VERSION: "1.2.0"
       ASWF_LCMS_VERSION: "2.16"
       ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
+      ASWF_LIBDEFLATE_VERSION: "1.23"
       ASWF_LIBICONV_VERSION: "1.17"
       ASWF_LIBJPEG_TURBO_VERSION: "3.0.4"
       ASWF_LIBJXL_VERSION: "0.11.1"
+      ASWF_LIBUHDR_VERSION: "1.4.0"
+      ASWF_LIBWEBP_VERSION: "1.5.0" 
       ASWF_LIBXCRYPT_VERSION: "4.4.36"
       ASWF_LOG4CPLUS_VERSION: "2.1.1"
       ASWF_LZ4_VERSION: "1.10.0"
@@ -550,6 +550,7 @@ versions:
       ASWF_PYBIND11_VERSION: "2.12.0"
       ASWF_PYSTRING_VERSION: "1.1.4"
       ASWF_SNAPPY_VERSION: "1.1.10"
+      ASWF_TSL_ROBIN_MAP_VERSION: "1.3.0"
       ASWF_USD_VERSION: "24.08"
       ASWF_YAML_CPP_VERSION: "0.8.0"
       ASWF_ZLIB_VERSION: "1.3.1"
@@ -598,14 +599,12 @@ versions:
       ASWF_DBUS_VERSION: "system"
       ASWF_DOUBLE_CONVERSION_VERSION: "system"
       ASWF_FONTCONFIG_VERSION: "system"
-      ASWF_FREETYPE_VERSION: "system"
       ASWF_GDBM_VERSION: "system"
       ASWF_GIFLIB_VERSION: "5.1.4"
       ASWF_GLIB_VERSION: "2.78.3"
       ASWF_ICU_VERSION: "system"
       ASWF_LIBALSA_VERSION: "system"
       ASWF_LIBAOM_AV1_VERSION: "system"
-      ASWF_LIBDEFLATE_VERSION: "system"
       ASWF_LIBDRM_VERSION: "system"
       ASWF_LIBFFI_VERSION: "system"
       ASWF_LIBMP3LAME_VERSION: "system"
@@ -615,7 +614,6 @@ versions:
       ASWF_LIBSVTAV1_VERSION: "system"
       ASWF_LIBTIFF_VERSION: "4.0.9"
       ASWF_LIBVPX_VERSION: "system"
-      ASWF_LIBWEBP_VERSION: "system"
       ASWF_LIBXSHMFENCE_VERSION: "system"
       ASWF_MPDECIMAL_VERSION: "system"
       ASWF_MPG123_VERSION: "system"
@@ -637,7 +635,6 @@ versions:
       ASWF_VORBIS_VERSION: "system"
       ASWF_VULKAN_HEADERS_VERSION: "system"
       ASWF_VULKAN_LOADER_VERSION: "system"
-      ASWF_WAYLAND_VERSION: "system"
       ASWF_XKBCOMMON_VERSION: "0.9.1"
       ASWF_XORG_VERSION: "system"
       ASWF_XORG_PROTO_VERSION: "system"
@@ -650,6 +647,7 @@ versions:
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_EXPAT_VERSION: "2.6.4"
       ASWF_FMT_VERSION: "11.1.4"
+      ASWF_FREETYPE_VERSION: "2.13.2"
       ASWF_GLEW_VERSION: "2.2.0"
       ASWF_GLFW_VERSION: "3.4"
       ASWF_GTEST_VERSION: "1.15.2"
@@ -657,9 +655,12 @@ versions:
       ASWF_HIGHWAY_VERSION: "1.2.0"
       ASWF_LCMS_VERSION: "2.16"
       ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
+      ASWF_LIBDEFLATE_VERSION: "1.23"
       ASWF_LIBICONV_VERSION: "1.17"
       ASWF_LIBJPEG_TURBO_VERSION: "3.0.4"
       ASWF_LIBJXL_VERSION: "0.11.1"
+      ASWF_LIBUHDR_VERSION: "1.4.0"
+      ASWF_LIBWEBP_VERSION: "1.5.0"
       ASWF_LIBXCRYPT_VERSION: "4.4.36"
       ASWF_LOG4CPLUS_VERSION: "2.1.2"
       ASWF_LZ4_VERSION: "1.10.0"
@@ -672,7 +673,8 @@ versions:
       ASWF_PYBIND11_VERSION: "2.13.6"
       ASWF_PYSTRING_VERSION: "1.1.4"
       ASWF_SNAPPY_VERSION: "1.1.10"
-      ASWF_USD_VERSION: "24.08"
+      ASWF_TSL_ROBIN_MAP_VERSION: "1.3.0"
+      ASWF_USD_VERSION: "25.02a.eae7e67"
       ASWF_YAML_CPP_VERSION: "0.8.0"
       ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_ZSTD_VERSION: "1.5.6"
@@ -692,11 +694,11 @@ versions:
       ASWF_MATERIALX_VERSION: "1.39.3"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.4.2"
-      ASWF_OIIO_VERSION: "3.0.4.0"
+      ASWF_OIIO_VERSION: "3.0.5.0"
       ASWF_OPENEXR_VERSION: "3.3.3"
       ASWF_OPENRV_VERSION: "2.1.0"
       ASWF_OPENVDB_VERSION: "12.0.0"
-      ASWF_OSL_VERSION: "1.13.12.0"
+      ASWF_OSL_VERSION: "1.14.5.0"
       ASWF_OTIO_VERSION: "0.17.0"
   "2025-clang18":
     parent_versions: ["5", "5-clang18", "2025"]
@@ -1035,13 +1037,16 @@ ci-packages:
   libtiff:
     - "2024.2"
     - "2025.0"
-  libxcrypt:
+  libuhdr:
     - "2024.2"
     - "2025.0"
   libvpx:
     - "2024.2"
     - "2025.0"
   libwebp:
+    - "2024.2"
+    - "2025.0"
+  libxcrypt:
     - "2024.2"
     - "2025.0"
   libxshmfence:
@@ -1110,6 +1115,9 @@ ci-packages:
   tk:
     - "2024.2"
     - "2025.0"
+  tsl-robin-map:
+    - "2024.2"
+    - "2025.0"
   util-linux-libuuid:
     - "2024.2"
     - "2025.0"
@@ -1120,9 +1128,6 @@ ci-packages:
     - "2024.2"
     - "2025.0"
   vulkan-loader:
-    - "2024.2"
-    - "2025.0"
-  wayland:
     - "2024.2"
     - "2025.0"
   xkbcommon:
@@ -1295,103 +1300,115 @@ groups:
         - clang
         - cmake
         - ninja
-      base1:
-        - b2
-        - blosc
+      base1-wrappers:
         - brotli
-        - double-conversion
-        - bzip2
-        - cpython
-        - boost
-        - cppunit
-        - dbus
-        - expat
-        - fmt
-        - fontconfig
-        - freetype
         - gdbm
-        - giflib
-        - glib
-        - glew
-        - glfw
-        - gtest
         - icu
-        - highway
-        - lcms
-        - libalsa
-        - libaom-av1
-        - libbacktrace
-        - libdeflate
-        - libdrm
         - libffi
-        - libiconv
-        - libjpeg-turbo
-        - libjxl
-        - libmp3lame
         - libpng
-        - libsndfile
-        - libsquish
-        - libsvtav1
-        - libtiff
-        - libvpx
-        - libwebp
-        - libxcrypt
-        - libxshmfence
-        - log4cplus
-        - lz4
-        - md4c
-        - minizip-ng
         - mpdecimal
-        - mpg123
         - nasm
         - nspr
-        - nss
-        - ogg
-        - openal-soft
         - opengl
-        - openjpeg
         - openssl
-        - opus
         - pcre2
-        - pugixml
-        - pulseaudio
-        - pybind11
-        - pystring
-        - snappy
         - sqlite3
-        - tbb
         - tcl
         - tk
         - util-linux-libuuid
-        - vorbis
         - vulkan-headers
         - vulkan-loader
-        - wayland
-        - xkbcommon
         - xorg
         - xorg-proto
         - xz_utils
+      base1-1:
+        - b2
+        - bzip2
+        - cppunit
+        - expat
+        - fmt
+        - gtest
+        - libbacktrace
+        - libdeflate
+        - libiconv
+        - libxcrypt
+        - lz4
+        - pugixml
+        - pystring
+        - snappy
+        - tbb
+        - tsl-robin-map
         - yaml-cpp
         - zlib
         - zstd
-      base2:
+      base1-2:
+        - blosc
+        - cpython
+        - freetype
+        - glew
+        - glfw
+        - log4cplus
+        - minizip-ng
+      base1-3:
+        - boost
+        - pybind11
+      base2-wrappers:
+        - dbus
+        - double-conversion
+        - fontconfig
+        - glib
+        - libalsa
+        - libdrm
+        - libsndfile
+        - libtiff
+        - libxshmfence
+        - nss
+        - openal-soft
+        - openjpeg
+        - opus
+        - pulseaudio
+        - xkbcommon
+      base2-1:
+        - libjpeg-turbo
+        - libwebp
+        - md4c
+      base2-2:
         - qt
       base3:
         - pyside
-      vfx1: 
+      vfx1-wrappers:
+        - giflib
+        - libaom-av1
+        - libmp3lame
+        - libsquish
+        - libsvtav1
+        - libvpx
+        - mpg123
+        - ogg
+        - vorbis
+      vfx1-1: 
+        - highway
+        - imath
+        - lcms
+        - libuhdr
+        - ptex
+      vfx1-2:
+         - libjxl
+         - openexr
+      vfx1-3:
         - alembic
         - ocio
+      vfx1-4:
         - oiio
-        - imath
-        - openexr
+      vfx1:
         - openvdb
-        - ptex
-      vfx2: 
+      vfx2-1: 
         - opensubdiv
-        - osl
-        - otio
         - partio
         - materialx
+      vfx2:
+        - osl
+        - otio
         - usd
       review:
         - openrv
@@ -1446,9 +1463,9 @@ conan_only:
   - freetype
   - gdbm
   - giflib
-  - glib
   - glew
   - glfw
+  - glib
   - gtest
   - highway
   - icu
@@ -1469,6 +1486,7 @@ conan_only:
   - libsquish
   - libsvtav1
   - libtiff
+  - libuhdr
   - libvpx
   - libwebp
   - libxcrypt
@@ -1496,23 +1514,23 @@ conan_only:
   - opus
   - partio
   - pcre2
+  - ptex
   - pugixml
   - pulseaudio
-  - ptex
   - pybind11
+  - pyside
   - pystring
   - qt
-  - pyside
   - snappy
   - sqlite3
   - tbb
   - tcl
   - tk
+  - tsl-robin-map
   - util-linux-libuuid
   - vorbis
   - vulkan-headers
   - vulkan-loader
-  - wayland
   - xkbcommon
   - xorg
   - xorg-proto

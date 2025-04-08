@@ -21,13 +21,14 @@ Contains: all supported VFX packages
 
 Contains:
 * blosc-1.5.0
-* cpython-2.7.15
-* tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
-* log4cplus-1.1.2
+* cpython-2.7.15
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.4.3
+* tbb-2018
 * qt-5.12.6
 * pyside-5.12.6
 * imath-2.3.0
@@ -35,7 +36,6 @@ Contains:
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
-* pybind11-2.4.3
 * opensubdiv-3_3_3
 * ptex-2.1.33
 * openvdb-6.2.1
@@ -51,13 +51,14 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* cpython-2.7.15
-* tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
-* log4cplus-1.1.2
+* cpython-2.7.15
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.4.3
+* tbb-2018
 * qt-5.12.6
 * pyside-5.12.6
 * imath-2.3.0
@@ -65,7 +66,6 @@ Contains:
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
-* pybind11-2.4.3
 * opensubdiv-3_3_3
 * ptex-2.1.33
 * openvdb-6.2.1
@@ -81,13 +81,14 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* cpython-2.7.15
-* tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
-* log4cplus-1.1.2
+* cpython-2.7.15
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.4.3
+* tbb-2018
 * qt-5.12.6
 * pyside-5.12.6
 * imath-2.3.0
@@ -95,7 +96,6 @@ Contains:
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
-* pybind11-2.4.3
 * opensubdiv-3_3_3
 * ptex-2.1.33
 * openvdb-6.2.1
@@ -111,13 +111,14 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* cpython-2.7.15
-* tbb-2018
 * boost-1.66.0
 * cppunit-1.14.0
-* log4cplus-1.1.2
+* cpython-2.7.15
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.4.3
+* tbb-2018
 * qt-5.12.6
 * pyside-5.12.6
 * imath-2.3.0
@@ -125,7 +126,6 @@ Contains:
 * alembic-1.7.11
 * oiio-2.0.8
 * ocio-1.1.0
-* pybind11-2.4.3
 * opensubdiv-3_3_3
 * ptex-2.1.33
 * openvdb-6.2.1
@@ -141,13 +141,14 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* cpython-3.7.3
-* tbb-2019_u6
 * boost-1.70.0
 * cppunit-1.15.1
-* log4cplus-1.1.2
+* cpython-3.7.3
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.4.3
+* tbb-2019_u6
 * qt-5.12.6
 * pyside-5.12.6
 * imath-2.4.0
@@ -155,7 +156,6 @@ Contains:
 * alembic-1.7.12
 * oiio-2.1.13.0
 * ocio-1.1.1
-* pybind11-2.4.3
 * opensubdiv-3_4_3
 * ptex-2.3.2
 * openvdb-7.1.0
@@ -171,13 +171,14 @@ Contains:
 
 Contains:
 * blosc-1.5.0
-* cpython-3.7.9
-* tbb-2020_u2
 * boost-1.73.0
 * cppunit-1.15.1
-* log4cplus-1.1.2
+* cpython-3.7.9
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.6.2
+* tbb-2020_u2
 * qt-5.15.2
 * pyside-5.15.2
 * imath-2.5.5
@@ -185,7 +186,6 @@ Contains:
 * alembic-1.7.16
 * oiio-2.2.14.0
 * ocio-2.0.1
-* pybind11-2.6.2
 * opensubdiv-3_4_3
 * ptex-2.3.2
 * openvdb-8.0.1
@@ -201,13 +201,14 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* cpython-3.9.15
-* tbb-2020_u3
 * boost-1.76.0
 * cppunit-1.15.1
-* log4cplus-1.1.2
+* cpython-3.9.15
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.8.1
+* tbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * imath-3.1.5
@@ -215,7 +216,6 @@ Contains:
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
-* pybind11-2.8.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
@@ -232,13 +232,14 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* cpython-3.9.15
-* tbb-2020_u3
 * boost-1.76.0
 * cppunit-1.15.1
-* log4cplus-1.1.2
+* cpython-3.9.15
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.8.1
+* tbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * imath-3.1.5
@@ -246,7 +247,6 @@ Contains:
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
-* pybind11-2.8.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
@@ -263,13 +263,14 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* cpython-3.9.15
-* tbb-2020_u3
 * boost-1.76.0
 * cppunit-1.15.1
-* log4cplus-1.1.2
+* cpython-3.9.15
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.8.1
+* tbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * imath-3.1.5
@@ -277,7 +278,6 @@ Contains:
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
-* pybind11-2.8.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
@@ -294,13 +294,14 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* cpython-3.9.15
-* tbb-2020_u3
 * boost-1.76.0
 * cppunit-1.15.1
-* log4cplus-1.1.2
+* cpython-3.9.15
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.8.1
+* tbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * imath-3.1.5
@@ -308,7 +309,6 @@ Contains:
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
-* pybind11-2.8.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
@@ -325,13 +325,14 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* cpython-3.9.15
-* tbb-2020_u3
 * boost-1.76.0
 * cppunit-1.15.1
-* log4cplus-1.1.2
+* cpython-3.9.15
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.8.1
+* tbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * imath-3.1.5
@@ -339,7 +340,6 @@ Contains:
 * alembic-1.8.2
 * oiio-2.4.5.0
 * ocio-2.1.1
-* pybind11-2.8.1
 * opensubdiv-3_4_4
 * ptex-2.4.0
 * openvdb-9.1.0
@@ -356,13 +356,14 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* cpython-3.10.11
-* tbb-2020_u3
 * boost-1.80.0
 * cppunit-1.15.1
-* log4cplus-1.1.2
+* cpython-3.10.11
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.9.2
+* tbb-2020_u3
 * qt-5.15.9
 * pyside-5.15.9
 * imath-3.1.9
@@ -370,7 +371,6 @@ Contains:
 * alembic-1.8.5
 * oiio-2.4.13.0
 * ocio-2.2.1
-* pybind11-2.9.2
 * opensubdiv-3_5_0
 * ptex-2.4.2
 * openvdb-10.0.1
@@ -387,13 +387,14 @@ Contains:
 
 Contains:
 * blosc-1.17.0
-* cpython-3.10.11
-* tbb-2020_u3
 * boost-1.80.0
 * cppunit-1.15.1
-* log4cplus-1.1.2
+* cpython-3.10.11
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* pybind11-2.9.2
+* tbb-2020_u3
 * qt-5.15.9
 * pyside-5.15.9
 * imath-3.1.9
@@ -401,7 +402,6 @@ Contains:
 * alembic-1.8.5
 * oiio-2.4.13.0
 * ocio-2.2.1
-* pybind11-2.9.2
 * opensubdiv-3_5_0
 * ptex-2.4.2
 * openvdb-10.0.1
@@ -417,20 +417,38 @@ Contains:
 ## [aswf/ci-vfxall:2024-clang16.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang16.2)
 
 Contains:
-* lz4-1.10.0
-* snappy-1.1.10
-* zlib-1.3.1
-* zstd-1.5.6
 * blosc-1.21.5
-* cpython-3.11.11
-* tbb-2020_u3
-* libbacktrace-cci.20210118
 * boost-1.82.0
 * cppunit-1.15.1
+* cpython-3.11.11
 * expat-2.6.4
-* log4cplus-2.1.1
+* freetype-2.13.2
 * glew-2.1.0
 * glfw-3.3.8
+* libbacktrace-cci.20210118
+* log4cplus-2.1.1
+* lz4-1.10.0
+* md4c-0.4.8
+* pybind11-2.12.0
+* snappy-1.1.10
+* tbb-2020_u3
+* zlib-1.3.1
+* zstd-1.5.6
+* dbus-system
+* fontconfig-system
+* glib-2.78.3
+* libalsa-system
+* libdrm-system
+* libsndfile-system
+* libtiff-4.0.9
+* libwebp-1.5.0
+* libxshmfence-system
+* md4c-0.4.8
+* nss-3.93
+* openjpeg-2.4.0
+* opus-system
+* pulseaudio-system
+* xkbcommon-0.9.1
 * qt-6.5.4
 * pyside-6.5.4
 * imath-3.1.12
@@ -438,7 +456,6 @@ Contains:
 * alembic-1.8.6
 * oiio-2.5.18.0
 * ocio-2.3.2
-* pybind11-2.12.0
 * opensubdiv-3.6.0
 * ptex-2.4.2
 * openvdb-11.0.0
@@ -454,20 +471,38 @@ Contains:
 ## [aswf/ci-vfxall:2024-clang17.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang17.2)
 
 Contains:
-* lz4-1.10.0
-* snappy-1.1.10
-* zlib-1.3.1
-* zstd-1.5.6
 * blosc-1.21.5
-* cpython-3.11.11
-* tbb-2020_u3
-* libbacktrace-cci.20210118
 * boost-1.82.0
 * cppunit-1.15.1
+* cpython-3.11.11
 * expat-2.6.4
-* log4cplus-2.1.1
+* freetype-2.13.2
 * glew-2.1.0
 * glfw-3.3.8
+* libbacktrace-cci.20210118
+* log4cplus-2.1.1
+* lz4-1.10.0
+* md4c-0.4.8
+* pybind11-2.12.0
+* snappy-1.1.10
+* tbb-2020_u3
+* zlib-1.3.1
+* zstd-1.5.6
+* dbus-system
+* fontconfig-system
+* glib-2.78.3
+* libalsa-system
+* libdrm-system
+* libsndfile-system
+* libtiff-4.0.9
+* libwebp-1.5.0
+* libxshmfence-system
+* md4c-0.4.8
+* nss-3.93
+* openjpeg-2.4.0
+* opus-system
+* pulseaudio-system
+* xkbcommon-0.9.1
 * qt-6.5.4
 * pyside-6.5.4
 * imath-3.1.12
@@ -475,7 +510,6 @@ Contains:
 * alembic-1.8.6
 * oiio-2.5.18.0
 * ocio-2.3.2
-* pybind11-2.12.0
 * opensubdiv-3.6.0
 * ptex-2.4.2
 * openvdb-11.0.0
@@ -491,35 +525,52 @@ Contains:
 ## [aswf/ci-vfxall:2025-clang18.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang18.0)
 
 Contains:
-* lz4-1.10.0
-* snappy-1.1.10
-* zlib-1.3.1
-* zstd-1.5.6
 * blosc-1.21.6
-* cpython-3.11.11
-* tbb-2020_u3
-* libbacktrace-cci.20210118
 * boost-1.85.0
 * cppunit-1.15.1
+* cpython-3.11.11
 * expat-2.6.4
-* log4cplus-2.1.2
+* freetype-2.13.2
 * glew-2.2.0
 * glfw-3.4
+* libbacktrace-cci.20210118
+* log4cplus-2.1.2
+* lz4-1.10.0
+* md4c-0.4.8
+* pybind11-2.13.6
+* snappy-1.1.10
+* tbb-2020_u3
+* zlib-1.3.1
+* zstd-1.5.6
+* dbus-system
+* fontconfig-system
+* glib-2.78.3
+* libalsa-system
+* libdrm-system
+* libsndfile-system
+* libtiff-4.0.9
+* libwebp-1.5.0
+* libxshmfence-system
+* md4c-0.4.8
+* nss-3.93
+* openjpeg-2.4.0
+* opus-system
+* pulseaudio-system
+* xkbcommon-0.9.1
 * qt-6.5.4
 * pyside-6.5.4
 * imath-3.1.12
 * openexr-3.3.3
 * alembic-1.8.8
-* oiio-3.0.4.0
+* oiio-3.0.5.0
 * ocio-2.4.2
-* pybind11-2.13.6
 * opensubdiv-3.6.0
 * ptex-2.4.3
 * openvdb-12.0.0
 * materialx-1.39.3
-* usd-24.08
+* usd-25.02a.eae7e67
 * partio-1.17.3
-* osl-1.13.12.0
+* osl-1.14.5.0
 * otio-0.17.0
 * numpy-1.26.4
 * hdf5-1.8.23
@@ -528,35 +579,52 @@ Contains:
 ## [aswf/ci-vfxall:2025-clang19.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang19.0)
 
 Contains:
-* lz4-1.10.0
-* snappy-1.1.10
-* zlib-1.3.1
-* zstd-1.5.6
 * blosc-1.21.6
-* cpython-3.11.11
-* tbb-2020_u3
-* libbacktrace-cci.20210118
 * boost-1.85.0
 * cppunit-1.15.1
+* cpython-3.11.11
 * expat-2.6.4
-* log4cplus-2.1.2
+* freetype-2.13.2
 * glew-2.2.0
 * glfw-3.4
+* libbacktrace-cci.20210118
+* log4cplus-2.1.2
+* lz4-1.10.0
+* md4c-0.4.8
+* pybind11-2.13.6
+* snappy-1.1.10
+* tbb-2020_u3
+* zlib-1.3.1
+* zstd-1.5.6
+* dbus-system
+* fontconfig-system
+* glib-2.78.3
+* libalsa-system
+* libdrm-system
+* libsndfile-system
+* libtiff-4.0.9
+* libwebp-1.5.0
+* libxshmfence-system
+* md4c-0.4.8
+* nss-3.93
+* openjpeg-2.4.0
+* opus-system
+* pulseaudio-system
+* xkbcommon-0.9.1
 * qt-6.5.4
 * pyside-6.5.4
 * imath-3.1.12
 * openexr-3.3.3
 * alembic-1.8.8
-* oiio-3.0.4.0
+* oiio-3.0.5.0
 * ocio-2.4.2
-* pybind11-2.13.6
 * opensubdiv-3.6.0
 * ptex-2.4.3
 * openvdb-12.0.0
 * materialx-1.39.3
-* usd-24.08
+* usd-25.02a.eae7e67
 * partio-1.17.3
-* osl-1.13.12.0
+* osl-1.14.5.0
 * otio-0.17.0
 * numpy-1.26.4
 * hdf5-1.8.23

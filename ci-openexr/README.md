@@ -21,6 +21,7 @@ Warning: this image does *not* contain OpenEXR itself as it is used to *build* O
 ## [aswf/ci-openexr:2019.8](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2019.8)
 
 Contains:
+* boost-1.66.0
 * cpython-2.7.15
 * pybind11-2.4.3
 * numpy-1.14
@@ -29,6 +30,7 @@ Contains:
 ## [aswf/ci-openexr:2020.8](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2020.8)
 
 Contains:
+* boost-1.70.0
 * cpython-3.7.3
 * pybind11-2.4.3
 * numpy-1.16
@@ -37,6 +39,7 @@ Contains:
 ## [aswf/ci-openexr:2021.5](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2021.5)
 
 Contains:
+* boost-1.73.0
 * cpython-3.7.9
 * pybind11-2.6.2
 * numpy-1.19
@@ -45,6 +48,7 @@ Contains:
 ## [aswf/ci-openexr:2022.3](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2022.3)
 
 Contains:
+* boost-1.76.0
 * cpython-3.9.15
 * pybind11-2.8.1
 * numpy-1.20
@@ -53,6 +57,7 @@ Contains:
 ## [aswf/ci-openexr:2023.2](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2023.2)
 
 Contains:
+* boost-1.80.0
 * cpython-3.10.11
 * pybind11-2.9.2
 * numpy-1.23.5
@@ -61,7 +66,11 @@ Contains:
 ## [aswf/ci-openexr:2024.2](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2024.2)
 
 Contains:
+* boost-1.82.0
+* bzip2-1.0.8
 * cpython-3.11.11
+* libbacktrace-cci.20210118
+* libdeflate-1.23
 * pybind11-2.12.0
 * numpy-1.24.3
 * vfxplatform-2024
@@ -69,7 +78,11 @@ Contains:
 ## [aswf/ci-openexr:2025.0](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2025.0)
 
 Contains:
+* boost-1.85.0
+* bzip2-1.0.8
 * cpython-3.11.11
+* libbacktrace-cci.20210118
+* libdeflate-1.23
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025

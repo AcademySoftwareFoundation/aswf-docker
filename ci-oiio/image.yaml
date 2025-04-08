@@ -4,21 +4,22 @@ description: |
   Contains: Python, OpenEXR, Partio and other OpenImageIO upstream dependencies
   Warning: this image does *not* contain OpenImageIO itself as it is used to *build* OpenImageIO!
 packages:
-  - lz4
-  - snappy
-  - zlib
-  - zstd
+  - boost
   - blosc
-  - expat
   - cpython
+  - expat
   - imath
+  - lz4
   - ocio
   - openexr
   - openvdb
   - pybind11
   - ptex
   - qt
+  - snappy
   - tbb
+  - zlib
+  - zstd
 implicit_packages:
   - numpy
   - vfxplatform

@@ -4,7 +4,7 @@ import logging
 import typing
 from datetime import datetime, timezone
 
-from github import Github, InputGitAuthor, GithubException
+from github import Github, InputGitAuthor, GithubException, Auth
 
 from aswfdocker import settings, constants, aswfinfo, groupinfo
 
@@ -15,7 +15,8 @@ class GitHub:
     def __init__(self, github_org: str):
         s = settings.Settings()
         if s.github_access_token:
-            self.github = Github(s.github_access_token)
+            auth = Auth.Token(s.github_access_token)
+            self.github = Github(auth=auth)
         else:
             self.github = Github()
         if not github_org:

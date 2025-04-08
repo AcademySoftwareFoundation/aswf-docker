@@ -78,6 +78,8 @@ class LibjpegTurboConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
+        # ASWF: we want DSOs in lib64
+        self.cpp.package.libdirs = ["lib64"]
 
     def validate(self):
         if self.options.get_safe("enable12bit") and (self.options.libjpeg7_compatibility or self.options.libjpeg8_compatibility):
@@ -93,8 +95,6 @@ class LibjpegTurboConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     @property
     def _is_arithmetic_encoding_enabled(self):

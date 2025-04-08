@@ -15,9 +15,8 @@ class SystemPulseAudioConan(ConanFile):
     def package_info(self):
         self.cpp_info.includedirs = ["/usr/include"]
         self.cpp_info.libdirs = ["/usr/lib64", "/usr/lib64/pulseaudio"]
-        self.cpp_info.libs = ["tiff"]
         
-        self.cpp_info.components["pulse"].libs = ["pulse", f"pulsecommon-14.0"]
+        self.cpp_info.components["pulse"].libs = ["pulse", "pulsecommon-14.0"]
 
         self.cpp_info.components["pulse-simple"].libs = ["pulse-simple"]
         self.cpp_info.components["pulse-simple"].requires = ["pulse"]

@@ -15,7 +15,8 @@ class SystemLibtiffConan(ConanFile):
     def package_info(self):
         self.cpp_info.includedirs = ["/usr/include"]
         self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["tiff"]
-        
+        self.cpp_info.libs = ["tiff", "tiffxx"]
+       
+        self.cpp_info.set_property("cmake_find_mode", "both") 
         self.cpp_info.set_property("cmake_file_name", "TIFF")
-        self.cpp_info.set_property("cmake_target_name", "TIFF:TIFF")
+        self.cpp_info.set_property("cmake_target_name", "TIFF::TIFF")

@@ -8,6 +8,7 @@ from conan.tools.build import can_run
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import chdir
 
+import os
 
 class TestPackageConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
@@ -24,6 +25,7 @@ class TestPackageConan(ConanFile):
         cmake_layout(self)
 
     def requirements(self):
+        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}", transitive_headers=True, transitive_libs=True)
         self.requires(self.tested_reference_str)
 
     def generate(self):
@@ -41,9 +43,16 @@ class TestPackageConan(ConanFile):
         if not self.dependencies["boost"].options.without_python:
             pyversion = self.dependencies["boost"].options.python_version
             tc.cache_variables["PYTHON_VERSION_TO_SEARCH"] = pyversion
-            tc.cache_variables["Python_EXECUTABLE"] = self.dependencies[
-                "boost"
-            ].options.python_executable
+            # ASWF: boost package fails to encode path to Python
+            # get it from cpython package
+            # tc.cache_variables["Python_EXECUTABLE"] = self.dependencies[
+            #     "boost"
+            # ].options.python_executable
+            pythonInfo = self.dependencies["cpython"]
+            tc.cache_variables["Python_EXECUTABLE"] = os.path.join(pythonInfo.package_folder, pythonInfo.cpp_info.bindirs[0], "python")
+            tc.cache_variables["Python_SITELIB"] = os.path.join(pythonInfo.package_folder, pythonInfo.cpp_info.libdirs[0],
+                "python{os.environ['ASWF_PYTHON_MAJOR_MINOR_VERSION']}","site-packages")
+
         tc.cache_variables["WITH_RANDOM"] = not self.dependencies[
             "boost"
         ].options.without_random
@@ -109,7 +118,9 @@ class TestPackageConan(ConanFile):
             # to ctest itself. Given that CMake already embeds RPATHs by default,
             # we can bypass this by using the `conanbuild` environment on
             # non-Windows platforms, while still retaining the correct behaviour.
-            env = "conanrun" if self.settings.os == "Windows" else "conanbuild"
+            # env = "conanrun" if self.settings.os == "Windows" else "conanbuild"
+            # ASWF: our Linux builds want conanrun
+            env = "conanrun" if self.settings.os != "Windows" else "conanbuild"
             self.run(
                 f"ctest --output-on-failure -C {self.settings.build_type}", env=env
             )

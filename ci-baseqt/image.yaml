@@ -3,25 +3,40 @@ title: "Base with Qt and PySide CI Docker Image"
 description: |
   Contains: Python, TBB, Boost, Qt, PySide and other base libraries
 packages:
-  - md4c
-  - lz4
-  - snappy
-  - zlib
-  - zstd 
-  - blosc
-  - boost
+  - b2                 # base1-1 packages
+  - bzip2
   - cppunit
   - expat
-  - glew
-  - glfw
+  - fmt
   - gtest
   - libbacktrace
-  - log4cplus
-  - pybind11
-  - cpython
+  - libdeflate
+  - libiconv
+  - libxcrypt
+  - lz4
+  - pugixml
+  - pystring
+  - snappy
   - tbb
-  - qt
-  - pyside
+  - tsl-robin-map
+  - yaml-cpp
+  - zlib
+  - zstd
+  - blosc              # base1-2 packages
+  - cpython
+  - freetype
+  - gdbm
+  - glew
+  - glfw
+  - log4cplus
+  - minizip-ng
+  - boost              # base1-3 packages
+  - pybind11
+  - libjpeg-turbo      # base2-1 packages
+  - libwebp
+  - md4c
+  - qt                 # base2-2 packages
+  - pyside             # base2-3 packages
 implicit_packages:
   - numpy
   - vfxplatform

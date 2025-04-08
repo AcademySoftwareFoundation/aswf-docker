@@ -75,7 +75,7 @@ tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 COPY ../scripts/common/before_build.sh \
@@ -131,7 +131,7 @@ openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 # Qt files are under /tmp/qttemp because OpenRV compiles its own PySide2 and it
@@ -147,7 +147,7 @@ qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /tmp/qttemp vfx${ASWF_VFXPLATFORM_VERSION}
 
 RUN --mount=type=cache,target=/tmp/ccache \

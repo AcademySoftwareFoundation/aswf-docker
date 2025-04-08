@@ -67,7 +67,7 @@ class LibjxlConan(ConanFile):
 
     def requirements(self):
         self.requires("brotli/1.1.0")
-        self.requires("highway/1.1.0")
+        self.requires("highway/1.1.0",transitive_libs=True) # ASWF
         self.requires("lcms/2.16")
         if self.options.with_tcmalloc:
             self.requires("gperftools/2.15")
@@ -154,7 +154,7 @@ class LibjxlConan(ConanFile):
         replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"),
                         "set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)", "")
         for cmake_file in ["jxl.cmake", "jxl_threads.cmake", "jxl_cms.cmake", "jpegli.cmake"]:
-            path = os.path.join(self.source_folder, "lib64", cmake_file)
+            path = os.path.join(self.source_folder, "lib", cmake_file)
             if os.path.exists(path):
                 fpic = "ON" if self.options.get_safe("fPIC", True) else "OFF"
                 replace_in_file(self, path, "POSITION_INDEPENDENT_CODE ON", f"POSITION_INDEPENDENT_CODE {fpic}")
@@ -183,6 +183,9 @@ class LibjxlConan(ConanFile):
 
     def package_info(self):
         libcxx = stdcpp_library(self)
+        self.cpp_info.set_property("cmake_find_mode", "both")
+        self.cpp_info.set_property("cmake_module_file_name", "JXL")
+        self.cpp_info.set_property("cmake_file_name", "libjxl")
 
         # jxl
         self.cpp_info.components["jxl"].set_property("pkg_config_name", "libjxl")

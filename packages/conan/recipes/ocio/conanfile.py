@@ -63,11 +63,11 @@ class OpenColorIOConan(ConanFile):
             self.requires("imath/3.1.9", transitive_libs=True)
 
         if Version(self.version) < "2.0.0":
-            self.requires("tinyxml/2.6.2")
-            self.requires("yaml-cpp/0.7.0")
+            self.requires("tinyxml/2.6.2", transitive_libs=True)
+            self.requires("yaml-cpp/0.7.0", transitive_libs=True)
         else:
-            self.requires("pystring/1.1.4")
-            self.requires("yaml-cpp/0.8.0")
+            self.requires("pystring/1.1.4", transitive_libs=True)
+            self.requires("yaml-cpp/0.8.0", transitive_libs=True)
 
         if Version(self.version) >= "2.3.0":
             self.requires("minizip-ng/4.0.3", transitive_libs=True)

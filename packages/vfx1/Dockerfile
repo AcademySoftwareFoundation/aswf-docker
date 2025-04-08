@@ -57,7 +57,6 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
-cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 cpython/${ASWF_CPYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 boost/${ASWF_BOOST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 tbb/${ASWF_TBB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
@@ -65,7 +64,7 @@ pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 COPY ../scripts/common/before_build.sh \
@@ -203,12 +202,13 @@ cppunit/${ASWF_CPPUNIT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 expat/${ASWF_EXPAT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 glfw/${ASWF_GLFW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 
 EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 
@@ -246,118 +246,4 @@ LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
 LABEL io.aswf.docker.versions.openvdb="${ASWF_OPENVDB_VERSION}"
 
 COPY --from=ci-openvdb-builder /package/. /
-
-
-
-#################### ci-ocio-builder ####################
-FROM ci-openvdb-builder AS ci-ocio-builder
-
-ARG ASWF_OCIO_VERSION
-ENV ASWF_OCIO_VERSION=${ASWF_OCIO_VERSION}
-ARG ASWF_OCIO_CONFIGS_VERSION
-ENV ASWF_OCIO_CONFIGS_VERSION=${ASWF_OCIO_CONFIGS_VERSION}
-
-COPY ../scripts/vfx/build_ocio.sh \
-     /tmp/
-
-RUN --mount=type=cache,target=/tmp/ccache \
-    --mount=type=cache,sharing=private,target=/tmp/downloads \
-    /tmp/before_build.sh && \
-    /tmp/build_ocio.sh && \
-    /tmp/copy_new_files.sh && \
-    ccache --show-stats
-
-
-#################### ci-package-ocio ####################
-FROM scratch AS ci-package-ocio
-
-ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_DTS_PREFIX
-ARG ASWF_OCIO_CONFIGS_VERSION
-ARG ASWF_OCIO_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-ocio"
-LABEL org.opencontainers.image.title="OpenColorIO package built for ASWF Docker images"
-LABEL org.opencontainers.image.description="OpenColorIO headers and binaries to be installed in ASWF Docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/AcademySoftwareFoundation/OpenColorIO"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${ASWF_OCIO_VERSION}"
-LABEL org.opencontainers.image.licenses="BSD-3-Clause"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.ocio="${ASWF_OCIO_VERSION}"
-LABEL io.aswf.docker.versions.ocioconfigs="${ASWF_OCIO_CONFIGS_VERSION}"
-
-COPY --from=ci-ocio-builder /package/. /
-
-#################### ci-oiio-builder ####################
-FROM ci-ocio-builder AS ci-oiio-builder
-
-ARG ASWF_OIIO_VERSION
-ARG ASWF_CXX_STANDARD
-ARG ASWF_PTEX_VERSION
-
-ENV ASWF_OIIO_VERSION=${ASWF_OIIO_VERSION}
-ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
-ENV ASWF_PTEX_VERSION=${ASWF_PTEX_VERSION}
-
-
-COPY ../scripts/vfx/build_oiio.sh \
-     /tmp/
-
-COPY scripts/common/install_conanpackages.sh /tmp
-
-# Use conan to install some packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-ptex/${ASWF_PTEX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN --mount=type=cache,target=/opt/conan_home/d \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
-
-RUN --mount=type=cache,target=/tmp/ccache \
-    --mount=type=cache,sharing=private,target=/tmp/downloads \
-    /tmp/before_build.sh && \
-    /tmp/build_oiio.sh && \
-    /tmp/copy_new_files.sh && \
-    ccache --show-stats
-
-
-#################### ci-package-oiio ####################
-FROM scratch AS ci-package-oiio
-
-ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_DTS_PREFIX
-ARG ASWF_OIIO_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-oiio"
-LABEL org.opencontainers.image.title="OpenImageIO package built for ASWF Docker images"
-LABEL org.opencontainers.image.description="OpenImageIO headers and binaries to be installed in ASWF Docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/OpenImageIO/oiio"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${ASWF_OIIO_VERSION}"
-LABEL org.opencontainers.image.licenses="BSD-3-Clause"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.oiio="${ASWF_OIIO_VERSION}"
-
-COPY --from=ci-oiio-builder /package/. /
-
 

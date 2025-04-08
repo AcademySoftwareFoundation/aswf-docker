@@ -38,5 +38,9 @@ else
         # No way to tell Conan 2 to flatten the deployment destination, we move the files after the fact
         rsync --remove-source-files -a $1/direct_deploy/${CONANPACKAGE}/ $1/
     done
+    # One off patch for pybind11 : overwrite pybind11Common.cmake with un-modified version
+    if test -f $1/lib64/cmake/pybind11/pybind11Common.cmake_NO_CONAN; then
+        mv $1/lib64/cmake/pybind11/pybind11Common.{cmake_NO_CONAN,cmake}
+    fi
     rm -rf $1/direct_deploy
 fi

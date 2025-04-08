@@ -4,6 +4,7 @@ description: |
   Contains: Python, TBB, Boost and other OpenColorIO upstream dependencies
   Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!
 packages:
+  - boost
   - lz4
   - snappy
   - zlib
@@ -17,9 +18,6 @@ packages:
   - glfw
   - imath
   - openexr
-  - partio
-  - openvdb
-  - osl
 implicit_packages:
   - numpy
   - vfxplatform

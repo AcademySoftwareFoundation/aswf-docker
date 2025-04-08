@@ -49,6 +49,8 @@ class OpenImageIOConan(ConanFile):
         "with_openvdb": [True, False],
         "with_ptex": [True, False],
         "with_libwebp": [True, False],
+        "with_libjxl": [True, False],
+        "with_libuhdr": [True, False],
     }
     default_options = {
         "shared": False,
@@ -69,6 +71,8 @@ class OpenImageIOConan(ConanFile):
         "with_openvdb": False,  # FIXME: broken on M1
         "with_ptex": True,
         "with_libwebp": True,
+        "with_libjxl": True,
+        "with_libuhdr": True,
     }
 
     def export_sources(self):
@@ -133,6 +137,10 @@ class OpenImageIOConan(ConanFile):
             self.requires("ptex/2.4.2")
         if self.options.with_libwebp:
             self.requires("libwebp/1.3.2")
+        if self.options.with_libjxl:
+            self.requires("libjxl/0.11.1")
+        if self.options.with_libuhdr:
+            self.requires("libuhdr/1.4.0")
         # TODO: R3DSDK dependency
         # TODO: Nuke dependency
 
@@ -290,7 +298,7 @@ class OpenImageIOConan(ConanFile):
         if self.options.with_hdf5:
             open_image_io.requires.append("hdf5::hdf5")
         if self.options.with_opencolorio:
-            open_image_io.requires.append("opencolorio::opencolorio")
+            open_image_io.requires.append("ocio::ocio") # ASWF: ocio instead of opencolorio for compat
         if self.options.with_opencv:
             open_image_io.requires.append("opencv::opencv")
         if self.options.with_dicom:
@@ -311,6 +319,10 @@ class OpenImageIOConan(ConanFile):
             open_image_io.requires.append("ptex::ptex")
         if self.options.with_libwebp:
             open_image_io.requires.append("libwebp::libwebp")
+        if self.options.with_libjxl:
+            open_image_io.requires.append("libjxl::libjxl")
+        if self.options.with_libuhdr:
+            open_image_io.requires.append("libuhdr::libuhdr")
         if self.settings.os in ["Linux", "FreeBSD"]:
             open_image_io.system_libs.extend(["dl", "m", "pthread"])
 
