@@ -406,7 +406,7 @@ class TestBuilderCli(unittest.TestCase):
         )
         self.assertFalse(result.exception)
         bake_path = os.path.join(
-            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019.json"
+            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2-2019.json"
         )
         cmds = result.output.strip().splitlines()
         # Expect 2 lines of output
@@ -500,7 +500,7 @@ class TestBuilderCli(unittest.TestCase):
         )
         self.assertFalse(result.exception, msg=result.output)
         bake_path = os.path.join(
-            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019-2020.json"
+            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2-2019-2020.json"
         )
         cmds = result.output.strip().splitlines()
         # We expect 5 steps

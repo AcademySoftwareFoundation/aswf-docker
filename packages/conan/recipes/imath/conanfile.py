@@ -97,6 +97,11 @@ class ImathConan(ConanFile):
         # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
 
     def package_info(self):
+        # ASWF: Imath will use pybind11 soon, requires boost
+        self.cpp_info.requires.append("cpython::cpython")
+        self.cpp_info.requires.append("boost::boost")
+        self.cpp_info.requires.append("pybind11::pybind11")
+
         self.cpp_info.set_property("cmake_file_name", "Imath")
         self.cpp_info.set_property("cmake_target_name", "Imath::Imath")
         self.cpp_info.set_property("pkg_config_name", "Imath")

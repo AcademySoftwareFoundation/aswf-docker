@@ -207,7 +207,7 @@ dbus-uuidgen > /etc/machine-id
 yum -y groupinstall "Development Tools"
 
 if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
-    dnf -y install gcc-toolset-$ASWF_DTS_VERSION
+    dnf -y install gcc-toolset-$ASWF_DTS_VERSION gcc-toolset-$ASWF_DTS_VERSION-libatomic-devel
 else
     yum install -y --setopt=tsflags=nodocs centos-release-scl-rh
 

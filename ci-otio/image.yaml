@@ -6,8 +6,27 @@ description: |
 packages:
   - cpython
   - expat
-  - qt
+  - freetype
+  - dbus
+  - double-conversion
+  - fontconfig
+  - glib
+  - libalsa
+  - libdrm
+  - libjpeg-turbo
+  - libsndfile
+  - libtiff
+  - libwebp
+  - libxshmfence
+  - md4c
+  - nss
+  - openal-soft
+  - openjpeg
+  - opus
+  - pulseaudio
+  - xkbcommon
   - pyside
+  - qt
 implicit_packages:
   - numpy
   - vfxplatform

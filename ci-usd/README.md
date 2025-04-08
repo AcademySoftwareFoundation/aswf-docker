@@ -22,13 +22,14 @@ Warning: this image does *not* contain USD itself as it is used to *build* USD!
 
 Contains:
 * blosc-1.5.0
+* boost-1.66.0
 * cpython-2.7.15
 * tbb-2018
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
-* qt-5.12.6
 * pyside-5.12.6
+* qt-5.12.6
 * imath-2.3.0
 * openexr-2.3.0
 * oiio-2.0.8
@@ -46,13 +47,14 @@ Contains:
 
 Contains:
 * blosc-1.5.0
+* boost-1.70.0
 * cpython-3.7.3
 * tbb-2019_u6
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
-* qt-5.12.6
 * pyside-5.12.6
+* qt-5.12.6
 * imath-2.4.0
 * openexr-2.4.0
 * oiio-2.1.13.0
@@ -70,13 +72,14 @@ Contains:
 
 Contains:
 * blosc-1.5.0
+* boost-1.73.0
 * cpython-3.7.9
 * tbb-2020_u2
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
-* qt-5.15.2
 * pyside-5.15.2
+* qt-5.15.2
 * imath-2.5.5
 * openexr-2.5.5
 * oiio-2.2.14.0
@@ -94,13 +97,14 @@ Contains:
 
 Contains:
 * blosc-1.17.0
+* boost-1.76.0
 * cpython-3.9.15
 * tbb-2020_u3
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
-* qt-5.15.2
 * pyside-5.15.2
+* qt-5.15.2
 * imath-3.1.5
 * materialx-1.38.5
 * openexr-3.1.5
@@ -119,13 +123,14 @@ Contains:
 
 Contains:
 * blosc-1.17.0
+* boost-1.80.0
 * cpython-3.10.11
 * tbb-2020_u3
 * glew-2.1.0
 * glfw-3.1.2
 * log4cplus-1.1.2
-* qt-5.15.9
 * pyside-5.15.9
+* qt-5.15.9
 * imath-3.1.9
 * materialx-1.38.7
 * openexr-3.1.11
@@ -148,14 +153,31 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
+* boost-1.82.0
 * cpython-3.11.11
 * tbb-2020_u3
 * expat-2.6.4
 * glew-2.1.0
 * glfw-3.3.8
 * log4cplus-2.1.1
-* qt-6.5.4
+* freetype-2.13.2
+* dbus-system
+* fontconfig-system
+* glib-2.78.3
+* libalsa-system
+* libdrm-system
+* libsndfile-system
+* libtiff-4.0.9
+* libwebp-1.5.0
+* libxshmfence-system
+* md4c-0.4.8
+* nss-3.93
+* openjpeg-2.4.0
+* opus-system
+* pulseaudio-system
+* xkbcommon-0.9.1
 * pyside-6.5.4
+* qt-6.5.4
 * imath-3.1.12
 * materialx-1.39.2
 * openexr-3.2.4
@@ -178,18 +200,35 @@ Contains:
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
+* boost-1.85.0
 * cpython-3.11.11
 * tbb-2020_u3
 * expat-2.6.4
 * glew-2.2.0
 * glfw-3.4
 * log4cplus-2.1.2
-* qt-6.5.4
+* freetype-2.13.2
+* dbus-system
+* fontconfig-system
+* glib-2.78.3
+* libalsa-system
+* libdrm-system
+* libsndfile-system
+* libtiff-4.0.9
+* libwebp-1.5.0
+* libxshmfence-system
+* md4c-0.4.8
+* nss-3.93
+* openjpeg-2.4.0
+* opus-system
+* pulseaudio-system
+* xkbcommon-0.9.1
 * pyside-6.5.4
+* qt-6.5.4
 * imath-3.1.12
 * materialx-1.39.3
 * openexr-3.3.3
-* oiio-3.0.4.0
+* oiio-3.0.5.0
 * ocio-2.4.2
 * pybind11-2.13.6
 * ptex-2.4.3

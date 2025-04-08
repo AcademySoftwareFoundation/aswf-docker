@@ -11,7 +11,7 @@ if [ "$ASWF_OTIO_VERSION" != "latest" ]; then
     git checkout "tags/v${ASWF_OTIO_VERSION}" -b "v${ASWF_OTIO_VERSION}"
 fi
 
-pip install --prefix="${ASWF_INSTALL_PREFIX}" .
+pip3 install --prefix="${ASWF_INSTALL_PREFIX}" .
 
 cd ..
 rm -rf OpenTimelineIO

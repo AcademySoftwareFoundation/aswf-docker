@@ -3,22 +3,35 @@ title: "Base CI Docker Image"
 description: |
   Contains: Python, TBB, Boost and other base libraries
 packages:
-  - lz4
-  - snappy
-  - zlib
-  - zstd
-  - blosc
-  - boost
+  - b2                 # base1-1 packages
+  - bzip2
   - cppunit
   - expat
-  - glew
-  - glfw
+  - fmt
   - gtest
   - libbacktrace
-  - log4cplus
-  - pybind11
-  - cpython
+  - libdeflate
+  - libiconv
+  - libxcrypt
+  - lz4
+  - pugixml
+  - pystring
+  - snappy
   - tbb
+  - tsl-robin-map
+  - yaml-cpp
+  - zlib
+  - zstd
+  - blosc              # base1-2 packages
+  - cpython
+  - freetype
+  - gdbm
+  - glew
+  - glfw
+  - log4cplus
+  - minizip-ng
+  - boost              # base1-3 packages
+  - pybind11
 implicit_packages:
   - numpy
   - vfxplatform

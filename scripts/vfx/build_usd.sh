@@ -4,13 +4,22 @@
 
 set -ex
 
-pip install jinja2 PyOpenGL
+pip3 install jinja2 PyOpenGL
 
 if [ ! -f "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz" ]; then
-     curl --location "https://github.com/PixarAnimationStudios/OpenUSD/archive/v${ASWF_USD_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz"
+    # For VFX Platform 2025, we need a somewhat newer release of USD than the latest 25.05a tag to
+    # get MaterialX 1.39.3 compatibility.
+    if [[ $ASWF_USD_VERSION == 25.02a.eae7e67 ]]; then
+        curl --location "https://github.com/PixarAnimationStudios/OpenUSD/archive/eae7e678473eb78794a3a27287ff121af322d583.tar.gz" -o "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz"
+    else
+        curl --location "https://github.com/PixarAnimationStudios/OpenUSD/archive/v${ASWF_USD_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz"
+    fi
 fi
 
 tar -zxf "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz"
+if [[ $ASWF_USD_VERSION == 25.02a.eae7e67 ]]; then
+mv "OpenUSD-eae7e678473eb78794a3a27287ff121af322d583" "OpenUSD-${ASWF_USD_VERSION}"
+fi
 cd "OpenUSD-${ASWF_USD_VERSION}"
 
 if [[ $ASWF_USD_VERSION == 23.05 && $ASWF_MATERIALX_VERSION == 1.38.7 ]]; then
@@ -56,6 +65,7 @@ cmake \
      -DILMBASE_LOCATION="${ASWF_INSTALL_PREFIX}" \
      -DGLEW_LOCATION="${ASWF_INSTALL_PREFIX}" \
      -DMATERIALX_LOCATION="${ASWF_INSTALL_PREFIX}" \
+     -DMATERIALX_STDLIB_DIR="${ASWF_INSTALL_PREFIX}" \
      -DPXR_ENABLE_MATERIALX_SUPPORT=ON \
      -DPXR_BUILD_TESTS=OFF \
      -DUSD_ROOT_DIR="${ASWF_INSTALL_PREFIX}" \

@@ -156,7 +156,10 @@ class BoostConan(ConanFile):
         "system_use_utf8": False,
     }
     default_options.update({f"without_{_name}": False for _name in CONFIGURE_OPTIONS})
-    default_options.update({f"without_{_name}": True for _name in ("graph_parallel", "mpi", "python")})
+    # ASWF: we want BoostPython
+    # default_options.update({f"without_{_name}": True for _name in ("graph_parallel", "mpi", "python")})
+    default_options.update({f"without_{_name}": True for _name in ("graph_parallel", "mpi")})
+    default_options.update({"without_python": False})
 
     short_paths = True
     no_copy_source = True
@@ -392,7 +395,10 @@ class BoostConan(ConanFile):
         obtain full path to the python interpreter executable
         :return: path to the python interpreter executable, either set by option, or system default
         """
-        exe = self.options.python_executable if self.options.python_executable else sys.executable
+        # ASWF: eventually we want our own Python, but we don't know where it lives until
+        # requirements() has been called. Until then we just use the system puthon.
+        # exe = self.options.python_executable if self.options.python_executable else sys.executable
+        exe = self.options.python_executable if self.options.python_executable else "python"
         return str(exe).replace("\\", "/")
 
     @property
@@ -658,7 +664,8 @@ class BoostConan(ConanFile):
         if not self.options.without_python:
             if not self.options.python_version:
                 self.options.python_version = self._detect_python_version()
-                self.options.python_executable = self._python_executable
+                # ASWF: always query dynamically since it will change
+                # self.options.python_executable = self._python_executable
         else:
             self.options.rm_safe("python_buildid")
 
@@ -862,6 +869,12 @@ class BoostConan(ConanFile):
 
     def generate(self):
         if not self.options.header_only:
+            # ASWF: only in validate() has the dependency graph been computed and packages installed
+            # allowing access to full path of our own python interpreter
+            pythonInfo = self.dependencies["cpython"]
+            exe = os.path.join(pythonInfo.package_folder, pythonInfo.cpp_info.bindirs[0], "python")
+            self.options.python_executable = exe
+
             env = VirtualBuildEnv(self)
             env.generate()
             vc = VCVars(self)

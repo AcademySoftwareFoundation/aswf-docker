@@ -24,7 +24,7 @@ Contains:
 * blosc-1.5.0
 * boost-1.66.0
 * cpython-2.7.15
-* qt-5.12.6
+* pybind11-2.4.3
 * imath-2.3.0
 * openexr-2.3.0
 * oiio-2.0.8
@@ -33,6 +33,8 @@ Contains:
 * ptex-2.1.33
 * tbb-2018
 * openvdb-6.2.1
+* pyside-5.12.6
+* qt-5.12.6
 * numpy-1.14
 * vfxplatform-2019
 
@@ -42,7 +44,7 @@ Contains:
 * blosc-1.5.0
 * boost-1.66.0
 * cpython-2.7.15
-* qt-5.12.6
+* pybind11-2.4.3
 * imath-2.3.0
 * openexr-2.3.0
 * oiio-2.0.8
@@ -51,6 +53,8 @@ Contains:
 * ptex-2.1.33
 * tbb-2018
 * openvdb-6.2.1
+* pyside-5.12.6
+* qt-5.12.6
 * numpy-1.14
 * vfxplatform-2019
 
@@ -60,7 +64,7 @@ Contains:
 * blosc-1.5.0
 * boost-1.66.0
 * cpython-2.7.15
-* qt-5.12.6
+* pybind11-2.4.3
 * imath-2.3.0
 * openexr-2.3.0
 * oiio-2.0.8
@@ -69,6 +73,8 @@ Contains:
 * ptex-2.1.33
 * tbb-2018
 * openvdb-6.2.1
+* pyside-5.12.6
+* qt-5.12.6
 * numpy-1.14
 * vfxplatform-2019
 
@@ -78,7 +84,7 @@ Contains:
 * blosc-1.5.0
 * boost-1.66.0
 * cpython-2.7.15
-* qt-5.12.6
+* pybind11-2.4.3
 * imath-2.3.0
 * openexr-2.3.0
 * oiio-2.0.8
@@ -87,6 +93,8 @@ Contains:
 * ptex-2.1.33
 * tbb-2018
 * openvdb-6.2.1
+* pyside-5.12.6
+* qt-5.12.6
 * numpy-1.14
 * vfxplatform-2019
 
@@ -96,7 +104,7 @@ Contains:
 * blosc-1.5.0
 * boost-1.66.0
 * cpython-2.7.15
-* qt-5.12.6
+* pybind11-2.4.3
 * imath-2.3.0
 * openexr-2.3.0
 * oiio-2.0.8
@@ -105,6 +113,8 @@ Contains:
 * ptex-2.1.33
 * tbb-2018
 * openvdb-6.2.1
+* pyside-5.12.6
+* qt-5.12.6
 * numpy-1.14
 * vfxplatform-2019
 
@@ -114,7 +124,7 @@ Contains:
 * blosc-1.5.0
 * boost-1.70.0
 * cpython-3.7.3
-* qt-5.12.6
+* pybind11-2.4.3
 * imath-2.4.0
 * openexr-2.4.0
 * oiio-2.1.13.0
@@ -123,6 +133,8 @@ Contains:
 * ptex-2.3.2
 * tbb-2019_u6
 * openvdb-7.1.0
+* pyside-5.12.6
+* qt-5.12.6
 * numpy-1.16
 * vfxplatform-2020
 
@@ -132,7 +144,7 @@ Contains:
 * blosc-1.5.0
 * boost-1.73.0
 * cpython-3.7.9
-* qt-5.15.2
+* pybind11-2.6.2
 * imath-2.5.5
 * openexr-2.5.5
 * oiio-2.2.14.0
@@ -141,6 +153,8 @@ Contains:
 * ptex-2.3.2
 * tbb-2020_u2
 * openvdb-8.0.1
+* pyside-5.15.2
+* qt-5.15.2
 * numpy-1.19
 * vfxplatform-2021
 
@@ -150,7 +164,7 @@ Contains:
 * blosc-1.5.0
 * boost-1.73.0
 * cpython-3.7.9
-* qt-5.15.2
+* pybind11-2.6.2
 * imath-2.5.5
 * openexr-2.5.5
 * oiio-2.2.14.0
@@ -159,6 +173,8 @@ Contains:
 * ptex-2.3.2
 * tbb-2020_u2
 * openvdb-8.0.1
+* pyside-5.15.2
+* qt-5.15.2
 * numpy-1.19
 * vfxplatform-2021
 
@@ -168,7 +184,7 @@ Contains:
 * blosc-1.17.0
 * boost-1.76.0
 * cpython-3.9.15
-* qt-5.15.2
+* pybind11-2.8.1
 * imath-3.1.5
 * openexr-3.1.5
 * oiio-2.4.5.0
@@ -177,6 +193,8 @@ Contains:
 * ptex-2.4.0
 * tbb-2020_u3
 * openvdb-9.1.0
+* pyside-5.15.2
+* qt-5.15.2
 * numpy-1.20
 * vfxplatform-2022
 
@@ -186,7 +204,7 @@ Contains:
 * blosc-1.17.0
 * boost-1.76.0
 * cpython-3.9.15
-* qt-5.15.2
+* pybind11-2.8.1
 * imath-3.1.5
 * openexr-3.1.5
 * oiio-2.4.5.0
@@ -195,6 +213,8 @@ Contains:
 * ptex-2.4.0
 * tbb-2020_u3
 * openvdb-9.1.0
+* pyside-5.15.2
+* qt-5.15.2
 * numpy-1.20
 * vfxplatform-2022
 
@@ -204,7 +224,7 @@ Contains:
 * blosc-1.17.0
 * boost-1.76.0
 * cpython-3.9.15
-* qt-5.15.2
+* pybind11-2.8.1
 * imath-3.1.5
 * openexr-3.1.5
 * oiio-2.4.5.0
@@ -213,6 +233,8 @@ Contains:
 * ptex-2.4.0
 * tbb-2020_u3
 * openvdb-9.1.0
+* pyside-5.15.2
+* qt-5.15.2
 * numpy-1.20
 * vfxplatform-2022
 
@@ -222,7 +244,7 @@ Contains:
 * blosc-1.17.0
 * boost-1.76.0
 * cpython-3.9.15
-* qt-5.15.2
+* pybind11-2.8.1
 * imath-3.1.5
 * openexr-3.1.5
 * oiio-2.4.5.0
@@ -231,6 +253,8 @@ Contains:
 * ptex-2.4.0
 * tbb-2020_u3
 * openvdb-9.1.0
+* pyside-5.15.2
+* qt-5.15.2
 * numpy-1.20
 * vfxplatform-2022
 
@@ -240,7 +264,7 @@ Contains:
 * blosc-1.17.0
 * boost-1.76.0
 * cpython-3.9.15
-* qt-5.15.2
+* pybind11-2.8.1
 * imath-3.1.5
 * openexr-3.1.5
 * oiio-2.4.5.0
@@ -249,6 +273,8 @@ Contains:
 * ptex-2.4.0
 * tbb-2020_u3
 * openvdb-9.1.0
+* pyside-5.15.2
+* qt-5.15.2
 * numpy-1.20
 * vfxplatform-2022
 
@@ -258,7 +284,7 @@ Contains:
 * blosc-1.17.0
 * boost-1.80.0
 * cpython-3.10.11
-* qt-5.15.9
+* pybind11-2.9.2
 * imath-3.1.9
 * openexr-3.1.11
 * oiio-2.4.13.0
@@ -267,6 +293,8 @@ Contains:
 * ptex-2.4.2
 * tbb-2020_u3
 * openvdb-10.0.1
+* pyside-5.15.9
+* qt-5.15.9
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -276,7 +304,7 @@ Contains:
 * blosc-1.17.0
 * boost-1.80.0
 * cpython-3.10.11
-* qt-5.15.9
+* pybind11-2.9.2
 * imath-3.1.9
 * openexr-3.1.11
 * oiio-2.4.13.0
@@ -285,6 +313,8 @@ Contains:
 * ptex-2.4.2
 * tbb-2020_u3
 * openvdb-10.0.1
+* pyside-5.15.9
+* qt-5.15.9
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -299,8 +329,18 @@ Contains:
 * libbacktrace-cci.20210118
 * boost-1.82.0
 * expat-2.6.4
+* freetype-2.13.2
 * cpython-3.11.11
-* qt-6.5.4
+* pybind11-2.12.0
+* highway-1.2.0
+* libdeflate-1.23
+* libiconv-1.17
+* libjxl-0.11.1
+* libuhdr-1.4.0
+* libwebp-1.5.0
+* md4c-0.4.8
+* pugixml-1.14
+* pystring-1.1.4
 * imath-3.1.12
 * openexr-3.2.4
 * oiio-2.5.18.0
@@ -309,6 +349,8 @@ Contains:
 * ptex-2.4.2
 * tbb-2020_u3
 * openvdb-11.0.0
+* pyside-6.5.4
+* qt-6.5.4
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -323,8 +365,18 @@ Contains:
 * libbacktrace-cci.20210118
 * boost-1.82.0
 * expat-2.6.4
+* freetype-2.13.2
 * cpython-3.11.11
-* qt-6.5.4
+* pybind11-2.12.0
+* highway-1.2.0
+* libdeflate-1.23
+* libiconv-1.17
+* libjxl-0.11.1
+* libuhdr-1.4.0
+* libwebp-1.5.0
+* md4c-0.4.8
+* pugixml-1.14
+* pystring-1.1.4
 * imath-3.1.12
 * openexr-3.2.4
 * oiio-2.5.18.0
@@ -333,6 +385,8 @@ Contains:
 * ptex-2.4.2
 * tbb-2020_u3
 * openvdb-11.0.0
+* pyside-6.5.4
+* qt-6.5.4
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -347,16 +401,28 @@ Contains:
 * libbacktrace-cci.20210118
 * boost-1.85.0
 * expat-2.6.4
+* freetype-2.13.2
 * cpython-3.11.11
-* qt-6.5.4
+* pybind11-2.13.6
+* highway-1.2.0
+* libdeflate-1.23
+* libiconv-1.17
+* libjxl-0.11.1
+* libuhdr-1.4.0
+* libwebp-1.5.0
+* md4c-0.4.8
+* pugixml-1.14
+* pystring-1.1.4
 * imath-3.1.12
 * openexr-3.3.3
-* oiio-3.0.4.0
+* oiio-3.0.5.0
 * ocio-2.4.2
 * partio-1.17.3
 * ptex-2.4.3
 * tbb-2020_u3
 * openvdb-12.0.0
+* pyside-6.5.4
+* qt-6.5.4
 * numpy-1.26.4
 * vfxplatform-2025
 
@@ -371,16 +437,28 @@ Contains:
 * libbacktrace-cci.20210118
 * boost-1.85.0
 * expat-2.6.4
+* freetype-2.13.2
 * cpython-3.11.11
-* qt-6.5.4
+* pybind11-2.13.6
+* highway-1.2.0
+* libdeflate-1.23
+* libiconv-1.17
+* libjxl-0.11.1
+* libuhdr-1.4.0
+* libwebp-1.5.0
+* md4c-0.4.8
+* pugixml-1.14
+* pystring-1.1.4
 * imath-3.1.12
 * openexr-3.3.3
-* oiio-3.0.4.0
+* oiio-3.0.5.0
 * ocio-2.4.2
 * partio-1.17.3
 * ptex-2.4.3
 * tbb-2020_u3
 * openvdb-12.0.0
+* pyside-6.5.4
+* qt-6.5.4
 * numpy-1.26.4
 * vfxplatform-2025
 

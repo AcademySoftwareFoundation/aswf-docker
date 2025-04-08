@@ -15,30 +15,14 @@ ARG ASWF_VFXPLATFORM_VERSION
 #################### ci-baseos-gl-packages ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-baseos-gl-packages
 
-ARG ASWF_CMAKE_VERSION
-ARG ASWF_NINJA_VERSION
 ARG ASWF_PKG_ORG
 ARG ASWF_CONAN_CHANNEL
 ARG ASWF_VFXPLATFORM_VERSION
 
-ENV ASWF_CMAKE_VERSION=${ASWF_CMAKE_VERSION}
-ENV ASWF_NINJA_VERSION=${ASWF_NINJA_VERSION}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
-COPY scripts/common/install_conanpackages.sh /tmp
-
-# Use conan to install some packages
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
 RUN --mount=type=cache,target=/opt/conan_home/d \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
+    --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
 
 COPY ../scripts/common/before_build.sh \

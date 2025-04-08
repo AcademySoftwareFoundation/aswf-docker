@@ -4,7 +4,11 @@ description: |
   Contains: Python and other OpenEXR upstream dependencies
   Warning: this image does *not* contain OpenEXR itself as it is used to *build* OpenEXR!
 packages:
+  - boost           # boost and dependencies
+  - bzip2
   - cpython
+  - libbacktrace
+  - libdeflate      # other dependencies  
   - pybind11
 implicit_packages:
   - numpy

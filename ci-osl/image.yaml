@@ -12,8 +12,22 @@ packages:
   - libbacktrace
   - boost
   - expat
+  - freetype
   - cpython
-  - qt
+  - pybind11
+  - highway
+  - libdeflate
+  - libiconv
+  - libjpeg-turbo
+  - libjxl
+  - libuhdr
+  - libwebp
+  - md4c
+  - minizip-ng
+  - pugixml
+  - pystring
+  - tsl-robin-map
+  - yaml-cpp
   - imath
   - openexr
   - oiio
@@ -22,6 +36,8 @@ packages:
   - ptex
   - tbb
   - openvdb
+  - pyside
+  - qt
 implicit_packages:
   - numpy
   - vfxplatform

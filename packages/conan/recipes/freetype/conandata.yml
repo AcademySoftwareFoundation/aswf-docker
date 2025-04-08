@@ -1,0 +1,32 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/f2c56e90ae28fef1ee1a392adf59f96199ee1277/recipes/freetype/all/conandata.yml
+
+sources:
+  "2.13.3":
+    url:
+      - "https://download.savannah.gnu.org/releases/freetype/freetype-2.13.3.tar.xz"
+      - "https://sourceforge.net/projects/freetype/files/freetype2/2.13.3/freetype-2.13.3.tar.xz"
+    sha256: "0550350666d427c74daeb85d5ac7bb353acba5f76956395995311a9c6f063289"
+  "2.13.2":
+    url:
+      - "https://download.savannah.gnu.org/releases/freetype/freetype-2.13.2.tar.xz"
+      - "https://sourceforge.net/projects/freetype/files/freetype2/2.13.2/freetype-2.13.2.tar.xz"
+    sha256: "12991c4e55c506dd7f9b765933e62fd2be2e06d421505d7950a132e4f1bb484d"
+  "2.12.1":
+    url:
+      - "https://download.savannah.gnu.org/releases/freetype/freetype-2.12.1.tar.xz"
+      - "https://sourceforge.net/projects/freetype/files/freetype2/2.12.1/freetype-2.12.1.tar.xz"
+    sha256: "4766f20157cc4cf0cd292f80bf917f92d1c439b243ac3018debf6b9140c41a7f"
+  "2.11.1":
+    url:
+      - "https://download.savannah.gnu.org/releases/freetype/freetype-2.11.1.tar.xz"
+      - "https://sourceforge.net/projects/freetype/files/freetype2/2.11.1/freetype-2.11.1.tar.xz"
+    sha256: "3333ae7cfda88429c97a7ae63b7d01ab398076c3b67182e960e5684050f2c5c8"
+  "2.10.4":
+    url:
+      - "https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.xz"
+      - "https://sourceforge.net/projects/freetype/files/freetype2/2.10.4/freetype-2.10.4.tar.xz"
+    sha256: "86a854d8905b19698bbc8f23b860bc104246ce4854dcea8e3b0fb21284f75784"

@@ -20,16 +20,16 @@ Contains: Python, TBB, Boost, Qt, PySide and other base libraries
 ## [aswf/ci-baseqt:2019.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2019.2)
 
 Contains:
-* blosc-1.5.0
-* boost-1.66.0
 * cppunit-1.14.0
+* gtest-1.8.1
+* tbb-2018
+* blosc-1.5.0
+* cpython-2.7.15
 * glew-2.1.0
 * glfw-3.1.2
-* gtest-1.8.1
 * log4cplus-1.1.2
+* boost-1.66.0
 * pybind11-2.4.3
-* cpython-2.7.15
-* tbb-2018
 * qt-5.12.6
 * pyside-5.12.6
 * numpy-1.14
@@ -38,16 +38,16 @@ Contains:
 ## [aswf/ci-baseqt:2020.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2020.2)
 
 Contains:
-* blosc-1.5.0
-* boost-1.70.0
 * cppunit-1.15.1
+* gtest-1.10.0
+* tbb-2019_u6
+* blosc-1.5.0
+* cpython-3.7.3
 * glew-2.1.0
 * glfw-3.1.2
-* gtest-1.10.0
 * log4cplus-1.1.2
+* boost-1.70.0
 * pybind11-2.4.3
-* cpython-3.7.3
-* tbb-2019_u6
 * qt-5.12.6
 * pyside-5.12.6
 * numpy-1.16
@@ -56,16 +56,16 @@ Contains:
 ## [aswf/ci-baseqt:2021.3](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2021.3)
 
 Contains:
-* blosc-1.5.0
-* boost-1.73.0
 * cppunit-1.15.1
+* gtest-1.11.0
+* tbb-2020_u2
+* blosc-1.5.0
+* cpython-3.7.9
 * glew-2.1.0
 * glfw-3.1.2
-* gtest-1.11.0
 * log4cplus-1.1.2
+* boost-1.73.0
 * pybind11-2.6.2
-* cpython-3.7.9
-* tbb-2020_u2
 * qt-5.15.2
 * pyside-5.15.2
 * numpy-1.19
@@ -74,16 +74,16 @@ Contains:
 ## [aswf/ci-baseqt:2022.4](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2022.4)
 
 Contains:
-* blosc-1.17.0
-* boost-1.76.0
 * cppunit-1.15.1
+* gtest-1.11.0
+* tbb-2020_u3
+* blosc-1.17.0
+* cpython-3.9.15
 * glew-2.1.0
 * glfw-3.1.2
-* gtest-1.11.0
 * log4cplus-1.1.2
+* boost-1.76.0
 * pybind11-2.8.1
-* cpython-3.9.15
-* tbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * numpy-1.20
@@ -92,16 +92,16 @@ Contains:
 ## [aswf/ci-baseqt:2023.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2023.2)
 
 Contains:
-* blosc-1.17.0
-* boost-1.80.0
 * cppunit-1.15.1
+* gtest-1.11.0
+* tbb-2020_u3
+* blosc-1.17.0
+* cpython-3.10.11
 * glew-2.1.0
 * glfw-3.1.2
-* gtest-1.11.0
 * log4cplus-1.1.2
+* boost-1.80.0
 * pybind11-2.9.2
-* cpython-3.10.11
-* tbb-2020_u3
 * qt-5.15.9
 * pyside-5.15.9
 * numpy-1.23.5
@@ -110,23 +110,34 @@ Contains:
 ## [aswf/ci-baseqt:2024.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2024.2)
 
 Contains:
-* md4c-0.4.8
+* b2-5.2.1
+* bzip2-1.0.8
+* cppunit-1.15.1
+* expat-2.6.4
+* fmt-11.1.4
+* gtest-1.14.0
+* libbacktrace-cci.20210118
+* libdeflate-1.23
+* libiconv-1.17
+* libxcrypt-4.4.36
 * lz4-1.10.0
+* pugixml-1.14
+* pystring-1.1.4
 * snappy-1.1.10
+* tbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
-* boost-1.82.0
-* cppunit-1.15.1
-* expat-2.6.4
+* cpython-3.11.11
+* freetype-2.13.2
+* gdbm-system
 * glew-2.1.0
 * glfw-3.3.8
-* gtest-1.14.0
-* libbacktrace-cci.20210118
 * log4cplus-2.1.1
+* boost-1.82.0
 * pybind11-2.12.0
-* cpython-3.11.11
-* tbb-2020_u3
+* libwebp-1.5.0
+* md4c-0.4.8
 * qt-6.5.4
 * pyside-6.5.4
 * numpy-1.24.3
@@ -135,23 +146,34 @@ Contains:
 ## [aswf/ci-baseqt:2025.0](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2025.0)
 
 Contains:
-* md4c-0.4.8
+* b2-5.2.1
+* bzip2-1.0.8
+* cppunit-1.15.1
+* expat-2.6.4
+* fmt-11.1.4
+* gtest-1.15.2
+* libbacktrace-cci.20210118
+* libdeflate-1.23
+* libiconv-1.17
+* libxcrypt-4.4.36
 * lz4-1.10.0
+* pugixml-1.14
+* pystring-1.1.4
 * snappy-1.1.10
+* tbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
-* boost-1.85.0
-* cppunit-1.15.1
-* expat-2.6.4
+* cpython-3.11.11
+* freetype-2.13.2
+* gdbm-system
 * glew-2.2.0
 * glfw-3.4
-* gtest-1.15.2
-* libbacktrace-cci.20210118
 * log4cplus-2.1.2
+* boost-1.85.0
 * pybind11-2.13.6
-* cpython-3.11.11
-* tbb-2020_u3
+* libwebp-1.5.0
+* md4c-0.4.8
 * qt-6.5.4
 * pyside-6.5.4
 * numpy-1.26.4

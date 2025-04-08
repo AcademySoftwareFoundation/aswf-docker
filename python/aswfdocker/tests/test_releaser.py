@@ -23,7 +23,7 @@ class TestReleaser(unittest.TestCase):
         r = releaser.Releaser(
             self.build_info,
             groupinfo.GroupInfo(
-                names=["base1"],
+                names=["base1-3"],
                 versions=["2019"],
                 type_=constants.ImageType.PACKAGE,
                 targets=["boost"],

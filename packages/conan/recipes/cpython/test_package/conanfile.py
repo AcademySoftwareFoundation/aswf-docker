@@ -31,7 +31,7 @@ class TestPackageConan(ConanFile):
         # The interesting problem that arises here is if you have CMake installed
         # with your global pip, then it will fail to run in this test package.
         # To avoid that, just add a requirement on CMake.
-        self.tool_requires(f"cmake/[>=3.16 <4]@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}")
+        self.tool_requires("cmake/[>=3.16 <4]")
 
     def layout(self):
         cmake_layout(self)

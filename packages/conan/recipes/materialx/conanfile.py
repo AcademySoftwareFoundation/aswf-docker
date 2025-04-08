@@ -106,6 +106,8 @@ class MaterialXConan(ConanFile):
         tc.variables["MATERIALX_PYTHON_VERSION"] = os.environ["ASWF_CPYTHON_VERSION"]
         tc.variables["MATERIALX_BUILD_SHARED_LIBS"] = self.options.shared
         tc.variables["MATERIALX_BUILD_GEN_MSL"] = self.options.build_gen_msl and is_apple_os
+        tc.variables["MATERIALX_INSTALL_LIB_PATH"] = "lib64" # ASWF: otherwise end up in lib
+        tc.variables["MATERIALX_INSTALL_STDLIB_PATH"] = os.path.join("share","MaterialX") # ASWF: otherwise end up in python
         # TODO: Remove when Conan 1 support is dropped
         if not self.settings.compiler.cppstd:
             tc.variables["MATERIALX_BUILD_USE_CCACHE"] = self._min_cppstd
@@ -125,7 +127,7 @@ class MaterialXConan(ConanFile):
                         "# set(CMAKE_POSITION_INDEPENDENT_CODE")
 
     def build(self):
-        self._patch_sources() # ASWF: don't forget to match sources
+        self._patch_sources() # ASWF: don't forget to patch sources
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
@@ -226,4 +228,4 @@ class MaterialXConan(ConanFile):
                 self.cpp_info.includedirs.extend(["include/compat/ios"])
 
         # ASWF FIXME still need this?
-        # self.env_info.CMAKE_PREFIX_PATH.append(os.path.join(self.package_folder, "lib64", "cmake"))
+        self.env_info.CMAKE_PREFIX_PATH.append(os.path.join(self.package_folder, "lib64", "cmake"))

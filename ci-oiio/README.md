@@ -21,42 +21,44 @@ Warning: this image does *not* contain OpenImageIO itself as it is used to *buil
 ## [aswf/ci-oiio:2024.2](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2024.2)
 
 Contains:
-* lz4-1.10.0
-* snappy-1.1.10
-* zlib-1.3.1
-* zstd-1.5.6
+* boost-1.82.0
 * blosc-1.21.5
-* expat-2.6.4
 * cpython-3.11.11
+* expat-2.6.4
 * imath-3.1.12
+* lz4-1.10.0
 * ocio-2.3.2
 * openexr-3.2.4
 * openvdb-11.0.0
 * pybind11-2.12.0
 * ptex-2.4.2
 * qt-6.5.4
+* snappy-1.1.10
 * tbb-2020_u3
+* zlib-1.3.1
+* zstd-1.5.6
 * numpy-1.24.3
 * vfxplatform-2024
 
 ## [aswf/ci-oiio:2025.0](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2025.0)
 
 Contains:
-* lz4-1.10.0
-* snappy-1.1.10
-* zlib-1.3.1
-* zstd-1.5.6
+* boost-1.85.0
 * blosc-1.21.6
-* expat-2.6.4
 * cpython-3.11.11
+* expat-2.6.4
 * imath-3.1.12
+* lz4-1.10.0
 * ocio-2.4.2
 * openexr-3.3.3
 * openvdb-12.0.0
 * pybind11-2.13.6
 * ptex-2.4.3
 * qt-6.5.4
+* snappy-1.1.10
 * tbb-2020_u3
+* zlib-1.3.1
+* zstd-1.5.6
 * numpy-1.26.4
 * vfxplatform-2025
 

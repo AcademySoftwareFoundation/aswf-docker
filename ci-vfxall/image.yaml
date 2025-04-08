@@ -3,20 +3,41 @@ title: "VFX All CI Docker Image"
 description: |
   Contains: all supported VFX packages
 packages:
-  - lz4
-  - snappy
-  - zlib
-  - zstd
   - blosc
-  - cpython
-  - tbb
-  - libbacktrace
   - boost
   - cppunit
+  - cpython
   - expat
-  - log4cplus
+  - freetype
   - glew
   - glfw
+  - libbacktrace
+  - log4cplus
+  - lz4
+  - md4c
+  - pybind11
+  - snappy
+  - tbb
+  - zlib
+  - zstd
+  - dbus
+  - double-conversion
+  - fontconfig
+  - glib
+  - libalsa
+  - libdrm
+  - libjpeg-turbo
+  - libsndfile
+  - libtiff
+  - libwebp
+  - libxshmfence
+  - md4c
+  - nss
+  - openal-soft
+  - openjpeg
+  - opus
+  - pulseaudio
+  - xkbcommon
   - qt
   - pyside
   - imath
@@ -24,7 +45,6 @@ packages:
   - alembic
   - oiio
   - ocio
-  - pybind11
   - opensubdiv
   - ptex
   - openvdb

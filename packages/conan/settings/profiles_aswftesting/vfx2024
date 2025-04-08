@@ -6,6 +6,7 @@ include(ci_common4)
 *:shared=True
 [tool_requires]
 [replace_requires]
+b2/*: b2/5.2.1@aswftesting/vfx2024
 boost/*: boost/1.82.0@aswftesting/vfx2024
 brotli/*: brotli/system@aswftesting/vfx2024
 bzip2/*: bzip2/1.0.8@aswftesting/vfx2024
@@ -14,7 +15,7 @@ double-conversion/*: double-conversion/system@aswftesting/vfx2024
 expat/*: expat/2.6.4@aswftesting/vfx2024
 fmt/*: fmt/11.1.4@aswftesting/vfx2024
 fontconfig/*: fontconfig/system@aswftesting/vfx2024
-freetype/*: freetype/system@aswftesting/vfx2024
+freetype/*: freetype/2.13.2@aswftesting/vfx2024
 gdbm/*: gdbm/system@aswftesting/vfx2024
 giflib/*: giflib/5.1.4@aswftesting/vfx2024
 glew/*: glrew/2.1.0@aswftesting/vfx2024
@@ -26,7 +27,7 @@ lcms/*: lcms/2.16@aswftesting/vfx2024
 libalsa/*: libalsa/system@aswftesting/vfx2024
 libaom-av1/*: libaom-av1/system@aswftesting/vfx2024
 libbacktrace/*: libbacktrace/cci.20210118@aswftesting/vfx2024
-libdeflate/*: libdeflate/system@aswftesting/vfx2024
+libdeflate/*: libdeflate/1.23@aswftesting/vfx2024
 libdrm/*: libdrm/system@aswftesting/vfx2024
 libffi/*: libffi/system@aswftesting/vfx2024
 libiconv/*: libiconv/1.17@aswftesting/vfx2024
@@ -39,8 +40,9 @@ libsquish/*: libsquish/system@aswftesting/vfx2024
 libsvtav1/*: libsvtav1/system@aswftesting/vfx2024
 libtiff/*: libtiff/4.0.9@aswftesting/vfx2024
 libxcrypt/*: libxcrypt/4.4.36@aswftesting/vfx2024
+libuhdr/*: libuhdr/1.4.0@aswftesting/vfx2024
 libvpx/*: libvpx/system@aswftesting/vfx2024
-libwebp/*: libwebp/system@aswftesting/vfx2024
+libwebp/*: libwebp/1.5.0@aswftesting/vfx2024
 libxshmfence/*: libxshmfence/system@aswftesting/vfx2024
 lz4/*: lz4/1.10.0@aswftesting/vfx2024
 md4c/*: md4c/0.4.8@aswftesting/vfx2024
@@ -66,11 +68,11 @@ pystring/*: pystring/1.1.4@aswftesting/vfx2024
 sqlite3/*: sqlite3/system@aswftesting/vfx2024
 tcl/*: tcl/system@aswftesting/vfx2024
 tk/*: tk/system@aswftesting/vfx2024
+tsl-robin-map/*: tsl-robin-map/1.3.0@aswftesting/vfx2024
 util-linux-libuuid/*: util-linux-libuuid/system@aswftesting/vfx2024
 vorbis/*: vorbis/system@aswftesting/vfx2024
 vulkan-headers/*: vulkan-headers/system@aswftesting/vfx2024
 vulkan-loader/*: vulkan-loader/system@aswftesting/vfx2024
-wayland/*: wayland/system@aswftesting/vfx2024
 xkbcommon/*: xkbcommon/0.9.1@aswftesting/vfx2024
 xorg/*: xorg/system@aswftesting/vfx2024
 xorg-proto/*: xorg-proto/system@aswftesting/vfx2024
@@ -80,7 +82,6 @@ zlib/*: zlib/1.3.1@aswftesting/vfx2024
 zstd/*: zstd/1.5.6@aswftesting/vfx2024
 [replace_tool_requires]
 bison/*: bison/3.0.4@system
-cmake/*: cmake/3.27.9@aswftesting/vfx2024
 flex/*: flex/2.6.1@system
 gperf/*: gperf/3.1@system
 libtool/*: libtool/2.4.6@system

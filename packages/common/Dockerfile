@@ -128,6 +128,8 @@ ARG ASWF_TBB_VERSION
 ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
 ARG ASWF_MD4C_VERSION
 ENV ASWF_MD4C_VERSION=${ASWF_MD4C_VERSION}
+ARG ASWF_FREETYPE_VERSION
+ENV ASWF_FREETYPE_VERSION=${ASWF_FREETYPE_VERSION}
 
 # These are a bit of a circular dependency, but ci-conan-package-builder
 # is also used to build vfx1/vfx2 packages

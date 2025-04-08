@@ -9,14 +9,34 @@ packages:
   - zlib
   - zstd
   - blosc
+  - boost
   - cpython
   - tbb
   - expat
   - glew
   - glfw
   - log4cplus
-  - qt
+  - freetype
+  - dbus
+  - double-conversion
+  - fontconfig
+  - glib
+  - libalsa
+  - libdrm
+  - libjpeg-turbo
+  - libsndfile
+  - libtiff
+  - libwebp
+  - libxshmfence
+  - md4c
+  - nss
+  - openal-soft
+  - openjpeg
+  - opus
+  - pulseaudio
+  - xkbcommon
   - pyside
+  - qt
   - imath
   - materialx
   - openexr

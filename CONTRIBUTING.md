@@ -272,7 +272,7 @@ Any non-trivial change to the Docker images should be followed by incrementing
 the corresponding image version. We use MAJOR.MINOR versioning for all images.
 Versioning is further explained in the [README](README.md#version) file.
 
-### Building Conan Packages
+## Building Conan Packages
 
 This repository contains 2 ways of building packages, Docker packages (`aswf/ci-package-*` images) and Conan packages.
 
@@ -283,7 +283,7 @@ The [Conan](https://conan.io) [Reference Documentation](https://docs.conan.io/en
 The AcademySoftwareFoundation has an [Artifactory](https://linuxfoundation.jfrog.io/ui/packages) server which hosts all `aswf` Conan packages.
 Credentials of the artifactory server are maintained by the Linux Foundation and are not known by the ASWF crew, new packages get uploaded via GitHub organisation secrets.
 
-#### Getting started
+### Getting started
 
 Use the existing recipes as an example, and borrow from the MIT-licensed
 [Conan Center Index](https://github.com/conan-io/conan-center-index/tree/master/recipes).
@@ -293,21 +293,173 @@ Follow the great instructions there:
 but ignore the `config.yml` instructions as the aswfdocker `versions.yaml` already
 takes care of listing all the maintained package versions.
 
-Then ensure the ASWF-specific settings are added in the `conanfile.py` such as `python`.
+Then ensure the ASWF-specific settings are added in the `conanfile.py` such as `python`. This project attempts to minimize local changes to the recipes which originate in the Conan Center Index. Local changes may be marked with a `# ASWF` comment. For simple recipes, the required changes may be as minimal as:
+
+- adding a line to the `layout()` method to adhere to the Enterprise Linux convention of storing 64 bit libraries in the `lib64` directory rather than Conan's default `lib`:
+```
+    def layout(self):
+        cmake_layout(self, src_folder="src")
+        # ASWF: we want DSOs in lib64
+        self.cpp.package.libdirs = ["lib64"]
+```
+
+- adding a `self.name` level to the `copy()` in the `package()` method: when Conan packages are "installed" in the CI build images, they are all flattened together into `/usr/local/` and without this change the license files for all the packages end up in the same directory and can overwrite each other:
+```
+    def package(self):
+        # ASWF: separate licenses from multiple package installs
+        copy(self, "LICENSE.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
+```
+
+- update the calls to `rmdir()` in the `package()` method to point to `lib64`, and
+comment out the call that removes the `cmake` directory: we want to be able to use
+these Conan packages outside the context of Conan, and thus want to retain the
+generated `.cmake` files:
+```
+        # ASWF: keep cmake files, delete pkgconfig files in lib64
+        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+```
+
+To help minimize changes to the standard Conan recipes, Conan `profiles` are used to
+override specific package versions in the recipes. For instance in
+[packages/conan/settings/profiles_aswf/vfx2025](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/packages/conan/settings/profiles_aswf/vfx2025):
+
+```
+include(ci_common5)
+
+[settings]
+[options]
+# Build everything as shared libs by default
+*:shared=True
+[tool_requires]
+[replace_requires]
+b2/*: b2/5.2.1@aswf/vfx2025
+boost/*: boost/1.85.0@aswf/vfx2025
+brotli/*: brotli/system@aswf/vfx2025
+bzip2/*: bzip2/1.0.8@aswf/vfx2025
+dbus/*: dbus/system@aswf/vfx2025
+...
+```
+
+Unfortunately there is duplication between the version information in
+ [`versions.yaml`](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/python/aswfdocker/data/versions.yaml) and the Conan profiles: a future update
+ will auto generate the Conan profiles from `versions.yaml` which should be the
+ source of truth.
+
+When a sufficiently recent package is provided by the underlying OS distribution, packages labeled as version `system` are created which are thin wrappers around system installed components, and the Conan profile is used to remap `requires()`
+call to specific versions to these wrapper packages. Confusingly some will have an actual version number since some dependent packages check for acceptable version ranges. A better versioning scheme would be desirable for these wrapper packages.
 
 To test locally, use the `aswfdocker build` command with the `--use-conan` argument.
 The `--keep-source` and `--keep-build` can help when iterating on the build recipe to
 avoid re-downloading the source, and even keep the previous build artifact.
 All regular aswfdocker commands and options work the same with conan or docker packages.
 
-#### Docker-only Packages
+### Docker-only Packages
 
 If a package has no Conan recipe folder its conan package will be skipped at release time.
 
-#### Conan-only Packages
+### Conan-only Packages
 
 If a package can only be built using Conan its name must be added to the `conan_only` list
 at the end of the `versions.yaml` file, see `gtest` as an example.
+
+### Peeking into the Conan cache
+
+When building a Conan package, `aswfdocker build --use-conan` uses [common/packages/Dockerfile](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/packages/common/Dockerfile) which uses a
+[Docker Cache Mount](https://docs.docker.com/build/cache/optimize/#use-cache-mounts) to store the persistent
+cache of local Conan package builds (similarly for the [ccache](https://ccache.dev/) persistent cache):
+
+```
+RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
+    --mount=type=cache,target=${CCACHE_DIR} \
+    --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan2,source=packages/conan/settings \
+    --mount=type=bind,rw,target=${CONAN_USER_HOME}/recipes,source=packages/conan/recipes \
+    conan create \
+    ...
+```
+
+During development it can be convenient to peek into the results of a Conan package build. You can use:
+
+```
+$ docker buildx du --verbose --filter Type=exec.cachemount
+ID:		ltu9ddgwws6cblhemncn9uzaj
+Created at:	2025-03-31 03:09:21.67231777 +0000 UTC
+Mutable:	true
+Reclaimable:	true
+Shared:		false
+Size:		93.56GB
+Description:	cached mount /opt/conan_home/d from exec /bin/sh -c conan create       ${ASWF_CONAN_KEEP_SOURCE}       ${ASWF_CONAN_KEEP_BUILD}       ${ASWF_CONAN_BUILD_MISSING}       --profile:all ${CONAN_USER_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}       --name ${ASWF_PKG_NAME}       --version ${ASWF_PKG_VERSION}       --user ${ASWF_PKG_ORG}       --channel ${ASWF_CONAN_CHANNEL}       ${CONAN_USER_HOME}/recipes/${ASWF_PKG_NAME} with id "//opt/conan_home/d"
+Usage count:	159
+Last used:	14 minutes ago
+Type:		exec.cachemount
+```
+
+to retrieve the volume ID for the cache mount, which is then accessible at a path similar to:
+
+```
+/var/lib/docker/overlay2/ltu9ddgwws6cblhemncn9uzaj/diff
+```
+
+At this level you will find hashed directories for each build of each Conan package (the first 5 letters of the package named are used for those hashed directory names,
+not great when so many package names start with "open"...) which contain unpacked source for the package. One level deeper in:
+
+```
+/var/lib/docker/overlay2/ltu9ddgwws6cblhemncn9uzaj/diff/b
+```
+
+you will find the build and packaging directories, and in particular for an Qt build (say):
+
+```
+$ ls /var/lib/docker/overlay2/ltu9ddgwws6cblhemncn9uzaj/diff/b/qted742db53b77e
+b  d  p
+```
+
+where the `b` directory contains the output of the build and the `p` directory will contain the installable Conan package:
+
+```
+$ ls /var/lib/docker/overlay2/ltu9ddgwws6cblhemncn9uzaj/diff/b/qted742db53b77e/p
+bin  conaninfo.txt  conanmanifest.txt  doc  include  lib64  libexec  licenses  metatypes  mkspecs  modules  phrasebooks  plugins  qml  resources  translations
+```
+
+Be careful when trying to modify this cache directory directly, as it is managed by
+Conan and tracked in a [SQLite](https://www.sqlite.org/) database.
+The [`conan cache`](https://docs.conan.io/2/reference/commands/cache.html) command
+should be used to explicitly manipulate the cache.
+
+### Debugging CMake in Conan issues
+
+Most of the Conan packages use CMake to configure and build: debugging "CMake in Conan" can sometimes be tricky, one approach is to
+look for the `build()` method in the package's `conanfile.py` which minimally looks like:
+
+```
+    def build(self):
+        self._patch_sources()
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+```
+
+and enable tracing / verbose in the `configure()` and `build()` calls:
+
+```
+    def build(self):
+        self._patch_sources()
+        cmake = CMake(self)
+        cmake.configure(cli_args=["--trace"])
+        cmake.build(cli_args=["--verbose"])
+```
+
+To specifically look at how `CMake` is trying to find a package, in the `generate()` method you can add:
+
+```
+    def generate(self):
+        tc = CMakeToolchain(self)
+        ...
+        tc.cache_variables["CMAKE_FIND_DEBUG_MODE"] = "ON" # enable find debug
+        tc.generate()
+        cd = CMakeDeps(self)
+        cd.generate()
+```
 
 ## Releasing new Docker Images
 
@@ -424,36 +576,46 @@ Check [#66](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/66) fo
 
 ```bash
 # Common packages
-aswfdocker release -t PACKAGE -g common -v 1 -v 2 -v 3 -v 4 --target ninja --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 -v 3-clang14 -v 3-clang15 -v 4-clang16 -v 4-clang17 --target clang --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common -v 1 -v 2 -v 3 -v 4 -v 5 --target ninja -target cmake --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 -v 3-clang14 -v 3-clang15 -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 --target clang --docker-org aswf -m "RELEASE_NOTES!"
 # Wait for clang builds to finish (from 2 to 3 hours!)
 
 # ci-common needs to be built before base packages can be built
-aswfdocker release -t IMAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 -v 2-clang12 -v 2-clang13-v 2-clang14 -v 3-clang14 -v 3-clang15 -v 4-clang16 -v 4-clang17 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 -v 2-clang12 -v 2-clang13-v 2-clang14 -v 3-clang14 -v 3-clang15 -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Base packages
-aswfdocker release -t PACKAGE -g base1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g base2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-wrappers -g base1-1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-3 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+
+aswfdocker release -t PACKAGE -g base2-wrappers -g base2-1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base2-2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
 # Wait for Qt builds to finish (2-6 hours!)
 
 # Usually some Qt build will fail as too big and too slow for free GitHub actions... So here's how to build qt locally:
-aswfdocker --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/main --verbose build -n aswf/ci-package-qt:2024
-docker push aswf/ci-package-qt:2024
-docker push aswf/ci-package-qt:2024-6.5.3
+# This is no longer valid, as Qt is now only build as a Conan package
+aswfdocker --repo-uri https://github.com/AcademySoftwareFoundation/aswf-docker --source-branch refs/heads/main --verbose build -n aswf/ci-package-qt:2025
+docker push aswf/ci-package-qt:2025
+docker push aswf/ci-package-qt:2025-6.5.4
 docker push aswf/ci-package-qt:preview
-docker push aswf/ci-package-qt:2024.0
+docker push aswf/ci-package-qt:2025.0
 
 # Once all Qt are out, release PySide packages
-aswfdocker release -t PACKAGE -g base3 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base3 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Wait for all Qt and Pyside builds to finish, then build downstream packages:
 # VFX packages
-aswfdocker release -t PACKAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-wrappers -g vfx1-1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-3 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-4 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx2-1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Finally build the CI images
-aswfdocker release -t IMAGE -g base -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t IMAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t IMAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t IMAGE -g vfx3 -v 2018-clang7 -v 2019-clang6 -v 2019-clang7 -v 2019-clang8 -v 2019-clang9 -v 2020-clang7 -v 2021-clang10 -v 2021-clang11 -v 2022-clang10 -v 2022-clang11 -v 2022-clang12 -v 2022-clang13 -v 2022-clang14 -v 2023-clang14 -v 2023-clang15 -v 2024-clang16 -v 2024-clang17 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g base -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx3 -v 2018-clang7 -v 2019-clang6 -v 2019-clang7 -v 2019-clang8 -v 2019-clang9 -v 2020-clang7 -v 2021-clang10 -v 2021-clang11 -v 2022-clang10 -v 2022-clang11 -v 2022-clang12 -v 2022-clang13 -v 2022-clang14 -v 2023-clang14 -v 2023-clang15 -v 2024-clang16 -v 2024-clang17 -v 2025-clang18 -v 2025-clang19 --docker-org aswf -m "RELEASE_NOTES!"
 ```

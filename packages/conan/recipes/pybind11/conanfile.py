@@ -2,12 +2,12 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/59cab50aa90f922e61a746eef7c488dd788e4989/recipes/pybind11/all/test_package/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/b8bd958a29ef769d74a40471f1ada0426d1f8fff/recipes/pybind11/all/conanfile.py
 
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain
 from conan.tools.layout import basic_layout
-from conan.tools.files import get, copy, replace_in_file, rm, rmdir
+from conan.tools.files import get, copy, rename, replace_in_file, rm, rmdir
 from conan.tools.scm import Version
 import os
 
@@ -27,9 +27,7 @@ class PyBind11Conan(ConanFile):
     no_copy_source = True
 
     def requirements(self):
-        self.requires(
-            f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}"
-        )
+        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -49,8 +47,6 @@ class PyBind11Conan(ConanFile):
         # ASWF: Cmake modules in lib64
         tc.variables["PYBIND11_CMAKECONFIG_INSTALL_DIR"] = os.path.join("lib64", "cmake", "pybind11")
         tc.variables["PYBIND11_PYTHON_VERSION"] = os.environ["ASWF_CPYTHON_VERSION"]
-        # FIXME
-        # tc.variables["PYBIND11_FINDPYTHON"] = "ON"
         tc.generate()
 
     def build(self):
@@ -63,43 +59,38 @@ class PyBind11Conan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        # Don't remove cmake files for standalone cmake use
+        # ASWF: don't remove cmake files for standalone cmake use
         # for filename in ["pybind11Targets.cmake", "pybind11Config.cmake", "pybind11ConfigVersion.cmake"]:
-        #   rm(self, filename, os.path.join(self.package_folder, "lib64", "cmake", "pybind11"))
+        #  rm(self, filename, os.path.join(self.package_folder, "lib64", "cmake", "pybind11"))
 
         rmdir(self, os.path.join(self.package_folder, "share"))
 
+        # ASWF: stash unmodified copy of pybind11Common.cmake for builds outside Conan
+        rename(self, src=os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11Common.cmake"),
+               dst=os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11Common.cmake_NO_CONAN"))
+        copy(self, "pybind11Common.cmake", src=os.path.join(self.source_folder, "tools"),
+             dst=os.path.join(self.package_folder, "lib64", "cmake", "pybind11"), overwrite_equal = True, keep_path=False)
+      
         checked_target = "lto" if self.version < Version("2.11.0") else "pybind11"
-        # ASWF FIXME Don't mess with cmake files? CMake modules in lib64
+        # ASWF: CMake modules in lib64/cmake
         replace_in_file(self, os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11Common.cmake"),
                               f"if(TARGET pybind11::{checked_target})",
                               "if(FALSE)")
-        # ASWF FIXME: do we really want to not add_library()?
         replace_in_file(self, os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11Common.cmake"),
                               "add_library(",
                               "# add_library(")
-        # FIXME? This should not be needed, CMake function names are case insensitive
-        # replace_in_file(self, os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11NewTools.cmake"),
-        #                       "python_add_library(",
-        #                       "Python_add_library(")
-        # replace_in_file(self, os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11NewTools.cmake"),
-        #                       "Development.Module OPTIONAL_COMPONENTS Development.Embed",
-        #                       "Development")
-
 
     def package_info(self):
+        # ASWF: CMake modules in lib64/cmake
         cmake_base_path = os.path.join("lib64", "cmake", "pybind11")
         self.cpp_info.set_property("cmake_target_name", "pybind11_all_do_not_use")
         self.cpp_info.components["headers"].includedirs = ["include"]
         self.cpp_info.components["pybind11_"].set_property("cmake_target_name", "pybind11::pybind11")
         self.cpp_info.components["pybind11_"].set_property("cmake_module_file_name", "pybind11")
-        self.cpp_info.components["pybind11_"].names["cmake_find_package"] = "pybind11"
         self.cpp_info.components["pybind11_"].builddirs = [cmake_base_path]
         self.cpp_info.components["pybind11_"].requires = ["headers"]
         cmake_file = os.path.join(cmake_base_path, "pybind11Common.cmake")
         self.cpp_info.set_property("cmake_build_modules", [cmake_file])
-        for generator in ["cmake_find_package", "cmake_find_package_multi"]:
-            self.cpp_info.components["pybind11_"].build_modules[generator].append(cmake_file)
         self.cpp_info.components["embed"].requires = ["pybind11_"]
         self.cpp_info.components["module"].requires = ["pybind11_"]
         self.cpp_info.components["python_link_helper"].requires = ["pybind11_"]

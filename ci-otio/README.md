@@ -22,8 +22,8 @@ Warning: this image does *not* contain OpenTimelineIO itself as it is used to *b
 
 Contains:
 * cpython-2.7.15
-* qt-5.12.6
 * pyside-5.12.6
+* qt-5.12.6
 * numpy-1.14
 * vfxplatform-2019
 
@@ -31,8 +31,8 @@ Contains:
 
 Contains:
 * cpython-3.7.3
-* qt-5.12.6
 * pyside-5.12.6
+* qt-5.12.6
 * numpy-1.16
 * vfxplatform-2020
 
@@ -40,8 +40,8 @@ Contains:
 
 Contains:
 * cpython-3.7.9
-* qt-5.15.2
 * pyside-5.15.2
+* qt-5.15.2
 * numpy-1.19
 * vfxplatform-2021
 
@@ -49,8 +49,8 @@ Contains:
 
 Contains:
 * cpython-3.9.15
-* qt-5.15.2
 * pyside-5.15.2
+* qt-5.15.2
 * numpy-1.20
 * vfxplatform-2022
 
@@ -58,8 +58,8 @@ Contains:
 
 Contains:
 * cpython-3.10.11
-* qt-5.15.9
 * pyside-5.15.9
+* qt-5.15.9
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -68,8 +68,24 @@ Contains:
 Contains:
 * cpython-3.11.11
 * expat-2.6.4
-* qt-6.5.4
+* freetype-2.13.2
+* dbus-system
+* fontconfig-system
+* glib-2.78.3
+* libalsa-system
+* libdrm-system
+* libsndfile-system
+* libtiff-4.0.9
+* libwebp-1.5.0
+* libxshmfence-system
+* md4c-0.4.8
+* nss-3.93
+* openjpeg-2.4.0
+* opus-system
+* pulseaudio-system
+* xkbcommon-0.9.1
 * pyside-6.5.4
+* qt-6.5.4
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -78,8 +94,24 @@ Contains:
 Contains:
 * cpython-3.11.11
 * expat-2.6.4
-* qt-6.5.4
+* freetype-2.13.2
+* dbus-system
+* fontconfig-system
+* glib-2.78.3
+* libalsa-system
+* libdrm-system
+* libsndfile-system
+* libtiff-4.0.9
+* libwebp-1.5.0
+* libxshmfence-system
+* md4c-0.4.8
+* nss-3.93
+* openjpeg-2.4.0
+* opus-system
+* pulseaudio-system
+* xkbcommon-0.9.1
 * pyside-6.5.4
+* qt-6.5.4
 * numpy-1.26.4
 * vfxplatform-2025
 
