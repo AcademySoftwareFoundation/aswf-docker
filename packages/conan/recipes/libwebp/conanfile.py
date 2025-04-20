@@ -5,7 +5,7 @@
 # From: https://github.com/conan-io/conan-center-index/blob/f2c56e90ae28fef1ee1a392adf59f96199ee1277/recipes/libwebp/all/conanfile.py
 
 from conan import ConanFile
-from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rmdir
 from conan.tools.microsoft import is_msvc
 from conan.tools.scm import Version
@@ -85,6 +85,9 @@ class LibwebpConan(ConanFile):
             # Building a dll (see fix-dll-export patch)
             tc.preprocessor_definitions["WEBP_DLL"] = 1
         tc.generate()
+        # ASWF: want CMake files to consume outside Conan
+        deps = CMakeDeps(self)
+        deps.generate()
 
     def build(self):
         apply_conandata_patches(self)
@@ -97,11 +100,12 @@ class LibwebpConan(ConanFile):
         cmake.install()
         # ASWF: separate licenses from multiple package installs
         copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
-        # ASWF: pkginfo in lib64
         rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        rmdir(self, os.path.join(self.package_folder, "share"))
+        # ASWF: libwebp lands CMake files in in share/WebP/cmake, we patch CMakeFiles.txt to land in lib64/cmake/WebP
+        # rmdir(self, os.path.join(self.package_folder, lib64", "cmake"))
 
     def package_info(self):
+        self.cpp_info.set_property("cmake_find_mode", "both")  # ASWF: want cmake files to consume outside Conan
         self.cpp_info.set_property("cmake_file_name", "WebP")
         self.cpp_info.set_property("pkg_config_name", "libwebp-all-do-not-use")
 

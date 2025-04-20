@@ -2,10 +2,12 @@ diff --git src/cmake/externalpackages.cmake src/cmake/externalpackages.cmake
 index d99dd79ac..bfda2778a 100644
 --- src/cmake/externalpackages.cmake
 +++ src/cmake/externalpackages.cmake
-@@ -235,6 +235,8 @@
+@@ -234,7 +234,9 @@
+                       VERSION_MIN 7.0
                        BUILD_LOCAL missing
                       )
- get_target_property(FMT_INCLUDE_DIR fmt::fmt-header-only INTERFACE_INCLUDE_DIRECTORIES)
+-get_target_property(FMT_INCLUDE_DIR fmt::fmt-header-only INTERFACE_INCLUDE_DIRECTORIES)
++get_target_property(FMT_INCLUDE_DIR fmt::fmt INTERFACE_INCLUDE_DIRECTORIES)
 +# Get rid of generator expression from Conan
 +string(REGEX REPLACE "^\\$<\\$<CONFIG:Release>:(.*)>$" "\\1" FMT_INCLUDE_DIR "${FMT_INCLUDE_DIR}")
 

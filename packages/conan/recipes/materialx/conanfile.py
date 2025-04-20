@@ -33,7 +33,7 @@ class MaterialXConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "with_openimageio": False,
+        "with_openimageio": True, # ASWF: exercise dependency
         "build_gen_msl": True
     }
 
@@ -74,7 +74,7 @@ class MaterialXConan(ConanFile):
 
     def requirements(self):
         if self.options.with_openimageio:
-            self.requires(f"openimageio/{os.environ['ASWF_OIIO_VERSION']}@{self.user}/{self.channel}")
+            self.requires(f"oiio/{os.environ['ASWF_OIIO_VERSION']}@{self.user}/{self.channel}") # ASWF: oiio backwards compatibility
         self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
         # Comment out to use vendored pybind11
         self.requires(f"pybind11/{os.environ['ASWF_PYBIND11_VERSION']}@{self.user}/{self.channel}")
@@ -185,7 +185,7 @@ class MaterialXConan(ConanFile):
         self.cpp_info.components["MaterialXRender"].libs = ["MaterialXRender"]
         self.cpp_info.components["MaterialXRender"].requires = ["MaterialXGenShader"]
         if self.options.with_openimageio:
-            self.cpp_info.components["MaterialXRender"].requires.append("openimageio::openimageio")
+            self.cpp_info.components["MaterialXRender"].requires.append("oiio::OpenImageIO") # ASWF: Conan package named oiio
 
         self.cpp_info.components["MaterialXRenderGlsl"].libs = ["MaterialXRenderGlsl"]
         self.cpp_info.components["MaterialXRenderGlsl"].requires = ["MaterialXRenderHw", "MaterialXGenGlsl"]

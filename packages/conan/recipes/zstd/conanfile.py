@@ -32,7 +32,7 @@ class ZstdConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "threading": True,
-        "build_programs": True,
+        "build_programs": False, # ASWF: otherwise we end up with libzstd_static in generated cmake files
     }
 
     def export_sources(self):

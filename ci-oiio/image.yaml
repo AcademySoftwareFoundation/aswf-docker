@@ -4,22 +4,48 @@ description: |
   Contains: Python, OpenEXR, Partio and other OpenImageIO upstream dependencies
   Warning: this image does *not* contain OpenImageIO itself as it is used to *build* OpenImageIO!
 packages:
-  - boost
-  - blosc
-  - cpython
+  - b2                 # base1-1 packages
+  - bzip2
+  - cppunit
   - expat
-  - imath
+  - fmt
+  - gtest
+  - libbacktrace
+  - libdeflate
+  - libiconv
+  - libxcrypt
   - lz4
-  - ocio
-  - openexr
-  - openvdb
-  - pybind11
-  - ptex
-  - qt
+  - pugixml
+  - pystring
   - snappy
   - tbb
+  - tsl-robin-map
+  - yaml-cpp
   - zlib
   - zstd
+  - blosc              # base1-2 packages
+  - cpython
+  - freetype
+  - gdbm
+  - glew
+  - glfw
+  - log4cplus
+  - minizip-ng
+  - boost              # base1-3 packages
+  - pybind11
+  - libjpeg-turbo      # base2-1 packages
+  - libwebp
+  - md4c
+  - qt                 # base2-2 packages
+  - highway            # vfx1-1 packages
+  - imath
+  - lcms
+  - libuhdr
+  - ptex
+  - libjxl             # vfx1-2 packages 
+  - openexr
+  - ocio               # vfx1-3 packages
+  - openvdb            # vfx1 non Conan packages
 implicit_packages:
   - numpy
   - vfxplatform

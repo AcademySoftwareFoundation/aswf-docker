@@ -35,7 +35,7 @@ class FmtConan(ConanFile):
         "with_unicode": [True, False],
     }
     default_options = {
-        "header_only": True, # ASWF: OIIO wants this
+        "header_only": False,
         "shared": False,
         "fPIC": True,
         "with_fmt_alias": False,
@@ -99,7 +99,7 @@ class FmtConan(ConanFile):
             tc.cache_variables["FMT_DOC"] = False
             tc.cache_variables["FMT_TEST"] = False
             tc.cache_variables["FMT_INSTALL"] = True
-            tc.cache_variables["FMT_LIB_DIR"] = "lib"
+            tc.cache_variables["FMT_LIB_DIR"] = "lib64" # ASWF: libraries in lib64
             if self._has_with_os_api_option:
                 tc.cache_variables["FMT_OS"] = bool(self.options.with_os_api)
             if self._has_with_unicode_option:

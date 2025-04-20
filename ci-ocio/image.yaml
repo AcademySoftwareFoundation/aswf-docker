@@ -4,20 +4,38 @@ description: |
   Contains: Python, TBB, Boost and other OpenColorIO upstream dependencies
   Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!
 packages:
-  - boost
+  - b2                 # base1-1 packages
+  - bzip2
+  - cppunit
+  - expat
+  - fmt
+  - gtest
+  - libbacktrace
+  - libdeflate
+  - libiconv
+  - libxcrypt
   - lz4
+  - pugixml
+  - pystring
   - snappy
+  - tbb
+  - tsl-robin-map
+  - yaml-cpp
   - zlib
   - zstd
-  - blosc
+  - blosc              # base1-2 packages
   - cpython
-  - pybind11
-  - tbb
-  - expat
+  - freetype
+  - gdbm
   - glew
   - glfw
-  - imath
-  - openexr
+  - log4cplus
+  - minizip-ng
+  - boost              # base1-3 packages
+  - pybind11
+  - imath              # vfx1-1 packages
+  - lcms
+  - openexr            # vfx1-2 packages
 implicit_packages:
   - numpy
   - vfxplatform

@@ -21,13 +21,16 @@ Warning: this image does *not* contain OpenColorIO itself as it is used to *buil
 ## [aswf/ci-ocio:2019.9](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2019.9)
 
 Contains:
-* boost-1.66.0
+* cppunit-1.14.0
+* gtest-1.8.1
+* tbb-2018
 * blosc-1.5.0
 * cpython-2.7.15
-* pybind11-2.4.3
-* tbb-2018
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* boost-1.66.0
+* pybind11-2.4.3
 * imath-2.3.0
 * openexr-2.3.0
 * numpy-1.14
@@ -36,13 +39,16 @@ Contains:
 ## [aswf/ci-ocio:2020.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2020.8)
 
 Contains:
-* boost-1.70.0
+* cppunit-1.15.1
+* gtest-1.10.0
+* tbb-2019_u6
 * blosc-1.5.0
 * cpython-3.7.3
-* pybind11-2.4.3
-* tbb-2019_u6
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* boost-1.70.0
+* pybind11-2.4.3
 * imath-2.4.0
 * openexr-2.4.0
 * numpy-1.16
@@ -51,13 +57,16 @@ Contains:
 ## [aswf/ci-ocio:2021.6](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2021.6)
 
 Contains:
-* boost-1.73.0
+* cppunit-1.15.1
+* gtest-1.11.0
+* tbb-2020_u2
 * blosc-1.5.0
 * cpython-3.7.9
-* pybind11-2.6.2
-* tbb-2020_u2
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* boost-1.73.0
+* pybind11-2.6.2
 * imath-2.5.5
 * openexr-2.5.5
 * numpy-1.19
@@ -66,13 +75,16 @@ Contains:
 ## [aswf/ci-ocio:2022.4](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2022.4)
 
 Contains:
-* boost-1.76.0
+* cppunit-1.15.1
+* gtest-1.11.0
+* tbb-2020_u3
 * blosc-1.17.0
 * cpython-3.9.15
-* pybind11-2.8.1
-* tbb-2020_u3
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* boost-1.76.0
+* pybind11-2.8.1
 * imath-3.1.5
 * openexr-3.1.5
 * numpy-1.20
@@ -81,13 +93,16 @@ Contains:
 ## [aswf/ci-ocio:2023.2](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2023.2)
 
 Contains:
-* boost-1.80.0
+* cppunit-1.15.1
+* gtest-1.11.0
+* tbb-2020_u3
 * blosc-1.17.0
 * cpython-3.10.11
-* pybind11-2.9.2
-* tbb-2020_u3
 * glew-2.1.0
 * glfw-3.1.2
+* log4cplus-1.1.2
+* boost-1.80.0
+* pybind11-2.9.2
 * imath-3.1.9
 * openexr-3.1.11
 * numpy-1.23.5
@@ -96,19 +111,34 @@ Contains:
 ## [aswf/ci-ocio:2024.2](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.2)
 
 Contains:
-* boost-1.82.0
+* b2-5.2.1
+* bzip2-1.0.8
+* cppunit-1.15.1
+* expat-2.6.4
+* fmt-11.1.4
+* gtest-1.14.0
+* libbacktrace-cci.20210118
+* libdeflate-1.23
+* libiconv-1.17
+* libxcrypt-4.4.36
 * lz4-1.10.0
+* pugixml-1.14
+* pystring-1.1.4
 * snappy-1.1.10
+* tbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
 * cpython-3.11.11
-* pybind11-2.12.0
-* tbb-2020_u3
-* expat-2.6.4
+* freetype-2.13.2
+* gdbm-system
 * glew-2.1.0
 * glfw-3.3.8
+* log4cplus-2.1.1
+* boost-1.82.0
+* pybind11-2.12.0
 * imath-3.1.12
+* lcms-2.16
 * openexr-3.2.4
 * numpy-1.24.3
 * vfxplatform-2024
@@ -116,19 +146,34 @@ Contains:
 ## [aswf/ci-ocio:2025.0](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2025.0)
 
 Contains:
-* boost-1.85.0
+* b2-5.2.1
+* bzip2-1.0.8
+* cppunit-1.15.1
+* expat-2.6.4
+* fmt-11.1.4
+* gtest-1.15.2
+* libbacktrace-cci.20210118
+* libdeflate-1.23
+* libiconv-1.17
+* libxcrypt-4.4.36
 * lz4-1.10.0
+* pugixml-1.14
+* pystring-1.1.4
 * snappy-1.1.10
+* tbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
 * cpython-3.11.11
-* pybind11-2.13.6
-* tbb-2020_u3
-* expat-2.6.4
+* freetype-2.13.2
+* gdbm-system
 * glew-2.2.0
 * glfw-3.4
+* log4cplus-2.1.2
+* boost-1.85.0
+* pybind11-2.13.6
 * imath-3.1.12
+* lcms-2.16
 * openexr-3.3.3
 * numpy-1.26.4
 * vfxplatform-2025

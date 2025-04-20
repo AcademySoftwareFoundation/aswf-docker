@@ -4,40 +4,51 @@ description: |
   Contains: Python, Boost, Qt, OpenEXR, OpenImageIO, Partio and other OpenShadingLanguage upstream dependencies
   Warning: this image does *not* contain OpenShadingLanguage itself as it is used to *build* OpenShadingLanguage!
 packages:
-  - lz4
-  - snappy
-  - zlib
-  - zstd
-  - blosc
-  - libbacktrace
-  - boost
+  - b2                 # base1-1 packages
+  - bzip2
+  - cppunit
   - expat
-  - freetype
-  - cpython
-  - pybind11
-  - highway
+  - fmt
+  - gtest
+  - libbacktrace
   - libdeflate
   - libiconv
-  - libjpeg-turbo
-  - libjxl
-  - libuhdr
-  - libwebp
-  - md4c
-  - minizip-ng
+  - libxcrypt
+  - lz4
   - pugixml
   - pystring
+  - snappy
+  - tbb
   - tsl-robin-map
   - yaml-cpp
+  - zlib
+  - zstd
+  - blosc              # base1-2 packages
+  - cpython
+  - freetype
+  - gdbm
+  - glew
+  - glfw
+  - log4cplus
+  - minizip-ng
+  - boost              # base1-3 packages
+  - pybind11
+  - libjpeg-turbo      # base2-1 packages
+  - libwebp
+  - md4c
+  - qt                 # base2-2 packages
+  - pyside             # base2-3 packages
+  - highway            # vfx1-1 packages
   - imath
-  - openexr
-  - oiio
-  - ocio
-  - partio
+  - lcms
+  - libuhdr
   - ptex
-  - tbb
-  - openvdb
-  - pyside
-  - qt
+  - libjxl             # vfx1-2 packages
+  - openexr
+  - ocio               # vfx1-3 packages
+  - oiio               # vfx1-4 packages
+  - openvdb            # vfx1 non Conan packages
+  - partio             # vfx2-1 packages
 implicit_packages:
   - numpy
   - vfxplatform

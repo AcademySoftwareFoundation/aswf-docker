@@ -4,49 +4,44 @@ description: |
   Contains: Python, Qt, PySide and other USD upstream dependencies
   Warning: this image does *not* contain USD itself as it is used to *build* USD!
 packages:
+  - b2                 # base1-1 packages
+  - bzip2
+  - cppunit
+  - expat
+  - fmt
+  - gtest
+  - libbacktrace
+  - libdeflate
+  - libiconv
+  - libxcrypt
   - lz4
+  - pugixml
+  - pystring
   - snappy
+  - tbb
+  - tsl-robin-map
+  - yaml-cpp
   - zlib
   - zstd
-  - blosc
-  - boost
+  - blosc              # base1-2 packages
   - cpython
-  - tbb
-  - expat
+  - freetype
   - glew
   - glfw
   - log4cplus
-  - freetype
-  - dbus
-  - double-conversion
-  - fontconfig
-  - glib
-  - libalsa
-  - libdrm
-  - libjpeg-turbo
-  - libsndfile
-  - libtiff
-  - libwebp
-  - libxshmfence
-  - md4c
-  - nss
-  - openal-soft
-  - openjpeg
-  - opus
-  - pulseaudio
-  - xkbcommon
-  - pyside
-  - qt
-  - imath
-  - materialx
-  - openexr
-  - oiio
-  - ocio
+  - minizip-ng
+  - boost              # base1-3 packages
   - pybind11
-  - ptex
-  - opensubdiv
-  - alembic
-  - openvdb
+  - libjpeg-turbo      # base2-1 packages
+  - libwebp
+  - md4c
+  - qt                 # base2-2 packages
+  - pyside             # base2-3 packages
+  - imath              # vfx1-1 packages
+  - alembic            # vfx1-3 packages
+  - opensubdiv         # vfx2-1 packages
+  - partio
+  - materialx
 implicit_packages:
   - numpy
   - hdf5
