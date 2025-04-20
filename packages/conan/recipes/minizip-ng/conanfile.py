@@ -167,8 +167,13 @@ class MinizipNgConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
 
     def package_info(self):
-        self.cpp_info.set_property("cmake_file_name", "minizip")
-        self.cpp_info.set_property("cmake_target_name", "MINIZIP::minizip")
+        self.cpp_info.set_property("cmake_file_name", "minizip-ng")
+        # ASWF: we build minizip-ng without backwards compat but somehow still end up with MINIZIP::minizip in CMake files
+        if self.options.mz_compatibility:
+            self.cpp_info.set_property("cmake_target_name", "MINIZIP::minizip")
+        else:
+            self.cpp_info.set_property("cmake_target_name", "MINIZIP::minizip-ng")
+            # self.cpp_info.set_property("cmake_target_aliases", ["MINIZIP::minizip"])
         self.cpp_info.set_property("pkg_config_name", "minizip")
 
         # TODO: back to global scope in conan v2 once cmake_find_package_* generators removed
@@ -186,14 +191,7 @@ class MinizipNgConan(ConanFile):
             minizip_dir = "minizip" if self.options.mz_compatibility else "minizip-ng"
             self.cpp_info.components["minizip"].includedirs.append(os.path.join(self.package_folder, "include", minizip_dir))
 
-        # TODO: to remove in conan v2 once cmake_find_package_* generators removed
-        self.cpp_info.filenames["cmake_find_package"] = "minizip"
-        self.cpp_info.filenames["cmake_find_package_multi"] = "minizip"
-        self.cpp_info.names["cmake_find_package"] = "MINIZIP"
-        self.cpp_info.names["cmake_find_package_multi"] = "MINIZIP"
-        self.cpp_info.components["minizip"].names["cmake_find_package"] = "minizip"
-        self.cpp_info.components["minizip"].names["cmake_find_package_multi"] = "minizip"
-        self.cpp_info.components["minizip"].set_property("cmake_target_name", "MINIZIP::minizip")
+        self.cpp_info.components["minizip"].set_property("cmake_target_name", "MINIZIP::minizip" if self.options.mz_compatibility else "MINIZIP::minizip-ng" )
         self.cpp_info.components["minizip"].set_property("pkg_config_name", "minizip")
         if self.options.get_safe("with_zlib"):
             self.cpp_info.components["minizip"].requires.append("zlib::zlib")

@@ -4,22 +4,50 @@ description: |
   Contains: Python, Boost, TBB and other OpenVDB upstream dependencies
   Warning: this image does *not* contain OpenVDB itself as it is used to *build* OpenVDB!
 packages:
+  - b2                 # base1-1 packages
+  - bzip2
+  - cppunit
+  - expat
+  - fmt
+  - gtest
+  - libbacktrace
+  - libdeflate
+  - libiconv
+  - libxcrypt
   - lz4
+  - pugixml
+  - pystring
   - snappy
+  - tbb
+  - tsl-robin-map
+  - yaml-cpp
   - zlib
   - zstd
-  - blosc
-  - libbacktrace
-  - boost
-  - expat
-  - gtest
-  - cppunit
-  - glfw
+  - blosc              # base1-2 packages
   - cpython
-  - tbb
-  - imath
-  - openexr
+  - freetype
+  - gdbm
+  - glew
+  - glfw
+  - log4cplus
+  - minizip-ng
+  - boost              # base1-3 packages
   - pybind11
+  - libjpeg-turbo      # base2-1 packages
+  - libwebp
+  - md4c
+  - qt                 # base2-2 packages
+  - pyside             # base2-3 packages
+  - highway            # vfx1-1 packages
+  - imath
+  - lcms
+  - libuhdr
+  - ptex
+  - libjxl             # vfx1-2 packages
+  - openexr
+  - ocio               # vfx1-3 packages
+  - oiio               # vfx1-4 packages
+  - partio             # vfx2-1 packages
 implicit_packages:
   - numpy
   - vfxplatform

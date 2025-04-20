@@ -19,3 +19,12 @@ index ad5e14c3..89c836f3 100644
    # match the naming convention used by nmake
    set(webp_libname_prefix "lib")
    set(CMAKE_SHARED_LIBRARY_PREFIX "${webp_libname_prefix}")
+@@ -790,7 +789,7 @@
+   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+-set(ConfigPackageLocation ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake/)
++set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}/)
+ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE ${PROJECT_NAME}::
+         DESTINATION ${ConfigPackageLocation})
+

@@ -54,6 +54,7 @@ nspr/*: nspr/system@aswf/vfx2024
 nss/*: nss/3.93@aswf/vfx2024
 ocio/*: ocio/2.3.2@aswf/vfx2024
 ogg/*: ogg/system@aswf/vfx2024
+oiio/*: oiio/2.5.18.0@aswf/vfx2024
 openal-soft/*: openal-soft/system@aswf/vfx2024
 openexr/*: openexr/3.2.4@aswf/vfx2024
 opengl/*: opengl/system@aswf/vfx2024

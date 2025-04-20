@@ -21,97 +21,167 @@ Warning: this image does *not* contain OpenTimelineIO itself as it is used to *b
 ## [aswf/ci-otio:2019.3](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2019.3)
 
 Contains:
+* cppunit-1.14.0
+* gtest-1.8.1
+* tbb-2018
+* blosc-1.5.0
 * cpython-2.7.15
-* pyside-5.12.6
+* glew-2.1.0
+* glfw-3.1.2
+* log4cplus-1.1.2
+* boost-1.66.0
+* pybind11-2.4.3
 * qt-5.12.6
+* pyside-5.12.6
+* imath-2.3.0
 * numpy-1.14
 * vfxplatform-2019
 
 ## [aswf/ci-otio:2020.3](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2020.3)
 
 Contains:
+* cppunit-1.15.1
+* gtest-1.10.0
+* tbb-2019_u6
+* blosc-1.5.0
 * cpython-3.7.3
-* pyside-5.12.6
+* glew-2.1.0
+* glfw-3.1.2
+* log4cplus-1.1.2
+* boost-1.70.0
+* pybind11-2.4.3
 * qt-5.12.6
+* pyside-5.12.6
+* imath-2.4.0
 * numpy-1.16
 * vfxplatform-2020
 
 ## [aswf/ci-otio:2021.5](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2021.5)
 
 Contains:
+* cppunit-1.15.1
+* gtest-1.11.0
+* tbb-2020_u2
+* blosc-1.5.0
 * cpython-3.7.9
-* pyside-5.15.2
+* glew-2.1.0
+* glfw-3.1.2
+* log4cplus-1.1.2
+* boost-1.73.0
+* pybind11-2.6.2
 * qt-5.15.2
+* pyside-5.15.2
+* imath-2.5.5
 * numpy-1.19
 * vfxplatform-2021
 
 ## [aswf/ci-otio:2022.3](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2022.3)
 
 Contains:
+* cppunit-1.15.1
+* gtest-1.11.0
+* tbb-2020_u3
+* blosc-1.17.0
 * cpython-3.9.15
-* pyside-5.15.2
+* glew-2.1.0
+* glfw-3.1.2
+* log4cplus-1.1.2
+* boost-1.76.0
+* pybind11-2.8.1
 * qt-5.15.2
+* pyside-5.15.2
+* imath-3.1.5
 * numpy-1.20
 * vfxplatform-2022
 
 ## [aswf/ci-otio:2023.2](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2023.2)
 
 Contains:
+* cppunit-1.15.1
+* gtest-1.11.0
+* tbb-2020_u3
+* blosc-1.17.0
 * cpython-3.10.11
-* pyside-5.15.9
+* glew-2.1.0
+* glfw-3.1.2
+* log4cplus-1.1.2
+* boost-1.80.0
+* pybind11-2.9.2
 * qt-5.15.9
+* pyside-5.15.9
+* imath-3.1.9
 * numpy-1.23.5
 * vfxplatform-2023
 
 ## [aswf/ci-otio:2024.2](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2024.2)
 
 Contains:
-* cpython-3.11.11
+* b2-5.2.1
+* bzip2-1.0.8
+* cppunit-1.15.1
 * expat-2.6.4
+* fmt-11.1.4
+* gtest-1.14.0
+* libbacktrace-cci.20210118
+* libdeflate-1.23
+* libiconv-1.17
+* libxcrypt-4.4.36
+* lz4-1.10.0
+* pugixml-1.14
+* pystring-1.1.4
+* snappy-1.1.10
+* tbb-2020_u3
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.5
+* cpython-3.11.11
 * freetype-2.13.2
-* dbus-system
-* fontconfig-system
-* glib-2.78.3
-* libalsa-system
-* libdrm-system
-* libsndfile-system
-* libtiff-4.0.9
+* glew-2.1.0
+* glfw-3.3.8
+* log4cplus-2.1.1
+* boost-1.82.0
+* pybind11-2.12.0
 * libwebp-1.5.0
-* libxshmfence-system
 * md4c-0.4.8
-* nss-3.93
-* openjpeg-2.4.0
-* opus-system
-* pulseaudio-system
-* xkbcommon-0.9.1
-* pyside-6.5.4
 * qt-6.5.4
+* pyside-6.5.4
+* imath-3.1.12
 * numpy-1.24.3
 * vfxplatform-2024
 
 ## [aswf/ci-otio:2025.0](https://hub.docker.com/r/aswf/ci-otio/tags?page=1&name=2025.0)
 
 Contains:
-* cpython-3.11.11
+* b2-5.2.1
+* bzip2-1.0.8
+* cppunit-1.15.1
 * expat-2.6.4
+* fmt-11.1.4
+* gtest-1.15.2
+* libbacktrace-cci.20210118
+* libdeflate-1.23
+* libiconv-1.17
+* libxcrypt-4.4.36
+* lz4-1.10.0
+* pugixml-1.14
+* pystring-1.1.4
+* snappy-1.1.10
+* tbb-2020_u3
+* zlib-1.3.1
+* zstd-1.5.6
+* blosc-1.21.6
+* cpython-3.11.11
 * freetype-2.13.2
-* dbus-system
-* fontconfig-system
-* glib-2.78.3
-* libalsa-system
-* libdrm-system
-* libsndfile-system
-* libtiff-4.0.9
+* glew-2.2.0
+* glfw-3.4
+* log4cplus-2.1.2
+* boost-1.85.0
+* pybind11-2.13.6
 * libwebp-1.5.0
-* libxshmfence-system
 * md4c-0.4.8
-* nss-3.93
-* openjpeg-2.4.0
-* opus-system
-* pulseaudio-system
-* xkbcommon-0.9.1
-* pyside-6.5.4
 * qt-6.5.4
+* pyside-6.5.4
+* imath-3.1.12
 * numpy-1.26.4
 * vfxplatform-2025
 

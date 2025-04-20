@@ -53,6 +53,7 @@ nasm/*: nasm/system@aswf/vfx2025
 nspr/*: nspr/system@aswf/vfx2025
 nss/*: nss/3.93@aswf/vfx2025
 ocio/*: ocio/2.4.2@aswf/vfx2025
+oiio/*: oiio/3.0.5.0@aswf/vfx2025
 ogg/*: ogg/system@aswf/vfx2025
 openal-soft/*: openal-soft/system@aswf/vfx2025
 openexr/*: openexr/3.3.3@aswf/vfx2025

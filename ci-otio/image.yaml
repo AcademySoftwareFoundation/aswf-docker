@@ -4,29 +4,40 @@ description: |
   Contains: Python, Qt, PySide and other OpenTimelineIO upstream dependencies
   Warning: this image does *not* contain OpenTimelineIO itself as it is used to *build* OpenTimelineIO!
 packages:
-  - cpython
+  - b2                 # base1-1 packages
+  - bzip2
+  - cppunit
   - expat
+  - fmt
+  - gtest
+  - libbacktrace
+  - libdeflate
+  - libiconv
+  - libxcrypt
+  - lz4
+  - pugixml
+  - pystring
+  - snappy
+  - tbb
+  - tsl-robin-map
+  - yaml-cpp
+  - zlib
+  - zstd
+  - blosc              # base1-2 packages
+  - cpython
   - freetype
-  - dbus
-  - double-conversion
-  - fontconfig
-  - glib
-  - libalsa
-  - libdrm
-  - libjpeg-turbo
-  - libsndfile
-  - libtiff
+  - glew
+  - glfw
+  - log4cplus
+  - minizip-ng
+  - boost              # base1-3 packages
+  - pybind11
+  - libjpeg-turbo      # base2-1 packages
   - libwebp
-  - libxshmfence
   - md4c
-  - nss
-  - openal-soft
-  - openjpeg
-  - opus
-  - pulseaudio
-  - xkbcommon
-  - pyside
-  - qt
+  - qt                 # base2-2 packages
+  - pyside             # base2-3 packages
+  - imath              # vfx1-1 packages
 implicit_packages:
   - numpy
   - vfxplatform

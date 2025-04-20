@@ -2,6 +2,79 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2025-04-08
+
+- 2025.0 images
+  - TBB transition to OneAPI remains to be done
+- ASWF project versions
+  - Imath: 3.1.2
+  - MaterialX: 1.39.3
+  - OCIO: 2.4.2
+  - OIIO: 3.0.5.0
+  - OpenEXR: 3.3.3
+  - OpenVDB: 12.0.0
+  - OSL: 1.14.5.0
+  - OTIO: 0.17.0
+- VFX Platform component versions
+  - Boost: 1.85.0
+  - Python: 3.11.11
+  - Numpy: 1.26.4
+  - PySide: 6.5.4
+  - Qt: 6.5.4
+  - TBB: 2020_u3
+- "ASWF adjacent" component versions
+  - Alembic: 1.8.8
+  - OpenSubDiv: 3.6.0
+  - Partio: 1.17.3
+  - Ptex: 2.4.3
+  - USD: 25.02a + commit eae7e67 for MaterialX 1.39.3 compatibility
+- Generic components
+  - b2: 5.2.1
+  - blosc: 1.21.6
+  - bzip2: 1.0.8
+  - cppunit: 1.15.1
+  - expat: 2.6.4
+  - fmt: 11.1.4
+  - freetype: 2.13.2
+  - glew: 2.2.0
+  - glfw: 3.4
+  - gtest: 1.15.2
+  - hdf5: 1.8.23
+  - highway: 1.2.0
+  - lcms: 2.16
+  - libbacktrace: cci.20210118
+  - libdeflate: 1.23
+  - libiconv: 1.17
+  - libjpeg_turbo: 3.0.4
+  - libjxl: 0.11.1
+  - libuhdr: 1.4.0
+  - libwebp: 1.5.0
+  - libxcrypt: 4.4.36
+  - log4cplus: 2.1.2
+  - lz4: 1.10.0
+  - md4c: 0.4.8
+  - minizip_ng: 4.0.8
+  - pugixml: 1.14
+  - pybind11: 2.13.6
+  - pystring: 1.1.4
+  - snappy: 1.1.10
+  - tsl-robin-map: 1.3.0
+  - yaml-cpp: 0.8.0
+  - zlib: 1.3.1
+  - zstd: 1.5.6
+- common image components
+  - Rocky Linux 8.10
+  - CUDA 12.6.1
+  - OptiX 7.3 to 8.1
+  - Conan 2.14.0
+  - CMake 3.31.6
+  - Ninja 1.12.1
+  - LLVM 18.1.8 and 19.1.1
+- transition to Conan 2
+  - update most Conan recipes from Conan Center Index, minimize differences from upstream
+  - create empty wrapper packages to satisfy recipe requires() from OS image packages
+  - build replacment packages to satisfy newer requires() than what Rocky 8 has (mostly compression and media libraries)
+
 # 2024-10-05
 
 - 2024.2 images

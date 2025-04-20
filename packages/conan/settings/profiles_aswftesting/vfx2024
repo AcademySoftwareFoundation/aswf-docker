@@ -53,6 +53,7 @@ nasm/*: nasm/system@aswftesting/vfx2024
 nspr/*: nspr/system@aswftesting/vfx2024
 nss/*: nss/3.93@aswftesting/vfx2024
 ocio/*: ocio/2.3.2@aswftesting/vfx2024
+oiio/*: oiio/2.5.18.0@aswftesting/vfx2024
 ogg/*: ogg/system@aswftesting/vfx2024
 openal-soft/*: openal-soft/system@aswftesting/vfx2024
 openexr/*: openexr/3.2.4@aswftesting/vfx2024
