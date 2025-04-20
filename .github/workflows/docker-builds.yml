@@ -119,7 +119,7 @@ jobs:
           --version ${{ matrix.common_version }}\
           --push NO
 
-    - name: Build base1 system wrapper Conan packages
+    - name: Build base1 system wrapper and level 1 Conan packages
       run: |
         set -ex
         pipenv run aswfdocker \
@@ -129,19 +129,6 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group base1-wrappers \
-          --version ${{ matrix.version_noclang }} \
-          --use-conan \
-          --build-missing
-
-    - name: Build base1 level 1 Conan packages
-      run: |
-        set -ex
-        pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
-          --verbose \
-          build \
-          --ci-image-type PACKAGE \
           --group base1-1 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
