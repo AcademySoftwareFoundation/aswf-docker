@@ -55,10 +55,7 @@ cd /tmp/gldev/EGL-Registry
 git checkout 0fa0d37da846998aa838ed2b784a340c28dadff3
 cp -r api/EGL api/KHR /usr/local/include
 cd /tmp/gldev
-#gitlab.freedesktop.org is down
-#git clone --branch=mesa-17.3.3 --depth=1 https://gitlab.freedesktop.org/mesa/mesa.git
-git clone --branch=mesa-17.3.3 --depth=1 https://github.com/chaotic-cx/mesa-mirror.git
-mv /tmp/gldev/mesa-mirror /tmp/gldev/mesa
+git clone --branch=mesa-17.3.3 --depth=1 https://gitlab.freedesktop.org/mesa/mesa.git
 cd /tmp/gldev/mesa
 mkdir -p /usr/local/include/GL
 cp include/GL/gl.h include/GL/gl_mangle.h /usr/local/include/GL/
