@@ -177,6 +177,7 @@ class Builder:
     def _get_conan_env_vars(self, version_info):
         envs = {
             "CONAN_USER_HOME": constants.CONAN_USER_HOME,
+            "CONAN_HOME": os.path.join(constants.CONAN_USER_HOME, ".conan2"),
             "CCACHE_DIR": "/tmp/ccache",
             "CONAN_NON_INTERACTIVE": "1",
         }
