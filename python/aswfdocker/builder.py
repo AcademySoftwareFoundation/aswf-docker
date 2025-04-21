@@ -246,9 +246,8 @@ class Builder:
                 base_cmd,
                 [
                     "conan",
-                    "user",
-                    "-p",
-                    "-r",
+                    "remote",
+                    "auth",
                     self.build_info.docker_org,
                 ],
                 dry_run,

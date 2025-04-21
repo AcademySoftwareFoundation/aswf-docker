@@ -513,7 +513,7 @@ class TestBuilderCli(unittest.TestCase):
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
         )
         self._i += 1
-        self._assertEndsWith(cmds, "conan user -p -r aswftesting'")
+        self._assertEndsWith(cmds, "conan remote auth aswftesting'")
         self.assertEqual(
             cmds[self._i],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
@@ -521,7 +521,7 @@ class TestBuilderCli(unittest.TestCase):
             + "--progress auto ci-package-openexr-2019'",
         )
         self._i += 1
-        self._assertEndsWith(cmds, "conan user -p -r aswftesting'")
+        self._assertEndsWith(cmds, "conan remote auth aswftesting'")
         self.assertEqual(
             cmds[self._i],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
