@@ -197,7 +197,7 @@ class Builder:
         conan_base = os.path.join(utils.get_git_top_level(), "packages", "conan")
         vols = {
             os.path.join(conan_base, "settings"): os.path.join(
-                constants.CONAN_USER_HOME, ".conan"
+                constants.CONAN_USER_HOME, ".conan2"
             ),
             os.path.join(conan_base, "data"): os.path.join(
                 constants.CONAN_USER_HOME, "d"
