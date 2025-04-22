@@ -131,6 +131,10 @@ class Builder:
                 },
                 "tags": tags,
                 "output": ["type=registry,push=true" if self.push else "type=docker"],
+                "secrets": [
+                    "id=conan_login_username,env=CONAN_LOGIN_USERNAME",
+                    "id=conan_password,env=CONAN_PASSWORD",
+                ],
             }
             if self.group_info.type == constants.ImageType.PACKAGE:
                 if use_conan:
@@ -236,24 +240,25 @@ class Builder:
     ):
         # pylint: disable=consider-using-f-string
         major_version = utils.get_major_version(version)
-        version_info = self.index.version_info(major_version)
-        base_cmd = self._get_conan_base_cmd(version_info)
-        if conan_login:
-            # We keep this as a separate step: the end result is to store credentials in
-            # packages/conan/.conan/.conan.db which is not thread safe: once we are able
-            # to run Conan builds from a single "docker buildx bake" invocation, we will
-            # want to keep the login step separate.
-            self._run_in_docker(
-                base_cmd,
-                [
-                    "conan",
-                    "remote",
-                    "auth",
-                    self.build_info.docker_org,
-                ],
-                dry_run,
-            )
-        #
+        # version_info = self.index.version_info(major_version)
+        # base_cmd = self._get_conan_base_cmd(version_info)
+        # if conan_login:
+        #     # "conan remote auth" stores credentials in
+        #     # ${CONAN_HOME]/.conan2/credentials.json but we don't have a simple way to persist
+        #     # this file between build steps, since instead we will use the secrets mechanism
+        #     # in the buildx bake file to pass the CONNA_LOGIN_USERNAME and CONAN_PASSWORD
+        #     # values as environment variables to allow `conan upload" to authenticate on the fly.
+        #     self._run_in_docker(
+        #        base_cmd,
+        #         [
+        #             "conan",
+        #             "remote",
+        #             "auth",
+        #             self.build_info.docker_org,
+        #         ],
+        #         dry_run,
+        #     )
+
         # These are kept for reference, they now live in
         # packages/common/Dockerfile
         #
