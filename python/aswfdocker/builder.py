@@ -131,7 +131,7 @@ class Builder:
                 },
                 "tags": tags,
                 "output": ["type=registry,push=true" if self.push else "type=docker"],
-                "secrets": [
+                "secret": [
                     "id=conan_login_username,env=CONAN_LOGIN_USERNAME",
                     "id=conan_password,env=CONAN_PASSWORD",
                 ],
@@ -235,7 +235,6 @@ class Builder:
         version,
         dry_run,
         progress,
-        conan_login,
         bake_jsonfile,
     ):
         # pylint: disable=consider-using-f-string
@@ -246,7 +245,7 @@ class Builder:
         #     # "conan remote auth" stores credentials in
         #     # ${CONAN_HOME]/.conan2/credentials.json but we don't have a simple way to persist
         #     # this file between build steps, since instead we will use the secrets mechanism
-        #     # in the buildx bake file to pass the CONNA_LOGIN_USERNAME and CONAN_PASSWORD
+        #     # in the buildx bake file to pass the CONAN_LOGIN_USERNAME and CONAN_PASSWORD
         #     # values as environment variables to allow `conan upload" to authenticate on the fly.
         #     self._run_in_docker(
         #        base_cmd,
@@ -307,7 +306,6 @@ class Builder:
         progress: str = "",
         keep_source=False,
         keep_build=False,
-        conan_login=False,
         build_missing=False,
     ) -> None:
         images_and_versions = []
@@ -343,6 +341,5 @@ class Builder:
                 version,
                 dry_run,
                 progress,
-                conan_login,
                 path,
             )
