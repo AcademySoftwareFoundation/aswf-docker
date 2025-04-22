@@ -141,7 +141,6 @@ versions:
       ASWF_CLANG_VERSION: "15.0.7"
   "4":
     major_version: "4"
-    tags: ["latest"]
     ci_common_version: "4"
     conan_profile: "ci_common4"
     package_versions:
@@ -168,7 +167,6 @@ versions:
   "4-clang17":
     parent_versions: ["4"]
     major_version: "4"
-    tags: ["latest"]
     ci_common_version: "4"
     use_major_version_as_tag: true
     package_versions:
@@ -176,7 +174,7 @@ versions:
       ASWF_CLANG_VERSION: "17.0.6"
   "5":
     major_version: "5"
-    tags: ["draft"]
+    tags: ["latest"]
     ci_common_version: "5"
     conan_profile: "ci_common5"
     package_versions:
@@ -203,7 +201,7 @@ versions:
   "5-clang19":
     parent_versions: ["5"]
     major_version: "5"
-    tags: ["draft"]
+    tags: ["latest"]
     ci_common_version: "5"
     use_major_version_as_tag: true
     package_versions:
@@ -467,7 +465,6 @@ versions:
   "2024":
     parent_versions: ["4", "4-clang16"]
     major_version: "2024"
-    tags: ["latest"]
     ci_common_version: "4"
     conan_profile: "vfx2024"
     package_versions:
@@ -584,13 +581,12 @@ versions:
   "2024-clang17":
     parent_versions: ["4", "4-clang17", "2024"]
     major_version: "2024"
-    tags: ["latest"]
     use_major_version_as_tag: true
     ci_common_version: "4"
   "2025":
     parent_versions: ["5", "5-clang18"]
     major_version: "2025"
-    tags: ["draft"]
+    tags: ["latest"]
     ci_common_version: "5"
     conan_profile: "vfx2025"
     package_versions:
@@ -707,7 +703,7 @@ versions:
   "2025-clang19":
     parent_versions: ["5", "5-clang19", "2025"]
     major_version: "2025"
-    tags: ["draft"]
+    tags: ["latest"]
     use_major_version_as_tag: true
     ci_common_version: "5"
 
