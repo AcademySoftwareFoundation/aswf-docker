@@ -12,7 +12,7 @@ jobs:
       DOCKER_BUILDKIT: '1'
       CONAN_LOGIN_USERNAME: ${{ secrets.ARTIFACTORY_USER }}
       CONAN_PASSWORD: ${{ secrets.ARTIFACTORY_TOKEN }}
-      GITHUB_REF_LOCAL: ${{ github.ref }}
+      GITHUB_REF_LOCAL: ${{ github.ref || format('{0}{1}', 'refs/tags/', github.event.release.tag_name) }}
 
     strategy:
       matrix:
