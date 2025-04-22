@@ -28,7 +28,7 @@ MAIN_GITHUB_ASWF_DOCKER_URL = (
 )
 
 # pylint: disable=line-too-long
-IMAGE_NAME_REGEX = r"(refs/tags/)?(?P<org>[a-z]+)/ci-(?P<package>package\-)?(?P<image>[a-z0-9_]+)[:/](?P<version>[0-9\.a-z\-]+)"
+IMAGE_NAME_REGEX = r"(refs/tags/)?(?P<org>[a-z]+)/ci-(?P<package>package\-)?(?P<image>[a-z0-9_-]+)[:/](?P<version>[0-9\.a-z\-]+)"
 
 ALL = "all"
 
