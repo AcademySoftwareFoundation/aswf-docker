@@ -183,7 +183,7 @@ RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
     --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan2,source=packages/conan/settings \
     --mount=type=bind,rw,target=${CONAN_USER_HOME}/recipes,source=packages/conan/recipes \
     if [ -n "${ASWF_CONAN_PUSH}" ] ; then \
-      conan upload --all --remote ${ASWF_PKG_ORG} ${ASWF_PKG_NAME}/${ASWF_PKG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} ;\
+      conan upload --remote ${ASWF_PKG_ORG} ${ASWF_PKG_NAME}/${ASWF_PKG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} ;\
     else \
       echo "conan upload of package ${ASWF_PKG_NAME} skipped" ; \
     fi
