@@ -12,6 +12,7 @@ jobs:
       DOCKER_BUILDKIT: '1'
       CONAN_LOGIN_USERNAME: ${{ secrets.ARTIFACTORY_USER }}
       CONAN_PASSWORD: ${{ secrets.ARTIFACTORY_TOKEN }}
+      GITHUB_REF_LOCAL: ${{ github.ref }}
 
     strategy:
       matrix:
@@ -55,7 +56,7 @@ jobs:
           --repo-uri $GITHUB_REPOSITORY \
           --verbose \
           build \
-          --full-name $GITHUB_REF \
+          --full-name $GITHUB_REF_LOCAL \
           --push YES \
           ${{ matrix.args }}
 
@@ -66,4 +67,4 @@ jobs:
           pushoverview \
           --username aswfdocker \
           --password ${{ secrets.DOCKERHUB_PASSWORD }} \
-          --full-name $GITHUB_REF
+          --full-name $GITHUB_REF_LOCAL
