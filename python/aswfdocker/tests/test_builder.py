@@ -194,6 +194,10 @@ class TestBuilder(unittest.TestCase):
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-openvdb:{openvdb_version}",
                         ],
                         "output": ["type=docker"],
+                        "secrets": [
+                            "id=conan_login_username,env=CONAN_LOGIN_USERNAME",
+                            "id=conan_password,env=CONAN_PASSWORD",
+                        ],
                     }
                 },
             },
@@ -281,6 +285,10 @@ class TestBuilder(unittest.TestCase):
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[1]}",
                         ],
                         "output": ["type=docker"],
+                        "secrets": [
+                            "id=conan_login_username,env=CONAN_LOGIN_USERNAME",
+                            "id=conan_password,env=CONAN_PASSWORD",
+                        ],
                     },
                     "ci-base-2019": {
                         "context": ".",
@@ -346,6 +354,10 @@ class TestBuilder(unittest.TestCase):
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[0]}",
                         ],
                         "output": ["type=docker"],
+                        "secrets": [
+                            "id=conan_login_username,env=CONAN_LOGIN_USERNAME",
+                            "id=conan_password,env=CONAN_PASSWORD",
+                        ],
                     },
                 },
             },
@@ -503,17 +515,15 @@ class TestBuilderCli(unittest.TestCase):
             tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2-2019-2020.json"
         )
         cmds = result.output.strip().splitlines()
-        # We expect 5 steps
+        # We expect 3 steps
         # 1 - docker buildx to build the non-Conan packages
-        # 2 - docker run to login to repository (2x for each image)
-        # 3 - docker buildx to build and upload (2x for each openexr package)
-        self.assertEqual(len(cmds), 5)
+        # 2 - docker buildx to build and upload (2x for each openexr package)
+        self.assertEqual(len(cmds), 3)
         self.assertEqual(
             cmds[self._i],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
         )
         self._i += 1
-        self._assertEndsWith(cmds, "conan remote auth aswftesting'")
         self.assertEqual(
             cmds[self._i],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
@@ -521,7 +531,6 @@ class TestBuilderCli(unittest.TestCase):
             + "--progress auto ci-package-openexr-2019'",
         )
         self._i += 1
-        self._assertEndsWith(cmds, "conan remote auth aswftesting'")
         self.assertEqual(
             cmds[self._i],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
