@@ -190,7 +190,7 @@ def build(
     use_conan,
     keep_source,
     keep_build,
-    conan_login,
+    conan_login,  # pylint: disable=unused-argument
     build_missing,
 ):
     """Builds a ci-package or ci-image Docker image."""
