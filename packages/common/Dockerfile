@@ -162,6 +162,12 @@ ENV GCC_INSTALL_PREFIX=/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr
 # With "conan create --profile" we no longer need to set a default profile
 ENV CONAN_HOME=${CONAN_USER_HOME}/.conan2
 
+# Allow "conan upload" to authenticate without persistent storage
+ARG CONAN_LOGIN_USERNAME
+ENV CONAN_LOGIN_USERNAME=${CONAN_LOGIN_USERNAME}
+ARG CONAN_PASSWORD
+ENV CONAN_PASSWORD=${CONAN_PASSWORD}
+
 RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
     --mount=type=cache,target=${CCACHE_DIR} \
     --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan2,source=packages/conan/settings \
