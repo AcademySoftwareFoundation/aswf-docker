@@ -168,7 +168,7 @@ def get_group_info(build_info, ci_image_type, groups, versions, full_name, targe
     "--conan-login",
     "-cl",
     is_flag=True,
-    help="Instruct build to perform a `conan user -p` to login.",
+    help="[DEPRECATED] This option is no longer used as authentication is now handled via buildx secrets.",
 )
 @click.option(
     "--build-missing",
@@ -212,7 +212,6 @@ def build(
         progress=progress,
         keep_source=keep_source,
         keep_build=keep_build,
-        conan_login=conan_login,
         build_missing=build_missing,
     )
 

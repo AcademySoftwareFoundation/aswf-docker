@@ -194,7 +194,7 @@ class TestBuilder(unittest.TestCase):
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-openvdb:{openvdb_version}",
                         ],
                         "output": ["type=docker"],
-                        "secrets": [
+                        "secret": [
                             "id=conan_login_username,env=CONAN_LOGIN_USERNAME",
                             "id=conan_password,env=CONAN_PASSWORD",
                         ],
@@ -285,7 +285,7 @@ class TestBuilder(unittest.TestCase):
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[1]}",
                         ],
                         "output": ["type=docker"],
-                        "secrets": [
+                        "secret": [
                             "id=conan_login_username,env=CONAN_LOGIN_USERNAME",
                             "id=conan_password,env=CONAN_PASSWORD",
                         ],
@@ -354,7 +354,7 @@ class TestBuilder(unittest.TestCase):
                             f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-base:{base_versions[0]}",
                         ],
                         "output": ["type=docker"],
-                        "secrets": [
+                        "secret": [
                             "id=conan_login_username,env=CONAN_LOGIN_USERNAME",
                             "id=conan_password,env=CONAN_PASSWORD",
                         ],

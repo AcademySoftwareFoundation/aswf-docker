@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.4
+# syntax=docker/dockerfile:1.10
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
