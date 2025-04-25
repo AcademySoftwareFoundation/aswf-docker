@@ -976,7 +976,7 @@ class BoostConan(ConanFile):
         """
         return self._run_python_script("from __future__ import print_function; "
                                        "import sysconfig; "
-                                       "print(sysconfig.get_python_inc())")
+                                       "print(sysconfig.get_path('include'))") # ASWF: get_python_inc() deprecated in Python 3.10
 
     @property
     def _python_abiflags(self):
@@ -1022,7 +1022,11 @@ class BoostConan(ConanFile):
         """
         library = self._get_python_var("LIBRARY")
         ldlibrary = self._get_python_var("LDLIBRARY")
-        libdir = self._get_python_var("LIBDIR")
+        # ASWF: we don't have a fully relocatable python build, sysconfig can return
+        # paths into the Conan build environment.
+        # libdir = self._get_python_var("LIBDIR")
+        pythonInfo = self.dependencies["cpython"]
+        libdir = os.path.join(pythonInfo.package_folder, pythonInfo.cpp_info.libdirs[0])
         multiarch = self._get_python_var("MULTIARCH")
         masd = self._get_python_var("multiarchsubdir")
         with_dyld = self._get_python_var("WITH_DYLD")
