@@ -5,7 +5,6 @@ include(ci_common4)
 # Build everything as shared libs by default
 *:shared=True
 [tool_requires]
-b2/*: b2/5.2.1@aswftesting/vfx2024
 [replace_requires]
 boost/*: boost/1.82.0@aswftesting/vfx2024
 brotli/*: brotli/system@aswftesting/vfx2024
@@ -82,6 +81,7 @@ yaml-cpp/*: yaml-cpp/0.8.0@aswftesting/vfx2024
 zlib/*: zlib/1.3.1@aswftesting/vfx2024
 zstd/*: zstd/1.5.6@aswftesting/vfx2024
 [replace_tool_requires]
+b2/*: b2/5.2.1@aswftesting/vfx2024
 bison/*: bison/3.0.4@system
 flex/*: flex/2.6.1@system
 gperf/*: gperf/3.1@system
