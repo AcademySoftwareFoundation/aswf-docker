@@ -109,7 +109,7 @@ class Builder:
                             + image.replace("ci-package-", "").upper().replace("-", "_")
                             + "_VERSION"
                         ),
-                        "CONAN_USER_HOME": constants.CONAN_USER_HOME,
+                        "ASWF_CONAN_HOME": constants.ASWF_CONAN_HOME,
                         "ASWF_CONAN_KEEP_SOURCE": "--keep-source"
                         if keep_source
                         else "",
@@ -180,8 +180,8 @@ class Builder:
 
     def _get_conan_env_vars(self, version_info):
         envs = {
-            "CONAN_USER_HOME": constants.CONAN_USER_HOME,
-            "CONAN_HOME": os.path.join(constants.CONAN_USER_HOME, ".conan2"),
+            "ASWF_CONAN_HOME": constants.ASWF_CONAN_HOME,
+            "CONAN_HOME": os.path.join(constants.ASWF_CONAN_HOME, ".conan2"),
             "CCACHE_DIR": "/tmp/ccache",
             "CONAN_NON_INTERACTIVE": "1",
         }
@@ -202,13 +202,13 @@ class Builder:
         conan_base = os.path.join(utils.get_git_top_level(), "packages", "conan")
         vols = {
             os.path.join(conan_base, "settings"): os.path.join(
-                constants.CONAN_USER_HOME, ".conan2"
+                constants.ASWF_CONAN_HOME, ".conan2"
             ),
             os.path.join(conan_base, "data"): os.path.join(
-                constants.CONAN_USER_HOME, "d"
+                constants.ASWF_CONAN_HOME, "d"
             ),
             os.path.join(conan_base, "recipes"): os.path.join(
-                constants.CONAN_USER_HOME, "recipes"
+                constants.ASWF_CONAN_HOME, "recipes"
             ),
             os.path.join(conan_base, "ccache"): "/tmp/ccache",
         }
@@ -243,7 +243,7 @@ class Builder:
         # base_cmd = self._get_conan_base_cmd(version_info)
         # if conan_login:
         #     # "conan remote auth" stores credentials in
-        #     # ${CONAN_HOME]/.conan2/credentials.json but we don't have a simple way to persist
+        #     # ${CONAN_HOME]/credentials.json but we don't have a simple way to persist
         #     # this file between build steps, since instead we will use the secrets mechanism
         #     # in the buildx bake file to pass the CONAN_LOGIN_USERNAME and CONAN_PASSWORD
         #     # values as environment variables to allow `conan upload" to authenticate on the fly.

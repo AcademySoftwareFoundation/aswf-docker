@@ -84,6 +84,7 @@ ENV ASWF_INSTALL_PREFIX=/usr/local
 ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
 
 
+
 ENV ASWF_DTS_PREFIX=$ASWF_DTS_PREFIX
 
 
@@ -160,7 +161,7 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     /tmp/install_conan.sh
 
 COPY ../packages/conan/settings /opt/conan_home/.conan
-ENV CONAN_USER_HOME=/opt/conan_home
+ENV ASWF_CONAN_HOME=/opt/conan_home
 
 
 COPY scripts/common/install_conanpackages.sh /tmp/
@@ -179,7 +180,7 @@ cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
-ENV CONAN_HOME=${CONAN_USER_HOME}/.conan2
+ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 
 RUN --mount=type=cache,target=/opt/conan_home/d \

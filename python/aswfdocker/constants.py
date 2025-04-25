@@ -32,4 +32,4 @@ IMAGE_NAME_REGEX = r"(refs/tags/)?(?P<org>[a-z]+)/ci-(?P<package>package\-)?(?P<
 
 ALL = "all"
 
-CONAN_USER_HOME = "/opt/conan_home"
+ASWF_CONAN_HOME = "/opt/conan_home"

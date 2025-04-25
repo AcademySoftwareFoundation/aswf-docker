@@ -370,13 +370,16 @@ When building a Conan package, `aswfdocker build --use-conan` uses [common/packa
 cache of local Conan package builds (similarly for the [ccache](https://ccache.dev/) persistent cache):
 
 ```
-RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
+RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
     --mount=type=cache,target=${CCACHE_DIR} \
-    --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan2,source=packages/conan/settings \
-    --mount=type=bind,rw,target=${CONAN_USER_HOME}/recipes,source=packages/conan/recipes \
+    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
+    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
     conan create \
     ...
 ```
+
+By default the Conan cache lives in the `$CONAN_HOME/p` directory (where settings and profiles also live) but we relocate it to `${ASWF_CONAN_HOME}/d` by setting `core.cache:storage_path = /opt/conan_home/d` in `global.conf`
+as per [Storage Configurations](https://docs.conan.io/2/reference/config_files/global_conf.html#storage-configurations).
 
 During development it can be convenient to peek into the results of a Conan package build. You can use:
 
@@ -388,7 +391,7 @@ Mutable:	true
 Reclaimable:	true
 Shared:		false
 Size:		93.56GB
-Description:	cached mount /opt/conan_home/d from exec /bin/sh -c conan create       ${ASWF_CONAN_KEEP_SOURCE}       ${ASWF_CONAN_KEEP_BUILD}       ${ASWF_CONAN_BUILD_MISSING}       --profile:all ${CONAN_USER_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}       --name ${ASWF_PKG_NAME}       --version ${ASWF_PKG_VERSION}       --user ${ASWF_PKG_ORG}       --channel ${ASWF_CONAN_CHANNEL}       ${CONAN_USER_HOME}/recipes/${ASWF_PKG_NAME} with id "//opt/conan_home/d"
+Description:	cached mount /opt/conan_home/d from exec /bin/sh -c conan create       ${ASWF_CONAN_KEEP_SOURCE}       ${ASWF_CONAN_KEEP_BUILD}       ${ASWF_CONAN_BUILD_MISSING}       --profile:all ${ASWF_CONAN_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}       --name ${ASWF_PKG_NAME}       --version ${ASWF_PKG_VERSION}       --user ${ASWF_PKG_ORG}       --channel ${ASWF_CONAN_CHANNEL}       ${ASWF_CONAN_HOME}/recipes/${ASWF_PKG_NAME} with id "//opt/conan_home/d"
 Usage count:	159
 Last used:	14 minutes ago
 Type:		exec.cachemount
