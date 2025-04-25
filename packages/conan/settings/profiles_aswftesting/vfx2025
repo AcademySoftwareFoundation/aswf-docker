@@ -5,8 +5,8 @@ include(ci_common5)
 # Build everything as shared libs by default
 *:shared=True
 [tool_requires]
-[replace_requires]
 b2/*: b2/5.2.1@aswftesting/vfx2025
+[replace_requires]
 boost/*: boost/1.85.0@aswftesting/vfx2025
 brotli/*: brotli/system@aswftesting/vfx2025
 bzip2/*: bzip2/1.0.8@aswftesting/vfx2025
