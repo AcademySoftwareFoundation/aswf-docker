@@ -91,6 +91,7 @@ ENV ASWF_VERSION=${ASWF_VERSION}
 ENV ASWF_INSTALL_PREFIX=/usr/local
 ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
 
+
 {% if name != "common" %}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 {% else %}
@@ -145,7 +146,7 @@ COPY <<EOF /usr/local/conanfile.txt
 {% endfor -%}
 EOF
 
-ENV CONAN_HOME=${CONAN_USER_HOME}/.conan2
+ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 {% if name != "common" %}
 RUN --mount=type=cache,target=/opt/conan_home/d \

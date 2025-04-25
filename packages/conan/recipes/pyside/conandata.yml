@@ -34,5 +34,7 @@ patches:
       base_path: "pyside_src"
     - patch_file: "patches/shiboken_in_lib64.diff"
       base_path: "pyside_src"
+    - patch_file: "patches/libpython_in_lib64.diff"
+      base_path: "pyside_src"
     - patch_file: "patches/pyside_pysidesignal.diff"
       base_path: "pyside_src"

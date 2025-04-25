@@ -75,4 +75,4 @@ docker_commands: |
       /tmp/install_conan.sh
 
   COPY ../packages/conan/settings /opt/conan_home/.conan
-  ENV CONAN_USER_HOME=/opt/conan_home
+  ENV ASWF_CONAN_HOME=/opt/conan_home

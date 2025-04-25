@@ -94,7 +94,7 @@ ENV ASWF_DTS_VERSION=${ASWF_DTS_VERSION}
 ARG ASWF_DTS_PREFIX
 ENV ASWF_DTS_PREFIX=${ASWF_DTS_PREFIX}
 ARG CI_COMMON_VERSION
-ARG CONAN_USER_HOME
+ARG ASWF_CONAN_HOME
 ARG ASWF_PKG_NAME
 ARG ASWF_PKG_ORG
 ARG ASWF_PKG_VERSION
@@ -160,28 +160,28 @@ ENV ASWF_CONAN_ROOT=/opt/conan \
 ENV GCC_INSTALL_PREFIX=/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr
 
 # With "conan create --profile" we no longer need to set a default profile
-ENV CONAN_HOME=${CONAN_USER_HOME}/.conan2
+ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
-RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
+RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
     --mount=type=cache,target=${CCACHE_DIR} \
-    --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan2,source=packages/conan/settings \
-    --mount=type=bind,rw,target=${CONAN_USER_HOME}/recipes,source=packages/conan/recipes \
+    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
+    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
     conan create \
       ${ASWF_CONAN_KEEP_SOURCE} \
       ${ASWF_CONAN_KEEP_BUILD} \
       ${ASWF_CONAN_BUILD_MISSING} \
-      --profile:all ${CONAN_USER_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} \
+      --profile:all ${ASWF_CONAN_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} \
       --name ${ASWF_PKG_NAME} \
       --version ${ASWF_PKG_VERSION} \
       --user ${ASWF_PKG_ORG} \
       --channel ${ASWF_CONAN_CHANNEL} \
-      ${CONAN_USER_HOME}/recipes/${ASWF_PKG_NAME}
+      ${ASWF_CONAN_HOME}/recipes/${ASWF_PKG_NAME}
 
 # Upload build to repository if called for
-RUN --mount=type=cache,target=${CONAN_USER_HOME}/d \
+RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
     --mount=type=cache,target=${CCACHE_DIR} \
-    --mount=type=bind,rw,target=${CONAN_USER_HOME}/.conan2,source=packages/conan/settings \
-    --mount=type=bind,rw,target=${CONAN_USER_HOME}/recipes,source=packages/conan/recipes \
+    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
+    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
     --mount=type=secret,id=conan_login_username,env=CONAN_LOGIN_USERNAME \
     --mount=type=secret,id=conan_password,env=CONAN_PASSWORD \
     if [ -n "${ASWF_CONAN_PUSH}" ] ; then \

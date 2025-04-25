@@ -36,12 +36,16 @@ else
     for CONANREF in $(awk 'NR == 1, /\[requires\]/ { next } /^[^#]/ { print }' conanfile.txt)
     do
         CONANPACKAGE=$(echo $CONANREF | cut -d\/ -f1)
-        conan install --requires=$CONANREF --profile:all=${CONAN_USER_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --deployer-folder $1 --deployer=direct_deploy
+        conan install --requires=$CONANREF --profile:all=${ASWF_CONAN_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --deployer-folder $1 --deployer=direct_deploy
         # The direct_deploy generator just copies over generated CMake files which may contain absolute paths pointing inside the Conan cache
         # in the format:
         # /opt/conan_home/d/b/boost64b7fc4516f80/p/...
         # Replace those by our installation prefix.
-        find $1/direct_deploy/${CONANPACKAGE} -name '*.cmake' -exec sed -i 's/\/opt\/conan_home\/d\/b\/.*\/p/'$ESCAPED_PATH'/g' {} \;
+        find $1/direct_deploy/${CONANPACKAGE} -name '*.cmake' -exec sed -i -E 's/\/opt\/conan_home\/d\/b\/[^/]+\/p/'$ESCAPED_PATH'/g' {} \;
+        # Currently cannot build a relocatable CPython package, conan_home paths are hardcoded in sysconfig
+        if [[ $CONANPACKAGE == cpython* ]]; then
+            find $1/direct_deploy/${CONANPACKAGE} -name '_sysconfigdata__linux_x86_64-linux-gnu.py' -exec sed -i -E 's/\/opt\/conan_home\/d\/b\/[^/]+\/p/'$ESCAPED_PATH'/g' {} \;
+        fi
         # No way to tell Conan 2 to flatten the deployment destination, we move the files after the fact
         rsync --remove-source-files -a $1/direct_deploy/${CONANPACKAGE}/ $1/
     done

@@ -1,0 +1,11 @@
+--- a/build_scripts/build_info_collector.py
++++ b/build_scripts/build_info_collector.py
+@@ -65,7 +65,7 @@
+                          py_include_dir):
+     """Helper for finding the Python library on UNIX"""
+     if py_libdir is None or not Path(py_libdir).exists():
+-        py_libdir = Path(py_prefix) / "lib"
++        py_libdir = Path(py_prefix) / "lib64"
+     if py_include_dir is None or not Path(py_include_dir).exists():
+         directory = f"include/python{py_version}"
+         py_include_dir = Path(py_prefix) / directory
