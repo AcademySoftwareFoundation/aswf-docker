@@ -5,8 +5,8 @@ include(ci_common4)
 # Build everything as shared libs by default
 *:shared=True
 [tool_requires]
-[replace_requires]
 b2/*: b2/5.2.1@aswf/vfx2024
+[replace_requires]
 boost/*: boost/1.82.0@aswf/vfx2024
 brotli/*: brotli/system@aswf/vfx2024
 bzip2/*: bzip2/1.0.8@aswf/vfx2024
