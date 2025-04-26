@@ -37,8 +37,16 @@ packages:
   - md4c
   - qt                 # base2-2 packages
   - pyside             # base2-3 packages
-  - imath              # vfx1-1 packages
+  - highway            # vfx1-1 packages
+  - imath
+  - lcms
+  - libuhdr
+  - ptex
+  - libjxl             # vfx1-2 packages
+  - openexr
   - alembic            # vfx1-3 packages
+  - ocio
+  - oiio               # vfx1-4 packages
   - opensubdiv         # vfx2-1 packages
   - partio
   - materialx
