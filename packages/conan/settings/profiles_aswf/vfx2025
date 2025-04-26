@@ -19,7 +19,7 @@ gdbm/*: gdbm/system@aswf/vfx2025
 giflib/*: giflib/5.1.4@aswf/vfx2025
 glew/*: glew/2.2.0@aswf/vfx2025
 glib/*: glib/2.78.3@aswf/vfx2025
-highway/*: highway/1.2.0@aswf/vfx2024
+highway/*: highway/1.2.0@aswf/vfx2025
 icu/*: icu/system@aswf/vfx2025
 imath/*: imath/3.1.12@aswf/vfx2025
 lcms/*: lcms/2.16@aswf/vfx2025
