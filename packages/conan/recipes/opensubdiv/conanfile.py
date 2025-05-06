@@ -92,7 +92,12 @@ class OpenSubdivConan(ConanFile):
             self.requires(f"glfw/{os.environ['ASWF_GLFW_VERSION']}@{self.user}/{self.channel}")
             self.requires(f"glew/{os.environ['ASWF_GLEW_VERSION']}@{self.user}/{self.channel}")
         if self.options.with_tbb:
-            self.requires(f"tbb/{os.environ['ASWF_TBB_VERSION']}@{self.user}/{self.channel}")
+            # OpenSubdiv < 3.6.0 support only onettbb/2020.x.x
+            # https://github.com/PixarAnimationStudios/OpenSubdiv/pull/1317
+            if Version(self.version) < "3.6.0":
+                self.requires("onetbb/2020.3.3", transitive_headers=True)
+            else:
+                self.requires("onetbb/2021.10.0", transitive_headers=True)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -158,7 +163,10 @@ class OpenSubdivConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
         if self.options.shared:
             # ASWF: libraries in lib64
-            rm(self, "*.a", os.path.join(self.package_folder, "lib64"))
+            # ASWF: OpenSubDiv cmake set up for both static and dynamic, downstream consummers unhappy
+            # if static libs are missing
+            # rm(self, "*.a", os.path.join(self.package_folder, "lib64"))
+            pass
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "OpenSubdiv")
@@ -167,8 +175,7 @@ class OpenSubdivConan(ConanFile):
         self.cpp_info.components["osdcpu"].set_property("cmake_target_name", f"OpenSubdiv::osdcpu{target_suffix}")
         self.cpp_info.components["osdcpu"].libs = ["osdCPU"]
         if self.options.with_tbb:
-            # ASWF: until we rename to onetbb
-            self.cpp_info.components["osdcpu"].requires = ["tbb::tbb"]
+            self.cpp_info.components["osdcpu"].requires = ["onetbb::onetbb"]
 
         if self._osd_gpu_enabled:
             self.cpp_info.components["osdgpu"].set_property("cmake_target_name", f"OpenSubdiv::osdgpu{target_suffix}")

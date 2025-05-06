@@ -1,0 +1,41 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/d034b32b3106d282c32f0a23314b5c6ba1b0fa69/recipes/onetbb/config.yml
+
+versions:
+  "2022.0.0":
+    folder: all
+  "2021.13.0":
+    folder: all
+  "2021.12.0":
+    folder: all
+  "2021.10.0":
+    folder: all
+  "2021.9.0":
+    folder: all
+  "2021.8.0":
+    folder: all
+  "2021.7.0":
+    folder: all
+  "2021.6.0":
+    folder: all
+  "2021.3.0":
+    folder: all
+  "2020_u3.3":
+    folder: "2020.x"
+  "2020_u3":
+    folder: "2020.x"
+  "2020_u2":
+    folder: "2020.x"
+  "2020_u1":
+    folder: "2020.x"
+  "2020.0":
+    folder: "2020.x"
+  "2019_u9":
+    folder: "2020.x"
+  "2019_u3":
+    folder: "2020.x"
+  "2018":
+    folder: "2020.x"

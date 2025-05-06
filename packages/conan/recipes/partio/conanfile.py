@@ -6,6 +6,7 @@ from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import apply_conandata_patches, collect_libs, copy, export_conandata_patches, get, rmdir
 from conan.tools.microsoft import is_msvc
+from conan.tools.env import Environment
 import os
 
 required_conan_version = ">=1.38.0"
@@ -49,21 +50,20 @@ class PartioConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
+        env = Environment()
+        env.define("CXXFLAGS_STD", f"c++{self.settings.get_safe('compiler.cppstd')}")
+        env.vars(self).save_script("my_env")
         tc = CMakeToolchain(self)
-        tc.variables["CMAKE_INSTALL_LIBDIR"] = "lib64" # ASWF: DSOs in lib64
         tc.generate()
 
         deps = CMakeDeps(self)
         deps.generate()
 
-    def _patch_sources(self):
-        apply_conandata_patches(self)
-
     def build(self):
-        self._patch_sources()
+        apply_conandata_patches(self)
         cmake = CMake(self)
         cmake.configure()
-        cmake.build(cli_args=["--verbose"]) # ASWF FIXME
+        cmake.build()
 
     def package(self):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
@@ -72,7 +72,9 @@ class PartioConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
 
     def package_info(self):
-        self.cpp_info.set_property("cmake_target_name", "Partio::Partio")
+        self.cpp_info.set_property("cmake_find_mode", "both")
+        self.cpp_info.set_property("cmake_file_name", "partio")
+        self.cpp_info.set_property("cmake_target_name", "partio::partio")
         self.cpp_info.includedirs = ["include"]
         self.cpp_info.libs = collect_libs(self)
         self.cpp_info.requires = ["zlib::zlib", "cpython::cpython"]
