@@ -28,7 +28,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.4.3
-* tbb-2018
+* onetbb-2018
 * qt-5.12.6
 * pyside-5.12.6
 * imath-2.3.0
@@ -58,7 +58,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.4.3
-* tbb-2018
+* onetbb-2018
 * qt-5.12.6
 * pyside-5.12.6
 * imath-2.3.0
@@ -88,7 +88,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.4.3
-* tbb-2018
+* onetbb-2018
 * qt-5.12.6
 * pyside-5.12.6
 * imath-2.3.0
@@ -118,7 +118,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.4.3
-* tbb-2018
+* onetbb-2018
 * qt-5.12.6
 * pyside-5.12.6
 * imath-2.3.0
@@ -148,7 +148,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.4.3
-* tbb-2019_u6
+* onetbb-2019_u6
 * qt-5.12.6
 * pyside-5.12.6
 * imath-2.4.0
@@ -178,7 +178,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.6.2
-* tbb-2020_u2
+* onetbb-2020_u2
 * qt-5.15.2
 * pyside-5.15.2
 * imath-2.5.5
@@ -208,7 +208,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.8.1
-* tbb-2020_u3
+* onetbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * imath-3.1.5
@@ -239,7 +239,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.8.1
-* tbb-2020_u3
+* onetbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * imath-3.1.5
@@ -270,7 +270,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.8.1
-* tbb-2020_u3
+* onetbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * imath-3.1.5
@@ -301,7 +301,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.8.1
-* tbb-2020_u3
+* onetbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * imath-3.1.5
@@ -332,7 +332,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.8.1
-* tbb-2020_u3
+* onetbb-2020_u3
 * qt-5.15.2
 * pyside-5.15.2
 * imath-3.1.5
@@ -363,7 +363,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.9.2
-* tbb-2020_u3
+* onetbb-2020_u3
 * qt-5.15.9
 * pyside-5.15.9
 * imath-3.1.9
@@ -394,7 +394,7 @@ Contains:
 * glfw-3.1.2
 * log4cplus-1.1.2
 * pybind11-2.9.2
-* tbb-2020_u3
+* onetbb-2020_u3
 * qt-5.15.9
 * pyside-5.15.9
 * imath-3.1.9
@@ -431,7 +431,7 @@ Contains:
 * md4c-0.4.8
 * pybind11-2.12.0
 * snappy-1.1.10
-* tbb-2020_u3
+* onetbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * dbus-system
@@ -461,7 +461,7 @@ Contains:
 * openvdb-11.0.0
 * materialx-1.39.2
 * usd-24.08
-* partio-1.17.1
+* partio-1.19.0
 * osl-1.13.11.0
 * otio-0.17.0
 * numpy-1.24.3
@@ -485,7 +485,7 @@ Contains:
 * md4c-0.4.8
 * pybind11-2.12.0
 * snappy-1.1.10
-* tbb-2020_u3
+* onetbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * dbus-system
@@ -515,14 +515,14 @@ Contains:
 * openvdb-11.0.0
 * materialx-1.39.2
 * usd-24.08
-* partio-1.17.1
+* partio-1.19.0
 * osl-1.13.11.0
 * otio-0.17.0
 * numpy-1.24.3
 * hdf5-1.8.23
 * vfxplatform-2024
 
-## [aswf/ci-vfxall:2025-clang18.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang18.0)
+## [aswf/ci-vfxall:2025-clang18.1](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang18.1)
 
 Contains:
 * blosc-1.21.6
@@ -539,7 +539,7 @@ Contains:
 * md4c-0.4.8
 * pybind11-2.13.6
 * snappy-1.1.10
-* tbb-2020_u3
+* onetbb-2021.13.0
 * zlib-1.3.1
 * zstd-1.5.6
 * dbus-system
@@ -562,21 +562,21 @@ Contains:
 * imath-3.1.12
 * openexr-3.3.3
 * alembic-1.8.8
-* oiio-3.0.5.0
+* oiio-3.0.6.1
 * ocio-2.4.2
 * opensubdiv-3.6.0
 * ptex-2.4.3
 * openvdb-12.0.0
 * materialx-1.39.3
-* usd-25.02a.eae7e67
-* partio-1.17.3
-* osl-1.14.5.0
+* usd-25.05
+* partio-1.19.0
+* osl-1.14.5.1
 * otio-0.17.0
 * numpy-1.26.4
 * hdf5-1.8.23
 * vfxplatform-2025
 
-## [aswf/ci-vfxall:2025-clang19.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang19.0)
+## [aswf/ci-vfxall:2025-clang19.1](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang19.1)
 
 Contains:
 * blosc-1.21.6
@@ -593,7 +593,7 @@ Contains:
 * md4c-0.4.8
 * pybind11-2.13.6
 * snappy-1.1.10
-* tbb-2020_u3
+* onetbb-2021.13.0
 * zlib-1.3.1
 * zstd-1.5.6
 * dbus-system
@@ -616,15 +616,15 @@ Contains:
 * imath-3.1.12
 * openexr-3.3.3
 * alembic-1.8.8
-* oiio-3.0.5.0
+* oiio-3.0.6.1
 * ocio-2.4.2
 * opensubdiv-3.6.0
 * ptex-2.4.3
 * openvdb-12.0.0
 * materialx-1.39.3
-* usd-25.02a.eae7e67
-* partio-1.17.3
-* osl-1.14.5.0
+* usd-25.05
+* partio-1.19.0
+* osl-1.14.5.1
 * otio-0.17.0
 * numpy-1.26.4
 * hdf5-1.8.23

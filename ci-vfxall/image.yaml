@@ -17,7 +17,7 @@ packages:
   - md4c
   - pybind11
   - snappy
-  - tbb
+  - onetbb
   - zlib
   - zstd
   - dbus

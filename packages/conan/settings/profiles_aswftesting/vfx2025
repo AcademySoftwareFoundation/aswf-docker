@@ -52,8 +52,9 @@ nasm/*: nasm/system@aswftesting/vfx2025
 nspr/*: nspr/system@aswftesting/vfx2025
 nss/*: nss/3.93@aswftesting/vfx2025
 ocio/*: ocio/2.4.2@aswftesting/vfx2025
-oiio/*: oiio/3.0.5.0@aswftesting/vfx2025
+oiio/*: oiio/3.0.6.1@aswftesting/vfx2025
 ogg/*: ogg/system@aswftesting/vfx2025
+onetbb/*: onetbb/2021.13.0@aswftesting/vfx2025
 openal-soft/*: openal-soft/system@aswftesting/vfx2025
 openexr/*: openexr/3.3.3@aswftesting/vfx2025
 opengl/*: opengl/system@aswftesting/vfx2025

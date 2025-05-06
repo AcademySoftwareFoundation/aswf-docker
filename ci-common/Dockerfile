@@ -21,6 +21,7 @@ ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_SONAR_VERSION
 ARG ASWF_CONAN_VERSION
+ARG ASWF_YQ_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
 
 
@@ -30,7 +31,7 @@ ARG ASWF_BASEOS_DISTRO
 
 
 # Comment out this block to use Conan packages
-FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-devel-${ASWF_BASEOS_DISTRO} AS ci-common
+FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-runtime-${ASWF_BASEOS_DISTRO} AS ci-common
 
 
 ARG ASWF_ORG
@@ -54,6 +55,7 @@ ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_SONAR_VERSION
 ARG ASWF_CONAN_VERSION
+ARG ASWF_YQ_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
 
 
@@ -77,6 +79,7 @@ LABEL io.aswf.docker.versions.ccache="$ASWF_CCACHE_VERSION"
 LABEL io.aswf.docker.versions.dts="$ASWF_DTS_VERSION"
 LABEL io.aswf.docker.versions.sonar="$ASWF_SONAR_VERSION"
 LABEL io.aswf.docker.versions.conan="$ASWF_CONAN_VERSION"
+LABEL io.aswf.docker.versions.yq="$ASWF_YQ_VERSION"
 
 
 ENV ASWF_ORG=${ASWF_ORG}
@@ -98,6 +101,7 @@ ENV ASWF_CCACHE_VERSION=$ASWF_CCACHE_VERSION
 ENV ASWF_DTS_VERSION=$ASWF_DTS_VERSION
 ENV ASWF_SONAR_VERSION=$ASWF_SONAR_VERSION
 ENV ASWF_CONAN_VERSION=$ASWF_CONAN_VERSION
+ENV ASWF_YQ_VERSION=$ASWF_YQ_VERSION
 ENV ASWF_CONAN_PYTHON_VERSION=$ASWF_CONAN_PYTHON_VERSION
 
 
@@ -105,13 +109,15 @@ COPY ci-common/README.md ci-common/image.yaml /usr/local/aswf/
 
 USER root
 
-COPY scripts/common/install_yumpackages.sh \
-    /tmp/
+COPY ../scripts/common/install_cudadevel.sh /tmp/
+
+RUN /tmp/install_cudadevel.sh
+
+COPY scripts/common/install_yumpackages.sh /tmp/
 
 RUN /tmp/install_yumpackages.sh
 
-COPY scripts/common/install_opengl.sh \
-    /tmp/
+COPY scripts/common/install_opengl.sh /tmp/
 
 ARG ASWF_BASEOS_DISTRO
 ENV ASWF_BASEOS_DISTRO=${ASWF_BASEOS_DISTRO}
@@ -124,10 +130,13 @@ ENV NVIDIA_DRIVER_CAPABILITIES \
 ENV PKG_CONFIG_PATH \
     /usr/local/lib/pkgconfig
 
-COPY scripts/common/install_optix.sh \
-    /tmp/
+COPY scripts/common/install_optix.sh /tmp/
 
 RUN /tmp/install_optix.sh
+
+COPY scripts/common/install_yq.sh /tmp/
+
+RUN /tmp/install_yq.sh
 
 RUN mkdir /opt/aswf
 WORKDIR /opt/aswf

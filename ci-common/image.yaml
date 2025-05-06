@@ -13,18 +13,21 @@ implicit_packages:
   - dts
   - sonar
   - conan
-docker_from: ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-devel-${ASWF_BASEOS_DISTRO}
+  - yq
+docker_from: ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-runtime-${ASWF_BASEOS_DISTRO}
 docker_package_version: $CI_COMMON_VERSION
 docker_commands: |
   USER root
 
-  COPY scripts/common/install_yumpackages.sh \
-      /tmp/
+  COPY ../scripts/common/install_cudadevel.sh /tmp/
+
+  RUN /tmp/install_cudadevel.sh
+
+  COPY scripts/common/install_yumpackages.sh /tmp/
 
   RUN /tmp/install_yumpackages.sh
 
-  COPY scripts/common/install_opengl.sh \
-      /tmp/
+  COPY scripts/common/install_opengl.sh /tmp/
 
   ARG ASWF_BASEOS_DISTRO
   ENV ASWF_BASEOS_DISTRO=${ASWF_BASEOS_DISTRO}
@@ -37,10 +40,13 @@ docker_commands: |
   ENV PKG_CONFIG_PATH \
       /usr/local/lib/pkgconfig
 
-  COPY scripts/common/install_optix.sh \
-      /tmp/
+  COPY scripts/common/install_optix.sh /tmp/
 
   RUN /tmp/install_optix.sh
+
+  COPY scripts/common/install_yq.sh /tmp/
+
+  RUN /tmp/install_yq.sh
 
   RUN mkdir /opt/aswf
   WORKDIR /opt/aswf

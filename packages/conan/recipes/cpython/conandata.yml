@@ -16,6 +16,9 @@ sources:
   "3.12.2":
     url: "https://www.python.org/ftp/python/3.12.2/Python-3.12.2.tgz"
     sha256: "a7c4f6a9dc423d8c328003254ab0c9338b83037bd787d680826a5bf84308116e"
+  "3.11.12":
+    url: "https://www.python.org/ftp/python/3.11.12/Python-3.11.12.tgz"
+    sha256: "379c9929a989a9d65a1f5d854e011f4872b142259f4fc0a8c4062d2815ed7fba"
   "3.11.11":
     url: "https://www.python.org/ftp/python/3.11.11/Python-3.11.11.tgz"
     sha256: "883bddee3c92fcb91cf9c09c5343196953cbb9ced826213545849693970868ed"
