@@ -5,6 +5,12 @@
 # From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/openimageio/all/conandata.yml
 
 sources:
+  "3.0.6.1":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.6.1.tar.gz"
+    sha256: "4d0fb92e4964f79dfaed77ac73f1a7f754c671a9f5ad29c7950c0844916ce5f5"
+  "3.0.6.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.6.0.tar.gz"
+    sha256: "670f8753d5604beb4a17e5279fb1948fa978bc72d8e0991103ddbbfea54df1b5"
   "3.0.5.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.5.0.tar.gz"
     sha256: "340bb14a084d94918de8d46af14e361168215430f3dd6c336b2ffb895fe9d5cb"
@@ -78,5 +84,12 @@ patches:
       patch_description: "Deal with generator expression from fmt Conan package"
       patch_type: "conan"
     - patch_file: "patches/3.0.5.0-imath-includes.txt"
+      patch_description: "Missing includes when Imath from Conan package"
+      patch_type: "conan"
+  "3.0.6.1":
+    - patch_file: "patches/3.0.6.1-cmake-fmt.patch"
+      patch_description: "Deal with generator expression from fmt Conan package"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.6.1-imath-includes.txt"
       patch_description: "Missing includes when Imath from Conan package"
       patch_type: "conan"

@@ -27,7 +27,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-openrv:2025.0](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2025.0)
+## [aswf/ci-openrv:2025.1](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2025.1)
 
 Contains:
 * cpython-3.11.11

@@ -75,7 +75,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-openexr:2025.0](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2025.0)
+## [aswf/ci-openexr:2025.1](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2025.1)
 
 Contains:
 * boost-1.85.0

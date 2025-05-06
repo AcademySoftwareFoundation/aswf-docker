@@ -1,4 +1,11 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
 sources:
+  "1.19.0":
+    url: "https://github.com/wdas/partio/archive/v1.19.0.tar.gz"
+    sha256: "128913266a88a0939aaa4bc951ae4d4da1c380408bcc0ea9e7f526556afeaad0"
   "1.17.3":
     url: "https://github.com/wdas/partio/archive/v1.17.3.tar.gz"
     sha256: "08a571ca75cf133f373415dfd50b7d0e33a0dd1811dfb63409f0ae46652033c1"

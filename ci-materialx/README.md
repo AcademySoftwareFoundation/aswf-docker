@@ -23,7 +23,7 @@ Warning: this image does *not* contain MaterialX itself as it is used to *build*
 Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
-* tbb-2020_u3
+* onetbb-2020_u3
 * blosc-1.17.0
 * cpython-3.9.15
 * glew-2.1.0
@@ -45,7 +45,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
-* tbb-2020_u3
+* onetbb-2020_u3
 * blosc-1.17.0
 * cpython-3.10.11
 * glew-2.1.0
@@ -79,7 +79,7 @@ Contains:
 * pugixml-1.14
 * pystring-1.1.4
 * snappy-1.1.10
-* tbb-2020_u3
+* onetbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
@@ -106,7 +106,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-materialx:2025.0](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2025.0)
+## [aswf/ci-materialx:2025.1](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2025.1)
 
 Contains:
 * b2-5.2.1
@@ -123,7 +123,7 @@ Contains:
 * pugixml-1.14
 * pystring-1.1.4
 * snappy-1.1.10
-* tbb-2020_u3
+* onetbb-2021.13.0
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6
@@ -146,7 +146,7 @@ Contains:
 * libjxl-0.11.1
 * openexr-3.3.3
 * ocio-2.4.2
-* oiio-3.0.5.0
+* oiio-3.0.6.1
 * numpy-1.26.4
 * vfxplatform-2025
 

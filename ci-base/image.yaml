@@ -17,7 +17,7 @@ packages:
   - pugixml
   - pystring
   - snappy
-  - tbb
+  - onetbb
   - tsl-robin-map
   - yaml-cpp
   - zlib

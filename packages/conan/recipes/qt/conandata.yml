@@ -50,6 +50,26 @@ sources:
       - "https://ftp.jaist.ac.jp/pub/qtproject/archive/qt/6.6/6.6.3/single/qt-everywhere-src-6.6.3.tar.xz"
       - "https://ftp.yz.yamagata-u.ac.jp/pub/qtproject/archive/qt/6.6/6.6.3/single/qt-everywhere-src-6.6.3.tar.xz"
     sha256: "69d0348fef415da98aa890a34651e9cfb232f1bffcee289b7b4e21386bf36104"
+  "6.5.5":
+    url:
+      - "https://download.qt.io/official_releases/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://download.qt.io/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://mirrors.20i.com/pub/qt.io/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://ftp.nluug.nl/languages/qt/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://mirror.netcologne.de/qtproject/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://qt-mirror.dannhauer.de/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://ftp.fau.de/qtproject/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://mirrors.dotsrc.org/qtproject/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://ftp.acc.umu.se/mirror/qt.io/qtproject/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://mirror.web4africa.ng/qt/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://qtproject.mirror.liquidtelecom.com/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://qt.mirror.constant.com/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://mirrors.cloud.tencent.com/qt/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://mirrors.sjtug.sjtu.edu.cn/qt/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://ftp.jaist.ac.jp/pub/qtproject/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+      - "https://ftp.yz.yamagata-u.ac.jp/pub/qtproject/archive/qt/6.5/6.5.5/src/single/qt-everywhere-opensource-src-6.5.5.tar.xz"
+    sha256: "7383009d74c18fbe056ee5790e2377b0fad58bb2b560bb626958acf7b594b45c"
   "6.5.4":
     url:
       - "https://download.qt.io/official_releases/qt/6.5/6.5.4/src/single/qt-everywhere-opensource-src-6.5.4.tar.xz"

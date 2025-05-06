@@ -587,7 +587,8 @@ aswfdocker release -t PACKAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1
 aswfdocker release -t IMAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 -v 2-clang12 -v 2-clang13-v 2-clang14 -v 3-clang14 -v 3-clang15 -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Base packages
-aswfdocker release -t PACKAGE -g base1-wrappers -g base1-1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-wrappers -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g base1-2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g base1-3 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
 

@@ -19,27 +19,51 @@ ARG ASWF_BASEOS_IMAGE
 
 
 #################### ci-baseos-gl-os ####################
-FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-devel-${ASWF_BASEOS_DISTRO} AS ci-baseos-gl-os
+FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-runtime-${ASWF_BASEOS_DISTRO} AS ci-baseos-gl-os
 
 ARG CI_COMMON_VERSION
 ENV CI_COMMON_VERSION=${CI_COMMON_VERSION}
 ARG ASWF_CUDA_VERSION
 ENV ASWF_CUDA_VERSION=${ASWF_CUDA_VERSION}
+ARG ASWF_GLVND_VERSION
+ENV ASWF_GLVND_VERSION=${ASWF_GLVND_VERSION}
 ARG ASWF_DTS_VERSION
 ENV ASWF_DTS_VERSION=${ASWF_DTS_VERSION}
 ARG ASWF_DTS_PREFIX
 ENV ASWF_DTS_PREFIX=${ASWF_DTS_PREFIX}
 ARG ASWF_CMAKE_VERSION
 ENV ASWF_CMAKE_VERSION=${ASWF_CMAKE_VERSION}
+ARG ASWF_YQ_VERSION
+ENV ASWF_YQ_VERSION=${ASWF_YQ_VERSION}
 
-COPY ../scripts/common/install_yumpackages.sh \
-     /tmp/
+COPY ../scripts/common/install_cudadevel.sh /tmp/
+
+RUN --mount=type=cache,sharing=private,target=/var/cache/yum \
+    /tmp/install_cudadevel.sh
+
+COPY ../scripts/common/install_yumpackages.sh /tmp/
 
 RUN --mount=type=cache,sharing=private,target=/var/cache/yum \
     /tmp/install_yumpackages.sh
 
-COPY scripts/common/install_pippackages.sh \
-    /tmp/
+COPY scripts/common/install_opengl.sh /tmp/
+
+ARG ASWF_BASEOS_DISTRO
+ENV ASWF_BASEOS_DISTRO=${ASWF_BASEOS_DISTRO}
+RUN /tmp/install_opengl.sh
+
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+ENV PKG_CONFIG_PATH \
+    /usr/local/lib/pkgconfig
+
+COPY scripts/common/install_optix.sh /tmp/
+
+RUN /tmp/install_optix.sh
+
+COPY scripts/common/install_pippackages.sh /tmp/
 
 RUN --mount=type=cache,sharing=private,target=/root/.cache/pip \
     /tmp/install_pippackages.sh
@@ -60,6 +84,9 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     /tmp/install_dev_cmake.sh && \
     /tmp/install_dev_ccache.sh
 
+COPY scripts/common/install_yq.sh /tmp/
+
+RUN /tmp/install_yq.sh
 
 #################### ci-baseos-gl-conan ####################
 FROM ci-baseos-gl-os AS ci-baseos-gl-conan
@@ -124,8 +151,8 @@ ARG ASWF_GLEW_VERSION
 ENV ASWF_GLEW_VERSION=${ASWF_GLEW_VERSION}
 ARG ASWF_GLFW_VERSION
 ENV ASWF_GLFW_VERSION=${ASWF_GLFW_VERSION}
-ARG ASWF_TBB_VERSION
-ENV ASWF_TBB_VERSION=${ASWF_TBB_VERSION}
+ARG ASWF_ONETBB_VERSION
+ENV ASWF_ONETBB_VERSION=${ASWF_ONETBB_VERSION}
 ARG ASWF_MD4C_VERSION
 ENV ASWF_MD4C_VERSION=${ASWF_MD4C_VERSION}
 ARG ASWF_FREETYPE_VERSION
@@ -162,6 +189,11 @@ ENV GCC_INSTALL_PREFIX=/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr
 # With "conan create --profile" we no longer need to set a default profile
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
+# In case we have a Conan Center Index style config.yaml to support different
+# recipes per package.
+ENV ASWF_PKG_DIR=${ASWF_CONAN_HOME}/recipes/${ASWF_PKG_NAME}
+ENV ASWF_PKG_YML=${ASWF_PKG_DIR}/config.yml
+
 RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
     --mount=type=cache,target=${CCACHE_DIR} \
     --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
@@ -175,7 +207,7 @@ RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
       --version ${ASWF_PKG_VERSION} \
       --user ${ASWF_PKG_ORG} \
       --channel ${ASWF_CONAN_CHANNEL} \
-      ${ASWF_CONAN_HOME}/recipes/${ASWF_PKG_NAME}
+      ${ASWF_PKG_DIR}/$(if [ -f ${ASWF_PKG_YML} ] ; then yq '.versions["'"${ASWF_PKG_VERSION}"'"].folder' ${ASWF_PKG_YML} ; fi)
 
 # Upload build to repository if called for
 RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \

@@ -22,7 +22,7 @@ Contains: Python, TBB, Boost, Qt, PySide and other base libraries
 Contains:
 * cppunit-1.14.0
 * gtest-1.8.1
-* tbb-2018
+* onetbb-2018
 * blosc-1.5.0
 * cpython-2.7.15
 * glew-2.1.0
@@ -40,7 +40,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * gtest-1.10.0
-* tbb-2019_u6
+* onetbb-2019_u6
 * blosc-1.5.0
 * cpython-3.7.3
 * glew-2.1.0
@@ -58,7 +58,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
-* tbb-2020_u2
+* onetbb-2020_u2
 * blosc-1.5.0
 * cpython-3.7.9
 * glew-2.1.0
@@ -76,7 +76,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
-* tbb-2020_u3
+* onetbb-2020_u3
 * blosc-1.17.0
 * cpython-3.9.15
 * glew-2.1.0
@@ -94,7 +94,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
-* tbb-2020_u3
+* onetbb-2020_u3
 * blosc-1.17.0
 * cpython-3.10.11
 * glew-2.1.0
@@ -124,7 +124,7 @@ Contains:
 * pugixml-1.14
 * pystring-1.1.4
 * snappy-1.1.10
-* tbb-2020_u3
+* onetbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
@@ -143,7 +143,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-baseqt:2025.0](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2025.0)
+## [aswf/ci-baseqt:2025.1](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2025.1)
 
 Contains:
 * b2-5.2.1
@@ -160,7 +160,7 @@ Contains:
 * pugixml-1.14
 * pystring-1.1.4
 * snappy-1.1.10
-* tbb-2020_u3
+* onetbb-2021.13.0
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6

@@ -35,7 +35,7 @@ Contains:
 * pugixml-1.14
 * pystring-1.1.4
 * snappy-1.1.10
-* tbb-2020_u3
+* onetbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.5
@@ -62,7 +62,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-oiio:2025.0](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2025.0)
+## [aswf/ci-oiio:2025.1](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2025.1)
 
 Contains:
 * b2-5.2.1
@@ -79,7 +79,7 @@ Contains:
 * pugixml-1.14
 * pystring-1.1.4
 * snappy-1.1.10
-* tbb-2020_u3
+* onetbb-2021.13.0
 * zlib-1.3.1
 * zstd-1.5.6
 * blosc-1.21.6

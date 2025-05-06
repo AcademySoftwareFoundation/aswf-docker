@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2025-05-04
+
+- 2025.1 images
+  - transition to oneTBB 2021.13.0
+    - support for Conan Center Index style config.yml to support separate recipes per package version
+  - common images much slimmer, no longer include the following CUDA components
+    - #183: Nsight Compute profiler
+    - libcublas-devel-x-y
+    - libcusparse-devel-x-y
+    - libcufft-devel-x-y
+    - libnpp-devel-x-y
+    - libcusolver-devel-x-y
+  - leverage [new NVIDIA repo](https://github.com/NVIDIA/optix-dev) to install OptiX headers
+  - #255: fix build depenedency between tcl and tk wrappers
+  - partio build correctly sets C++ standard
+  - OpenSubDiv build preserves static libraries since its CMake files expect both static and dynamic libs to be present
+- Version updates
+  - CMake 3.31.7 (was 3.31.6)
+  - CUDA 12.6.3 (was 12.6.1)
+  - oneTBB 2021.13.0 (was 2020_u3)
+  - OpenImageIO 3.0.6.1 (was 3.0.5.0)
+  - OpenShadingLanguage 1.14.5.1 (was 1.14.5.0)
+  - Optix 9.0 headers (previous most recent was 8.1)
+  - PartIO 1.19.0 (was 1.17.3)
+  - USD 25.05 (was 25.02a.eae7e67)
+
 # 2025-04-08
 
 - 2025.0 images

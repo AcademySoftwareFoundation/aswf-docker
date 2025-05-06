@@ -13,7 +13,7 @@ clang/*:shared=False
 [tool_requires]
 [replace_requires]
 [replace_tool_requires]
-cmake/*: cmake/3.31.6@aswftesting/ci_common5
+cmake/*: cmake/3.31.7@aswftesting/ci_common5
 [platform_requires]
 [buildenv]
 GCC_INSTALL_DIR=/opt/rh/gcc-toolset-11/root/lib/gcc/x86_64-redhat-linux/11
