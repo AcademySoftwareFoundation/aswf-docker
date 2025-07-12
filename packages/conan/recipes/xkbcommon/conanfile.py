@@ -2,10 +2,11 @@
 # SPDX-License-Identifier: MIT
 
 from conan import ConanFile
+from conan.tools.files import load
+import re
 
 class SystemXkbcommonConan(ConanFile):
     name = "xkbcommon"
-    version = "0.9.1"
     
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -14,6 +15,11 @@ class SystemXkbcommonConan(ConanFile):
     default_options = {
         "with_x11": True,
     }
+
+    def set_version(self):
+        content = load(self, "/usr/lib64/pkgconfig/xkbcommon.pc")
+        match = re.search(r"^Version:\s*(.+)$", content, re.MULTILINE)
+        self.version = match.group(1).strip()
 
     def requirements(self):
         # self.requires("xkeyboard-config/system")
@@ -25,16 +31,15 @@ class SystemXkbcommonConan(ConanFile):
             self.requires("wayland/1.22.0")
    
     def package_info(self):
-        self.cpp_info.includedirs = ["/usr/include"]
-        self.cpp_info.libdirs = ["/usr/lib64"]
+        self.cpp_info.includedirs = []
 
         self.cpp_info.components["libxkbcommon"].set_property("pkg_config_name", "xkbcommon")
-        self.cpp_info.components["libxkbcommon"].libs = ["xkbcommon"]
+        self.cpp_info.components["libxkbcommon"].system_libs = ["xkbcommon"]
         self.cpp_info.components["libxkbcommon"].resdirs = ["res"]
-        self.cpp_info.components["libxkbcommon"].includedirs = ["/usr/include"]
+        self.cpp_info.components["libxkbcommon"].includedirs = []
         
         self.cpp_info.components["libxkbcommon-x11"].set_property("pkg_config_name", "xkbcommon-x11")
-        self.cpp_info.components["libxkbcommon-x11"].libs = ["xkbcommon-x11"]
+        self.cpp_info.components["libxkbcommon-x11"].system_libs = ["xkbcommon-x11"]
         self.cpp_info.components["libxkbcommon-x11"].requires = ["libxkbcommon", "xorg::xcb", "xorg::xcb-xkb"]
-        self.cpp_info.components["libxkbcommon-x11"].includedirs = ["/usr/include"]
+        self.cpp_info.components["libxkbcommon-x11"].includedirs = []
 

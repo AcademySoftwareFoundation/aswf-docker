@@ -13,8 +13,7 @@ class SystemLibdrmConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
 
     def package_info(self):
-        self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["drm", "drm_amdgpu", "drm_nouveau", "drm_intel", "drm_radeon"]
+        self.cpp_info.system_libs = ["drm", "drm_amdgpu", "drm_nouveau", "drm_intel", "drm_radeon"]
         self.cpp_info.includedirs = ["/usr/include/libdrm", "/usr/include/libdrm/nouveau"]
 
         self.cpp_info.set_property("cmake_file_name", "Libdrm")

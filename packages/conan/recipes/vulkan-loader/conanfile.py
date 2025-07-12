@@ -14,9 +14,8 @@ class SystemVulkanLoaderConan(ConanFile):
    
     def package_info(self):
         self.cpp_info.includedirs = ["/usr/include/vulkan"]
-        self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["vulkan"]
-        self.cpp_info.system_libs = ["dl", "pthread", "m"]
+        self.cpp_info.system_libs = ["vulkan"]
+        self.cpp_info.system_libs.extend(["dl", "pthread", "m"])
         
         self.cpp_info.set_property("cmake_find_mode", "both")
         self.cpp_info.set_property("cmake_module_file_name", "Vulkan")

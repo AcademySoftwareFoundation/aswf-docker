@@ -3,7 +3,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From:https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/snappy/all/test_package/test_package.c
+# From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/snappy/all/test_package/test_package.c
 */
 
 #include <snappy-c.h>

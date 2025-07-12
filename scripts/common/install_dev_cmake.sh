@@ -6,7 +6,7 @@ set -ex
 
 mkdir -p /opt/aswfbuilder
 
-export DEV_CMAKE_VERSION=3.31.6
+export DEV_CMAKE_VERSION=$ASWF_CMAKE_VERSION
 
 if [ ! -f "$DOWNLOADS_DIR/cmake-${DEV_CMAKE_VERSION}-Linux-x86_64.sh" ]; then
     curl --location "https://github.com/Kitware/CMake/releases/download/v${DEV_CMAKE_VERSION}/cmake-${DEV_CMAKE_VERSION}-Linux-x86_64.sh" -o "$DOWNLOADS_DIR/cmake-${DEV_CMAKE_VERSION}-Linux-x86_64.sh"

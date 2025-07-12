@@ -14,8 +14,7 @@ class SystemOpenALSoftConan(ConanFile):
    
     def package_info(self):
         self.cpp_info.includedirs = ["/usr/include/AL"]
-        self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["openal"]
+        self.cpp_info.system_libs = ["openal"]
         
         self.cpp_info.set_property("cmake_find_mode", "both")
         self.cpp_info.set_property("cmake_file_name", "OpenAL")

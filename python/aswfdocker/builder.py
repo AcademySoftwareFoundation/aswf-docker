@@ -33,9 +33,8 @@ class Builder:
 
     def make_bake_dict(
         self,
-        keep_source: bool,
-        keep_build: bool,
         build_missing: bool,
+        no_remote: bool,
     ) -> typing.Dict[str, dict]:
         # pylint: disable=too-many-locals
         root: typing.Dict[str, dict] = {}
@@ -110,13 +109,10 @@ class Builder:
                             + "_VERSION"
                         ),
                         "ASWF_CONAN_HOME": constants.ASWF_CONAN_HOME,
-                        "ASWF_CONAN_KEEP_SOURCE": "--keep-source"
-                        if keep_source
-                        else "",
-                        "ASWF_CONAN_KEEP_BUILD": "--keep-build" if keep_build else "",
                         "ASWF_CONAN_BUILD_MISSING": "--build=missing"
                         if build_missing
                         else "",
+                        "ASWF_CONAN_NO_REMOTE": "--no-remote" if no_remote else "",
                         "ASWF_CONAN_PUSH": "TRUE" if self.push else "",
                     }
                 )
@@ -148,11 +144,10 @@ class Builder:
 
     def make_bake_jsonfile(
         self,
-        keep_source: bool,
-        keep_build: bool,
         build_missing: bool,
+        no_remote: bool,
     ) -> typing.Optional[str]:
-        d = self.make_bake_dict(keep_source, keep_build, build_missing)
+        d = self.make_bake_dict(build_missing, no_remote)
         if not d["group"]["default"]["targets"]:
             return None
         groups = "-".join(self.group_info.names)
@@ -304,9 +299,8 @@ class Builder:
         self,
         dry_run: bool = False,
         progress: str = "",
-        keep_source=False,
-        keep_build=False,
         build_missing=False,
+        no_remote=False,
     ) -> None:
         images_and_versions = []
         for image, version in self.group_info.iter_images_versions(get_image=True):
@@ -322,7 +316,7 @@ class Builder:
         if not images_and_versions:
             return
 
-        path = self.make_bake_jsonfile(keep_source, keep_build, build_missing)
+        path = self.make_bake_jsonfile(build_missing, no_remote)
         if path:
             self._run(
                 f"docker buildx bake -f {path} --progress {progress}", dry_run=dry_run

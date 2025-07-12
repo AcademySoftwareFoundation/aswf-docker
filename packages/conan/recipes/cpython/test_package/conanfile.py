@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/cpython/all/test_package/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/d4f752a9a00040dfd8e397f3ac4eaf3be7c515ce/recipes/cpython/all/test_package/conanfile.py
 
 import os
 from io import StringIO
@@ -72,6 +72,14 @@ class TestPackageConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         tc.cache_variables["BUILD_MODULE"] = self._supports_modules
+        # ASWF: CMakeToolchain doesn't pass LD_LIBRARY_PATH to configure but we need it for gcc-toolset
+        # tc.presets_run_environment["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"]
+        # ASWF: as per https://github.com/python/cpython/issues/95957 starting with
+        # version 3.11 options --with-tcltk-libs and --with-tcltk-includes are no longer
+        # recognized and configure relies on pkgconf to find those. Our Tcl/Tk wrapper
+        # packages don't provide those, inject them via TCLTK_LIBS env var
+        if Version(self.version) >= "3.11":
+            os.environ["TCLTK_LIBS"] = "-ltcl -ltk"
         tc.generate()
 
         deps = CMakeDeps(self)

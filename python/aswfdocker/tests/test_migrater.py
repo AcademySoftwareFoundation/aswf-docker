@@ -23,29 +23,29 @@ class TestMigrater(unittest.TestCase):
 
     def test_migrate_pkgfilter(self):
         m = migrater.Migrater("src", "dst")
-        m.gather("openexr", "")
-        self.assertEqual(len(m.migration_list), 7)
+        m.gather("usd", "")
+        self.assertEqual(len(m.migration_list), 8)
 
     def test_migrate_versionfilter(self):
         m = migrater.Migrater("src", "dst")
-        m.gather("openexr", "2019")
+        m.gather("usd", "2019")
         current_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "openexr")
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "usd")
         )[0]
         self.assertEqual(len(m.migration_list), 1)
         minfo = m.migration_list[0]
-        self.assertEqual(minfo.image, "ci-package-openexr")
+        self.assertEqual(minfo.image, "ci-package-usd")
         oexr_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "openexr")
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "usd")
         )[0]
         self.assertEqual(minfo.version, oexr_version)
         self.assertEqual(
             minfo.source,
-            f"{constants.DOCKER_REGISTRY}/src/ci-package-openexr:{current_version}",
+            f"{constants.DOCKER_REGISTRY}/src/ci-package-usd:{current_version}",
         )
         self.assertEqual(
             minfo.destination,
-            f"{constants.DOCKER_REGISTRY}/dst/ci-package-openexr:{current_version}",
+            f"{constants.DOCKER_REGISTRY}/dst/ci-package-usd:{current_version}",
         )
 
         m.migrate(dry_run=True)
@@ -53,13 +53,13 @@ class TestMigrater(unittest.TestCase):
         self.assertEqual(
             m.cmds,
             [
-                f"docker pull {reg}/src/ci-package-openexr:{current_version}",
-                f"docker tag {reg}/src/ci-package-openexr:{current_version} "
-                f"{reg}/dst/ci-package-openexr:{current_version}",
-                f"docker push {reg}/dst/ci-package-openexr:{current_version}",
-                f"docker tag {reg}/dst/ci-package-openexr:{current_version} "
-                f"{reg}/dst/ci-package-openexr:2019",
-                f"docker push {reg}/dst/ci-package-openexr:2019",
+                f"docker pull {reg}/src/ci-package-usd:{current_version}",
+                f"docker tag {reg}/src/ci-package-usd:{current_version} "
+                f"{reg}/dst/ci-package-usd:{current_version}",
+                f"docker push {reg}/dst/ci-package-usd:{current_version}",
+                f"docker tag {reg}/dst/ci-package-usd:{current_version} "
+                f"{reg}/dst/ci-package-usd:2019",
+                f"docker push {reg}/dst/ci-package-usd:2019",
             ],
         )
 
@@ -83,7 +83,7 @@ class TestMigraterCli(unittest.TestCase):
                 "--to",
                 "dst",
                 "--package",
-                "openexr",
+                "usd",
                 "--version",
                 "2019",
                 "--dry-run",
@@ -92,17 +92,17 @@ class TestMigraterCli(unittest.TestCase):
         )
         self.assertEqual(result.exit_code, 0)
         current_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "openexr")
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "usd")
         )[0]
         reg = constants.DOCKER_REGISTRY
         self.assertEqual(
             result.output,
             f"Are you sure you want to migrate the following 1 packages?\n"
-            f"{reg}/src/ci-package-openexr:{current_version} -> "
-            f"{reg}/dst/ci-package-openexr:{current_version}\n"
+            f"{reg}/src/ci-package-usd:{current_version} -> "
+            f"{reg}/dst/ci-package-usd:{current_version}\n"
             f" [y/N]: y\n"
             f"INFO:aswfdocker.migrater:Migrating "
-            f"{reg}/src/ci-package-openexr:{current_version} -> "
-            f"{reg}/dst/ci-package-openexr:{current_version}\n"
+            f"{reg}/src/ci-package-usd:{current_version} -> "
+            f"{reg}/dst/ci-package-usd:{current_version}\n"
             f"Migration done.\n",
         )

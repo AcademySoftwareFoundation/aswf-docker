@@ -13,6 +13,5 @@ class SystemLibxshmfenceConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
 
     def package_info(self):
-        self.cpp_info.includedirs = ["/usr/include"]
-        self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["xshmfence"]
+        self.cpp_info.includedirs = []
+        self.cpp_info.system_libs = ["xshmfence"]

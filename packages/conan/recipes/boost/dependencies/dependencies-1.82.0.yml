@@ -1,4 +1,4 @@
-onfigure_options:
+configure_options:
 - atomic
 - chrono
 - container

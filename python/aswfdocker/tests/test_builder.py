@@ -19,38 +19,41 @@ class TestBuilder(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.build_info = aswfinfo.ASWFInfo(
-            repo_uri="notauri", source_branch="testing", aswf_version="2019.123"
+            repo_uri="notauri", source_branch="testing", aswf_version="2024.123"
         )
 
-    def test_package_openvdb_2019_dict(self):
+    def test_package_usd_2024_dict(self):
         b = builder.Builder(
             self.build_info,
             groupinfo.GroupInfo(
-                names=["vfx1"],
-                versions=["2019"],
+                names=["vfx2"],
+                versions=["2024"],
                 type_=constants.ImageType.PACKAGE,
                 targets=[],
             ),
         )
-        openvdb_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "openvdb")
+        usd_version = list(
+            filter(
+                lambda package: package.startswith("2024"),
+                index.Index().iter_versions(constants.ImageType.PACKAGE, "usd"),
+            )
         )[0]
-        baked = b.make_bake_dict(False, False, False)
+        baked = b.make_bake_dict(False, False)
         self.assertEqual(
-            baked["target"]["ci-package-openvdb-2019"]["tags"],
+            baked["target"]["ci-package-usd-2024"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-openvdb:2019",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-openvdb:{openvdb_version}",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-openvdb:2019-6.2.1",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-usd:2024",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-usd:{usd_version}",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-usd:2024-24.08",
             ],
         )
         self.assertEqual(
-            baked["target"]["ci-package-openvdb-2019"]["args"]["ASWF_VERSION"],
-            openvdb_version,
+            baked["target"]["ci-package-usd-2024"]["args"]["ASWF_VERSION"],
+            usd_version,
         )
         self.assertEqual(
-            baked["target"]["ci-package-openvdb-2019"]["dockerfile"],
-            "packages/vfx1/Dockerfile",
+            baked["target"]["ci-package-usd-2024"]["dockerfile"],
+            "packages/vfx2/Dockerfile",
         )
 
     def test_package_osl_2019_dict_conan(self):
@@ -66,7 +69,7 @@ class TestBuilder(unittest.TestCase):
         osl_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "osl")
         )[0]
-        baked = b.make_bake_dict(False, False, False)
+        baked = b.make_bake_dict(False, False)
         self.assertIn(
             "ASWF_OSL_VERSION", baked["target"]["ci-package-osl-2019"]["args"]
         )
@@ -100,7 +103,7 @@ class TestBuilder(unittest.TestCase):
         base_version = list(
             index.Index().iter_versions(constants.ImageType.IMAGE, "base")
         )[0]
-        baked = b.make_bake_dict(False, False, False)
+        baked = b.make_bake_dict(False, False)
         self.assertEqual(
             baked["target"]["ci-base-2019"]["tags"],
             [
@@ -126,7 +129,7 @@ class TestBuilder(unittest.TestCase):
             index.Index().iter_versions(constants.ImageType.IMAGE, "openvdb")
         )[3]
         self.assertEqual(
-            b.make_bake_dict(False, False, False),
+            b.make_bake_dict(False, False),
             {
                 "group": {"default": {"targets": ["ci-openvdb-2019-clang9"]}},
                 "target": {
@@ -135,7 +138,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_ALEMBIC_VERSION": "1.7.11",
                             "ASWF_BASEOS_DISTRO": "centos7",
                             "ASWF_BASEOS_IMAGE": "nvidia/cudagl",
-                            "ASWF_BLOSC_VERSION": "1.5.0",
+                            "ASWF_C_BLOSC_VERSION": "1.5.0",
                             "ASWF_BOOST_VERSION": "1.66.0",
                             "ASWF_CCACHE_VERSION": "4.0",
                             "ASWF_CLANG_MAJOR_VERSION": "9",
@@ -217,7 +220,7 @@ class TestBuilder(unittest.TestCase):
             index.Index().iter_versions(constants.ImageType.IMAGE, "base")
         )
         self.assertEqual(
-            b.make_bake_dict(False, False, False),
+            b.make_bake_dict(False, False),
             {
                 "group": {"default": {"targets": ["ci-base-2019", "ci-base-2020"]}},
                 "target": {
@@ -228,7 +231,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_ALEMBIC_VERSION": "1.7.12",
                             "ASWF_BASEOS_DISTRO": "centos7",
                             "ASWF_BASEOS_IMAGE": "nvidia/cudagl",
-                            "ASWF_BLOSC_VERSION": "1.5.0",
+                            "ASWF_C_BLOSC_VERSION": "1.5.0",
                             "ASWF_BOOST_VERSION": "1.70.0",
                             "ASWF_CCACHE_VERSION": "4.0",
                             "ASWF_CLANG_MAJOR_VERSION": "7",
@@ -297,7 +300,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_ALEMBIC_VERSION": "1.7.11",
                             "ASWF_BASEOS_DISTRO": "centos7",
                             "ASWF_BASEOS_IMAGE": "nvidia/cudagl",
-                            "ASWF_BLOSC_VERSION": "1.5.0",
+                            "ASWF_C_BLOSC_VERSION": "1.5.0",
                             "ASWF_BOOST_VERSION": "1.66.0",
                             "ASWF_CCACHE_VERSION": "4.0",
                             "ASWF_CLANG_MAJOR_VERSION": "7",
@@ -383,15 +386,15 @@ class TestBuilderCli(unittest.TestCase):
                 "--ci-image-type",
                 "PACKAGE",
                 "--version",
-                "2019",
+                "2024",
                 "--target",
-                "openvdb",
+                "usd",
                 "--dry-run",
             ],
         )
         self.assertFalse(result.exception)
         bake_path = os.path.join(
-            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019.json"
+            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx2-2024.json"
         )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
@@ -463,17 +466,17 @@ class TestBuilderCli(unittest.TestCase):
                 "--ci-image-type",
                 "PACKAGE",
                 "--version",
-                "2019",
+                "2024",
                 "--version",
-                "2020",
+                "2025",
                 "--target",
-                "openvdb",
+                "usd",
                 "--dry-run",
             ],
         )
         self.assertFalse(result.exception)
         bake_path = os.path.join(
-            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2019-2020.json"
+            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx2-2024-2025.json"
         )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(
@@ -552,7 +555,7 @@ class TestBuilderCli(unittest.TestCase):
             "docker-bake-IMAGE-common-1-clang10-1-clang6-1-clang7-1"
             "-clang8-1-clang9-2-clang10-2-clang11-2-clang12-2-clang13-2"
             "-clang14-3-clang14-3-clang15-4-clang16-4-clang17"
-            "-5-clang18-5-clang19.json",
+            "-5-clang18-5-clang19-6-clang19-6-clang20.json",
         )
         cmd = f"docker buildx bake -f {bake_path} --progress auto"
         self.assertEqual(

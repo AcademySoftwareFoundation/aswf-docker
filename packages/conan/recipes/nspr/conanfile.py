@@ -14,7 +14,6 @@ class SystemNsprConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.includedirs = ["/usr/include/nspr4"]
-        self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["plds4", "plc4", "nspr4"]    
+        self.cpp_info.system_libs = ["plds4", "plc4", "nspr4"]
         self.cpp_info.system_libs.extend(["dl", "pthread", "rt"])
         self.cpp_info.resdirs = ["res"]

@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/snappy/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/snappy/all/conanfile.py
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd, stdcpp_library
@@ -11,7 +11,7 @@ from conan.tools.files import apply_conandata_patches, copy, export_conandata_pa
 from conan.tools.scm import Version
 import os
 
-required_conan_version = ">=1.54.0"
+required_conan_version = ">=2.1"
 
 
 class SnappyConan(ConanFile):
@@ -80,6 +80,8 @@ class SnappyConan(ConanFile):
                 tc.variables["SNAPPY_HAVE_BMI2"] = self.options.with_bmi2
             if self.options.with_ssse3 != "auto":
                 tc.variables["SNAPPY_HAVE_SSSE3"] = self.options.with_ssse3
+        if Version(self.version) < "1.2.2": # pylint: disable=conan-condition-evals-to-constant
+            tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
         tc.generate()
 
     def build(self):
@@ -108,9 +110,4 @@ class SnappyConan(ConanFile):
             if libcxx:
                 self.cpp_info.components["snappylib"].system_libs.append(libcxx)
 
-        # TODO: to remove in conan v2 once cmake_find_package* generators removed
-        self.cpp_info.names["cmake_find_package"] = "Snappy"
-        self.cpp_info.names["cmake_find_package_multi"] = "Snappy"
-        self.cpp_info.components["snappylib"].names["cmake_find_package"] = "snappy"
-        self.cpp_info.components["snappylib"].names["cmake_find_package_multi"] = "snappy"
         self.cpp_info.components["snappylib"].set_property("cmake_target_name", "Snappy::snappy")

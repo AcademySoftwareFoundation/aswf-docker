@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/b96b04ffad873992cbcfb98f0d84f6f44beb169d/recipes/libjpeg-turbo/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/libjpeg-turbo/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -13,7 +13,7 @@ from conan.tools.microsoft import is_msvc, is_msvc_static_runtime
 from conan.tools.scm import Version
 import os
 
-required_conan_version = ">=1.53.0"
+required_conan_version = ">=2.1"
 
 
 class LibjpegTurboConan(ConanFile):
@@ -24,6 +24,7 @@ class LibjpegTurboConan(ConanFile):
     homepage = "https://libjpeg-turbo.org"
     topics = ("jpeg", "libjpeg", "image", "multimedia", "format", "graphics")
     provides = "libjpeg"
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
         "shared": [True, False],
@@ -127,6 +128,8 @@ class LibjpegTurboConan(ConanFile):
             tc.variables["WITH_CRT_DLL"] = True # avoid replacing /MD by /MT in compiler flags
         if Version(self.version) <= "2.1.0":
             tc.variables["CMAKE_MACOSX_BUNDLE"] = False # avoid configuration error if building for iOS/tvOS/watchOS
+        if Version(self.version) < "3.0.2":
+            tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
         tc.generate()
 
     def _patch_sources(self):
@@ -178,12 +181,3 @@ class LibjpegTurboConan(ConanFile):
             self.cpp_info.components["turbojpeg"].set_property("cmake_target_name", f"libjpeg-turbo::turbojpeg{cmake_target_suffix}")
             self.cpp_info.components["turbojpeg"].set_property("pkg_config_name", "libturbojpeg")
             self.cpp_info.components["turbojpeg"].libs = [f"turbojpeg{lib_suffix}"]
-
-        # TODO: to remove in conan v2
-        self.cpp_info.names["cmake_find_package"] = "JPEG"
-        self.cpp_info.names["cmake_find_package_multi"] = "libjpeg-turbo"
-        self.cpp_info.components["jpeg"].names["cmake_find_package"] = "JPEG"
-        self.cpp_info.components["jpeg"].names["cmake_find_package_multi"] = f"jpeg{cmake_target_suffix}"
-        if self.options.get_safe("turbojpeg"):
-            self.cpp_info.components["turbojpeg"].names["cmake_find_package"] = f"turbojpeg{cmake_target_suffix}"
-            self.cpp_info.components["turbojpeg"].names["cmake_find_package_multi"] = f"turbojpeg{cmake_target_suffix}"

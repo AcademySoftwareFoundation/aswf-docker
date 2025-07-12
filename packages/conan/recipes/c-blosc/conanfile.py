@@ -2,20 +2,21 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/22dfbd2b42eed730eca55e14025e8ffa65f723b2/recipes/c-blosc/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/86cbb6845aa71dcbdb4482a332c338e2c1833801/recipes/c-blosc/all/conanfile.py
 
 from conan import ConanFile
+from conan.errors import ConanException
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rmdir
 from conan.tools.microsoft import is_msvc
 from conan.tools.scm import Version
 import os
 
-required_conan_version = ">=1.53.0"
+required_conan_version = ">=2.1"
 
 
 class CbloscConan(ConanFile):
-    name = "blosc"
+    name = "c-blosc"
     description = "An extremely fast, multi-threaded, meta-compressor library."
     license = "BSD-3-Clause"
     topics = ("blosc", "compression")
@@ -64,13 +65,13 @@ class CbloscConan(ConanFile):
 
     def requirements(self):
         if self.options.with_lz4:
-           self.requires(f"lz4/1.10.0@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}", transitive_libs=True)
+            self.requires("lz4/1.9.4")
         if self.options.with_snappy:
-           self.requires(f"snappy/1.1.10@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}", transitive_libs=True)
+            self.requires("snappy/1.1.10")
         if self.options.with_zlib:
-           self.requires(f"zlib/[>=1.2.11 <2]@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}", transitive_libs=True)
+            self.requires("zlib/[>=1.2.11 <2]")
         if self.options.with_zstd:
-           self.requires(f"zstd/1.5.6@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}", transitive_libs=True)
+            self.requires("zstd/1.5.5")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -100,6 +101,9 @@ class CbloscConan(ConanFile):
         tc.variables["CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP"] = True
         # Generate a relocatable shared lib on Macos
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0042"] = "NEW"
+        tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
+        # if Version(self.version) > "1.21.5": # pylint: disable=conan-unreachable-upper-version # ASWF disable check
+        #     raise ConanException("CMAKE_POLICY_VERSION_MINIMUM hardcoded to 3.5, check if new version supports CMake 4")
         tc.generate()
 
         deps = CMakeDeps(self)
@@ -116,11 +120,13 @@ class CbloscConan(ConanFile):
         cmake.build()
 
     def package(self):
-        licenses = [ "BLOSC.txt", "BITSHUFFLE.txt", "FASTLZ.txt" ]
+        licenses = ["BLOSC.txt", "BITSHUFFLE.txt", "FASTLZ.txt"]
         for license_file in licenses:
+            # ASWF: license files in package specific directory
             copy(self, license_file, src=os.path.join(self.source_folder, "LICENSES"), dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
+        # ASWF: pkgconfig in lib64
         rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
 
     def package_info(self):

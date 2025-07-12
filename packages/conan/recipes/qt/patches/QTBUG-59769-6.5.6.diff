@@ -1,0 +1,30 @@
+diff -u -r a/src/3rdparty/gn/src/gn/ninja_action_target_writer.cc b/src/3rdparty/gn/src/gn/ninja_action_target_writer.cc
+--- a/src/3rdparty/gn/src/gn/ninja_action_target_writer.cc	2023-11-25 10:36:14.535016596 -0800
++++ b/src/3rdparty/gn/src/gn/ninja_action_target_writer.cc	2023-11-25 10:38:14.942776684 -0800
+@@ -6,6 +6,10 @@
+
+ #include <stddef.h>
+
++#include <functional>
++#include <iostream>
++#include <string>
++
+ #include "base/strings/string_util.h"
+ #include "gn/deps_iterator.h"
+ #include "gn/err.h"
+@@ -124,7 +127,15 @@
+     // each invocation of the rule gets a different response file. This isn't
+     // strictly necessary for regular one-shot actions, but it's easier to
+     // just always define unique_name.
++
++    // filename too long issue.
+     std::string rspfile = custom_rule_name;
++
++    std::hash<std::string> hash_fn;
++    size_t hash_id = hash_fn(rspfile);
++
++    rspfile = std::to_string(hash_id);
++
+     if (!target_->sources().empty())
+       rspfile += ".$unique_name";
+     rspfile += ".rsp";

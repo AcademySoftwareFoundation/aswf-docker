@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/libxcrypt/all/conandata.yml
 
 sources:
+  "4.4.38":
+    url: "https://github.com/besser82/libxcrypt/archive/v4.4.38.tar.gz"
+    sha256: "9fb45586b2e83727934fbe046a4fef4804017577f1d048f91d56d0d830a5a98e"
   "4.4.36":
     url: "https://github.com/besser82/libxcrypt/archive/v4.4.36.tar.gz"
     sha256: "b979838d5f1f238869d467484793b72b8bca64c4eae696fdbba0a9e0b6c28453"

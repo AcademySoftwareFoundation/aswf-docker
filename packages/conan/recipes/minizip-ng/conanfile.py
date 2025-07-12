@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/minizip-ng/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/minizip-ng/all/conanfile.py
 
 from conan import ConanFile
 from conan.tools.apple import is_apple_os
@@ -177,7 +177,7 @@ class MinizipNgConan(ConanFile):
         self.cpp_info.set_property("pkg_config_name", "minizip")
 
         # TODO: back to global scope in conan v2 once cmake_find_package_* generators removed
-        prefix = "lib" if is_msvc(self) or self._is_clang_cl else ""
+        prefix = "lib" if Version(self.version) < "4.0.7" and (is_msvc(self) or self._is_clang_cl) else ""
         suffix = "" if self.options.mz_compatibility else "-ng"
         self.cpp_info.components["minizip"].libs = [f"{prefix}minizip{suffix}"]
         if self.options.with_lzma:

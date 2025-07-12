@@ -20,7 +20,6 @@ Contains: all supported VFX packages
 ## [aswf/ci-vfxall:2019-clang6.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang6.12)
 
 Contains:
-* blosc-1.5.0
 * boost-1.66.0
 * cppunit-1.14.0
 * cpython-2.7.15
@@ -50,7 +49,6 @@ Contains:
 ## [aswf/ci-vfxall:2019-clang7.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang7.12)
 
 Contains:
-* blosc-1.5.0
 * boost-1.66.0
 * cppunit-1.14.0
 * cpython-2.7.15
@@ -80,7 +78,6 @@ Contains:
 ## [aswf/ci-vfxall:2019-clang8.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang8.12)
 
 Contains:
-* blosc-1.5.0
 * boost-1.66.0
 * cppunit-1.14.0
 * cpython-2.7.15
@@ -110,7 +107,6 @@ Contains:
 ## [aswf/ci-vfxall:2019-clang9.12](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2019-clang9.12)
 
 Contains:
-* blosc-1.5.0
 * boost-1.66.0
 * cppunit-1.14.0
 * cpython-2.7.15
@@ -140,7 +136,6 @@ Contains:
 ## [aswf/ci-vfxall:2020-clang7.10](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2020-clang7.10)
 
 Contains:
-* blosc-1.5.0
 * boost-1.70.0
 * cppunit-1.15.1
 * cpython-3.7.3
@@ -170,7 +165,6 @@ Contains:
 ## [aswf/ci-vfxall:2021-clang10.7](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2021-clang10.7)
 
 Contains:
-* blosc-1.5.0
 * boost-1.73.0
 * cppunit-1.15.1
 * cpython-3.7.9
@@ -200,7 +194,6 @@ Contains:
 ## [aswf/ci-vfxall:2022-clang10.13](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang10.13)
 
 Contains:
-* blosc-1.17.0
 * boost-1.76.0
 * cppunit-1.15.1
 * cpython-3.9.15
@@ -231,7 +224,6 @@ Contains:
 ## [aswf/ci-vfxall:2022-clang11.13](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang11.13)
 
 Contains:
-* blosc-1.17.0
 * boost-1.76.0
 * cppunit-1.15.1
 * cpython-3.9.15
@@ -262,7 +254,6 @@ Contains:
 ## [aswf/ci-vfxall:2022-clang12.4](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang12.4)
 
 Contains:
-* blosc-1.17.0
 * boost-1.76.0
 * cppunit-1.15.1
 * cpython-3.9.15
@@ -293,7 +284,6 @@ Contains:
 ## [aswf/ci-vfxall:2022-clang13.4](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang13.4)
 
 Contains:
-* blosc-1.17.0
 * boost-1.76.0
 * cppunit-1.15.1
 * cpython-3.9.15
@@ -324,7 +314,6 @@ Contains:
 ## [aswf/ci-vfxall:2022-clang14.3](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2022-clang14.3)
 
 Contains:
-* blosc-1.17.0
 * boost-1.76.0
 * cppunit-1.15.1
 * cpython-3.9.15
@@ -355,7 +344,6 @@ Contains:
 ## [aswf/ci-vfxall:2023-clang14.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang14.2)
 
 Contains:
-* blosc-1.17.0
 * boost-1.80.0
 * cppunit-1.15.1
 * cpython-3.10.11
@@ -386,7 +374,6 @@ Contains:
 ## [aswf/ci-vfxall:2023-clang15.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang15.2)
 
 Contains:
-* blosc-1.17.0
 * boost-1.80.0
 * cppunit-1.15.1
 * cpython-3.10.11
@@ -414,29 +401,28 @@ Contains:
 * hdf5-1.8.23
 * vfxplatform-2023
 
-## [aswf/ci-vfxall:2024-clang16.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang16.2)
+## [aswf/ci-vfxall:2024-clang16.3](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang16.3)
 
 Contains:
-* blosc-1.21.5
 * boost-1.82.0
 * cppunit-1.15.1
-* cpython-3.11.11
+* cpython-3.11.13
 * expat-2.6.4
 * freetype-2.13.2
-* glew-2.1.0
-* glfw-3.3.8
+* glew-2.2.0
+* glfw-3.4
 * libbacktrace-cci.20210118
-* log4cplus-2.1.1
+* log4cplus-2.1.2
 * lz4-1.10.0
 * md4c-0.4.8
-* pybind11-2.12.0
+* pybind11-2.13.6
 * snappy-1.1.10
 * onetbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * dbus-system
 * fontconfig-system
-* glib-2.78.3
+* glib-2.56.4
 * libalsa-system
 * libdrm-system
 * libsndfile-system
@@ -444,19 +430,19 @@ Contains:
 * libwebp-1.5.0
 * libxshmfence-system
 * md4c-0.4.8
-* nss-3.93
+* nss-3.93.0
 * openjpeg-2.4.0
 * opus-system
 * pulseaudio-system
 * xkbcommon-0.9.1
-* qt-6.5.4
-* pyside-6.5.4
+* qt-6.5.6
+* pyside-6.5.6
 * imath-3.1.12
 * openexr-3.2.4
 * alembic-1.8.6
-* oiio-2.5.18.0
+* oiio-2.5.19.0
 * ocio-2.3.2
-* opensubdiv-3.6.0
+* opensubdiv-3.6.1
 * ptex-2.4.2
 * openvdb-11.0.0
 * materialx-1.39.2
@@ -468,29 +454,28 @@ Contains:
 * hdf5-1.8.23
 * vfxplatform-2024
 
-## [aswf/ci-vfxall:2024-clang17.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang17.2)
+## [aswf/ci-vfxall:2024-clang17.3](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang17.3)
 
 Contains:
-* blosc-1.21.5
 * boost-1.82.0
 * cppunit-1.15.1
-* cpython-3.11.11
+* cpython-3.11.13
 * expat-2.6.4
 * freetype-2.13.2
-* glew-2.1.0
-* glfw-3.3.8
+* glew-2.2.0
+* glfw-3.4
 * libbacktrace-cci.20210118
-* log4cplus-2.1.1
+* log4cplus-2.1.2
 * lz4-1.10.0
 * md4c-0.4.8
-* pybind11-2.12.0
+* pybind11-2.13.6
 * snappy-1.1.10
 * onetbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
 * dbus-system
 * fontconfig-system
-* glib-2.78.3
+* glib-2.56.4
 * libalsa-system
 * libdrm-system
 * libsndfile-system
@@ -498,19 +483,19 @@ Contains:
 * libwebp-1.5.0
 * libxshmfence-system
 * md4c-0.4.8
-* nss-3.93
+* nss-3.93.0
 * openjpeg-2.4.0
 * opus-system
 * pulseaudio-system
 * xkbcommon-0.9.1
-* qt-6.5.4
-* pyside-6.5.4
+* qt-6.5.6
+* pyside-6.5.6
 * imath-3.1.12
 * openexr-3.2.4
 * alembic-1.8.6
-* oiio-2.5.18.0
+* oiio-2.5.19.0
 * ocio-2.3.2
-* opensubdiv-3.6.0
+* opensubdiv-3.6.1
 * ptex-2.4.2
 * openvdb-11.0.0
 * materialx-1.39.2
@@ -522,13 +507,12 @@ Contains:
 * hdf5-1.8.23
 * vfxplatform-2024
 
-## [aswf/ci-vfxall:2025-clang18.1](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang18.1)
+## [aswf/ci-vfxall:2025-clang18.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang18.2)
 
 Contains:
-* blosc-1.21.6
 * boost-1.85.0
 * cppunit-1.15.1
-* cpython-3.11.11
+* cpython-3.11.13
 * expat-2.6.4
 * freetype-2.13.2
 * glew-2.2.0
@@ -544,7 +528,7 @@ Contains:
 * zstd-1.5.6
 * dbus-system
 * fontconfig-system
-* glib-2.78.3
+* glib-2.56.4
 * libalsa-system
 * libdrm-system
 * libsndfile-system
@@ -552,37 +536,36 @@ Contains:
 * libwebp-1.5.0
 * libxshmfence-system
 * md4c-0.4.8
-* nss-3.93
+* nss-3.93.0
 * openjpeg-2.4.0
 * opus-system
 * pulseaudio-system
 * xkbcommon-0.9.1
-* qt-6.5.4
-* pyside-6.5.4
+* qt-6.5.6
+* pyside-6.5.6
 * imath-3.1.12
-* openexr-3.3.3
+* openexr-3.3.4
 * alembic-1.8.8
-* oiio-3.0.6.1
+* oiio-3.0.8.1
 * ocio-2.4.2
-* opensubdiv-3.6.0
+* opensubdiv-3.6.1
 * ptex-2.4.3
 * openvdb-12.0.0
 * materialx-1.39.3
 * usd-25.05
 * partio-1.19.0
-* osl-1.14.5.1
+* osl-1.14.6.0
 * otio-0.17.0
 * numpy-1.26.4
 * hdf5-1.8.23
 * vfxplatform-2025
 
-## [aswf/ci-vfxall:2025-clang19.1](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang19.1)
+## [aswf/ci-vfxall:2025-clang19.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang19.2)
 
 Contains:
-* blosc-1.21.6
 * boost-1.85.0
 * cppunit-1.15.1
-* cpython-3.11.11
+* cpython-3.11.13
 * expat-2.6.4
 * freetype-2.13.2
 * glew-2.2.0
@@ -598,7 +581,7 @@ Contains:
 * zstd-1.5.6
 * dbus-system
 * fontconfig-system
-* glib-2.78.3
+* glib-2.56.4
 * libalsa-system
 * libdrm-system
 * libsndfile-system
@@ -606,27 +589,133 @@ Contains:
 * libwebp-1.5.0
 * libxshmfence-system
 * md4c-0.4.8
-* nss-3.93
+* nss-3.93.0
 * openjpeg-2.4.0
 * opus-system
 * pulseaudio-system
 * xkbcommon-0.9.1
-* qt-6.5.4
-* pyside-6.5.4
+* qt-6.5.6
+* pyside-6.5.6
 * imath-3.1.12
-* openexr-3.3.3
+* openexr-3.3.4
 * alembic-1.8.8
-* oiio-3.0.6.1
+* oiio-3.0.8.1
 * ocio-2.4.2
-* opensubdiv-3.6.0
+* opensubdiv-3.6.1
 * ptex-2.4.3
 * openvdb-12.0.0
 * materialx-1.39.3
 * usd-25.05
 * partio-1.19.0
-* osl-1.14.5.1
+* osl-1.14.6.0
 * otio-0.17.0
 * numpy-1.26.4
 * hdf5-1.8.23
 * vfxplatform-2025
+
+## [aswf/ci-vfxall:2026-clang19.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2026-clang19.0)
+
+Contains:
+* boost-1.88.0
+* cppunit-1.15.1
+* cpython-3.13.3
+* expat-2.7.1
+* freetype-2.13.2
+* glew-2.2.0
+* glfw-3.4
+* libbacktrace-cci.20210118
+* log4cplus-2.1.2
+* lz4-1.10.0
+* md4c-0.5.2
+* pybind11-2.13.6
+* snappy-1.2.2
+* onetbb-2022.1.0
+* zlib-1.3.1
+* zstd-1.5.7
+* dbus-system
+* fontconfig-system
+* glib-2.68.4
+* libalsa-system
+* libdrm-system
+* libsndfile-system
+* libtiff-4.4.0
+* libwebp-1.5.0
+* libxshmfence-system
+* md4c-0.5.2
+* nss-3.101.0
+* openjpeg-2.4.0
+* opus-system
+* pulseaudio-system
+* xkbcommon-1.0.3
+* qt-6.8.3
+* pyside-6.8.3
+* imath-3.1.12
+* openexr-3.3.4
+* alembic-1.8.8
+* oiio-3.0.8.1
+* ocio-2.4.2
+* opensubdiv-3.6.1
+* ptex-2.4.3
+* openvdb-12.0.1
+* materialx-1.39.3
+* usd-25.05.01
+* partio-1.19.0
+* osl-1.14.6.0
+* otio-0.17.0
+* numpy-1.26.4
+* hdf5-1.8.23
+* vfxplatform-2026
+
+## [aswf/ci-vfxall:2026-clang20.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2026-clang20.0)
+
+Contains:
+* boost-1.88.0
+* cppunit-1.15.1
+* cpython-3.13.3
+* expat-2.7.1
+* freetype-2.13.2
+* glew-2.2.0
+* glfw-3.4
+* libbacktrace-cci.20210118
+* log4cplus-2.1.2
+* lz4-1.10.0
+* md4c-0.5.2
+* pybind11-2.13.6
+* snappy-1.2.2
+* onetbb-2022.1.0
+* zlib-1.3.1
+* zstd-1.5.7
+* dbus-system
+* fontconfig-system
+* glib-2.68.4
+* libalsa-system
+* libdrm-system
+* libsndfile-system
+* libtiff-4.4.0
+* libwebp-1.5.0
+* libxshmfence-system
+* md4c-0.5.2
+* nss-3.101.0
+* openjpeg-2.4.0
+* opus-system
+* pulseaudio-system
+* xkbcommon-1.0.3
+* qt-6.8.3
+* pyside-6.8.3
+* imath-3.1.12
+* openexr-3.3.4
+* alembic-1.8.8
+* oiio-3.0.8.1
+* ocio-2.4.2
+* opensubdiv-3.6.1
+* ptex-2.4.3
+* openvdb-12.0.1
+* materialx-1.39.3
+* usd-25.05.01
+* partio-1.19.0
+* osl-1.14.6.0
+* otio-0.17.0
+* numpy-1.26.4
+* hdf5-1.8.23
+* vfxplatform-2026
 

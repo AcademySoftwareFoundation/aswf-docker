@@ -5,17 +5,21 @@
 # From: https://github.com/conan-io/conan-center-index/blob/f83ca9df2f14d01f49b186cb279740c295ae09c9/recipes/openjpeg/all/conanfile.py
 
 from conan import ConanFile
+from conan.tools.files import load
+import re
 
 class SystemOpenjpegConan(ConanFile):
     name = "openjpeg"
-    version = "2.4.0" # for OIIO recipe
-    
     settings = "os", "arch", "compiler", "build_type"
+
+    def set_version(self):
+        content = load(self, "/usr/lib64/pkgconfig/libopenjp2.pc")
+        match = re.search(r"^Version:\s*(.+)$", content, re.MULTILINE)
+        self.version = match.group(1).strip()
    
     def package_info(self):
-        self.cpp_info.includedirs = ["/usr/include"]
-        self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["openjp2"]
+        self.cpp_info.includedirs = []
+        self.cpp_info.system_libs = ["openjp2"]
         
         self.cpp_info.set_property("cmake_file_name", "OpenJPEG")
         self.cpp_info.set_property("cmake_target_name", "openjp2")

@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MIT
 #
 # From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/cpython/all/conanfile.py
+# With 3.13 patches from https://github.com/conan-io/conan-center-index/pull/25536
 
 import os
 import re
@@ -11,7 +12,7 @@ import textwrap
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import is_apple_os, fix_apple_shared_install_name
-from conan.tools.env import VirtualRunEnv
+from conan.tools.env import VirtualRunEnv, Environment
 from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, load, mkdir, replace_in_file, rm, rmdir, save, unzip, download
 from conan.tools.gnu import Autotools, AutotoolsToolchain, AutotoolsDeps, PkgConfigDeps
 from conan.tools.layout import basic_layout
@@ -125,17 +126,21 @@ class CPythonConan(ConanFile):
             if Version(self.version) < "3.10" or is_apple_os(self):
                 # FIXME: mpdecimal > 2.5.0 on MacOS causes the _decimal module to not be importable
                 self.requires("mpdecimal/2.5.0")
-            else:
+            elif Version(self.version) < "3.13":
                 self.requires("mpdecimal/2.5.1")
+            else:
+                self.requires("mpdecimal/4.0.0")
         if self.settings.os != "Windows":
             if not is_apple_os(self):
                 self.requires("util-linux-libuuid/2.39.2")
-            # In <3.9 and lower patch versions of 3.9/10/11, crypt.h was exposed in Python.h
-            # This was removed in 3.11 and backported: https://github.com/python/cpython/issues/88914
-            # For the sake of this recipe, we only have later patch versions, so this version check
-            # may be slightly inaccurate if a lower patch version is desired.
-            transitive_crypt = Version(self.version) < "3.9"
-            self.requires("libxcrypt/4.4.36", transitive_headers=transitive_crypt, transitive_libs=transitive_crypt)
+            if Version(self.version) < "3.13":
+                # In <3.9 and lower patch versions of 3.9/10/11, crypt.h was exposed in Python.h
+                # This was removed in 3.11 and backported: https://github.com/python/cpython/issues/88914
+                # For the sake of this recipe, we only have later patch versions, so this version check
+                # may be slightly inaccurate if a lower patch version is desired.
+                # This dependency is removed entirely in 3.13.
+                transitive_crypt = Version(self.version) < "3.9"
+                self.requires("libxcrypt/4.4.36", transitive_headers=transitive_crypt, transitive_libs=transitive_crypt)
         if self.options.get_safe("with_bz2"):
             self.requires("bzip2/1.0.8")
         if self.options.get_safe("with_gdbm", False):
@@ -195,8 +200,9 @@ class CPythonConan(ConanFile):
                 if self.dependencies["mpdecimal"].ref.version < Version("2.5.0"):
                     raise ConanInvalidConfiguration("cpython 3.9.0 (and newer) requires (at least) mpdecimal 2.5.0")
 
-        if self.settings.compiler == "gcc" and Version(self.settings.compiler.version).major == 9 and Version(self.version) >= "3.12":
-            raise ConanInvalidConfiguration("FIXME: GCC 9 produces an internal compiler error locally, and a link error in CCI")
+        # TEMPORARY: Merge https://github.com/conan-io/conan-center-index/pull/25890 first
+        if self.settings.os == "Windows" and self._supports_modules and self.dependencies["mpdecimal"].options.shared:
+            raise ConanInvalidConfiguration("TEMPORARY: Merge https://github.com/conan-io/conan-center-index/pull/25890 first")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -344,13 +350,21 @@ class CPythonConan(ConanFile):
         replace_in_file(self, self._msvc_project_path("_ssl"), '<Import Project="openssl.props" />', "")
 
         # For mpdecimal, we need to remove all headers and all c files *except* the main module file, _decimal.c
-        self._regex_replace_in_file(self._msvc_project_path("_decimal"), r'.*Include=\"\.\.\\Modules\\_decimal\\.*\.h.*', "")
-        self._regex_replace_in_file(self._msvc_project_path("_decimal"), r'.*Include=\"\.\.\\Modules\\_decimal\\libmpdec\\.*\.c.*', "")
+        if Version(self.version) < "3.13":
+            self._regex_replace_in_file(self._msvc_project_path("_decimal"), r'.*Include=\"\.\.\\Modules\\_decimal\\.*\.h.*', "")
+            self._regex_replace_in_file(self._msvc_project_path("_decimal"), r'.*Include=\"\.\.\\Modules\\_decimal\\libmpdec\\.*\.c.*', "")
+            # Remove extra include directory
+            replace_in_file(self, self._msvc_project_path("_decimal"), r"..\Modules\_decimal\libmpdec;", "")
+        else:
+            # https://github.com/python/cpython/commit/849e0716d378d6f9f724d1b3c386f6613d52a49d
+            # changed _decimal.vcxproj enough that we need different patching code.
+            self._regex_replace_in_file(self._msvc_project_path("_decimal"), r'.*Include=\"\.\.\\Modules\\_decimal\\windows\\.*\.h.*', "")
+            self._regex_replace_in_file(self._msvc_project_path("_decimal"), r'.*Include=\"\$\(mpdecimalDir\)\\libmpdec\\.*\.h.*', "")
+            self._regex_replace_in_file(self._msvc_project_path("_decimal"), r'.*Include=\"\$\(mpdecimalDir\)\\libmpdec\\.*\.c.*', "")
+            replace_in_file(self, self._msvc_project_path("_decimal"), r"..\Modules\_decimal\windows;$(mpdecimalDir)\libmpdec;", "")
         # There is also an assembly file with a complicated build step as part of the mpdecimal build
         replace_in_file(self, self._msvc_project_path("_decimal"), "<CustomBuild", "<!--<CustomBuild")
         replace_in_file(self, self._msvc_project_path("_decimal"), "</CustomBuild>", "</CustomBuild>-->")
-        # Remove extra include directory
-        replace_in_file(self, self._msvc_project_path("_decimal"), r"..\Modules\_decimal\libmpdec;", "")
 
         # Don't include vendored sqlite3
         replace_in_file(self, self._msvc_project_path("_sqlite3"),
@@ -796,9 +810,16 @@ class CPythonConan(ConanFile):
             # ASWF: how do you convince pip to write to lib64 instead of lib?
             py_version = Version(self.version)
             py_exe = os.path.join(self.package_folder, "bin", f"python{py_version.major}.{py_version.minor}")
-            self.run(f"{py_exe} -m pip install nose coverage docutils epydoc")
+            py_lib = os.path.join(self.package_folder, "lib64")
+            py_home = os.path.join(self.package_folder, "lib64", f"python{py_version.major}.{py_version.minor}")
+            env = Environment()
+            env.define("PYTHONPATH", py_home)
+            env.prepend("LD_LIBRARY_PATH", py_lib, separator=os.pathsep)
+            envvars = env.vars(self,scope=None)
+            envvars.save_script("set_python_home")
+            self.run(f"{py_exe} -m pip install nose coverage docutils epydoc", env=["set_python_home"])
             if self.options.get_safe("with_numpy"):
-                self.run(f"{py_exe} -m pip install numpy=={os.environ['ASWF_NUMPY_VERSION']}")
+                self.run(f"{py_exe} -m pip install numpy=={os.environ['ASWF_NUMPY_VERSION']}", env=["set_python_home"])
 
         fix_apple_shared_install_name(self)
 
@@ -869,7 +890,7 @@ class CPythonConan(ConanFile):
                     ["pathcch", "shlwapi", "version", "ws2_32"]
                 )
         self.cpp_info.components["python"].requires = ["zlib::zlib"]
-        if self.settings.os != "Windows":
+        if self.settings.os != "Windows" and Version(self.version) < "3.13":
             self.cpp_info.components["python"].requires.append("libxcrypt::libxcrypt")
         self.cpp_info.components["python"].set_property(
             "pkg_config_name", f"python-{py_version.major}.{py_version.minor}"
@@ -910,7 +931,8 @@ class CPythonConan(ConanFile):
             if self.settings.os != "Windows":
                 if not is_apple_os(self):
                     self.cpp_info.components["_hidden"].requires.append("util-linux-libuuid::util-linux-libuuid")
-                self.cpp_info.components["_hidden"].requires.append("libxcrypt::libxcrypt")
+                if Version(self.version) < "3.13":
+                    self.cpp_info.components["_hidden"].requires.append("libxcrypt::libxcrypt")
             if self.options.with_bz2:
                 self.cpp_info.components["_hidden"].requires.append("bzip2::bzip2")
             if self.options.get_safe("with_gdbm", False):

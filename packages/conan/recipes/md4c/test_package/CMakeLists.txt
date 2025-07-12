@@ -2,9 +2,9 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/md4c/all/test_package/CMakeLists.txt
+# From: https://github.com/conan-io/conan-center-index/blob/1729c3c2c3b0e9d058821fa00e8a54154415efc6/recipes/md4c/all/test_package/CMakeLists.txt
 
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.15)
 project(test_package LANGUAGES C)
 
 find_package(md4c CONFIG REQUIRED)

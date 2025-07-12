@@ -1,0 +1,12 @@
+name: "openfx"
+title: "OpenFX CI Docker Image"
+description: |
+  Contains: Python and other OpenFX upstream dependencies
+  Warning: this image does *not* contain OpenFX itself as it is used to *build* OpenFX!
+packages:
+  - expat
+implicit_packages:
+  - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION

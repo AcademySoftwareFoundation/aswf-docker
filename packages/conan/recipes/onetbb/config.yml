@@ -5,6 +5,8 @@
 # From: https://github.com/conan-io/conan-center-index/blob/d034b32b3106d282c32f0a23314b5c6ba1b0fa69/recipes/onetbb/config.yml
 
 versions:
+  "2022.1.0":
+    folder: all
   "2022.0.0":
     folder: all
   "2021.13.0":

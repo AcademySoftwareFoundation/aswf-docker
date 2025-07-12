@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/b8bd958a29ef769d74a40471f1ada0426d1f8fff/recipes/pybind11/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/1729c3c2c3b0e9d058821fa00e8a54154415efc6/recipes/pybind11/all/conanfile.py
 
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain
@@ -12,7 +12,7 @@ from conan.tools.scm import Version
 import os
 
 
-required_conan_version = ">=1.52.0"
+required_conan_version = ">=2.1"
 
 
 class PyBind11Conan(ConanFile):
@@ -26,8 +26,14 @@ class PyBind11Conan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
 
+
+    # ASWF: requirements() and build_requirements() ensure we find our own Python
     def requirements(self):
         self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
+
+    def build_requirements(self):
+        # ASWF: "cpython/<host_version>" isn't working for us
+        self.tool_requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
 
     def layout(self):
         basic_layout(self, src_folder="src")
@@ -47,6 +53,8 @@ class PyBind11Conan(ConanFile):
         # ASWF: Cmake modules in lib64
         tc.variables["PYBIND11_CMAKECONFIG_INSTALL_DIR"] = os.path.join("lib64", "cmake", "pybind11")
         tc.variables["PYBIND11_PYTHON_VERSION"] = os.environ["ASWF_CPYTHON_VERSION"]
+        if Version(self.version) < "2.11.0":
+            tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
         tc.generate()
 
     def build(self):

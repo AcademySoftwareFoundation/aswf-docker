@@ -5,17 +5,18 @@
 # From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/cpython/all/conandata.yml
 
 sources:
-  3.11.10:
-    url: "https://www.python.org/ftp/python/3.11.10/Python-3.11.10.tgz"
-    sha256: "92f2faf242681bfa406d53a51e17d42c5373affe23a130cd9697e132ef574706"
-
-sources:
+  "3.13.3":
+    url: "https://www.python.org/ftp/python/3.13.3/Python-3.13.3.tgz"
+    sha256: "988d735a6d33568cbaff1384a65cb22a1fb18a9ecb73d43ef868000193ce23ed"  
   "3.12.7":
     url: "https://www.python.org/ftp/python/3.12.7/Python-3.12.7.tgz"
     sha256: "73ac8fe780227bf371add8373c3079f42a0dc62deff8d612cd15a618082ab623"
   "3.12.2":
     url: "https://www.python.org/ftp/python/3.12.2/Python-3.12.2.tgz"
     sha256: "a7c4f6a9dc423d8c328003254ab0c9338b83037bd787d680826a5bf84308116e"
+  "3.11.13":
+    url: "https://www.python.org/ftp/python/3.11.13/Python-3.11.13.tgz"
+    sha256: "0f1a22f4dfd34595a29cf69ee7ea73b9eff8b1cc89d7ab29b3ab0ec04179dad8"
   "3.11.12":
     url: "https://www.python.org/ftp/python/3.11.12/Python-3.11.12.tgz"
     sha256: "379c9929a989a9d65a1f5d854e011f4872b142259f4fc0a8c4062d2815ed7fba"
@@ -53,6 +54,13 @@ sources:
     url: "https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz"
     sha256: "d62e3015f2f89c970ac52343976b406694931742fbde2fed8d1ce8ebb4e1f8ff"
 patches:
+  "3.13.3":
+    - patch_file: "patches/3.13/3.13.0-0002-remove-module-deps.patch"
+      patch_description: "Remove section of solution file forcing projects to be built that might not be used for this recipe"
+      patch_type: "conan"
+    - patch_file: "patches/3.13/3.13.0-0003-relocatable-python-config.patch"
+      patch_description: "Allow package to be relocatable"
+      patch_type: "conan"
   "3.12.7":
     - patch_file: "patches/3.9/3.9.7-0002-_msi-vcxproj.patch"
       patch_description: "Fix ARM/ARM64 mismatch in project file"

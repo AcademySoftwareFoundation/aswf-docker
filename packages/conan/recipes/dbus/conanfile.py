@@ -14,8 +14,7 @@ class SystemDbusConan(ConanFile):
    
     def package_info(self):
         self.cpp_info.includedirs = ["/usr/include/dbus-1.0"]
-        self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["dbus-1"]
+        self.cpp_info.systemlibs = ["dbus-1"]
         
         self.cpp_info.set_property("cmake_file_name", "DBus1")
         self.cpp_info.set_property("cmake_target_name", "dbus-1")

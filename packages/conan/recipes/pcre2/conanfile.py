@@ -13,13 +13,12 @@ class SystemPCRE2Conan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
    
     def package_info(self):
-        self.cpp_info.includedirs = ["/usr/include"]
-        self.cpp_info.libdirs = ["/usr/lib64"]
+        self.cpp_info.includedirs = []
         
         self.cpp_info.set_property("cmake_file_name", "PCRE2")
         self.cpp_info.components["pcre2-8"].set_property("cmake_target_name", "PCRE2::8BIT")
-        self.cpp_info.components["pcre2-8"].libs = ["pcre2-8"]
+        self.cpp_info.components["pcre2-8"].system_libs = ["pcre2-8"]
         self.cpp_info.components["pcre2-posix"].set_property("cmake_target_name", "PCRE2::POSIX")
-        self.cpp_info.components["pcre2-posix"].libs = ["pcre2-posix"]
+        self.cpp_info.components["pcre2-posix"].system_libs = ["pcre2-posix"]
 
 

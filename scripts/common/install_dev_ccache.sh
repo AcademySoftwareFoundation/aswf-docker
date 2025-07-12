@@ -4,7 +4,7 @@
 
 set -ex
 
-export DEV_CCACHE_VERSION=4.8.3
+export DEV_CCACHE_VERSION=$ASWF_CCACHE_VERSION
 
 mkdir ccache
 cd ccache

@@ -72,8 +72,8 @@ license.
 ### Commit Sign-Off
 
 Every commit must be signed off.  That is, every commit log message
-must include a “`Signed-off-by`” line (generated, for example, with
-“`git commit --signoff`”), indicating that the committer wrote the
+must include a "`Signed-off-by`" line (generated, for example, with
+"`git commit --signoff`"), indicating that the committer wrote the
 code and has the right to release it under the [Apache-2.0](LICENSE.md)
 license. See [Contribution Sign-Off](https://github.com/AcademySoftwareFoundation/tac/blob/main/process/contributing.md#contribution-sign-off)
 for more information on this requirement.
@@ -83,7 +83,7 @@ for more information on this requirement.
 ### Git Basics
 
 Working with aswf-docker requires understanding a significant amount of
-Git and GitHub based terminology. If you’re unfamiliar with these
+Git and GitHub based terminology. If you're unfamiliar with these
 tools or their lingo, please look at the [GitHub
 Glossary](https://help.github.com/articles/github-glossary/) or browse
 [GitHub Help](https://help.github.com/).
@@ -113,8 +113,8 @@ contributions should be done on top of it.
 After sufficient work is done on the main branch and the aswf-docker
 leadership determines that a release is due, we will bump the relevant
 internal versioning and tag a commit with the corresponding version
-number, e.g. v2.0.1. Each Minor version also has its own “Release
-Branch”, e.g. RB-1.1. This marks a branch of code dedicated to that
+number, e.g. v2.0.1. Each Minor version also has its own "Release
+Branch", e.g. RB-1.1. This marks a branch of code dedicated to that
 Major.Minor version, which allows upstream bug fixes to be
 cherry-picked to a given version while still allowing the main
 branch to continue forward onto higher versions. This basic repository
@@ -141,7 +141,7 @@ workflow.
 
 In a typical workflow, you should **fork** the aswf-docker repository to
 your account. This creates a copy of the repository under your user
-namespace and serves as the “home base” for your development branches,
+namespace and serves as the "home base" for your development branches,
 from which you will submit **pull requests** to the upstream
 repository to be merged.
 
@@ -291,9 +291,20 @@ Use the existing recipes as an example, and borrow from the MIT-licensed
 Follow the great instructions there:
 [Conan Center Index - How to add Packages](https://github.com/conan-io/conan-center-index/blob/master/docs/how_to_add_packages.md),
 but ignore the `config.yml` instructions as the aswfdocker `versions.yaml` already
-takes care of listing all the maintained package versions.
+takes care of listing all the maintained package versions. If required `config.yml` can still be used when completely different recipes are require for
+major package versions, see the `onetbb` package for an example.
 
-Then ensure the ASWF-specific settings are added in the `conanfile.py` such as `python`. This project attempts to minimize local changes to the recipes which originate in the Conan Center Index. Local changes may be marked with a `# ASWF` comment. For simple recipes, the required changes may be as minimal as:
+Then ensure the ASWF-specific settings are added in the `conanfile.py` such as `cpython`. This project attempts to minimize local changes to the recipes which originate in the Conan Center Index. Local changes may be marked with a `# ASWF` comment. For simple recipes, the required changes may be as minimal as:
+
+- adding a [SPDX license header](https://spdx.dev/learn/handling-license-info/) where the `From:` URL can be obtained by using the `y` hotkey in the GitHub web UI to obtain a permalink to the version of the Conan recipe file
+you are basing hyour local copy on.
+```
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/opencolorio/all/conanfile.py
+```
 
 - adding a line to the `layout()` method to adhere to the Enterprise Linux convention of storing 64 bit libraries in the `lib64` directory rather than Conan's default `lib`:
 ```
@@ -354,6 +365,28 @@ The `--keep-source` and `--keep-build` can help when iterating on the build reci
 avoid re-downloading the source, and even keep the previous build artifact.
 All regular aswfdocker commands and options work the same with conan or docker packages.
 
+You can use the `aswfdocker conandiff` command to view updates in the upstream Conan Center Index recipes since the last time the local copy was updated. This requires the `From: https://...` header comment to be updated correctly.
+
+```
+$ aswfdocker conandiff
+Checking conanfile.py files...
+
+Found outdated conanfile.py:
+aswf-docker/packages/conan/recipes/minizip-ng/conanfile.py:
+  Package: minizip-ng
+  Current SHA: 156d3592a823c0d3d297d8c365eee01f27532a49
+  Found 1 newer commits:
+    Commit: 7e056a381694e0fd0b791b9fd06d87d391f461c0
+    Diff URL: https://github.com/conan-io/conan-center-index/commit/7e056a381694e0fd0b791b9fd06d87d391f461c0
+    Timestamp: 2024-12-31 14:55:30+00:00
+    Message:
+      minizip-ng: add version 4.0.7 (#26112)
+
+      * minizip-ng: add version 4.0.7
+
+      * rename windows library names in 4.0.7
+```
+
 ### Docker-only Packages
 
 If a package has no Conan recipe folder its conan package will be skipped at release time.
@@ -391,7 +424,7 @@ Mutable:	true
 Reclaimable:	true
 Shared:		false
 Size:		93.56GB
-Description:	cached mount /opt/conan_home/d from exec /bin/sh -c conan create       ${ASWF_CONAN_KEEP_SOURCE}       ${ASWF_CONAN_KEEP_BUILD}       ${ASWF_CONAN_BUILD_MISSING}       --profile:all ${ASWF_CONAN_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}       --name ${ASWF_PKG_NAME}       --version ${ASWF_PKG_VERSION}       --user ${ASWF_PKG_ORG}       --channel ${ASWF_CONAN_CHANNEL}       ${ASWF_CONAN_HOME}/recipes/${ASWF_PKG_NAME} with id "//opt/conan_home/d"
+Description:	cached mount /opt/conan_home/d from exec /bin/sh -c conan create       ${ASWF_CONAN_BUILD_MISSING}       --profile:all ${ASWF_CONAN_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}       --name ${ASWF_PKG_NAME}       --version ${ASWF_PKG_VERSION}       --user ${ASWF_PKG_ORG}       --channel ${ASWF_CONAN_CHANNEL}       ${ASWF_CONAN_HOME}/recipes/${ASWF_PKG_NAME} with id "//opt/conan_home/d"
 Usage count:	159
 Last used:	14 minutes ago
 Type:		exec.cachemount

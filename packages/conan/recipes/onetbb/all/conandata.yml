@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/c29c3a06d0c5d4fd98529a34586c4f60ab00f659/recipes/onetbb/all/conandata.yml
 
 sources:
+  "2022.1.0":
+    url: "https://github.com/oneapi-src/oneTBB/archive/refs/tags/v2022.1.0.tar.gz"
+    sha256: "ed067603ece0dc832d2881ba5c516625ac2522c665d95f767ef6304e34f961b5"
   "2022.0.0":
     url: "https://github.com/oneapi-src/oneTBB/archive/refs/tags/v2022.0.0.tar.gz"
     sha256: "e8e89c9c345415b17b30a2db3095ba9d47647611662073f7fbf54ad48b7f3c2a"

@@ -9,6 +9,7 @@ import glob
 import os
 import platform
 import textwrap
+import resource # ASWF needed to increase maximum number of open files
 
 from conan import ConanFile, conan_version
 from conan.tools.apple import is_apple_os
@@ -748,8 +749,9 @@ class QtConan(ConanFile):
             # use official variable name https://cmake.org/cmake/help/latest/module/FindFontconfig.html
             replace_in_file(self, os.path.join(self.source_folder, "qtbase", "src", "gui", "configure.cmake"), "FONTCONFIG_FOUND", "Fontconfig_FOUND")
 
+        # ASWF: 6.5.6 already has QtAutodetectHelpers.cmake
         replace_in_file(self,
-                        os.path.join(self.source_folder, "qtbase", "cmake", "QtAutoDetect.cmake" if Version(self.version) < "6.6.2" else "QtAutoDetectHelpers.cmake"),
+                        os.path.join(self.source_folder, "qtbase", "cmake", "QtAutoDetect.cmake" if Version(self.version) < "6.5.6" else "QtAutoDetectHelpers.cmake"),
                         "qt_auto_detect_vcpkg()",
                         "# qt_auto_detect_vcpkg()")
 
@@ -859,6 +861,11 @@ class QtConan(ConanFile):
         return None
 
     def build(self):
+        # ASWF: increase maximum number of open files to avoid ld failures
+        # No current way to set this externaly with "docker buildx bake"
+        soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
+        resource.setrlimit(resource.RLIMIT_NOFILE, (hard, hard))
+
         if self.settings.os == "Macos":
             save(self, ".qmake.stash", "")
             save(self, ".qmake.super", "")

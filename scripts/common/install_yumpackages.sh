@@ -4,18 +4,36 @@
 
 set -ex
 
-# Rocky 8 needs PowerTools and Devel repos enabled for some of these packages
+
+GAMIN_RPM="gamin"
+MESA_VULKAN_DEVEL_RPM="mesa-vulkan-devel"
+XORG_X11_XKB_UTILS_RPM="xorg-x11-xkb-utils xorg-x11-xkb-utils-devel"
+LIBXVMC_DEVEL_RPM="libXvMC-devel"
 
 BASEOS_MAJORVERSION=$(sed -n  's/^.* release \([0-9]*\)\..*$/\1/p' /etc/redhat-release)
 if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     dnf -y install 'dnf-command(config-manager)'
-    dnf config-manager --set-enabled powertools
-    # libbluray-devel is in EPEL 9, we may no longer need devel repo then
-    # same for yasm-devel and libdc1393-devel
-    dnf config-manager --set-enabled devel
-    # Rocky 8 base image doesn't have a system Python (3), install and make default
-    dnf -y install python3
-    alternatives --set python /usr/bin/python3
+    if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+        # Rocky 8 needs PowerTools and Devel repos enabled for some of these packages
+        dnf config-manager --set-enabled powertools
+        # libbluray-devel is in EPEL 9, we may no longer need devel repo then
+        # same for yasm-devel and libdc1393-devel
+        dnf config-manager --set-enabled devel
+        # Rocky 8 base image doesn't have a system Python (3), install and make default
+        dnf -y install python3
+        alternatives --set python /usr/bin/python3
+    else
+        # Rocky 9 needs CRB repo enabled for some of these packages
+        dnf config-manager --set-enabled crb
+        # Some packages are gone or renamed in EL 9
+        GAMIN_RPM=""
+        MESA_VULKAN_DEVEL_RPM="mesa-vulkan-drivers"
+        # In Rocky 9 xkbcomp-devel is in the devel repo which we don't want, all it provides is a single
+        # pkgconfig file we don't need.
+        XORG_X11_XKB_UTILS_RPM="setxkbmap xkbcomp"
+        LIBXVMC_DEVEL_RPM=""
+    fi
+    dnf makecache
 fi
 
 yum install --setopt=tsflags=nodocs -y \
@@ -34,6 +52,7 @@ yum install --setopt=tsflags=nodocs -y \
     cups-devel \
     dbus \
     dbus-devel \
+    dbus-tools \
     doxygen \
     expat-devel \
     file \
@@ -45,8 +64,7 @@ yum install --setopt=tsflags=nodocs -y \
     freeglut-devel \
     freetype \
     freetype-devel \
-    frei0r-devel \
-    gamin \
+    ${GAMIN_RPM} \
     gdbm-devel \
     giflib-devel \
     glib2-devel \
@@ -63,7 +81,6 @@ yum install --setopt=tsflags=nodocs -y \
     harfbuzz-devel \
     java-1.8.0-openjdk \
     libaio-devel \
-    libbluray-devel \
     libcap-devel \
     libcdio-paranoia-devel \
     libcurl-devel \
@@ -85,6 +102,7 @@ yum install --setopt=tsflags=nodocs -y \
     libtheora-devel \
     libtiff \
     libtiff-devel \
+    libuuid-devel \
     libv4l \
     libv4l-devel \
     libvdpau-devel \
@@ -132,7 +150,7 @@ yum install --setopt=tsflags=nodocs -y \
     libxslt-devel \
     libXtst-devel \
     libXv-devel \
-    libXvMC-devel \
+    ${LIBXVMC_DEVEL_RPM} \
     libXxf86vm-devel \
     lz4-devel \
     make \
@@ -142,7 +160,7 @@ yum install --setopt=tsflags=nodocs -y \
     mesa-libGLU-devel \
     mesa-libGLw-devel \
     mesa-libOSMesa-devel \
-    mesa-vulkan-devel \
+    ${MESA_VULKAN_DEVEL_RPM} \
     mpdecimal-devel \
     mpg123-devel \
     motif \
@@ -195,8 +213,7 @@ yum install --setopt=tsflags=nodocs -y \
     xorg-x11-proto-devel \
     xorg-x11-server-Xvfb \
     xorg-x11-util-macros \
-    xorg-x11-xkb-utils \
-    xorg-x11-xkb-utils-devel \
+    ${XORG_X11_XKB_UTILS_RPM} \
     xorg-x11-xtrans-devel \
     xz-devel \
     zlib-devel \
@@ -225,13 +242,15 @@ fi
 
 yum install -y epel-release
 
-# Additional packages that are not found initially
+# Additional packages, some moved to EPEL 9
 yum install -y \
     alsa-lib \
     alsa-lib-devel \
     audiofile-devel \
+    frei0r-devel \
     lame-devel \
     libaom-devel \
+    libbluray-devel \
     libcaca-devel \
     libdc1394-devel \
     libdeflate-devel \
@@ -259,6 +278,15 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     # double-conversion, perl-IPC-Cmd, perl-Digest-SHA, python 3.9
     # An unknown dependency is pulling Python 3.11.5, might as well
     # have the devel package as well
+
+    # On EL 9 Python 3.9 is the default and perl-FindBin is no longer in
+    # the perl-interpreter package, but instead in its own.
+    if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+        PYTHON39_RPM="python39 python39-devel"
+    else
+        PERL_FIND_BIN_RPM="perl-FindBin"
+    fi
+
     dnf -y install \
         git \
         wayland-devel \
@@ -266,28 +294,21 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
         python3-importlib-metadata \
         brotli brotli-devel \
         double-conversion double-conversion-devel \
+        ${PERL_FIND_BIN_RPM} \
         perl-IPC-Cmd \
         perl-Digest-SHA \
         perl-open \
-        python39 \
-        python39-devel \
+        ${PYTHON39_RPM} \
         python3.11 \
         python3.11-devel \
         python3.11-setuptools
     dnf -y module install nodejs:18
-    # If we really wanted libdb4 / libdb4-devel
-    # dnf -y install
-    #    https://pkgs.dyn.su/el8/base/x86_64/libdb4-4.8.30-30.el8.x86_64.rpm
-    #    https://pkgs.dyn.su/el8/base/x86_64/libdb4-devel-4.8.30-30.el8.x86_64.rpm
-    # If we really wanted openjpeg / openjpeg-libs / openjpeg-devel
-    # dnf -y install
-    #    https://pkgs.dyn.su/el8/base/x86_64/openjpeg-1.5.2-1.el8.x86_64.rpm
-    #    https://pkgs.dyn.su/el8/base/x86_64/openjpeg-libs-1.5.2-1.el8.x86_64.rpm
-    #    https://pkgs.dyn.su/el8/base/x86_64/openjpeg-devel-1.5.2-1.el8.x86_64.rpm
 
-    # Make Python 3.11 the default Python
-    alternatives --set python /usr/bin/python3
-    alternatives --set python3 /usr/bin/python3.11
+    # Make Python 3.11 the default Python. Can't change default system python on EL 9.
+    if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+        alternatives --set python /usr/bin/python3
+        alternatives --set python3 /usr/bin/python3.11
+    fi
 else
     yum install -y \
         libdb4-devel \

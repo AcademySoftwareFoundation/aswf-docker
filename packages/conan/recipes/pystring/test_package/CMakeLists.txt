@@ -2,9 +2,9 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/pystring/all/test_package/CMakeLists.txt
+# From: https://github.com/conan-io/conan-center-index/blob/d8323e1d365e32d88042e5070a483fc55a337856/recipes/pystring/all/test_package/CMakeLists.txt
 
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.15)
 project(test_package LANGUAGES CXX)
 
 find_package(pystring REQUIRED CONFIG)

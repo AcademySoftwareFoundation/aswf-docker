@@ -2,6 +2,56 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2025-07-XX
+
+- 2024.3 release
+  - using Conan 2 recipes
+  - updated versions
+    - Conan 2.16.1 (was 1.x)
+    - CUDA 12.6.3 (was 12.6.1)
+    - ccache 4.9.1 (was 4.8.3)
+    - CMake 3.31.7 (was 3.27.9)
+    - Sonar Cloud 7.1.0.4889 (was 6.2.1.4610)
+    - Blosc 1.21.6 (was 1.21.5)
+    - GLEW 2.2.0 (was 2.1.0)
+    - GLFW 3.4 (was 3.3.8)
+    - gtest 1.15.2 (was 1.14.0)
+    - lcmd 2.17 (was 2.16)
+    - log4cplus 2.1.2 (was 2.1.1)
+    - minizip-ng 4.0.10 (was 4.0.8)
+    - pybind11 2.13.6 (was 2.12.0)
+    - opensubdive 3.6.1 (was 3.6.0)
+    - python 3.11.13 (was 3.11.11)
+    - Qt 6.5.6 (was 6.5.4)
+    - OIIO 2.5.19.0 (was 2.5.18.0)
+    - OpenFX 1.5s
+- 2025.2
+  - updated versions
+    - Conan 2.16.1 (was 2.14.0)
+    - Sonar Cloud 7.1.0.4889 (was 6.2.1.4610)
+    - LLVM 19.1.7 (was 19.1.1)
+    - lcmd 2.17 (was 2.16)
+    - minizip-ng 4.0.10 (was 4.0.8)
+    - opensubdiv 3.6.1 (was 3.6.0)
+    - python 3.11.13 (was 3.11.11)
+    - Qt 6.5.6 (was 6.5.4)
+    - OIIO 3.0.8.1 (was 3.0.6.1)
+    - OpenEXR 3.3.4 (was 3.3.3)
+    - OpenFX 1.5s
+    - OSL 1.14.6.0 (was 1.14.5.1)
+- 2026.0
+  - pre-release for testing purposes, does not yet include late releasing ASWF packages in final 2026 release (OOCIO, OpenEXR, OpenVDB)
+  - see `ci_common6` and `2026` sections of versions.yaml for full list of package versions
+- new build images for OpenFX
+- OpenVDB now built as a Conan package
+- system wrapper Conan packages
+  - improved wrapper packages no longer declare include directories and libraries they don't include
+  - query container OS for installed system package version instead of hard coding (pkgconfig / rpm)
+- aswfdocker utility gets "conandiff" option to show upstream changes to vendored Conan Center Index recipes to help
+with keeping recipes up to date
+  - merge upstream recipe changes, in particular changes for CMake 4 compatibility
+  - `--keep_source` and `--keep_build` command line options are obsolete, no longer relevant with Conan 2
+
 # 2025-05-04
 
 - 2025.1 images

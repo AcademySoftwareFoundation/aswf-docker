@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/libiconv/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/libiconv/all/conanfile.py
 
 from conan import ConanFile
 from conan.tools.apple import fix_apple_shared_install_name
@@ -24,7 +24,7 @@ from conan.tools.microsoft import is_msvc, unix_path
 from conan.tools.scm import Version
 import os
 
-required_conan_version = ">=1.54.0"
+required_conan_version = ">=2.1"
 
 
 class LibiconvConan(ConanFile):
@@ -55,10 +55,6 @@ class LibiconvConan(ConanFile):
     def _msvc_tools(self):
         return ("clang-cl", "llvm-lib", "lld-link") if self._is_clang_cl else ("cl", "lib", "link")
 
-    @property
-    def _settings_build(self):
-        return getattr(self, "settings_build", self.settings)
-
     def export_sources(self):
         export_conandata_patches(self)
 
@@ -82,7 +78,7 @@ class LibiconvConan(ConanFile):
         self.cpp.package.libdirs = ["lib64"]
 
     def build_requirements(self):
-        if self._settings_build.os == "Windows":
+        if self.settings_build.os == "Windows":
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
                 self.tool_requires("msys2/cci.latest")
             self.win_bash = True
@@ -95,28 +91,11 @@ class LibiconvConan(ConanFile):
         env.generate()
 
         tc = AutotoolsToolchain(self)
-        if self.settings.os == "Windows" and self.settings.compiler == "gcc":
-            if self.settings.arch == "x86":
-                tc.update_configure_args({
-                    "--host": "i686-w64-mingw32",
-                    "RC": "windres --target=pe-i386",
-                    "WINDRES": "windres --target=pe-i386",
-                })
-            elif self.settings.arch == "x86_64":
-                tc.update_configure_args({
-                    "--host": "x86_64-w64-mingw32",
-                    "RC": "windres --target=pe-x86-64",
-                    "WINDRES": "windres --target=pe-x86-64",
-                })
-        msvc_version = {"Visual Studio": "12", "msvc": "180"}
-        if is_msvc(self) and Version(self.settings.compiler.version) >= msvc_version[str(self.settings.compiler)]:
-            # https://github.com/conan-io/conan/issues/6514
-            tc.extra_cflags.append("-FS")
         if cross_building(self) and is_msvc(self):
             triplet_arch_windows = {"x86_64": "x86_64", "x86": "i686", "armv8": "aarch64"}
             # ICU doesn't like GNU triplet of conan for msvc (see https://github.com/conan-io/conan/issues/12546)
             host_arch = triplet_arch_windows.get(str(self.settings.arch))
-            build_arch = triplet_arch_windows.get(str(self._settings_build.arch))
+            build_arch = triplet_arch_windows.get(str(self.settings_build.arch))
 
             if host_arch and build_arch:
                 host = f"{host_arch}-w64-mingw32"
@@ -173,8 +152,3 @@ class LibiconvConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "Iconv")
         self.cpp_info.set_property("cmake_target_name", "Iconv::Iconv")
         self.cpp_info.libs = ["iconv", "charset"]
-
-        # TODO: to remove in conan v2
-        self.cpp_info.names["cmake_find_package"] = "Iconv"
-        self.cpp_info.names["cmake_find_package_multi"] = "Iconv"
-        self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))

@@ -71,7 +71,7 @@ class OpenEXRConan(ConanFile):
     def requirements(self):
         self.requires("zlib/[>=1.2.11 <2]")
         # Note: OpenEXR and Imath are versioned independently.
-        self.requires(f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}", transitive_headers=True)
+        self.requires("imath/3.1.9", transitive_headers=True)
         if self._with_libdeflate:
             self.requires("libdeflate/1.19")
         # ASWF: add explicit dependencies on cpython

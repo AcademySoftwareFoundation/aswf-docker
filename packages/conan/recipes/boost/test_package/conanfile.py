@@ -1,6 +1,7 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
+# From: https://github.com/conan-io/conan-center-index/blob/1729c3c2c3b0e9d058821fa00e8a54154415efc6/recipes/boost/all/test_package/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanException
@@ -30,16 +31,10 @@ class TestPackageConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.cache_variables["HEADER_ONLY"] = self.dependencies[
-            "boost"
-        ].options.header_only
+        tc.cache_variables["HEADER_ONLY"] = self.dependencies["boost"].options.header_only
         if not self.dependencies["boost"].options.header_only:
-            tc.cache_variables["Boost_USE_STATIC_LIBS"] = not self.dependencies[
-                "boost"
-            ].options.shared
-        tc.cache_variables["WITH_PYTHON"] = not self.dependencies[
-            "boost"
-        ].options.without_python
+            tc.cache_variables["Boost_USE_STATIC_LIBS"] = not self.dependencies["boost"].options.shared
+        tc.cache_variables["WITH_PYTHON"] = not self.dependencies["boost"].options.without_python
         if not self.dependencies["boost"].options.without_python:
             pyversion = self.dependencies["boost"].options.python_version
             tc.cache_variables["PYTHON_VERSION_TO_SEARCH"] = pyversion
@@ -53,51 +48,22 @@ class TestPackageConan(ConanFile):
             tc.cache_variables["Python_SITELIB"] = os.path.join(pythonInfo.package_folder, pythonInfo.cpp_info.libdirs[0],
                 "python{os.environ['ASWF_PYTHON_MAJOR_MINOR_VERSION']}","site-packages")
 
-        tc.cache_variables["WITH_RANDOM"] = not self.dependencies[
-            "boost"
-        ].options.without_random
-        tc.cache_variables["WITH_REGEX"] = not self.dependencies[
-            "boost"
-        ].options.without_regex
-        tc.cache_variables["WITH_TEST"] = not self.dependencies[
-            "boost"
-        ].options.without_test
-        tc.cache_variables["WITH_COROUTINE"] = not self.dependencies[
-            "boost"
-        ].options.without_coroutine
-        tc.cache_variables["WITH_CHRONO"] = not self.dependencies[
-            "boost"
-        ].options.without_chrono
-        tc.cache_variables["WITH_FIBER"] = not self.dependencies[
-            "boost"
-        ].options.without_fiber
-        tc.cache_variables["WITH_LOCALE"] = not self.dependencies[
-            "boost"
-        ].options.without_locale
-        tc.cache_variables["WITH_NOWIDE"] = not self._boost_option(
-            "without_nowide", True
-        )
+        tc.cache_variables["WITH_RANDOM"] = not self.dependencies["boost"].options.without_random
+        tc.cache_variables["WITH_REGEX"] = not self.dependencies["boost"].options.without_regex
+        tc.cache_variables["WITH_TEST"] = not self.dependencies["boost"].options.without_test
+        tc.cache_variables["WITH_COROUTINE"] = not self.dependencies["boost"].options.without_coroutine
+        tc.cache_variables["WITH_CHRONO"] = not self.dependencies["boost"].options.without_chrono
+        tc.cache_variables["WITH_FIBER"] = not self.dependencies["boost"].options.without_fiber
+        tc.cache_variables["WITH_LOCALE"] = not self.dependencies["boost"].options.without_locale
+        tc.cache_variables["WITH_NOWIDE"] = not self._boost_option("without_nowide", True)
         tc.cache_variables["WITH_JSON"] = not self._boost_option("without_json", True)
-        tc.cache_variables["WITH_PROCESS"] = not self._boost_option(
-            "without_process", True
-        )
-        tc.cache_variables["WITH_STACKTRACE"] = not self.dependencies[
-            "boost"
-        ].options.without_stacktrace
-        tc.cache_variables["WITH_STACKTRACE_ADDR2LINE"] = self.dependencies[
-            "boost"
-        ].conf_info.get("user.boost:stacktrace_addr2line_available")
-        tc.cache_variables["WITH_STACKTRACE_BACKTRACE"] = self._boost_option(
-            "with_stacktrace_backtrace", False
-        )
+        tc.cache_variables["WITH_PROCESS"] = not self._boost_option("without_process", True)
+        tc.cache_variables["WITH_STACKTRACE"] = not self.dependencies["boost"].options.without_stacktrace
+        tc.cache_variables["WITH_STACKTRACE_ADDR2LINE"] = self.dependencies["boost"].conf_info.get("user.boost:stacktrace_addr2line_available")
+        tc.cache_variables["WITH_STACKTRACE_BACKTRACE"] = self._boost_option("with_stacktrace_backtrace", False)
         tc.cache_variables["WITH_URL"] = not self._boost_option("without_url", True)
-        if (
-            self.dependencies["boost"].options.namespace != "boost"
-            and not self.dependencies["boost"].options.namespace_alias
-        ):
-            tc.cache_variables["BOOST_NAMESPACE"] = self.dependencies[
-                "boost"
-            ].options.namespace
+        if self.dependencies["boost"].options.namespace != 'boost' and not self.dependencies["boost"].options.namespace_alias:
+            tc.cache_variables['BOOST_NAMESPACE'] = self.dependencies["boost"].options.namespace
         tc.generate()
 
     def build(self):
