@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/2a3cb93885141024c1b405a01a79fb3abc239b12/recipes/opensubdiv/all/conandata.yml
 
 sources:
+  "3.6.1":
+    url: "https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v3_6_1.tar.gz"
+    sha256: "e9d99a480d80e999667643747c76eb0138d36c418fc154fd71b4bd65be103d52"
   "3.6.0":
     url: "https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v3_6_0.tar.gz"
     sha256: "bebfd61ab6657a4f4ff27845fb66a167d00395783bfbd253254d87447ed1d879"
@@ -15,6 +18,14 @@ sources:
     url: "https://github.com/PixarAnimationStudios/OpenSubdiv/archive/refs/tags/v3_4_4.tar.gz"
     sha256: "20d49f80a2b778ad4d01f091ad88d8c2f91cf6c7363940c6213241ce6f1048fb"
 patches:
+  "3.6.1":
+    - patch_file: "patches/3.6.0-0001-cmake-no-rpath.patch"
+      patch_description: "CMake: do not populate rpath with absolute paths"
+      patch_type: "conan"
+    - patch_file: "patches/cmake-no-versions.diff"
+      patch_description: "Override TBB and Ptex version requirements"
+    - patch_file: "patches/cmake-ptex-lib64.diff"
+      patch_description: "Find Ptex DSO in lib64"
   "3.6.0":
     - patch_file: "patches/3.6.0-0002-cmake-no-rpath.patch"
       patch_description: "CMake: do not populate rpath with absolute paths"

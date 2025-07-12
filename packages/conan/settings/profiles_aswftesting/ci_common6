@@ -1,0 +1,19 @@
+[settings]
+os=Linux
+arch=x86_64
+compiler=gcc
+compiler.version=14.2
+compiler.libcxx=libstdc++11
+compiler.cppstd=20
+build_type=Release
+[options]
+# Build everything except Clang as shared libs by default
+*:shared=True
+clang/*:shared=False
+[tool_requires]
+[replace_requires]
+[replace_tool_requires]
+cmake/*: cmake/4.0.2@aswftesting/ci_common6
+[platform_requires]
+[buildenv]
+GCC_INSTALL_DIR=/opt/rh/gcc-toolset-14/root/lib/gcc/x86_64-redhat-linux/14

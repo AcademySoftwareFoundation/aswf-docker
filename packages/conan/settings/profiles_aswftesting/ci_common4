@@ -12,8 +12,8 @@ build_type=Release
 clang/*:shared=False
 [tool_requires]
 [replace_requires]
-[replace_tools_requires]
-cmake/*: cmake/3.27.9@aswftesting/ci_common4
+[replace_tool_requires]
+cmake/*: cmake/3.31.7@aswftesting/ci_common4
 [platform_requires]
 [buildenv]
 GCC_INSTALL_DIR=/opt/rh/gcc-toolset-11/root/lib/gcc/x86_64-redhat-linux/11

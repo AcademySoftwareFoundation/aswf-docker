@@ -24,7 +24,6 @@ Contains:
 * cppunit-1.14.0
 * gtest-1.8.1
 * onetbb-2018
-* blosc-1.5.0
 * cpython-2.7.15
 * glew-2.1.0
 * glfw-3.1.2
@@ -42,7 +41,6 @@ Contains:
 * cppunit-1.15.1
 * gtest-1.10.0
 * onetbb-2019_u6
-* blosc-1.5.0
 * cpython-3.7.3
 * glew-2.1.0
 * glfw-3.1.2
@@ -60,7 +58,6 @@ Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
 * onetbb-2020_u2
-* blosc-1.5.0
 * cpython-3.7.9
 * glew-2.1.0
 * glfw-3.1.2
@@ -78,7 +75,6 @@ Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
 * onetbb-2020_u3
-* blosc-1.17.0
 * cpython-3.9.15
 * glew-2.1.0
 * glfw-3.1.2
@@ -96,7 +92,6 @@ Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
 * onetbb-2020_u3
-* blosc-1.17.0
 * cpython-3.10.11
 * glew-2.1.0
 * glfw-3.1.2
@@ -108,7 +103,7 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-ocio:2024.2](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.2)
+## [aswf/ci-ocio:2024.3](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.3)
 
 Contains:
 * b2-5.2.1
@@ -116,7 +111,7 @@ Contains:
 * cppunit-1.15.1
 * expat-2.6.4
 * fmt-11.1.4
-* gtest-1.14.0
+* gtest-1.15.2
 * libbacktrace-cci.20210118
 * libdeflate-1.23
 * libiconv-1.17
@@ -128,22 +123,21 @@ Contains:
 * onetbb-2020_u3
 * zlib-1.3.1
 * zstd-1.5.6
-* blosc-1.21.5
-* cpython-3.11.11
+* cpython-3.11.13
 * freetype-2.13.2
 * gdbm-system
-* glew-2.1.0
-* glfw-3.3.8
-* log4cplus-2.1.1
+* glew-2.2.0
+* glfw-3.4
+* log4cplus-2.1.2
 * boost-1.82.0
-* pybind11-2.12.0
+* pybind11-2.13.6
 * imath-3.1.12
-* lcms-2.16
+* lcms-2.17
 * openexr-3.2.4
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-ocio:2025.1](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2025.1)
+## [aswf/ci-ocio:2025.2](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2025.2)
 
 Contains:
 * b2-5.2.1
@@ -163,8 +157,7 @@ Contains:
 * onetbb-2021.13.0
 * zlib-1.3.1
 * zstd-1.5.6
-* blosc-1.21.6
-* cpython-3.11.11
+* cpython-3.11.13
 * freetype-2.13.2
 * gdbm-system
 * glew-2.2.0
@@ -173,8 +166,42 @@ Contains:
 * boost-1.85.0
 * pybind11-2.13.6
 * imath-3.1.12
-* lcms-2.16
-* openexr-3.3.3
+* lcms-2.17
+* openexr-3.3.4
 * numpy-1.26.4
 * vfxplatform-2025
+
+## [aswf/ci-ocio:2026.0](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2026.0)
+
+Contains:
+* b2-5.3.2
+* bzip2-1.0.8
+* cppunit-1.15.1
+* expat-2.7.1
+* fmt-11.2.0
+* gtest-1.17.0
+* libbacktrace-cci.20210118
+* libdeflate-1.24
+* libiconv-1.18
+* libxcrypt-4.4.38
+* lz4-1.10.0
+* pugixml-1.15
+* pystring-1.1.4
+* snappy-1.2.2
+* onetbb-2022.1.0
+* zlib-1.3.1
+* zstd-1.5.7
+* cpython-3.13.3
+* freetype-2.13.2
+* gdbm-system
+* glew-2.2.0
+* glfw-3.4
+* log4cplus-2.1.2
+* boost-1.88.0
+* pybind11-2.13.6
+* imath-3.1.12
+* lcms-2.17
+* openexr-3.3.4
+* numpy-1.26.4
+* vfxplatform-2026
 

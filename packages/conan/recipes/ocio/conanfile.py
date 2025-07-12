@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/opencolorio/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/opencolorio/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -59,7 +59,7 @@ class OpenColorIOConan(ConanFile):
         if Version(self.version) < "2.2.0":
             self.requires("openexr/2.5.7")
         else:
-            self.requires("openexr/3.2.3")
+            self.requires("openexr/3.3.2")
             self.requires("imath/3.1.9", transitive_libs=True)
 
         if Version(self.version) < "2.0.0":

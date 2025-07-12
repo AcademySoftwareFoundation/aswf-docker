@@ -2,15 +2,16 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/22dfbd2b42eed730eca55e14025e8ffa65f723b2/recipes/glew/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/glew/all/conanfile.py
 
 from conan import ConanFile
+from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import is_apple_os
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rm, rmdir
 import os
 
-required_conan_version = ">=1.53.0"
+required_conan_version = ">=2.1"
 
 
 class GlewConan(ConanFile):
@@ -26,6 +27,7 @@ class GlewConan(ConanFile):
         "shared": [True, False],
         "fPIC": [True, False],
         "with_egl": [True, False],
+        "with_glu": ["mesa-glu", "system"]
     }
     default_options = {
         "shared": False,
@@ -36,10 +38,22 @@ class GlewConan(ConanFile):
     def export_sources(self):
         export_conandata_patches(self)
 
+    def validate(self):
+        if self.options.with_glu == "mesa-glu" and (is_apple_os(self) or self.settings.os == "Windows"):
+            raise ConanInvalidConfiguration("mesa-glu only suppported on Linux.")
+
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
             del self.options.with_egl
+
+        if self.options.with_glu == None:
+            if is_apple_os(self) or self.settings.os == "Windows":
+                self.options.with_glu = "system"
+            else:
+                # ASWF: use system GLU wrapper
+                # self.options.with_glu = "mesa-glu"
+                self.options.with_glu = "system"
 
     def configure(self):
         if self.options.shared:
@@ -55,11 +69,9 @@ class GlewConan(ConanFile):
     def requirements(self):
         self.requires("opengl/system")
         # GL/glew.h includes glu.h.
-        if is_apple_os(self) or self.settings.os == "Windows":
-            self.requires("glu/system", transitive_headers=True)
+        if self.options.with_glu == "mesa-glu":
+            self.requires("mesa-glu/9.0.3", transitive_headers=True)
         else:
-            # Don't depend on external GLU recipe
-            # self.requires("mesa-glu/9.0.0", transitive_headers=True)
             self.requires("glu/system", transitive_headers=True)
 
     def source(self):
@@ -93,7 +105,6 @@ class GlewConan(ConanFile):
         glewlib_target_name = "glew" if self.options.shared else "glew_s"
         self.cpp_info.set_property("cmake_find_mode", "both")
         self.cpp_info.set_property("cmake_module_file_name", "GLEW")
-        self.cpp_info.set_property("cmake_file_name", "glew")
         self.cpp_info.set_property("cmake_target_name", "GLEW::GLEW")
         self.cpp_info.set_property("pkg_config_name", "glew")
         self.cpp_info.components["glewlib"].set_property("cmake_module_target_name", "GLEW::GLEW")
@@ -111,21 +122,12 @@ class GlewConan(ConanFile):
             self.cpp_info.components["glewlib"].defines.append("GLEW_STATIC")
         self.cpp_info.components["glewlib"].requires = ["opengl::opengl"]
 
-        if is_apple_os(self) or self.settings.os == "Windows":
-           self.cpp_info.components["glewlib"].requires.append("glu::glu")
+        if self.options.with_glu == "mesa-glu":
+            self.cpp_info.components["glewlib"].requires.append("mesa-glu::mesa-glu")
         else:
-           # Use system GLU
-           # self.cpp_info.components["glewlib"].requires.append("mesa-glu::mesa-glu")
-           self.cpp_info.components["glewlib"].requires.append("glu::glu")
+            self.cpp_info.components["glewlib"].requires.append("glu::glu")
 
-        # TODO: to remove in conan v2 once cmake_find_package_* generators removed
-        self.cpp_info.filenames["cmake_find_package"] = "GLEW"
-        self.cpp_info.filenames["cmake_find_package_multi"] = "glew"
-        self.cpp_info.names["cmake_find_package"] = "GLEW"
-        self.cpp_info.names["cmake_find_package_multi"] = "GLEW"
-        self.cpp_info.components["glewlib"].names["cmake_find_package"] = "GLEW"
-        self.cpp_info.components["glewlib"].names["cmake_find_package_multi"] = glewlib_target_name
-
+        # ASWF: is this stil needed?
         self.env_info.CMAKE_PREFIX_PATH.append(
             os.path.join(self.package_folder, "lib64", "cmake")
         )

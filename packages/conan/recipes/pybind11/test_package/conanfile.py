@@ -20,6 +20,12 @@ class TestPackageConan(ConanFile):
 
     def requirements(self):
         self.requires(self.tested_reference_str)
+        # ASWF: requirements() and build_requirements() ensure we find our own Python
+        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
+
+    def build_requirements(self):
+        # ASWF: "cpython/<host_version>" isn't working for us
+        self.tool_requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
 
     def generate(self):
         deps = CMakeDeps(self)

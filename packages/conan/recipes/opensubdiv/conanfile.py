@@ -2,12 +2,12 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/2a3cb93885141024c1b405a01a79fb3abc239b12/recipes/opensubdiv/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/opensubdiv/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd, valid_min_cppstd
-from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
+from conan.tools.cmake import CMake, CMakeDeps,CMakeToolchain, cmake_layout
 from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, replace_in_file, rm, rmdir
 from conan.tools.scm import Version
 import os
@@ -40,13 +40,13 @@ class OpenSubdivConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "with_tbb": True, # ASWF
-        "with_opengl": True, # ASWF
+        "with_opengl": True,
         "with_omp": False,
         "with_cuda": True, # ASWF
         "with_clew": False,
         "with_opencl": False,
         "with_dx": False,
-        "with_metal": False,
+        "with_metal": True,
     }
 
     short_paths = True
@@ -88,16 +88,31 @@ class OpenSubdivConan(ConanFile):
         self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
-        if self.options.with_opengl:
-            self.requires(f"glfw/{os.environ['ASWF_GLFW_VERSION']}@{self.user}/{self.channel}")
-            self.requires(f"glew/{os.environ['ASWF_GLEW_VERSION']}@{self.user}/{self.channel}")
         if self.options.with_tbb:
             # OpenSubdiv < 3.6.0 support only onettbb/2020.x.x
             # https://github.com/PixarAnimationStudios/OpenSubdiv/pull/1317
             if Version(self.version) < "3.6.0":
                 self.requires("onetbb/2020.3.3", transitive_headers=True)
             else:
-                self.requires("onetbb/2021.10.0", transitive_headers=True)
+                self.requires("onetbb/2021.12.0", transitive_headers=True)
+        if self.options.with_opengl:
+            self.requires("opengl/system")
+            self.requires("glfw/3.4")
+            self.requires(f"glew/{os.environ['ASWF_GLEW_VERSION']}@{self.user}/{self.channel}")
+        if self.options.get_safe("with_metal"):
+            self.requires("metal-cpp/14.2")
+
+    def validate(self):
+        if self.settings.compiler.get_safe("cppstd"):
+            check_min_cppstd(self, self._min_cppstd)
+        min_version = self._minimum_compilers_version.get(str(self.settings.compiler), False)
+        if min_version and Version(self.settings.compiler.version) < min_version:
+            raise ConanInvalidConfiguration(
+                f"{self.ref} requires C++{self._min_cppstd}, which your compiler does not support."
+            )
+
+        if self.options.shared and self.settings.os == "Windows":
+            raise ConanInvalidConfiguration(f"{self.ref} shared not supported on Windows")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -136,6 +151,9 @@ class OpenSubdivConan(ConanFile):
         tc.variables["NO_GLTESTS"] = True
         tc.variables["NO_MACOS_FRAMEWORK"] = True
         tc.variables["CMAKE_LIBDIR_BASE"] = "lib64" # ASWF: DSOs in lib64
+        tc.generate()
+
+        tc = CMakeDeps(self)
         tc.generate()
 
     def _patch_sources(self):
@@ -180,12 +198,14 @@ class OpenSubdivConan(ConanFile):
         if self._osd_gpu_enabled:
             self.cpp_info.components["osdgpu"].set_property("cmake_target_name", f"OpenSubdiv::osdgpu{target_suffix}")
             self.cpp_info.components["osdgpu"].libs = ["osdGPU"]
+            self.cpp_info.components["osdgpu"].requires = ["osdcpu"]
+            if self.options.with_opengl:
+                self.cpp_info.components["osdgpu"].requires.extend(["opengl::opengl", "glfw::glfw"])
+            if self.options.get_safe("with_metal"):
+                self.cpp_info.components["osdgpu"].requires.append("metal-cpp::metal-cpp")
             dl_required = self.options.with_opengl or self.options.with_opencl
             if self.settings.os in ["Linux", "FreeBSD"] and dl_required:
                 self.cpp_info.components["osdgpu"].system_libs = ["dl"]
-            # ASWF: building with_opengl
-            if self.options.with_opengl:
-               self.cpp_info.components["osdgpu"].requires = ["glew::glew", "glfw::glfw"]
 
         # TODO: to remove in conan v2
         self.cpp_info.names["cmake_find_package"] = "OpenSubdiv"

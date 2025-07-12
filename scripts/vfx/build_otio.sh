@@ -4,7 +4,7 @@
 
 set -ex
 
-git clone https://github.com/PixarAnimationStudios/OpenTimelineIO.git
+git clone https://github.com/AcademySoftwareFoundation/OpenTimelineIO.git
 cd OpenTimelineIO
 
 if [ "$ASWF_OTIO_VERSION" != "latest" ]; then

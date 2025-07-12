@@ -2,13 +2,13 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/boost/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/d4f752a9a00040dfd8e397f3ac4eaf3be7c515ce/recipes/boost/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanException, ConanInvalidConfiguration
 from conan.tools.apple import is_apple_os, to_apple_arch, XCRun
 from conan.tools.build import build_jobs, cross_building, valid_min_cppstd, supported_cppstd
-from conan.tools.env import VirtualBuildEnv
+from conan.tools.env import VirtualBuildEnv, Environment
 from conan.tools.files import (
     apply_conandata_patches, chdir, collect_libs, copy, export_conandata_patches,
     get, mkdir, rename, replace_in_file, rm, rmdir, save
@@ -395,10 +395,10 @@ class BoostConan(ConanFile):
         obtain full path to the python interpreter executable
         :return: path to the python interpreter executable, either set by option, or system default
         """
-        # ASWF: eventually we want our own Python, but we don't know where it lives until
-        # requirements() has been called. Until then we just use the system puthon.
+        # ASWF: we don't know where our Python lives until
+        # requirements() has been called. Until then we just use the system python.
         # exe = self.options.python_executable if self.options.python_executable else sys.executable
-        exe = self.options.python_executable if self.options.python_executable else "python"
+        exe = self.options.python_executable if self.options.python_executable else "python3"
         return str(exe).replace("\\", "/")
 
     @property
@@ -663,9 +663,10 @@ class BoostConan(ConanFile):
 
         if not self.options.without_python:
             if not self.options.python_version:
-                self.options.python_version = self._detect_python_version()
-                # ASWF: always query dynamically since it will change
+                # ASWF: too early since we don't know where Python is before requirements() is called
+                # self.options.python_version = self._detect_python_version()
                 # self.options.python_executable = self._python_executable
+                pass
         else:
             self.options.rm_safe("python_buildid")
 
@@ -868,13 +869,21 @@ class BoostConan(ConanFile):
         apply_conandata_patches(self)
 
     def generate(self):
-        if not self.options.header_only:
-            # ASWF: only in validate() has the dependency graph been computed and packages installed
-            # allowing access to full path of our own python interpreter
+        # ASWF: only in generate() has the dependency graph been computed and packages installed
+        # allowing access to full path of our own python interpreter
+        if not self.options.without_python:
             pythonInfo = self.dependencies["cpython"]
             exe = os.path.join(pythonInfo.package_folder, pythonInfo.cpp_info.bindirs[0], "python")
-            self.options.python_executable = exe
+            py_lib = os.path.join(pythonInfo.package_folder, pythonInfo.cpp_info.libdirs[0])
+            env = Environment()
+            env.define("PYTHONPATH", py_lib)
+            env.prepend("LD_LIBRARY_PATH", py_lib, separator=os.pathsep)
+            envvars = env.vars(self,scope=None)
+            with envvars.apply():
+                self.options.python_executable = exe
+                self.options.python_version = self._detect_python_version()
 
+        if not self.options.header_only:
             env = VirtualBuildEnv(self)
             env.generate()
             vc = VCVars(self)
@@ -944,7 +953,8 @@ class BoostConan(ConanFile):
 
         NOTE: distutils is deprecated and breaks the recipe since Python 3.10
         """
-        python_version_parts = str(self.info.options.python_version).split('.')
+        # ASWF: self.info.options only in package_id()
+        python_version_parts = str(self.options.python_version).split('.')
         python_major = int(python_version_parts[0])
         python_minor = int(python_version_parts[1])
         if(python_major >= 3 and python_minor >= 10):
@@ -1193,6 +1203,9 @@ class BoostConan(ConanFile):
         with chdir(self, sources):
             # To show the libraries *1
             # self.run("%s --show-libraries" % b2_exe)
+            # ASWF: LD_LIBRARY_PATH for Python run by b2
+            py_lib = os.path.join(self.dependencies["cpython"].package_folder, "lib64")
+            os.environ["LD_LIBRARY_PATH"] = os.pathsep.join([py_lib,os.environ.get("LD_LIBRARY_PATH")])
             self.run(full_command)
 
     @property
@@ -1478,7 +1491,7 @@ class BoostConan(ConanFile):
         flags.extend([
             "install",
             f"--prefix={self.package_folder}",
-            f"--libdir={self.package_folder}/lib64", # Override default lib
+            f"--libdir={self.package_folder}/lib64", # ASWF Override default lib
             f"-j{build_jobs(self)}",
             "--abbreviate-paths",
             f"-d{self.options.debug_level}",
@@ -1710,7 +1723,9 @@ class BoostConan(ConanFile):
     def package(self):
         # This stage/lib is in source_folder... Face palm, looks like it builds in build but then
         # copy to source with the good lib name
+        # ASWF: license files in separate subdirs
         copy(self, "LICENSE_1_0.txt", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
+        # ASWF: keep cmake files
         # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
         if self.options.header_only:
             copy(self, "*", src=os.path.join(self.source_folder, "boost"),
@@ -1937,7 +1952,20 @@ class BoostConan(ConanFile):
 
             libformatdata = {}
             if not self.options.without_python:
-                pyversion = Version(self._python_version)
+                # ASWF: a consumer of this package can call package_info() before generate(),
+                # so we have to make sure that python_version is correctly set
+                if not self.options.python_version:
+                    pythonInfo = self.dependencies["cpython"]
+                    exe = os.path.join(pythonInfo.package_folder, pythonInfo.cpp_info.bindirs[0], "python")
+                    py_lib = os.path.join(pythonInfo.package_folder, pythonInfo.cpp_info.libdirs[0])
+                    env = Environment()
+                    env.define("PYTHONPATH", py_lib)
+                    env.prepend("LD_LIBRARY_PATH", py_lib, separator=os.pathsep)
+                    envvars = env.vars(self,scope=None)
+                    with envvars.apply():
+                        self.options.python_executable = exe
+                        self.options.python_version = self._detect_python_version()
+                pyversion = Version(self.options.python_version)
                 libformatdata["py_major"] = pyversion.major
                 libformatdata["py_minor"] = pyversion.minor
 
@@ -1959,7 +1987,7 @@ class BoostConan(ConanFile):
                 for name in names:
                     if name in ("boost_stacktrace_windbg", "boost_stacktrace_windbg_cached") and self.settings.os != "Windows":
                         continue
-                    if name in ("boost_math_c99l", "boost_math_tr1l") and str(self.settings.arch).startswith("ppc"):
+                    if name in ("boost_math_c99l", "boost_math_tr1l") and (str(self.settings.arch).startswith("ppc") or (Version(self.version) >= "1.87.0" and self.settings.os == "Emscripten")):
                         continue
                     if name in ("boost_stacktrace_addr2line", "boost_stacktrace_backtrace", "boost_stacktrace_basic") and self.settings.os == "Windows":
                         continue

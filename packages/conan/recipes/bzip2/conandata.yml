@@ -2,14 +2,20 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/5fecff85282c68fae05e776fb330779bdb94a6e8/recipes/bzip2/all/conandata.yml
+# From: https://github.com/conan-io/conan-center-index/blob/d8323e1d365e32d88042e5070a483fc55a337856/recipes/bzip2/all/conandata.yml
 
 sources:
   "1.0.8":
-    url: "https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz"
+    url:
+    - "https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz"
+    - "https://mirrors.kernel.org/sourceware/bzip2/bzip2-1.0.8.tar.gz"
+    - "https://www.mirrorservice.org/sites/sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz"
     sha256: "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"
   "1.0.6":
-    url: "https://sourceware.org/pub/bzip2/bzip2-1.0.6.tar.gz"
+    url:
+    - "https://sourceware.org/pub/bzip2/bzip2-1.0.6.tar.gz"
+    - "https://mirrors.kernel.org/sourceware/bzip2/bzip2-1.0.6.tar.gz"
+    - "https://www.mirrorservice.org/sites/sourceware.org/pub/bzip2/bzip2-1.0.6.tar.gz"
     sha256: "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
 patches:
   "1.0.6":

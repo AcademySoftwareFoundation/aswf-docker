@@ -21,9 +21,8 @@ class SystemSqlite3Conan(ConanFile):
     }
    
     def package_info(self):
-        self.cpp_info.includedirs = ["/usr/include"]
-        self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["sqlite3"]
+        self.cpp_info.includedirs = []
+        self.cpp_info.system_libs = ["sqlite3"]
         
         self.cpp_info.set_property("cmake_file_name", "SQLite3")
         self.cpp_info.set_property("cmake_target_name", "SQLite::SQLite3")

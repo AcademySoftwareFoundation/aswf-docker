@@ -1,23 +1,48 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/llvm-core/all/conandata.yml
+
 sources:
-  "16.0.4":
-    url: "https://github.com/llvm/llvm-project/archive/llvmorg-16.0.4.tar.gz"
-    sha256: "10c3fe1757d2e4f1cd7745dc548ecf687680a71824ec81701c38524c2a0753e2"
-  "16.0.6":
-    url: "https://github.com/llvm/llvm-project/archive/llvmorg-16.0.6.tar.gz"
-    sha256: "56b2f75fdaa95ad5e477a246d3f0d164964ab066b4619a01836ef08e475ec9d5"
-  "17.0.1":
-    url: "https://github.com/llvm/llvm-project/archive/llvmorg-17.0.1.tar.gz"
-    sha256: "d51b10be66c10a6a81f4c594b554ffbf1063ffbadcb810af37d1f88d6e0b49dd"
-  "17.0.6":
-    url: "https://github.com/llvm/llvm-project/archive/llvmorg-17.0.6.tar.gz"
-    sha256: "81494d32e6f12ea6f73d6d25424dbd2364646011bb8f7e345ca870750aa27de1"
+  "20.1.7":
+    "llvm":
+      url: "https://github.com/llvm/llvm-project/archive/llvmorg-20.1.7.tar.gz"
+      sha256: "91865189d0ca30ca81b7f7af637aca745b6eeeba97c5dfb0ab7d79a1d9659289"
+    "cmake":
+      url: "https://github.com/llvm/llvm-project/releases/download/llvmorg-20.1.7/cmake-20.1.7.src.tar.xz"
+      sha256: "afdab526c9b337a4eacbb401685beb98a18fb576037ecfaa93171d4c644fe791"
+  "19.1.7":
+    "llvm":
+      url: "https://github.com/llvm/llvm-project/archive/llvmorg-19.1.1.tar.gz"
+      sha256: "115dfd98a353d05bffdab3f80db22f159da48aca0124e8c416f437adcd54b77f"
+    "cmake":
+      url: "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/cmake-19.1.7.src.tar.xz"
+      sha256: "11c5a28f90053b0c43d0dec3d0ad579347fc277199c005206b963c19aae514e3"
   "18.1.8":
-    url: "https://github.com/llvm/llvm-project/archive/llvmorg-18.1.8.tar.gz"
-    sha256: "09c08693a9afd6236f27a2ebae62cda656eba19021ef3f94d59e931d662d4856"
-  "19.1.0":
-    url: "https://github.com/llvm/llvm-project/archive/llvmorg-19.1.0.tar.gz"
-    sha256: "0a08341036ca99a106786f50f9c5cb3fbe458b3b74cab6089fd368d0edb2edfe"
-  "19.1.1":
-    url: "https://github.com/llvm/llvm-project/archive/llvmorg-19.1.1.tar.gz"
-    sha256: "115dfd98a353d05bffdab3f80db22f159da48aca0124e8c416f437adcd54b77f"
+    "llvm":
+      url: "https://github.com/llvm/llvm-project/archive/llvmorg-18.1.8.tar.gz"
+      sha256: "09c08693a9afd6236f27a2ebae62cda656eba19021ef3f94d59e931d662d4856"
+    "cmake":
+      url: "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/cmake-18.1.8.src.tar.xz"
+      sha256: "59badef592dd34893cd319d42b323aaa990b452d05c7180ff20f23ab1b41e837"
+  "17.0.6":
+    "llvm":
+      url: "https://github.com/llvm/llvm-project/archive/llvmorg-17.0.6.tar.gz"
+      sha256: "81494d32e6f12ea6f73d6d25424dbd2364646011bb8f7e345ca870750aa27de1"
+    "cmake":
+      url: "https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.6/cmake-17.0.6.src.tar.xz"
+      sha256: "807f069c54dc20cb47b21c1f6acafdd9c649f3ae015609040d6182cab01140f4"
+  "16.0.6":
+    "llvm":
+      url: "https://github.com/llvm/llvm-project/archive/llvmorg-16.0.6.tar.gz"
+      sha256: "56b2f75fdaa95ad5e477a246d3f0d164964ab066b4619a01836ef08e475ec9d5"
+    "cmake":
+      url: "https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.6/cmake-16.0.6.src.tar.xz"
+      sha256: "39d342a4161095d2f28fb1253e4585978ac50521117da666e2b1f6f28b62f514"
 patches:
+  "19.1.7":
+    - patch_file: patches/19x/0000-cmake-dependencies.patch
+      patch_description: fix references to third party libs to match conan variables and targets
+      patch_type: conan
+      base_path: llvm-main/llvm

@@ -1,0 +1,14 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/47ec06eaf213b77bf96c28079434b4fe4446cc46/recipes/openfx/all/conandata.yml
+
+sources:
+  "1.5s":
+    url: "https://github.com/AcademySoftwareFoundation/openfx/archive/refs/tags/OFX_Release_1.5s.tar.gz"
+  "1.5":
+    url: "https://github.com/AcademySoftwareFoundation/openfx/archive/refs/tags/OFX_Release_1.5.tar.gz"
+  "1.4":
+    url: "https://github.com/ofxa/openfx/archive/refs/tags/OFX_Release_1_4_TAG.tar.gz"
+    sha256: "1f2d057b2cff025979f631f092f138020315524d4c0c0dcc2dccdadc2313a62f"

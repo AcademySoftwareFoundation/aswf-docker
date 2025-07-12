@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/snappy/all/conandata.yml
 
 sources:
+  "1.2.2":
+    url: "https://github.com/google/snappy/archive/1.2.2.tar.gz"
+    sha256: "90f74bc1fbf78a6c56b3c4a082a05103b3a56bb17bca1a27e052ea11723292dc"
   "1.2.1":
     url: "https://github.com/google/snappy/archive/1.2.1.tar.gz"
     sha256: "736aeb64d86566d2236ddffa2865ee5d7a82d26c9016b36218fcc27ea4f09f86"
@@ -24,6 +27,19 @@ sources:
     url: "https://github.com/google/snappy/archive/1.1.7.tar.gz"
     sha256: "3dfa02e873ff51a11ee02b9ca391807f0c8ea0529a4924afa645fbf97163f9d4"
 patches:
+  "1.2.2":
+    - patch_file: "patches/1.1.10-0001-fix-inlining-failure.patch"
+      patch_description: "disable inlining for compilation error"
+      patch_type: "portability"
+    - patch_file: "patches/1.1.9-0002-no-Werror.patch"
+      patch_description: "disable 'warning as error' options"
+      patch_type: "portability"
+    - patch_file: "patches/1.2.2-0003-fix-clobber-list-older-llvm.patch"
+      patch_description: "disable inline asm on apple-clang"
+      patch_type: "portability"
+    - patch_file: "patches/1.2.2-0004-rtti-by-default.patch"
+      patch_description: "remove 'disable rtti'"
+      patch_type: "conan"
   "1.2.1":
     - patch_file: "patches/1.1.10-0001-fix-inlining-failure.patch"
       patch_description: "disable inlining for compilation error"

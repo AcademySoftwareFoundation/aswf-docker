@@ -18,9 +18,8 @@ class SystemTkConan(ConanFile):
       self.requires(f"tcl/{self.version}@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}", transitive_headers=True, transitive_libs=True)
    
     def package_info(self):
-        self.cpp_info.includedirs = ["/usr/include"]
-        self.cpp_info.libdirs = ["/usr/lib64"]
-        self.cpp_info.libs = ["tk"]
+        self.cpp_info.includedirs = []
+        self.cpp_info.system_libs = ["tk"]
         self.cpp_info.requires = ["tcl::tcl"]
         
         self.cpp_info.set_property("cmake_file_name", "TK")

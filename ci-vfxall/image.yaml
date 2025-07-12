@@ -3,7 +3,7 @@ title: "VFX All CI Docker Image"
 description: |
   Contains: all supported VFX packages
 packages:
-  - blosc
+  - c-blosc
   - boost
   - cppunit
   - cpython

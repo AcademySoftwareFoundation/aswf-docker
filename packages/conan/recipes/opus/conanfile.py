@@ -13,11 +13,10 @@ class SystemOpusConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
 
     def package_info(self):
-        self.cpp_info.libdirs = ["/usr/lib64"]
 
         self.cpp_info.set_property("cmake_file_name", "Opus")
         self.cpp_info.set_property("cmake_target_name", "Opus::opus")
         self.cpp_info.set_property("pkg_config_name", "opus")
-        self.cpp_info.libs = ["opus"]
-        self.cpp_info.includedirs.append("/usr/include/opus")
+        self.cpp_info.includedirs = ["/usr/include/opus"]
+        self.cpp_info.system_libs = ["opus"]
         self.cpp_info.system_libs.append("m")

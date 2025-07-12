@@ -63,27 +63,39 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-openexr:2024.2](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2024.2)
+## [aswf/ci-openexr:2024.3](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2024.3)
 
 Contains:
 * boost-1.82.0
 * bzip2-1.0.8
-* cpython-3.11.11
+* cpython-3.11.13
 * libbacktrace-cci.20210118
 * libdeflate-1.23
-* pybind11-2.12.0
+* pybind11-2.13.6
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-openexr:2025.1](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2025.1)
+## [aswf/ci-openexr:2025.2](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2025.2)
 
 Contains:
 * boost-1.85.0
 * bzip2-1.0.8
-* cpython-3.11.11
+* cpython-3.11.13
 * libbacktrace-cci.20210118
 * libdeflate-1.23
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025
+
+## [aswf/ci-openexr:2026.0](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2026.0)
+
+Contains:
+* boost-1.88.0
+* bzip2-1.0.8
+* cpython-3.13.3
+* libbacktrace-cci.20210118
+* libdeflate-1.24
+* pybind11-2.13.6
+* numpy-1.26.4
+* vfxplatform-2026
 

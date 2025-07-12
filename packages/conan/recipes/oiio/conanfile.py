@@ -172,7 +172,7 @@ class OpenImageIOConan(ConanFile):
         tc.variables["INSTALL_FONTS"] = False
         tc.variables["INSTALL_CMAKE_HELPER"] = False
         tc.variables["EMBEDPLUGINS"] = True
-        tc.variables["USE_PYTHON"] = False
+        tc.variables["USE_PYTHON"] = True # ASWF: build Python bindings
         tc.variables["USE_EXTERNAL_PUGIXML"] = True
         tc.variables["BUILD_MISSING_FMT"] = False
 

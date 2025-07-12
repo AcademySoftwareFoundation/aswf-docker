@@ -1,0 +1,108 @@
+include(ci_common6)
+
+[settings]
+[options]
+# Build everything as shared libs by default
+*:shared=True
+[tool_requires]
+[replace_requires]
+boost/*: boost/1.88.0@aswftesting/vfx2026
+brotli/*: brotli/system@aswftesting/vfx2026
+bzip2/*: bzip2/1.0.8@aswftesting/vfx2026
+dbus/*: dbus/system@aswftesting/vfx2026
+double-conversion/*: double-conversion/system@aswftesting/vfx2026
+expat/*: expat/2.7.1@aswftesting/vfx2026
+fmt/*: fmt/11.2.0@aswftesting/vfx2026
+fontconfig/*: fontconfig/system@aswftesting/vfx2026
+freetype/*: freetype/2.13.2@aswftesting/vfx2026
+gdbm/*: gdbm/system@aswftesting/vfx2026
+giflib/*: giflib/5.2.1@aswftesting/vfx2026
+glew/*: glew/2.2.0@aswftesting/vfx2026
+glib/*: glib/2.68.4@aswftesting/vfx2026
+highway/*: highway/1.2.0@aswftesting/vfx2026
+icu/*: icu/system@aswftesting/vfx2026
+imath/*: imath/3.1.12@aswftesting/vfx2026
+lcms/*: lcms/2.17@aswftesting/vfx2026
+libalsa/*: libalsa/system@aswftesting/vfx2026
+libaom-av1/*: libaom/system@aswftesting/vfx2026
+libbacktrace/*: libbacktrace/cci.20210118@aswftesting/vfx2026
+libdeflate/*: libdeflate/1.24@aswftesting/vfx2026
+libdrm/*: libdrm/system@aswftesting/vfx2026
+libffi/*: libffi/system@aswftesting/vfx2026
+libiconv/*: libiconv/1.18@aswftesting/vfx2026
+libjpeg-turbo/*: libjpeg-turbo/3.1.0@aswftesting/vfx2026
+libjxl/*: libjxl/0.11.1@aswftesting/vfx2026
+libmp3lame/*: libmp3lame/system@aswftesting/vfx2026
+libpng/*: libpng/1.6.37@aswftesting/vfx2026
+libsndfile/*: libsndfile/system@aswftesting/vfx2026
+libsquish/*: libsquish/system@aswftesting/vfx2026
+libsvt-av1/*: libsvt-av1/system@aswftesting/vfx2026
+libtiff/*: libtiff/4.4.0@aswftesting/vfx2026
+libuhdr/*: libuhdr/1.4.0@aswftesting/vfx2026
+libvpx/*: libvpx/system@aswftesting/vfx2026
+libwebp/*: libwebp/1.5.0@aswftesting/vfx2026
+libxcrypt/*: libxcrypt/4.4.38@aswftesting/vfx2026
+libxshmfence/*: libxshmfence/system@aswftesting/vfx2026
+log4cplus/*: log4cplus/2.1.2@aswftesting/vfx2026
+lz4/*: lz4/1.10.0@aswftesting/vfx2026
+md4c/*: md4c/0.5.2@aswftesting/vfx2026
+minizip-ng/*: minizip-ng/4.0.10aswftesting/vfx2026
+mpdecimal/*: mpdecimal/system@aswftesting/vfx2026
+mpg123/*: mpg123/system@aswftesting/vfx2026
+nspr/*: nspr/system@aswftesting/vfx2026
+nss/*: nss/3.101.0@aswftesting/vfx2026
+ocio/*: ocio/2.4.2@aswftesting/vfx2026
+oiio/*: oiio/3.0.7.0@aswftesting/vfx2026
+ogg/*: ogg/system@aswftesting/vfx2026
+onetbb/*: onetbb/2022.1.0@aswftesting/vfx2026
+openal-soft/*: openal-soft/system@aswftesting/vfx2026
+openexr/*: openexr/3.3.4@aswftesting/vfx2026
+opengl/*: opengl/system@aswftesting/vfx2026
+openjpeg/*: openjpeg/2.4.0@aswftesting/vfx2026
+openssl/*: openssl/system@aswftesting/vfx2026
+opus/*: opus/system@aswftesting/vfx2026
+pcre2/*: pcre2/system@aswftesting/vfx2026
+ptex/*: ptex/2.4.3@aswftesting/vfx2026
+pugixml/*: pugixml/1.15@aswftesting/vfx2026
+pulseaudio/*: pulseaudio/system@aswr/vfx2026
+pystring/*: pystring/1.1.4@aswftesting/vfx2026
+snappy/*: snappy/1.2.2@aswftesting/vfx2026
+sqlite3/*: sqlite3/system@aswftesting/vfx2026
+tcl/*: tcl/system@aswftesting/vfx2026
+tk/*: tk/system@aswftesting/vfx2026
+tsl-robin-map/*: tsl-robin-map/1.4.0@aswftesting/vfx2026
+util-linux-libuuid/*: util-linux-libuuid/system@aswftesting/vfx2026
+vorbis/*: vorbis/system@aswftesting/vfx2026
+vulkan-headers/*: vulkan-headers/system@aswftesting/vfx2026
+vulkan-loader/*: vulkan-loader/system@aswftesting/vfx2026
+xkbcommon/*: xkbcommon/1.0.3@aswftesting/vfx2026
+xorg/*: xorg/system@aswftesting/vfx2026
+xorg-proto/*: xorg-proto/system@aswftesting/vfx2026
+xz_utils/*: xz_utils/system@aswftesting/vfx2026
+yaml-cpp/*: yaml-cpp/0.8.0@aswftesting/vfx2026
+zlib/*: zlib/1.3.1@aswftesting/vfx2026
+zstd/*: zstd/1.5.7@aswftesting/vfx2026
+[replace_tool_requires]
+b2/*: b2/5.3.2@aswftesting/vfx2026
+bison/*: bison/3.7.4@system
+flex/*: flex/2.6.4@system
+gperf/*: gperf/3.1@system
+libtool/*: libtool/2.4.6@system
+meson/*: meson/0.63.3@system
+nasm/*: nasm/system@aswftesting/vfx2026
+ninja/*: ninja/1.12.1@aswf/ci_common5
+nodejs/*: nodejs/18.20.6@system
+pkgconf/*: pkgconf/1.7.3@system
+wayland/*: wayland/1.21.0@system
+wayland-protocols/*: wayland-protocols/1.31@system
+[platform_requires]
+[platform_tool_requires]
+bison/3.7.4
+flex/2.6.4
+gperf/3.1
+libtool/2.4.6
+meson/0.63.3
+nodejs/18.20.6
+pkgconf/1.7.3
+wayland/1.21.0
+wayland-protocols/1.31

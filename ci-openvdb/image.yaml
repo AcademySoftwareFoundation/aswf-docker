@@ -23,7 +23,7 @@ packages:
   - yaml-cpp
   - zlib
   - zstd
-  - blosc              # base1-2 packages
+  - c-blosc              # base1-2 packages
   - cpython
   - freetype
   - gdbm

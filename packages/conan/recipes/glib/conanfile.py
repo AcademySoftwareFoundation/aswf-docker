@@ -5,14 +5,18 @@
 # From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/glib/all/conanfile.py
 
 from conan import ConanFile
-
+from conan.tools.files import load
 import os
+import re
 
 class SystemGLibConan(ConanFile):
     name = "glib"
-    version = "2.78.3" # For Qt conan recipe
-    
     settings = "os", "arch", "compiler", "build_type"
+
+    def set_version(self):
+        content = load(self, "/usr/lib64/pkgconfig/glib-2.0.pc")
+        match = re.search(r"^Version:\s*(.+)$", content, re.MULTILINE)
+        self.version = match.group(1).strip()
 
     def requirements(self):
         self.requires("zlib/[>=1.2.11 <2]")
@@ -21,7 +25,7 @@ class SystemGLibConan(ConanFile):
    
     def package_info(self):
         self.cpp_info.components["glib-2.0"].set_property("pkg_config_name", "glib-2.0")
-        self.cpp_info.components["glib-2.0"].libs = ["glib-2.0"]
+        self.cpp_info.components["glib-2.0"].system_libs = ["glib-2.0"]
         self.cpp_info.components["glib-2.0"].includedirs += [
             os.path.join("include", "glib-2.0"),
             os.path.join("lib", "glib-2.0", "include")
@@ -29,7 +33,7 @@ class SystemGLibConan(ConanFile):
         self.cpp_info.components["glib-2.0"].resdirs = ["res"]
 
         self.cpp_info.components["gmodule-no-export-2.0"].set_property("pkg_config_name", "gmodule-no-export-2.0")
-        self.cpp_info.components["gmodule-no-export-2.0"].libs = ["gmodule-2.0"]
+        self.cpp_info.components["gmodule-no-export-2.0"].system_libs = ["gmodule-2.0"]
         self.cpp_info.components["gmodule-no-export-2.0"].resdirs = ["res"]
         self.cpp_info.components["gmodule-no-export-2.0"].requires.append("glib-2.0")
 
@@ -40,22 +44,22 @@ class SystemGLibConan(ConanFile):
         self.cpp_info.components["gmodule-2.0"].requires += ["gmodule-no-export-2.0", "glib-2.0"]
 
         self.cpp_info.components["gobject-2.0"].set_property("pkg_config_name", "gobject-2.0")
-        self.cpp_info.components["gobject-2.0"].libs = ["gobject-2.0"]
+        self.cpp_info.components["gobject-2.0"].system_libs = ["gobject-2.0"]
         self.cpp_info.components["gobject-2.0"].resdirs = ["res"]
         self.cpp_info.components["gobject-2.0"].requires += ["glib-2.0", "libffi::libffi"]
 
         self.cpp_info.components["gthread-2.0"].set_property("pkg_config_name", "gthread-2.0")
-        self.cpp_info.components["gthread-2.0"].libs = ["gthread-2.0"]
+        self.cpp_info.components["gthread-2.0"].system_libs = ["gthread-2.0"]
         self.cpp_info.components["gthread-2.0"].resdirs = ["res"]
         self.cpp_info.components["gthread-2.0"].requires.append("glib-2.0")
 
         self.cpp_info.components["gio-2.0"].set_property("pkg_config_name", "gio-2.0")
-        self.cpp_info.components["gio-2.0"].libs = ["gio-2.0"]
+        self.cpp_info.components["gio-2.0"].system_libs = ["gio-2.0"]
         self.cpp_info.components["gio-2.0"].resdirs = ["res"]
         self.cpp_info.components["gio-2.0"].requires += ["glib-2.0", "gobject-2.0", "gmodule-2.0", "zlib::zlib"]
 
         self.cpp_info.components["gresource"].set_property("pkg_config_name", "gresource")
-        self.cpp_info.components["gresource"].libs = []  # this is actually an executable
+        self.cpp_info.components["gresource"].system_libs = []  # this is actually an executable
 
         self.cpp_info.components["glib-2.0"].system_libs.append("pthread")
         self.cpp_info.components["gmodule-no-export-2.0"].system_libs.append("pthread")

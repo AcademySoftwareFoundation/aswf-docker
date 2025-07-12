@@ -7,8 +7,12 @@ import os
 import sys
 import logging
 import warnings
+import re
+import subprocess
 
 import click
+from github import Github, Auth
+from github.GithubException import GithubException
 
 from aswfdocker import (
     builder,
@@ -156,13 +160,16 @@ def get_group_info(build_info, ci_image_type, groups, versions, full_name, targe
 )
 @click.option("--use-conan", "-c", is_flag=True, help="Use Conan to build packages")
 @click.option(
-    "--keep-source", "-ks", is_flag=True, help="Instruct Conan to keep sources"
+    "--keep-source",
+    "-ks",
+    is_flag=True,
+    help="[DEPRECATED] This option is no longer relevant with Conan 2.",
 )
 @click.option(
     "--keep-build",
     "-kb",
     is_flag=True,
-    help="Instruct Conan to keep build - will fail is no previous build available!",
+    help="[DEPRECATED] This option is no longer relevant with Conan 2.",
 )
 @click.option(
     "--conan-login",
@@ -176,6 +183,12 @@ def get_group_info(build_info, ci_image_type, groups, versions, full_name, targe
     is_flag=True,
     help="Instruct Conan to build missing binary packages from source.",
 )
+@click.option(
+    "--no-remote",
+    "-nr",
+    is_flag=True,
+    help="Do not use Conan remote, resolve exclusively in the cache",
+)
 @pass_build_info
 def build(
     build_info,
@@ -188,10 +201,11 @@ def build(
     dry_run,
     progress,
     use_conan,
-    keep_source,
-    keep_build,
+    keep_source,  # pylint: disable=unused-argument
+    keep_build,  # pylint: disable=unused-argument
     conan_login,  # pylint: disable=unused-argument
     build_missing,
+    no_remote,
 ):
     """Builds a ci-package or ci-image Docker image."""
     if push == "YES":
@@ -210,9 +224,8 @@ def build(
     b.build(
         dry_run=dry_run,
         progress=progress,
-        keep_source=keep_source,
-        keep_build=keep_build,
         build_missing=build_missing,
+        no_remote=no_remote,
     )
 
 
@@ -503,3 +516,150 @@ def pushoverview(
                 fg="red",
             )
             click.get_current_context().exit(1)
+
+
+@cli.command()
+@click.option(
+    "--recipe",
+    "-p",
+    multiple=True,
+    help="Specific recipe(s) to check. If not provided, checks all recipes.",
+)
+@click.option(
+    "--checkwrappers",
+    is_flag=True,
+    default=False,
+    help="Check system wrapper packages (classes starting with 'System').",
+)
+@click.option(
+    "--branch",
+    default="master",
+    help="GitHub branch to check against (default: master)",
+)
+@pass_build_info
+def conandiff(build_info, recipe, checkwrappers, branch):
+    """Check for outdated conanfile.py files in packages/conan/recipes directory."""
+    from aswfdocker import settings
+
+    # Initialize GitHub client
+    s = settings.Settings()
+    if s.github_access_token:
+        auth = Auth.Token(s.github_access_token)
+        g = Github(auth=auth)
+    else:
+        g = Github()
+
+    github_org = "conan-io"
+    github_repo = "conan-center-index"
+
+    repo = g.get_repo(f"{github_org}/{github_repo}")
+
+    recipes_dir = os.path.join(build_info.repo_root, "packages", "conan", "recipes")
+    if not os.path.exists(recipes_dir):
+        click.secho(f"Error: {recipes_dir} directory not found", fg="red")
+        return
+
+    # Get list of recipes to check
+    if recipe:
+        recipe_dirs = []
+        for r in recipe:
+            recipe_path = os.path.join(recipes_dir, r)
+            if os.path.exists(recipe_path):
+                recipe_dirs.append(recipe_path)
+            else:
+                click.secho(
+                    f"Warning: Recipe '{r}' not found in {recipes_dir}", fg="yellow"
+                )
+    else:
+        recipe_dirs = [
+            os.path.join(recipes_dir, d)
+            for d in os.listdir(recipes_dir)
+            if os.path.isdir(os.path.join(recipes_dir, d))
+        ]
+
+    # Sort recipe directories for consistent output
+    recipe_dirs.sort()
+
+    found_outdated = False
+    click.secho("Checking conanfile.py files...", fg="blue")
+
+    for recipe_dir in recipe_dirs:
+        conanfile_path = os.path.join(recipe_dir, "conanfile.py")
+        if not os.path.exists(conanfile_path):
+            continue
+
+        with open(conanfile_path, "r") as f:
+            content = f.read()
+
+        # Skip system wrapper packages unless --checkwrappers is specified
+        if not checkwrappers and "class System" in content:
+            continue
+
+        # Extract package name from conanfile.py
+        package_name = os.path.basename(recipe_dir)
+
+        # Find SHA-1 hashes in URLs
+        sha_pattern = r"https://github.com/conan-io/conan-center-index/blob/([a-fA-F0-9]{40})/recipes/([^/]+)/all/conanfile\.py"
+        matches = re.findall(sha_pattern, content)
+        if not matches:
+            continue
+
+        old_sha, upstream_package = matches[0]
+        try:
+            # Get the commit SHA from the permalink
+            permalink_commits = list(
+                repo.get_commits(
+                    path=f"recipes/{upstream_package}/all/conanfile.py",
+                    sha=old_sha,
+                )
+            )
+            if not permalink_commits:
+                continue
+            permalink_commit = permalink_commits[0]
+            permalink_sha = permalink_commit.sha
+
+            # Get all commits for this file after the permalink SHA
+            all_commits = list(
+                repo.get_commits(
+                    path=f"recipes/{upstream_package}/all/conanfile.py",
+                    sha=branch,
+                )
+            )
+            if not all_commits:
+                continue
+
+            # Filter commits to only those after the permalink SHA
+            newer_commits = []
+            for commit in all_commits:
+                if commit.sha == permalink_sha:
+                    break
+                newer_commits.append(commit)
+
+            if newer_commits:
+                found_outdated = True
+                click.secho(f"\nFound outdated conanfile.py:", fg="yellow")
+                click.echo(f"{conanfile_path}:")
+                click.echo(f"  Package: {package_name}")
+                click.echo(f"  Current SHA: {permalink_sha}")
+                click.echo(f"  Found {len(newer_commits)} newer commits:")
+                for commit in newer_commits:
+                    click.echo(f"    Commit: {commit.sha}")
+                    click.echo(
+                        f"    Diff URL: https://github.com/{github_org}/{github_repo}/commit/{commit.sha}"
+                    )
+                    click.echo(f"    Timestamp: {commit.commit.author.date}")
+                    if "\n" in commit.commit.message:
+                        click.echo("    Message:")
+                        for line in commit.commit.message.split("\n"):
+                            click.echo(f"      {line}")
+                    else:
+                        click.echo(f"    Message: {commit.commit.message}")
+                    click.echo()
+                click.echo()
+
+        except GithubException as e:
+            click.secho(f"Error checking {conanfile_path}: {str(e)}", fg="red")
+            continue
+
+    if not found_outdated:
+        click.secho("\nAll conanfile.py files are up to date!", fg="green")
