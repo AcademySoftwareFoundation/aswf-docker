@@ -1676,21 +1676,20 @@ groups:
         - imath
         - lcms
         - libuhdr
+        - openfx
+        - opensubdiv
+        - partio
         - ptex
       vfx1-2:
          - libjxl
          - openexr
-         - openfx
       vfx1-3:
         - alembic
         - ocio
+        - openvdb
       vfx1-4:
         - oiio
-      vfx1:
-        - openvdb
       vfx2-1: 
-        - opensubdiv
-        - partio
         - materialx
       vfx2:
         - osl

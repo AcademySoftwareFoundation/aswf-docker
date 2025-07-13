@@ -51,7 +51,7 @@ class OpenVDBConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "build_ax": False,
+        "build_ax": False, # ASWF: enable AX for OpenVDB
         "simd": None,
         "use_colored_output": False,
         "use_delayed_loading": False,

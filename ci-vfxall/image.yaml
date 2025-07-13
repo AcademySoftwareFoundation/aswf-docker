@@ -45,6 +45,7 @@ packages:
   - alembic
   - oiio
   - ocio
+  - openfx
   - opensubdiv
   - ptex
   - openvdb

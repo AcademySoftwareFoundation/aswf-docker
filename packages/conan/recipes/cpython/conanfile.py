@@ -956,6 +956,11 @@ class CPythonConan(ConanFile):
             bindir = os.path.join(self.package_folder, "bin")
             self.runenv_info.append_path("PATH", bindir)
             self.buildenv_info.append_path("PATH", bindir)
+            # ASWF: find libpython
+            libdir = os.path.join(self.package_folder, "lib64")
+            self.output.info(f"Appending LD_LIBRARY_PATH environment variable: {libdir}")
+            self.runenv_info.append_path("LD_LIBRARY_PATH", libdir)
+            self.buildenv_info.append_path("LD_LIBRARY_PATH", libdir)
 
             # TODO remove once Conan 1.x is no longer supported
             self.output.info(f"Appending PATH environment variable: {bindir}")

@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8620cf3d..a6832314 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -366,7 +366,7 @@ if(NOT NO_OMP)
+     find_package(OpenMP)
+ endif()
+ if(NOT NO_TBB)
+-    find_package(TBB 2018 COMPONENTS tbb)
++    find_package(TBB COMPONENTS tbb)
+ endif()
+ if (NOT NO_OPENGL)
+     find_package(OpenGL)
+@@ -389,7 +389,7 @@ if(NOT NO_GLFW AND NOT NO_OPENGL AND NOT ANDROID AND NOT IOS)
+     find_package(GLFW 3.0.0)
+ endif()
+ if(NOT NO_PTEX)
+-   find_package(PTex 2.0)
++   find_package(PTex)
+    find_package(ZLIB 1.2)
+ endif()
+ if(APPLE AND NOT NO_METAL)
