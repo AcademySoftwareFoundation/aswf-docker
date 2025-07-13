@@ -292,20 +292,6 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build vfx1 level 5 non-Conan packages
-      run: |
-        set -ex
-        pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
-          --verbose \
-          build \
-          --ci-image-type PACKAGE \
-          --group vfx1 \
-          --version ${{ matrix.version_noclang }} \
-          --build-missing \
-          --push NO
-
     - name: Build vfx2 level 1 Conan packages
       run: |
         set -ex

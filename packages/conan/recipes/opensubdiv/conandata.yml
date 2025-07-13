@@ -19,10 +19,10 @@ sources:
     sha256: "20d49f80a2b778ad4d01f091ad88d8c2f91cf6c7363940c6213241ce6f1048fb"
 patches:
   "3.6.1":
-    - patch_file: "patches/3.6.0-0001-cmake-no-rpath.patch"
+    - patch_file: "patches/3.6.0-0002-cmake-no-rpath.patch"
       patch_description: "CMake: do not populate rpath with absolute paths"
       patch_type: "conan"
-    - patch_file: "patches/cmake-no-versions.diff"
+    - patch_file: "patches/3.6.1-0001-cmake-no-versions.diff"
       patch_description: "Override TBB and Ptex version requirements"
     - patch_file: "patches/cmake-ptex-lib64.diff"
       patch_description: "Find Ptex DSO in lib64"

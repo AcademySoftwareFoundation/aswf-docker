@@ -107,9 +107,9 @@ patches:
       patch_description: "Missing includes when Imath from Conan package"
       patch_type: "conan"
   "3.0.8.1":
-    - patch_file: "patches/3.0.8.1-cmake-fmt.patch"
+    - patch_file: "patches/3.0.6.1-cmake-fmt.patch"
       patch_description: "Deal with generator expression from fmt Conan package"
       patch_type: "conan"
-    - patch_file: "patches/3.0.8.1-imath-includes.txt"
+    - patch_file: "patches/3.0.6.1-imath-includes.txt"
       patch_description: "Missing includes when Imath from Conan package"
       patch_type: "conan"

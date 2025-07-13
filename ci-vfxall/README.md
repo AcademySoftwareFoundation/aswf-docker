@@ -442,6 +442,7 @@ Contains:
 * alembic-1.8.6
 * oiio-2.5.19.0
 * ocio-2.3.2
+* openfx-1.5s
 * opensubdiv-3.6.1
 * ptex-2.4.2
 * openvdb-11.0.0
@@ -495,6 +496,7 @@ Contains:
 * alembic-1.8.6
 * oiio-2.5.19.0
 * ocio-2.3.2
+* openfx-1.5s
 * opensubdiv-3.6.1
 * ptex-2.4.2
 * openvdb-11.0.0
@@ -548,6 +550,7 @@ Contains:
 * alembic-1.8.8
 * oiio-3.0.8.1
 * ocio-2.4.2
+* openfx-1.5s
 * opensubdiv-3.6.1
 * ptex-2.4.3
 * openvdb-12.0.0
@@ -601,6 +604,7 @@ Contains:
 * alembic-1.8.8
 * oiio-3.0.8.1
 * ocio-2.4.2
+* openfx-1.5s
 * opensubdiv-3.6.1
 * ptex-2.4.3
 * openvdb-12.0.0
@@ -654,6 +658,7 @@ Contains:
 * alembic-1.8.8
 * oiio-3.0.8.1
 * ocio-2.4.2
+* openfx-1.5s
 * opensubdiv-3.6.1
 * ptex-2.4.3
 * openvdb-12.0.1
@@ -707,6 +712,7 @@ Contains:
 * alembic-1.8.8
 * oiio-3.0.8.1
 * ocio-2.4.2
+* openfx-1.5s
 * opensubdiv-3.6.1
 * ptex-2.4.3
 * openvdb-12.0.1

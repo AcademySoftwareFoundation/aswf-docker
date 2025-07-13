@@ -46,7 +46,7 @@ libxshmfence/*: libxshmfence/system@aswf/vfx2024
 log4cplus/*: log4cplus/2.1.2@aswf/vfx2024
 lz4/*: lz4/1.10.0@aswf/vfx2024
 md4c/*: md4c/0.4.8@aswf/vfx2024
-minizip-ng/*: minizip/4.0.8@aswf/vfx2024
+minizip-ng/*: minizip/4.0.10@aswf/vfx2024
 mpdecimal/*: mpdecimal/system@aswf/vfx2024
 mpg123/*: mpg123/system@aswf/vfx2024
 nspr/*: nspr/system@aswf/vfx2024

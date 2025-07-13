@@ -901,7 +901,7 @@ class BoostConan(ConanFile):
         command = f'"{self._python_executable}" -c "{script}"'
         self.output.info(f"running {command}")
         try:
-            self.run(command, output, scope="run")
+            self.run(command, output, env="conanrun") # ASWF: use conanrun environment to find libpython
         except ConanException:
             self.output.info("(failed)")
             return None
@@ -1780,6 +1780,10 @@ class BoostConan(ConanFile):
         }.get(name, name)
 
     def package_info(self):
+        # ASWF: consumers need to set LD_LIBRARY_PATH to find DSOs
+        if self.options.get_safe("shared"):
+            self.runenv_info.append_path("LD_LIBRARY_PATH", self.package_folder + "/lib64")
+
         self.env_info.BOOST_ROOT = self.package_folder
 
         self.cpp_info.set_property("cmake_file_name", "Boost")
@@ -2099,7 +2103,10 @@ class BoostConan(ConanFile):
                     self.cpp_info.components["stacktrace"].defines.append("BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED")
 
             if not self.options.without_python:
-                pyversion = Version(self._python_version)
+                # ASWF: a consumer of this package can call package_info() before generate(),
+                # we already figured out the python version with _detect_python_version()
+                # pyversion = Version(self._python_version)
+                pyversion = Version(self.options.python_version)
                 # ASWF: Python package is called cpython
                 self.cpp_info.components[f"python{pyversion.major}{pyversion.minor}"].requires = ["cpython::cpython"]
                 if not self._shared:
