@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
     - CUDA 12.6.3 (was 12.6.1)
     - ccache 4.9.1 (was 4.8.3)
     - CMake 3.31.7 (was 3.27.9)
+    - Ninja 1.13.1 (was 1.12.1)
     - Sonar Cloud 7.1.0.4889 (was 6.2.1.4610)
     - Blosc 1.21.6 (was 1.21.5)
     - GLEW 2.2.0 (was 2.1.0)
@@ -28,6 +29,7 @@ All notable changes to this project will be documented in this file.
 - 2025.2
   - updated versions
     - Conan 2.16.1 (was 2.14.0)
+    - Ninja 1.13.1 (was 1.12.1)
     - Sonar Cloud 7.1.0.4889 (was 6.2.1.4610)
     - LLVM 19.1.7 (was 19.1.1)
     - lcmd 2.17 (was 2.16)
@@ -41,9 +43,12 @@ All notable changes to this project will be documented in this file.
     - OSL 1.14.6.0 (was 1.14.5.1)
 - 2026.0
   - pre-release for testing purposes, does not yet include late releasing ASWF packages in final 2026 release (OOCIO, OpenEXR, OpenVDB)
-  - see `ci_common6` and `2026` sections of versions.yaml for full list of package versions
-- new build images for OpenFX
+  - see `ci_common6` and `2026` sections of `versions.yaml` for full list of package versions
+- new Conan package and build images for OpenFX
+- new Conan package and build images for rawtoaces
+  - adds dependant Conan packages libraw, jasper, jsonformoderncpp, ceres-solver, eigen 
 - OpenVDB now built as a Conan package
+- OpenImageIO builds with libraw support, Python bindings
 - system wrapper Conan packages
   - improved wrapper packages no longer declare include directories and libraries they don't include
   - query container OS for installed system package version instead of hard coding (pkgconfig / rpm)

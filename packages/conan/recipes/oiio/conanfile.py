@@ -66,7 +66,7 @@ class OpenImageIOConan(ConanFile):
         "with_ffmpeg": False, # ASWF: disable until we resolve dependencies
         "with_giflib": True,
         "with_libheif": False,# ASWF: disable until we resolve dependencies
-        "with_raw": False,  # libraw is available under CDDL-1.0 or LGPL-2.1, for this reason it is disabled by default
+        "with_raw": True,  # libraw is available under CDDL-1.0 or LGPL-2.1, for this reason it is disabled by default ASWF: enable for rawtoaces
         "with_openjpeg": True,
         "with_openvdb": False,  # FIXME: broken on M1
         "with_ptex": True,

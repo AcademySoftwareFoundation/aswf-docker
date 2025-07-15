@@ -9,8 +9,10 @@ include(ci_common5)
 boost/*: boost/1.85.0@aswftesting/vfx2025
 brotli/*: brotli/system@aswftesting/vfx2025
 bzip2/*: bzip2/1.0.8@aswftesting/vfx2025
+ceres-solver/*: ceres-solver/2.2.0@aswftesting/vfx2025
 dbus/*: dbus/system@aswftesting/vfx2025
 double-conversion/*: double-conversion/system@aswftesting/vfx2025
+eigen/*: eigen/3.4.0@aswftesting/vfx2025
 expat/*: expat/2.6.4@aswftesting/vfx2025
 fmt/*: fmt/11.1.4@aswftesting/vfx2025
 fontconfig/*: fontconfig/system@aswftesting/vfx2025
@@ -22,6 +24,7 @@ glib/*: glib/2.56.4@aswftesting/vfx2025
 highway/*: highway/1.2.0@aswftesting/vfx2025
 icu/*: icu/system@aswftesting/vfx2025
 imath/*: imath/3.1.12@aswftesting/vfx2025
+jasper/*: jasper/4.2.5@aswftesting/vfx2025
 lcms/*: lcms/2.17@aswftesting/vfx2025
 libalsa/*: libalsa/system@aswftesting/vfx2025
 libaom-av1/*: libaom-av1/system@aswftesting/vfx2025
@@ -34,6 +37,7 @@ libjpeg-turbo/*: libjpeg-turbo/3.0.4@aswftesting/vfx2025
 libjxl/*: libjxl/0.11.1@aswftesting/vfx2025
 libmp3lame/*: libmp3lame/system@aswftesting/vfx2025
 libpng/*: libpng/1.6.34@aswftesting/vfx2025
+libraw/*: libraw/0.21.4@aswftesting/vfx2025
 libsndfile/*: libsndfile/system@aswftesting/vfx2025
 libsquish/*: libsquish/system@aswftesting/vfx2025
 libsvtav1/*: libsvtav1/system@aswftesting/vfx2025
@@ -49,6 +53,7 @@ md4c/*: md4c/0.4.8@aswftesting/vfx2025
 minizip-ng/*: minizip-ng/4.0.10@aswftesting/vfx2025
 mpdecimal/*: mpdecimal/system@aswftesting/vfx2025
 mpg123/*: mpg123/system@aswftesting/vfx2025
+nlohmann_json/*: nlohmann_json/3.12.0@aswftesting/vfx2025
 nspr/*: nspr/system@aswftesting/vfx2025
 nss/*: nss/3.101.0@aswftesting/vfx2025
 ocio/*: ocio/2.4.2@aswftesting/vfx2025
@@ -90,7 +95,7 @@ gperf/*: gperf/3.1@system
 libtool/*: libtool/2.4.6@system
 meson/*: meson/0.58.2@system
 nasm/*: nasm/system@aswftesting/vfx2025
-ninja/*: ninja/1.12.1@aswftesting/ci_common5
+ninja/*: ninja/1.13.1@aswftesting/ci_common5
 nodejs/*: nodejs/18.20.4@system
 pkgconf/*: pkgconf/1.4.2@system
 wayland/*: wayland/1.21.0@system

@@ -166,7 +166,7 @@ Contains:
 Contains:
 * clang-16.0.6
 * cmake-3.31.7
-* ninja-1.12.1
+* ninja-1.13.1
 * cuda-12.6.3
 * glvnd-1.7.0
 * ccache-4.9.1
@@ -180,7 +180,7 @@ Contains:
 Contains:
 * clang-17.0.6
 * cmake-3.31.7
-* ninja-1.12.1
+* ninja-1.13.1
 * cuda-12.6.3
 * glvnd-1.7.0
 * ccache-4.9.1
@@ -194,7 +194,7 @@ Contains:
 Contains:
 * clang-18.1.8
 * cmake-3.31.7
-* ninja-1.12.1
+* ninja-1.13.1
 * cuda-12.6.3
 * glvnd-1.7.0
 * ccache-4.9.1
@@ -208,7 +208,7 @@ Contains:
 Contains:
 * clang-19.1.7
 * cmake-3.31.7
-* ninja-1.12.1
+* ninja-1.13.1
 * cuda-12.6.3
 * glvnd-1.7.0
 * ccache-4.9.1
@@ -222,7 +222,7 @@ Contains:
 Contains:
 * clang-19.1.7
 * cmake-4.0.2
-* ninja-1.12.1
+* ninja-1.13.1
 * cuda-12.9.1
 * glvnd-1.7.0
 * ccache-4.11.3
@@ -236,7 +236,7 @@ Contains:
 Contains:
 * clang-20.1.7
 * cmake-4.0.2
-* ninja-1.12.1
+* ninja-1.13.1
 * cuda-12.9.1
 * glvnd-1.7.0
 * ccache-4.11.3

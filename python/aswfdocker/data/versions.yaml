@@ -152,7 +152,7 @@ versions:
       ASWF_GLVND_VERSION: "1.7.0"
       ASWF_CCACHE_VERSION: "4.9.1"
       ASWF_CMAKE_VERSION: "3.31.7"
-      ASWF_NINJA_VERSION: "1.12.1"
+      ASWF_NINJA_VERSION: "1.13.1"
       ASWF_SONAR_VERSION: "7.1.0.4889"
       ASWF_YQ_VERSION: "4.45.2"
       ASWF_BASEOS_DISTRO: "rockylinux8"
@@ -187,7 +187,7 @@ versions:
       ASWF_GLVND_VERSION: "1.7.0"
       ASWF_CCACHE_VERSION: "4.9.1"
       ASWF_CMAKE_VERSION: "3.31.7"
-      ASWF_NINJA_VERSION: "1.12.1"
+      ASWF_NINJA_VERSION: "1.13.1"
       ASWF_SONAR_VERSION: "7.1.0.4889"
       ASWF_YQ_VERSION: "4.45.2"
       ASWF_BASEOS_DISTRO: "rockylinux8"
@@ -223,7 +223,7 @@ versions:
       ASWF_GLVND_VERSION: "1.7.0"
       ASWF_CCACHE_VERSION: "4.11.3"
       ASWF_CMAKE_VERSION: "4.0.2"
-      ASWF_NINJA_VERSION: "1.12.1"
+      ASWF_NINJA_VERSION: "1.13.1"
       ASWF_SONAR_VERSION: "7.1.0.4889"
       ASWF_YQ_VERSION: "4.45.4"
       ASWF_BASEOS_DISTRO: "rockylinux9"
@@ -555,7 +555,9 @@ versions:
       ASWF_B2_VERSION: "5.2.1"
       ASWF_C_BLOSC_VERSION: "1.21.6"
       ASWF_BZIP2_VERSION: "1.0.8"
+      ASWF_CERES_SOLVER_VERSION: "2.2.0"
       ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_EIGEN_VERSION: "3.4.0"
       ASWF_EXPAT_VERSION: "2.6.4"
       ASWF_FMT_VERSION: "11.1.4"
       ASWF_FREETYPE_VERSION: "2.13.2"
@@ -564,12 +566,14 @@ versions:
       ASWF_GTEST_VERSION: "1.15.2"
       ASWF_HDF5_VERSION: "1.8.23"
       ASWF_HIGHWAY_VERSION: "1.2.0"
+      ASWF_JASPER_VERSION: "4.2.5"
       ASWF_LCMS_VERSION: "2.17"
       ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
       ASWF_LIBDEFLATE_VERSION: "1.23"
       ASWF_LIBICONV_VERSION: "1.17"
       ASWF_LIBJPEG_TURBO_VERSION: "3.0.4"
       ASWF_LIBJXL_VERSION: "0.11.1"
+      ASWF_LIBRAW_VERSION: "0.21.4"
       ASWF_LIBUHDR_VERSION: "1.4.0"
       ASWF_LIBWEBP_VERSION: "1.5.0" 
       ASWF_LIBXCRYPT_VERSION: "4.4.36"
@@ -577,6 +581,7 @@ versions:
       ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MD4C_VERSION: "0.4.8"
       ASWF_MINIZIP_NG_VERSION: "4.0.10"
+      ASWF_NLOHMANN_JSON_VERSION: "3.12.0"
       ASWF_PARTIO_VERSION: "1.19.0"
       ASWF_PUGIXML_VERSION: "1.14"
       ASWF_PYBIND11_VERSION: "2.13.6"
@@ -613,6 +618,7 @@ versions:
       ASWF_OPENVDB_VERSION: "11.0.0"
       ASWF_OSL_VERSION: "1.13.11.0"
       ASWF_OTIO_VERSION: "0.17.0"
+      ASWF_RAWTOACES_VERSION: "1.0.0"
   "2024-clang16":
     parent_versions: ["4", "4-clang16", "2024"]
     major_version: "2024"
@@ -678,7 +684,9 @@ versions:
       ASWF_B2_VERSION: "5.2.1"
       ASWF_C_BLOSC_VERSION: "1.21.6"
       ASWF_BZIP2_VERSION: "1.0.8"
+      ASWF_CERES_SOLVER_VERSION: "2.2.0"
       ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_EIGEN_VERSION: "3.4.0"
       ASWF_EXPAT_VERSION: "2.6.4"
       ASWF_FMT_VERSION: "11.1.4"
       ASWF_FREETYPE_VERSION: "2.13.2"
@@ -687,12 +695,14 @@ versions:
       ASWF_GTEST_VERSION: "1.15.2"
       ASWF_HDF5_VERSION: "1.8.23"
       ASWF_HIGHWAY_VERSION: "1.2.0"
+      ASWF_JASPER_VERSION: "4.2.5"
       ASWF_LCMS_VERSION: "2.17"
       ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
       ASWF_LIBDEFLATE_VERSION: "1.23"
       ASWF_LIBICONV_VERSION: "1.17"
       ASWF_LIBJPEG_TURBO_VERSION: "3.0.4"
       ASWF_LIBJXL_VERSION: "0.11.1"
+      ASWF_LIBRAW_VERSION: "0.21.4"
       ASWF_LIBUHDR_VERSION: "1.4.0"
       ASWF_LIBWEBP_VERSION: "1.5.0"
       ASWF_LIBXCRYPT_VERSION: "4.4.36"
@@ -700,6 +710,7 @@ versions:
       ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MD4C_VERSION: "0.4.8"
       ASWF_MINIZIP_NG_VERSION: "4.0.10"
+      ASWF_NLOHMANN_JSON_VERSION: "3.12.0"
       ASWF_PARTIO_VERSION: "1.19.0"
       ASWF_PUGIXML_VERSION: "1.14"
       ASWF_PYBIND11_VERSION: "2.13.6"
@@ -736,6 +747,7 @@ versions:
       ASWF_OPENVDB_VERSION: "12.0.0"
       ASWF_OSL_VERSION: "1.14.6.0"
       ASWF_OTIO_VERSION: "0.17.0"
+      ASWF_RAWTOACES_VERSION: "1.0.0"
   "2025-clang18":
     parent_versions: ["5", "5-clang18", "2025"]
     major_version: "2025"
@@ -802,7 +814,9 @@ versions:
       ASWF_B2_VERSION: "5.3.2"
       ASWF_C_BLOSC_VERSION: "1.21.6"
       ASWF_BZIP2_VERSION: "1.0.8"
+      ASWF_CERES_SOLVER_VERSION: "2.2.0"
       ASWF_CPPUNIT_VERSION: "1.15.1"
+      ASWF_EIGEN_VERSION: "3.4.0"
       ASWF_EXPAT_VERSION: "2.7.1"
       ASWF_FMT_VERSION: "11.2.0"
       ASWF_FREETYPE_VERSION: "2.13.2"
@@ -811,12 +825,14 @@ versions:
       ASWF_GTEST_VERSION: "1.17.0"
       ASWF_HDF5_VERSION: "1.8.23"
       ASWF_HIGHWAY_VERSION: "1.2.0"
+      ASWF_JASPER_VERSION: "4.2.5"
       ASWF_LCMS_VERSION: "2.17"
       ASWF_LIBBACKTRACE_VERSION: "cci.20210118"
       ASWF_LIBDEFLATE_VERSION: "1.24"
       ASWF_LIBICONV_VERSION: "1.18"
       ASWF_LIBJPEG_TURBO_VERSION: "3.1.0"
       ASWF_LIBJXL_VERSION: "0.11.1"
+      ASWF_LIBRAW_VERSION: "0.21.4"
       ASWF_LIBUHDR_VERSION: "1.4.0"
       ASWF_LIBWEBP_VERSION: "1.5.0"
       ASWF_LIBXCRYPT_VERSION: "4.4.38"
@@ -824,6 +840,7 @@ versions:
       ASWF_LZ4_VERSION: "1.10.0"
       ASWF_MD4C_VERSION: "0.5.2"
       ASWF_MINIZIP_NG_VERSION: "4.0.10"
+      ASWF_NLOHMANN_JSON_VERSION: "3.12.0"
       ASWF_PARTIO_VERSION: "1.19.0"
       ASWF_PUGIXML_VERSION: "1.15"
       ASWF_PYBIND11_VERSION: "2.13.6"
@@ -860,6 +877,7 @@ versions:
       ASWF_OPENVDB_VERSION: "12.0.1"
       ASWF_OSL_VERSION: "1.14.6.0"
       ASWF_OTIO_VERSION: "0.17.0"
+      ASWF_RAWTOACES_VERSION: "1.0.0"
   "2026-clang19":
     parent_versions: ["6", "6-clang19", "2026"]
     major_version: "2026"
@@ -1128,6 +1146,10 @@ ci-packages:
     - "2024.3"
     - "2025.2"
     - "2026.0"
+  rawtoaces:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
   materialx:
     - "2019.0"
     - "2020.0"
@@ -1161,6 +1183,14 @@ ci-packages:
     - "2024.3"
     - "2025.2"
     - "2026.0"
+  ceres-solver:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
+  eigen:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
   fmt:
     - "2024.3"
     - "2025.2"
@@ -1190,6 +1220,10 @@ ci-packages:
     - "2025.2"
     - "2026.0"
   icu:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
+  jasper:
     - "2024.3"
     - "2025.2"
     - "2026.0"
@@ -1234,6 +1268,10 @@ ci-packages:
     - "2025.2"
     - "2026.0"
   libpng:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
+  libraw:
     - "2024.3"
     - "2025.2"
     - "2026.0"
@@ -1290,6 +1328,10 @@ ci-packages:
     - "2025.2"
     - "2026.0"
   nasm:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
+  nlohmann_json:
     - "2024.3"
     - "2025.2"
     - "2026.0"
@@ -1488,6 +1530,10 @@ ci-images:
     - "2024.3"
     - "2025.2"
     - "2026.0"
+  rawtoaces:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
   usd:
     - "2019.9"
     - "2020.8"
@@ -1609,6 +1655,7 @@ groups:
         - b2
         - bzip2
         - cppunit
+        - eigen
         - expat
         - fmt
         - gtest
@@ -1617,6 +1664,7 @@ groups:
         - libiconv
         - libxcrypt
         - lz4
+        - nlohmann_json
         - onetbb
         - pugixml
         - pystring
@@ -1628,6 +1676,7 @@ groups:
         - zstd
       base1-2:
         - c-blosc
+        - ceres-solver
         - cpython
         - freetype
         - glew
@@ -1674,6 +1723,7 @@ groups:
       vfx1-1: 
         - highway
         - imath
+        - jasper
         - lcms
         - libuhdr
         - openfx
@@ -1682,6 +1732,7 @@ groups:
         - ptex
       vfx1-2:
          - libjxl
+         - libraw
          - openexr
       vfx1-3:
         - alembic
@@ -1689,6 +1740,8 @@ groups:
         - openvdb
       vfx1-4:
         - oiio
+      vfx1-5:
+        - rawtoaces
       vfx2-1: 
         - materialx
       vfx2:
@@ -1713,6 +1766,7 @@ groups:
         - otio
         - materialx
         - usd
+        - rawtoaces
       vfx3:
         - osl
         - openvdb
@@ -1737,12 +1791,14 @@ conan_only:
   - boost
   - brotli
   - bzip2
+  - ceres-solver
   - clang
   - cmake
   - cppunit
   - cpython
   - dbus
   - double-conversion
+  - eigen
   - expat
   - fmt
   - fontconfig
@@ -1756,6 +1812,7 @@ conan_only:
   - highway
   - icu
   - imath
+  - jasper
   - lcms
   - libalsa
   - libaom-av1
@@ -1768,6 +1825,7 @@ conan_only:
   - libjxl
   - libmp3lame
   - libpng
+  - libraw
   - libsndfile
   - libsquish
   - libsvtav1
@@ -1786,6 +1844,7 @@ conan_only:
   - mpg123
   - nasm
   - ninja
+  - nlohmann_json
   - nspr
   - nss
   - ocio
@@ -1810,6 +1869,7 @@ conan_only:
   - pyside
   - pystring
   - qt
+  - rawtoaces
   - snappy
   - sqlite3
   - tcl

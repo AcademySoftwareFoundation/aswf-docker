@@ -1,0 +1,37 @@
+From ee87cbeb738a7f1108e38afc75f5b35b5085fe90 Mon Sep 17 00:00:00 2001
+From: Anu Aliyas <anu.aliyas@qt.io>
+Date: Mon, 7 Apr 2025 16:19:51 +0200
+Subject: [fixup] Add missing dependencies to avoid compilation errors
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Missing dependencies are added to resolve the dependencies issues when
+compiling chrome driver.
+
+Task-number: QTBUG-135451
+Change-Id: Ic38b5c52f64e81f4bf3279ce1e107d3430e415fd
+Reviewed-on: https://codereview.qt-project.org/c/qt/qtwebengine-chromium/+/637889
+Reviewed-by: Michael Brüning <michael.bruning@qt.io>
+(cherry picked from commit 006f192b9ea0acad06da0fbe0690110fad617744)
+Reviewed-on: https://codereview.qt-project.org/c/qt/qtwebengine-chromium/+/647479
+Reviewed-by: Anu Aliyas <anu.aliyas@qt.io>
+---
+ chromium/chrome/test/chromedriver/BUILD.gn | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/chromium/chrome/test/chromedriver/BUILD.gn b/chromium/chrome/test/chromedriver/BUILD.gn
+index 812445d934f..97cd46140d0 100644
+--- a/chromium/chrome/test/chromedriver/BUILD.gn
++++ b/chromium/chrome/test/chromedriver/BUILD.gn
+@@ -455,6 +455,10 @@ if (is_linux && !is_qtwebengine) {
+       output_name = "webenginedriver"
+       deps -= [ "//net/traffic_annotation:test_support" ]
+ 
++      if (is_linux || is_mac) {
++        deps += [ "//ui/gl:buildflags" ]
++      }
++
+       if (is_linux) {
+         sources += [
+           "//content/public/common/content_switches.cc",

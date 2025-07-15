@@ -39,10 +39,12 @@ packages:
   - qt                 # base2-2 packages
   - highway            # vfx1-1 packages
   - imath
+  - jasper
   - lcms
   - libuhdr
   - ptex
   - libjxl             # vfx1-2 packages 
+  - libraw
   - openexr
   - ocio               # vfx1-3 packages
   - openvdb            # vfx1 non Conan packages
