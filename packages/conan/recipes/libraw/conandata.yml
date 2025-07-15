@@ -1,0 +1,19 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/5aa8fda35e023ceeaefb5a670ae9c0c3ca4fdf25/recipes/libraw/all/conandata.yml
+
+sources:
+  "0.21.4":
+    url: "https://github.com/LibRaw/LibRaw/archive/0.21.4.tar.gz"
+    sha256: "8baeb5253c746441fadad62e9c5c43ff4e414e41b0c45d6dcabccb542b2dff4b"
+  "0.21.3":
+    url: "https://github.com/LibRaw/LibRaw/archive/0.21.3.tar.gz"
+    sha256: "dc3d8b54e333d9d5441336049db255d14b27f19bd326a306cf5aea866806780a"
+  "0.21.2":
+    url: "https://github.com/LibRaw/LibRaw/archive/0.21.2.tar.gz"
+    sha256: "7ac056e0d9e814d808f6973a950bbf45e71b53283eed07a7ea87117a6c0ced96"
+  "0.20.2":
+    url: "https://github.com/LibRaw/LibRaw/archive/0.20.2.tar.gz"
+    sha256: "02df7d403b34602b769bb38e5bf7d4258e075eeefbe980b6832e6e1491989d60"

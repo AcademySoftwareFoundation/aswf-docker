@@ -425,6 +425,8 @@ Contains:
 * glib-2.56.4
 * libalsa-system
 * libdrm-system
+* libjxl-0.11.1
+* libraw-0.21.4
 * libsndfile-system
 * libtiff-4.0.9
 * libwebp-1.5.0
@@ -479,6 +481,8 @@ Contains:
 * glib-2.56.4
 * libalsa-system
 * libdrm-system
+* libjxl-0.11.1
+* libraw-0.21.4
 * libsndfile-system
 * libtiff-4.0.9
 * libwebp-1.5.0
@@ -533,6 +537,8 @@ Contains:
 * glib-2.56.4
 * libalsa-system
 * libdrm-system
+* libjxl-0.11.1
+* libraw-0.21.4
 * libsndfile-system
 * libtiff-4.0.9
 * libwebp-1.5.0
@@ -587,6 +593,8 @@ Contains:
 * glib-2.56.4
 * libalsa-system
 * libdrm-system
+* libjxl-0.11.1
+* libraw-0.21.4
 * libsndfile-system
 * libtiff-4.0.9
 * libwebp-1.5.0
@@ -641,6 +649,8 @@ Contains:
 * glib-2.68.4
 * libalsa-system
 * libdrm-system
+* libjxl-0.11.1
+* libraw-0.21.4
 * libsndfile-system
 * libtiff-4.4.0
 * libwebp-1.5.0
@@ -695,6 +705,8 @@ Contains:
 * glib-2.68.4
 * libalsa-system
 * libdrm-system
+* libjxl-0.11.1
+* libraw-0.21.4
 * libsndfile-system
 * libtiff-4.4.0
 * libwebp-1.5.0

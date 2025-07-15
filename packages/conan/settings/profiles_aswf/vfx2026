@@ -1,6 +1,8 @@
 include(ci_common6)
 
 [settings]
+# Qt 6.6 and newer must be compiled with -std=gnu20++ to support 128 bit integers
+qt/*:compiler.cppstd=gnu20
 [options]
 # Build everything as shared libs by default
 *:shared=True
@@ -9,8 +11,10 @@ include(ci_common6)
 boost/*: boost/1.88.0@aswf/vfx2026
 brotli/*: brotli/system@aswf/vfx2026
 bzip2/*: bzip2/1.0.8@aswf/vfx2026
+ceres-solver/*: ceres-solver/2.2.0@aswf/vfx2026
 dbus/*: dbus/system@aswf/vfx2026
 double-conversion/*: double-conversion/system@aswf/vfx2026
+eigen/*: eigen/3.4.0@aswf/vfx2026
 expat/*: expat/2.7.1@aswf/vfx2026
 fmt/*: fmt/11.2.0@aswf/vfx2026
 fontconfig/*: fontconfig/system@aswf/vfx2026
@@ -22,6 +26,7 @@ glib/*: glib/2.68.4@aswf/vfx2026
 highway/*: highway/1.2.0@aswf/vfx2026
 icu/*: icu/system@aswf/vfx2026
 imath/*: imath/3.1.12@aswf/vfx2026
+jasper/*: jasper/4.2.5@aswf/vfx2026
 lcms/*: lcms/2.17@aswf/vfx2026
 libalsa/*: libalsa/system@aswf/vfx2026
 libaom-av1/*: libaom/system@aswf/vfx2026
@@ -34,6 +39,7 @@ libjpeg-turbo/*: libjpeg-turbo/3.1.0@aswf/vfx2026
 libjxl/*: libjxl/0.11.1@aswf/vfx2026
 libmp3lame/*: libmp3lame/system@aswf/vfx2026
 libpng/*: libpng/1.6.37@aswf/vfx2026
+libraw/*: libraw/0.21.4@aswf/vfx2026
 libsndfile/*: libsndfile/system@aswf/vfx2026
 libsquish/*: libsquish/system@aswf/vfx2026
 libsvt-av1/*: libsvt-av1/system@aswf/vfx2026
@@ -49,6 +55,7 @@ md4c/*: md4c/0.5.2@aswf/vfx2026
 minizip-ng/*: minizip-ng/4.0.10@aswf/vfx2026
 mpdecimal/*: mpdecimal/system@aswf/vfx2026
 mpg123/*: mpg123/system@aswf/vfx2026
+nlohmann_json/*: nlohmann_json/3.12.0@aswf/vfx2026
 nspr/*: nspr/system@aswf/vfx2026
 nss/*: nss/3.101.0@aswf/vfx2026
 ocio/*: ocio/2.4.2@aswf/vfx2026
@@ -66,6 +73,7 @@ ptex/*: ptex/2.4.3@aswf/vfx2026
 pugixml/*: pugixml/1.15@aswf/vfx2026
 pulseaudio/*: pulseaudio/system@aswr/vfx2026
 pystring/*: pystring/1.1.4@aswf/vfx2026
+qt/*: qt/6.8.3@aswf/vfx2026
 snappy/*: snappy/1.2.2@aswf/vfx2026
 sqlite3/*: sqlite3/system@aswf/vfx2026
 tcl/*: tcl/system@aswf/vfx2026
@@ -90,7 +98,7 @@ gperf/*: gperf/3.1@system
 libtool/*: libtool/2.4.6@system
 meson/*: meson/0.63.3@system
 nasm/*: nasm/system@aswf/vfx2026
-ninja/*: ninja/1.12.1@aswf/ci_common5
+ninja/*: ninja/1.13.1@aswf/ci_common6
 nodejs/*: nodejs/18.20.6@system
 pkgconf/*: pkgconf/1.7.3@system
 wayland/*: wayland/1.31.0@system

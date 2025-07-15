@@ -27,6 +27,8 @@ packages:
   - libalsa
   - libdrm
   - libjpeg-turbo
+  - libjxl
+  - libraw
   - libsndfile
   - libtiff
   - libwebp

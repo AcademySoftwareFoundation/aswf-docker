@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/2a3cb93885141024c1b405a01a79fb3abc239b12/recipes/qt/6.x.x/conandata.yml
+# From: https://github.com/conan-io/conan-center-index/blob/5aa8fda35e023ceeaefb5a670ae9c0c3ca4fdf25/recipes/qt/6.x.x/conandata.yml
 
 sources:
   "6.8.3":
@@ -151,6 +151,16 @@ patches:
       "patch_source": "https://download.qt.io/archive/qt/6.8/CVE-2025-5683-qtimageformats-6.8.patch"
       "patch_description": "CVE-2025-5683 ICNS image format crash"
     # Fixed in 6.8.2: CVE-2025-23050
+    - "base_path": "qtwebengine"
+      "patch_description": "Workaround for too long .rps file name"
+      "patch_file": "patches/c72097e_6.8.3.diff"
+      "patch_source": "https://codereview.qt-project.org/c/yocto/meta-qt5/+/192172"
+      "patch_type": "bugfix"
+    - "base_path": "qtwebengine/src/3rdparty"
+      "patch_description": "Missing dependencies are added to resolve the dependencies issues when compiling chrome driver."
+      "patch_file": "patches/ee87cbe_6.8.3.diff"
+      "patch_source": "https://code.qt.io/cgit/qt/qtwebengine-chromium.git/patch/?id=ee87cbeb738a7f1108e38afc75f5b35b5085fe90"
+      "patch_type": "bugfix"
   "6.7.3":
     - "base_path": "qtwebengine"
       "patch_description": "Workaround for too long .rps file name"
