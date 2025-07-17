@@ -135,7 +135,7 @@ class PySide6Conan(ConanFile):
         # index_url = "https://an_artifactory_url/artifactory/api/pypi/PyPI_Virtual/simple"
         index_url = "https://pypi.org/simple"
         self.run(
-            f"{pythonBinPath} -m pip install -qq wheel==0.34.2 packaging --index-url {index_url}"
+            f"{pythonBinPath} -m pip install -qq wheel==0.34.2 packaging setuptools --index-url {index_url}"
         )
 
         args = [
