@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
     - Qt 6.5.6 (was 6.5.4)
     - OIIO 2.5.19.0 (was 2.5.18.0)
     - OpenFX 1.5s
+    - PySide 6.5.6 (was 6.5.4)
 - 2025.2
   - updated versions
     - Conan 2.16.1 (was 2.14.0)
@@ -41,6 +42,7 @@ All notable changes to this project will be documented in this file.
     - OpenEXR 3.3.4 (was 3.3.3)
     - OpenFX 1.5s
     - OSL 1.14.6.0 (was 1.14.5.1)
+    - PySide 6.5.6 (was 6.5.4)
 - 2026.0
   - pre-release for testing purposes, does not yet include late releasing ASWF packages in final 2026 release (OOCIO, OpenEXR, OpenVDB)
   - see `ci_common6` and `2026` sections of `versions.yaml` for full list of package versions

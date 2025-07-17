@@ -28,7 +28,9 @@ class SystemNSSConan(ConanFile):
         def _library_name(lib,vers):
             return f"{lib}{vers}"
 
-        self.cpp_info.components["libnss"].system_libs.append(_library_name("nss", 3))
+        # ASWF: Qt is the only consummer of this package, and otherwise it doesn't seem
+        # to add libnssutil3
+        self.cpp_info.components["libnss"].system_libs.extend([_library_name("nss", 3), _library_name("nssutil",3)])
         self.cpp_info.components["libnss"].requires = ["nssutil", "nspr::nspr"]
 
         self.cpp_info.components["nssutil"].system_libs = [_library_name("nssutil", 3)]

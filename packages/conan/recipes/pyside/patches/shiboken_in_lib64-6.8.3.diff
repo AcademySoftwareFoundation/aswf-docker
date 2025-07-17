@@ -1,0 +1,13 @@
+diff --git a/sources/shiboken6/cmake/ShibokenSetup.cmake b/sources/shiboken6/cmake/ShibokenSetup.cmake
+index 996968f..a072dfd 100644
+--- a/sources/shiboken6/cmake/ShibokenSetup.cmake
++++ b/sources/shiboken6/cmake/ShibokenSetup.cmake
+@@ -90,7 +90,7 @@
+ set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+-set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
++set(LIB_SUFFIX "64" CACHE STRING "Define suffix of directory name (32/64)" )
+ set(LIB_INSTALL_DIR "lib${LIB_SUFFIX}" CACHE PATH "The subdirectory relative to the install \
+     prefix where libraries will be installed (default is /lib${LIB_SUFFIX})" FORCE)
+ set(BIN_INSTALL_DIR "bin" CACHE PATH "The subdirectory relative to the install prefix where \
