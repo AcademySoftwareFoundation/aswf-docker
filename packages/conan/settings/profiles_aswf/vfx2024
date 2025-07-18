@@ -6,6 +6,7 @@ include(ci_common4)
 *:shared=True
 [tool_requires]
 [replace_requires]
+aces_container/*: aces_container/1.0.2@aswf/vfx2024
 boost/*: boost/1.82.0@aswf/vfx2024
 brotli/*: brotli/system@aswf/vfx2024
 bzip2/*: bzip2/1.0.8@aswf/vfx2024

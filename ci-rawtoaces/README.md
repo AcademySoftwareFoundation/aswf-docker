@@ -31,6 +31,7 @@ Contains:
 * libtiff-4.0.9
 * libwebp-1.5.0
 * nlohmann_json-3.12.0
+* aces_container-1.0.2
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -47,6 +48,7 @@ Contains:
 * libtiff-4.0.9
 * libwebp-1.5.0
 * nlohmann_json-3.12.0
+* aces_container-1.0.2
 * numpy-1.26.4
 * vfxplatform-2025
 
@@ -63,6 +65,7 @@ Contains:
 * libtiff-4.4.0
 * libwebp-1.5.0
 * nlohmann_json-3.12.0
+* aces_container-1.0.2
 * numpy-1.26.4
 * vfxplatform-2026
 

@@ -552,6 +552,7 @@ versions:
       ASWF_XORG_PROTO_VERSION: "system"
       ASWF_XZ_UTILS_VERSION: "system"
       # Packages not specified by VFX Platform
+      ASWF_ACES_CONTAINER_VERSION: "1.0.2"
       ASWF_B2_VERSION: "5.2.1"
       ASWF_C_BLOSC_VERSION: "1.21.6"
       ASWF_BZIP2_VERSION: "1.0.8"
@@ -618,7 +619,7 @@ versions:
       ASWF_OPENVDB_VERSION: "11.0.0"
       ASWF_OSL_VERSION: "1.13.11.0"
       ASWF_OTIO_VERSION: "0.17.0"
-      ASWF_RAWTOACES_VERSION: "1.0.0"
+      ASWF_RAWTOACES_VERSION: "vfx2026.0"
   "2024-clang16":
     parent_versions: ["4", "4-clang16", "2024"]
     major_version: "2024"
@@ -681,6 +682,7 @@ versions:
       ASWF_XORG_PROTO_VERSION: "system"
       ASWF_XZ_UTILS_VERSION: "system"
       # Packages not specified by VFX Platform
+      ASWF_ACES_CONTAINER_VERSION: "1.0.2"
       ASWF_B2_VERSION: "5.2.1"
       ASWF_C_BLOSC_VERSION: "1.21.6"
       ASWF_BZIP2_VERSION: "1.0.8"
@@ -747,7 +749,7 @@ versions:
       ASWF_OPENVDB_VERSION: "12.0.0"
       ASWF_OSL_VERSION: "1.14.6.0"
       ASWF_OTIO_VERSION: "0.17.0"
-      ASWF_RAWTOACES_VERSION: "1.0.0"
+      ASWF_RAWTOACES_VERSION: "vfx2026.0"
   "2025-clang18":
     parent_versions: ["5", "5-clang18", "2025"]
     major_version: "2025"
@@ -811,6 +813,7 @@ versions:
       ASWF_XORG_PROTO_VERSION: "system"
       ASWF_XZ_UTILS_VERSION: "system"
       # Packages not specified by VFX Platform
+      ASWF_ACES_CONTAINER_VERSION: "1.0.2"
       ASWF_B2_VERSION: "5.3.2"
       ASWF_C_BLOSC_VERSION: "1.21.6"
       ASWF_BZIP2_VERSION: "1.0.8"
@@ -877,7 +880,7 @@ versions:
       ASWF_OPENVDB_VERSION: "12.0.1"
       ASWF_OSL_VERSION: "1.14.6.0"
       ASWF_OTIO_VERSION: "0.17.0"
-      ASWF_RAWTOACES_VERSION: "1.0.0"
+      ASWF_RAWTOACES_VERSION: "vfx2026.0"
   "2026-clang19":
     parent_versions: ["6", "6-clang19", "2026"]
     major_version: "2026"
@@ -1176,6 +1179,10 @@ ci-packages:
     - "2025.2"
     - "2026.0"
   double-conversion:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
+  aces_container:
     - "2024.3"
     - "2025.2"
     - "2026.0"
@@ -1720,7 +1727,8 @@ groups:
         - mpg123
         - ogg
         - vorbis
-      vfx1-1: 
+      vfx1-1:
+        - aces_container
         - highway
         - imath
         - jasper
@@ -1785,6 +1793,7 @@ package_data:
       - ASWF_CONAN_PYTHON_VERSION
 
 conan_only:
+  - aces_container
   - alembic
   - b2
   - c-blosc

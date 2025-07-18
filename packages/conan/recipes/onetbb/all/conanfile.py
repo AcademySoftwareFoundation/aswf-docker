@@ -146,7 +146,7 @@ class OneTBBConan(ConanFile):
                               "libhwloc.dylib" if self.settings.os == "Macos" else
                               "libhwloc.so")
             toolchain.variables[f"CMAKE_HWLOC_{self._tbbbind_hwloc_version}_LIBRARY_PATH"] = \
-                os.path.join(hwloc_package_folder, "lib", hwloc_lib_name).replace("\\", "/")
+                os.path.join(hwloc_package_folder, "lib64", hwloc_lib_name).replace("\\", "/") # ASWF: DSOs in lib64
             toolchain.variables[f"CMAKE_HWLOC_{self._tbbbind_hwloc_version}_INCLUDE_PATH"] = \
                 os.path.join(hwloc_package_folder, "include").replace("\\", "/")
             if self.settings.os == "Windows":
@@ -195,7 +195,7 @@ class OneTBBConan(ConanFile):
 
         tbb.set_property("cmake_target_name", "TBB::tbb")
         if self.options.get_safe("build_apple_frameworks"):
-            tbb.frameworkdirs.append(os.path.join(self.package_folder, "lib"))
+            tbb.frameworkdirs.append(os.path.join(self.package_folder, "lib64")) # ASWF: DSOs in lib64
             tbb.frameworks.append("tbb")
         else:
             tbb.libs = [lib_name("tbb")]
@@ -221,7 +221,7 @@ class OneTBBConan(ConanFile):
             tbbmalloc.set_property("cmake_target_name", "TBB::tbbmalloc")
 
             if self.options.get_safe("build_apple_frameworks"):
-                tbbmalloc.frameworkdirs.append(os.path.join(self.package_folder, "lib"))
+                tbbmalloc.frameworkdirs.append(os.path.join(self.package_folder, "lib64")) # ASWF: DSOs in lib64
                 tbbmalloc.frameworks.append("tbbmalloc")
             else:
                 tbbmalloc.libs = [lib_name("tbbmalloc")]
@@ -236,7 +236,7 @@ class OneTBBConan(ConanFile):
                 tbbproxy.set_property("cmake_target_name", "TBB::tbbmalloc_proxy")
 
                 if self.options.get_safe("build_apple_frameworks"):
-                    tbbproxy.frameworkdirs.append(os.path.join(self.package_folder, "lib"))
+                    tbbproxy.frameworkdirs.append(os.path.join(self.package_folder, "lib64")) # ASWF: DSOs in lib64
                     tbbproxy.frameworks.append("tbbmalloc_proxy")
                 else:
                     tbbproxy.libs = [lib_name("tbbmalloc_proxy")]

@@ -1,0 +1,14 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+
+sources:
+  "1.0.2":
+    url: "https://github.com/ampas/aces_container/archive/refs/tags/v1.0.2.tar.gz"
+    sha256: "cbbba395d2425251263e4ae05c4829319a3e399a0aee70df2eb9efb6a8afdbae"
+patches:
+  "1.0.2":
+    - patch_file: "patches/cmake_4_compat.diff"
+      patch_description: "Allow building with CMake 4"
+      patch_type: "conan"

@@ -51,6 +51,7 @@ class OpenImageIOConan(ConanFile):
         "with_libwebp": [True, False],
         "with_libjxl": [True, False],
         "with_libuhdr": [True, False],
+        "with_iv": [True, False],
     }
     default_options = {
         "shared": False,
@@ -61,7 +62,7 @@ class OpenImageIOConan(ConanFile):
         "with_hdf5": False,   # ASWF: disable until we resolve dependencies
         "with_opencolorio": True,
         "with_opencv": False,
-        "with_tbb": False,
+        "with_tbb": True, # ASWF: exercise dependency
         "with_dicom": False,  # Heavy dependency, disabled by default
         "with_ffmpeg": False, # ASWF: disable until we resolve dependencies
         "with_giflib": True,
@@ -73,6 +74,7 @@ class OpenImageIOConan(ConanFile):
         "with_libwebp": True,
         "with_libjxl": True,
         "with_libuhdr": True,
+        "with_iv": False, # ASWF: enable once we figure out why configure doesn't find Qt or OpenGL
     }
 
     def export_sources(self):
@@ -143,6 +145,9 @@ class OpenImageIOConan(ConanFile):
             self.requires("libuhdr/1.4.0")
         # TODO: R3DSDK dependency
         # TODO: Nuke dependency
+        if self.options.with_iv:
+           self.requires("opengl/system")
+           self.requires("qt/6.8.3")
 
     def validate(self):
         if self.settings.compiler.cppstd:

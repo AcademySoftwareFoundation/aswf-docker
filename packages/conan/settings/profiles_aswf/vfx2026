@@ -8,6 +8,7 @@ qt/*:compiler.cppstd=gnu20
 *:shared=True
 [tool_requires]
 [replace_requires]
+aces_container/*: aces_container/1.0.2@aswf/vfx2026
 boost/*: boost/1.88.0@aswf/vfx2026
 brotli/*: brotli/system@aswf/vfx2026
 bzip2/*: bzip2/1.0.8@aswf/vfx2026
@@ -59,7 +60,7 @@ nlohmann_json/*: nlohmann_json/3.12.0@aswf/vfx2026
 nspr/*: nspr/system@aswf/vfx2026
 nss/*: nss/3.101.0@aswf/vfx2026
 ocio/*: ocio/2.4.2@aswf/vfx2026
-oiio/*: oiio/3.0.7.0@aswf/vfx2026
+oiio/*: oiio/3.0.8.1@aswf/vfx2026
 ogg/*: ogg/system@aswf/vfx2026
 onetbb/*: onetbb/2022.1.0@aswf/vfx2026
 openal-soft/*: openal-soft/system@aswf/vfx2026

@@ -1,0 +1,39 @@
+diff -ur a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -122,7 +122,7 @@
+ )
+ 
+ if ( LIBRAW_CONFIG_FOUND )
+-    target_link_libraries ( rawtoaces PUBLIC libraw::raw )
++    target_link_libraries ( rawtoaces PUBLIC libraw::libraw )
+ else ()
+     target_link_directories(rawtoaces PUBLIC ${libraw_LIBRARY_DIRS} )
+     target_link_libraries(rawtoaces PUBLIC ${libraw_LIBRARIES} ${libraw_LDFLAGS_OTHER} )
+diff -ur a/src/rawtoaces_idt/CMakeLists.txt b/src/rawtoaces_idt/CMakeLists.txt
+--- a/src/rawtoaces_idt/CMakeLists.txt
++++ b/src/rawtoaces_idt/CMakeLists.txt
+@@ -42,4 +42,4 @@
+  	DESTINATION include/rawtoaces
+ )
+ 
+-install( TARGETS ${RAWTOACESIDTLIB} DESTINATION lib )
++install( TARGETS ${RAWTOACESIDTLIB} DESTINATION ${INSTALL_LIB_DIR} )
+diff -ur a/src/rawtoaces_util/CMakeLists.txt b/src/rawtoaces_util/CMakeLists.txt
+--- a/src/rawtoaces_util/CMakeLists.txt
++++ b/src/rawtoaces_util/CMakeLists.txt
+@@ -25,7 +25,7 @@
+ )
+     
+ if ( LIBRAW_CONFIG_FOUND )
+-    target_link_libraries ( ${RAWTOACESLIB} PUBLIC libraw::raw )
++    target_link_libraries ( ${RAWTOACESLIB} PUBLIC libraw::libraw )
+ else ()
+     target_link_directories(${RAWTOACESLIB} PUBLIC ${libraw_LIBRARY_DIRS} )
+     target_link_libraries(${RAWTOACESLIB} PUBLIC ${libraw_LIBRARIES} ${libraw_LDFLAGS_OTHER} )
+@@ -41,4 +41,4 @@
+  	DESTINATION include/rawtoaces
+ )
+ 
+-install( TARGETS ${RAWTOACESLIB} DESTINATION lib )
++install( TARGETS ${RAWTOACESLIB} DESTINATION ${INSTALL_LIB_DIR} )
