@@ -453,6 +453,7 @@ Contains:
 * partio-1.19.0
 * osl-1.13.11.0
 * otio-0.17.0
+* rawtoaces-vfx2026.0
 * numpy-1.24.3
 * hdf5-1.8.23
 * vfxplatform-2024
@@ -509,6 +510,7 @@ Contains:
 * partio-1.19.0
 * osl-1.13.11.0
 * otio-0.17.0
+* rawtoaces-vfx2026.0
 * numpy-1.24.3
 * hdf5-1.8.23
 * vfxplatform-2024
@@ -565,6 +567,7 @@ Contains:
 * partio-1.19.0
 * osl-1.14.6.0
 * otio-0.17.0
+* rawtoaces-vfx2026.0
 * numpy-1.26.4
 * hdf5-1.8.23
 * vfxplatform-2025
@@ -621,6 +624,7 @@ Contains:
 * partio-1.19.0
 * osl-1.14.6.0
 * otio-0.17.0
+* rawtoaces-vfx2026.0
 * numpy-1.26.4
 * hdf5-1.8.23
 * vfxplatform-2025
@@ -677,6 +681,7 @@ Contains:
 * partio-1.19.0
 * osl-1.14.6.0
 * otio-0.17.0
+* rawtoaces-vfx2026.0
 * numpy-1.26.4
 * hdf5-1.8.23
 * vfxplatform-2026
@@ -733,6 +738,7 @@ Contains:
 * partio-1.19.0
 * osl-1.14.6.0
 * otio-0.17.0
+* rawtoaces-vfx2026.0
 * numpy-1.26.4
 * hdf5-1.8.23
 * vfxplatform-2026

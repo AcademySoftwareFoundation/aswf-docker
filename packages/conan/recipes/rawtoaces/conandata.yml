@@ -1,0 +1,14 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+
+sources:
+  "vfx2026.0":
+    url: "https://github.com/AcademySoftwareFoundation/rawtoaces/archive/refs/tags/vfx2026.0.tar.gz"
+    sha256: "292fdf087dd5543f2de08fb85378f62489436a3146c657b80a0f52ca227680c7"
+patches:
+  "vfx2026.0":
+    - patch_file: "patches/cmake_libraw_target.diff"
+      patch_description: "libraw Cmake target from Conan Center Index recipe"
+      patch_type: "conan"

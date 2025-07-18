@@ -16,6 +16,7 @@ packages:
   - libtiff
   - libwebp
   - nlohmann_json
+  - aces_container
 implicit_packages:
   - numpy
   - vfxplatform

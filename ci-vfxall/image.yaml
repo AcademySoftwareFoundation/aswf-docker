@@ -56,6 +56,7 @@ packages:
   - partio
   - osl
   - otio
+  - rawtoaces
 implicit_packages:
   - numpy
   - hdf5

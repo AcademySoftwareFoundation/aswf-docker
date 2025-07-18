@@ -34,7 +34,7 @@ class LibRawConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "build_thread_safe": False,
+        "build_thread_safe": True, # ASWF: oiio will use this
         "with_jpeg": "libjpeg-turbo", # ASWF: match oiio default
         "with_lcms": True,
         "with_jasper": True,
@@ -107,6 +107,10 @@ class LibRawConan(ConanFile):
         cmake.install()
 
     def package_info(self):
+        # ASWF: generate CMake config files
+        self.cpp_info.set_property("cmake_file_name", "libraw")
+        self.cpp_info.set_property("cmake_target_name", "libraw::libraw")
+
         self.cpp_info.components["libraw_"].set_property("pkg_config_name", "libraw")
         self.cpp_info.components["libraw_"].libs = ["raw"]
         self.cpp_info.components["libraw_"].includedirs.append(os.path.join("include", "libraw"))

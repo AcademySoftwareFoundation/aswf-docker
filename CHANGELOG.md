@@ -48,7 +48,7 @@ All notable changes to this project will be documented in this file.
   - see `ci_common6` and `2026` sections of `versions.yaml` for full list of package versions
 - new Conan package and build images for OpenFX
 - new Conan package and build images for rawtoaces
-  - adds dependant Conan packages libraw, jasper, jsonformoderncpp, ceres-solver, eigen 
+  - adds dependant Conan packages libraw, jasper, jsonformoderncpp, ceres-solver, eigen , aces_container
 - OpenVDB now built as a Conan package
 - OpenImageIO builds with libraw support, Python bindings
 - system wrapper Conan packages
