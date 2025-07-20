@@ -32,7 +32,7 @@ class AlembicConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "with_hdf5": False,
+        "with_hdf5": True, # ASWF: exercise HDF5 support
     }
 
     def export_sources(self):
@@ -52,10 +52,12 @@ class AlembicConan(ConanFile):
         self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
-        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
-        self.requires(f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}")
-        self.requires(f"imath/{os.environ['ASWF_IMATH_VERSION']}@{self.user}/{self.channel}", transitive_headers = True, transitive_libs = True)
-        self.requires(f"openexr/{os.environ['ASWF_OPENEXR_VERSION']}@{self.user}/{self.channel}")
+        # ASWF: explicit dependencies, specific versions in Conan environment
+        self.requires(f"cpython/3.13.3")
+        self.requires(f"boost/1.88.0")
+        # ASWF: imath half.h is part of Alembic API
+        self.requires(f"imath/3.1.12", transitive_headers = True, transitive_libs = True)
+        self.requires(f"openexr/3.3.4")
         if self.options.with_hdf5:
             self.requires("hdf5/1.14.3")
 
@@ -107,12 +109,6 @@ class AlembicConan(ConanFile):
         self.cpp_info.libs = ["Alembic"]
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs.extend(["m", "pthread"])
-
-        # ASWF add explicit package requirements
-        self.cpp_info.requires.append("cpython::cpython")
-        self.cpp_info.requires.append("boost::boost")
-        self.cpp_info.requires.append("imath::imath")
-        self.cpp_info.requires.append("openexr::openexr")
 
         # TODO: to remove in conan v2 once cmake_find_package* generators removed
         self.cpp_info.names["cmake_find_package"] = "Alembic"

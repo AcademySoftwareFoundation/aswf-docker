@@ -9,10 +9,12 @@ qt/*:compiler.cppstd=gnu20
 [tool_requires]
 [replace_requires]
 aces_container/*: aces_container/1.0.2@aswf/vfx2026
+alembic/*: alembic/1.8.8@aswf/vfx2026
 boost/*: boost/1.88.0@aswf/vfx2026
 brotli/*: brotli/system@aswf/vfx2026
 bzip2/*: bzip2/1.0.8@aswf/vfx2026
 ceres-solver/*: ceres-solver/2.2.0@aswf/vfx2026
+cpython/*: cpython/3.13.3@aswf/vfx2026
 dbus/*: dbus/system@aswf/vfx2026
 double-conversion/*: double-conversion/system@aswf/vfx2026
 eigen/*: eigen/3.4.0@aswf/vfx2026
@@ -24,6 +26,7 @@ gdbm/*: gdbm/system@aswf/vfx2026
 giflib/*: giflib/5.2.1@aswf/vfx2026
 glew/*: glew/2.2.0@aswf/vfx2026
 glib/*: glib/2.68.4@aswf/vfx2026
+hdf5/*: hdf5/1.14.6@aswf/vfx2026
 highway/*: highway/1.2.0@aswf/vfx2026
 icu/*: icu/system@aswf/vfx2026
 imath/*: imath/3.1.12@aswf/vfx2026

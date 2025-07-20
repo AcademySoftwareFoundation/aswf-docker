@@ -441,7 +441,7 @@ Contains:
 * pyside-6.5.6
 * imath-3.1.12
 * openexr-3.2.4
-* alembic-1.8.6
+* alembic-1.8.8
 * oiio-2.5.19.0
 * ocio-2.3.2
 * openfx-1.5s
@@ -455,7 +455,7 @@ Contains:
 * otio-0.17.0
 * rawtoaces-vfx2026.0
 * numpy-1.24.3
-* hdf5-1.8.23
+* hdf5-1.14.6
 * vfxplatform-2024
 
 ## [aswf/ci-vfxall:2024-clang17.3](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang17.3)
@@ -498,7 +498,7 @@ Contains:
 * pyside-6.5.6
 * imath-3.1.12
 * openexr-3.2.4
-* alembic-1.8.6
+* alembic-1.8.8
 * oiio-2.5.19.0
 * ocio-2.3.2
 * openfx-1.5s
@@ -512,7 +512,7 @@ Contains:
 * otio-0.17.0
 * rawtoaces-vfx2026.0
 * numpy-1.24.3
-* hdf5-1.8.23
+* hdf5-1.14.6
 * vfxplatform-2024
 
 ## [aswf/ci-vfxall:2025-clang18.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang18.2)
@@ -569,7 +569,7 @@ Contains:
 * otio-0.17.0
 * rawtoaces-vfx2026.0
 * numpy-1.26.4
-* hdf5-1.8.23
+* hdf5-1.14.6
 * vfxplatform-2025
 
 ## [aswf/ci-vfxall:2025-clang19.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang19.2)
@@ -626,7 +626,7 @@ Contains:
 * otio-0.17.0
 * rawtoaces-vfx2026.0
 * numpy-1.26.4
-* hdf5-1.8.23
+* hdf5-1.14.6
 * vfxplatform-2025
 
 ## [aswf/ci-vfxall:2026-clang19.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2026-clang19.0)
@@ -683,7 +683,7 @@ Contains:
 * otio-0.17.0
 * rawtoaces-vfx2026.0
 * numpy-1.26.4
-* hdf5-1.8.23
+* hdf5-1.14.6
 * vfxplatform-2026
 
 ## [aswf/ci-vfxall:2026-clang20.0](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2026-clang20.0)
@@ -740,6 +740,6 @@ Contains:
 * otio-0.17.0
 * rawtoaces-vfx2026.0
 * numpy-1.26.4
-* hdf5-1.8.23
+* hdf5-1.14.6
 * vfxplatform-2026
 

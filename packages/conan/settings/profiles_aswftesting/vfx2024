@@ -7,11 +7,13 @@ include(ci_common4)
 [tool_requires]
 [replace_requires]
 aces_container/*: aces_container/1.0.2@aswftesting/vfx2024
+alembic/*: alembic/1.8.8@aswftesting/vfx2024
 boost/*: boost/1.82.0@aswftesting/vfx2024
 brotli/*: brotli/system@aswftesting/vfx2024
 bzip2/*: bzip2/1.0.8@aswftesting/vfx2024
 dbus/*: dbus/system@aswftesting/vfx2024
 ceres-solver/*: ceres-solver/2.2.0@aswftesting/vfx2024
+cpython/*: cpython/3.11.13@aswftesting/vfx2024
 double-conversion/*: double-conversion/system@aswftesting/vfx2024
 eigen/*: eigen/3.4.0@aswftesting/vfx2024
 expat/*: expat/2.6.4@aswftesting/vfx2024
@@ -22,6 +24,7 @@ gdbm/*: gdbm/system@aswftesting/vfx2024
 giflib/*: giflib/5.1.4@aswftesting/vfx2024
 glew/*: glew/2.2.0@aswftesting/vfx2024
 glib/*: glib/2.56.4@aswftesting/vfx2024
+hdf5/*: hdf5/1.14.6@aswftesting/vfx2024
 highway/*: highway/1.2.0@aswftesting/vfx2024
 icu/*: icu/system@aswftesting/vfx2024
 imath/*: imath/3.1.12@aswftesting/vfx2024

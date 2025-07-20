@@ -7,10 +7,12 @@ include(ci_common5)
 [tool_requires]
 [replace_requires]
 aces_container/*: aces_container/1.0.2@aswf/vfx2025
+alembic/*: alembic/1.8.8@aswf/vfx2025
 boost/*: boost/1.85.0@aswf/vfx2025
 brotli/*: brotli/system@aswf/vfx2025
 bzip2/*: bzip2/1.0.8@aswf/vfx2025
 ceres-solver/*: ceres-solver/2.2.0@aswf/vfx2025
+cpython/*: cpython/3.11.13@aswf/vfx2025
 dbus/*: dbus/system@aswf/vfx2025
 double-conversion/*: double-conversion/system@aswf/vfx2025
 eigen/*: eigen/3.4.0@aswf/vfx2025
@@ -22,6 +24,7 @@ gdbm/*: gdbm/system@aswf/vfx2025
 giflib/*: giflib/5.1.4@aswf/vfx2025
 glew/*: glew/2.2.0@aswf/vfx2025
 glib/*: glib/2.56.4@aswf/vfx2025
+hdf5/*: hdf5/1.14.6@aswf/vfx2025
 highway/*: highway/1.2.0@aswf/vfx2025
 icu/*: icu/system@aswf/vfx2025
 imath/*: imath/3.1.12@aswf/vfx2025

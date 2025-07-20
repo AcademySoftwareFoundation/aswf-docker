@@ -37,7 +37,8 @@ packages:
   - libwebp
   - md4c
   - qt                 # base2-2 packages
-  - highway            # vfx1-1 packages
+  - hdf5               # vfx1-1 packages
+  - highway
   - imath
   - jasper
   - lcms
