@@ -190,12 +190,12 @@ Contains:
 * ptex-2.4.2
 * libjxl-0.11.1
 * openexr-3.2.4
-* alembic-1.8.6
+* alembic-1.8.8
 * ocio-2.3.2
 * oiio-2.5.19.0
 * materialx-1.39.2
 * numpy-1.24.3
-* hdf5-1.8.23
+* hdf5-1.14.6
 * vfxplatform-2024
 
 ## [aswf/ci-usd:2025.2](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2025.2)
@@ -243,7 +243,7 @@ Contains:
 * oiio-3.0.8.1
 * materialx-1.39.3
 * numpy-1.26.4
-* hdf5-1.8.23
+* hdf5-1.14.6
 * vfxplatform-2025
 
 ## [aswf/ci-usd:2026.0](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2026.0)
@@ -291,6 +291,6 @@ Contains:
 * oiio-3.0.8.1
 * materialx-1.39.3
 * numpy-1.26.4
-* hdf5-1.8.23
+* hdf5-1.14.6
 * vfxplatform-2026
 

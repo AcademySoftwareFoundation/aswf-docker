@@ -9,10 +9,12 @@ qt/*:compiler.cppstd=gnu20
 [tool_requires]
 [replace_requires]
 aces_container/*: aces_container/1.0.2@aswftesting/vfx2026
+alembic/*: alembic/1.8.8@aswftesting/vfx2026
 boost/*: boost/1.88.0@aswftesting/vfx2026
 brotli/*: brotli/system@aswftesting/vfx2026
 bzip2/*: bzip2/1.0.8@aswftesting/vfx2026
 ceres-solver/*: ceres-solver/2.2.0@aswftesting/vfx2026
+cpython/*: cpython/3.13.3@aswftesting/vfx2026
 dbus/*: dbus/system@aswftesting/vfx2026
 double-conversion/*: double-conversion/system@aswftesting/vfx2026
 eigen/*: eigen/3.4.0@aswftesting/vfx2026
@@ -24,6 +26,7 @@ gdbm/*: gdbm/system@aswftesting/vfx2026
 giflib/*: giflib/5.2.1@aswftesting/vfx2026
 glew/*: glew/2.2.0@aswftesting/vfx2026
 glib/*: glib/2.68.4@aswftesting/vfx2026
+hdf5/*: hdf5/1.14.6@aswftesting/vfx2026
 highway/*: highway/1.2.0@aswftesting/vfx2026
 icu/*: icu/system@aswftesting/vfx2026
 imath/*: imath/3.1.12@aswftesting/vfx2026

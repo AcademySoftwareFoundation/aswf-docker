@@ -60,10 +60,10 @@ class ImathConan(ConanFile):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def requirements(self):
-        # ASWF: explicit requirements
-        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
-        self.requires(f"boost/{os.environ['ASWF_BOOST_VERSION']}@{self.user}/{self.channel}")
-        self.requires(f"pybind11/{os.environ['ASWF_PYBIND11_VERSION']}@{self.user}/{self.channel}")
+        # ASWF: explicit requirements, specific versions in Conan environment
+        self.requires(f"cpython/3.13.3")
+        self.requires(f"boost/1.88.0")
+        self.requires(f"pybind11/2.11.1")
 
     def generate(self):
         tc = CMakeToolchain(self)

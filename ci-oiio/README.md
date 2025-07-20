@@ -49,6 +49,7 @@ Contains:
 * libwebp-1.5.0
 * md4c-0.4.8
 * qt-6.5.6
+* hdf5-1.14.6
 * highway-1.2.0
 * imath-3.1.12
 * jasper-4.2.5
@@ -94,6 +95,7 @@ Contains:
 * libwebp-1.5.0
 * md4c-0.4.8
 * qt-6.5.6
+* hdf5-1.14.6
 * highway-1.2.0
 * imath-3.1.12
 * jasper-4.2.5
@@ -139,6 +141,7 @@ Contains:
 * libwebp-1.5.0
 * md4c-0.5.2
 * qt-6.8.3
+* hdf5-1.14.6
 * highway-1.2.0
 * imath-3.1.12
 * jasper-4.2.5
