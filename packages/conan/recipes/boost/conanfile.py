@@ -686,8 +686,6 @@ class BoostConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # ASWF: We want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     @property
     def _cxx11_boost_libraries(self):
@@ -842,9 +840,9 @@ class BoostConan(ConanFile):
         if self._with_iconv:
             self.requires("libiconv/1.17")
 
-        # ASWF: make sure to pick up our own Python
+        # ASWF: make sure to pick up our own Python, Conan profile provides real versions
         if not self.options.without_python:
-          self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}", transitive_headers=True, transitive_libs=True)
+          self.requires("cpython/[>=3.0.0]", transitive_headers=True, transitive_libs=True)
 
     def package_id(self):
         del self.info.options.i18n_backend
@@ -1204,7 +1202,7 @@ class BoostConan(ConanFile):
             # To show the libraries *1
             # self.run("%s --show-libraries" % b2_exe)
             # ASWF: LD_LIBRARY_PATH for Python run by b2
-            py_lib = os.path.join(self.dependencies["cpython"].package_folder, "lib64")
+            py_lib = os.path.join(self.dependencies["cpython"].package_folder, "lib")
             os.environ["LD_LIBRARY_PATH"] = os.pathsep.join([py_lib,os.environ.get("LD_LIBRARY_PATH")])
             self.run(full_command)
 
@@ -1491,7 +1489,7 @@ class BoostConan(ConanFile):
         flags.extend([
             "install",
             f"--prefix={self.package_folder}",
-            f"--libdir={self.package_folder}/lib64", # ASWF Override default lib
+            f"--libdir={self.package_folder}/lib",
             f"-j{build_jobs(self)}",
             "--abbreviate-paths",
             f"-d{self.options.debug_level}",
@@ -1725,8 +1723,7 @@ class BoostConan(ConanFile):
         # copy to source with the good lib name
         # ASWF: license files in separate subdirs
         copy(self, "LICENSE_1_0.txt", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
-        # ASWF: keep cmake files
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
         if self.options.header_only:
             copy(self, "*", src=os.path.join(self.source_folder, "boost"),
                             dst=os.path.join(self.package_folder, "include", "boost"))
@@ -1759,13 +1756,13 @@ class BoostConan(ConanFile):
         # Boost Build doesn't create the libraries, but it gets close,
         # leaving .bc files where the libraries would be.
         staged_libs = os.path.join(
-            self.package_folder, "lib64" # ASWF DSOs in lib64
+            self.package_folder, "lib"
         )
         if not os.path.exists(staged_libs):
             self.output.warning(f"Lib folder doesn't exist, can't collect libraries: {staged_libs}")
             return
         for bc_file in os.listdir(staged_libs):
-            if bc_file.startswith("lib64") and bc_file.endswith(".bc"):
+            if bc_file.startswith("lib") and bc_file.endswith(".bc"):
                 a_file = bc_file[:-3] + ".a"
                 cmd = f"emar q {os.path.join(staged_libs, a_file)} {os.path.join(staged_libs, bc_file)}"
                 self.output.info(cmd)
@@ -1782,7 +1779,7 @@ class BoostConan(ConanFile):
     def package_info(self):
         # ASWF: consumers need to set LD_LIBRARY_PATH to find DSOs
         if self.options.get_safe("shared"):
-            self.runenv_info.append_path("LD_LIBRARY_PATH", self.package_folder + "/lib64")
+            self.runenv_info.append_path("LD_LIBRARY_PATH", self.package_folder + "/lib")
 
         self.env_info.BOOST_ROOT = self.package_folder
 

@@ -88,8 +88,6 @@ class GTestConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def package_id(self):
         del self.info.options.no_main # Only used to expose more targets
@@ -153,10 +151,8 @@ class GTestConan(ConanFile):
         copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        # ASWF: lib64 on RHEL derived distro
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # ASWF: keep cmake files for non-Conan clients
-        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
         rm(self, "*.pdb", os.path.join(self.package_folder, "lib"))
 
     @property

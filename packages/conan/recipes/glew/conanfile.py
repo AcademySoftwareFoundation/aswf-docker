@@ -63,8 +63,6 @@ class GlewConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires("opengl/system")
@@ -95,11 +93,9 @@ class GlewConan(ConanFile):
         cmake = CMake(self)
         cmake.install()
 
-        # ASWF: libraries and cmake modules in lib64 
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # ASWF: Keep CMake files to package can be consumed outside Conan
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
-        rm(self, "*.pdb", os.path.join(self.package_folder, "lib64"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
+        rm(self, "*.pdb", os.path.join(self.package_folder, "lib"))
 
     def package_info(self):
         glewlib_target_name = "glew" if self.options.shared else "glew_s"
@@ -126,8 +122,3 @@ class GlewConan(ConanFile):
             self.cpp_info.components["glewlib"].requires.append("mesa-glu::mesa-glu")
         else:
             self.cpp_info.components["glewlib"].requires.append("glu::glu")
-
-        # ASWF: is this stil needed?
-        self.env_info.CMAKE_PREFIX_PATH.append(
-            os.path.join(self.package_folder, "lib64", "cmake")
-        )

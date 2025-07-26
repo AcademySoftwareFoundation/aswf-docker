@@ -104,7 +104,7 @@ class JasperConan(ConanFile):
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "share"))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig")) # ASWF: lib64
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         if self.settings.os == "Windows":
             for dll_prefix in ["concrt", "msvcp", "vcruntime"]:
                 rm(self, f"{dll_prefix}*.dll", os.path.join(self.package_folder, "bin"))
@@ -126,7 +126,7 @@ class JasperConan(ConanFile):
 
     @property
     def _module_file_rel_path(self):
-        return os.path.join("lib64", "cmake", f"conan-official-{self.name}-variables.cmake") # ASWF: cmake in lib64
+        return os.path.join("lib", "cmake", f"conan-official-{self.name}-variables.cmake")
 
     def package_info(self):
         self.cpp_info.set_property("cmake_find_mode", "both")

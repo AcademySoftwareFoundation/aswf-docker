@@ -7,6 +7,7 @@
 from conan import ConanFile
 from conan.tools.files import load
 import re
+from packaging.version import Version
 
 class SystemOpenjpegConan(ConanFile):
     name = "openjpeg"
@@ -18,8 +19,9 @@ class SystemOpenjpegConan(ConanFile):
         self.version = match.group(1).strip()
    
     def package_info(self):
-        self.cpp_info.includedirs = []
+        v = Version(self.version)
+        self.cpp_info.includedirs = [f"/usr/include/openjpeg-{v.major}.{v.minor}"]
         self.cpp_info.system_libs = ["openjp2"]
         
         self.cpp_info.set_property("cmake_file_name", "OpenJPEG")
-        self.cpp_info.set_property("cmake_target_name", "openjp2")
+        self.cpp_info.set_property("cmake_target_name", "openjpeg::openjpeg")

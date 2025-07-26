@@ -84,8 +84,6 @@ class CMakeConan(ConanFile):
             basic_layout(self, src_folder="src")
         else:
             cmake_layout(self, src_folder="src")
-        # ASWF: We want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version],

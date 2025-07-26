@@ -62,8 +62,6 @@ class LibjxlConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires("brotli/1.1.0", transitive_libs=True) # ASWF
@@ -170,11 +168,10 @@ class LibjxlConan(ConanFile):
         cmake.install()
         # ASWF: separate licenses from multiple package installs
         copy(self, "LICENSE", self.source_folder, os.path.join(self.package_folder, "licenses", self.name))
-        # ASWF: libraries in lib64
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         if self.options.shared:
-            rm(self, "*.a", os.path.join(self.package_folder, "lib64"))
-            rm(self, "*-static.lib", os.path.join(self.package_folder, "lib64"))
+            rm(self, "*.a", os.path.join(self.package_folder, "lib"))
+            rm(self, "*-static.lib", os.path.join(self.package_folder, "lib"))
 
     def _lib_name(self, name):
         if Version(self.version) < "0.9" and not self.options.shared and self.settings.os == "Windows":

@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 - 2024.3 release
   - using Conan 2 recipes
   - updated versions
-    - Conan 2.16.1 (was 1.x)
+    - Conan 2.18.1 (was 1.x)
     - CUDA 12.6.3 (was 12.6.1)
     - ccache 4.9.1 (was 4.8.3)
     - CMake 3.31.7 (was 3.27.9)
@@ -31,7 +31,7 @@ All notable changes to this project will be documented in this file.
     - PySide 6.5.6 (was 6.5.4)
 - 2025.2
   - updated versions
-    - Conan 2.16.1 (was 2.14.0)
+    - Conan 2.18.1 (was 2.14.0)
     - Ninja 1.13.1 (was 1.12.1)
     - Sonar Cloud 7.1.0.4889 (was 6.2.1.4610)
     - LLVM 19.1.7 (was 19.1.1)
@@ -42,7 +42,7 @@ All notable changes to this project will be documented in this file.
     - python 3.11.13 (was 3.11.11)
     - Qt 6.5.6 (was 6.5.4)
     - OIIO 3.0.8.1 (was 3.0.6.1)
-    - OpenEXR 3.3.4 (was 3.3.3)
+    - OpenEXR 3.3.5 (was 3.3.3)
     - OpenFX 1.5s
     - OSL 1.14.6.0 (was 1.14.5.1)
     - PySide 6.5.6 (was 6.5.4)
@@ -55,10 +55,11 @@ All notable changes to this project will be documented in this file.
   - adds dependant Conan packages libraw, jasper, jsonformoderncpp, ceres-solver, eigen , aces_container
 - Alembic now [built with hdf5 dependency](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/254)
 - OpenVDB now [built as a Conan package](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/231)
-- OpenImageIO builds with plibraw support](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/264), [Python bindings](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/272)
+- OpenImageIO builds with libraw support](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/264), [Python bindings](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/272) and OpenJPEG/JPEG2000 support
 - system wrapper Conan packages
   - improved wrapper packages no longer declare include directories and libraries they don't include
   - query container OS for installed system package version instead of hard coding (pkgconfig / rpm)
+- libuhdr Conan package renamed to libultrahdr and updated to match new Conan Center Index package
 - aswfdocker utility gets "conandiff" option to show upstream changes to vendored Conan Center Index recipes to help
 with keeping recipes up to date
   - merge upstream recipe changes, in particular changes for CMake 4 compatibility

@@ -40,7 +40,7 @@ packages:
   - highway            # vfx1-1 packages
   - imath
   - lcms
-  - libuhdr
+  - libultrahdr
   - opensubdiv
   - partio
   - ptex

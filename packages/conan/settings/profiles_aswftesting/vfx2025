@@ -46,7 +46,7 @@ libsndfile/*: libsndfile/system@aswftesting/vfx2025
 libsquish/*: libsquish/system@aswftesting/vfx2025
 libsvtav1/*: libsvtav1/system@aswftesting/vfx2025
 libtiff/*: libtiff/4.0.9@aswftesting/vfx2025
-libuhdr/*: libuhdr/1.4.0@aswftesting/vfx2025
+libultrahdr/*: libultrahdr/1.4.0@aswftesting/vfx2025
 libvpx/*: libvpx/system@aswftesting/vfx2025
 libwebp/*: libwebp/1.5.0@aswftesting/vfx2025
 libxcrypt/*: libxcrypt/4.4.36@aswftesting/vfx2025
@@ -65,7 +65,7 @@ oiio/*: oiio/3.0.7.0@aswftesting/vfx2025
 ogg/*: ogg/system@aswftesting/vfx2025
 onetbb/*: onetbb/2021.13.0@aswftesting/vfx2025
 openal-soft/*: openal-soft/system@aswftesting/vfx2025
-openexr/*: openexr/3.3.4@aswftesting/vfx2025
+openexr/*: openexr/3.3.5@aswftesting/vfx2025
 opengl/*: opengl/system@aswftesting/vfx2025
 openjpeg/*: openjpeg/2.4.0@aswftesting/vfx2025
 openssl/*: openssl/system@aswftesting/vfx2025
@@ -94,6 +94,7 @@ zstd/*: zstd/1.5.6@aswftesting/vfx2025
 [replace_tool_requires]
 b2/*: b2/5.2.1@aswftesting/vfx2025
 bison/*: bison/3.0.4@system
+cpython/*: cpython/3.11.13@aswftesting/vfx2025
 flex/*: flex/2.6.1@system
 gperf/*: gperf/3.1@system
 libtool/*: libtool/2.4.6@system

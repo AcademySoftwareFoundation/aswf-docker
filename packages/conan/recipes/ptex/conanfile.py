@@ -47,8 +47,6 @@ class PtexConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires("zlib/[>=1.2.11 <2]")
@@ -83,8 +81,7 @@ class PtexConan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        # ASWF: modules in lib64
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 
     def package_info(self):
         cmake_target = "Ptex_dynamic" if self.options.shared else "Ptex_static"

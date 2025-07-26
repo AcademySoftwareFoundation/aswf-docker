@@ -51,7 +51,7 @@ class OpenVDBConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "build_ax": False, # ASWF: enable AX for OpenVDB
+        "build_ax": False, # ASWF: need to figure out clang/llvm dependency to enable AX
         "simd": None,
         "use_colored_output": False,
         "use_delayed_loading": False,
@@ -129,8 +129,6 @@ class OpenVDBConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def package_id(self):
         # with_exr is deprecated and has no effect
@@ -149,6 +147,11 @@ class OpenVDBConan(ConanFile):
         if self.options.with_log4cplus:
             # log4cplus 2.x is not supported
             self.requires("log4cplus/1.2.2", transitive_headers=True)
+
+    def build_requirements(self):
+        # ASWF: need clang / llvm to build AX, FIXME need better way to determine llvm version
+        if self.options.build_ax:
+            self.tool_requires(f"clang/{os.environ['ASWF_PYSIDE_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
 
     def _check_compiler_version(self):
         compiler = str(self.settings.compiler)

@@ -39,11 +39,10 @@ class PartioConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
-        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
+        # Conan profile provides real versions
+        self.requires("cpython/[>=3.0.0]")
         self.requires("zlib/[>=1.2.11 <2]")
 
     def source(self):
@@ -69,7 +68,7 @@ class PartioConan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 
     def package_info(self):
         self.cpp_info.set_property("cmake_find_mode", "both")

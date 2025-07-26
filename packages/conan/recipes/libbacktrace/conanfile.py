@@ -54,8 +54,6 @@ class LibbacktraceConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def validate(self):
         check_min_vs(self, "180")
@@ -106,8 +104,7 @@ class LibbacktraceConan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses",self.name))
         autotools = Autotools(self)
         autotools.install()
-        # ASWF: libraries and modules in lib64
-        lib_folder = os.path.join(self.package_folder, "lib64")
+        lib_folder = os.path.join(self.package_folder, "lib")
         rm(self, "*.la", lib_folder)
         fix_apple_shared_install_name(self)
         if is_msvc(self):

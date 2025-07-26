@@ -361,9 +361,6 @@ class QtConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.build.libdirs = ["lib64"]
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires("zlib/[>=1.2.11 <2]")
@@ -394,7 +391,7 @@ class QtConan(ConanFile):
             self.requires("harfbuzz/8.3.0")
         if self.options.get_safe("with_libjpeg", False) and not self.options.multiconfiguration:
             if self.options.with_libjpeg == "libjpeg-turbo":
-                self.requires("libjpeg-turbo/[>=3.0 <3.1]")
+                self.requires("libjpeg-turbo/[>=3.0 <3.1]", transitive_libs=True) # ASWF: clients don't link otherwise
             else:
                 self.requires("libjpeg/9e")
         if self.options.get_safe("with_libpng", False) and not self.options.multiconfiguration:
@@ -685,9 +682,6 @@ class QtConan(ConanFile):
         tc.variables["QT_USE_VCPKG"] = False
         tc.cache_variables["QT_USE_VCPKG"] = False
 
-        # ASWF: qt cmake configuration doesn't follow layout(), force DSOs in lib64
-        tc.variables["INSTALL_LIBDIR"] = "lib64"
-
         tc.generate()
 
     def package_id(self):
@@ -855,17 +849,14 @@ class QtConan(ConanFile):
 
     @property
     def _cmake_executables_file(self):
-        # ASWF: cmake modules in lib64
-        return os.path.join("lib64", "cmake", "Qt6Core", "conan_qt_executables_variables.cmake")
+        return os.path.join("lib", "cmake", "Qt6Core", "conan_qt_executables_variables.cmake")
 
     @property
     def _cmake_entry_point_file(self):
-        # ASWF: cmake modules in lib64
-        return os.path.join("lib64", "cmake", "Qt6Core", "conan_qt_entry_point.cmake")
+        return os.path.join("lib", "cmake", "Qt6Core", "conan_qt_entry_point.cmake")
 
     def _cmake_qt6_private_file(self, module):
-        # ASWF: cmake modules in lib64
-        return os.path.join("lib64", "cmake", f"Qt6{module}", f"conan_qt_qt6_{module.lower()}private.cmake")
+        return os.path.join("lib", "cmake", f"Qt6{module}", f"conan_qt_qt6_{module.lower()}private.cmake")
 
     def package(self):
         if self.settings.os == "Macos":
@@ -878,24 +869,21 @@ class QtConan(ConanFile):
         for module in self._get_module_tree:
             if module != "qtbase" and not self.options.get_safe(module):
                 rmdir(self, os.path.join(self.package_folder, "licenses", module))
-        # ASWF: pkgconfig modules in lib64
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # ASWF: We want to be able to easily consume Conan packages using CMake outside of Conan itself
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         # for mask in ["Find*.cmake", "*Config.cmake", "*-config.cmake"]:
-        #    rm(self, mask, self.package_folder, recursive=True, excludes="Qt6HostInfoConfig.cmake")
-        rm(self, "*.la*", os.path.join(self.package_folder, "lib64"), recursive=True)
+        #    rm(self, mask, self.package_folder, recursive=True, excludes="Qt6HostInfoConfig.cmake") # ASWF: keep cmake files
+        rm(self, "*.la*", os.path.join(self.package_folder, "lib"), recursive=True)
         rm(self, "*.pdb*", self.package_folder, recursive=True)
         rm(self, "ensure_pro_file.cmake", self.package_folder, recursive=True)
         os.remove(os.path.join(self.package_folder, "libexec" if self.settings.os != "Windows" else "bin", "qt-cmake-private-install.cmake"))
 
-        # ASWF: cmake modules in lib64
-        for m in os.listdir(os.path.join(self.package_folder, "lib64", "cmake")):
-            if os.path.isfile(os.path.join(self.package_folder, "lib64", "cmake", m, f"{m}Macros.cmake")):
+        for m in os.listdir(os.path.join(self.package_folder, "lib", "cmake")):
+            if os.path.isfile(os.path.join(self.package_folder, "lib", "cmake", m, f"{m}Macros.cmake")):
                 continue
-            if glob.glob(os.path.join(self.package_folder, "lib64", "cmake", m, "QtPublic*Helpers.cmake")):
+            if glob.glob(os.path.join(self.package_folder, "lib", "cmake", m, "QtPublic*Helpers.cmake")):
                 continue
             if m.endswith("Tools"):
-                if os.path.isfile(os.path.join(self.package_folder, "lib64", "cmake", m, f"{m[:-5]}Macros.cmake")):
+                if os.path.isfile(os.path.join(self.package_folder, "lib", "cmake", m, f"{m[:-5]}Macros.cmake")):
                     continue
 
             # ASWF: don't remove cmake modules
@@ -939,7 +927,7 @@ class QtConan(ConanFile):
         for target in targets:
             exe_path = None
             for path_ in [f"bin/{target}{extension}",
-                          f"lib64/{target}{extension}", # ASWF: DSOs in lib64
+                          f"lib/{target}{extension}",
                           f"libexec/{target}{extension}"]:
                 if os.path.isfile(os.path.join(self.package_folder, path_)):
                     exe_path = path_
@@ -993,8 +981,7 @@ class QtConan(ConanFile):
 
         if self.options.qtdeclarative:
             _create_private_module("Qml", ["CorePrivate", "Qml"])
-            # ASWF: cmake modules in lib64
-            save(self, os.path.join(self.package_folder, "lib64", "cmake", "Qt6Qml", "conan_qt_qt6_policies.cmake"), textwrap.dedent("""\
+            save(self, os.path.join(self.package_folder, "lib", "cmake", "Qt6Qml", "conan_qt_qt6_policies.cmake"), textwrap.dedent("""\
                     set(QT_KNOWN_POLICY_QTP0001 TRUE)
                     """))
             if self.options.gui and self.options.qtshadertools:
@@ -1573,37 +1560,31 @@ class QtConan(ConanFile):
         if self.settings.os in ["Windows", "iOS"]:
             _add_build_module("qtCore", self._cmake_entry_point_file)
 
-        # ASWF: cmake modules in lib64
-        for m in os.listdir(os.path.join("lib64", "cmake")):
+        for m in os.listdir(os.path.join("lib", "cmake")):
             component_name = m.replace("Qt6", "qt")
             if component_name == "qt":
                 component_name = "qtCore"
 
             if component_name in self.cpp_info.components:
-                # ASWF: cmake modules in lib64
-                module = os.path.join("lib64", "cmake", m, f"{m}Macros.cmake")
+                module = os.path.join("lib", "cmake", m, f"{m}Macros.cmake")
                 if os.path.isfile(module):
                     _add_build_module(component_name, module)
 
-                # ASWF: cmake modules in lib64
-                module = os.path.join("lib64", "cmake", m, f"{m}ConfigExtras.cmake")
+                module = os.path.join("lib", "cmake", m, f"{m}ConfigExtras.cmake")
                 if os.path.isfile(module):
                     _add_build_module(component_name, module)
 
-                # ASWF: cmake modules in lib64 
-                for helper_modules in glob.glob(os.path.join(self.package_folder, "lib64", "cmake", m, "QtPublic*Helpers.cmake")):
+                for helper_modules in glob.glob(os.path.join(self.package_folder, "lib", "cmake", m, "QtPublic*Helpers.cmake")):
                     _add_build_module(component_name, helper_modules)
-                self.cpp_info.components[component_name].builddirs.append(os.path.join("lib64", "cmake", m))
+                self.cpp_info.components[component_name].builddirs.append(os.path.join("lib", "cmake", m))
 
             elif component_name.endswith("Tools") and component_name[:-5] in self.cpp_info.components:
-                # ASFW: cmake modules in lib64
-                module = os.path.join("lib64", "cmake", f"{m}", f"{m[:-5]}Macros.cmake")
+                module = os.path.join("lib", "cmake", f"{m}", f"{m[:-5]}Macros.cmake")
                 if os.path.isfile(module):
                     _add_build_module(component_name[:-5], module)
-                self.cpp_info.components[component_name[:-5]].builddirs.append(os.path.join("lib64", "cmake", m))
+                self.cpp_info.components[component_name[:-5]].builddirs.append(os.path.join("lib", "cmake", m))
 
-        # ASWF: DSOs in lib64
-        objects_dirs = glob.glob(os.path.join(self.package_folder, "lib64", "objects-*/"))
+        objects_dirs = glob.glob(os.path.join(self.package_folder, "lib", "objects-*/"))
         for object_dir in objects_dirs:
             for m in os.listdir(object_dir):
                 component = "qt" + m[:m.find("_")]
@@ -1617,8 +1598,7 @@ class QtConan(ConanFile):
         build_modules_list = []
 
         if self.options.qtdeclarative:
-            # ASWF: cmake modules in lib64
-            build_modules_list.append(os.path.join(self.package_folder, "lib64", "cmake", "Qt6Qml", "conan_qt_qt6_policies.cmake"))
+            build_modules_list.append(os.path.join(self.package_folder, "lib", "cmake", "Qt6Qml", "conan_qt_qt6_policies.cmake"))
 
         def _add_build_modules_for_component(component):
             for req in self.cpp_info.components[component].requires:

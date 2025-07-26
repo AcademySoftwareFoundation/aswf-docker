@@ -61,8 +61,6 @@ class Md4cConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def validate(self):
         if self.settings.os != "Windows" and self.options.encoding == "utf-16":
@@ -105,9 +103,8 @@ class Md4cConan(ConanFile):
         copy(self, pattern="LICENSE.md", dst=os.path.join(self.package_folder, "licenses", self.name), src=self.source_folder)
         cmake = CMake(self)
         cmake.install()
-        # ASWF: keep cmake modules in lib64
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
 
     def package_info(self):

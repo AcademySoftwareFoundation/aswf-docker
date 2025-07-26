@@ -77,8 +77,6 @@ class FmtConan(ConanFile):
             basic_layout(self, src_folder="src")
         else:
             cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def package_id(self):
         if self.info.options.header_only:
@@ -99,7 +97,7 @@ class FmtConan(ConanFile):
             tc.cache_variables["FMT_DOC"] = False
             tc.cache_variables["FMT_TEST"] = False
             tc.cache_variables["FMT_INSTALL"] = True
-            tc.cache_variables["FMT_LIB_DIR"] = "lib64" # ASWF: libraries in lib64
+            tc.cache_variables["FMT_LIB_DIR"] = "lib"
             if self._has_with_os_api_option:
                 tc.cache_variables["FMT_OS"] = bool(self.options.with_os_api)
             if self._has_with_unicode_option:
@@ -124,9 +122,8 @@ class FmtConan(ConanFile):
         else:
             cmake = CMake(self)
             cmake.install()
-            # ASWF: libraries in lib64, keep cmake
-            # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
-            rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+            # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
+            rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
             rmdir(self, os.path.join(self.package_folder, "res"))
             rmdir(self, os.path.join(self.package_folder, "share"))
 

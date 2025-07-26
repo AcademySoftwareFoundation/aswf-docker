@@ -51,8 +51,6 @@ class OpenColorIOConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires("expat/[>=2.6.2 <3]")
@@ -174,16 +172,14 @@ class OpenColorIOConan(ConanFile):
         cm.install()
 
         if not self.options.shared:
-            # ASWF: libraries in lib64
             copy(self, "*",
-                src=os.path.join(self.package_folder, "lib64", "static"),
-                dst=os.path.join(self.package_folder, "lib64"))
-            rmdir(self, os.path.join(self.package_folder, "lib64", "static"))
+                src=os.path.join(self.package_folder, "lib", "static"),
+                dst=os.path.join(self.package_folder, "lib"))
+            rmdir(self, os.path.join(self.package_folder, "lib", "static"))
 
         rmdir(self, os.path.join(self.package_folder, "cmake"))
-        # ASWF: cmake files in lib64, keep for outside conan use
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
         rmdir(self, os.path.join(self.package_folder, "share"))
         # nop for 2.x
         rm(self, "OpenColorIOConfig*.cmake", self.package_folder)

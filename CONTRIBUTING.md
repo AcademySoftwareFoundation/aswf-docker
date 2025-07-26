@@ -306,14 +306,6 @@ you are basing hyour local copy on.
 # From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/opencolorio/all/conanfile.py
 ```
 
-- adding a line to the `layout()` method to adhere to the Enterprise Linux convention of storing 64 bit libraries in the `lib64` directory rather than Conan's default `lib`:
-```
-    def layout(self):
-        cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
-```
-
 - adding a `self.name` level to the `copy()` in the `package()` method: when Conan packages are "installed" in the CI build images, they are all flattened together into `/usr/local/` and without this change the license files for all the packages end up in the same directory and can overwrite each other:
 ```
     def package(self):
@@ -321,14 +313,13 @@ you are basing hyour local copy on.
         copy(self, "LICENSE.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
 ```
 
-- update the calls to `rmdir()` in the `package()` method to point to `lib64`, and
-comment out the call that removes the `cmake` directory: we want to be able to use
+- comment out the call that removes the `cmake` directory: we want to be able to use
 these Conan packages outside the context of Conan, and thus want to retain the
 generated `.cmake` files:
 ```
-        # ASWF: keep cmake files, delete pkgconfig files in lib64
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        # ASWF: keep cmake files, delete pkgconfig files
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 ```
 
 To help minimize changes to the standard Conan recipes, Conan `profiles` are used to
@@ -454,7 +445,7 @@ where the `b` directory contains the output of the build and the `p` directory w
 
 ```
 $ ls /var/lib/docker/overlay2/ltu9ddgwws6cblhemncn9uzaj/diff/b/qted742db53b77e/p
-bin  conaninfo.txt  conanmanifest.txt  doc  include  lib64  libexec  licenses  metatypes  mkspecs  modules  phrasebooks  plugins  qml  resources  translations
+bin  conaninfo.txt  conanmanifest.txt  doc  include  lib  libexec  licenses  metatypes  mkspecs  modules  phrasebooks  plugins  qml  resources  translations
 ```
 
 Be careful when trying to modify this cache directory directly, as it is managed by
@@ -516,6 +507,15 @@ aswfdocker --verbose build -t PACKAGE --group vfx --version 2019 --target usd --
 # Build and push ci-vfxall image to aswftesting
 aswfdocker --verbose build -t IMAGE --group vfx --version 2019 --target vfxall --push YES
 ```
+
+If you are building on system with multiple cores, you may want to set the environment variable:
+
+```
+DOCKER_BUILDKIT=1
+```
+
+before running `aswfdocker build`, as that will allow Docker BuildKit to run multiple builds in parallel. This is mostly useful when building smaller larger groups of smaller packages: when building individual large packages like Qt or Clang/LLVM,
+CMake will run parallel compiles. `DOCKER_BUILDKIT=1` is set when building on GitHub Actions.
 
 ### Migrate
 

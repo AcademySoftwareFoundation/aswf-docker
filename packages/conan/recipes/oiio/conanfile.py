@@ -50,8 +50,9 @@ class OpenImageIOConan(ConanFile):
         "with_ptex": [True, False],
         "with_libwebp": [True, False],
         "with_libjxl": [True, False],
-        "with_libuhdr": [True, False],
+        "with_libultrahdr": [True, False],
         "with_iv": [True, False],
+        "with_python": [True, False],
     }
     default_options = {
         "shared": False,
@@ -59,7 +60,7 @@ class OpenImageIOConan(ConanFile):
         "with_libjpeg": "libjpeg-turbo", # ASWF: EL distros default to -turbo
         "with_libpng": True,
         "with_freetype": True,
-        "with_hdf5": False,   # ASWF: disable until we resolve dependencies
+        "with_hdf5": True,
         "with_opencolorio": True,
         "with_opencv": False,
         "with_tbb": True, # ASWF: exercise dependency
@@ -73,8 +74,9 @@ class OpenImageIOConan(ConanFile):
         "with_ptex": True,
         "with_libwebp": True,
         "with_libjxl": True,
-        "with_libuhdr": True,
+        "with_libultrahdr": True,
         "with_iv": False, # ASWF: enable once we figure out why configure doesn't find Qt or OpenGL
+        "with_python": True, # ASWF: build Python bindings
     }
 
     def export_sources(self):
@@ -106,6 +108,7 @@ class OpenImageIOConan(ConanFile):
             self.requires("fmt/10.2.1", transitive_headers=True)
         else:
             self.requires("fmt/9.1.0", transitive_headers=True)
+        self.requires("pybind11/[>=2.0.0]") # ASWF: OIIO now uses pybind11
 
         # Optional libraries
         if self.options.with_libpng:
@@ -141,13 +144,15 @@ class OpenImageIOConan(ConanFile):
             self.requires("libwebp/1.3.2")
         if self.options.with_libjxl:
             self.requires("libjxl/0.11.1")
-        if self.options.with_libuhdr:
-            self.requires("libuhdr/1.4.0")
+        if self.options.with_libultrahdr:
+            self.requires("libultrahdr/1.4.0")
         # TODO: R3DSDK dependency
         # TODO: Nuke dependency
         if self.options.with_iv:
            self.requires("opengl/system")
            self.requires("qt/6.8.3")
+        if self.options.with_python: # ASWF: build Python bindings
+           self.requires("cpython/[>=3.0.0")
 
     def validate(self):
         if self.settings.compiler.cppstd:
@@ -159,8 +164,6 @@ class OpenImageIOConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -231,9 +234,9 @@ class OpenImageIOConan(ConanFile):
         if self.settings.os == "Windows":
             for vc_file in ("concrt", "msvcp", "vcruntime"):
                 rm(self, f"{vc_file}*.dll", os.path.join(self.package_folder, "bin"))
-        # ASWF: cmake files in lib64, keep for outside conan use
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # ASWF: keep cmake for outside conan use
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
 
     @staticmethod
     def _conan_comp(name):
@@ -288,6 +291,7 @@ class OpenImageIOConan(ConanFile):
             "fmt::fmt",
             "imath::imath",
             "openexr::openexr",
+            "pybind11::pybind11",
         ]
 
         if self.options.with_libjpeg == "libjpeg":
@@ -324,10 +328,12 @@ class OpenImageIOConan(ConanFile):
             self.cpp_info.components["OpenImageIO"].requires.append("ptex::ptex")
         if self.options.with_libwebp:
             self.cpp_info.components["OpenImageIO"].requires.append("libwebp::libwebp")
-        if self.options.with_libjxl:
+        if self.options.with_libjxl: # ASWF: enable JPEG XL
             self.cpp_info.components["OpenImageIO"].requires.append("libjxl::libjxl")
-        if self.options.with_libuhdr:
-            self.cpp_info.components["OpenImageIO"].requires.append("libuhdr::libuhdr")
+        if self.options.with_libultrahdr: # ASWF: enable libultrahdr
+            self.cpp_info.components["OpenImageIO"].requires.append("libultrahdr::libultrahdr")
+        if self.options.with_python: # ASWF: build Python bindings
+            self.cpp_info.components["OpenImageIO"].requires.append("cpython::cpython")
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.components["OpenImageIO"].system_libs.extend(["dl", "m", "pthread"])
 

@@ -57,8 +57,6 @@ class LibRawConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         # TODO: RawSpeed dependency (-DUSE_RAWSPEED)
@@ -145,4 +143,3 @@ class LibRawConan(ConanFile):
             self.cpp_info.components["libraw_"].system_libs.append(stdcpp_library(self))
             if self.options.get_safe("build_thread_safe"):
                 self.cpp_info.components["libraw_r"].system_libs.append(stdcpp_library(self))
-

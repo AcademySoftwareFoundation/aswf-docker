@@ -45,16 +45,14 @@ class ACESContainerConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["INSTALL_LIB_DIR"] = "lib64"
-        tc.variables["INSTALL_CMAKE_DIR"] = os.path.join("lib64", "cmake", "AcesContainer")
+        tc.variables["INSTALL_LIB_DIR"] = "lib4"
+        tc.variables["INSTALL_CMAKE_DIR"] = os.path.join("lib", "cmake", "AcesContainer")
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()

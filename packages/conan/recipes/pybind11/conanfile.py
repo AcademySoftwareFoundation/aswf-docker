@@ -27,18 +27,15 @@ class PyBind11Conan(ConanFile):
     no_copy_source = True
 
 
-    # ASWF: requirements() and build_requirements() ensure we find our own Python
+    # ASWF: requirements() and build_requirements() ensure we find our own Python, Conan env provides the real version
     def requirements(self):
-        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
+        self.requires(f"cpython/[>=3.0.0]")
 
     def build_requirements(self):
-        # ASWF: "cpython/<host_version>" isn't working for us
-        self.tool_requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
+        self.tool_requires(f"cpython/[>=3.0.0]")
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # ASWF: We want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def package_id(self):
         self.info.clear()
@@ -50,9 +47,8 @@ class PyBind11Conan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables["PYBIND11_INSTALL"] = True
         tc.variables["PYBIND11_TEST"] = False
-        # ASWF: Cmake modules in lib64
-        tc.variables["PYBIND11_CMAKECONFIG_INSTALL_DIR"] = os.path.join("lib64", "cmake", "pybind11")
-        tc.variables["PYBIND11_PYTHON_VERSION"] = os.environ["ASWF_CPYTHON_VERSION"]
+        tc.variables["PYBIND11_CMAKECONFIG_INSTALL_DIR"] = os.path.join("lib", "cmake", "pybind11")
+        tc.variables["PYBIND11_PYTHON_VERSION"] = str(self.dependencies["cpython"])
         if Version(self.version) < "2.11.0":
             tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
         tc.generate()
@@ -69,28 +65,26 @@ class PyBind11Conan(ConanFile):
         cmake.install()
         # ASWF: don't remove cmake files for standalone cmake use
         # for filename in ["pybind11Targets.cmake", "pybind11Config.cmake", "pybind11ConfigVersion.cmake"]:
-        #  rm(self, filename, os.path.join(self.package_folder, "lib64", "cmake", "pybind11"))
+        #  rm(self, filename, os.path.join(self.package_folder, "lib", "cmake", "pybind11"))
 
         rmdir(self, os.path.join(self.package_folder, "share"))
 
         # ASWF: stash unmodified copy of pybind11Common.cmake for builds outside Conan
-        rename(self, src=os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11Common.cmake"),
-               dst=os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11Common.cmake_NO_CONAN"))
+        rename(self, src=os.path.join(self.package_folder, "lib", "cmake", "pybind11", "pybind11Common.cmake"),
+               dst=os.path.join(self.package_folder, "lib", "cmake", "pybind11", "pybind11Common.cmake_NO_CONAN"))
         copy(self, "pybind11Common.cmake", src=os.path.join(self.source_folder, "tools"),
-             dst=os.path.join(self.package_folder, "lib64", "cmake", "pybind11"), overwrite_equal = True, keep_path=False)
+             dst=os.path.join(self.package_folder, "lib", "cmake", "pybind11"), overwrite_equal = True, keep_path=False)
       
         checked_target = "lto" if self.version < Version("2.11.0") else "pybind11"
-        # ASWF: CMake modules in lib64/cmake
-        replace_in_file(self, os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11Common.cmake"),
+        replace_in_file(self, os.path.join(self.package_folder, "lib", "cmake", "pybind11", "pybind11Common.cmake"),
                               f"if(TARGET pybind11::{checked_target})",
                               "if(FALSE)")
-        replace_in_file(self, os.path.join(self.package_folder, "lib64", "cmake", "pybind11", "pybind11Common.cmake"),
+        replace_in_file(self, os.path.join(self.package_folder, "lib", "cmake", "pybind11", "pybind11Common.cmake"),
                               "add_library(",
                               "# add_library(")
 
     def package_info(self):
-        # ASWF: CMake modules in lib64/cmake
-        cmake_base_path = os.path.join("lib64", "cmake", "pybind11")
+        cmake_base_path = os.path.join("lib", "cmake", "pybind11")
         self.cpp_info.set_property("cmake_target_name", "pybind11_all_do_not_use")
         self.cpp_info.components["headers"].includedirs = ["include"]
         self.cpp_info.components["pybind11_"].set_property("cmake_target_name", "pybind11::pybind11")
@@ -109,4 +103,4 @@ class PyBind11Conan(ConanFile):
         self.cpp_info.components["python2_no_register"].requires = ["pybind11_"]
 
         # ASWF FIXME: do we need this?
-        self.env_info.CMAKE_PREFIX_PATH.append(os.path.join(self.package_folder, "lib64", "cmake"))
+        self.env_info.CMAKE_PREFIX_PATH.append(os.path.join(self.package_folder, "lib", "cmake"))

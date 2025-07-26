@@ -55,8 +55,6 @@ class PugiXmlConan(ConanFile):
             basic_layout(self, src_folder="src")
         else:
             cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def package_id(self):
         if self.info.options.header_only:
@@ -101,9 +99,8 @@ class PugiXmlConan(ConanFile):
         else:
             cmake = CMake(self)
             cmake.install()
-            # ASWF: cmake files in lib64, keep for non-Conan use
-            # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
-            rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+            # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
+            rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "pugixml")

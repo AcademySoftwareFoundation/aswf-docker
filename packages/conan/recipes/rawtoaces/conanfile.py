@@ -45,8 +45,6 @@ class RawtoacesConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         # Conan environment overrides
@@ -64,8 +62,6 @@ class RawtoacesConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["INSTALL_LIB_DIR"] = "lib64"
-        tc.variables["INSTALL_CMAKE_DIR"] = os.path.join("lib64", "cmake", "RAWTOACES")
         # Dont point rpath to internal Conan directories
         tc.cache_variables["CMAKE_INSTALL_RPATH_USE_LINK_PATH"] = False
         tc.cache_variables["CMAKE_INSTALL_RPATH"] = ""
@@ -85,7 +81,7 @@ class RawtoacesConan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 
     def package_info(self):
         pass

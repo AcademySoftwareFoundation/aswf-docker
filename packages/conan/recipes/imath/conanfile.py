@@ -49,8 +49,6 @@ class ImathConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def validate(self):
         if self.settings.compiler.get_safe("cppstd"):
@@ -91,10 +89,9 @@ class ImathConan(ConanFile):
         copy(self, "LICENSE.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        # ASWF: cmake modules in lib64, leave them for non-Conan builds
-        # rmdir(self, os.path.join(self.package_folder, "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        # rmdir(self, os.path.join(self.package_folder, "cmake")) # ASWF: keep cmake files
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
 
     def package_info(self):
         # ASWF: Imath will use pybind11 soon, requires boost

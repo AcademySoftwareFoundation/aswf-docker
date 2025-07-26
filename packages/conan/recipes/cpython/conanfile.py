@@ -110,8 +110,6 @@ class CPythonConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # ASWF We want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def build_requirements(self):
         if Version(self.version) >= "3.11" and not is_msvc(self) and not self.conf.get("tools.gnu:pkg_config", check_type=str):
@@ -224,8 +222,6 @@ class CPythonConan(ConanFile):
             # ASWF: our openssl wrapper can still get in the way, force /usr
             # "--with-openssl={}".format(self.dependencies["openssl"].package_folder),
             "--with-openssl=/usr",
-            "--with-platlibdir=lib64", # ASWF use lib64 on RHEL distros
-            "--libdir=${prefix}/lib64", # ASWF use lib64 on RHEL distros
         ]
         if Version(self.version) < "3.12":
             tc.configure_args.append("--with-system-ffi")
@@ -330,7 +326,7 @@ class CPythonConan(ConanFile):
                 replace_in_file(self, setup_py,
                                 "openssl_libs = ",
                                 f"openssl_libs = {openssl.libs + zlib.libs} #")
- 
+
             if Version(self.version) < "3.11":
                 replace_in_file(self, setup_py, "if (MACOS and self.detect_tkinter_darwin())", "if (False)")
 
@@ -711,8 +707,7 @@ class CPythonConan(ConanFile):
             # Usually CMake modules are packaged with the latter.
             return os.path.join(self._msvc_install_subprefix, "libs", "cmake")
         else:
-            # ASWF: lib64 on RHEL derived distro
-            return os.path.join("lib64", "cmake")
+            return os.path.join("lib", "cmake")
 
     def _write_cmake_findpython_wrapper_file(self):
         template = textwrap.dedent("""
@@ -773,8 +768,7 @@ class CPythonConan(ConanFile):
                 # FIXME: See https://github.com/python/cpython/issues/109796, this workaround is mentioned there
                 autotools.make(target="sharedinstall", args=["DESTDIR="])
             autotools.install(args=["DESTDIR="])
-            # ASWF: lib64 on RHEL derived distro
-            rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+            rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
             rmdir(self, os.path.join(self.package_folder, "share"))
 
             # Rewrite shebangs of python scripts
@@ -807,11 +801,10 @@ class CPythonConan(ConanFile):
                 os.symlink(f"python{self._version_suffix}", self._cpython_symlink)
 
             # ASWF: bundle numpy
-            # ASWF: how do you convince pip to write to lib64 instead of lib?
             py_version = Version(self.version)
             py_exe = os.path.join(self.package_folder, "bin", f"python{py_version.major}.{py_version.minor}")
-            py_lib = os.path.join(self.package_folder, "lib64")
-            py_home = os.path.join(self.package_folder, "lib64", f"python{py_version.major}.{py_version.minor}")
+            py_lib = os.path.join(self.package_folder, "lib")
+            py_home = os.path.join(self.package_folder, "lib", f"python{py_version.major}.{py_version.minor}")
             env = Environment()
             env.define("PYTHONPATH", py_home)
             env.prepend("LD_LIBRARY_PATH", py_lib, separator=os.pathsep)
@@ -876,9 +869,7 @@ class CPythonConan(ConanFile):
             self.cpp_info.components["python"].includedirs.append(
                 os.path.join("include", f"python{self._version_suffix}{self._abi_suffix}")
             )
-            # ASWF: lib64 on RHEL derived distro
-            # libdir = "lib"
-            libdir = "lib64"
+            libdir = "lib"
         if self.options.shared:
             self.cpp_info.components["python"].defines.append("Py_ENABLE_SHARED")
         else:
@@ -957,7 +948,7 @@ class CPythonConan(ConanFile):
             self.runenv_info.append_path("PATH", bindir)
             self.buildenv_info.append_path("PATH", bindir)
             # ASWF: find libpython
-            libdir = os.path.join(self.package_folder, "lib64")
+            libdir = os.path.join(self.package_folder, "lib")
             self.output.info(f"Appending LD_LIBRARY_PATH environment variable: {libdir}")
             self.runenv_info.append_path("LD_LIBRARY_PATH", libdir)
             self.buildenv_info.append_path("LD_LIBRARY_PATH", libdir)
