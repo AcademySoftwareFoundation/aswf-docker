@@ -1,6 +1,8 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/b9c8a5391082c2940205ec80a619ec01b157fb59/recipes/libultrahdr/all/conandata.yml
 
 sources:
   "1.4.0":
@@ -21,4 +23,8 @@ sources:
   "1.0.0":
     url: "https://github.com/google/libultrahdr/archive/refs/tags/v1.0.0.tar.gz"
     sha256: "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed"
-
+patches:
+  "1.4.0":
+    - patch_file: "patches/1.4.0_cmake-portability.patch"
+      patch_description: "Ensure project builds correctly with Conan (Ensure correct finding & linkin of dependencies and prevent some forced overriden settings provided by the Conan CMake toolchain)"
+      patch_type: "conan"

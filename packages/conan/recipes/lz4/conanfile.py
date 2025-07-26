@@ -48,8 +48,6 @@ class LZ4Conan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version],
@@ -86,10 +84,9 @@ class LZ4Conan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        # ASWF: keep cmake files for non-Conan clients
         #  if Version(self.version) >= "1.9.4":
-            # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+            # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
 
     @property

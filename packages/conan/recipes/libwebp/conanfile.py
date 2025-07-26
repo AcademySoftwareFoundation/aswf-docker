@@ -53,8 +53,6 @@ class LibwebpConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -100,9 +98,9 @@ class LibwebpConan(ConanFile):
         cmake.install()
         # ASWF: separate licenses from multiple package installs
         copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # ASWF: libwebp lands CMake files in in share/WebP/cmake, we patch CMakeFiles.txt to land in lib64/cmake/WebP
-        # rmdir(self, os.path.join(self.package_folder, lib64", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # ASWF: libwebp lands CMake files in in share/WebP/cmake, we patch CMakeFiles.txt to land in lib/cmake/WebP
+        # rmdir(self, os.path.join(self.package_folder, lib", "cmake"))
 
     def package_info(self):
         self.cpp_info.set_property("cmake_find_mode", "both")  # ASWF: want cmake files to consume outside Conan

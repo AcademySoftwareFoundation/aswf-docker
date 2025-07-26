@@ -244,8 +244,6 @@ class ClangConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # We want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         if self.options.with_ffi:
@@ -262,7 +260,8 @@ class ClangConan(ConanFile):
             self.requires("zstd/1.5.6")
 
     def build_requirements(self):
-        self.tool_requires(f"ninja/{os.environ['ASWF_NINJA_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
+        # Conan profile provides real versions
+        self.tool_requires("ninja/[>=1.0.0]")
         self.tool_requires("cmake/[>=3.20 <4]") # required by LLVM 19
 
     def validate(self):
@@ -409,12 +408,6 @@ class ClangConan(ConanFile):
             tc.variables["CMAKE_BUILD_RPATH"] = ";".join(libdirs_host)
 
         tc.cache_variables.update(cmake_variables)
-
-        # Libraries go to lib64
-        tc.variables["LLVM_LIBDIR_SUFFIX"] = "64"
-        tc.generate()
-
-        tc = CMakeDeps(self)
         tc.generate()
 
         deps = CMakeDeps(self)
@@ -461,7 +454,7 @@ class ClangConan(ConanFile):
         return PurePosixPath(self.source_folder) / "llvm-main"
 
     def _llvm_build_info(self):
-        cmake_config = Path(self._package_folder_path / "lib64" / "cmake" / "llvm" / "LLVMConfig.cmake").read_text("utf-8") # ASWF: cmake modules in lib64
+        cmake_config = Path(self._package_folder_path / "lib" / "cmake" / "llvm" / "LLVMConfig.cmake").read_text("utf-8")
         components = components_from_dotfile(load(self, self._graphviz_file))
 
         return {
@@ -471,7 +464,7 @@ class ClangConan(ConanFile):
 
     @property
     def _cmake_module_path(self):
-        return PurePosixPath("lib64") / "cmake" / "llvm" #ASWF: cmake modules in lib64
+        return PurePosixPath("lib") / "cmake" / "llvm"
 
     @property
     def _build_info_file(self):
@@ -528,11 +521,11 @@ class ClangConan(ConanFile):
 
         build_info = self._write_build_info()
 
-        cmake_folder = self._package_folder_path / "lib64" / "cmake" / "llvm"
+        cmake_folder = self._package_folder_path / "lib" / "cmake" / "llvm"
         # rm(self, "LLVMConfig.cmake", cmake_folder)
         # rm(self, "LLVMExports*", cmake_folder)
         # rm(self, "Find*", cmake_folder)
-        rm(self, "*.pdb", self._package_folder_path / "lib64")
+        rm(self, "*.pdb", self._package_folder_path / "lib")
         rm(self, "*.pdb", self._package_folder_path / "bin")
         # need to rename this as Conan will flag it, but it's not actually a Config file and is needed by
         # downstream packages
@@ -541,7 +534,7 @@ class ClangConan(ConanFile):
         replace_in_file(self, (cmake_folder / "LLVMConfig.cmake").as_posix(), "LLVM-Config", "LLVM-ConfigInternal")
         rmdir(self, self._package_folder_path / "share")
         if self.options.shared:
-            rm(self, "*.a", self._package_folder_path / "lib64") # ASWF
+            rm(self, "*.a", self._package_folder_path / "lib")
 
         self._create_cmake_build_module(
             build_info,

@@ -78,8 +78,6 @@ class OneTBBConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def package_id(self):
         del self.info.options.tbbmalloc
@@ -243,7 +241,7 @@ class OneTBBConan(ConanFile):
         build_type = "debug" if self.settings.build_type == "Debug" else "release"
         for extension in ["lib", "a", "dylib"]:
             copy(self, f"*{build_type}*.{extension}",
-                 dst=os.path.join(self.package_folder, "lib64"), # ASWF: DSOs in lib64
+                 dst=os.path.join(self.package_folder, "lib"),
                  src=build_folder, keep_path=False)
         copy(self, f"*{build_type}*.dll",
              dst=os.path.join(self.package_folder, "bin"),
@@ -258,18 +256,17 @@ class OneTBBConan(ConanFile):
         if self.settings.os in ["Linux", "FreeBSD"] and self.options.shared:
             extension = "so"
             copy(self, f"*{build_type}*.{extension}.*",
-                 dst=os.path.join(self.package_folder, "lib64"), # ASWF: DSOs in lib64
+                 dst=os.path.join(self.package_folder, "lib"),
                  src=build_folder, keep_path=False)
             # Create libtbb.so.2 -> libtbb.so, etc symlinks
-            with chdir(self, os.path.join(self.package_folder, "lib64")): # ASWF: DSOs in lib64
+            with chdir(self, os.path.join(self.package_folder, "lib")):
                 for fname in os.listdir("."):
                     fname_without_version = fname.split(f".{extension}", 1)[0] + f".{extension}"
                     self.run(f'ln -s "{fname}" "{fname_without_version}"')
 
 
-        # ASWF: cmake files for non-Conan clients
         copy(self, pattern="*.cmake",
-             dst=os.path.join(self.package_folder, "lib64", "cmake"),
+             dst=os.path.join(self.package_folder, "lib", "cmake"),
              src=os.path.join(self.source_folder, "cmake"))
 
     def package_info(self):

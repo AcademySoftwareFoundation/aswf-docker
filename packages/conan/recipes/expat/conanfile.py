@@ -57,8 +57,6 @@ class ExpatConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # We want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -92,8 +90,8 @@ class ExpatConan(ConanFile):
         )
         cmake = CMake(self)
         cmake.install()
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
         rmdir(self, os.path.join(self.package_folder, "share"))
 
     def package_info(self):

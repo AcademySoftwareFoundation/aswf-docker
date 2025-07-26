@@ -58,8 +58,6 @@ class FreetypeConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         if self.options.with_png:
@@ -189,9 +187,8 @@ class FreetypeConan(ConanFile):
         copy(self, "GPLv2.TXT", doc_folder, license_folder)
         copy(self, "LICENSE.TXT", doc_folder, license_folder)
 
-        # ASWF: libraries in lib64, keep cmake files
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         self._create_cmake_module_variables(
             os.path.join(self.package_folder, self._module_vars_rel_path)
         )
@@ -226,13 +223,11 @@ class FreetypeConan(ConanFile):
 
     @property
     def _module_vars_rel_path(self):
-        # ASWF: cmake files in lib64
-        return os.path.join("lib64", "cmake", f"conan-official-{self.name}-variables.cmake")
+        return os.path.join("lib", "cmake", f"conan-official-{self.name}-variables.cmake")
 
     @property
     def _module_target_rel_path(self):
-        # ASWF: cmake files in lib64
-        return os.path.join("lib64", "cmake", f"conan-official-{self.name}-targets.cmake")
+        return os.path.join("lib", "cmake", f"conan-official-{self.name}-targets.cmake")
 
     @staticmethod
     def _chmod_plus_x(filename):

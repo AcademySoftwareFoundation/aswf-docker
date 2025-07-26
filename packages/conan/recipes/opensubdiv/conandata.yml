@@ -24,16 +24,12 @@ patches:
       patch_type: "conan"
     - patch_file: "patches/3.6.1-0001-cmake-no-versions.diff"
       patch_description: "Override TBB and Ptex version requirements"
-    - patch_file: "patches/cmake-ptex-lib64.diff"
-      patch_description: "Find Ptex DSO in lib64"
   "3.6.0":
     - patch_file: "patches/3.6.0-0002-cmake-no-rpath.patch"
       patch_description: "CMake: do not populate rpath with absolute paths"
       patch_type: "conan"
     - patch_file: "patches/cmake-no-versions.diff"
       patch_description: "Override TBB and Ptex version requirements"
-    - patch_file: "patches/cmake-ptex-lib64.diff"
-      patch_description: "Find Ptex DSO in lib64"
   "3.5.0":
     - patch_file: "patches/3.4.4-0002-cmake-no-rpath.patch"
       patch_description: "CMake: do not populate rpath with absolute paths"

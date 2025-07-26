@@ -74,8 +74,6 @@ class GlfwConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         # libs=False because glfw does not link to opengl, it
@@ -193,9 +191,8 @@ class GlfwConan(ConanFile):
         copy(self, "LICENSE*", self.source_folder, os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        # We do not want to delete these, package can be consumed outside Conan
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         self._create_cmake_module_alias_targets(
             os.path.join(self.package_folder, self._module_file_rel_path),
             {"glfw": "glfw::glfw"}
@@ -214,7 +211,7 @@ class GlfwConan(ConanFile):
 
     @property
     def _module_file_rel_path(self):
-        return os.path.join("lib64", "cmake", f"conan-official-{self.name}-targets.cmake")
+        return os.path.join("lib", "cmake", f"conan-official-{self.name}-targets.cmake")
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "glfw3")
@@ -272,6 +269,3 @@ class GlfwConan(ConanFile):
                     self.cpp_info.requires.append("xorg::x11")
             if self.options.get_safe("with_wayland"):
                 self.cpp_info.requires.extend(["wayland::wayland", "xkbcommon::xkbcommon"])
-
-        # ASWF: is this still required>
-        self.env_info.CMAKE_PREFIX_PATH.append(os.path.join(self.package_folder, "lib64", "cmake"))

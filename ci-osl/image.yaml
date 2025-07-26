@@ -41,7 +41,7 @@ packages:
   - highway            # vfx1-1 packages
   - imath
   - lcms
-  - libuhdr
+  - libultrahdr
   - ptex
   - libjxl             # vfx1-2 packages
   - openexr

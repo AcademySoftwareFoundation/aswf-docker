@@ -94,7 +94,7 @@ Contains:
 * highway-1.2.0
 * imath-3.1.12
 * lcms-2.17
-* libuhdr-1.4.0
+* libultrahdr-1.4.0
 * ptex-2.4.2
 * libjxl-0.11.1
 * openexr-3.2.4
@@ -137,10 +137,10 @@ Contains:
 * highway-1.2.0
 * imath-3.1.12
 * lcms-2.17
-* libuhdr-1.4.0
+* libultrahdr-1.4.0
 * ptex-2.4.3
 * libjxl-0.11.1
-* openexr-3.3.4
+* openexr-3.3.5
 * ocio-2.4.2
 * oiio-3.0.8.1
 * numpy-1.26.4
@@ -180,10 +180,10 @@ Contains:
 * highway-1.2.0
 * imath-3.1.12
 * lcms-2.17
-* libuhdr-1.4.0
+* libultrahdr-1.4.0
 * ptex-2.4.3
 * libjxl-0.11.1
-* openexr-3.3.4
+* openexr-3.3.5
 * ocio-2.4.2
 * oiio-3.0.8.1
 * numpy-1.26.4

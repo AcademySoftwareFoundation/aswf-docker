@@ -69,15 +69,13 @@ class MaterialXConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         if self.options.with_openimageio:
-            self.requires(f"oiio/{os.environ['ASWF_OIIO_VERSION']}@{self.user}/{self.channel}") # ASWF: oiio backwards compatibility
-        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
+            self.requires("oiio/[>=1.0.0.0]")
+        self.requires("cpython/[>=3.0.0]")
         # Comment out to use vendored pybind11
-        self.requires(f"pybind11/{os.environ['ASWF_PYBIND11_VERSION']}@{self.user}/{self.channel}")
+        self.requires("pybind11/[>=2.0.0]")
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.requires("xorg/system")
             self.requires("opengl/system")
@@ -103,10 +101,9 @@ class MaterialXConan(ConanFile):
         tc.variables["MATERIALX_BUILD_TESTS"] = False
         tc.variables["MATERIALX_TEST_RENDER"] = False
         tc.variables["MATERIALX_BUILD_PYTHON"] = "ON"
-        tc.variables["MATERIALX_PYTHON_VERSION"] = os.environ["ASWF_CPYTHON_VERSION"]
+        tc.variables["MATERIALX_PYTHON_VERSION"] = self.dependencies["cpython"].version
         tc.variables["MATERIALX_BUILD_SHARED_LIBS"] = self.options.shared
         tc.variables["MATERIALX_BUILD_GEN_MSL"] = self.options.build_gen_msl and is_apple_os
-        tc.variables["MATERIALX_INSTALL_LIB_PATH"] = "lib64" # ASWF: otherwise end up in lib
         tc.variables["MATERIALX_INSTALL_STDLIB_PATH"] = os.path.join("share","MaterialX") # ASWF: otherwise end up in python
         # TODO: Remove when Conan 1 support is dropped
         if not self.settings.compiler.cppstd:
@@ -140,15 +137,13 @@ class MaterialXConan(ConanFile):
 
         rmdir(self, os.path.join(self.package_folder, "resources"))
         rmdir(self, os.path.join(self.package_folder, "libraries"))
-        # ASWF: keep CMake modules
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
         rm(self, "README.md", self.package_folder)
         rm(self, "CHANGELOG.md", self.package_folder)
         rm(self, "THIRD-PARTY.md", self.package_folder)
         rm(self, "LICENSE", self.package_folder)    
-        # ASWF: libraries in lib64
-        rm(self, "*.la", os.path.join(self.package_folder, "lib64"))
-        rm(self, "*.pdb", os.path.join(self.package_folder, "lib64"))
+        rm(self, "*.la", os.path.join(self.package_folder, "lib"))
+        rm(self, "*.pdb", os.path.join(self.package_folder, "lib"))
         rm(self, "*.pdb", os.path.join(self.package_folder, "bin"))
 
     def package_info(self):
@@ -226,6 +221,3 @@ class MaterialXConan(ConanFile):
                 self.cpp_info.includedirs.extend(["include/compat/osx"])
             else:
                 self.cpp_info.includedirs.extend(["include/compat/ios"])
-
-        # ASWF FIXME still need this?
-        self.env_info.CMAKE_PREFIX_PATH.append(os.path.join(self.package_folder, "lib64", "cmake"))

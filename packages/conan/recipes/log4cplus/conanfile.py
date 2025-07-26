@@ -63,8 +63,6 @@ class Log4cplusConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         if self.options.with_iconv:
@@ -111,9 +109,9 @@ class Log4cplusConan(ConanFile):
         copy(self, pattern="LICENSE", dst=os.path.join(self.package_folder, "licenses", self.name), src=self.source_folder)
         cmake = CMake(self)
         cmake.install()
-        #rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        #rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
         if Version(self.version) >= "2.1.0":
-            rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+            rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
             rmdir(self, os.path.join(self.package_folder, "share"))
 
     def package_info(self):

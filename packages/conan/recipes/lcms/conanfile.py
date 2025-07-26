@@ -50,8 +50,6 @@ class LcmsConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def build_requirements(self):
         self.tool_requires("meson/1.2.1")
@@ -85,8 +83,7 @@ class LcmsConan(ConanFile):
         meson = Meson(self)
         meson.install()
         rm(self, "*.pdb", os.path.join(self.package_folder, "bin"))
-        # ASWF: package info in lib64
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         fix_apple_shared_install_name(self)
         fix_msvc_libname(self)
 

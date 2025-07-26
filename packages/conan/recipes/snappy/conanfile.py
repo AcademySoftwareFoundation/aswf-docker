@@ -53,8 +53,6 @@ class SnappyConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def validate(self):
         if self.settings.compiler.get_safe("cppstd"):
@@ -95,8 +93,7 @@ class SnappyConan(ConanFile):
         copy(self, "COPYING", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        # ASWF: keep cmake files for non-Conan clients
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "Snappy")

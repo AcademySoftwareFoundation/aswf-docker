@@ -79,8 +79,6 @@ class LibjpegTurboConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def validate(self):
         if self.options.get_safe("enable12bit") and (self.options.libjpeg7_compatibility or self.options.libjpeg8_compatibility):
@@ -156,9 +154,8 @@ class LibjpegTurboConan(ConanFile):
         cmake.install()
         # remove unneeded directories
         rmdir(self, os.path.join(self.package_folder, "share"))
-        # ASWF: keep cmake files for non-Conan clients
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
         rmdir(self, os.path.join(self.package_folder, "doc"))
         # remove binaries and pdb files
         for pattern_to_remove in ["cjpeg*", "djpeg*", "jpegtran*", "tjbench*", "wrjpgcom*", "rdjpgcom*", "*.pdb"]:

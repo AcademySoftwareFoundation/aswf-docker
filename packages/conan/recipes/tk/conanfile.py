@@ -15,7 +15,8 @@ class SystemTkConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
 
     def requirements(self):
-      self.requires(f"tcl/{self.version}@{os.environ['ASWF_PKG_ORG']}/{os.environ['ASWF_CONAN_CHANNEL']}", transitive_headers=True, transitive_libs=True)
+      # Conan profile provides real versions
+      self.requires("tcl/[>=1.0.0]", transitive_headers=True, transitive_libs=True)
    
     def package_info(self):
         self.cpp_info.includedirs = []

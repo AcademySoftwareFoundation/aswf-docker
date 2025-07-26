@@ -54,7 +54,7 @@ Contains:
 * imath-3.1.12
 * jasper-4.2.5
 * lcms-2.17
-* libuhdr-1.4.0
+* libultrahdr-1.4.0
 * ptex-2.4.2
 * libjxl-0.11.1
 * libraw-0.21.4
@@ -100,11 +100,11 @@ Contains:
 * imath-3.1.12
 * jasper-4.2.5
 * lcms-2.17
-* libuhdr-1.4.0
+* libultrahdr-1.4.0
 * ptex-2.4.3
 * libjxl-0.11.1
 * libraw-0.21.4
-* openexr-3.3.4
+* openexr-3.3.5
 * ocio-2.4.2
 * openvdb-12.0.0
 * numpy-1.26.4
@@ -146,11 +146,11 @@ Contains:
 * imath-3.1.12
 * jasper-4.2.5
 * lcms-2.17
-* libuhdr-1.4.0
+* libultrahdr-1.4.0
 * ptex-2.4.3
 * libjxl-0.11.1
 * libraw-0.21.4
-* openexr-3.3.4
+* openexr-3.3.5
 * ocio-2.4.2
 * openvdb-12.0.1
 * numpy-1.26.4

@@ -84,8 +84,6 @@ class OpenSubdivConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         if self.options.with_tbb:
@@ -149,7 +147,6 @@ class OpenSubdivConan(ConanFile):
         tc.variables["NO_TESTS"] = True
         tc.variables["NO_GLTESTS"] = True
         tc.variables["NO_MACOS_FRAMEWORK"] = True
-        tc.variables["CMAKE_LIBDIR_BASE"] = "lib64" # ASWF: DSOs in lib64
         tc.generate()
 
         tc = CMakeDeps(self)
@@ -177,12 +174,11 @@ class OpenSubdivConan(ConanFile):
         copy(self, "LICENSE.txt", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         if self.options.shared:
-            # ASWF: libraries in lib64
             # ASWF: OpenSubDiv cmake set up for both static and dynamic, downstream consummers unhappy
-            # if static libs are missing
-            # rm(self, "*.a", os.path.join(self.package_folder, "lib64"))
+            # when static libs are missing
+            # rm(self, "*.a", os.path.join(self.package_folder, "lib"))
             pass
 
     def package_info(self):

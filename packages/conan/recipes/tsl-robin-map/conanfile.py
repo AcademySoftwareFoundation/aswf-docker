@@ -26,8 +26,6 @@ class TslRobinMapConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # ASWF: We want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def package_id(self):
         self.info.clear()

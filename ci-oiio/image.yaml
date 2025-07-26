@@ -42,7 +42,7 @@ packages:
   - imath
   - jasper
   - lcms
-  - libuhdr
+  - libultrahdr
   - ptex
   - libjxl             # vfx1-2 packages 
   - libraw

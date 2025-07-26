@@ -1,0 +1,48 @@
+diff --git src/raw.imageio/CMakeLists.txt src/raw.imageio/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/raw.imageio/CMakeLists.txt
++++ src/raw.imageio/CMakeLists.txt
+@@ -2,10 +2,10 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # https://github.com/AcademySoftwareFoundation/OpenImageIO
+
+-if (LIBRAW_FOUND)
++if (LIBRAW_FOUND OR LibRaw_FOUND)
+     add_oiio_plugin (rawinput.cpp
+                      INCLUDE_DIRS ${LibRaw_INCLUDE_DIR}
+-                     LINK_LIBRARIES ${LibRaw_r_LIBRARIES}
++                     LINK_LIBRARIES "libraw::libraw_r"
+                      COMPILE_OPTIONS ${LibRaw_r_DEFINITIONS}
+                      DEFINITIONS "USE_LIBRAW=1")
+ else ()
+diff --git src/raw.jpeg2000/CMakeLists.txt src/raw.jpeg2000/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/jpeg2000.imageio/CMakeLists.txt
++++ src/jpeg2000.imageio/CMakeLists.txt
+@@ -2,10 +2,10 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # https://github.com/AcademySoftwareFoundation/OpenImageIO
+
+-if (OPENJPEG_FOUND)
++if (OPENJPEG_FOUND OR OpenJPEG_FOUND)
+     add_oiio_plugin (jpeg2000input.cpp jpeg2000output.cpp
+-                     INCLUDE_DIRS ${OPENJPEG_INCLUDES}
+-                     LINK_LIBRARIES ${OPENJPEG_LIBRARIES}
++                     INCLUDE_DIRS ${OpenJPEG_INCLUDE_DIR}
++                     LINK_LIBRARIES ${OpenJPEG_LIBRARIES}
+                      DEFINITIONS "USE_OPENJPEG")
+ else()
+     message (WARNING "Jpeg-2000 plugin will not be built")
+diff --git src/cmake/modules/FindLibRaw.cmake src/cmake/FindLibRaw.cmake
+index d99dd79ac..bfda2778a 100644
+--- src/cmake/modules/FindLibRaw.cmake
++++ src/cmake/modules/FindLibRaw.cmake
+@@ -38,7 +38,7 @@
+              ${PC_LIBRAW_LIBRARY_DIRS}
+             )
+
+-find_library(LibRaw_r_LIBRARIES NAMES raw_r
++find_library(LibRaw_r_LIBRARIES NAMES raw_r libraw_r
+              HINTS
+              ${LIBRAW_LIBDIR_HINT}
+              ${PC_LIBRAW_R_LIBDIR}

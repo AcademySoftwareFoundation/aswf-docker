@@ -1,0 +1,57 @@
+diff --git src/iconvert/CMakeLists.txt src/iconvert/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/iconvert/CMakeLists.txt
++++ src/iconvert/CMakeLists.txt
+@@ -2,4 +2,5 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # https://github.com/AcademySoftwareFoundation/OpenImageIO
+
+-fancy_add_executable (LINK_LIBRARIES OpenImageIO)
+\ No newline at end of file
++fancy_add_executable (INCLUDE_DIRS ${Imath_INCLUDE_DIR}
++                      LINK_LIBRARIES OpenImageIO)
+diff --git src/idiff/CMakeLists.txt src/idiff/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/idiff/CMakeLists.txt
++++ src/idiff/CMakeLists.txt
+@@ -2,4 +2,5 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # https://github.com/AcademySoftwareFoundation/OpenImageIO
+
+-fancy_add_executable (LINK_LIBRARIES OpenImageIO)
+\ No newline at end of file
++fancy_add_executable (INCLUDE_DIRS ${Imath_INCLUDE_DIR}
++                      LINK_LIBRARIES OpenImageIO)
+diff --git src/iinfo/CMakeLists.txt src/iinfo/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/iinfo/CMakeLists.txt
++++ src/iinfo/CMakeLists.txt
+@@ -2,4 +2,5 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # https://github.com/AcademySoftwareFoundation/OpenImageIO
+
+-fancy_add_executable (LINK_LIBRARIES OpenImageIO)
++fancy_add_executable (INCLUDE_DIRS ${Imath_INCLUDE_DIR}
++                      LINK_LIBRARIES OpenImageIO)
+diff --git src/maketx/CMakeLists.txt src/maketx/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/maketx/CMakeLists.txt
++++ src/maketx/CMakeLists.txt
+@@ -2,4 +2,5 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # https://github.com/AcademySoftwareFoundation/OpenImageIO
+
+-fancy_add_executable (LINK_LIBRARIES OpenImageIO)
++fancy_add_executable (INCLUDE_DIRS ${Imath_INCLUDE_DIR}
++                      LINK_LIBRARIES OpenImageIO)
+diff --git src/testtex/CMakeLists.txt src/testtex/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/testtex/CMakeLists.txt
++++ src/testtex/CMakeLists.txt
+@@ -9,5 +9,5 @@
+ set (ENABLE_INSTALL_testtex OFF PARENT_SCOPE)
+
+ fancy_add_executable (NAME testtex
+-                      INCLUDE_DIRS ${ROBINMAP_INCLUDES}
++                      INCLUDE_DIRS ${ROBINMAP_INCLUDES} ${Imath_INCLUDE_DIR}
+                       LINK_LIBRARIES OpenImageIO )

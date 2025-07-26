@@ -48,8 +48,6 @@ class ZlibConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version],
@@ -62,7 +60,7 @@ class ZlibConan(ConanFile):
         tc.variables["SKIP_INSTALL_HEADERS"] = False
         tc.variables["SKIP_INSTALL_FILES"] = True
         # Correct for misuse of "${CMAKE_INSTALL_PREFIX}/" in CMakeLists.txt
-        tc.variables["INSTALL_LIB_DIR"] = "lib64"
+        tc.variables["INSTALL_LIB_DIR"] = "lib"
         tc.variables["INSTALL_INC_DIR"] = "include"
         tc.variables["ZLIB_BUILD_EXAMPLES"] = False
         tc.generate()

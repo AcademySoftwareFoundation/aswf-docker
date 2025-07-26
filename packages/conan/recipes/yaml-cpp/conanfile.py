@@ -48,8 +48,6 @@ class YamlCppConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def validate(self):
         if self.settings.compiler.get_safe("cppstd"):
@@ -87,10 +85,9 @@ class YamlCppConan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        # ASWF: cmake files in lib64, keep for non-Conan use
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+         # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
         rmdir(self, os.path.join(self.package_folder, "CMake"))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
 
     def package_info(self):

@@ -554,7 +554,7 @@ Contains:
 * qt-6.5.6
 * pyside-6.5.6
 * imath-3.1.12
-* openexr-3.3.4
+* openexr-3.3.5
 * alembic-1.8.8
 * oiio-3.0.8.1
 * ocio-2.4.2
@@ -611,7 +611,7 @@ Contains:
 * qt-6.5.6
 * pyside-6.5.6
 * imath-3.1.12
-* openexr-3.3.4
+* openexr-3.3.5
 * alembic-1.8.8
 * oiio-3.0.8.1
 * ocio-2.4.2
@@ -668,7 +668,7 @@ Contains:
 * qt-6.8.3
 * pyside-6.8.3
 * imath-3.1.12
-* openexr-3.3.4
+* openexr-3.3.5
 * alembic-1.8.8
 * oiio-3.0.8.1
 * ocio-2.4.2
@@ -725,7 +725,7 @@ Contains:
 * qt-6.8.3
 * pyside-6.8.3
 * imath-3.1.12
-* openexr-3.3.4
+* openexr-3.3.5
 * alembic-1.8.8
 * oiio-3.0.8.1
 * ocio-2.4.2

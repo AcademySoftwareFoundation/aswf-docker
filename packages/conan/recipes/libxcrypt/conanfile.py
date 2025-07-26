@@ -51,8 +51,6 @@ class LibxcryptConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def validate(self):
         if is_msvc(self):
@@ -95,8 +93,8 @@ class LibxcryptConan(ConanFile):
         autotools = Autotools(self)
         # TODO: replace by autotools.install() once https://github.com/conan-io/conan/issues/12153 fixed
         autotools.install(args=[f"DESTDIR={unix_path(self, self.package_folder)}"])
-        rm(self, "*.la", os.path.join(self.package_folder, "lib64"))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        rm(self, "*.la", os.path.join(self.package_folder, "lib"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
         fix_apple_shared_install_name(self)
 

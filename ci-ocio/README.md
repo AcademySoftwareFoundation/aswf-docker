@@ -167,7 +167,7 @@ Contains:
 * pybind11-2.13.6
 * imath-3.1.12
 * lcms-2.17
-* openexr-3.3.4
+* openexr-3.3.5
 * numpy-1.26.4
 * vfxplatform-2025
 
@@ -201,7 +201,7 @@ Contains:
 * pybind11-2.13.6
 * imath-3.1.12
 * lcms-2.17
-* openexr-3.3.4
+* openexr-3.3.5
 * numpy-1.26.4
 * vfxplatform-2026
 

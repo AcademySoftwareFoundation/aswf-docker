@@ -52,8 +52,6 @@ class CppunitConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def build_requirements(self):
         if self._settings_build.os == "Windows":
@@ -117,8 +115,7 @@ class CppunitConan(ConanFile):
             rename(self, os.path.join(self.package_folder, "lib", "cppunit.dll.lib"),
                          os.path.join(self.package_folder, "lib", "cppunit.lib"))
         rm(self, "*.la", os.path.join(self.package_folder, "lib"))
-        # ASWF: lib64 on RHEL derived distro
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
         fix_apple_shared_install_name(self)
 

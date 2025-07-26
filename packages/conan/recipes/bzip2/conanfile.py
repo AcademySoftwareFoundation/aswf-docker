@@ -51,8 +51,6 @@ class Bzip2Conan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -99,8 +97,7 @@ class Bzip2Conan(ConanFile):
 
     @property
     def _module_file_rel_path(self):
-        # ASWF: cmake modules in lib64
-        return os.path.join("lib64", "cmake", f"conan-official-{self.name}-variables.cmake")
+        return os.path.join("lib", "cmake", f"conan-official-{self.name}-variables.cmake")
 
     def package_info(self):
         self.cpp_info.set_property("cmake_find_mode", "both")

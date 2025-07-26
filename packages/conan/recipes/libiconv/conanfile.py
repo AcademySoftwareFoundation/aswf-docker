@@ -74,8 +74,6 @@ class LibiconvConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def build_requirements(self):
         if self.settings_build.os == "Windows":
@@ -138,8 +136,7 @@ class LibiconvConan(ConanFile):
         copy(self, "COPYING.LIB", self.source_folder, os.path.join(self.package_folder, "licenses", self.name))
         autotools = Autotools(self)
         autotools.install()
-        # ASWF: libraries in lib64
-        rm(self, "*.la", os.path.join(self.package_folder, "lib64"))
+        rm(self, "*.la", os.path.join(self.package_folder, "lib"))
         rmdir(self, os.path.join(self.package_folder, "share"))
         fix_apple_shared_install_name(self)
         if (is_msvc(self) or self._is_clang_cl) and self.options.shared:

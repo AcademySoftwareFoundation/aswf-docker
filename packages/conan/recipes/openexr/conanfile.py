@@ -65,8 +65,6 @@ class OpenEXRConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires("zlib/[>=1.2.11 <2]")
@@ -74,8 +72,8 @@ class OpenEXRConan(ConanFile):
         self.requires("imath/3.1.9", transitive_headers=True)
         if self._with_libdeflate:
             self.requires("libdeflate/1.19")
-        # ASWF: add explicit dependencies on cpython
-        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
+        # ASWF: add explicit dependencies on cpython, Conan profile provides real versions
+        self.requires("cpython/[>=3.0.0]")
 
     def validate(self):
         if self.settings.compiler.get_safe("cppstd"):
@@ -125,9 +123,8 @@ class OpenEXRConan(ConanFile):
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "share"))
-        # ASWF: modules in lib64, keep cmake for non-Conan clients
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
 
     @staticmethod
     def _conan_comp(name):
@@ -214,7 +211,3 @@ class OpenEXRConan(ConanFile):
 
         # ASWF: add explicit dependencies to cpython
         self.cpp_info.requires.append("cpython::python")
-        # ASWF: FIXME do we still need this?
-        # pymajorminor = self.deps_user_info["python"].python_interp
-        # self.env_info.PYTHONPATH.append(os.path.join(self.package_folder, "lib64", pymajorminor, "site-packages"))
-        # self.env_info.CMAKE_PREFIX_PATH.append(os.path.join(self.package_folder, "lib64", "cmake"))

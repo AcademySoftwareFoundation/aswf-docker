@@ -52,8 +52,6 @@ class ZstdConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # We want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -84,16 +82,15 @@ class ZstdConan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "lib64", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
+        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
         rmdir(self, os.path.join(self.package_folder, "share"))
 
         if self.options.shared and self.options.build_programs:
             # If we build programs we have to build static libs (see logic in generate()),
             # but if shared is True, we only want shared lib in package folder.
-            rm(self, "*_static.*", os.path.join(self.package_folder, "lib64"))
-            # ASWF: also clean up static libs in lib64
-            for lib in glob.glob(os.path.join(self.package_folder, "lib64", "*.a")):
+            rm(self, "*_static.*", os.path.join(self.package_folder, "lib"))
+            for lib in glob.glob(os.path.join(self.package_folder, "lib", "*.a")):
                 if not lib.endswith(".dll.a"):
                     os.remove(lib)
 

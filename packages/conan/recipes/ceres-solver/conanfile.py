@@ -103,8 +103,6 @@ class CeressolverConan(ConanFile):
 
     def layout(self):
         cmake_layout(self, src_folder="src")
-        # ASWF: we want DSOs in lib64
-        self.cpp.package.libdirs = ["lib64"]
 
     def requirements(self):
         self.requires("eigen/3.4.0", transitive_headers=True)
@@ -187,7 +185,7 @@ class CeressolverConan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        # rmdir(self, os.path.join(self.package_folder, "lib64", "cmake")) # ASWF: keep cmake files in lib64
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
         rmdir(self, os.path.join(self.package_folder, "CMake"))
         self._create_cmake_module_variables(os.path.join(self.package_folder, self._module_variables_file_rel_path))
 
@@ -206,7 +204,7 @@ class CeressolverConan(ConanFile):
 
     @property
     def _module_variables_file_rel_path(self):
-        return os.path.join("lib64", "cmake", f"conan-official-{self.name}-variables.cmake") # ASWF: cmake files in lib64
+        return os.path.join("lib", "cmake", f"conan-official-{self.name}-variables.cmake")
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "Ceres")

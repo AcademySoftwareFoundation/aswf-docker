@@ -46,16 +46,16 @@ class PySide6Conan(ConanFile):
         return self.options.GLBackend == "OpenGL"
 
     def requirements(self):
-        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}")
-        self.requires(f"qt/{os.environ['ASWF_QT_VERSION']}@{self.user}/{self.channel}")
+        # Conan profile provides real versions
+        self.requires("cpython/[>=3.0.0]")
+        self.requires("qt/[>=5.0.0]")
         self.requires(f"clang/{os.environ['ASWF_PYSIDE_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
-        self.requires(f"md4c/{os.environ['ASWF_MD4C_VERSION']}@{self.user}/{self.channel}")
-        self.requires(f"freetype/{os.environ['ASWF_FREETYPE_VERSION']}@{self.user}/{self.channel}") # Avoid Qt picking up older system freetype libs
+        self.requires("md4c/[>=0.0.0]")
+        self.requires("freetype/[>=2.0.0]")
+        self.requires("libjpeg-turbo/[>=1.0.0]")
 
     def build_requirements(self):
-        self.tool_requires(
-            f"ninja/{os.environ['ASWF_NINJA_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}"
-        )
+        self.tool_requires("ninja/[>=1.0.0]")
 
         # Assume already installed
         # if self.settings.os == "Linux":
@@ -179,11 +179,13 @@ class PySide6Conan(ConanFile):
         env = Environment()
         env.define("LLVM_INSTALL_DIR", llvmInfo.package_folder)
         env.define("LD_LIBRARY_PATH", pythonInfo.cpp_info.libdirs[0])
-        # Something in Qt depends on md4c and freetype. This should be fixed in Qt package.
+        # Something in Qt depends on md4c, freetype and libjpeg-turbo. This should be fixed in Qt package.
         md4cInfo = self.dependencies["md4c"]
         env.append("LD_LIBRARY_PATH", md4cInfo.cpp_info.libdirs[0],separator=':')
         freetypeInfo = self.dependencies["freetype"]
         env.append("LD_LIBRARY_PATH", freetypeInfo.cpp_info.libdirs[0],separator=':')
+        libjpegTurboInfo = self.dependencies["libjpeg-turbo"]
+        env.append("LD_LIBRARY_PATH", libjpegTurboInfo.cpp_info.libdirs[0],separator=':')
         env.define("CMAKE_PREFIX_PATH", f"{qtInfo.package_folder}:{llvmInfo.package_folder}")
         env.define("CPATH", f"/opt/rh/gcc-toolset-{os.environ['ASWF_DTS_VERSION']}/root/usr/lib/gcc/x86_64-redhat-linux/{os.environ['ASWF_DTS_VERSION']}/include")
         env_vars = env.vars(self)
@@ -199,11 +201,11 @@ class PySide6Conan(ConanFile):
             # Copy the shared libraries shiboken needs to be able to run into the package
             for lib in ("Core", "Gui", "Network", "OpenGL", "Widgets", "Xml"):
                 for f in glob.glob(
-                    os.path.join(qtInfo.package_folder, "lib64", f"libQt6{lib}.so*")
+                    os.path.join(qtInfo.package_folder, "lib", f"libQt6{lib}.so*")
                 ):
                     shutil.copy(f, installBinDir, follow_symlinks=False)
             for f in glob.glob(
-                os.path.join(llvmInfo.package_folder, "lib64", "libclang.so*")
+                os.path.join(llvmInfo.package_folder, "lib", "libclang.so*")
             ):
                 shutil.copy(f, installBinDir, follow_symlinks=False)
 
@@ -319,11 +321,11 @@ class PySide6Conan(ConanFile):
             self.copy(
                 src=os.path.join(self.dependencies["qt"].cpp_info.lib_paths[0], framework),
                 pattern="*",
-                dst=f"lib64/{framework}",
+                dst=f"lib/{framework}",
             )
 
         self.copy(
-            src=os.path.join(self.dependencies["clang"].package_folder, "lib64"),
+            src=os.path.join(self.dependencies["clang"].package_folder, "lib"),
             pattern="libclang.dylib",
             dst="bin",
         )
@@ -336,13 +338,13 @@ class PySide6Conan(ConanFile):
                     files.append(fullFilePath)
             return files
 
-        libDir = os.path.join(self.package_folder, "lib64")
+        libDir = os.path.join(self.package_folder, "lib")
         libs = _getFilesByExt(libDir, ".dylib")
         # self._set_r_paths(libs, '@loader_path/../bin')
 
         v = Version(self.dependencies["cpython"].ref.version)
         sitePkgDir = os.path.join(
-            self.package_folder, f"lib64/python{v.major}.{v.minor}/site-packages"
+            self.package_folder, f"lib/python{v.major}.{v.minor}/site-packages"
         )
 
         libDir = os.path.join(self.package_folder, sitePkgDir, "shiboken")
@@ -375,9 +377,9 @@ class PySide6Conan(ConanFile):
         v = Version(self.dependencies["cpython"].ref.version)
         if self.settings.os == "Windows":
             self.user_info.site_package = os.path.join(
-                self.package_folder, "lib64/site-packages"
+                self.package_folder, "lib/site-packages"
             )
         else:
             self.user_info.site_package = os.path.join(
-                self.package_folder, f"lib64/python{v.major}.{v.minor}/site-packages"
+                self.package_folder, f"lib/python{v.major}.{v.minor}/site-packages"
             )
