@@ -17,6 +17,7 @@ ARG ASWF_CLANG_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_NINJA_VERSION
 ARG ASWF_CUDA_VERSION
+ARG ASWF_OPTIX_VERSION
 ARG ASWF_GLVND_VERSION
 ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
@@ -51,6 +52,7 @@ ARG ASWF_CLANG_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_NINJA_VERSION
 ARG ASWF_CUDA_VERSION
+ARG ASWF_OPTIX_VERSION
 ARG ASWF_GLVND_VERSION
 ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
@@ -75,6 +77,7 @@ LABEL io.aswf.docker.versions.clang="$ASWF_CLANG_VERSION"
 LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
 LABEL io.aswf.docker.versions.ninja="$ASWF_NINJA_VERSION"
 LABEL io.aswf.docker.versions.cuda="$ASWF_CUDA_VERSION"
+LABEL io.aswf.docker.versions.optix="$ASWF_OPTIX_VERSION"
 LABEL io.aswf.docker.versions.glvnd="$ASWF_GLVND_VERSION"
 LABEL io.aswf.docker.versions.ccache="$ASWF_CCACHE_VERSION"
 LABEL io.aswf.docker.versions.dts="$ASWF_DTS_VERSION"
@@ -97,6 +100,7 @@ ENV ASWF_CLANG_VERSION=$ASWF_CLANG_VERSION
 ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
 ENV ASWF_NINJA_VERSION=$ASWF_NINJA_VERSION
 ENV ASWF_CUDA_VERSION=$ASWF_CUDA_VERSION
+ENV ASWF_OPTIX_VERSION=$ASWF_OPTIX_VERSION
 ENV ASWF_GLVND_VERSION=$ASWF_GLVND_VERSION
 ENV ASWF_CCACHE_VERSION=$ASWF_CCACHE_VERSION
 ENV ASWF_DTS_VERSION=$ASWF_DTS_VERSION
@@ -139,8 +143,8 @@ RUN /tmp/install_yq.sh
 RUN mkdir /opt/aswf
 WORKDIR /opt/aswf
 
-ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:/opt/rh/httpd24/root/usr/lib64:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
-    PATH=/opt/rh/rh-git218/root/usr/bin:/usr/local/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
+ENV LD_LIBRARY_PATH=/usr/local/lib:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
+    PATH=/usr/local/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
     PERL5LIB=/opt/rh/rh-git218/root/usr/share/perl5/vendor_perl \
     MANPATH=/opt/rh/rh-git218/root/usr/share/man
 
@@ -193,6 +197,6 @@ ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local ci_common${CI_COMMON_VERSION}
+    /tmp/install_conanpackages.sh /usr/local ci_common${CI_COMMON_VERSION} common
 
 

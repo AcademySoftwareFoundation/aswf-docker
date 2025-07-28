@@ -101,7 +101,7 @@ class MaterialXConan(ConanFile):
         tc.variables["MATERIALX_BUILD_TESTS"] = False
         tc.variables["MATERIALX_TEST_RENDER"] = False
         tc.variables["MATERIALX_BUILD_PYTHON"] = "ON"
-        tc.variables["MATERIALX_PYTHON_VERSION"] = self.dependencies["cpython"].version
+        tc.variables["MATERIALX_PYTHON_VERSION"] = self.dependencies["cpython"].ref.version
         tc.variables["MATERIALX_BUILD_SHARED_LIBS"] = self.options.shared
         tc.variables["MATERIALX_BUILD_GEN_MSL"] = self.options.build_gen_msl and is_apple_os
         tc.variables["MATERIALX_INSTALL_STDLIB_PATH"] = os.path.join("share","MaterialX") # ASWF: otherwise end up in python

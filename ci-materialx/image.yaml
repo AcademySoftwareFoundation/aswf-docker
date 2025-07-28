@@ -4,48 +4,7 @@ description: |
   Contains: Python, Boost and other MaterialX upstream dependencies
   Warning: this image does *not* contain MaterialX itself as it is used to *build* MaterialX!
 packages:
-  - b2                 # base1-1 packages
-  - bzip2
-  - cppunit
-  - expat
-  - fmt
-  - gtest
-  - libbacktrace
-  - libdeflate
-  - libiconv
-  - libxcrypt
-  - lz4
-  - pugixml
-  - pystring
-  - snappy
-  - onetbb
-  - tsl-robin-map
-  - yaml-cpp
-  - zlib
-  - zstd
-  - c-blosc              # base1-2 packages
-  - cpython
-  - freetype
-  - gdbm
-  - glew
-  - glfw
-  - log4cplus
-  - minizip-ng
-  - boost              # base1-3 packages
-  - pybind11
-  - libjpeg-turbo      # base2-1 packages
-  - libwebp
-  - md4c
-  - qt                 # base2-2 packages
-  - highway            # vfx1-1 packages
-  - imath
-  - lcms
-  - libultrahdr
-  - ptex
-  - libjxl             # vfx1-2 packages 
-  - openexr
-  - ocio               # vfx1-3 packages
-  - oiio
+  - materialx
 implicit_packages:
   - numpy
   - vfxplatform

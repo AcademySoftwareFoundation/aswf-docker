@@ -4,7 +4,7 @@ description: |
   Contains: Python and other OpenFX upstream dependencies
   Warning: this image does *not* contain OpenFX itself as it is used to *build* OpenFX!
 packages:
-  - expat
+  - openfx # all dependencies will be installed except openfx itself
 implicit_packages:
   - numpy
   - vfxplatform

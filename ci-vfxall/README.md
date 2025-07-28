@@ -563,7 +563,7 @@ Contains:
 * ptex-2.4.3
 * openvdb-12.0.0
 * materialx-1.39.3
-* usd-25.05
+* usd-25.05.01
 * partio-1.19.0
 * osl-1.14.6.0
 * otio-0.17.0
@@ -620,7 +620,7 @@ Contains:
 * ptex-2.4.3
 * openvdb-12.0.0
 * materialx-1.39.3
-* usd-25.05
+* usd-25.05.01
 * partio-1.19.0
 * osl-1.14.6.0
 * otio-0.17.0

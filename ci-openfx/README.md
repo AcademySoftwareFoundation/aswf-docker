@@ -21,21 +21,21 @@ Warning: this image does *not* contain OpenFX itself as it is used to *build* Op
 ## [aswf/ci-openfx:2024.3](https://hub.docker.com/r/aswf/ci-openfx/tags?page=1&name=2024.3)
 
 Contains:
-* expat-2.6.4
+* openfx-1.5s
 * numpy-1.24.3
 * vfxplatform-2024
 
 ## [aswf/ci-openfx:2025.2](https://hub.docker.com/r/aswf/ci-openfx/tags?page=1&name=2025.2)
 
 Contains:
-* expat-2.6.4
+* openfx-1.5s
 * numpy-1.26.4
 * vfxplatform-2025
 
 ## [aswf/ci-openfx:2026.0](https://hub.docker.com/r/aswf/ci-openfx/tags?page=1&name=2026.0)
 
 Contains:
-* expat-2.7.1
+* openfx-1.5s
 * numpy-1.26.4
 * vfxplatform-2026
 

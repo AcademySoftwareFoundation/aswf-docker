@@ -23,6 +23,7 @@ Contains:
 * clang-6.0.1
 * ninja-1.10.1
 * cuda-10.2
+* optix-7.1.0
 * glvnd-1.2.0
 * ccache-4.0
 * dts-6
@@ -35,6 +36,7 @@ Contains:
 * clang-7.1.0
 * ninja-1.10.1
 * cuda-10.2
+* optix-7.1.0
 * glvnd-1.2.0
 * ccache-4.0
 * dts-6
@@ -47,6 +49,7 @@ Contains:
 * clang-8.0.1
 * ninja-1.10.1
 * cuda-10.2
+* optix-7.1.0
 * glvnd-1.2.0
 * ccache-4.0
 * dts-6
@@ -59,6 +62,7 @@ Contains:
 * clang-9.0.1
 * ninja-1.10.1
 * cuda-10.2
+* optix-7.1.0
 * glvnd-1.2.0
 * ccache-4.0
 * dts-6
@@ -71,6 +75,7 @@ Contains:
 * clang-10.0.1
 * ninja-1.10.1
 * cuda-10.2
+* optix-7.1.0
 * glvnd-1.2.0
 * ccache-4.0
 * dts-6
@@ -83,6 +88,7 @@ Contains:
 * clang-10.0.1
 * ninja-1.11.0
 * cuda-11.4.0
+* optix-7.2.0
 * glvnd-1.2.0
 * ccache-4.0
 * dts-9
@@ -95,6 +101,7 @@ Contains:
 * clang-11.1.0
 * ninja-1.11.0
 * cuda-11.4.0
+* optix-7.2.0
 * glvnd-1.2.0
 * ccache-4.0
 * dts-9
@@ -107,6 +114,7 @@ Contains:
 * clang-12.0.1
 * ninja-1.11.0
 * cuda-11.4.0
+* optix-7.2.0
 * glvnd-1.2.0
 * ccache-4.0
 * dts-9
@@ -119,6 +127,7 @@ Contains:
 * clang-13.0.1
 * ninja-1.11.0
 * cuda-11.4.0
+* optix-7.2.0
 * glvnd-1.2.0
 * ccache-4.0
 * dts-9
@@ -131,6 +140,7 @@ Contains:
 * clang-14.0.0
 * ninja-1.11.0
 * cuda-11.4.0
+* optix-7.2.0
 * glvnd-1.2.0
 * ccache-4.0
 * dts-9
@@ -143,6 +153,7 @@ Contains:
 * clang-14.0.6
 * ninja-1.11.1
 * cuda-11.8.0
+* optix-7.7.0
 * glvnd-1.6.0
 * ccache-4.7.4
 * dts-11
@@ -155,6 +166,7 @@ Contains:
 * clang-15.0.7
 * ninja-1.11.1
 * cuda-11.8.0
+* optix-7.7.0
 * glvnd-1.6.0
 * ccache-4.7.4
 * dts-11
@@ -168,6 +180,7 @@ Contains:
 * cmake-3.31.7
 * ninja-1.13.1
 * cuda-12.6.3
+* optix-8.0.0
 * glvnd-1.7.0
 * ccache-4.9.1
 * dts-11
@@ -182,6 +195,7 @@ Contains:
 * cmake-3.31.7
 * ninja-1.13.1
 * cuda-12.6.3
+* optix-8.0.0
 * glvnd-1.7.0
 * ccache-4.9.1
 * dts-11
@@ -196,6 +210,7 @@ Contains:
 * cmake-3.31.7
 * ninja-1.13.1
 * cuda-12.6.3
+* optix-8.0.0
 * glvnd-1.7.0
 * ccache-4.9.1
 * dts-11
@@ -210,6 +225,7 @@ Contains:
 * cmake-3.31.7
 * ninja-1.13.1
 * cuda-12.6.3
+* optix-8.0.0
 * glvnd-1.7.0
 * ccache-4.9.1
 * dts-11
@@ -224,6 +240,7 @@ Contains:
 * cmake-4.0.2
 * ninja-1.13.1
 * cuda-12.9.1
+* optix-8.0.0
 * glvnd-1.7.0
 * ccache-4.11.3
 * dts-14
@@ -238,6 +255,7 @@ Contains:
 * cmake-4.0.2
 * ninja-1.13.1
 * cuda-12.9.1
+* optix-8.0.0
 * glvnd-1.7.0
 * ccache-4.11.3
 * dts-14
