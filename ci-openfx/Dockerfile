@@ -15,7 +15,7 @@ ARG ASWF_CONAN_CHANNEL
 ARG ASWF_VFXPLATFORM_VERSION
 
 
-ARG ASWF_EXPAT_VERSION
+ARG ASWF_OPENFX_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
@@ -36,7 +36,7 @@ ARG ASWF_CONAN_CHANNEL
 
 
 
-ARG ASWF_EXPAT_VERSION
+ARG ASWF_OPENFX_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
@@ -55,7 +55,7 @@ LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
 
 
-LABEL io.aswf.docker.versions.expat="$ASWF_EXPAT_VERSION"
+LABEL io.aswf.docker.versions.openfx="$ASWF_OPENFX_VERSION"
 LABEL io.aswf.docker.versions.numpy="$ASWF_NUMPY_VERSION"
 LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
 
@@ -70,7 +70,7 @@ ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
 
-ENV ASWF_EXPAT_VERSION=$ASWF_EXPAT_VERSION
+ENV ASWF_OPENFX_VERSION=$ASWF_OPENFX_VERSION
 ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
 ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
 
@@ -90,7 +90,7 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
-expat/${ASWF_EXPAT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+openfx/${ASWF_OPENFX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
@@ -98,6 +98,6 @@ ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} openfx
 
 

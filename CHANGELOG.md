@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 # 2025-07-XX
 
+These releases no longer build / install libraries in `/usr/local/lib64`, they revert back to the default
+`/usr/local/lib` supported by most packages and Conan recipes. This should hopefully be transparent to
+consumers of these new images.
+
 - 2024.3 release
   - using Conan 2 recipes
   - updated versions
@@ -46,6 +50,7 @@ All notable changes to this project will be documented in this file.
     - OpenFX 1.5s
     - OSL 1.14.6.0 (was 1.14.5.1)
     - PySide 6.5.6 (was 6.5.4)
+    - USD 25.05.01 (was 25.05)
 - 2026.0
   - pre-release for testing purposes, does not yet include late releasing ASWF packages in final 2026 release (OOCIO, OpenEXR, OpenVDB)
   - see `ci_common6` and `2026` sections of `versions.yaml` for full list of package versions
@@ -64,6 +69,7 @@ All notable changes to this project will be documented in this file.
 with keeping recipes up to date
   - merge upstream recipe changes, in particular changes for CMake 4 compatibility
   - `--keep_source` and `--keep_build` command line options are obsolete, no longer relevant with Conan 2
+- install_conanpackages.sh script update to use the Conan full_deploy generator which can deploy all transitive dependencies for a package in one call, mimizing the need to include dependencies in the image.yaml sources for the ci-foo containers
 
 # 2025-05-04
 

@@ -51,7 +51,6 @@ class ACESContainerConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["INSTALL_LIB_DIR"] = "lib4"
         tc.variables["INSTALL_CMAKE_DIR"] = os.path.join("lib", "cmake", "AcesContainer")
         tc.generate()
         deps = CMakeDeps(self)

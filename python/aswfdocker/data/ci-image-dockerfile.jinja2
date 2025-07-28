@@ -153,11 +153,11 @@ ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 {% if name != "common" %}
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} {{ name }}
 {% else %}
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local ci_common${CI_COMMON_VERSION}
+    /tmp/install_conanpackages.sh /usr/local ci_common${CI_COMMON_VERSION} {{ name }}
 {% endif %}
 
 {{ docker_post_commands }}

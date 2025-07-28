@@ -21,51 +21,21 @@ Warning: this image does *not* contain rawtoaces itself as it is used to *build*
 ## [aswf/ci-rawtoaces:2024.3](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2024.3)
 
 Contains:
-* boost-1.82.0
-* imath-3.1.12
-* libraw-0.21.4
-* oiio-2.5.19.0
-* eigen-3.4.0
-* jasper-4.2.5
-* libpng-1.6.34
-* libtiff-4.0.9
-* libwebp-1.5.0
-* nlohmann_json-3.12.0
-* aces_container-1.0.2
+* rawtoaces-vfx2026.0
 * numpy-1.24.3
 * vfxplatform-2024
 
 ## [aswf/ci-rawtoaces:2025.2](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2025.2)
 
 Contains:
-* boost-1.85.0
-* imath-3.1.12
-* libraw-0.21.4
-* oiio-3.0.8.1
-* eigen-3.4.0
-* jasper-4.2.5
-* libpng-1.6.34
-* libtiff-4.0.9
-* libwebp-1.5.0
-* nlohmann_json-3.12.0
-* aces_container-1.0.2
+* rawtoaces-vfx2026.0
 * numpy-1.26.4
 * vfxplatform-2025
 
 ## [aswf/ci-rawtoaces:2026.0](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2026.0)
 
 Contains:
-* boost-1.88.0
-* imath-3.1.12
-* libraw-0.21.4
-* oiio-3.0.8.1
-* eigen-3.4.0
-* jasper-4.2.5
-* libpng-1.6.37
-* libtiff-4.4.0
-* libwebp-1.5.0
-* nlohmann_json-3.12.0
-* aces_container-1.0.2
+* rawtoaces-vfx2026.0
 * numpy-1.26.4
 * vfxplatform-2026
 

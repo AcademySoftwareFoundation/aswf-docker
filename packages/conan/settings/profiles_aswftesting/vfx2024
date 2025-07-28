@@ -11,6 +11,7 @@ alembic/*: alembic/1.8.8@aswftesting/vfx2024
 boost/*: boost/1.82.0@aswftesting/vfx2024
 brotli/*: brotli/system@aswftesting/vfx2024
 bzip2/*: bzip2/1.0.8@aswftesting/vfx2024
+c-blosc/*: c-blosc/1.21.6@aswftesting/vfx2024
 dbus/*: dbus/system@aswftesting/vfx2024
 ceres-solver/*: ceres-solver/2.2.0@aswftesting/vfx2024
 cpython/*: cpython/3.11.13@aswftesting/vfx2024
@@ -73,6 +74,7 @@ pcre2/*: pcre2/system@aswftesting/vfx2024
 ptex/*: ptex/2.4.2@aswftesting/vfx2024
 pugixml/*: pugixml/1.14@aswftesting/vfx2024
 pulseaudio/*: pulseaudio/system@aswftesting/vfx2024
+pybind11/*: pybind11/2.13.6@aswftesting/vfx2024
 pystring/*: pystring/1.1.4@aswftesting/vfx2024
 snappy/*: snappy/1.1.10@aswftesting/vfx2024
 sqlite3/*: sqlite3/system@aswftesting/vfx2024

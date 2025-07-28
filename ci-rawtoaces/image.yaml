@@ -4,19 +4,7 @@ description: |
   Contains: Python and other rawtoaces upstream dependencies
   Warning: this image does *not* contain rawtoaces itself as it is used to *build* rawtoaces!
 packages:
-  - boost
-  - ceres-solver
-  - imath
-  - libraw
-  - oiio
-  - eigen
-  - jasper
-  - libjpeg-turbo
-  - libpng
-  - libtiff
-  - libwebp
-  - nlohmann_json
-  - aces_container
+  - rawtoaces # all dependencies will be installed except rawtoaces itself
 implicit_packages:
   - numpy
   - vfxplatform

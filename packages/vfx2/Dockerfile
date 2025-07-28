@@ -6,6 +6,8 @@
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
+ARG ASWF_CUDA_VERSION
+ARG ASWF_OPTIX_VERSION
 ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
@@ -49,14 +51,11 @@ ARG ASWF_PYSIDE_VERSION
 ARG ASWF_QT_VERSION
 ARG ASWF_USD_VERSION
 
-# Required base packages built in previous stages
-
-FROM ${ASWF_ORG}/ci-package-openvdb:${ASWF_VFXPLATFORM_VERSION}-${ASWF_OPENVDB_VERSION} AS ci-package-openvdb-external
-
-
 #################### ci-base-builder ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-base-builder
 
+ARG ASWF_CUDA_VERSION
+ARG ASWF_OPTIX_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_CPYTHON_VERSION
 ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
@@ -90,7 +89,7 @@ EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} vfx2
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
@@ -169,8 +168,6 @@ ENV ASWF_TSL_ROBIN_MAP_VERSION=${ASWF_TSL_ROBIN_MAP_VERSION}
 ARG ASWF_YAML_CPP_VERSION
 ENV ASWF_YAML_CPP_VERSION=${ASWF_YAML_CPP_VERSION}
 
-COPY --from=ci-package-openvdb-external /. /usr/local/
-
 COPY ../scripts/vfx/build_osl.sh \
      /tmp/
 
@@ -189,6 +186,7 @@ pybind11/${ASWF_PYBIND11_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 c-blosc/${ASWF_C_BLOSC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+freetype/${ASWF_FREETYPE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 highway/${ASWF_HIGHWAY_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 libdeflate/${ASWF_LIBDEFLATE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 libiconv/${ASWF_LIBICONV_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
@@ -211,7 +209,7 @@ EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} osl
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -275,6 +273,7 @@ ARG ASWF_PARTIO_VERSION
 ARG ASWF_PTEX_VERSION
 ARG ASWF_OIIO_VERSION
 ARG ASWF_OCIO_VERSION
+ARG ASWF_OPENVDB_VERSION
 
 ENV CI_COMMON_VERSION=${CI_COMMON_VERSION}
 ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
@@ -298,9 +297,7 @@ ENV ASWF_PARTIO_VERSION=${ASWF_PARTIO_VERSION}
 ENV ASWF_PTEX_VERSION=${ASWF_PTEX_VERSION}
 ENV ASWF_OIIO_VERSION=${ASWF_OIIO_VERSION}
 ENV ASWF_OCIO_VERSION=${ASWF_OCIO_VERSION}
-
-
-COPY --from=ci-package-openvdb-external /. /usr/local/
+ENV ASWF_OPENVDB_VERSION=${ASWF_OPENVDB_VERSION}
 
 COPY ../scripts/vfx/build_usd.sh \
      /tmp/
@@ -326,11 +323,12 @@ openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 oiio/${ASWF_OIIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 ocio/${ASWF_OCIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+openvdb/${ASWF_OPENVDB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} usd
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -403,6 +401,10 @@ EOF
 
 COPY ../scripts/vfx/build_otio.sh \
      /tmp/
+
+RUN --mount=type=cache,target=/opt/conan_home/d \
+     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
+     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} otio
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
