@@ -400,7 +400,9 @@ class ClangConan(ConanFile):
             cmake_variables["LLVM_USE_SANITIZER"] = self.options.use_sanitizer
 
         if self.settings.os == "Linux":
-            # ASWF: Older LLVM versions need to know where DTS gcc is installed. But clang 19 deprecates GCC_INSTALL_DIR
+            # ASWF: we need to tell LLVM where gcc lives so that clang++ can find an updated libstdc++.
+            # clang 18 deprecates GCC_INSTALL_DIR. For 18 and newer we will create config files in the bin
+            # directory to use --gcc-install-dir to point to the gcc installation.
             if Version(self.version) < "18"  and self.settings.compiler == "gcc":
                 cmake_variables["GCC_INSTALL_PREFIX"] = os.environ["GCC_INSTALL_PREFIX"]
             # Workaround for: https://github.com/conan-io/conan/issues/13560
@@ -540,6 +542,18 @@ class ClangConan(ConanFile):
             build_info,
             self._package_folder_path / self._build_module_file_rel_path
         )
+
+        # ASWF: starting with llvm 18, we need to create config files to point to the gcc installation
+        # using --gcc-install-dir=
+        if Version(self.version) >= "18"  and self.settings.compiler == "gcc":
+            bin_dir = os.path.join(self._package_folder_path, "bin")
+            gcc_install_triplet = f"--gcc-install-dir={os.environ['GCC_INSTALL_TRIPLET']}\n"
+            with open(os.path.join(bin_dir, "clang.cfg"), "w") as f:
+                f.write(gcc_install_triplet)
+            with open(os.path.join(bin_dir, "clang++.cfg"), "w") as f:
+                f.write(gcc_install_triplet)
+            with open(os.path.join(bin_dir, "clang-cpp.cfg"), "w") as f:
+                f.write(gcc_install_triplet)
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "LLVM")

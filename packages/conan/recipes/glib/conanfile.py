@@ -26,9 +26,9 @@ class SystemGLibConan(ConanFile):
     def package_info(self):
         self.cpp_info.components["glib-2.0"].set_property("pkg_config_name", "glib-2.0")
         self.cpp_info.components["glib-2.0"].system_libs = ["glib-2.0"]
-        self.cpp_info.components["glib-2.0"].includedirs += [
-            os.path.join("include", "glib-2.0"),
-            os.path.join("lib", "glib-2.0", "include")
+        self.cpp_info.components["glib-2.0"].includedirs = [
+            "/usr/include/glib-2.0",
+            "/usr/lib64/glib-2.0/include"
         ]
         self.cpp_info.components["glib-2.0"].resdirs = ["res"]
 
@@ -71,7 +71,7 @@ class SystemGLibConan(ConanFile):
 
         self.cpp_info.components["gio-unix-2.0"].set_property("pkg_config_name", "gio-unix-2.0")
         self.cpp_info.components["gio-unix-2.0"].requires += ["gobject-2.0", "gio-2.0"]
-        self.cpp_info.components["gio-unix-2.0"].includedirs = [os.path.join("include", "gio-unix-2.0")]
+        self.cpp_info.components["gio-unix-2.0"].includedirs = ["/usr/include/gio-unix-2.0"]
 
         self.cpp_info.components["glib-2.0"].requires.append("pcre2::pcre2")
 

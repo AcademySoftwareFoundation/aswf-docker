@@ -28,14 +28,14 @@ Contains:
 ## [aswf/ci-oiio:2025.2](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2025.2)
 
 Contains:
-* oiio-3.0.8.1
+* oiio-3.0.9.0
 * numpy-1.26.4
 * vfxplatform-2025
 
 ## [aswf/ci-oiio:2026.0](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2026.0)
 
 Contains:
-* oiio-3.0.8.1
-* numpy-1.26.4
+* oiio-3.0.9.0
+* numpy-2.3.2
 * vfxplatform-2026
 

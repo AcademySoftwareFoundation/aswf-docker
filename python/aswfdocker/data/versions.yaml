@@ -232,7 +232,7 @@ versions:
       ASWF_NINJA_VERSION: "1.13.1"
       ASWF_SONAR_VERSION: "7.1.0.4889"
       ASWF_YQ_VERSION: "4.45.4"
-      ASWF_BASEOS_DISTRO: "rockylinux9"
+      ASWF_BASEOS_DISTRO: "rockylinux8"
       ASWF_BASEOS_IMAGE: "nvidia/cuda"
   "6-clang19":
     parent_versions: ["6"]
@@ -537,15 +537,18 @@ versions:
       ASWF_MPG123_VERSION: "system"
       ASWF_NASM_VERSION: "system"
       ASWF_NSPR_VERSION: "system"
-      ASWF_NSS_VERSION: "3.93.0"
+      ASWF_NSS_VERSION: "3.101.0"
       ASWF_OGG_VERSION: "system"
       ASWF_OPENAL_SOFT_VERSION: "system"
+      ASWF_OPENCL_HEADERS_VERSION: "system"
+      ASWF_OPENCL_ICD_LOADER_VERSION: "system"
       ASWF_OPENGL_VERSION: "system"
       ASWF_OPENJPEG_VERSION: "2.4.0"
       ASWF_OPENSSL_VERSION: "system"
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
       ASWF_PULSEAUDIO_VERSION: "system"
+      ASWF_SPDLOG_VERSION: "system"
       ASWF_SQLITE3_VERSION: "system"
       ASWF_TCL_VERSION: "system"
       ASWF_TK_VERSION: "system"
@@ -563,14 +566,16 @@ versions:
       ASWF_C_BLOSC_VERSION: "1.21.6"
       ASWF_BZIP2_VERSION: "1.0.8"
       ASWF_CERES_SOLVER_VERSION: "2.2.0"
+      ASWF_CIMG_VERSION: "3.3.2"
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_EIGEN_VERSION: "3.4.0"
       ASWF_EXPAT_VERSION: "2.6.4"
-      ASWF_FMT_VERSION: "11.1.4"
+      ASWF_FMT_VERSION: "11.2.0"
       ASWF_FREETYPE_VERSION: "2.13.2"
       ASWF_GLEW_VERSION: "2.2.0"
       ASWF_GLFW_VERSION: "3.4"
       ASWF_GTEST_VERSION: "1.15.2"
+      ASWF_HARFBUZZ_VERSION: "11.0.1"
       ASWF_HDF5_VERSION: "1.14.6"
       ASWF_HIGHWAY_VERSION: "1.2.0"
       ASWF_JASPER_VERSION: "4.2.5"
@@ -667,15 +672,18 @@ versions:
       ASWF_MPG123_VERSION: "system"
       ASWF_NASM_VERSION: "system"
       ASWF_NSPR_VERSION: "system"
-      ASWF_NSS_VERSION: "3.93.0"
+      ASWF_NSS_VERSION: "3.101.0"
       ASWF_OGG_VERSION: "system"
       ASWF_OPENAL_SOFT_VERSION: "system"
+      ASWF_OPENCL_HEADERS_VERSION: "system"
+      ASWF_OPENCL_ICD_LOADER_VERSION: "system"
       ASWF_OPENGL_VERSION: "system"
       ASWF_OPENJPEG_VERSION: "2.4.0"
       ASWF_OPENSSL_VERSION: "system"
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
       ASWF_PULSEAUDIO_VERSION: "system"
+      ASWF_SPDLOG_VERSION: "system"
       ASWF_SQLITE3_VERSION: "system"
       ASWF_TCL_VERSION: "system"
       ASWF_TK_VERSION: "system"
@@ -693,14 +701,16 @@ versions:
       ASWF_C_BLOSC_VERSION: "1.21.6"
       ASWF_BZIP2_VERSION: "1.0.8"
       ASWF_CERES_SOLVER_VERSION: "2.2.0"
+      ASWF_CIMG_VERSION: "3.3.2"
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_EIGEN_VERSION: "3.4.0"
       ASWF_EXPAT_VERSION: "2.6.4"
-      ASWF_FMT_VERSION: "11.1.4"
+      ASWF_FMT_VERSION: "11.2.0"
       ASWF_FREETYPE_VERSION: "2.13.2"
       ASWF_GLEW_VERSION: "2.2.0"
       ASWF_GLFW_VERSION: "3.4"
       ASWF_GTEST_VERSION: "1.15.2"
+      ASWF_HARFBUZZ_VERSION: "11.0.1"
       ASWF_HDF5_VERSION: "1.14.6"
       ASWF_HIGHWAY_VERSION: "1.2.0"
       ASWF_JASPER_VERSION: "4.2.5"
@@ -748,12 +758,12 @@ versions:
       ASWF_MATERIALX_VERSION: "1.39.3"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.4.2"
-      ASWF_OIIO_VERSION: "3.0.8.1"
+      ASWF_OIIO_VERSION: "3.0.9.0"
       ASWF_OPENEXR_VERSION: "3.3.5"
       ASWF_OPENFX_VERSION: "1.5s"
       ASWF_OPENRV_VERSION: "2.1.0"
-      ASWF_OPENVDB_VERSION: "12.0.0"
-      ASWF_OSL_VERSION: "1.14.6.0"
+      ASWF_OPENVDB_VERSION: "12.0.1"
+      ASWF_OSL_VERSION: "1.14.7.0"
       ASWF_OTIO_VERSION: "0.17.0"
       ASWF_RAWTOACES_VERSION: "vfx2026.0"
   "2025-clang18":
@@ -779,19 +789,19 @@ versions:
       ASWF_DOUBLE_CONVERSION_VERSION: "system"
       ASWF_FONTCONFIG_VERSION: "system"
       ASWF_GDBM_VERSION: "system"
-      ASWF_GIFLIB_VERSION: "5.2.1"
-      ASWF_GLIB_VERSION: "2.68.4"
+      ASWF_GIFLIB_VERSION: "5.1.4"
+      ASWF_GLIB_VERSION: "2.56.4"
       ASWF_ICU_VERSION: "system"
       ASWF_LIBALSA_VERSION: "system"
       ASWF_LIBAOM_AV1_VERSION: "system"
       ASWF_LIBDRM_VERSION: "system"
       ASWF_LIBFFI_VERSION: "system"
       ASWF_LIBMP3LAME_VERSION: "system"
-      ASWF_LIBPNG_VERSION: "1.6.37"
+      ASWF_LIBPNG_VERSION: "1.6.34"
       ASWF_LIBSNDFILE_VERSION: "system"
       ASWF_LIBSQUISH_VERSION: "system"
       ASWF_LIBSVTAV1_VERSION: "system"
-      ASWF_LIBTIFF_VERSION: "4.4.0"
+      ASWF_LIBTIFF_VERSION: "4.0.9"
       ASWF_LIBVPX_VERSION: "system"
       ASWF_LIBXSHMFENCE_VERSION: "system"
       ASWF_MPDECIMAL_VERSION: "system"
@@ -801,12 +811,15 @@ versions:
       ASWF_NSS_VERSION: "3.101.0"
       ASWF_OGG_VERSION: "system"
       ASWF_OPENAL_SOFT_VERSION: "system"
+      ASWF_OPENCL_HEADERS_VERSION: "system"
+      ASWF_OPENCL_ICD_LOADER_VERSION: "system"
       ASWF_OPENGL_VERSION: "system"
       ASWF_OPENJPEG_VERSION: "2.4.0"
       ASWF_OPENSSL_VERSION: "system"
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
       ASWF_PULSEAUDIO_VERSION: "system"
+      ASWF_SPDLOG_VERSION: "system"
       ASWF_SQLITE3_VERSION: "system"
       ASWF_TCL_VERSION: "system"
       ASWF_TK_VERSION: "system"
@@ -814,7 +827,7 @@ versions:
       ASWF_VORBIS_VERSION: "system"
       ASWF_VULKAN_HEADERS_VERSION: "system"
       ASWF_VULKAN_LOADER_VERSION: "system"
-      ASWF_XKBCOMMON_VERSION: "1.0.3"
+      ASWF_XKBCOMMON_VERSION: "0.9.1"
       ASWF_XORG_VERSION: "system"
       ASWF_XORG_PROTO_VERSION: "system"
       ASWF_XZ_UTILS_VERSION: "system"
@@ -824,6 +837,7 @@ versions:
       ASWF_C_BLOSC_VERSION: "1.21.6"
       ASWF_BZIP2_VERSION: "1.0.8"
       ASWF_CERES_SOLVER_VERSION: "2.2.0"
+      ASWF_CIMG_VERSION: "3.3.2"
       ASWF_CPPUNIT_VERSION: "1.15.1"
       ASWF_EIGEN_VERSION: "3.4.0"
       ASWF_EXPAT_VERSION: "2.7.1"
@@ -832,6 +846,7 @@ versions:
       ASWF_GLEW_VERSION: "2.2.0"
       ASWF_GLFW_VERSION: "3.4"
       ASWF_GTEST_VERSION: "1.17.0"
+      ASWF_HARFBUZZ_VERSION: "11.0.1"
       ASWF_HDF5_VERSION: "1.14.6"
       ASWF_HIGHWAY_VERSION: "1.2.0"
       ASWF_JASPER_VERSION: "4.2.5"
@@ -856,7 +871,7 @@ versions:
       ASWF_PYSTRING_VERSION: "1.1.4"
       ASWF_SNAPPY_VERSION: "1.2.2"
       ASWF_TSL_ROBIN_MAP_VERSION: "1.4.0"
-      ASWF_USD_VERSION: "25.05.01"
+      ASWF_USD_VERSION: "25.08"
       ASWF_YAML_CPP_VERSION: "0.8.0"
       ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_ZSTD_VERSION: "1.5.7"
@@ -864,7 +879,7 @@ versions:
       ASWF_ALEMBIC_VERSION: "1.8.8"
       ASWF_BOOST_VERSION: "1.88.0"
       ASWF_CPYTHON_VERSION: "3.13.3"
-      ASWF_NUMPY_VERSION: "1.26.4"
+      ASWF_NUMPY_VERSION: "2.3.2"
       ASWF_ONETBB_VERSION: "2022.1.0"
       ASWF_OPENSUBDIV_VERSION: "3.6.1"
       ASWF_PTEX_VERSION: "2.4.3"
@@ -879,12 +894,12 @@ versions:
       ASWF_MATERIALX_VERSION: "1.39.3"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.4.2"
-      ASWF_OIIO_VERSION: "3.0.8.1"
-      ASWF_OPENEXR_VERSION: "3.3.5"
+      ASWF_OIIO_VERSION: "3.0.9.0"
+      ASWF_OPENEXR_VERSION: "3.4-alpha"
       ASWF_OPENFX_VERSION: "1.5s"
       ASWF_OPENRV_VERSION: "2.1.0"
       ASWF_OPENVDB_VERSION: "12.0.1"
-      ASWF_OSL_VERSION: "1.14.6.0"
+      ASWF_OSL_VERSION: "1.14.7.0"
       ASWF_OTIO_VERSION: "0.17.0"
       ASWF_RAWTOACES_VERSION: "vfx2026.0"
   "2026-clang19":
@@ -1180,6 +1195,10 @@ ci-packages:
     - "2024.3"
     - "2025.2"
     - "2026.0"
+  cimg:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
   dbus:
     - "2024.3"
     - "2025.2"
@@ -1225,6 +1244,10 @@ ci-packages:
     - "2025.2"
     - "2026.0"
   glib:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
+  harfbuzz:
     - "2024.3"
     - "2025.2"
     - "2026.0"
@@ -1377,6 +1400,14 @@ ci-packages:
     - "2024.3"
     - "2025.2"
     - "2026.0"
+  opencl-headers:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
+  opencl-icd-loader:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
   opengl:
     - "2024.3"
     - "2025.2"
@@ -1410,6 +1441,10 @@ ci-packages:
     - "2025.2"
     - "2026.0"
   snappy:
+    - "2024.3"
+    - "2025.2"
+    - "2026.0"
+  spdlog:
     - "2024.3"
     - "2025.2"
     - "2026.0"
@@ -1657,6 +1692,8 @@ groups:
         - mpdecimal
         - nasm
         - nspr
+        - opencl-headers
+        - opencl-icd-loader
         - opengl
         - openssl
         - pcre2
@@ -1720,6 +1757,7 @@ groups:
         - pulseaudio
         - xkbcommon
       base2-1:
+        - harfbuzz
         - libjpeg-turbo
         - libwebp
         - md4c
@@ -1736,16 +1774,17 @@ groups:
         - libvpx
         - mpg123
         - ogg
+        - spdlog
         - vorbis
       vfx1-1:
         - aces_container
+        - cimg
         - hdf5
         - highway
         - imath
         - jasper
         - lcms
         - libultrahdr
-        - openfx
         - opensubdiv
         - partio
         - ptex
@@ -1753,6 +1792,7 @@ groups:
          - libjxl
          - libraw
          - openexr
+         - openfx
       vfx1-3:
         - alembic
         - ocio
@@ -1829,6 +1869,7 @@ conan_only:
   - glfw
   - glib
   - gtest
+  - harfbuzz
   - hdf5
   - highway
   - icu
@@ -1873,6 +1914,8 @@ conan_only:
   - ogg
   - onetbb
   - openal-soft
+  - opencl-headers
+  - opencl-icd-loader
   - openexr
   - openfx
   - opengl
@@ -1892,6 +1935,7 @@ conan_only:
   - qt
   - rawtoaces
   - snappy
+  - spdlog
   - sqlite3
   - tcl
   - tk

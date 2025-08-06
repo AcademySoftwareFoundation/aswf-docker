@@ -36,6 +36,6 @@ Contains:
 
 Contains:
 * openfx-1.5s
-* numpy-1.26.4
+* numpy-2.3.2
 * vfxplatform-2026
 

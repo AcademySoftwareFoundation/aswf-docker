@@ -42,6 +42,6 @@ Contains:
 * cpython-3.13.3
 * expat-2.7.1
 * qt-6.8.3
-* numpy-1.26.4
+* numpy-2.3.2
 * vfxplatform-2026
 

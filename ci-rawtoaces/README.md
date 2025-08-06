@@ -36,6 +36,6 @@ Contains:
 
 Contains:
 * rawtoaces-vfx2026.0
-* numpy-1.26.4
+* numpy-2.3.2
 * vfxplatform-2026
 

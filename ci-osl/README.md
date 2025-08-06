@@ -232,7 +232,7 @@ Contains:
 
 Contains:
 * cpython-3.11.13
-* fmt-11.1.4
+* fmt-11.2.0
 * imath-3.1.12
 * oiio-2.5.19.0
 * partio-1.19.0
@@ -249,7 +249,7 @@ Contains:
 
 Contains:
 * cpython-3.11.13
-* fmt-11.1.4
+* fmt-11.2.0
 * imath-3.1.12
 * oiio-2.5.19.0
 * partio-1.19.0
@@ -266,9 +266,9 @@ Contains:
 
 Contains:
 * cpython-3.11.13
-* fmt-11.1.4
+* fmt-11.2.0
 * imath-3.1.12
-* oiio-3.0.8.1
+* oiio-3.0.9.0
 * partio-1.19.0
 * pugixml-1.14
 * pybind11-2.13.6
@@ -283,9 +283,9 @@ Contains:
 
 Contains:
 * cpython-3.11.13
-* fmt-11.1.4
+* fmt-11.2.0
 * imath-3.1.12
-* oiio-3.0.8.1
+* oiio-3.0.9.0
 * partio-1.19.0
 * pugixml-1.14
 * pybind11-2.13.6
@@ -302,7 +302,7 @@ Contains:
 * cpython-3.13.3
 * fmt-11.2.0
 * imath-3.1.12
-* oiio-3.0.8.1
+* oiio-3.0.9.0
 * partio-1.19.0
 * pugixml-1.15
 * pybind11-2.13.6
@@ -310,7 +310,7 @@ Contains:
 * zlib-1.3.1
 * cuda-12.9.1
 * optix-8.0.0
-* numpy-1.26.4
+* numpy-2.3.2
 * vfxplatform-2026
 
 ## [aswf/ci-osl:2026-clang20.0](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang20.0)
@@ -319,7 +319,7 @@ Contains:
 * cpython-3.13.3
 * fmt-11.2.0
 * imath-3.1.12
-* oiio-3.0.8.1
+* oiio-3.0.9.0
 * partio-1.19.0
 * pugixml-1.15
 * pybind11-2.13.6
@@ -327,6 +327,6 @@ Contains:
 * zlib-1.3.1
 * cuda-12.9.1
 * optix-8.0.0
-* numpy-1.26.4
+* numpy-2.3.2
 * vfxplatform-2026
 

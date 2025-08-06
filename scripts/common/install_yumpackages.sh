@@ -80,6 +80,7 @@ yum install --setopt=tsflags=nodocs -y \
     gtk2-devel \
     harfbuzz-devel \
     java-1.8.0-openjdk \
+    jq \
     libaio-devel \
     libcap-devel \
     libcdio-paranoia-devel \
@@ -216,10 +217,36 @@ yum install --setopt=tsflags=nodocs -y \
     ${XORG_X11_XKB_UTILS_RPM} \
     xorg-x11-xtrans-devel \
     xz-devel \
-    zlib-devel \
+    zlib-devel
 
 # This is needed for Xvfb to function properly.
 dbus-uuidgen > /etc/machine-id
+
+# libxslt/xsltutils.h has broken include guards in EL8, breaks PySide unity builds
+if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+    cat << 'EOF' | patch -p1
+diff --git a/usr/include/libxslt/xsltutil.h b/usr/include/libxslt/xsltutil.h
+index 6cf74b219a1..501394deede 100644
+--- /usr/include/libxslt/xsltutils.h
++++ /usr/include/libxslt/xsltutils.h
+@@ -282,7 +282,6 @@
+  * Sampling precision for profiling
+  */
+ #define XSLT_TIMESTAMP_TICS_PER_SEC 100000l
+-#endif
+
+ /*
+  * Hooks for the debugger.
+@@ -322,6 +321,7 @@
+
+ #ifdef __cplusplus
+ }
++#endif
+
+ #endif /* __XML_XSLTUTILS_H__ */
+
+EOF
+fi
 
 yum -y groupinstall "Development Tools"
 
@@ -260,11 +287,13 @@ yum install -y \
     libxshmfence \
     libxshmfence-devel \
     nss-devel \
+    ocl-icd \
     opencl-headers \
     patchelf \
     p7zip \
     portaudio \
     portaudio-devel \
+    spdlog-devel \
     svt-av1-devel \
     xcb-util-cursor \
     xcb-util-cursor-devel \

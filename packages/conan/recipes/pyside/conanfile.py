@@ -53,6 +53,8 @@ class PySide6Conan(ConanFile):
         self.requires("md4c/[>=0.0.0]")
         self.requires("freetype/[>=2.0.0]")
         self.requires("libjpeg-turbo/[>=1.0.0]")
+        self.requires("libiconv/[>=1.0.0]")
+        self.requires("harfbuzz/8.3.0")
 
     def build_requirements(self):
         self.tool_requires("ninja/[>=1.0.0]")
@@ -179,13 +181,15 @@ class PySide6Conan(ConanFile):
         env = Environment()
         env.define("LLVM_INSTALL_DIR", llvmInfo.package_folder)
         env.define("LD_LIBRARY_PATH", pythonInfo.cpp_info.libdirs[0])
-        # Something in Qt depends on md4c, freetype and libjpeg-turbo. This should be fixed in Qt package.
+        # Something in Qt depends on md4c, freetype, libjpeg-turbo and harfbuzz. This should be fixed in Qt package.
         md4cInfo = self.dependencies["md4c"]
         env.append("LD_LIBRARY_PATH", md4cInfo.cpp_info.libdirs[0],separator=':')
         freetypeInfo = self.dependencies["freetype"]
         env.append("LD_LIBRARY_PATH", freetypeInfo.cpp_info.libdirs[0],separator=':')
         libjpegTurboInfo = self.dependencies["libjpeg-turbo"]
         env.append("LD_LIBRARY_PATH", libjpegTurboInfo.cpp_info.libdirs[0],separator=':')
+        harfbuzzInfo = self.dependencies["harfbuzz"]
+        env.append("LD_LIBRARY_PATH", harfbuzzInfo.cpp_info.libdirs[0],separator=':')
         env.define("CMAKE_PREFIX_PATH", f"{qtInfo.package_folder}:{llvmInfo.package_folder}")
         env.define("CPATH", f"/opt/rh/gcc-toolset-{os.environ['ASWF_DTS_VERSION']}/root/usr/lib/gcc/x86_64-redhat-linux/{os.environ['ASWF_DTS_VERSION']}/include")
         env_vars = env.vars(self)

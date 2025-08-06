@@ -6,7 +6,7 @@
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
-from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
+from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps, cmake_layout
 from conan.tools.env import VirtualBuildEnv
 from conan.tools.files import copy, get, replace_in_file, rm, rmdir
 from conan.tools.microsoft import is_msvc, is_msvc_static_runtime
@@ -129,6 +129,9 @@ class LibjpegTurboConan(ConanFile):
         if Version(self.version) < "3.0.2":
             tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
         tc.generate()
+        # ASWF: generate CMake dependencies
+        deps = CMakeDeps(self)
+        deps.generate()
 
     def _patch_sources(self):
         # use standard GNUInstallDirs.cmake - custom one is broken

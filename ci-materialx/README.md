@@ -50,6 +50,6 @@ Contains:
 
 Contains:
 * materialx-1.39.3
-* numpy-1.26.4
+* numpy-2.3.2
 * vfxplatform-2026
 

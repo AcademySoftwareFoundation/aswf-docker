@@ -15,6 +15,7 @@ brotli/*: brotli/system@aswf/vfx2026
 bzip2/*: bzip2/1.0.8@aswf/vfx2026
 c-blosc/*: c-blosc/1.21.6@aswf/vfx2026
 ceres-solver/*: ceres-solver/2.2.0@aswf/vfx2026
+cimg/*: cimg/3.3.2@aswf/vfx2026
 cpython/*: cpython/3.13.3@aswf/vfx2026
 dbus/*: dbus/system@aswf/vfx2026
 double-conversion/*: double-conversion/system@aswf/vfx2026
@@ -24,9 +25,11 @@ fmt/*: fmt/11.2.0@aswf/vfx2026
 fontconfig/*: fontconfig/system@aswf/vfx2026
 freetype/*: freetype/2.13.2@aswf/vfx2026
 gdbm/*: gdbm/system@aswf/vfx2026
-giflib/*: giflib/5.2.1@aswf/vfx2026
+giflib/*: giflib/5.1.4@aswf/vfx2026
 glew/*: glew/2.2.0@aswf/vfx2026
-glib/*: glib/2.68.4@aswf/vfx2026
+glfw/*: glfw/3.4@aswf/vfx2026
+glib/*: glib/2.56.4@aswf/vfx2026
+harfbuzz/*: harfbuzz/11.0.1@aswf/vfx2026
 hdf5/*: hdf5/1.14.6@aswf/vfx2026
 highway/*: highway/1.2.0@aswf/vfx2026
 icu/*: icu/system@aswf/vfx2026
@@ -43,12 +46,12 @@ libiconv/*: libiconv/1.18@aswf/vfx2026
 libjpeg-turbo/*: libjpeg-turbo/3.1.0@aswf/vfx2026
 libjxl/*: libjxl/0.11.1@aswf/vfx2026
 libmp3lame/*: libmp3lame/system@aswf/vfx2026
-libpng/*: libpng/1.6.37@aswf/vfx2026
+libpng/*: libpng/1.6.34@aswf/vfx2026
 libraw/*: libraw/0.21.4@aswf/vfx2026
 libsndfile/*: libsndfile/system@aswf/vfx2026
 libsquish/*: libsquish/system@aswf/vfx2026
 libsvt-av1/*: libsvt-av1/system@aswf/vfx2026
-libtiff/*: libtiff/4.4.0@aswf/vfx2026
+libtiff/*: libtiff/4.0.9@aswf/vfx2026
 libultrahdr/*: libultrahdr/1.4.0@aswf/vfx2026
 libvpx/*: libvpx/system@aswf/vfx2026
 libwebp/*: libwebp/1.5.0@aswf/vfx2026
@@ -64,11 +67,13 @@ nlohmann_json/*: nlohmann_json/3.12.0@aswf/vfx2026
 nspr/*: nspr/system@aswf/vfx2026
 nss/*: nss/3.101.0@aswf/vfx2026
 ocio/*: ocio/2.4.2@aswf/vfx2026
-oiio/*: oiio/3.0.8.1@aswf/vfx2026
+oiio/*: oiio/3.0.9.0@aswf/vfx2026
 ogg/*: ogg/system@aswf/vfx2026
 onetbb/*: onetbb/2022.1.0@aswf/vfx2026
 openal-soft/*: openal-soft/system@aswf/vfx2026
-openexr/*: openexr/3.3.5@aswf/vfx2026
+opencl-headers/*: opencl-headers/system@aswf/vfx2026
+opencl-icd-loader/*: opencl-icd-loader/system@aswf/vfx2026
+openexr/*: openexr/3.4-alpha@aswf/vfx2026
 opengl/*: opengl/system@aswf/vfx2026
 openjpeg/*: openjpeg/2.4.0@aswf/vfx2026
 openssl/*: openssl/system@aswf/vfx2026
@@ -81,6 +86,7 @@ pybind11/*: pybind11/2.13.6@aswf/vfx2026
 pystring/*: pystring/1.1.4@aswf/vfx2026
 qt/*: qt/6.8.3@aswf/vfx2026
 snappy/*: snappy/1.2.2@aswf/vfx2026
+spdlog/*: spdlog/system@aswf/vfx2026
 sqlite3/*: sqlite3/system@aswf/vfx2026
 tcl/*: tcl/system@aswf/vfx2026
 tk/*: tk/system@aswf/vfx2026
@@ -89,7 +95,7 @@ util-linux-libuuid/*: util-linux-libuuid/system@aswf/vfx2026
 vorbis/*: vorbis/system@aswf/vfx2026
 vulkan-headers/*: vulkan-headers/system@aswf/vfx2026
 vulkan-loader/*: vulkan-loader/system@aswf/vfx2026
-xkbcommon/*: xkbcommon/1.0.3@aswf/vfx2026
+xkbcommon/*: xkbcommon/0.9.1@aswf/vfx2026
 xorg/*: xorg/system@aswf/vfx2026
 xorg-proto/*: xorg-proto/system@aswf/vfx2026
 xz_utils/*: xz_utils/system@aswf/vfx2026
@@ -98,27 +104,27 @@ zlib/*: zlib/1.3.1@aswf/vfx2026
 zstd/*: zstd/1.576@aswf/vfx2026
 [replace_tool_requires]
 b2/*: b2/5.3.2@aswf/vfx2026
-bison/*: bison/3.7.4@system
+bison/*: bison/3.0.4@system
 cpython/*: cpython/3.13.3@aswf/vfx2026
-flex/*: flex/2.6.4@system
+flex/*: flex/2.6.1@system
 gperf/*: gperf/3.1@system
 libtool/*: libtool/2.4.6@system
-meson/*: meson/0.63.3@system
+meson/*: meson/0.58.2@system
 nasm/*: nasm/system@aswf/vfx2026
 ninja/*: ninja/1.13.1@aswf/ci_common6
-nodejs/*: nodejs/18.20.6@system
-pkgconf/*: pkgconf/1.7.3@system
-wayland/*: wayland/1.31.0@system
+nodejs/*: nodejs/18.20.4@system
+pkgconf/*: pkgconf/1.4.2@system
+wayland/*: wayland/1.21.0@system
 wayland-protocols/*: wayland-protocols/1.25@system
 [platform_requires]
 [platform_tool_requires]
-bison/3.7.4
-flex/2.6.4
+bison/3.0.4
+flex/2.6.1
 gperf/3.1
 libtool/2.4.6
-meson/0.63.3
-nodejs/18.20.6
-pkgconf/1.7.3
+meson/0.58.2
+nodejs/18.20.4
+pkgconf/1.4.2
 wayland/1.21.0
-wayland-protocols/1.31
+wayland-protocols/1.25
 [buildenv]

@@ -109,7 +109,7 @@ Contains:
 * bzip2-1.0.8
 * cppunit-1.15.1
 * expat-2.6.4
-* fmt-11.1.4
+* fmt-11.2.0
 * gtest-1.15.2
 * libbacktrace-cci.20210118
 * libdeflate-1.23
@@ -144,7 +144,7 @@ Contains:
 * bzip2-1.0.8
 * cppunit-1.15.1
 * expat-2.6.4
-* fmt-11.1.4
+* fmt-11.2.0
 * gtest-1.15.2
 * libbacktrace-cci.20210118
 * libdeflate-1.23
@@ -204,6 +204,6 @@ Contains:
 * md4c-0.5.2
 * qt-6.8.3
 * pyside-6.8.3
-* numpy-1.26.4
+* numpy-2.3.2
 * vfxplatform-2026
 

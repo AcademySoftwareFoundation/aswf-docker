@@ -74,7 +74,7 @@ CONAN_REQUIREMENTS = (
     "iconv",
     "icu",
     "lzma",
-    "python",
+    "cpython", # ASWF: Conan package is named cpython
     "zlib",
     "zstd",
 )
@@ -123,7 +123,7 @@ class BoostDependencyBuilder(object):
 
     @property
     def boost_path(self) -> Path:
-        return self.tmppath / "boost"
+        return Path(self.tmppath) / "boost"
 
     def do_git_update(self) -> None:
         if not self.boost_path.exists():
