@@ -1,0 +1,14 @@
+diff --git a/chromium/third_party/minigbm/src/drv.c b/chromium/third_party/minigbm/src/drv.c
+index 812445d934f..97cd46140d0 100644
+--- a/chromium/third_party/minigbm/src/drv.c
++++ b/chromium/third_party/minigbm/src/drv.c
+@@ -17,8 +17,8 @@
+
+ #ifdef __ANDROID__
+ #include <cutils/log.h>
+-#include <libgen.h>
+ #endif
++#include <libgen.h>
+
+ #include "drv_helpers.h"
+ #include "drv_priv.h"

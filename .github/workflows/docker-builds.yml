@@ -175,7 +175,7 @@ jobs:
           --use-conan \
           --build-missing
 
-    - name: Build base2 system wrapper and dependency Conan packages for ci-baseqt image
+    - name: Build base2 system wrapper Conan packages for ci-baseqt image
       run: |
         set -ex
         pipenv run aswfdocker \
@@ -185,6 +185,19 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group base2-wrappers \
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing
+
+    - name: Build base2 system Conan packages for ci-baseqt image
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
           --group base2-1
           --version ${{ matrix.version_noclang }} \
           --use-conan \
@@ -231,7 +244,7 @@ jobs:
           --version ${{ matrix.version }} \
           --push NO
 
-    - name: Build vfx1 system wrapper and level 1 Conan packages
+    - name: Build vfx1 system wrapper Conan packages
       run: |
         set -ex
         pipenv run aswfdocker \
@@ -241,6 +254,20 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group vfx1-wrappers \ 
+          --version ${{ matrix.version_noclang }} \
+          --use-conan \
+          --build-missing \
+          --push NO
+
+    - name: Build vfx1 level 1 Conan packages
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
           --group vfx1-1 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \

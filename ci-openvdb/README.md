@@ -126,14 +126,14 @@ Contains:
 ## [aswf/ci-openvdb:2025-clang18.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2025-clang18.2)
 
 Contains:
-* openvdb-12.0.0
+* openvdb-12.0.1
 * numpy-1.26.4
 * vfxplatform-2025
 
 ## [aswf/ci-openvdb:2025-clang19.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2025-clang19.2)
 
 Contains:
-* openvdb-12.0.0
+* openvdb-12.0.1
 * numpy-1.26.4
 * vfxplatform-2025
 
@@ -141,13 +141,13 @@ Contains:
 
 Contains:
 * openvdb-12.0.1
-* numpy-1.26.4
+* numpy-2.3.2
 * vfxplatform-2026
 
 ## [aswf/ci-openvdb:2026-clang20.0](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2026-clang20.0)
 
 Contains:
 * openvdb-12.0.1
-* numpy-1.26.4
+* numpy-2.3.2
 * vfxplatform-2026
 

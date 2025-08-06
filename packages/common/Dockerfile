@@ -193,6 +193,8 @@ ENV ASWF_CONAN_ROOT=/opt/conan \
 # the generate() method doesn't seem to have access to build/host env vars
 # set in profile or on the conan command line.
 ENV GCC_INSTALL_PREFIX=/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr
+# Different version for --gcc-install-dir
+ENV GCC_INSTALL_TRIPLET=${GCC_INSTALL_PREFIX}/lib/gcc/x86_64-redhat-linux/${ASWF_DTS_VERSION}
 
 # With "conan create --profile" we no longer need to set a default profile
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
@@ -201,6 +203,21 @@ ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 # recipes per package.
 ENV ASWF_PKG_DIR=${ASWF_CONAN_HOME}/recipes/${ASWF_PKG_NAME}
 ENV ASWF_PKG_YML=${ASWF_PKG_DIR}/config.yml
+
+# When you want to delete a specific package from the cache, use * for all packages
+#RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
+#    --mount=type=cache,target=${CCACHE_DIR} \
+#    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
+#    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
+#    conan cache clean "fmt/*"  --source --build --download --temp --backup-sources && \
+#    conan remove --confirm "fmt/*"
+
+# When you want to list the package versions found in the cache
+#RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
+#    --mount=type=cache,target=${CCACHE_DIR} \
+#    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
+#    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
+#    conan list "fmt/11.2.0@aswftesting/vfx2026:*"
 
 RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
     --mount=type=cache,target=${CCACHE_DIR} \

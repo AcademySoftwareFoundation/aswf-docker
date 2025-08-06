@@ -71,6 +71,6 @@ Contains:
 
 Contains:
 * ocio-2.4.2
-* numpy-1.26.4
+* numpy-2.3.2
 * vfxplatform-2026
 

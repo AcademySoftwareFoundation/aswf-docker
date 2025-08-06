@@ -157,7 +157,7 @@ Contains:
 * bzip2-1.0.8
 * cppunit-1.15.1
 * expat-2.6.4
-* fmt-11.1.4
+* fmt-11.2.0
 * gtest-1.15.2
 * libbacktrace-cci.20210118
 * libdeflate-1.23
@@ -205,7 +205,7 @@ Contains:
 * bzip2-1.0.8
 * cppunit-1.15.1
 * expat-2.6.4
-* fmt-11.1.4
+* fmt-11.2.0
 * gtest-1.15.2
 * libbacktrace-cci.20210118
 * libdeflate-1.23
@@ -240,7 +240,7 @@ Contains:
 * openexr-3.3.5
 * alembic-1.8.8
 * ocio-2.4.2
-* oiio-3.0.8.1
+* oiio-3.0.9.0
 * materialx-1.39.3
 * numpy-1.26.4
 * hdf5-1.14.6
@@ -285,12 +285,12 @@ Contains:
 * partio-1.19.0
 * ptex-2.4.3
 * libjxl-0.11.1
-* openexr-3.3.5
+* openexr-3.4-alpha
 * alembic-1.8.8
 * ocio-2.4.2
-* oiio-3.0.8.1
+* oiio-3.0.9.0
 * materialx-1.39.3
-* numpy-1.26.4
+* numpy-2.3.2
 * hdf5-1.14.6
 * vfxplatform-2026
 

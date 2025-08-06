@@ -102,6 +102,8 @@ class LibultrahdrConan(ConanFile):
             self.cpp_info.requires = ["libjpeg::libjpeg"]
         elif self.options.with_jpeg == "libjpeg-turbo":
             self.cpp_info.requires = ["libjpeg-turbo::jpeg"]
+            # ASWF: we build libjpeg-turbo with turbojpeg enabled, propagate dependency
+            self.cpp_info.requires.append("libjpeg-turbo::turbojpeg")
         elif self.options.with_jpeg == "mozjpeg":
             self.cpp_info.requires = ["mozjpeg::libjpeg"]
 

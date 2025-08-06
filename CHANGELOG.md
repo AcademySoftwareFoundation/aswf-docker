@@ -19,6 +19,7 @@ consumers of these new images.
     - Sonar Cloud 7.1.0.4889 (was 6.2.1.4610)
     - Alembic 1.8.8 (was 1.8.6)
     - Blosc 1.21.6 (was 1.21.5)
+    - fmt 11.2.0 (was 11.1.4)
     - GLEW 2.2.0 (was 2.1.0)
     - GLFW 3.4 (was 3.3.8)
     - gtest 1.15.2 (was 1.14.0)
@@ -39,32 +40,38 @@ consumers of these new images.
     - Ninja 1.13.1 (was 1.12.1)
     - Sonar Cloud 7.1.0.4889 (was 6.2.1.4610)
     - LLVM 19.1.7 (was 19.1.1)
+    - fmt 11.2.0 (was 11.1.4)
     - hdf5 1.14.6
     - lcms 2.17 (was 2.16)
     - minizip-ng 4.0.10 (was 4.0.8)
     - opensubdiv 3.6.1 (was 3.6.0)
     - python 3.11.13 (was 3.11.11)
     - Qt 6.5.6 (was 6.5.4)
-    - OIIO 3.0.8.1 (was 3.0.6.1)
+    - OIIO 3.0.9.0 (was 3.0.6.1)
     - OpenEXR 3.3.5 (was 3.3.3)
     - OpenFX 1.5s
-    - OSL 1.14.6.0 (was 1.14.5.1)
+    - OpenVDB 12.0.1 (was 12.0.0)
+    - OSL 1.14.7.0 (was 1.14.5.1)
     - PySide 6.5.6 (was 6.5.4)
     - USD 25.05.01 (was 25.05)
-- 2026.0
-  - pre-release for testing purposes, does not yet include late releasing ASWF packages in final 2026 release (OOCIO, OpenEXR, OpenVDB)
+- 2026.0 draft images
+  - pre-release for testing purposes, does not yet include final versions of late releasing packages for VFX Platform 2026 (OOCIO, OpenEXR, OpenVDB, OpenSubDiv)
+  - OpenEXR includes a pre-release of 3.4.x
   - see `ci_common6` and `2026` sections of `versions.yaml` for full list of package versions
 - to minimize local changes against upstream Conan recipes and avoid spending time fighting build systems which hard code `lib` as the destination directory, all changes related to landing DSOs and support files in `lib64` are reverted
-- new Conan package and build images for OpenFX
-- new Conan package and build images for rawtoaces
+- new Conan package and build images for OpenFX based on conanfile.py from OpenFX repo (Conan Center Index has older version)
+  - adds dependant Conan package cimg
+- new [Conan package and build images for rawtoaces](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/273)
   - adds dependant Conan packages libraw, jasper, jsonformoderncpp, ceres-solver, eigen , aces_container
 - Alembic now [built with hdf5 dependency](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/254)
 - OpenVDB now [built as a Conan package](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/231)
-- OpenImageIO builds with libraw support](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/264), [Python bindings](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/272) and OpenJPEG/JPEG2000 support
+- OpenImageIO builds with libraw support](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/264) and OpenJPEG/JPEG2000 support
 - system wrapper Conan packages
   - improved wrapper packages no longer declare include directories and libraries they don't include
   - query container OS for installed system package version instead of hard coding (pkgconfig / rpm)
 - libuhdr Conan package renamed to libultrahdr and updated to match new Conan Center Index package
+- blosc Conan package renamed to c-blosc to match Conan Center Index
+- Qt now built against harfbuzz text shaping library from vendored Conan package
 - aswfdocker utility gets "conandiff" option to show upstream changes to vendored Conan Center Index recipes to help
 with keeping recipes up to date
   - merge upstream recipe changes, in particular changes for CMake 4 compatibility

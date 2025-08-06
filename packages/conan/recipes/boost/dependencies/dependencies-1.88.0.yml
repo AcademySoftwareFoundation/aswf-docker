@@ -80,6 +80,7 @@ dependencies:
   - container
   - system
   locale:
+  - charconv
   - thread
   log:
   - atomic
@@ -122,7 +123,9 @@ dependencies:
   - system
   - context
   program_options: []
-  python: []
+  python:
+  - graph
+  - container
   random:
   - system
   regex: []
@@ -288,7 +291,7 @@ requirements:
   - iconv
   - icu
   python:
-  - python
+  - cpython
   regex:
   - icu
   stacktrace:

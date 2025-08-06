@@ -72,9 +72,6 @@ class ImathConan(ConanFile):
         # ASWF: Build Python and Pybind11 bindings
         tc.variables["PYTHON"] = "ON"
         tc.variables["PYBIND11"] = "ON"
-        # ASWF: FIXME: Python_ROOT and Boost_ROOT required to find Conan-installed packages?
-        # tc.cache_variables["Python_ROOT"] = self.deps_cpp_info["python"].rootpath
-        # tc.cache_variables["Boost_ROOT"] = self.deps_cpp_info["boost"].rootpath
         tc.generate()
 
     def build(self):
@@ -96,7 +93,6 @@ class ImathConan(ConanFile):
     def package_info(self):
         # ASWF: Imath will use pybind11 soon, requires boost
         self.cpp_info.requires.append("cpython::cpython")
-        self.cpp_info.requires.append("boost::boost")
         self.cpp_info.requires.append("pybind11::pybind11")
 
         self.cpp_info.set_property("cmake_file_name", "Imath")
@@ -114,6 +110,7 @@ class ImathConan(ConanFile):
         imath_lib.set_property("pkg_config_name", "Imath")
         imath_lib.libs = collect_libs(self)
         imath_lib.requires = ["imath_config"]
+        imath_lib.requires.extend(["boost::boost", "boost::python", "boost::graph", "boost::container"])
         if self.settings.os == "Windows" and self.options.shared:
             imath_lib.defines.append("IMATH_DLL")
 

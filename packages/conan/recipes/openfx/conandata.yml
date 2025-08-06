@@ -7,8 +7,14 @@
 sources:
   "1.5s":
     url: "https://github.com/AcademySoftwareFoundation/openfx/archive/refs/tags/OFX_Release_1.5s.tar.gz"
+    sha256: "09edcd56f1dad4d07514a247bf1cd7e8459b99df8206f434be018dabb32b367c"
   "1.5":
     url: "https://github.com/AcademySoftwareFoundation/openfx/archive/refs/tags/OFX_Release_1.5.tar.gz"
+    sha256: "553a8e2c24eabd263e6ece8d85fd08650c9601b689dd8c16dfa0c5895bb078d3"
   "1.4":
     url: "https://github.com/ofxa/openfx/archive/refs/tags/OFX_Release_1_4_TAG.tar.gz"
     sha256: "1f2d057b2cff025979f631f092f138020315524d4c0c0dcc2dccdadc2313a62f"
+patches:
+  "1.5s":
+    - patch_file: "patches/openfx_cmake_relative.patch"
+      patch_description: "Don't reference CMake source directory"

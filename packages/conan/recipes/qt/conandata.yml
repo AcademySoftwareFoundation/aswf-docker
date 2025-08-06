@@ -161,6 +161,9 @@ patches:
       "patch_file": "patches/ee87cbe_6.8.3.diff"
       "patch_source": "https://code.qt.io/cgit/qt/qtwebengine-chromium.git/patch/?id=ee87cbeb738a7f1108e38afc75f5b35b5085fe90"
       "patch_type": "bugfix"
+    - "base_path": "qtwebengine/src/3rdparty"
+      "patch_description": "basename() called unconditionally, needs libgen.h"
+      "patch_file": "patches/minigbm-basename-6.8.3.diff"
   "6.7.3":
     - "base_path": "qtwebengine"
       "patch_description": "Workaround for too long .rps file name"

@@ -267,7 +267,7 @@ requirements:
   - iconv
   - icu
   python:
-  - python
+  - cpython
   regex:
   - icu
   stacktrace:

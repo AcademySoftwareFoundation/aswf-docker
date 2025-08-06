@@ -1,118 +1,124 @@
-# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the OpenFX Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD 3-Clause
 #
-# From: https://github.com/conan-io/conan-center-index/blob/47ec06eaf213b77bf96c28079434b4fe4446cc46/recipes/openfx/all/conanfile.py
+# This conanfile.py comes from the OpenFX project itself until it gets accepted
+# into the Conan Center Index.
+#
+# From: https://github.com/AcademySoftwareFoundation/openfx/blob/158c8b69d9a2016755696138e027fdfd71bab552/conanfile.py
 
-import os
 
 from conan import ConanFile
-from conan.tools.apple import is_apple_os
-from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import copy, get, rmdir
+from conan.tools.files import apply_conandata_patches, export_conandata_patches, copy, collect_libs, get
+import os
 
-required_conan_version = ">=1.53.0"
-
+required_conan_version = ">=1.59.0"
 
 class openfx(ConanFile):
-    name = "openfx"
-    description = "OpenFX image processing plug-in standard."
-    license = "BSD-3-Clause"
-    url = "https://github.com/conan-io/conan-center-index"
-    homepage = "http://openeffects.org"
-    topics = ("image-processing", "standard")
+	name = "openfx"
+	# version = "1.4.0" # ASWF: version comes from environment
+	license = "BSD-3-Clause"
+	url = "https://github.com/AcademySoftwareFoundation/openfx"
+	description = "OpenFX image processing plug-in standard"
+	
+	exports_sources = (
+		"cmake/*",
+		"Examples/*",
+		"HostSupport/*",
+		"include/*",
+		"scripts/*",
+		"Support/*",
+		"CMakeLists.txt",
+		"LICENSE",
+		"README.md",
+		"INSTALL.md"
+	)
 
-    package_type = "library"
-    settings = "os", "arch", "compiler", "build_type"
-    options = {
-        "shared": [True, False],
-        "fPIC": [True, False],
-    }
-    default_options = {
-        "shared": False,
-        "fPIC": True,
-    }
+	settings = "os", "arch", "compiler", "build_type"
+	options = {"use_opencl": [True, False]}
+	default_options = {
+		"expat/*:shared": True,
+                "use_opencl": True,            # ASWF: build with OpenCL support
+                "spdlog/*:header_only": False, # ASWF: system spdlog is not header only
+                "fmt/*:header_only": False     # ASWF: our fmt build is not header only
+	}
 
-    def export_sources(self):
-        copy(self, "CMakeLists.txt", src=self.recipe_folder, dst=self.export_sources_folder)
-        copy(self, "*",
-             src=os.path.join(self.recipe_folder, "cmake"),
-             dst=os.path.join(self.export_sources_folder, "cmake"))
-        copy(self, "*",
-             src=os.path.join(self.recipe_folder, "symbols"),
-             dst=os.path.join(self.export_sources_folder, "symbols"))
+	def export_sources(self):
+		export_conandata_patches(self)
+	
+	def requirements(self):
+		if self.options.use_opencl: # for OpenCL examples
+			self.requires("opencl-icd-loader/2023.12.14")
+			self.requires("opencl-headers/2023.12.14")
+		self.requires("opengl/system") # for OpenGL examples
+		self.requires("expat/2.4.8") # for HostSupport
+		self.requires("cimg/3.3.2") # to draw text into images
+		self.requires("spdlog/1.13.0") # for logging
 
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
+	def layout(self):
+		cmake_layout(self)
 
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
+	def source(self):
+		get(self, **self.conan_data["sources"][self.version], strip_root=True) # ASWF: download sources
 
-    def layout(self):
-        cmake_layout(self, src_folder="src")
+	def generate(self):
+		deps = CMakeDeps(self)
+		deps.generate()
 
-    def requirements(self):
-        self.requires("opengl/system")
-        self.requires("expat/[>=2.6.2 <3]")
+		tc = CMakeToolchain(self)
+		tc.variables["OFX_SUPPORTS_OPENGLRENDER"] = True # ASWF: exercise OpenGL / OpenCL / CUDA dependencies
+		tc.variables["OFX_SUPPORTS_OPENCLRENDER"] = True
+		tc.variables["OFX_SUPPORTS_CUDARENDER"] = True
+		if self.settings.os == "Windows":
+			tc.preprocessor_definitions["WINDOWS"] = 1
+			tc.preprocessor_definitions["NOMINMAX"] = 1
+		tc.generate()
 
-    def validate(self):
-        if self.settings.compiler.get_safe("cppstd"):
-            check_min_cppstd(self, 11)
+	def build(self):
+		apply_conandata_patches(self)
+		cmake = CMake(self)
+		cmake.configure()
+		cmake.build()
 
-    def source(self):
-        get(self, **self.conan_data["sources"][self.version], strip_root=True)
+	def package(self):
+		copy(self, "cmake/*", src=self.source_folder, dst=self.package_folder)
+                # ASWF: license files in project specific directory
+		copy(self, "LICENSE, README.md, INSTALL.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
+		copy(self, "include/*.h", src=self.source_folder, dst=self.package_folder)
+		copy(self,"HostSupport/include/*.h", src=self.source_folder, dst=self.package_folder)
+		copy(self,"Support/*.h", src=self.source_folder, dst=self.package_folder)
+		copy(self,"Support/Plugins/include/*.h", src=self.source_folder, dst=self.package_folder)
+		copy(self,"*.a", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
+		copy(self,"*.lib", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
+		copy(self,"*.ofx", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
+		copy(self,"*.dll", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
+		copy(self,"*.so", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
+		copy(self,"*", src=os.path.join(self.source_folder, "Examples"), dst=os.path.join(self.package_folder, "Examples"))
 
-    def generate(self):
-        tc = CMakeToolchain(self)
-        tc.generate()
-        tc = CMakeDeps(self)
-        tc.generate()
+	def package_info(self):
+		libs = collect_libs(self)
 
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure(build_script_folder=self.source_path.parent)
-        cmake.build()
+		self.cpp_info.set_property("cmake_file_name", "openfx")
+		self.cpp_info.set_property("cmake_target_name", "openfx::openfx")
 
-    @property
-    def _build_modules(self):
-        return [os.path.join("lib", "cmake", "OpenFX.cmake")]
+		self.cpp_info.set_property("cmake_build_modules", [os.path.join("cmake", "OpenFX.cmake")])
+		self.cpp_info.components["Api"].includedirs = ["include"]
+		self.cpp_info.components["HostSupport"].libs = [i for i in libs if "OfxHost" in i]
+		self.cpp_info.components["HostSupport"].includedirs = ["HostSupport/include"]
+		self.cpp_info.components["HostSupport"].requires = ["expat::expat"]
+		self.cpp_info.components["Support"].libs = [i for i in libs if "OfxSupport" in i]
+		self.cpp_info.components["Support"].includedirs = ["Support/include"]
+		self.cpp_info.components["Support"].requires = ["opengl::opengl"]
 
-    def package(self):
-        cmake = CMake(self)
-        cmake.install()
-        rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
-        copy(self, "*.symbols",
-             src=os.path.join(self.export_sources_folder, "symbols"),
-             dst=os.path.join(self.package_folder, "lib", "symbols"))
-        copy(self, "*.cmake",
-             src=os.path.join(self.export_sources_folder, "cmake"),
-             dst=os.path.join(self.package_folder, "lib", "cmake"))
-        copy(self, "LICENSE",
-             src=os.path.join(self.source_folder, "Support"),
-             dst=os.path.join(self.package_folder, "licenses"))
+		if self.settings.os == "Windows":
+			win_defines = ["WINDOWS", "NOMINMAX"]
+			self.cpp_info.components["Api"].defines = win_defines
+			self.cpp_info.components["HostSupport"].defines = win_defines
+			self.cpp_info.components["Support"].defines = win_defines
 
-    def package_info(self):
-        self.cpp_info.set_property("cmake_file_name", "openfx")
-        self.cpp_info.set_property("cmake_target_name", "openfx::openfx")
-        self.cpp_info.set_property("cmake_build_modules", self._build_modules)
-        self.cpp_info.builddirs.append(os.path.join("lib", "cmake"))
-
-        if self.options.shared:
-            self.cpp_info.libs = ["OfxSupport"]
-        else:
-            self.cpp_info.libs = ["OfxHost", "OfxSupport"]
-
-        if self.settings.os in ("Linux", "FreeBSD"):
-            self.cpp_info.system_libs.extend(["GL"])
-        if is_apple_os(self):
-            self.cpp_info.frameworks = ["CoreFoundation", "OpenGL"]
-
-        # TODO: to remove in conan v2 once cmake_find_package_* generators removed
-        self.cpp_info.names["cmake_find_package"] = "openfx"
-        self.cpp_info.names["cmake_find_package_multi"] = "openfx"
-        self.cpp_info.build_modules["cmake_find_package"] = self._build_modules
-        self.cpp_info.build_modules["cmake_find_package_multi"] = self._build_modules
+		# ASWF: need to reference all dependencies to make Conan happy
+		# self.cpp_info.components["Examples"].set_property("cmake_examples_dir", "Examples")
+		self.cpp_info.components["Examples"].requires = ["spdlog::spdlog", "cimg::cimg"]
+		if self.options.use_opencl: # for OpenCL examples
+			self.cpp_info.components["Examples"].requires.extend(["opencl-icd-loader::opencl-icd-loader", "opencl-headers::opencl-headers"])
