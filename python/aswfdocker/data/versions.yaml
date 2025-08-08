@@ -548,7 +548,6 @@ versions:
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
       ASWF_PULSEAUDIO_VERSION: "system"
-      ASWF_SPDLOG_VERSION: "system"
       ASWF_SQLITE3_VERSION: "system"
       ASWF_TCL_VERSION: "system"
       ASWF_TK_VERSION: "system"
@@ -599,6 +598,7 @@ versions:
       ASWF_PYBIND11_VERSION: "2.13.6"
       ASWF_PYSTRING_VERSION: "1.1.4"
       ASWF_SNAPPY_VERSION: "1.1.10"
+      ASWF_SPDLOG_VERSION: "1.15.3"
       ASWF_TSL_ROBIN_MAP_VERSION: "1.3.0"
       ASWF_USD_VERSION: "24.08"
       ASWF_YAML_CPP_VERSION: "0.8.0"
@@ -683,7 +683,6 @@ versions:
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
       ASWF_PULSEAUDIO_VERSION: "system"
-      ASWF_SPDLOG_VERSION: "system"
       ASWF_SQLITE3_VERSION: "system"
       ASWF_TCL_VERSION: "system"
       ASWF_TK_VERSION: "system"
@@ -734,6 +733,7 @@ versions:
       ASWF_PYBIND11_VERSION: "2.13.6"
       ASWF_PYSTRING_VERSION: "1.1.4"
       ASWF_SNAPPY_VERSION: "1.1.10"
+      ASWF_SPDLOG_VERSION: "1.15.3"
       ASWF_TSL_ROBIN_MAP_VERSION: "1.3.0"
       ASWF_USD_VERSION: "25.05.01"
       ASWF_YAML_CPP_VERSION: "0.8.0"
@@ -758,7 +758,7 @@ versions:
       ASWF_MATERIALX_VERSION: "1.39.3"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.4.2"
-      ASWF_OIIO_VERSION: "3.0.9.0"
+      ASWF_OIIO_VERSION: "3.0.9.1"
       ASWF_OPENEXR_VERSION: "3.3.5"
       ASWF_OPENFX_VERSION: "1.5s"
       ASWF_OPENRV_VERSION: "2.1.0"
@@ -819,7 +819,6 @@ versions:
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
       ASWF_PULSEAUDIO_VERSION: "system"
-      ASWF_SPDLOG_VERSION: "system"
       ASWF_SQLITE3_VERSION: "system"
       ASWF_TCL_VERSION: "system"
       ASWF_TK_VERSION: "system"
@@ -870,6 +869,7 @@ versions:
       ASWF_PYBIND11_VERSION: "2.13.6"
       ASWF_PYSTRING_VERSION: "1.1.4"
       ASWF_SNAPPY_VERSION: "1.2.2"
+      ASWF_SPDLOG_VERSION: "1.15.3"
       ASWF_TSL_ROBIN_MAP_VERSION: "1.4.0"
       ASWF_USD_VERSION: "25.08"
       ASWF_YAML_CPP_VERSION: "0.8.0"
@@ -894,7 +894,7 @@ versions:
       ASWF_MATERIALX_VERSION: "1.39.3"
       ASWF_OCIO_CONFIGS_VERSION: "1.0_r2"
       ASWF_OCIO_VERSION: "2.4.2"
-      ASWF_OIIO_VERSION: "3.0.9.0"
+      ASWF_OIIO_VERSION: "3.0.9.1"
       ASWF_OPENEXR_VERSION: "3.4-alpha"
       ASWF_OPENFX_VERSION: "1.5s"
       ASWF_OPENRV_VERSION: "2.1.0"
@@ -1774,7 +1774,6 @@ groups:
         - libvpx
         - mpg123
         - ogg
-        - spdlog
         - vorbis
       vfx1-1:
         - aces_container
@@ -1788,6 +1787,7 @@ groups:
         - opensubdiv
         - partio
         - ptex
+        - spdlog
       vfx1-2:
          - libjxl
          - libraw
@@ -1852,6 +1852,7 @@ conan_only:
   - brotli
   - bzip2
   - ceres-solver
+  - cimg
   - clang
   - cmake
   - cppunit

@@ -287,7 +287,7 @@ yum install -y \
     libxshmfence \
     libxshmfence-devel \
     nss-devel \
-    ocl-icd \
+    ocl-icd-devel \
     opencl-headers \
     patchelf \
     p7zip \

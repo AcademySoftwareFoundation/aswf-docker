@@ -3,63 +3,29 @@ title: "VFX All CI Docker Image"
 description: |
   Contains: all supported VFX packages
 packages:
-  - c-blosc
-  - boost
   - cppunit
-  - cpython
-  - expat
-  - freetype
   - glew
-  - glfw
-  - libbacktrace
+  - gtest
+  - libxcrypt     # No longer a dependency of cpython as of 3.13
   - log4cplus
-  - lz4
-  - md4c
-  - pybind11
-  - snappy
-  - onetbb
-  - zlib
-  - zstd
-  - dbus
-  - double-conversion
-  - fontconfig
-  - glib
-  - libalsa
-  - libdrm
-  - libjpeg-turbo
-  - libjxl
-  - libraw
-  - libsndfile
-  - libtiff
-  - libwebp
-  - libxshmfence
-  - md4c
-  - nss
-  - openal-soft
-  - openjpeg
-  - opus
-  - pulseaudio
-  - xkbcommon
   - qt
   - pyside
+  - opensubdiv    # Dependency of USD once it becomes Conan package
+  - partio        # Dependency of OSL once it becomes Conan package
+  - alembic       # Dependency of USD once it becomes Conan package
   - imath
   - openexr
-  - alembic
   - oiio
   - ocio
   - openfx
-  - opensubdiv
-  - ptex
   - openvdb
   - materialx
   - usd
-  - partio
   - osl
   - otio
   - rawtoaces
 implicit_packages:
   - numpy
-  - hdf5
   - vfxplatform
 docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
 docker_package_version: $ASWF_VFXPLATFORM_VERSION

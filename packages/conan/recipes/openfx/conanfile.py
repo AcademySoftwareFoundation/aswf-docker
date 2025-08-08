@@ -40,8 +40,8 @@ class openfx(ConanFile):
 	default_options = {
 		"expat/*:shared": True,
                 "use_opencl": True,            # ASWF: build with OpenCL support
-                "spdlog/*:header_only": False, # ASWF: system spdlog is not header only
-                "fmt/*:header_only": False     # ASWF: our fmt build is not header only
+                "spdlog/*:header_only": True,
+                "fmt/*:header_only": False     # ASWF: our fmt is not build header_only
 	}
 
 	def export_sources(self):
@@ -70,6 +70,7 @@ class openfx(ConanFile):
 		tc.variables["OFX_SUPPORTS_OPENGLRENDER"] = True # ASWF: exercise OpenGL / OpenCL / CUDA dependencies
 		tc.variables["OFX_SUPPORTS_OPENCLRENDER"] = True
 		tc.variables["OFX_SUPPORTS_CUDARENDER"] = True
+		tc.variables["BUILD_EXAMPLE_PLUGINS"] = True
 		if self.settings.os == "Windows":
 			tc.preprocessor_definitions["WINDOWS"] = 1
 			tc.preprocessor_definitions["NOMINMAX"] = 1
@@ -118,7 +119,6 @@ class openfx(ConanFile):
 			self.cpp_info.components["Support"].defines = win_defines
 
 		# ASWF: need to reference all dependencies to make Conan happy
-		# self.cpp_info.components["Examples"].set_property("cmake_examples_dir", "Examples")
 		self.cpp_info.components["Examples"].requires = ["spdlog::spdlog", "cimg::cimg"]
 		if self.options.use_opencl: # for OpenCL examples
 			self.cpp_info.components["Examples"].requires.extend(["opencl-icd-loader::opencl-icd-loader", "opencl-headers::opencl-headers"])

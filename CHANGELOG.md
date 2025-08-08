@@ -28,7 +28,7 @@ consumers of these new images.
     - log4cplus 2.1.2 (was 2.1.1)
     - minizip-ng 4.0.10 (was 4.0.8)
     - pybind11 2.13.6 (was 2.12.0)
-    - opensubdive 3.6.1 (was 3.6.0)
+    - opensubdiv 3.6.1 (was 3.6.0)
     - python 3.11.13 (was 3.11.11)
     - Qt 6.5.6 (was 6.5.4)
     - OIIO 2.5.19.0 (was 2.5.18.0)
@@ -50,6 +50,7 @@ consumers of these new images.
     - OIIO 3.0.9.0 (was 3.0.6.1)
     - OpenEXR 3.3.5 (was 3.3.3)
     - OpenFX 1.5s
+    - OpenImageIO 3.0.9.1 (was 3.0.6.1)
     - OpenVDB 12.0.1 (was 12.0.0)
     - OSL 1.14.7.0 (was 1.14.5.1)
     - PySide 6.5.6 (was 6.5.4)
@@ -60,7 +61,7 @@ consumers of these new images.
   - see `ci_common6` and `2026` sections of `versions.yaml` for full list of package versions
 - to minimize local changes against upstream Conan recipes and avoid spending time fighting build systems which hard code `lib` as the destination directory, all changes related to landing DSOs and support files in `lib64` are reverted
 - new Conan package and build images for OpenFX based on conanfile.py from OpenFX repo (Conan Center Index has older version)
-  - adds dependant Conan package cimg
+  - adds dependant Conan package cimg, spdlog
 - new [Conan package and build images for rawtoaces](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/273)
   - adds dependant Conan packages libraw, jasper, jsonformoderncpp, ceres-solver, eigen , aces_container
 - Alembic now [built with hdf5 dependency](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/254)

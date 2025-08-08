@@ -82,7 +82,7 @@ pulseaudio/*: pulseaudio/system@aswftesting/vfx2024
 pybind11/*: pybind11/2.13.6@aswftesting/vfx2024
 pystring/*: pystring/1.1.4@aswftesting/vfx2024
 snappy/*: snappy/1.1.10@aswftesting/vfx2024
-spdlog/*: spdlog/system@aswftesting/vfx2024
+spdlog/*: spdlog/1.15.3@aswftesting/vfx2024
 sqlite3/*: sqlite3/system@aswftesting/vfx2024
 tcl/*: tcl/system@aswftesting/vfx2024
 tk/*: tk/system@aswftesting/vfx2024
