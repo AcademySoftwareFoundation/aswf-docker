@@ -67,7 +67,7 @@ nlohmann_json/*: nlohmann_json/3.12.0@aswftesting/vfx2026
 nspr/*: nspr/system@aswftesting/vfx2026
 nss/*: nss/3.101.0@aswftesting/vfx2026
 ocio/*: ocio/2.4.2@aswftesting/vfx2026
-oiio/*: oiio/3.0.9.0@aswftesting/vfx2026
+oiio/*: oiio/3.0.9.1@aswftesting/vfx2026
 ogg/*: ogg/system@aswftesting/vfx2026
 onetbb/*: onetbb/2022.1.0@aswftesting/vfx2026
 openal-soft/*: openal-soft/system@aswftesting/vfx2026
@@ -86,7 +86,7 @@ pybind11/*: pybind11/2.13.6@aswftesting/vfx2026
 pystring/*: pystring/1.1.4@aswftesting/vfx2026
 qt/*: qt/6.8.3@aswftesting/vfx2026
 snappy/*: snappy/1.2.2@aswftesting/vfx2026
-spdlog/*: spdlog/system@aswftesting/vfx2026
+spdlog/*: spdlog/1.15.3@aswftesting/vfx2026
 sqlite3/*: sqlite3/system@aswftesting/vfx2026
 tcl/*: tcl/system@aswftesting/vfx2026
 tk/*: tk/system@aswftesting/vfx2026

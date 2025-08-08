@@ -65,7 +65,7 @@ nlohmann_json/*: nlohmann_json/3.12.0@aswf/vfx2025
 nspr/*: nspr/system@aswf/vfx2025
 nss/*: nss/3.101.0@aswf/vfx2025
 ocio/*: ocio/2.4.2@aswf/vfx2025
-oiio/*: oiio/3.0.9.0@aswf/vfx2025
+oiio/*: oiio/3.0.9.1@aswf/vfx2025
 ogg/*: ogg/system@aswf/vfx2025
 onetbb/*: onetbb/2021.13.0@aswf/vfx2025
 openal-soft/*: openal-soft/system@aswf/vfx2025
@@ -83,7 +83,7 @@ pulseaudio/*: pulseaudio/system@aswr/vfx2025
 pybind11/*: pybind11/2.13.6@aswf/vfx2025
 pystring/*: pystring/1.1.4@aswf/vfx2025
 snappy/*: snappy/1.1.10@aswf/vfx2025
-spdlog/*: spdlog/system@aswf/vfx2025
+spdlog/*: spdlog/1.15.3@aswf/vfx2025
 sqlite3/*: sqlite3/system@aswf/vfx2025
 tcl/*: tcl/system@aswf/vfx2025
 tk/*: tk/system@aswf/vfx2025

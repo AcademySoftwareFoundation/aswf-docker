@@ -240,7 +240,7 @@ Contains:
 * openexr-3.3.5
 * alembic-1.8.8
 * ocio-2.4.2
-* oiio-3.0.9.0
+* oiio-3.0.9.1
 * materialx-1.39.3
 * numpy-1.26.4
 * hdf5-1.14.6
@@ -288,7 +288,7 @@ Contains:
 * openexr-3.4-alpha
 * alembic-1.8.8
 * ocio-2.4.2
-* oiio-3.0.9.0
+* oiio-3.0.9.1
 * materialx-1.39.3
 * numpy-2.3.2
 * hdf5-1.14.6
