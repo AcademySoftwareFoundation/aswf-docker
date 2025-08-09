@@ -20,6 +20,8 @@ class TestPackageConan(ConanFile):
 
     def requirements(self):
         self.requires(self.tested_reference_str)
+        # ASWF: this shouldn't be required but boost_python doesn't correctly encode its dependency on libpython
+        self.requires(f"cpython/{os.environ['ASWF_CPYTHON_VERSION']}@{self.user}/{self.channel}", transitive_headers=True, transitive_libs=True)
 
     def build(self):
         cmake = CMake(self)

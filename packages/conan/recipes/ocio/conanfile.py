@@ -76,7 +76,9 @@ class OpenColorIOConan(ConanFile):
         self.requires("lcms/2.16")
         # TODO: add GLUT (needed for ociodisplay tool)
 
-        # ASWF: needs glew
+        # ASWF: needs cpython, pybind11 and glew
+        self.requires("cpython/3.13.3")
+        self.requires("pybind11/2.13.6")
         self.requires("glew/2.1.0")
 
     def validate(self):
@@ -115,7 +117,7 @@ class OpenColorIOConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables["CMAKE_VERBOSE_MAKEFILE"] = True
         if Version(self.version) >= "2.1.0":
-            tc.variables["OCIO_BUILD_PYTHON"] = False
+            tc.variables["OCIO_BUILD_PYTHON"] = True # ASWF: build python bindings
         else:
             tc.variables["OCIO_BUILD_SHARED"] = self.options.shared
             tc.variables["OCIO_BUILD_STATIC"] = not self.options.shared

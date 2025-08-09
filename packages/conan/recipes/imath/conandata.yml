@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/imath/all/conandata.yml
 
 sources:
+  "3.2.0":
+    url: "https://github.com/AcademySoftwareFoundation/Imath/archive/v3.2.0.tar.gz"
+    sha256: "f3c0c4210b5e6fe17d90cd7ebbe9638eea9fb458421d00eddb4d1a9d5ad47b36"
   "3.1.12":
     url: "https://github.com/AcademySoftwareFoundation/Imath/archive/v3.1.12.tar.gz"
     sha256: "8a1bc258f3149b5729c2f4f8ffd337c0e57f09096e4ba9784329f40c4a9035da"
@@ -21,6 +24,9 @@ sources:
     url: "https://github.com/AcademySoftwareFoundation/Imath/archive/v3.1.8.tar.gz"
     sha256: "a23a4e2160ca8ff68607a4e129e484edd1d0d13f707394d32af7aed659020803"
 patches:
+  "3.2.0":
+    - patch_file: "patches/3.2.0-clang-format.patch"
+      patch_description: "Don't add heavyweight dependency on clang-format"
   "3.1.10":
     - patch_file: "patches/3.1.10-gcc5-backport.patch"
       patch_description: "Add std:: prefix for isfinite (Backport from main, two commits on the file fix the issue)"

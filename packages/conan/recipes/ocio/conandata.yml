@@ -34,6 +34,9 @@ patches:
     - patch_file: "patches/2.4.2-0002-cmake-deps-for-shared-libs.patch"
       patch_description: "don't skip cmake dependencies for shared builds"
       patch_type: "conan"
+    - patch_file: "patches/2.4.2-0004-find-python.patch"
+      patch_description: "We call FindPython3"
+      patch_type: "conan"
   "2.4.1":
     - patch_file: "patches/2.4.1-0001-fix-cmake-source-dir-and-targets.patch"
       patch_description: "use cci package, use project_binary_dir/project_source_dir"
@@ -45,6 +48,9 @@ patches:
   "2.3.2":
     - patch_file: "patches/2.3.1-0001-fix-cmake-source-dir-and-targets.patch"
       patch_description: "use cci package, use PROJECT_BINARY_DIR/PROJECT_SOURCE_DIR"
+      patch_type: "conan"
+    - patch_file: "patches/2.3.2-0004-find-python.patch"
+      patch_description: "We call FindPython3"
       patch_type: "conan"
   "2.2.1":
     - patch_file: "patches/2.2.1-0001-fix-cmake-source-dir-and-targets.patch"

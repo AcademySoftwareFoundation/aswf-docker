@@ -278,7 +278,7 @@ Contains:
 * qt-6.8.3
 * pyside-6.8.3
 * highway-1.2.0
-* imath-3.1.12
+* imath-3.2.0
 * lcms-2.17
 * libultrahdr-1.4.0
 * opensubdiv-3.6.1
