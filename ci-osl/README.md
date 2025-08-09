@@ -301,7 +301,7 @@ Contains:
 Contains:
 * cpython-3.13.3
 * fmt-11.2.0
-* imath-3.1.12
+* imath-3.2.0
 * oiio-3.0.9.1
 * partio-1.19.0
 * pugixml-1.15
@@ -318,7 +318,7 @@ Contains:
 Contains:
 * cpython-3.13.3
 * fmt-11.2.0
-* imath-3.1.12
+* imath-3.2.0
 * oiio-3.0.9.1
 * partio-1.19.0
 * pugixml-1.15

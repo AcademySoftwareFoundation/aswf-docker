@@ -7,8 +7,9 @@
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
-from conan.tools.files import apply_conandata_patches, collect_libs, copy, export_conandata_patches, get, rmdir
+from conan.tools.files import apply_conandata_patches, collect_libs, copy, export_conandata_patches, get, replace_in_file, rmdir
 from conan.tools.microsoft import is_msvc
+from conan.tools.scm import Version
 import os
 
 required_conan_version = ">=1.53.0"
@@ -69,13 +70,30 @@ class ImathConan(ConanFile):
             # when msvc is working with a C++ standard level higher
             # than the default, we need the __cplusplus macro to be correct
             tc.variables["CMAKE_CXX_FLAGS"] = "/Zc:__cplusplus"
-        # ASWF: Build Python and Pybind11 bindings
+        # ASWF: Build Python bindings, pybind11 not quire ready yet
         tc.variables["PYTHON"] = "ON"
-        tc.variables["PYBIND11"] = "ON"
+        tc.variables["PYBIND11"] = "OFF"
         tc.generate()
 
     def build(self):
         apply_conandata_patches(self)
+
+        # ASWF: starting with version 3.2.0, src/python/CMakeLists.txt calls:
+        # find_package(Boost REQUIRED COMPONENTS python)
+        # but our buils of boost::python bake in the python version, so we have
+        # to add the suffix based on the current Python version (can't be done
+        # by a static patch in conandat.yml)
+        if Version(self.version) >= "3.2.0":
+            python_version = Version(self.dependencies["cpython"].ref.version)
+            boost_component = f"python{python_version.major}{python_version.minor}"  # 'python313'
+            replace_in_file(self, os.path.join(self.source_folder, "src", "python", "CMakeLists.txt"),
+                "find_package(Boost REQUIRED COMPONENTS python)",
+                f"find_package(Boost REQUIRED COMPONENTS {boost_component})")
+            dirs = [ "PyImath", "PyImathNumpy", "PyImathTest" ]
+            for cmake_file in [os.path.join(self.source_folder, "src", "python", d, "CMakeLists.txt") for d in dirs]:
+                replace_in_file(self, cmake_file,
+                    "Boost::python",
+                    f"Boost::{boost_component}")
 
         cmake = CMake(self)
         cmake.configure()

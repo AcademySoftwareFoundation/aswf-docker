@@ -1,0 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bfec292..c8c2e7e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -138,7 +138,7 @@
+ # Including this module will add a `clang-format` target to the build
+ # if the clang-format executable can be found. Only do this if we are
+ # top level.
+-if(NOT IMATH_IS_SUBPROJECT)
+-  include(cmake/clang-format.cmake)
+-endif()
++#if(NOT IMATH_IS_SUBPROJECT)
++#  include(cmake/clang-format.cmake)
++#endif()
+

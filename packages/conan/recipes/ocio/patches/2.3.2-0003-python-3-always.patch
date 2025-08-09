@@ -1,0 +1,13 @@
+diff --git src/bindings/python/PyOpenColorIO.cpp src/bindings/python/PyOpenColorIO.cpp
+index 0eaec4be..e711295c 100755
+--- src/bindings/python/PyOpenColorIO.cpp
++++ src/bindings/python/PyOpenColorIO.cpp
+@@ -22,7 +22,7 @@
+         py::register_exception<ExceptionMissingFile>(
+             m, "ExceptionMissingFile");
+
+-#if PY_VERSION_MAJOR >= 3
++#if 1
+     // __doc__ is not writable after class creation in Python 2
+     clsException.doc() = DOC(Exception);
+     clsExceptionMissingFile.doc() = DOC(ExceptionMissingFile);

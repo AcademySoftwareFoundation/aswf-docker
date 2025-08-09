@@ -209,7 +209,7 @@ Contains:
 * md4c-0.5.2
 * qt-6.8.3
 * pyside-6.8.3
-* imath-3.1.12
+* imath-3.2.0
 * numpy-2.3.2
 * vfxplatform-2026
 

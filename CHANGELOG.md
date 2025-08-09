@@ -32,8 +32,9 @@ consumers of these new images.
     - python 3.11.13 (was 3.11.11)
     - Qt 6.5.6 (was 6.5.4)
     - OIIO 2.5.19.0 (was 2.5.18.0)
-    - OpenFX 1.5s
+    - OpenFX 1.5s (new)
     - PySide 6.5.6 (was 6.5.4)
+    - rawtoaces 1.1-rc3 (new)
 - 2025.2
   - updated versions
     - Conan 2.18.1 (was 2.14.0)
@@ -55,6 +56,7 @@ consumers of these new images.
     - OSL 1.14.7.0 (was 1.14.5.1)
     - PySide 6.5.6 (was 6.5.4)
     - USD 25.05.01 (was 25.05)
+    - rawtoaces 1.1-rc3 (new)
 - 2026.0 draft images
   - pre-release for testing purposes, does not yet include final versions of late releasing packages for VFX Platform 2026 (OOCIO, OpenEXR, OpenVDB, OpenSubDiv)
   - OpenEXR includes a pre-release of 3.4.x
@@ -64,9 +66,11 @@ consumers of these new images.
   - adds dependant Conan package cimg, spdlog
 - new [Conan package and build images for rawtoaces](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/273)
   - adds dependant Conan packages libraw, jasper, jsonformoderncpp, ceres-solver, eigen , aces_container
+  - pre-release 1.1-rc3
 - Alembic now [built with hdf5 dependency](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/254)
 - OpenVDB now [built as a Conan package](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/231)
 - OpenImageIO builds with libraw support](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/264) and OpenJPEG/JPEG2000 support
+- OpenColorIO Python bindings now being built
 - system wrapper Conan packages
   - improved wrapper packages no longer declare include directories and libraries they don't include
   - query container OS for installed system package version instead of hard coding (pkgconfig / rpm)
