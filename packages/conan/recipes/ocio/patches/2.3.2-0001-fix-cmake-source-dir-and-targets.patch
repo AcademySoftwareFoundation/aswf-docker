@@ -1,16 +1,3 @@
-diff --git CMakeLists.txt CMakeLists.txt
-index 7b62a993..5ea33694 100755
---- CMakeLists.txt
-+++ CMakeLists.txt
-@@ -511,7 +511,7 @@ install(
-     FILE ${OCIO_TARGETS_EXPORT_NAME}
- )
- 
--if (NOT BUILD_SHARED_LIBS)
-+if (0)
-     # Install custom macros used in the find modules.
-     install(FILES
-         ${CMAKE_CURRENT_LIST_DIR}/share/cmake/macros/VersionUtils.cmake
 diff --git share/cmake/modules/FindExtPackages.cmake share/cmake/modules/FindExtPackages.cmake
 index 2625242c..dcb41cf2 100644
 --- share/cmake/modules/FindExtPackages.cmake
