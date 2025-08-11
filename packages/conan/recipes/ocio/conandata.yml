@@ -46,7 +46,7 @@ patches:
       patch_description: "use cci package, use PROJECT_BINARY_DIR/PROJECT_SOURCE_DIR"
       patch_type: "conan"
   "2.3.2":
-    - patch_file: "patches/2.3.1-0001-fix-cmake-source-dir-and-targets.patch"
+    - patch_file: "patches/2.3.2-0001-fix-cmake-source-dir-and-targets.patch"
       patch_description: "use cci package, use PROJECT_BINARY_DIR/PROJECT_SOURCE_DIR"
       patch_type: "conan"
     - patch_file: "patches/2.3.2-0004-find-python.patch"
