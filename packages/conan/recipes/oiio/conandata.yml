@@ -85,8 +85,11 @@ patches:
       patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
       patch_type: "conan"
   "2.5.19.0":
-    - patch_file: "patches/2.5.17.0-cmake-targets.patch"
+    - patch_file: "patches/2.5.19.0-cmake-targets.patch"
       patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+    - patch_file: "patches/2.5.19.0-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
       patch_type: "conan"
   "3.0.4.0":
     - patch_file: "patches/3.0.4.0-cmake-fmt.patch"

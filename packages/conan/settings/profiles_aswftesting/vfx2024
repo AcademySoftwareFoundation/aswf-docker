@@ -25,7 +25,7 @@ freetype/*: freetype/2.13.2@aswftesting/vfx2024
 gdbm/*: gdbm/system@aswftesting/vfx2024
 giflib/*: giflib/5.1.4@aswftesting/vfx2024
 glew/*: glew/2.2.0@aswftesting/vfx2024
-glfw/*: glfw/2.3@aswftesting/vfx2024
+glfw/*: glfw/3.4@aswftesting/vfx2024
 glib/*: glib/2.56.4@aswftesting/vfx2024
 harfbuzz/*: harfbuzz/11.0.1@aswftesting/vfx2024
 hdf5/*: hdf5/1.14.6@aswftesting/vfx2024
@@ -65,8 +65,9 @@ nlohmann_json/*: nlohmann_json/3.12.0@aswftesting/vfx2024
 nspr/*: nspr/system@aswftesting/vfx2024
 nss/*: nss/3.101.0@aswftesting/vfx2024
 ocio/*: ocio/2.3.2@aswftesting/vfx2024
-oiio/*: oiio/2.5.18.0@aswftesting/vfx2024
+oiio/*: oiio/2.5.19.0@aswftesting/vfx2024
 ogg/*: ogg/system@aswftesting/vfx2024
+onetbb/*: onetbb/2020_u3@aswftesting/vfx2024
 openal-soft/*: openal-soft/system@aswftesting/vfx2024
 opencl-headers/*: opencl-headers/system@aswftesting/vfx2024
 opencl-icd-loader/*: opencl-icd-loader/system@aswftesting/vfx2024
@@ -81,6 +82,7 @@ pugixml/*: pugixml/1.14@aswftesting/vfx2024
 pulseaudio/*: pulseaudio/system@aswftesting/vfx2024
 pybind11/*: pybind11/2.13.6@aswftesting/vfx2024
 pystring/*: pystring/1.1.4@aswftesting/vfx2024
+qt/*: qt/6.5.6@aswftesting/vfx2024
 snappy/*: snappy/1.1.10@aswftesting/vfx2024
 spdlog/*: spdlog/1.15.3@aswftesting/vfx2024
 sqlite3/*: sqlite3/system@aswftesting/vfx2024
