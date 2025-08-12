@@ -66,7 +66,8 @@ nspr/*: nspr/system@aswf/vfx2024
 nss/*: nss/3.101.0@aswf/vfx2024
 ocio/*: ocio/2.3.2@aswf/vfx2024
 ogg/*: ogg/system@aswf/vfx2024
-oiio/*: oiio/2.5.18.0@aswf/vfx2024
+oiio/*: oiio/2.5.19.0@aswf/vfx2024
+onetbb/*: onetbb/2020_u3@aswftesting/vfx2024
 openal-soft/*: openal-soft/system@aswf/vfx2024
 opencl-headers/*: opencl-headers/system@aswf/vfx2024
 opencl-icd-loader/*: opencl-icd-loader/system@aswf/vfx2024
@@ -81,6 +82,7 @@ pugixml/*: pugixml/1.14@aswf/vfx2024
 pulseaudio/*: pulseaudio/system@aswf/vfx2024
 pybind11/*: pybind11/2.13.6@aswf/vfx2024
 pystring/*: pystring/1.1.4@aswf/vfx2024
+qt/*: qt/6.5.6@aswf/vfx2024
 snappy/*: snappy/1.1.10@aswf/vfx2024
 spdlog/*: spdlog/1.15.3@aswf/vfx2024
 sqlite3/*: sqlite3/system@aswf/vfx2024

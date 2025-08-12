@@ -31,11 +31,11 @@ consumers of these new images.
     - opensubdiv 3.6.1 (was 3.6.0)
     - python 3.11.13 (was 3.11.11)
     - Qt 6.5.6 (was 6.5.4)
-    - OIIO 2.5.19.0 (was 2.5.18.0)
+    - OIIO 2.5.19.0 (was 2.5.16.0)
     - OpenFX 1.5s (new)
     - PySide 6.5.6 (was 6.5.4)
     - rawtoaces 1.1-rc3 (new)
-- 2025.2
+- 2025.2 release
   - updated versions
     - Conan 2.18.1 (was 2.14.0)
     - Ninja 1.13.1 (was 1.12.1)
