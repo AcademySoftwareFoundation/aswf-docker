@@ -4,6 +4,9 @@
 #
 
 sources:
+  "1.1.0":
+    url: "https://github.com/AcademySoftwareFoundation/rawtoaces/archive/refs/tags/v1.1.tar.gz"
+    sha256: "3c919d9d47c2faa4ff989f4698d44196b8857374ffebd9dd5bf59e2676075329"
   "1.1-rc3":
     url: "https://github.com/AcademySoftwareFoundation/rawtoaces/archive/refs/tags/v1.1-RC3.tar.gz"
     sha256: "773451aa3cd05bcf91af7ff4150678e2230f1f5c495fd93030cde8c77e6c0c07"
@@ -11,6 +14,11 @@ sources:
     url: "https://github.com/AcademySoftwareFoundation/rawtoaces/archive/refs/tags/vfx2026.0.tar.gz"
     sha256: "292fdf087dd5543f2de08fb85378f62489436a3146c657b80a0f52ca227680c7"
 patches:
+  "1.1.0":
+    - patch_file: "patches/1.1-rc3-cmake_libraw_target.diff"
+      patch_description: "libraw Cmake target from Conan Center Index recipe"
+      patch_type: "conan"
+
   "1.1-rc3":
     - patch_file: "patches/1.1-rc3-cmake_libraw_target.diff"
       patch_description: "libraw Cmake target from Conan Center Index recipe"

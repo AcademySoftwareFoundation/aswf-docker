@@ -630,7 +630,7 @@ versions:
       ASWF_OPENVDB_VERSION: "11.0.0"
       ASWF_OSL_VERSION: "1.13.11.0"
       ASWF_OTIO_VERSION: "0.17.0"
-      ASWF_RAWTOACES_VERSION: "1.1-rc3"
+      ASWF_RAWTOACES_VERSION: "1.1.0"
   "2024-clang16":
     parent_versions: ["4", "4-clang16", "2024"]
     major_version: "2024"
@@ -765,7 +765,7 @@ versions:
       ASWF_OPENVDB_VERSION: "12.0.1"
       ASWF_OSL_VERSION: "1.14.7.0"
       ASWF_OTIO_VERSION: "0.17.0"
-      ASWF_RAWTOACES_VERSION: "1.1-rc3" 
+      ASWF_RAWTOACES_VERSION: "1.1.0" 
   "2025-clang18":
     parent_versions: ["5", "5-clang18", "2025"]
     major_version: "2025"
@@ -901,7 +901,7 @@ versions:
       ASWF_OPENVDB_VERSION: "12.0.1"
       ASWF_OSL_VERSION: "1.14.7.0"
       ASWF_OTIO_VERSION: "0.17.0"
-      ASWF_RAWTOACES_VERSION: "1.1-rc3"
+      ASWF_RAWTOACES_VERSION: "1.1.0"
   "2026-clang19":
     parent_versions: ["6", "6-clang19", "2026"]
     major_version: "2026"
