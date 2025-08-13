@@ -34,7 +34,7 @@ consumers of these new images.
     - OIIO 2.5.19.0 (was 2.5.16.0)
     - OpenFX 1.5s (new)
     - PySide 6.5.6 (was 6.5.4)
-    - rawtoaces 1.1-rc3 (new)
+    - rawtoaces 1.1.0 (new)
 - 2025.2 release
   - updated versions
     - Conan 2.18.1 (was 2.14.0)
@@ -56,7 +56,7 @@ consumers of these new images.
     - OSL 1.14.7.0 (was 1.14.5.1)
     - PySide 6.5.6 (was 6.5.4)
     - USD 25.05.01 (was 25.05)
-    - rawtoaces 1.1-rc3 (new)
+    - rawtoaces 1.1.0 (new)
 - 2026.0 draft images
   - pre-release for testing purposes, does not yet include final versions of late releasing packages for VFX Platform 2026 (OOCIO, OpenEXR, OpenVDB, OpenSubDiv)
   - OpenEXR includes a pre-release of 3.4.x

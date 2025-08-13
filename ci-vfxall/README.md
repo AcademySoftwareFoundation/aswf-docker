@@ -346,7 +346,7 @@ Contains:
 * usd-24.08
 * osl-1.13.11.0
 * otio-0.17.0
-* rawtoaces-1.1-rc3
+* rawtoaces-1.1.0
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -373,7 +373,7 @@ Contains:
 * usd-24.08
 * osl-1.13.11.0
 * otio-0.17.0
-* rawtoaces-1.1-rc3
+* rawtoaces-1.1.0
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -400,7 +400,7 @@ Contains:
 * usd-25.05.01
 * osl-1.14.7.0
 * otio-0.17.0
-* rawtoaces-1.1-rc3
+* rawtoaces-1.1.0
 * numpy-1.26.4
 * vfxplatform-2025
 
@@ -427,7 +427,7 @@ Contains:
 * usd-25.05.01
 * osl-1.14.7.0
 * otio-0.17.0
-* rawtoaces-1.1-rc3
+* rawtoaces-1.1.0
 * numpy-1.26.4
 * vfxplatform-2025
 
@@ -454,7 +454,7 @@ Contains:
 * usd-25.08
 * osl-1.14.7.0
 * otio-0.17.0
-* rawtoaces-1.1-rc3
+* rawtoaces-1.1.0
 * numpy-2.3.2
 * vfxplatform-2026
 
@@ -481,7 +481,7 @@ Contains:
 * usd-25.08
 * osl-1.14.7.0
 * otio-0.17.0
-* rawtoaces-1.1-rc3
+* rawtoaces-1.1.0
 * numpy-2.3.2
 * vfxplatform-2026
 
