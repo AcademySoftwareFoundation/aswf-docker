@@ -35,7 +35,7 @@ Contains:
 ## [aswf/ci-materialx:2024.3](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2024.3)
 
 Contains:
-* materialx-1.39.2
+* materialx-1.39.1
 * numpy-1.24.3
 * vfxplatform-2024
 

@@ -41,7 +41,13 @@ patches:
     - patch_file: "patches/pybind11-cmake.patch"
       patch_description: "CMake: Must call find_package() on Python3 before pybind11"
       patch_type: "conan"
+    - patch_file: "patches/1.39.3-cmake-libraries.patch"
+      patch_descriptions: "MaterialX support files in share/MaterialX"
+      patch_type: "conan"
   "1.39.1":
     - patch_file: "patches/pybind11-cmake.patch"
       patch_description: "CMake: Must call find_package() on Python3 before pybind11"
+      patch_type: "conan"
+    - patch_file: "patches/1.39.3-cmake-libraries.patch"
+      patch_descriptions: "MaterialX support files in share/MaterialX"
       patch_type: "conan"

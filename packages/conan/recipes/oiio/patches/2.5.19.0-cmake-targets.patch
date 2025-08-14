@@ -331,12 +331,14 @@ index 6556cd2eb..b9c4cd958 100644
      endif ()
      # If an external copy wasn't found and we requested that missing
      # packages be built, or we we are forcing a local copy to be built, then
-@@ -378,7 +414,7 @@ macro (find_or_download_fmt)
+@@ -378,7 +414,9 @@ macro (find_or_download_fmt)
          set (fmt_VERSION "${FMT_VERSION_MAJOR}.${FMT_VERSION_MINOR}.${FMT_VERSION_PATCH}")
          list (APPEND CFP_ALL_BUILD_DEPS_FOUND "${pkgname} ${${pkgname}_VERSION}")
      else ()
 -        get_target_property(FMT_INCLUDE_DIR fmt::fmt-header-only INTERFACE_INCLUDE_DIRECTORIES)
 +        get_target_property(FMT_INCLUDE_DIR fmt::fmt INTERFACE_INCLUDE_DIRECTORIES)
++        # Get rid of generator expression from Conan
++        string(REGEX REPLACE "^\\$<\\$<CONFIG:Release>:(.*)>$" "\\1" FMT_INCLUDE_DIR "${FMT_INCLUDE_DIR}")
          set (OIIO_USING_FMT_LOCAL FALSE)
          checked_find_package (fmt REQUIRED
                                VERSION_MIN 7.0)
@@ -495,7 +497,7 @@ diff --git src/libutil/CMakeLists.txt src/libutil/CMakeLists.txt
 index f873b3eed..cf5d4e74c 100644
 --- src/libutil/CMakeLists.txt
 +++ src/libutil/CMakeLists.txt
-@@ -20,20 +20,13 @@ target_link_libraries (OpenImageIO_Util
+@@ -20,15 +20,15 @@ target_link_libraries (OpenImageIO_Util
              ${GCC_ATOMIC_LIBRARIES}
              ${OPENIMAGEIO_IMATH_DEPENDENCY_VISIBILITY}
              ${OPENIMAGEIO_IMATH_TARGETS}
@@ -507,17 +509,13 @@ index f873b3eed..cf5d4e74c 100644
              $<TARGET_NAME_IF_EXISTS:TBB::tbb>
              ${CMAKE_DL_LIBS}
          )
- 
--if (INTERNALIZE_FMT OR OIIO_USING_FMT_LOCAL)
+
+ if (INTERNALIZE_FMT OR OIIO_USING_FMT_LOCAL)
 -    add_dependencies(OpenImageIO_Util fmt_internal_target)
--else ()
--    target_link_libraries (OpenImageIO_Util
--                           PUBLIC fmt::fmt-header-only)
--endif ()
--
- if (WIN32)
-     add_definitions(-DWIN32_LEAN_AND_MEAN -DNOMINMAX -DNOGDI -DVC_EXTRALEAN)
-     target_link_libraries (OpenImageIO_Util PRIVATE psapi)
++    add_dependencies(OpenImageIO_Util fmt::fmt)
+ else ()
+     target_link_libraries (OpenImageIO_Util
+                            PUBLIC fmt::fmt-header-only)
 diff --git src/ptex.imageio/CMakeLists.txt src/ptex.imageio/CMakeLists.txt
 index 16634fedb..82060ac29 100644
 --- src/ptex.imageio/CMakeLists.txt
@@ -538,3 +536,17 @@ index 16634fedb..82060ac29 100644
 +                     INCLUDE_DIRS ${ptex_INCLUDE_DIRS}
                       DEFINITIONS "-DUSE_PTEX")
  endif ()
+ 
+diff --git src/cmake/Config.cmake.in src/cmake/Config.cmake.in
+index 16634fedb..82060ac29 10064
+--- src/cmake/Config.cmake.in
++++ src/cmake/Config.cmake.in
+@@ -21,7 +21,7 @@
+     endif ()
+ endif ()
+
+-if (NOT @OIIO_USING_FMT_LOCAL@ AND NOT @INTERNALIZE_FMT@)
++if (1)
+     find_dependency(fmt)
+ endif ()
+ 

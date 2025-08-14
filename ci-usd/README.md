@@ -193,7 +193,7 @@ Contains:
 * alembic-1.8.8
 * ocio-2.3.2
 * oiio-2.5.19.0
-* materialx-1.39.2
+* materialx-1.39.1
 * numpy-1.24.3
 * hdf5-1.14.6
 * vfxplatform-2024

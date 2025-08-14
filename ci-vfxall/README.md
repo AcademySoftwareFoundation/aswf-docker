@@ -342,7 +342,7 @@ Contains:
 * ocio-2.3.2
 * openfx-1.5s
 * openvdb-11.0.0
-* materialx-1.39.2
+* materialx-1.39.1
 * usd-24.08
 * osl-1.13.11.0
 * otio-0.17.0
@@ -369,7 +369,7 @@ Contains:
 * ocio-2.3.2
 * openfx-1.5s
 * openvdb-11.0.0
-* materialx-1.39.2
+* materialx-1.39.1
 * usd-24.08
 * osl-1.13.11.0
 * otio-0.17.0
