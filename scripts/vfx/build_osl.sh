@@ -11,6 +11,36 @@ fi
 tar -zxf "$DOWNLOADS_DIR/osl-${ASWF_OSL_VERSION}.tar.gz"
 cd "OpenShadingLanguage-${ASWF_OSL_VERSION}"
 
+if [[ $ASWF_OSL_VERSION == 1.13.11.0 ]]; then
+# Serialize CUDA builds to avoid race condition
+
+cat << 'EOF' | patch -p1
+diff --git a/src/testshade/CMakeLists.txt b/src/testshade/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- a/src/testshade/CMakeLists.txt
++++ b/src/testshade/CMakeLists.txt
+@@ -80,6 +80,9 @@
+ target_link_libraries (testshade
+                        PRIVATE
+                            oslexec oslquery)
++if (OSL_USE_OPTIX)
++    add_dependencies(testshade testshade_ptx)
++endif ()
+
+ install (TARGETS testshade RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} )
+
+@@ -96,6 +99,7 @@
+ if (NOT CODECOV)
+     # The 'libtestshade' library
+     add_library ( "libtestshade" ${testshade_srcs} )
++    add_dependencies(libtestshade testshade)
+
+     set_target_properties (libtestshade
+                            PROPERTIES
+EOF
+
+fi
+
 if [[ $ASWF_DTS_VERSION == 9 && $ASWF_CUDA_VERSION == 10* ]]; then
     CUDA_COMPUTE_VERSION=compute_30
 else
