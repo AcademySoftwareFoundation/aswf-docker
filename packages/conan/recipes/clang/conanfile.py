@@ -349,6 +349,7 @@ class ClangConan(ConanFile):
             # It is likely the latter that the user expects by a "shared library" build.
             "BUILD_SHARED_LIBS": False,
             "LLVM_ENABLE_PROJECTS": "clang;clang-tools-extra;lld",
+            "LLVM_ENABLE_RUNTIMES": "compiler-rt", # ASWF: some projects use address space sanitization
             "LLVM_BUILD_LLVM_DYLIB": self.options.shared,
             "LLVM_LINK_LLVM_DYLIB": self.options.shared,
             "LLVM_DYLIB_COMPONENTS": self.options.components,
