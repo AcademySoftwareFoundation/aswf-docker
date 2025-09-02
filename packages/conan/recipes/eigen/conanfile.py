@@ -5,9 +5,10 @@
 # From: https://github.com/conan-io/conan-center-index/blob/5f19361f49bc31a349b383c1f95c7f79627f728a/recipes/eigen/all/conanfile.py
 
 from conan import ConanFile
-from conan.tools.cmake import CMake, cmake_layout, CMakeToolchain
+from conan.tools.cmake import CMake, CMakeDeps, cmake_layout, CMakeToolchain
 from conan.tools.files import apply_conandata_patches, export_conandata_patches, copy, get, rmdir
 import os
+import re
 
 required_conan_version = ">=1.52.0"
 
@@ -52,6 +53,9 @@ class EigenConan(ConanFile):
         tc.cache_variables["EIGEN_TEST_NOQT"] = True
         tc.generate()
 
+        deps = CMakeDeps(self) # ASWF: CMake dependencies generator
+        deps.generate()
+
     def build(self):
         apply_conandata_patches(self)
         cmake = CMake(self)
@@ -65,6 +69,19 @@ class EigenConan(ConanFile):
         # ASWF: license files in package specific directories
         copy(self, "COPYING.*", self.source_folder, os.path.join(self.package_folder, "licenses", self.name))
         rmdir(self, os.path.join(self.package_folder, "share"))
+
+        # ASWF: package CMake files even though this is a header-library
+        target_dir = os.path.join(self.package_folder, "lib", "cmake", "Eigen3")
+        copy(self, "Eigen3Config.cmake", self.build_folder, target_dir)
+        copy(self, "Eigen3ConfigVersion.cmake", self.build_folder, target_dir)
+        copy(self, "Eigen3Targets.cmake", self.build_folder, target_dir)
+        # ASWF: since conan install is not processing these files, bake desired path
+        eigen3targets = os.path.join(target_dir,"Eigen3Targets.cmake")
+        with open(eigen3targets, 'r') as f:
+            file_data = f.read()
+        updated_data = re.sub(r"\/opt\/conan_home\/d\/b\/eigen[0-9a-f]{13}\/b\/src","/usr/local/include/eigen3", file_data)
+        with open(eigen3targets, 'w') as f:
+            f.write(updated_data)
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "Eigen3")

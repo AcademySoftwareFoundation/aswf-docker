@@ -212,3 +212,17 @@ class OpenColorIOConan(ConanFile):
 
         if is_msvc(self) and not self.options.shared:
             self.cpp_info.defines.append("OpenColorIO_SKIP_IMPORTS")
+
+        # ASWF: declare what we link against
+        self.cpp_info.requires = [
+            "expat::expat",
+            "openexr::openexr",
+            "imath::imath",
+            "yaml-cpp::yaml-cpp",
+            "minizip-ng::minizip-ng",
+            "lcms::lcms",
+            "cpython::cpython",
+            "pybind11::pybind11",
+            "pystring::pystring",
+            "glew::glew",
+        ]

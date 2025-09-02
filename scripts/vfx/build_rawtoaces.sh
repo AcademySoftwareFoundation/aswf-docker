@@ -8,7 +8,7 @@ mkdir rawtoaces
 cd rawtoaces
 
 if [ ! -f "$DOWNLOADS_DIR/ptex-${ASWF_RAWTOACES_VERSION}.tar.gz" ]; then
-    curl --location "https://github.com/AcademySoftwareFoundation/rawtoaces/archive/refs/tags/${ASWF_RAWTOACES_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/rawtoaces-${ASWF_RAWTOACES_VERSION}.tar.gz"
+    curl --location "https://github.com/AcademySoftwareFoundation/rawtoaces/archive/refs/tags/v${ASWF_RAWTOACES_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/rawtoaces-${ASWF_RAWTOACES_VERSION}.tar.gz"
 fi
 
 tar -zxf "$DOWNLOADS_DIR/rawtoaces-${ASWF_RAWTOACES_VERSION}.tar.gz"

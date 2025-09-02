@@ -67,7 +67,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
-* onetbb-2020_u3
+* onetbb-2020.3
 * cpython-3.9.15
 * glew-2.1.0
 * glfw-3.1.2
@@ -82,7 +82,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
-* onetbb-2020_u3
+* onetbb-2020.3
 * cpython-3.10.11
 * glew-2.1.0
 * glfw-3.1.2
@@ -92,7 +92,7 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-base:2024.3](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2024.3)
+## [aswf/ci-base:2024.4](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2024.4)
 
 Contains:
 * b2-5.2.1
@@ -109,7 +109,7 @@ Contains:
 * pugixml-1.14
 * pystring-1.1.4
 * snappy-1.1.10
-* onetbb-2020_u3
+* onetbb-2020.3
 * zlib-1.3.1
 * zstd-1.5.6
 * cpython-3.11.13
@@ -123,7 +123,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-base:2025.2](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2025.2)
+## [aswf/ci-base:2025.3](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2025.3)
 
 Contains:
 * b2-5.2.1
@@ -154,7 +154,7 @@ Contains:
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-base:2026.0](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2026.0)
+## [aswf/ci-base:2026.1](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2026.1)
 
 Contains:
 * b2-5.3.2

@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/47ec06eaf213b77bf96c28079434b4fe4446cc46/recipes/openvdb/all/conandata.yml
 
 sources:
+  "12.1.0":
+    url: "https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v12.1.0.tar.gz"
+    sha256: "ebb9652ad1d67274e2c85e6736cced5f04e313c5671ae1ae548f174cc76e9e64"
   "12.0.1":
     url: "https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v12.0.1.tar.gz"
     sha256: "a3c8724ecadabaf558b6e1bd6f1d695e93b82a7cfdf144b8551e5253340ddce0"

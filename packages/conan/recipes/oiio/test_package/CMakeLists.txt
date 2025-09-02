@@ -12,7 +12,7 @@ find_package(fmt REQUIRED CONFIG)
 
 add_executable(${PROJECT_NAME} test_package.cpp)
 # ASWF: when building test package, Conan package name is part of target
-target_link_libraries(${PROJECT_NAME} PRIVATE oiio::OpenImageIO
-                                              oiio::OpenImageIO_Util
+target_link_libraries(${PROJECT_NAME} PRIVATE OpenImageIO::OpenImageIO
+                                              OpenImageIO::OpenImageIO_Util
                                               fmt::fmt)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)

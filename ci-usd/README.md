@@ -101,7 +101,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
-* onetbb-2020_u3
+* onetbb-2020.3
 * cpython-3.9.15
 * glew-2.1.0
 * glfw-3.1.2
@@ -128,7 +128,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * gtest-1.11.0
-* onetbb-2020_u3
+* onetbb-2020.3
 * cpython-3.10.11
 * glew-2.1.0
 * glfw-3.1.2
@@ -150,7 +150,7 @@ Contains:
 * hdf5-1.8.23
 * vfxplatform-2023
 
-## [aswf/ci-usd:2024.3](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.3)
+## [aswf/ci-usd:2024.4](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.4)
 
 Contains:
 * b2-5.2.1
@@ -167,7 +167,7 @@ Contains:
 * pugixml-1.14
 * pystring-1.1.4
 * snappy-1.1.10
-* onetbb-2020_u3
+* onetbb-2020.3
 * zlib-1.3.1
 * zstd-1.5.6
 * cpython-3.11.13
@@ -198,7 +198,7 @@ Contains:
 * hdf5-1.14.6
 * vfxplatform-2024
 
-## [aswf/ci-usd:2025.2](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2025.2)
+## [aswf/ci-usd:2025.3](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2025.3)
 
 Contains:
 * b2-5.2.1
@@ -246,7 +246,7 @@ Contains:
 * hdf5-1.14.6
 * vfxplatform-2025
 
-## [aswf/ci-usd:2026.0](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2026.0)
+## [aswf/ci-usd:2026.1](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2026.1)
 
 Contains:
 * b2-5.3.2
@@ -278,7 +278,7 @@ Contains:
 * qt-6.8.3
 * pyside-6.8.3
 * highway-1.2.0
-* imath-3.2.0
+* imath-3.2.1
 * lcms-2.17
 * libultrahdr-1.4.0
 * opensubdiv-3.6.1

@@ -107,7 +107,7 @@ RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     /tmp/install_conan.sh
 
 #################### ci-conan-package-builder ####################
-FROM ci-baseos-gl-conan AS ci-conan-package-builder
+FROM ${ASWF_ORG}/ci-baseos-gl-conan:${CI_COMMON_VERSION} AS ci-conan-package-builder
 
 ARG ASWF_ORG
 ARG ASWF_CCACHE_VERSION

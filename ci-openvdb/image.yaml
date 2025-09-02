@@ -5,6 +5,7 @@ description: |
   Warning: this image does *not* contain OpenVDB itself as it is used to *build* OpenVDB!
 packages:
   - openvdb # all dependencies will be installed except openvdb itself
+  - gtest   # used by OpenVDB CI test suite
 implicit_packages:
   - numpy
   - vfxplatform

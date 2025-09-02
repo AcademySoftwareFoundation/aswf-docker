@@ -18,21 +18,21 @@ Warning: this image does *not* contain OpenFX itself as it is used to *build* Op
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-openfx/Dockerfile)
 
-## [aswf/ci-openfx:2024.3](https://hub.docker.com/r/aswf/ci-openfx/tags?page=1&name=2024.3)
+## [aswf/ci-openfx:2024.4](https://hub.docker.com/r/aswf/ci-openfx/tags?page=1&name=2024.4)
 
 Contains:
 * openfx-1.5s
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-openfx:2025.2](https://hub.docker.com/r/aswf/ci-openfx/tags?page=1&name=2025.2)
+## [aswf/ci-openfx:2025.3](https://hub.docker.com/r/aswf/ci-openfx/tags?page=1&name=2025.3)
 
 Contains:
 * openfx-1.5s
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-openfx:2026.0](https://hub.docker.com/r/aswf/ci-openfx/tags?page=1&name=2026.0)
+## [aswf/ci-openfx:2026.1](https://hub.docker.com/r/aswf/ci-openfx/tags?page=1&name=2026.1)
 
 Contains:
 * openfx-1.5s

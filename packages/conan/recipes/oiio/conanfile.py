@@ -251,6 +251,7 @@ class OpenImageIOConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "OpenImageIO")
+        self.cpp_info.set_property("cmake_target_name", "OpenImageIO::OpenImageIO") # ASWF: since we set name to oiio
         self.cpp_info.set_property("pkg_config_name", "OpenImageIO")
 
         self.cpp_info.names["cmake_find_package"] = "OpenImageIO"
@@ -273,6 +274,8 @@ class OpenImageIOConan(ConanFile):
             )
         if self.options.with_tbb:
             self.cpp_info.components["OpenImageIO_Util"].requires.append("onetbb::onetbb")
+        # ASWF: set correct CMake target name since our package is called oiio
+        self.cpp_info.components["OpenImageIO_Util"].set_property("cmake_target_name", "OpenImageIO::OpenImageIO_Util")
 
         # OpenImageIO::OpenImageIO
         # ASWF: _add_component() deprecated in Conan 2.0
