@@ -37,6 +37,7 @@ class OpenVDBConan(ConanFile):
         "shared": [True, False],
         "fPIC": [True, False],
         "build_ax": [True, False],
+        "build_binaries": [True, False], # ASWF: build binaries to exercise additional dependencies
         "simd": [None, "SSE42", "AVX"],
         "use_colored_output": [True, False],
         "use_delayed_loading": [True, False],
@@ -51,7 +52,8 @@ class OpenVDBConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "build_ax": False, # ASWF: need to figure out clang/llvm dependency to enable AX
+        "build_ax": True, # ASWF: OpenVDB 
+        "build_binaries": True, # ASWF: build binaries to exercise additional dependencies
         "simd": None,
         "use_colored_output": False,
         "use_delayed_loading": False,
@@ -64,6 +66,7 @@ class OpenVDBConan(ConanFile):
     }
     options_description = {
         "build_ax": "Build the OpenVDB AX library.",
+        "build_binaries": "Build the OpenVDB standalone utilities.", # ASWF
         "simd": (
             "Choose whether to enable SIMD compiler flags or not. "
             "Although not required, it is strongly recommended to enable SIMD. AVX implies SSE42."
@@ -122,6 +125,9 @@ class OpenVDBConan(ConanFile):
         if Version(self.version) < "10.0.0":
             del self.options.use_explicit_instantiation
             del self.options.use_delayed_loading
+        # ASWF: support to build with clang/llvm 16 or newer only in 12.1.0 or newer
+        if Version(self.version) < "12.1.0":
+            self.options.build_ax = False
 
     def configure(self):
         if self.options.shared:
@@ -147,11 +153,8 @@ class OpenVDBConan(ConanFile):
         if self.options.with_log4cplus:
             # log4cplus 2.x is not supported
             self.requires("log4cplus/1.2.2", transitive_headers=True)
-
-    def build_requirements(self):
-        # ASWF: need clang / llvm to build AX, FIXME need better way to determine llvm version
-        if self.options.build_ax:
-            self.tool_requires(f"clang/{os.environ['ASWF_PYSIDE_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
+        if self.options.build_binaries:
+            self.requires("glfw/3.4")
 
     def _check_compiler_version(self):
         compiler = str(self.settings.compiler)
@@ -179,6 +182,8 @@ class OpenVDBConan(ConanFile):
         if Version(self.version) >= "10.0.0":
             self.tool_requires("cmake/[>=3.18 <4]")
         if self.options.build_ax:
+             # ASWF: need clang / llvm to build AX, FIXME need better way to determine llvm version
+            self.tool_requires(f"clang/{os.environ['ASWF_PYSIDE_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
             if self._settings_build.os == "Windows":
                 self.tool_requires("winflexbison/2.5.25")
             else:
@@ -195,7 +200,7 @@ class OpenVDBConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables["Boost_USE_STATIC_LIBS"] = not self.dependencies["boost"].options.shared
         tc.variables["OPENVDB_BUILD_AX"] = self.options.build_ax
-        tc.variables["OPENVDB_BUILD_BINARIES"] = False
+        tc.variables["OPENVDB_BUILD_BINARIES"] = self.options.build_binaries # ASWF
         tc.variables["OPENVDB_BUILD_CORE"] = True
         tc.variables["OPENVDB_BUILD_DOCS"] = False
         tc.variables["OPENVDB_BUILD_HOUDINI_ABITESTS"] = False
@@ -304,6 +309,8 @@ class OpenVDBConan(ConanFile):
             main_component.requires.append("log4cplus::log4cplus")
         if self.options.use_imath_half:
             main_component.requires.append("imath::imath")
+        if self.options.build_binaries:
+            main_component.requires.append("glfw::glfw")
 
         # TODO: to remove in conan v2 once cmake_find_package_* generators removed
         self.cpp_info.names["cmake_find_package"] = "OpenVDB"

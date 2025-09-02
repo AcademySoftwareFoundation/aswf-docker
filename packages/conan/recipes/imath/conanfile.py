@@ -79,16 +79,22 @@ class ImathConan(ConanFile):
         apply_conandata_patches(self)
 
         # ASWF: starting with version 3.2.0, src/python/CMakeLists.txt calls:
-        # find_package(Boost REQUIRED COMPONENTS python)
-        # but our buils of boost::python bake in the python version, so we have
+        # find_package(Boost CONFIG REQUIRED COMPONENTS python)
+        # but our builds of boost::python bake in the python version, so we have
         # to add the suffix based on the current Python version (can't be done
-        # by a static patch in conandat.yml)
+        # by a static patch in conandata.yml)
         if Version(self.version) >= "3.2.0":
             python_version = Version(self.dependencies["cpython"].ref.version)
             boost_component = f"python{python_version.major}{python_version.minor}"  # 'python313'
-            replace_in_file(self, os.path.join(self.source_folder, "src", "python", "CMakeLists.txt"),
-                "find_package(Boost REQUIRED COMPONENTS python)",
-                f"find_package(Boost REQUIRED COMPONENTS {boost_component})")
+            if Version(self.version) == "3.2.0":
+                replace_in_file(self, os.path.join(self.source_folder, "src", "python", "CMakeLists.txt"),
+                    "find_package(Boost REQUIRED COMPONENTS python)",
+                    f"find_package(Boost REQUIRED COMPONENTS {boost_component})")
+            else:
+                # ASWF: removing CONFIG allows find_package(Boost...) to work in our Conan environment
+                replace_in_file(self, os.path.join(self.source_folder, "src", "python", "CMakeLists.txt"),
+                    "find_package(Boost CONFIG REQUIRED COMPONENTS python)",
+                    f"find_package(Boost REQUIRED COMPONENTS {boost_component})")
             dirs = [ "PyImath", "PyImathNumpy", "PyImathTest" ]
             for cmake_file in [os.path.join(self.source_folder, "src", "python", d, "CMakeLists.txt") for d in dirs]:
                 replace_in_file(self, cmake_file,

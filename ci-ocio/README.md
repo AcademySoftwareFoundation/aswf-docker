@@ -53,21 +53,21 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-ocio:2024.3](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.3)
+## [aswf/ci-ocio:2024.4](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.4)
 
 Contains:
 * ocio-2.3.2
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-ocio:2025.2](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2025.2)
+## [aswf/ci-ocio:2025.3](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2025.3)
 
 Contains:
 * ocio-2.4.2
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-ocio:2026.0](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2026.0)
+## [aswf/ci-ocio:2026.1](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2026.1)
 
 Contains:
 * ocio-2.4.2

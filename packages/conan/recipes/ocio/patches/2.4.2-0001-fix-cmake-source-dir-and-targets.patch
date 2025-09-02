@@ -68,7 +68,6 @@ index 7d2894da..1e6570b4 100755
          MINIZIP::minizip-ng
  )
 
- if(OCIO_USE_SIMD AND OCIO_USE_SSE2NEON AND COMPILER_SUPPORTS_SSE_WITH_SSE2NEON)
 diff --git src/apps/ociobakelut/CMakeLists.txt src/apps/ociobakelut/CMakeLists.txt
 index 3d6e586b..f7069a1f 100755
 --- src/apps/ociobakelut/CMakeLists.txt

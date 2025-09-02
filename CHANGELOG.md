@@ -2,7 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
-# 2025-07-XX
+# 2025-09-01
+
+2024.4 / 2025.3 / 2026.1 releases to address issues in the previous set of releases encountered by consumer
+ASWF projects. This highlights the need for more thorough testing of non-Conan project builds in the
+resulting ci-XXXX images.
+
+- All releases
+  - Update rawtoaces 1.1-rc3 to 1.1.0 (no code changes)
+  - Re-enable building LLVM's compiler-rt, OSL uses it for address space sanitization for instance 
+  - Force Eigen3 CMake files to be generated and installed to allow rawtoaces to find it
+  - Fix libiconv download URLs (ftpmirror.gnu.org is prefered to ftp.gnu.org)
+  - OCIO Conan package correctly declares its link time dependencies, consumer packages no longer need to know
+  about its dependencies
+  - Correctly handle OIIO Conan package name being different than its CMake target name
+  - Remove LibRaw-devel from base image, it would confuse CMake for some ASWF project versions which would end up mixing up the newer LibRaw in /usr/local and the older system installed one.
+  - Fix some discrepancies in the Conan 2 environment files (we really need a single
+  source of truth for all version information).
+  - Build command line utilities and Ax when building OpenVDB package, and install missing dependencies for these additional components (glfw3). Ax cannot be built with OpenVDB older than 12.1.0 since this is where support for clang/llvm 16 or newer shows up.
+- 2024.4
+  - revert to MaterialX 1.39.1 which is complatible with USD 24.08
+  - install MaterialX CMake files in expected location
+  - Fix up OCIO CMake dependencies
+  - Allow OIIO to find OCIO, libraw and openj2k dependencies
+  - Backport OSL fix for serialized CUDA build
+- 2025.3
+  - install MaterialX CMake files in expected location
+  - Update OpenVDB from 12.0.1 to 12.1.0 to allow Ax to build with llvm 16 or newer
+- 2026.1
+  - Update IMath from 3.2.0 to 3.2.1
+  - Update OpenVDB from 12.0.1 to 12.1.0 to allow Ax to build with llvm 16 or newer
+
+# 2025-08-14
 
 These releases no longer build / install libraries in `/usr/local/lib64`, they revert back to the default
 `/usr/local/lib` supported by most packages and Conan recipes. This should hopefully be transparent to

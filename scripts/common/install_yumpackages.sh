@@ -16,9 +16,15 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
         # Rocky 8 needs PowerTools and Devel repos enabled for some of these packages
         dnf config-manager --set-enabled powertools
+        # The Rocky 8 mirror repos seem to be getting increasingly unreliable, prefer going to the source
+        sed -i -e 's/^mirrorlist=/#mirrorlist=/g' -e 's/#baseurl=/baseurl=/g' /etc/yum.repos.d/Rocky-{BaseOS,AppStream,Extras,PowerTools}.repo
         # libbluray-devel is in EPEL 9, we may no longer need devel repo then
-        # same for yasm-devel and libdc1393-devel
-        dnf config-manager --set-enabled devel
+        # same for yasm-devel and libdc1394-devel
+        # But the devel repo in Rocky 8 warns that "WARNING! FOR BUILDROOT AND KOJI USE"
+        # And as of late August 2025 it is causing conflicts with BaseOS / AppStream.
+        # So we will only enable it for specific installs.
+        # dnf config-manager --set-enabled devel
+
         # Rocky 8 base image doesn't have a system Python (3), install and make default
         dnf -y install python3
         alternatives --set python /usr/bin/python3
@@ -33,7 +39,8 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
         XORG_X11_XKB_UTILS_RPM="setxkbmap xkbcomp"
         LIBXVMC_DEVEL_RPM=""
     fi
-    dnf makecache
+    # Ignore any DNF metadata cached in base image
+    dnf clean all
 fi
 
 yum install --setopt=tsflags=nodocs -y \
@@ -98,7 +105,6 @@ yum install --setopt=tsflags=nodocs -y \
     libpcap-devel \
     libpng \
     libpng-devel \
-    LibRaw-devel \
     libsndfile-devel \
     libtheora-devel \
     libtiff \
@@ -147,7 +153,6 @@ yum install --setopt=tsflags=nodocs -y \
     libXScrnSaver \
     libXScrnSaver-devel \
     libxshmfence-devel \
-    libxslt \
     libxslt-devel \
     libXtst-devel \
     libXv-devel \
@@ -222,32 +227,6 @@ yum install --setopt=tsflags=nodocs -y \
 # This is needed for Xvfb to function properly.
 dbus-uuidgen > /etc/machine-id
 
-# libxslt/xsltutils.h has broken include guards in EL8, breaks PySide unity builds
-if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
-    cat << 'EOF' | patch -p1
-diff --git a/usr/include/libxslt/xsltutil.h b/usr/include/libxslt/xsltutil.h
-index 6cf74b219a1..501394deede 100644
---- /usr/include/libxslt/xsltutils.h
-+++ /usr/include/libxslt/xsltutils.h
-@@ -282,7 +282,6 @@
-  * Sampling precision for profiling
-  */
- #define XSLT_TIMESTAMP_TICS_PER_SEC 100000l
--#endif
-
- /*
-  * Hooks for the debugger.
-@@ -322,6 +321,7 @@
-
- #ifdef __cplusplus
- }
-+#endif
-
- #endif /* __XML_XSLTUTILS_H__ */
-
-EOF
-fi
-
 yum -y groupinstall "Development Tools"
 
 if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
@@ -277,9 +256,7 @@ yum install -y \
     frei0r-devel \
     lame-devel \
     libaom-devel \
-    libbluray-devel \
     libcaca-devel \
-    libdc1394-devel \
     libdeflate-devel \
     libdrm-devel \
     libdrm \
@@ -297,8 +274,21 @@ yum install -y \
     svt-av1-devel \
     xcb-util-cursor \
     xcb-util-cursor-devel \
-    yasm-devel \
     zvbi-devel
+
+if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+    # For Rocky 8 these exist in the mostly off limits devel repo. In Rocky 9 they are in EPEL.
+    dnf config-manager --set-enabled devel
+fi
+
+yum install -y \
+    libbluray-devel \
+    libdc1394-devel \
+    yasm-devel
+
+if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+    dnf config-manager --set-disabled devel
+fi
 
 if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     # Rocky 8 has git 2.31 and OpenSSL 1.1.1k by default

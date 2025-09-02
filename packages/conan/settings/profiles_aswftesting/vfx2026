@@ -33,7 +33,7 @@ harfbuzz/*: harfbuzz/11.0.1@aswftesting/vfx2026
 hdf5/*: hdf5/1.14.6@aswftesting/vfx2026
 highway/*: highway/1.2.0@aswftesting/vfx2026
 icu/*: icu/system@aswftesting/vfx2026
-imath/*: imath/3.2.0@aswftesting/vfx2026
+imath/*: imath/3.2.1@aswftesting/vfx2026
 jasper/*: jasper/4.2.5@aswftesting/vfx2026
 lcms/*: lcms/2.17@aswftesting/vfx2026
 libalsa/*: libalsa/system@aswftesting/vfx2026

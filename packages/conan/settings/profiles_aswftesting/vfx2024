@@ -67,7 +67,7 @@ nss/*: nss/3.101.0@aswftesting/vfx2024
 ocio/*: ocio/2.3.2@aswftesting/vfx2024
 oiio/*: oiio/2.5.19.0@aswftesting/vfx2024
 ogg/*: ogg/system@aswftesting/vfx2024
-onetbb/*: onetbb/2020_u3@aswftesting/vfx2024
+onetbb/*: onetbb/2020.3@aswftesting/vfx2024
 openal-soft/*: openal-soft/system@aswftesting/vfx2024
 opencl-headers/*: opencl-headers/system@aswftesting/vfx2024
 opencl-icd-loader/*: opencl-icd-loader/system@aswftesting/vfx2024
