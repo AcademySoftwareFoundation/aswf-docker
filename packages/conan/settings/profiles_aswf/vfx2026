@@ -111,7 +111,6 @@ gperf/*: gperf/3.1@system
 libtool/*: libtool/2.4.6@system
 meson/*: meson/0.58.2@system
 nasm/*: nasm/system@aswf/vfx2026
-ninja/*: ninja/1.13.1@aswf/ci_common6
 nodejs/*: nodejs/18.20.4@system
 pkgconf/*: pkgconf/1.4.2@system
 wayland/*: wayland/1.21.0@system

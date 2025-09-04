@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-# 2025-09-01
+# 2025-09-03
 
 2024.4 / 2025.3 / 2026.1 releases to address issues in the previous set of releases encountered by consumer
 ASWF projects. This highlights the need for more thorough testing of non-Conan project builds in the
@@ -20,6 +20,8 @@ resulting ci-XXXX images.
   - Fix some discrepancies in the Conan 2 environment files (we really need a single
   source of truth for all version information).
   - Build command line utilities and Ax when building OpenVDB package, and install missing dependencies for these additional components (glfw3). Ax cannot be built with OpenVDB older than 12.1.0 since this is where support for clang/llvm 16 or newer shows up.
+  - Dockerfile to build ci-baseos-gl-conan image should how pull from Docker Hub instead of always rebuilding locally
+  - release.yml GHA workflow should now always rebuild even if an existing binary package exists in the Conan repository
 - 2024.4
   - revert to MaterialX 1.39.1 which is complatible with USD 24.08
   - install MaterialX CMake files in expected location
