@@ -21,7 +21,7 @@ ARG ASWF_BASEOS_IMAGE
 
 
 #################### ci-baseos-gl-os ####################
-FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-runtime-${ASWF_BASEOS_DISTRO} AS ci-baseos-gl-os
+FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-runtime-${ASWF_BASEOS_DISTRO} AS ci-baseos-gl-conan
 
 ARG CI_COMMON_VERSION
 ENV CI_COMMON_VERSION=${CI_COMMON_VERSION}
@@ -91,13 +91,13 @@ COPY scripts/common/install_yq.sh /tmp/
 
 RUN /tmp/install_yq.sh
 
-#################### ci-baseos-gl-conan ####################
-FROM ci-baseos-gl-os AS ci-baseos-gl-conan
+# Merge the previously separate ci-baseos-gl-os and ci-baseos-gl-conan stages:
+# we are unlikely to want to iterate on Conan versions separately from the base image,
+# and we want to make sure that ci-conan-package-builder always pulls a pre-built
+# ci-baseos-gl-conan from Docker Hub rather than rebuilding it locally.
 
 ARG ASWF_CONAN_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_DTS_PREFIX
 
 ENV ASWF_CONAN_ROOT=/opt/conan
 
