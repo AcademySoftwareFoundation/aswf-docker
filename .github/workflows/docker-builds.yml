@@ -75,18 +75,18 @@ jobs:
         dpkg -l 
 
     - name: Build Conan Builder Image
-        run: |
-          set -ex
-          pipenv run aswfdocker \
-            --repo-uri $GITHUB_REPOSITORY \
-            --source-branch $GITHUB_REF \
-            --verbose \
-            build \
-            --ci-image-type IMAGE \
-            --group common \
-            --version ${{ matrix.common_version_noclang }} \
-            --push NO
-            --target ci-baseos-gl-conan
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --repo-uri $GITHUB_REPOSITORY \
+          --source-branch $GITHUB_REF \
+          --verbose \
+          build \
+          --ci-image-type IMAGE \
+          --group baseos-gl-conan \
+          --version ${{ matrix.common_version_noclang }} \
+          --push NO
+          --target ci-baseos-gl-conan
 
     - name: Build Ninja and CMake (Conan)
       run: |
