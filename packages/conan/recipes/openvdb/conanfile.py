@@ -38,6 +38,7 @@ class OpenVDBConan(ConanFile):
         "fPIC": [True, False],
         "build_ax": [True, False],
         "build_binaries": [True, False], # ASWF: build binaries to exercise additional dependencies
+        "build_tests": [True, False], # ASWF: build tests to exercise additional dependencies
         "simd": [None, "SSE42", "AVX"],
         "use_colored_output": [True, False],
         "use_delayed_loading": [True, False],
@@ -54,6 +55,7 @@ class OpenVDBConan(ConanFile):
         "fPIC": True,
         "build_ax": True, # ASWF: OpenVDB 
         "build_binaries": True, # ASWF: build binaries to exercise additional dependencies
+        "build_tests": True, # ASWF: build tests to exercise additional dependencies
         "simd": None,
         "use_colored_output": False,
         "use_delayed_loading": False,
@@ -154,8 +156,10 @@ class OpenVDBConan(ConanFile):
             # log4cplus 2.x is not supported
             self.requires("log4cplus/1.2.2", transitive_headers=True)
         if self.options.build_binaries:
-            self.requires("glfw/3.4")
-
+            self.requires("glfw/3.4") # ASWF: build binaries to exercise additional dependencies
+        if self.options.build_tests:
+            self.requires("gtest/1.17.0") # ASWF: build tests to exercise additional dependencies
+    
     def _check_compiler_version(self):
         compiler = str(self.settings.compiler)
         minimum_version = self._compilers_min_version.get(compiler, False)
@@ -201,6 +205,7 @@ class OpenVDBConan(ConanFile):
         tc.variables["Boost_USE_STATIC_LIBS"] = not self.dependencies["boost"].options.shared
         tc.variables["OPENVDB_BUILD_AX"] = self.options.build_ax
         tc.variables["OPENVDB_BUILD_BINARIES"] = self.options.build_binaries # ASWF
+        tc.variables["OPENVDB_BUILD_UNITTESTS"] = self.options.build_tests # ASWF
         tc.variables["OPENVDB_BUILD_CORE"] = True
         tc.variables["OPENVDB_BUILD_DOCS"] = False
         tc.variables["OPENVDB_BUILD_HOUDINI_ABITESTS"] = False
@@ -311,6 +316,8 @@ class OpenVDBConan(ConanFile):
             main_component.requires.append("imath::imath")
         if self.options.build_binaries:
             main_component.requires.append("glfw::glfw")
+        if self.options.build_tests:
+            main_component.requires.append("gtest::gtest")
 
         # TODO: to remove in conan v2 once cmake_find_package_* generators removed
         self.cpp_info.names["cmake_find_package"] = "OpenVDB"

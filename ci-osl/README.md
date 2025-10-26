@@ -268,7 +268,7 @@ Contains:
 * cpython-3.11.13
 * fmt-11.2.0
 * imath-3.1.12
-* oiio-3.0.9.1
+* oiio-3.1.6.2
 * partio-1.19.0
 * pugixml-1.14
 * pybind11-2.13.6
@@ -285,7 +285,7 @@ Contains:
 * cpython-3.11.13
 * fmt-11.2.0
 * imath-3.1.12
-* oiio-3.0.9.1
+* oiio-3.1.6.2
 * partio-1.19.0
 * pugixml-1.14
 * pybind11-2.13.6
@@ -301,8 +301,8 @@ Contains:
 Contains:
 * cpython-3.13.3
 * fmt-11.2.0
-* imath-3.2.1
-* oiio-3.0.9.1
+* imath-3.2.2
+* oiio-3.1.6.2
 * partio-1.19.0
 * pugixml-1.15
 * pybind11-2.13.6
@@ -318,8 +318,8 @@ Contains:
 Contains:
 * cpython-3.13.3
 * fmt-11.2.0
-* imath-3.2.1
-* oiio-3.0.9.1
+* imath-3.2.2
+* oiio-3.1.6.2
 * partio-1.19.0
 * pugixml-1.15
 * pybind11-2.13.6

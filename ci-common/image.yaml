@@ -1,7 +1,7 @@
 name: "common"
 title: "Common CI Docker Image"
 description: |
-  Contains: GCC, Clang, CMake, Jinja, ccache and all base OS libraries
+  Contains: GCC, Clang, CMake, Ninja, ccache and all base OS libraries
 packages:
   - clang
   - cmake

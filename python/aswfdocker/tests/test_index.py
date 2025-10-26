@@ -21,10 +21,10 @@ class TestIndex(unittest.TestCase):
     def test_get_versions(self):
         images = list(self.index.iter_images(constants.ImageType.IMAGE))
         self.assertGreater(len(images), 1)
-        self.assertEqual(images[0], "common")
+        self.assertEqual(images[0], "baseos-gl-conan")
         versions = list(self.index.iter_versions(constants.ImageType.IMAGE, images[0]))
         self.assertGreaterEqual(len(versions), 1)
-        self.assertTrue(versions[0].startswith("1-clang"))
+        self.assertTrue(versions[0].startswith("4"))
 
     def test_version_info(self):
         vi = self.index.version_info("2019")

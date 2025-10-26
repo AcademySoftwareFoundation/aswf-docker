@@ -11,7 +11,7 @@ ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
 ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_CONAN_CHANNEL
-{% if name != "common" %}
+{% if name != "common" and name != "baseos-gl-conan" %}
 ARG ASWF_VFXPLATFORM_VERSION
 {% endif %}
 
@@ -29,7 +29,7 @@ ARG {{ arg }}
 {% endfor -%}
 {% endfor %}
 
-{% if name == "common" %}
+{% if name == "common" or name == "baseos-gl-conan" %}
 ARG ASWF_BASEOS_IMAGE
 ARG ASWF_BASEOS_DISTRO
 {% endif %}
@@ -53,7 +53,7 @@ ARG CI_COMMON_VERSION
 ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_CONAN_CHANNEL
 
-{% if name == "common" %}
+{% if name == "common" or name == "baseos-gl-conan" %}
 ARG ASWF_DTS_PREFIX
 {% endif %}
 
@@ -80,7 +80,7 @@ LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 
-{% if name != "common" %}
+{% if name != "common"  and name != "baseos-gl-conan" %}
 LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
 {% endif %}
 
@@ -94,7 +94,7 @@ ENV ASWF_INSTALL_PREFIX=/usr/local
 ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
 
 
-{% if name != "common" %}
+{% if name != "common" and name != "baseos-gl-conan" %}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 {% else %}
 ENV ASWF_DTS_PREFIX=$ASWF_DTS_PREFIX
@@ -150,7 +150,7 @@ EOF
 
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
-{% if name != "common" %}
+{% if name != "common" and name != "baseos-gl-conan" %}
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} {{ name }}

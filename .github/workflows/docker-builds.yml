@@ -24,12 +24,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - group: vfx-2025
-            name: vfx-2025
-            common_version: 5-clang18
-            common_version_noclang: 5
-            version: 2025-clang18
-            version_noclang: 2025
+          - group: vfx-2026
+            name: vfx-2026
+            common_version: 6-clang20
+            common_version_noclang: 6
+            version: 2026-clang20
+            version_noclang: 2026
             test: ""
 
     steps:
@@ -73,6 +73,20 @@ jobs:
         sudo docker system prune -a
         df -h
         dpkg -l 
+
+    - name: Build Conan Builder Image
+        run: |
+          set -ex
+          pipenv run aswfdocker \
+            --repo-uri $GITHUB_REPOSITORY \
+            --source-branch $GITHUB_REF \
+            --verbose \
+            build \
+            --ci-image-type IMAGE \
+            --group common \
+            --version ${{ matrix.common_version_noclang }} \
+            --push NO
+            --target ci-baseos-gl-conan
 
     - name: Build Ninja and CMake (Conan)
       run: |

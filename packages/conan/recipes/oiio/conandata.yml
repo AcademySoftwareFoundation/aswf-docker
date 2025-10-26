@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/openimageio/all/conandata.yml
 
 sources:
+  "3.1.6.2":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.1.6.2.tar.gz"
+    sha256: "a1e515e6a6ea9925a70c23db21dda37f3ce2c24780a6bfedd8685fea063f698a"
   "3.0.9.1":
     url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.9.1.tar.gz"
     sha256: "bbc5db069b7d8e4e2fccf994d55a262953057745a5e398e44a2e5235a8736d1d"
@@ -130,5 +133,15 @@ patches:
       patch_description: "Missing includes and libs for binaries"
       patch_type: "conan"
     - patch_file: "patches/3.0.8.1-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
+      patch_type: "conan"
+  "3.1.6.2":
+    - patch_file: "patches/3.1.6.2-cmake-fmt.patch"
+      patch_description: "Deal with generator expression from fmt Conan package"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.8.1-utils-includes-libs.patch"
+      patch_description: "Missing includes and libs for binaries"
+      patch_type: "conan"
+    - patch_file: "patches/3.1.6.2-raw-jp2k-cmake.patch"
       patch_description: "Find local builds of LibRaw, OpenJPEG"
       patch_type: "conan"

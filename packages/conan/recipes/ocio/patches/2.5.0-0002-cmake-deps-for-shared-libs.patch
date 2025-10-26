@@ -1,0 +1,13 @@
+diff --git src/cmake/Config.cmake.in src/cmake/Config.cmake.in
+index 0eaec4be..e711295c 100755
+--- src/cmake/Config.cmake.in
++++ src/cmake/Config.cmake.in
+@@ -2,7 +2,7 @@
+
+ include(CMakeFindDependencyMacro)
+
+-if (NOT @BUILD_SHARED_LIBS@) # NOT @BUILD_SHARED_LIBS@
++if (NOT OFF) # NOT @BUILD_SHARED_LIBS@
+     if (APPLE)
+         # Store the previous value of CMAKE_FIND_FRAMEWORK and CMAKE_FIND_APPBUNDLE.
+         set(_PREVIOUS_CMAKE_FIND_FRAMEWORK ${CMAKE_FIND_FRAMEWORK})

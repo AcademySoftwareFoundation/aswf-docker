@@ -501,16 +501,13 @@ class TestBuilderCli(unittest.TestCase):
                 "--ci-image-type",
                 "PACKAGE",
                 "--version",
-                "2019",
+                "2025",
                 "--version",
-                "2020",
+                "2026",
                 "--target",
                 "openexr",
                 "--dry-run",
                 "--use-conan",
-                "--keep-source",
-                "--keep-build",
-                "--conan-login",
                 "--build-missing",
                 "--push",
                 "YES",
@@ -518,30 +515,24 @@ class TestBuilderCli(unittest.TestCase):
         )
         self.assertFalse(result.exception, msg=result.output)
         bake_path = os.path.join(
-            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2-2019-2020.json"
+            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2-2025-2026.json"
         )
         cmds = result.output.strip().splitlines()
-        # We expect 3 steps
-        # 1 - docker buildx to build the non-Conan packages
-        # 2 - docker buildx to build and upload (2x for each openexr package)
-        self.assertEqual(len(cmds), 3)
+        # We expect 2 steps:
+        #   docker buildx to build and upload (2x for each openexr package)
+        self.assertEqual(len(cmds), 2)
         self.assertEqual(
             cmds[self._i],
-            f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
+            f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
+            + "--set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder "
+            + "--progress auto ci-package-openexr-2025'",
         )
         self._i += 1
         self.assertEqual(
             cmds[self._i],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
             + "--set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder "
-            + "--progress auto ci-package-openexr-2019'",
-        )
-        self._i += 1
-        self.assertEqual(
-            cmds[self._i],
-            f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
-            + "--set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder "
-            + "--progress auto ci-package-openexr-2020'",
+            + "--progress auto ci-package-openexr-2026'",
         )
         self._i += 1
         self.assertEqual(result.exit_code, 0)

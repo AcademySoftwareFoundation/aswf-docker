@@ -133,9 +133,7 @@ class Builder:
                 ],
             }
             if self.group_info.type == constants.ImageType.PACKAGE:
-                if use_conan:
-                    target_dict["target"] = "ci-baseos-gl-conan"
-                else:
+                if not use_conan:
                     target_dict["target"] = image
             root["target"][f"{image}-{major_version}"] = target_dict
 
@@ -275,11 +273,8 @@ class Builder:
         # target.target=ci-conan-package-builder : see packages/common/Dockerfile for the Conan
         #   build container which runs:
         #
-        # - conan user (conditional)
         # - conan create
-        # - conan alias
         # - conan upload main version (conditional)
-        # - conan upload latest alias version (conditional)
         #
         # not sure about ci-package-{image}-{major_version}
         #
@@ -318,9 +313,15 @@ class Builder:
 
         path = self.make_bake_jsonfile(build_missing, no_remote)
         if path:
-            self._run(
-                f"docker buildx bake -f {path} --progress {progress}", dry_run=dry_run
-            )
+            # FIXME: not elegant but should save a lot of build time
+            # and skip rebuilding ci-baseos-gl-conan for every Conan package
+            # being released. Assumes ci-baseos-gl-conan image has already been
+            # built and pushed to Docker Hub
+            if not (self.use_conan and self.push):
+                self._run(
+                    f"docker buildx bake -f {path} --progress {progress}",
+                    dry_run=dry_run,
+                )
         if not self.use_conan or self.group_info.type == constants.ImageType.IMAGE:
             return
 
