@@ -230,41 +230,7 @@ class Builder:
         progress,
         bake_jsonfile,
     ):
-        # pylint: disable=consider-using-f-string
         major_version = utils.get_major_version(version)
-        # version_info = self.index.version_info(major_version)
-        # base_cmd = self._get_conan_base_cmd(version_info)
-        # if conan_login:
-        #     # "conan remote auth" stores credentials in
-        #     # ${CONAN_HOME]/credentials.json but we don't have a simple way to persist
-        #     # this file between build steps, since instead we will use the secrets mechanism
-        #     # in the buildx bake file to pass the CONAN_LOGIN_USERNAME and CONAN_PASSWORD
-        #     # values as environment variables to allow `conan upload" to authenticate on the fly.
-        #     self._run_in_docker(
-        #        base_cmd,
-        #         [
-        #             "conan",
-        #             "remote",
-        #             "auth",
-        #             self.build_info.docker_org,
-        #         ],
-        #         dry_run,
-        #     )
-
-        # These are kept for reference, they now live in
-        # packages/common/Dockerfile
-        #
-        # full_version = version_info.package_versions.get(
-        #    "ASWF_" + image.upper() + "_VERSION"
-        # )
-        # conan_version = (
-        #    f"{image}/{full_version}"
-        #    f"@{self.build_info.docker_org}/{version_info.conan_profile}"
-        # )
-        # alias_version = (
-        #    f"{image}/latest"
-        #    f"@{self.build_info.docker_org}/{version_info.conan_profile}"
-        # )
 
         # buildx bake --set allows us to override settings in the bake file and avoid having
         #   to rewrite it.
@@ -276,13 +242,10 @@ class Builder:
         # - conan create
         # - conan upload main version (conditional)
         #
-        # not sure about ci-package-{image}-{major_version}
-        #
-        # Make pylint / pytest happy, they get confused by f-string
         runcmd = (
-            "docker buildx bake -f {} --set=*.output=type=cacheonly "
-            "--set=*.target.target=ci-conan-package-builder --progress {} "
-            "ci-package-{}-{}".format(bake_jsonfile, progress, image, major_version)
+            f"docker buildx bake -f {bake_jsonfile} --set=*.output=type=cacheonly "
+            f"--set=*.target.target=ci-conan-package-builder --progress {progress} "
+            f"ci-package-{image}-{major_version}"
         )
 
         self._run(
@@ -313,28 +276,26 @@ class Builder:
 
         path = self.make_bake_jsonfile(build_missing, no_remote)
         if path:
-            # FIXME: not elegant but should save a lot of build time
-            # and skip rebuilding ci-baseos-gl-conan for every Conan package
-            # being released. Assumes ci-baseos-gl-conan image has already been
-            # built and pushed to Docker Hub
-            if not (self.use_conan and self.push):
+            if not self.use_conan:
                 self._run(
                     f"docker buildx bake -f {path} --progress {progress}",
                     dry_run=dry_run,
                 )
-        if not self.use_conan or self.group_info.type == constants.ImageType.IMAGE:
-            return
-
-        conan_base = os.path.join(utils.get_git_top_level(), "packages", "conan")
-        for image, version in images_and_versions:
-            recipe_path = os.path.join(conan_base, "recipes", image)
-            if not os.path.exists(recipe_path):
-                logger.warning("Recipe for %s not found: skipping!", image)
-                continue
-            self._build_conan_package(
-                image,
-                version,
-                dry_run,
-                progress,
-                path,
-            )
+            else:
+                conan_base = os.path.join(
+                    utils.get_git_top_level(), "packages", "conan"
+                )
+                # As of Conan 2.18, parallel builds are still not supported and can result in
+                # database lock failures, so we have to build sequentially.
+                for image, version in images_and_versions:
+                    recipe_path = os.path.join(conan_base, "recipes", image)
+                    if not os.path.exists(recipe_path):
+                        logger.warning("Recipe for %s not found: skipping!", image)
+                        continue
+                    self._build_conan_package(
+                        image,
+                        version,
+                        dry_run,
+                        progress,
+                        path,
+                    )

@@ -427,16 +427,11 @@ class TestBuilderCli(unittest.TestCase):
             tempfile.gettempdir(), "docker-bake-PACKAGE-vfx1-2-2019.json"
         )
         cmds = result.output.strip().splitlines()
-        # Expect 2 lines of output
-        # 1 - docker buildx bake for the Docker packages
-        # 2 - docker buildx bake for the conan packages (no login or upload)
-        self.assertEqual(len(cmds), 2)
+        # Expect 1 lines of output
+        # 1 - docker buildx bake for the conan packages (no login or upload)
+        self.assertEqual(len(cmds), 1)
         self.assertEqual(
             cmds[0],
-            f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} --progress auto'",
-        )
-        self.assertEqual(
-            cmds[1],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
             + "--set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder "
             + "--progress auto ci-package-openexr-2019'",
