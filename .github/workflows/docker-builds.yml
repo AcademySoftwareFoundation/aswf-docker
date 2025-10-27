@@ -98,7 +98,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group common \
           --version ${{ matrix.common_version_noclang }} \
-          --version ${{ matrix.common_version }} \
           --use-conan \
           --build-missing \
           --target ninja \
@@ -114,7 +113,6 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group common \
-          --version ${{ matrix.common_version_noclang }} \
           --version ${{ matrix.common_version }} \
           --use-conan \
           --build-missing \
