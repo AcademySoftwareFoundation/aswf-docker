@@ -86,7 +86,6 @@ jobs:
           --group baseos-gl-conan \
           --version ${{ matrix.common_version_noclang }} \
           --push NO
-          --target ci-baseos-gl-conan
 
     - name: Build Ninja and CMake (Conan)
       run: |
