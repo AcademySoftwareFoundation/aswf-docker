@@ -168,10 +168,10 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         imgs = result.output.split("\n")
         self.assertGreater(len(imgs), 15)
-        common_version = list(
-            index.Index().iter_versions(constants.ImageType.IMAGE, "common")
+        baseos_gl_conan_version = list(
+            index.Index().iter_versions(constants.ImageType.IMAGE, "baseos-gl-conan")
         )[0]
         self.assertEqual(
             imgs[0],
-            f"common/ci-common:{common_version}",
+            f"baseos-gl-conan/ci-baseos-gl-conan:{baseos_gl_conan_version}",
         )

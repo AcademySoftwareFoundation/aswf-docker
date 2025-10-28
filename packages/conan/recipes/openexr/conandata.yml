@@ -5,6 +5,15 @@
 # From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/openexr/3.x/conandata.yml
 
 sources:
+  "3.4.2":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4.2.tar.gz"
+    sha256: "d7d38eb6a63ea8ba0f301d0ad6a80094032d488e9e6c525b35236d20a9ae3ef2"
+  "3.4.1":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4.1.tar.gz"
+    sha256: "0d75aa277c33a4ed1fce2e272126f2d8dbd01adda82d7cf4fe67b99f6f7eedce"
+  "3.4.0":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4.0.tar.gz"
+    sha256: "d7b31637d7adc359f5e5a7517ba918cb5997bc1a4ae7a808ec874cdf91da93c0"
   "3.4-alpha":
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4-alpha.tar.gz"
     sha256: "5a78b497576a323979b03a343ad63a253d955462365c67597ab6fcac87e79193"

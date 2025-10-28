@@ -608,25 +608,28 @@ It is usually a good idea to add this `xyz` package to the `vfxall` library so t
 
 Check [#66](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/66) for an example.
 
-### Example of a large re-release of all images
+### Example of a large re-release of all supported images
 
 ```bash
+# Image for building Conan packages
+aswfdocker release -t IMAGE -g baseos-gl-conan -v 4 -v 5 -v 6 --target baseos-gl-conan --docker-org aswf -m "RELEASE_NOTES!"
+
 # Common packages
-aswfdocker release -t PACKAGE -g common -v 1 -v 2 -v 3 -v 4 -v 5 --target ninja -target cmake --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 -v 3-clang14 -v 3-clang15 -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 --target clang --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common -v 4 -v 5 -v 6 --target ninja -target cmake --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 -v 6-clang19 -v 6-clang20 --target clang --docker-org aswf -m "RELEASE_NOTES!"
 # Wait for clang builds to finish (from 2 to 3 hours!)
 
 # ci-common needs to be built before base packages can be built
-aswfdocker release -t IMAGE -g common -v 1-clang6 -v 1-clang7 -v 1-clang8 -v 1-clang9 -v 1-clang10 -v 2-clang10 -v 2-clang11 -v 2-clang12 -v 2-clang13-v 2-clang14 -v 3-clang14 -v 3-clang15 -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g common -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 -v 6-clang19 -v 6-clang20 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Base packages
-aswfdocker release -t PACKAGE -g base1-wrappers -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g base1-1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g base1-2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g base1-3 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-wrappers -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-1 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-2 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-3 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 
-aswfdocker release -t PACKAGE -g base2-wrappers -g base2-1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g base2-2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base2-wrappers -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base2-2 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 # Wait for Qt builds to finish (2-6 hours!)
 
 # Usually some Qt build will fail as too big and too slow for free GitHub actions... So here's how to build qt locally:
@@ -638,21 +641,21 @@ docker push aswf/ci-package-qt:preview
 docker push aswf/ci-package-qt:2025.0
 
 # Once all Qt are out, release PySide packages
-aswfdocker release -t PACKAGE -g base3 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base3 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Wait for all Qt and Pyside builds to finish, then build downstream packages:
 # VFX packages
-aswfdocker release -t PACKAGE -g vfx1-wrappers -g vfx1-1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx1-2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx1-3 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx1-4 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx2-1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-wrappers -g vfx1-1 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-2 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-3 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-4 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-5 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx2-1 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx2 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Finally build the CI images
-aswfdocker release -t IMAGE -g base -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t IMAGE -g vfx1 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t IMAGE -g vfx2 -v 2018 -v 2019 -v 2020 -v 2021 -v 2022 -v 2023 -v 2024 -v 2025 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t IMAGE -g vfx3 -v 2018-clang7 -v 2019-clang6 -v 2019-clang7 -v 2019-clang8 -v 2019-clang9 -v 2020-clang7 -v 2021-clang10 -v 2021-clang11 -v 2022-clang10 -v 2022-clang11 -v 2022-clang12 -v 2022-clang13 -v 2022-clang14 -v 2023-clang14 -v 2023-clang15 -v 2024-clang16 -v 2024-clang17 -v 2025-clang18 -v 2025-clang19 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g base -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx1 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx2 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx3 -v 2024-clang16 -v 2024-clang17 -v 2025-clang18 -v 2025-clang19 -v 2026-clang19 -v 2026-clang20 --docker-org aswf -m "RELEASE_NOTES!"
 ```

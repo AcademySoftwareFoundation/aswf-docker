@@ -70,7 +70,7 @@ Contains:
 ## [aswf/ci-ocio:2026.1](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2026.1)
 
 Contains:
-* ocio-2.4.2
+* ocio-2.5.0
 * numpy-2.3.2
 * vfxplatform-2026
 
