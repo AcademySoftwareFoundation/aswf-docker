@@ -24,15 +24,16 @@ index d99dd79ac..bfda2778a 100644
  # https://github.com/AcademySoftwareFoundation/OpenImageIO
 
 -if (OPENJPEG_FOUND)
+-    set(_jpeg2000_includes ${OPENJPEG_INCLUDES})
+-    set(_jpeg2000_lib_dirs ${OPENJPEG_LIBRARY_DIRS})
+-    set(_jpeg2000_libs ${OPENJPEG_LIBRARIES})
 +if (OPENJPEG_FOUND OR OpenJPEG_FOUND)
-     add_oiio_plugin (jpeg2000input.cpp jpeg2000output.cpp
--                     INCLUDE_DIRS ${OPENJPEG_INCLUDES}
--                     LINK_LIBRARIES ${OPENJPEG_LIBRARIES}
-+                     INCLUDE_DIRS ${OpenJPEG_INCLUDE_DIR}
-+                     LINK_LIBRARIES ${OpenJPEG_LIBRARIES}
-                      DEFINITIONS "USE_OPENJPEG")
- else()
-     message (WARNING "Jpeg-2000 plugin will not be built")
++    set(_jpeg2000_includes ${OpenJPEG_INCLUDE_DIR})
++    set(_jpeg2000_lib_dirs ${OpenJPEG_LIBRARY_DIRS})
++    set(_jpeg2000_libs ${OpenJPEG_LIBRARIES})
+     set(_jpeg2000_defs "USE_OPENJPEG")
+
+     if (openjph_FOUND)
 diff --git src/cmake/modules/FindLibRaw.cmake src/cmake/FindLibRaw.cmake
 index d99dd79ac..bfda2778a 100644
 --- src/cmake/modules/FindLibRaw.cmake

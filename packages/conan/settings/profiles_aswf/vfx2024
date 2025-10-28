@@ -27,6 +27,7 @@ giflib/*: giflib/5.1.4@aswf/vfx2024
 glew/*: glew/2.2.0@aswf/vfx2024
 glfw/*: glfw/3.4@aswf/vfx2024
 glib/*: glib/2.56.4@aswf/vfx2024
+gtest/*: gtest/1.15.2@aswf/vfx2024
 harfbuzz/*: harfbuzz/11.0.1@aswf/vfx2024
 hdf5/*: hdf5/1.14.6@aswf/vfx2024
 highway/*: highway/1.2.0@aswf/vfx2024
@@ -75,6 +76,7 @@ openexr/*: openexr/3.2.4@aswf/vfx2024
 opengl/*: opengl/system@aswf/vfx2024
 openjpeg/*: openjpeg/2.4.0@aswf/vfx2024
 openssl/*: openssl/system@aswf/vfx2024
+openvdb/*: openvdb/11.0.0@aswf/vfx2024
 opus/*: opus/system@aswf/vfx2024
 pcre2/*: pcre2/system@aswf/vfx2024
 ptex/*: ptex/2.4.2@aswf/vfx2024

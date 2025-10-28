@@ -27,6 +27,7 @@ giflib/*: giflib/5.1.4@aswftesting/vfx2025
 glew/*: glew/2.2.0@aswftesting/vfx2025
 glfw/*: glfw/3.4@aswftesting/vfx2025
 glib/*: glib/2.56.4@aswftesting/vfx2025
+gtest/*: gtest/1.15.2@aswftesting/vfx2025
 harfbuzz/*: harfbuzz/11.0.1@aswftesting/vfx2025
 hdf5/*: hdf5/1.14.6@aswftesting/vfx2025
 highway/*: highway/1.2.0@aswftesting/vfx2025
@@ -65,7 +66,7 @@ nlohmann_json/*: nlohmann_json/3.12.0@aswftesting/vfx2025
 nspr/*: nspr/system@aswftesting/vfx2025
 nss/*: nss/3.101.0@aswftesting/vfx2025
 ocio/*: ocio/2.4.2@aswftesting/vfx2025
-oiio/*: oiio/3.0.9.1@aswftesting/vfx2025
+oiio/*: oiio/3.1.6.2@aswftesting/vfx2025
 ogg/*: ogg/system@aswftesting/vfx2025
 onetbb/*: onetbb/2021.13.0@aswftesting/vfx2025
 openal-soft/*: openal-soft/system@aswftesting/vfx2025
@@ -75,6 +76,7 @@ openexr/*: openexr/3.3.5@aswftesting/vfx2025
 opengl/*: opengl/system@aswftesting/vfx2025
 openjpeg/*: openjpeg/2.4.0@aswftesting/vfx2025
 openssl/*: openssl/system@aswftesting/vfx2025
+openvdb/*: openvdb/12.1.1@aswftesting/vfx2025
 opus/*: opus/system@aswftesting/vfx2025
 pcre2/*: pcre2/system@aswftesting/vfx2025
 ptex/*: ptex/2.4.3@aswftesting/vfx2025

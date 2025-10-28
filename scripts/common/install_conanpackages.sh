@@ -30,6 +30,8 @@ if (( $VFXYEAR < 2023 )); then
 else
     # Escape / or & in install dir for use in regexp
     ESCAPED_PATH=$(printf '%s' "$1" | sed 's/[\/&]/\\&/g')
+    # In case we don't actually install anything
+    mkdir -p $1/full_deploy/host
     # Extract references from conanfile.txt and install them by reference
     for CONANREF in $(awk 'NR == 1, /\[requires\]/ { next } /^[^#]/ { print }' conanfile.txt)
     do

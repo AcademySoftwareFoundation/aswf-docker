@@ -13,7 +13,7 @@ for further information, and participate in the discussion on the
 
 ## Common CI Docker Image
 
-Contains: GCC, Clang, CMake, Jinja, ccache and all base OS libraries
+Contains: GCC, Clang, CMake, Ninja, ccache and all base OS libraries
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-common/Dockerfile)
 

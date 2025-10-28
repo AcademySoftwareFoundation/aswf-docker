@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-# 2025-09-03
+# 2025-10-24
 
 2024.4 / 2025.3 / 2026.1 releases to address issues in the previous set of releases encountered by consumer
 ASWF projects. This highlights the need for more thorough testing of non-Conan project builds in the
@@ -10,8 +10,8 @@ resulting ci-XXXX images.
 
 - All releases
   - Update rawtoaces 1.1-rc3 to 1.1.0 (no code changes)
-  - Re-enable building LLVM's compiler-rt, OSL uses it for address space sanitization for instance 
-  - Force Eigen3 CMake files to be generated and installed to allow rawtoaces to find it
+  - Re-enable building LLVM's compiler-rt, OSL uses it for address space sanitization for instance ([#295](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/295))
+  - Force Eigen3 CMake files to be generated and installed to allow rawtoaces to find it ([#273](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/273)) ([#292](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/292))
   - Fix libiconv download URLs (ftpmirror.gnu.org is prefered to ftp.gnu.org)
   - OCIO Conan package correctly declares its link time dependencies, consumer packages no longer need to know
   about its dependencies
@@ -19,21 +19,25 @@ resulting ci-XXXX images.
   - Remove LibRaw-devel from base image, it would confuse CMake for some ASWF project versions which would end up mixing up the newer LibRaw in /usr/local and the older system installed one.
   - Fix some discrepancies in the Conan 2 environment files (we really need a single
   source of truth for all version information).
-  - Build command line utilities and Ax when building OpenVDB package, and install missing dependencies for these additional components (glfw3). Ax cannot be built with OpenVDB older than 12.1.0 since this is where support for clang/llvm 16 or newer shows up.
-  - Dockerfile to build ci-baseos-gl-conan image should how pull from Docker Hub instead of always rebuilding locally
+  - Build command line utilities, tests and Ax when building OpenVDB package, and install missing dependencies for these additional components (glfw3, gtest). Ax cannot be built with OpenVDB older than 12.1.0 since this is where support for clang/llvm 16 or newer shows up ([#293](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/293))
+  - Dockerfile to build ci-baseos-gl-conan image should how pull from Docker Hub instead of always rebuilding locally ([#257](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/257))
   - release.yml GHA workflow should now always rebuild even if an existing binary package exists in the Conan repository
 - 2024.4
-  - revert to MaterialX 1.39.1 which is complatible with USD 24.08
-  - install MaterialX CMake files in expected location
+  - Revert to MaterialX 1.39.1 which is compatible with USD 24.08
+  - Install MaterialX CMake files in expected location
   - Fix up OCIO CMake dependencies
   - Allow OIIO to find OCIO, libraw and openj2k dependencies
   - Backport OSL fix for serialized CUDA build
 - 2025.3
-  - install MaterialX CMake files in expected location
-  - Update OpenVDB from 12.0.1 to 12.1.0 to allow Ax to build with llvm 16 or newer
+  - Install MaterialX CMake files in expected location
+  - Update OpenImageIO from 3.0.9.1 to 3.1.6.2
+  - Update OpenVDB from 12.0.1 to 12.1.1 to allow Ax to build with llvm 16 or newer ([#285](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/285))
 - 2026.1
-  - Update IMath from 3.2.0 to 3.2.1
-  - Update OpenVDB from 12.0.1 to 12.1.0 to allow Ax to build with llvm 16 or newer
+  - Update OpenImageIO from 3.0.9.1 to 3.1.6.2
+  - Update IMath from 3.2.0 to 3.2.2
+  - Update OpenEXR from 3.4-alpha to 3.4.2 (VFX Platform 2026 version)
+  - Update OpenColorIO from 2.4.2 to 2.5.0 (VFX Platform 2026 version)
+  - Update OpenVDB from 12.0.1 to 12.1.1 to allow Ax to build with llvm 16 or newer (does not yet include OpenVDB 13 for VFX Platform 2026) ([#285]https://github.com/AcademySoftwareFoundation/aswf-docker/issues/285)
 
 # 2025-08-14
 

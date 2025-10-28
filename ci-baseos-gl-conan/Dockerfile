@@ -13,15 +13,13 @@ ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_CONAN_CHANNEL
 
 
-ARG ASWF_CLANG_VERSION
-ARG ASWF_CMAKE_VERSION
-ARG ASWF_NINJA_VERSION
 ARG ASWF_CUDA_VERSION
 ARG ASWF_OPTIX_VERSION
 ARG ASWF_GLVND_VERSION
 ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_SONAR_VERSION
+ARG ASWF_CMAKE_VERSION
 ARG ASWF_CONAN_VERSION
 ARG ASWF_YQ_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
@@ -33,7 +31,7 @@ ARG ASWF_BASEOS_DISTRO
 
 
 # Comment out this block to use Conan packages
-FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-runtime-${ASWF_BASEOS_DISTRO} AS ci-common
+FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-runtime-${ASWF_BASEOS_DISTRO} AS ci-baseos-gl-conan
 
 
 ARG ASWF_ORG
@@ -48,40 +46,36 @@ ARG ASWF_CONAN_CHANNEL
 ARG ASWF_DTS_PREFIX
 
 
-ARG ASWF_CLANG_VERSION
-ARG ASWF_CMAKE_VERSION
-ARG ASWF_NINJA_VERSION
 ARG ASWF_CUDA_VERSION
 ARG ASWF_OPTIX_VERSION
 ARG ASWF_GLVND_VERSION
 ARG ASWF_CCACHE_VERSION
 ARG ASWF_DTS_VERSION
 ARG ASWF_SONAR_VERSION
+ARG ASWF_CMAKE_VERSION
 ARG ASWF_CONAN_VERSION
 ARG ASWF_YQ_VERSION
 ARG ASWF_CONAN_PYTHON_VERSION
 
 
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-common"
-LABEL org.opencontainers.image.title="Common CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: GCC, Clang, CMake, Ninja, ccache and all base OS libraries"
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-baseos-gl-conan"
+LABEL org.opencontainers.image.title="BaseOS Conan Builder Docker Image"
+LABEL org.opencontainers.image.description="Contains: GCC and all base OS libraries"
 LABEL org.opencontainers.image.url="http://aswf.io/"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-common/Dockerfile"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-baseos-gl-conan/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 
 
 
-LABEL io.aswf.docker.versions.clang="$ASWF_CLANG_VERSION"
-LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
-LABEL io.aswf.docker.versions.ninja="$ASWF_NINJA_VERSION"
 LABEL io.aswf.docker.versions.cuda="$ASWF_CUDA_VERSION"
 LABEL io.aswf.docker.versions.optix="$ASWF_OPTIX_VERSION"
 LABEL io.aswf.docker.versions.glvnd="$ASWF_GLVND_VERSION"
 LABEL io.aswf.docker.versions.ccache="$ASWF_CCACHE_VERSION"
 LABEL io.aswf.docker.versions.dts="$ASWF_DTS_VERSION"
 LABEL io.aswf.docker.versions.sonar="$ASWF_SONAR_VERSION"
+LABEL io.aswf.docker.versions.cmake="$ASWF_CMAKE_VERSION"
 LABEL io.aswf.docker.versions.conan="$ASWF_CONAN_VERSION"
 LABEL io.aswf.docker.versions.yq="$ASWF_YQ_VERSION"
 
@@ -96,31 +90,29 @@ ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
 ENV ASWF_DTS_PREFIX=$ASWF_DTS_PREFIX
 
 
-ENV ASWF_CLANG_VERSION=$ASWF_CLANG_VERSION
-ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
-ENV ASWF_NINJA_VERSION=$ASWF_NINJA_VERSION
 ENV ASWF_CUDA_VERSION=$ASWF_CUDA_VERSION
 ENV ASWF_OPTIX_VERSION=$ASWF_OPTIX_VERSION
 ENV ASWF_GLVND_VERSION=$ASWF_GLVND_VERSION
 ENV ASWF_CCACHE_VERSION=$ASWF_CCACHE_VERSION
 ENV ASWF_DTS_VERSION=$ASWF_DTS_VERSION
 ENV ASWF_SONAR_VERSION=$ASWF_SONAR_VERSION
+ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
 ENV ASWF_CONAN_VERSION=$ASWF_CONAN_VERSION
 ENV ASWF_YQ_VERSION=$ASWF_YQ_VERSION
 ENV ASWF_CONAN_PYTHON_VERSION=$ASWF_CONAN_PYTHON_VERSION
 
 
-COPY ci-common/README.md ci-common/image.yaml /usr/local/aswf/
-
-USER root
+COPY ci-baseos-gl-conan/README.md ci-baseos-gl-conan/image.yaml /usr/local/aswf/
 
 COPY ../scripts/common/install_cudadevel.sh /tmp/
 
-RUN /tmp/install_cudadevel.sh
+RUN --mount=type=cache,sharing=private,target=/var/cache/yum \
+    /tmp/install_cudadevel.sh
 
-COPY scripts/common/install_yumpackages.sh /tmp/
+COPY ../scripts/common/install_yumpackages.sh /tmp/
 
-RUN /tmp/install_yumpackages.sh
+RUN --mount=type=cache,sharing=private,target=/var/cache/yum \
+    /tmp/install_yumpackages.sh
 
 COPY scripts/common/install_opengl.sh /tmp/
 
@@ -136,34 +128,38 @@ COPY scripts/common/install_optix.sh /tmp/
 
 RUN /tmp/install_optix.sh
 
+COPY scripts/common/install_pippackages.sh /tmp/
+
+RUN --mount=type=cache,sharing=private,target=/root/.cache/pip \
+    /tmp/install_pippackages.sh
+
+COPY ../scripts/common/install_dev_ccache.sh \
+     ../scripts/common/before_build.sh \
+     ../scripts/common/copy_new_files.sh \
+     ../scripts/common/install_dev_cmake.sh \
+     /tmp/
+
+ENV DOWNLOADS_DIR=/tmp/downloads \
+    CCACHE_DIR=/tmp/ccache \
+    ASWF_INSTALL_PREFIX=/usr/local \
+    LD_LIBRARY_PATH=/usr/local/lib:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
+    PATH=/opt/aswfbuilder/bin:/usr/local/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+
+RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
+    /tmp/install_dev_cmake.sh && \
+    /tmp/install_dev_ccache.sh
+
 COPY scripts/common/install_yq.sh /tmp/
 
 RUN /tmp/install_yq.sh
 
-RUN mkdir /opt/aswf
-WORKDIR /opt/aswf
+# Merge the previously separate ci-baseos-gl-os and ci-baseos-gl-conan stages:
+# we are unlikely to want to iterate on Conan versions separately from the base image,
+# and we want to make sure that ci-conan-package-builder always pulls a pre-built
+# ci-baseos-gl-conan from Docker Hub rather than rebuilding it locally.
 
-ENV LD_LIBRARY_PATH=/usr/local/lib:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
-    PATH=/usr/local/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
-    PERL5LIB=/opt/rh/rh-git218/root/usr/share/perl5/vendor_perl \
-    MANPATH=/opt/rh/rh-git218/root/usr/share/man
-
-COPY scripts/common/install_sonar.sh \
-    scripts/common/install_ccache.sh \
-    scripts/common/install_dev_cmake.sh \
-    /tmp/
-
-RUN export DOWNLOADS_DIR=/tmp/downloads && \
-  mkdir /tmp/downloads && \
-  /tmp/install_sonar.sh && \
-  export PATH=${PATH}:/opt/aswfbuilder/bin && \
-  /tmp/install_dev_cmake.sh && \
-  /tmp/install_ccache.sh && \
-  rm -rf /tmp/downloads && \
-  rm -rf /opt/aswfbuilder
-
-COPY scripts/common/setup_aswfuser.sh /tmp/
-RUN /tmp/setup_aswfuser.sh
+ARG ASWF_CONAN_VERSION
+ARG ASWF_CONAN_PYTHON_VERSION
 
 ENV ASWF_CONAN_ROOT=/opt/conan
 
@@ -171,9 +167,6 @@ COPY ../scripts/common/install_conan.sh /tmp/
 
 RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
     /tmp/install_conan.sh
-
-COPY ../packages/conan/settings /opt/conan_home/.conan
-ENV ASWF_CONAN_HOME=/opt/conan_home
 
 
 COPY scripts/common/install_conanpackages.sh /tmp/
@@ -187,9 +180,6 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
-clang/${ASWF_CLANG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-cmake/${ASWF_CMAKE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-ninja/${ASWF_NINJA_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
@@ -197,6 +187,6 @@ ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local ci_common${CI_COMMON_VERSION} common
+    /tmp/install_conanpackages.sh /usr/local ci_common${CI_COMMON_VERSION} baseos-gl-conan
 
 

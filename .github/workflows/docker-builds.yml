@@ -24,12 +24,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - group: vfx-2025
-            name: vfx-2025
-            common_version: 5-clang18
-            common_version_noclang: 5
-            version: 2025-clang18
-            version_noclang: 2025
+          - group: vfx-2026
+            name: vfx-2026
+            common_version: 6-clang20
+            common_version_noclang: 6
+            version: 2026-clang20
+            version_noclang: 2026
             test: ""
 
     steps:
@@ -53,7 +53,7 @@ jobs:
     - name: Free up disk space
       run: |
         df -h
-        sudo apt-get remove -y '^llvm-.*' 'php.*' '^cpp.*' '^g\+\+.*' '^clang.*' '^gfortran.*' \
+        sudo apt-get remove -y '^llvm-.*' '^php.*' '^php8.*' '^cpp.*' '^g\+\+.*' '^clang.*' '^gfortran.*' \
             '^dotnet-.*' '^libmono-.*' '^mono-.*' monodoc-http '^r-.*' '^ruby.*' \
             ant ant-optional aria2 azure-cli firefox google-chrome-stable microsoft-edge-stable powershell \
             imagemagick '^imagemagick-.*' '^libmagickcore-.*' '^libmagickwand-.*'  kubectl mercurial mercurial-common subversion
@@ -74,44 +74,49 @@ jobs:
         df -h
         dpkg -l 
 
+    - name: Build Conan Builder Image
+      run: |
+        set -ex
+        pipenv run aswfdocker \
+          --verbose \
+          build \
+          --ci-image-type IMAGE \
+          --group baseos-gl-conan \
+          --version ${{ matrix.common_version_noclang }} \
+          --push NO
+
     - name: Build Ninja and CMake (Conan)
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
           --group common \
           --version ${{ matrix.common_version_noclang }} \
-          --version ${{ matrix.common_version }} \
           --use-conan \
           --build-missing \
           --target ninja \
-          --target cmake
+          --target cmake \
+          --push NO
 
     - name: Build Clang (Conan)
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
           --group common \
-          --version ${{ matrix.common_version_noclang }} \
           --version ${{ matrix.common_version }} \
           --use-conan \
           --build-missing \
-          --target clang
+          --target clang \
+          --push NO
 
     - name: Build ci-common Docker Image for downstream images
       run: |
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type IMAGE \
@@ -123,120 +128,110 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
           --group base1-wrappers \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
-          --build-missing
+          --build-missing \
+          --push NO
 
     - name: Build base1 level 1 Conan packages
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
           --group base1-1 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
-          --build-missing
+          --build-missing \
+          --push NO
 
     - name: Build base1 level 2 Conan packages
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
           --group base1-2 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
-          --build-missing
+          --build-missing \
+          --push NO
 
     - name: Build base1 level 3 Conan packages
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
           --group base1-3 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
-          --build-missing
+          --build-missing \
+          --push NO
 
     - name: Build base2 system wrapper Conan packages for ci-baseqt image
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
           --group base2-wrappers \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
-          --build-missing
+          --build-missing \
+          --push NO
 
     - name: Build base2 system Conan packages for ci-baseqt image
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
           --group base2-1
           --version ${{ matrix.version_noclang }} \
           --use-conan \
-          --build-missing
+          --build-missing \
+          --push NO
 
     - name: Build base2 level 2 Conan packages (Qt) for ci-baseqt image
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
           --group base2-2 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
-          --build-missing
+          --build-missing \
+          --push NO
 
     - name: Build base3 Conan packages (PySide) for base image
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
           --group base3 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
-          --build-missing
+          --build-missing \
+          --push NO
 
     - name: Build base and baseqt images
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type IMAGE \
@@ -248,8 +243,6 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -263,8 +256,6 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -278,8 +269,6 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -293,8 +282,6 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -308,8 +295,6 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -323,8 +308,6 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -338,8 +321,6 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -353,8 +334,6 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -367,8 +346,6 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type IMAGE \
@@ -381,8 +358,6 @@ jobs:
       run: |
         set -ex
         pipenv run aswfdocker \
-          --repo-uri $GITHUB_REPOSITORY \
-          --source-branch $GITHUB_REF \
           --verbose \
           build \
           --ci-image-type IMAGE \
