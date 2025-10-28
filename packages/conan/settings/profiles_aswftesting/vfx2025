@@ -64,7 +64,7 @@ mpdecimal/*: mpdecimal/system@aswftesting/vfx2025
 mpg123/*: mpg123/system@aswftesting/vfx2025
 nlohmann_json/*: nlohmann_json/3.12.0@aswftesting/vfx2025
 nspr/*: nspr/system@aswftesting/vfx2025
-nss/*: nss/3.101.0@aswftesting/vfx2025
+nss/*: nss/3.112.0@aswftesting/vfx2025
 ocio/*: ocio/2.4.2@aswftesting/vfx2025
 oiio/*: oiio/3.1.6.2@aswftesting/vfx2025
 ogg/*: ogg/system@aswftesting/vfx2025

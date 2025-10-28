@@ -66,7 +66,7 @@ mpdecimal/*: mpdecimal/system@aswf/vfx2026
 mpg123/*: mpg123/system@aswf/vfx2026
 nlohmann_json/*: nlohmann_json/3.12.0@aswf/vfx2026
 nspr/*: nspr/system@aswf/vfx2026
-nss/*: nss/3.101.0@aswf/vfx2026
+nss/*: nss/3.112.0@aswf/vfx2026
 ocio/*: ocio/2.5.0@aswf/vfx2026
 oiio/*: oiio/3.1.6.2@aswf/vfx2026
 ogg/*: ogg/system@aswf/vfx2026
