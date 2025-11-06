@@ -72,9 +72,10 @@ onetbb/*: onetbb/2020.3@aswf/vfx2024
 openal-soft/*: openal-soft/system@aswf/vfx2024
 opencl-headers/*: opencl-headers/system@aswf/vfx2024
 opencl-icd-loader/*: opencl-icd-loader/system@aswf/vfx2024
-openexr/*: openexr/3.2.4@aswf/vfx2024
+openexr/*: openexr/3.2.5@aswf/vfx2024
 opengl/*: opengl/system@aswf/vfx2024
 openjpeg/*: openjpeg/2.4.0@aswf/vfx2024
+openjph/*: openjph/0.24.5@aswf/vfx2024
 openssl/*: openssl/system@aswf/vfx2024
 openvdb/*: openvdb/11.0.0@aswf/vfx2024
 opus/*: opus/system@aswf/vfx2024

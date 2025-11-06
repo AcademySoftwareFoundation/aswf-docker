@@ -173,7 +173,7 @@ Contains:
 * sonar-4.8.0.2856
 * conan-1.58.0
 
-## [aswf/ci-common:4-clang16.4](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang16.4)
+## [aswf/ci-common:4-clang16.5](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang16.5)
 
 Contains:
 * clang-16.0.6
@@ -188,7 +188,7 @@ Contains:
 * conan-2.18.1
 * yq-4.45.2
 
-## [aswf/ci-common:4-clang17.4](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang17.4)
+## [aswf/ci-common:4-clang17.5](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang17.5)
 
 Contains:
 * clang-17.0.6
@@ -203,7 +203,7 @@ Contains:
 * conan-2.18.1
 * yq-4.45.2
 
-## [aswf/ci-common:5-clang18.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang18.3)
+## [aswf/ci-common:5-clang18.4](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang18.4)
 
 Contains:
 * clang-18.1.8
@@ -218,7 +218,7 @@ Contains:
 * conan-2.18.1
 * yq-4.45.2
 
-## [aswf/ci-common:5-clang19.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang19.3)
+## [aswf/ci-common:5-clang19.4](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang19.4)
 
 Contains:
 * clang-19.1.7
@@ -233,7 +233,7 @@ Contains:
 * conan-2.18.1
 * yq-4.45.2
 
-## [aswf/ci-common:6-clang19.1](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=6-clang19.1)
+## [aswf/ci-common:6-clang19.2](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=6-clang19.2)
 
 Contains:
 * clang-19.1.7
@@ -248,7 +248,7 @@ Contains:
 * conan-2.18.1
 * yq-4.45.4
 
-## [aswf/ci-common:6-clang20.1](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=6-clang20.1)
+## [aswf/ci-common:6-clang20.2](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=6-clang20.2)
 
 Contains:
 * clang-20.1.7

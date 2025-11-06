@@ -228,7 +228,7 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-osl:2024-clang16.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang16.4)
+## [aswf/ci-osl:2024-clang16.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang16.5)
 
 Contains:
 * cpython-3.11.13
@@ -245,7 +245,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-osl:2024-clang17.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang17.4)
+## [aswf/ci-osl:2024-clang17.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang17.5)
 
 Contains:
 * cpython-3.11.13
@@ -262,7 +262,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-osl:2025-clang18.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2025-clang18.3)
+## [aswf/ci-osl:2025-clang18.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2025-clang18.4)
 
 Contains:
 * cpython-3.11.13
@@ -279,7 +279,7 @@ Contains:
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-osl:2025-clang19.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2025-clang19.3)
+## [aswf/ci-osl:2025-clang19.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2025-clang19.4)
 
 Contains:
 * cpython-3.11.13
@@ -296,7 +296,7 @@ Contains:
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-osl:2026-clang19.1](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang19.1)
+## [aswf/ci-osl:2026-clang19.2](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang19.2)
 
 Contains:
 * cpython-3.13.3
@@ -313,7 +313,7 @@ Contains:
 * numpy-2.3.2
 * vfxplatform-2026
 
-## [aswf/ci-osl:2026-clang20.1](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang20.1)
+## [aswf/ci-osl:2026-clang20.2](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang20.2)
 
 Contains:
 * cpython-3.13.3

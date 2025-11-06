@@ -74,11 +74,12 @@ onetbb/*: onetbb/2022.1.0@aswftesting/vfx2026
 openal-soft/*: openal-soft/system@aswftesting/vfx2026
 opencl-headers/*: opencl-headers/system@aswftesting/vfx2026
 opencl-icd-loader/*: opencl-icd-loader/system@aswftesting/vfx2026
-openexr/*: openexr/3.4.2@aswftesting/vfx2026
+openexr/*: openexr/3.4.3@aswftesting/vfx2026
 opengl/*: opengl/system@aswftesting/vfx2026
 openjpeg/*: openjpeg/2.4.0@aswftesting/vfx2026
+openjph/*: openjph/0.24.5@aswftesting/vfx2026
 openssl/*: openssl/system@aswftesting/vfx2026
-openvdb/*: openvdb/12.1.1@aswftesting/vfx2026
+openvdb/*: openvdb/13.0.0@aswftesting/vfx2026
 opus/*: opus/system@aswftesting/vfx2026
 pcre2/*: pcre2/system@aswftesting/vfx2026
 ptex/*: ptex/2.4.3@aswftesting/vfx2026

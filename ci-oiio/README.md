@@ -18,21 +18,21 @@ Warning: this image does *not* contain OpenImageIO itself as it is used to *buil
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-oiio/Dockerfile)
 
-## [aswf/ci-oiio:2024.4](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2024.4)
+## [aswf/ci-oiio:2024.5](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2024.5)
 
 Contains:
 * oiio-2.5.19.0
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-oiio:2025.3](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2025.3)
+## [aswf/ci-oiio:2025.4](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2025.4)
 
 Contains:
 * oiio-3.1.6.2
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-oiio:2026.1](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2026.1)
+## [aswf/ci-oiio:2026.2](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2026.2)
 
 Contains:
 * oiio-3.1.6.2

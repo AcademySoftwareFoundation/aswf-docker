@@ -52,6 +52,11 @@ class OpenEXRConan(ConanFile):
     def _with_libdeflate(self):
         return Version(self.version) >= "3.2"
 
+    # ASWF: OpenEXR 3.4 now supports OpenJPH:
+    @property
+    def _with_openjph(self):
+        return Version(self.version) >= "3.4"
+
     def export_sources(self):
         export_conandata_patches(self)
 
@@ -74,6 +79,9 @@ class OpenEXRConan(ConanFile):
             self.requires("libdeflate/1.19")
         # ASWF: add explicit dependencies on cpython, Conan profile provides real versions
         self.requires("cpython/[>=3.0.0]")
+        # ASWF: OpenEXR 3.4 supports OpenJPH
+        if self._with_openjph:
+            self.requires("openjph/0.24.5")
 
     def validate(self):
         if self.settings.compiler.get_safe("cppstd"):
@@ -186,6 +194,8 @@ class OpenEXRConan(ConanFile):
         OpenEXRCore.requires = [self._conan_comp("OpenEXRConfig"), "zlib::zlib"]
         if self._with_libdeflate:
             OpenEXRCore.requires.append("libdeflate::libdeflate")
+        if self._with_openjph:
+            OpenEXRCore.requires.append("openjph::openjph")
         if self.settings.os in ["Linux", "FreeBSD"]:
             OpenEXRCore.system_libs = ["m"]
 
