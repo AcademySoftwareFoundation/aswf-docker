@@ -18,7 +18,7 @@ Warning: this image does *not* contain OpenRV itself as it is used to *build* Op
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-openrv/Dockerfile)
 
-## [aswf/ci-openrv:2024.4](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2024.4)
+## [aswf/ci-openrv:2024.5](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2024.5)
 
 Contains:
 * cpython-3.11.13
@@ -27,7 +27,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-openrv:2025.3](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2025.3)
+## [aswf/ci-openrv:2025.4](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2025.4)
 
 Contains:
 * cpython-3.11.13
@@ -36,7 +36,7 @@ Contains:
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-openrv:2026.1](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2026.1)
+## [aswf/ci-openrv:2026.2](https://hub.docker.com/r/aswf/ci-openrv/tags?page=1&name=2026.2)
 
 Contains:
 * cpython-3.13.3

@@ -72,9 +72,10 @@ onetbb/*: onetbb/2021.13.0@aswf/vfx2025
 openal-soft/*: openal-soft/system@aswf/vfx2025
 opencl-headers/*: opencl-headers/system@aswf/vfx2025
 opencl-icd-loader/*: opencl-icd-loader/system@aswf/vfx2025
-openexr/*: openexr/3.3.5@aswf/vfx2025
+openexr/*: openexr/3.3.6@aswf/vfx2025
 opengl/*: opengl/system@aswf/vfx2025
 openjpeg/*: openjpeg/2.4.0@aswf/vfx2025
+openjph/*: openjph/0.24.5@aswf/vfx2025
 openssl/*: openssl/system@aswf/vfx2025
 openvdb/*: openvdb/12.1.1@aswf/vfx2025
 opus/*: opus/system@aswf/vfx2025

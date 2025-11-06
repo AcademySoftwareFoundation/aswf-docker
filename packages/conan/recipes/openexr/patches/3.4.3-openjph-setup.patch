@@ -1,0 +1,13 @@
+diff --git a/cmake/OpenEXRSetup.cmake b/cmake/OpenEXRSetup.cmake
+index bccd980..c8438f3 100644
+--- a/cmake/OpenEXRSetup.cmake
++++ b/cmake/OpenEXRSetup.cmake
+@@ -267,7 +267,7 @@
+     endif()
+
+     message(STATUS "Using OpenJPH ${openjph_VERSION} from ${openjph_DIR}")
+-    set(EXR_OPENJPH_LIB openjph)
++    set(EXR_OPENJPH_LIB openjph::openjph)
+   else()
+     # If not found, try pkgconfig
+     find_package(PkgConfig)

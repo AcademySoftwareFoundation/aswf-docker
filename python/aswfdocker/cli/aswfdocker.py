@@ -8,7 +8,6 @@ import sys
 import logging
 import warnings
 import re
-import subprocess
 
 import click
 from github import Github, Auth
@@ -539,10 +538,9 @@ def pushoverview(
 @pass_build_info
 def conandiff(build_info, recipe, checkwrappers, branch):
     """Check for outdated conanfile.py files in packages/conan/recipes directory."""
-    from aswfdocker import settings
 
     # Initialize GitHub client
-    s = settings.Settings()
+    s = aswf_settings.Settings()
     if s.github_access_token:
         auth = Auth.Token(s.github_access_token)
         g = Github(auth=auth)
@@ -588,7 +586,7 @@ def conandiff(build_info, recipe, checkwrappers, branch):
         if not os.path.exists(conanfile_path):
             continue
 
-        with open(conanfile_path, "r") as f:
+        with open(conanfile_path, "r", encoding="utf-8") as f:
             content = f.read()
 
         # Skip system wrapper packages unless --checkwrappers is specified
@@ -599,7 +597,10 @@ def conandiff(build_info, recipe, checkwrappers, branch):
         package_name = os.path.basename(recipe_dir)
 
         # Find SHA-1 hashes in URLs
-        sha_pattern = r"https://github.com/conan-io/conan-center-index/blob/([a-fA-F0-9]{40})/recipes/([^/]+)/all/conanfile\.py"
+        sha_pattern = (
+            r"https://github.com/conan-io/conan-center-index/blob/"
+            r"([a-fA-F0-9]{40})/recipes/([^/]+)/all/conanfile\.py"
+        )
         matches = re.findall(sha_pattern, content)
         if not matches:
             continue
@@ -637,7 +638,7 @@ def conandiff(build_info, recipe, checkwrappers, branch):
 
             if newer_commits:
                 found_outdated = True
-                click.secho(f"\nFound outdated conanfile.py:", fg="yellow")
+                click.secho("\nFound outdated conanfile.py:", fg="yellow")
                 click.echo(f"{conanfile_path}:")
                 click.echo(f"  Package: {package_name}")
                 click.echo(f"  Current SHA: {permalink_sha}")

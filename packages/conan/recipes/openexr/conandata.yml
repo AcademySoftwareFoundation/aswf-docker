@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/openexr/3.x/conandata.yml
 
 sources:
+  "3.4.3":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4.3.tar.gz"
+    sha256: "06494da42eb91c47265ffbad02d0c73cf65d8ad7f24683b801f34d842c4ecb6d"
   "3.4.2":
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4.2.tar.gz"
     sha256: "d7d38eb6a63ea8ba0f301d0ad6a80094032d488e9e6c525b35236d20a9ae3ef2"
@@ -17,6 +20,9 @@ sources:
   "3.4-alpha":
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4-alpha.tar.gz"
     sha256: "5a78b497576a323979b03a343ad63a253d955462365c67597ab6fcac87e79193"
+  "3.3.6":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.6/openexr-3.3.6.tar.gz"
+    sha256: "35d3d597ca2a9dcbf405874c774bd716cd729fb35ab27ccbd75a1355ee9d9c0f"
   "3.3.5":
     url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.5/openexr-3.3.5.tar.gz"
     sha256: "8f9241f0e9d6b7aec7e9509cf2a9224416b9cd9d41740deab3827b1f2d01c662"
@@ -35,6 +41,9 @@ sources:
   "3.3.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.3.0.tar.gz"
     sha256: "58b00f50d2012f3107573c4b7371f70516d2972c2b301a50925e1b4a60a7be6f"
+  "3.2.5":
+    url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.2.5.tar.gz"
+    sha256: "89374d93401dda1a49bf4acb930a906b9936f9526523d0f318dacb9fa8f025d7"
   "3.2.4":
     url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.2.4.tar.gz"
     sha256: "81e6518f2c4656fdeaf18a018f135e96a96e7f66dbe1c1f05860dd94772176cc"
@@ -54,6 +63,9 @@ sources:
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.1.7.tar.gz"
     sha256: "78dbca39115a1c526e6728588753955ee75fa7f5bb1a6e238bed5b6d66f91fd7"
 patches:
+  "3.4.3":
+    - patch_file: "patches/3.4.3-openjph-setup.patch"
+      patch_description: "Find previously installed openjph"
   "3.2.4":
     - patch_file: "patches/3.2.1-gcc5-bug-workaround.patch"
       patch_description: "Workaround for GCC 5 bug"
