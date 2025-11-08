@@ -11,6 +11,7 @@ ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
 ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_CONAN_CHANNEL
+ARG ASWF_CXX_STANDARD
 {% if name != "common" and name != "baseos-gl-conan" %}
 ARG ASWF_VFXPLATFORM_VERSION
 {% endif %}
@@ -22,6 +23,9 @@ ARG {{ arg }}
 {% for package in packages + implicit_packages -%}
 ARG ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
+{% if name == "osl" or name == "usd" -%}
+ARG ASWF_{{name|upper}}_VERSION
+{% endif -%}
 
 {% for package in packages + implicit_packages -%}
 {% for arg in index.package_data(package).get("docker_args", []) -%}
@@ -52,6 +56,7 @@ ARG ASWF_VERSION
 ARG CI_COMMON_VERSION
 ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_CONAN_CHANNEL
+ARG ASWF_CXX_STANDARD
 
 {% if name == "common" or name == "baseos-gl-conan" %}
 ARG ASWF_DTS_PREFIX
@@ -64,6 +69,9 @@ ARG {{ arg }}
 {% for package in packages + implicit_packages -%}
 ARG ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
+{% if name == "osl" or name == "usd" -%}
+ARG ASWF_{{name|upper}}_VERSION
+{% endif -%}
 
 {% for package in packages + implicit_packages -%}
 {% for arg in index.package_data(package).get("docker_args", []) -%}
@@ -92,6 +100,7 @@ ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
 ENV ASWF_INSTALL_PREFIX=/usr/local
 ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
+ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
 
 
 {% if name != "common" and name != "baseos-gl-conan" %}
@@ -107,6 +116,9 @@ ENV {{ arg }}=${{ arg }}
 {% for package in packages + implicit_packages -%}
 ENV ASWF_{{package|upper|replace("-", "_")}}_VERSION=$ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
+{% if name == "osl" or name == "usd" -%}
+ENV ASWF_{{name|upper}}_VERSION=$ASWF_{{name|upper}}_VERSION
+{% endif -%}
 
 {% for package in packages + implicit_packages -%}
 {% for arg in index.package_data(package).get("docker_args", []) -%}
@@ -121,6 +133,9 @@ COPY --from=ci-package-{{ package }} /. /usr/local/
 {% endfor -%}
 
 COPY ci-{{name}}/README.md ci-{{name}}/image.yaml /usr/local/aswf/
+{% if name != "common" and name != "baseos-gl-conan" and name != "base" and name != "baseqt" and name != "vfxall" %}
+COPY scripts/vfx/build_{{name}}.sh /usr/local/aswf
+{% endif -%}
 
 {{ docker_commands }}
 

@@ -16,8 +16,7 @@ ARG ASWF_CXX_STANDARD
 ARG ASWF_VFXPLATFORM_VERSION
 
 
-ARG ASWF_OPENVDB_VERSION
-ARG ASWF_GTEST_VERSION
+ARG ASWF_IMATH_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
@@ -25,7 +24,7 @@ ARG ASWF_VFXPLATFORM_VERSION
 
 
 # Comment out this block to use Conan packages
-FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-openvdb
+FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-imath
 
 
 ARG ASWF_ORG
@@ -39,18 +38,17 @@ ARG ASWF_CXX_STANDARD
 
 
 
-ARG ASWF_OPENVDB_VERSION
-ARG ASWF_GTEST_VERSION
+ARG ASWF_IMATH_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-openvdb"
-LABEL org.opencontainers.image.title="OpenVDB CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: Python, Boost, TBB and other OpenVDB upstream dependencies\
-Warning: this image does *not* contain OpenVDB itself as it is used to *build* OpenVDB!"
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-imath"
+LABEL org.opencontainers.image.title="Imath CI Docker Image"
+LABEL org.opencontainers.image.description="Contains: Python and other Imath upstream dependencies\
+Warning: this image does *not* contain Imath itself as it is used to *build* Imath!"
 LABEL org.opencontainers.image.url="http://aswf.io/"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-openvdb/Dockerfile"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-imath/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
@@ -59,8 +57,7 @@ LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
 
 
-LABEL io.aswf.docker.versions.openvdb="$ASWF_OPENVDB_VERSION"
-LABEL io.aswf.docker.versions.gtest="$ASWF_GTEST_VERSION"
+LABEL io.aswf.docker.versions.imath="$ASWF_IMATH_VERSION"
 LABEL io.aswf.docker.versions.numpy="$ASWF_NUMPY_VERSION"
 LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
 
@@ -76,15 +73,14 @@ ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
 
-ENV ASWF_OPENVDB_VERSION=$ASWF_OPENVDB_VERSION
-ENV ASWF_GTEST_VERSION=$ASWF_GTEST_VERSION
+ENV ASWF_IMATH_VERSION=$ASWF_IMATH_VERSION
 ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
 ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
 
 
-COPY ci-openvdb/README.md ci-openvdb/image.yaml /usr/local/aswf/
+COPY ci-imath/README.md ci-imath/image.yaml /usr/local/aswf/
 
-COPY scripts/vfx/build_openvdb.sh /usr/local/aswf
+COPY scripts/vfx/build_imath.sh /usr/local/aswf
 
 
 COPY scripts/common/install_conanpackages.sh /tmp/
@@ -98,8 +94,7 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
-openvdb/${ASWF_OPENVDB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-gtest/${ASWF_GTEST_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
@@ -107,6 +102,6 @@ ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} openvdb
+    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} imath
 
 

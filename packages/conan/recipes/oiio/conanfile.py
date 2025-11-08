@@ -52,7 +52,8 @@ class OpenImageIOConan(ConanFile):
         "with_libjxl": [True, False],
         "with_libultrahdr": [True, False],
         "with_iv": [True, False],
-        "with_python": [True, False],
+        "with_python": [True, False], # ASWF
+        "with_openjph": [True, False], # ASWF
     }
     default_options = {
         "shared": False,
@@ -77,6 +78,7 @@ class OpenImageIOConan(ConanFile):
         "with_libultrahdr": True,
         "with_iv": False, # ASWF: enable once we figure out why configure doesn't find Qt or OpenGL
         "with_python": True, # ASWF: build Python bindings
+        "with_openjph": True, # ASWF: use OpenJPH since OpenEXR uses it
     }
 
     def export_sources(self):
@@ -153,6 +155,8 @@ class OpenImageIOConan(ConanFile):
            self.requires("qt/6.8.3")
         if self.options.with_python: # ASWF: build Python bindings
            self.requires("cpython/[>=3.0.0")
+        if self.options.with_openjph: # ASWF: use OpenJPH for JPEG-2000
+           self.requires("openjph/0.24.5")
 
     def validate(self):
         if self.settings.compiler.cppstd:
@@ -337,6 +341,8 @@ class OpenImageIOConan(ConanFile):
             self.cpp_info.components["OpenImageIO"].requires.append("libultrahdr::libultrahdr")
         if self.options.with_python: # ASWF: build Python bindings
             self.cpp_info.components["OpenImageIO"].requires.append("cpython::cpython")
+        if self.options.with_python: # ASWF: Use OpenJPH for JPEG-2000
+            self.cpp_info.components["OpenImageIO"].requires.append("openjph::openjph")
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.components["OpenImageIO"].system_libs.extend(["dl", "m", "pthread"])
 

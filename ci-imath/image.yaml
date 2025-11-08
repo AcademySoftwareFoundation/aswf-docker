@@ -1,0 +1,12 @@
+name: "imath"
+title: "Imath CI Docker Image"
+description: |
+  Contains: Python and other Imath upstream dependencies
+  Warning: this image does *not* contain Imath itself as it is used to *build* Imath!
+packages:
+  - imath # all dependencies will be installed except imath itself
+implicit_packages:
+  - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION

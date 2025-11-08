@@ -1555,6 +1555,10 @@ ci-images:
     - "2024.5"
     - "2025.4"
     - "2026.2"
+  imath:
+    - "2024.5"
+    - "2025.4"
+    - "2026.2"
   openexr:
     - "2019.8"
     - "2020.8"
@@ -1827,6 +1831,7 @@ groups:
         - base
         - baseqt
       vfx1:
+        - imath
         - opencue
         - openexr
         - openfx
