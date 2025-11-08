@@ -341,7 +341,7 @@ class OpenImageIOConan(ConanFile):
             self.cpp_info.components["OpenImageIO"].requires.append("libultrahdr::libultrahdr")
         if self.options.with_python: # ASWF: build Python bindings
             self.cpp_info.components["OpenImageIO"].requires.append("cpython::cpython")
-        if self.options.with_python: # ASWF: Use OpenJPH for JPEG-2000
+        if self.options.with_openjph: # ASWF: Use OpenJPH for JPEG-2000
             self.cpp_info.components["OpenImageIO"].requires.append("openjph::openjph")
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.components["OpenImageIO"].system_libs.extend(["dl", "m", "pthread"])
