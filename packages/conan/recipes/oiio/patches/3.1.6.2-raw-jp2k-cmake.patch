@@ -19,7 +19,7 @@ diff --git src/jpeg2000.imageio/CMakeLists.txt src/jpeg2000.imageio/CMakeLists.t
 index d99dd79ac..bfda2778a 100644
 --- src/jpeg2000.imageio/CMakeLists.txt
 +++ src/jpeg2000.imageio/CMakeLists.txt
-@@ -2,10 +2,10 @@
+@@ -2,13 +2,16 @@
  # SPDX-License-Identifier: Apache-2.0
  # https://github.com/AcademySoftwareFoundation/OpenImageIO
 
@@ -34,6 +34,12 @@ index d99dd79ac..bfda2778a 100644
      set(_jpeg2000_defs "USE_OPENJPEG")
 
      if (openjph_FOUND)
++        list(APPEND _jpeg2000_includes ${openjph_INCLUDE_DIR})
++        list(APPEND _jpeg2000_lib_dirs ${openjph_LIB_DIRS_RELEASE})
++        list(APPEND _jpeg2000_libs ${openjph_LIBS_RELEASE})
+         list(APPEND _jpeg2000_defs "USE_OPENJPH")
+     endif()
+
 diff --git src/cmake/modules/FindLibRaw.cmake src/cmake/FindLibRaw.cmake
 index d99dd79ac..bfda2778a 100644
 --- src/cmake/modules/FindLibRaw.cmake

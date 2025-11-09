@@ -2,13 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-# 2025-11-08
+# 2025-11-09
 
 2024.5 / 2025.4 / 2026.2 releases. VFX Platform 2026 release is now feature complete.
 
 - All releases
   - Add OpenJPH 0.24.5 package
-    - OIIO builds against OpenJPH to handle JPEG-2000 j2c files ([#312](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/312))
+    - OIIO 3.x in 2025/2026 builds against OpenJPH to handle JPEG-2000 j2c files ([#312](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/312))
   - Add build_XXX.sh in /usr/local and missing env vars to ci-XXX images to help test images ([307](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/307))
   - Separate ci-imath image include Imath dependencies but not Imath itself ([306](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/306))
 - 2024.4
