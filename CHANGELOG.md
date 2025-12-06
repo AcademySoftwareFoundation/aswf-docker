@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2025-12-06
+
+Re-releasing 2025.5 / 2025.4 / 2026.2 without 1.5GB of Conan download cache bloat.
+
 # 2025-11-09
 
 2024.5 / 2025.4 / 2026.2 releases. VFX Platform 2026 release is now feature complete.
@@ -11,9 +15,9 @@ All notable changes to this project will be documented in this file.
     - OIIO 3.x in 2025/2026 builds against OpenJPH to handle JPEG-2000 j2c files ([#312](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/312))
   - Add build_XXX.sh in /usr/local and missing env vars to ci-XXX images to help test images ([307](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/307))
   - Separate ci-imath image include Imath dependencies but not Imath itself ([306](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/306))
-- 2024.4
+- 2024.5
   - Update OpenEXR 3.2.4 to 3.2.5 to address potential buffer overflow / use after free issues
-- 2025.3
+- 2025.4
   - Update OpenEXR 3.3.5 to 3.3.6 to address potential buffer overflow / use after free issues
 - 2026.2
   - Update OpenVDB 12.1.1 to 13.0.0. VFX Platform 2026 is now feature complete.
