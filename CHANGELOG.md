@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 
 Re-releasing 2025.5 / 2025.4 / 2026.2 without 1.5GB of Conan download cache bloat.
 
+Also 2026 images use gcc-toolset 14, which no longer has a sudo wrapper preserving PATH / LD_LIBRARY_PATH.
+Get rid of calls to sudo which try to run binaries in /usr/local/bin.
+
 # 2025-11-09
 
 2024.5 / 2025.4 / 2026.2 releases. VFX Platform 2026 release is now feature complete.
