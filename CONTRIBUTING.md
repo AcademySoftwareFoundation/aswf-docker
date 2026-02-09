@@ -617,7 +617,8 @@ Check [#66](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/66) fo
 aswfdocker release -t IMAGE -g baseos-gl-conan -v 4 -v 5 -v 6 --target baseos-gl-conan --docker-org aswf -m "RELEASE_NOTES!"
 
 # Common packages
-aswfdocker release -t PACKAGE -g common -v 4 -v 5 -v 6 --target ninja --target cmake --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common -v 4 -v 5 -v 6 --target openssl --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common -v 4 -v 5 -v 6 --target ninja -target cmake --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g common -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 -v 6-clang19 -v 6-clang20 --target clang --docker-org aswf -m "RELEASE_NOTES!"
 # Wait for clang builds to finish (from 2 to 3 hours!)
 

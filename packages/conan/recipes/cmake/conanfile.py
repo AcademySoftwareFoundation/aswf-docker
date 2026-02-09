@@ -19,6 +19,7 @@ import json
 
 required_conan_version = ">=1.51.0"
 
+
 class CMakeConan(ConanFile):
     name = "cmake"
     package_type = "application"
@@ -34,7 +35,7 @@ class CMakeConan(ConanFile):
         "bootstrap": [True, False],
     }
     default_options = {
-        "with_openssl": False,  # ASWF: Avoid bringing in OpenSSL dependency
+        "with_openssl": True,
         "bootstrap": False,
     }
 
@@ -119,6 +120,8 @@ class CMakeConan(ConanFile):
                 if self.options.with_openssl:
                     openssl = self.dependencies["openssl"]
                     tc.variables["OPENSSL_USE_STATIC_LIBS"] = not openssl.options.shared
+                    # Point CMake to the OpenSSL system location
+                    tc.variables["OPENSSL_ROOT_DIR"] = "/usr"
             if cross_building(self):
                 tc.variables["HAVE_POLL_FINE_EXITCODE"] = ''
                 tc.variables["HAVE_POLL_FINE_EXITCODE__TRYRUN_OUTPUT"] = ''
@@ -130,9 +133,8 @@ class CMakeConan(ConanFile):
             tc.generate()
             tc = CMakeDeps(self)
             # CMake try_compile failure: https://github.com/conan-io/conan-center-index/pull/16073#discussion_r1110037534
-            tc.set_property("openssl", "cmake_find_mode", "module")
+            tc.set_property("openssl", "cmake_find_mode", "none")
             tc.generate()
-
 
     def build(self):
         if self.options.bootstrap:

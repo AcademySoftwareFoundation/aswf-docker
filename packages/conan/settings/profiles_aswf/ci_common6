@@ -11,6 +11,7 @@ build_type=Release
 *:shared=True
 [tool_requires]
 [replace_requires]
+openssl/*: openssl/1.1.1k@aswf/ci_common6
 [replace_tool_requires]
 cmake/*: cmake/4.0.2@aswf/ci_common6
 ninja/*: ninja/1.13.1@aswf/ci_common6
