@@ -80,7 +80,7 @@ openfx/*: openfx/1.5s@aswftesting/vfx2025
 opengl/*: opengl/system@aswftesting/vfx2025
 openjpeg/*: openjpeg/2.4.0@aswftesting/vfx2025
 openjph/*: openjph/0.24.5@aswftesting/vfx2025
-openssl/*: openssl/system@aswftesting/vfx2025
+openssl/*: openssl/1.1.1k@aswftesting/vfx2025
 opensubdiv/*: opensubdiv/3.6.1@aswftesting/vfx2025
 openusd/*: openusd/25.05.01@aswftesting/vfx2025
 openvdb/*: openvdb/12.1.1@aswftesting/vfx2025

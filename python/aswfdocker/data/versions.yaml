@@ -158,6 +158,7 @@ versions:
       ASWF_CMAKE_VERSION: "3.31.7"
       ASWF_NINJA_VERSION: "1.13.1"
       ASWF_SONAR_VERSION: "8.0.1.6346"
+      ASWF_OPENSSL_VERSION: "1.1.1k"
       ASWF_YQ_VERSION: "4.45.2"
       ASWF_BASEOS_DISTRO: "rockylinux8"
       ASWF_BASEOS_IMAGE: "nvidia/cuda"
@@ -191,6 +192,7 @@ versions:
       ASWF_GLVND_VERSION: "1.7.0"
       ASWF_CCACHE_VERSION: "4.9.1"
       ASWF_CMAKE_VERSION: "3.31.7"
+      ASWF_OPENSSL_VERSION: "1.1.1k"
       ASWF_NINJA_VERSION: "1.13.1"
       ASWF_SONAR_VERSION: "8.0.1.6346"
       ASWF_YQ_VERSION: "4.45.2"
@@ -227,6 +229,7 @@ versions:
       ASWF_GLVND_VERSION: "1.7.0"
       ASWF_CCACHE_VERSION: "4.11.3"
       ASWF_CMAKE_VERSION: "4.0.2"
+      ASWF_OPENSSL_VERSION: "1.1.1k"
       ASWF_NINJA_VERSION: "1.13.1"
       ASWF_SONAR_VERSION: "8.0.1.6346"
       ASWF_YQ_VERSION: "4.45.4"
@@ -542,7 +545,6 @@ versions:
       ASWF_OPENCL_ICD_LOADER_VERSION: "system"
       ASWF_OPENGL_VERSION: "system"
       ASWF_OPENJPEG_VERSION: "2.4.0"
-      ASWF_OPENSSL_VERSION: "system"
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
       ASWF_PULSEAUDIO_VERSION: "system"
@@ -678,7 +680,6 @@ versions:
       ASWF_OPENCL_ICD_LOADER_VERSION: "system"
       ASWF_OPENGL_VERSION: "system"
       ASWF_OPENJPEG_VERSION: "2.4.0"
-      ASWF_OPENSSL_VERSION: "system"
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
       ASWF_PULSEAUDIO_VERSION: "system"
@@ -815,7 +816,6 @@ versions:
       ASWF_OPENCL_ICD_LOADER_VERSION: "system"
       ASWF_OPENGL_VERSION: "system"
       ASWF_OPENJPEG_VERSION: "2.4.0"
-      ASWF_OPENSSL_VERSION: "system"
       ASWF_OPUS_VERSION: "system"
       ASWF_PCRE2_VERSION: "system"
       ASWF_PULSEAUDIO_VERSION: "system"
@@ -950,6 +950,10 @@ ci-packages:
     - "4.6"
     - "5.5"
     - "6.3"
+  openssl:
+    - "4.5"
+    - "5.4"
+    - "6.2"
   cpython:
     - "2019.2"
     - "2020.2"
@@ -1427,10 +1431,6 @@ ci-packages:
     - "2024.6"
     - "2025.5"
     - "2026.3"
-  openssl:
-    - "2024.6"
-    - "2025.5"
-    - "2026.3"
   opus:
     - "2024.6"
     - "2025.5"
@@ -1698,6 +1698,8 @@ ci-images:
 
 groups:
   package:
+      common-wrappers:
+        - openssl
       common:
         - clang
         - cmake
@@ -1714,7 +1716,6 @@ groups:
         - opencl-headers
         - opencl-icd-loader
         - opengl
-        - openssl
         - pcre2
         - sqlite3
         - tcl

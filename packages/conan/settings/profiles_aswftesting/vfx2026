@@ -82,7 +82,7 @@ openfx/*: openfx/1.5s@aswftesting/vfx2026
 opengl/*: opengl/system@aswftesting/vfx2026
 openjpeg/*: openjpeg/2.4.0@aswftesting/vfx2026
 openjph/*: openjph/0.24.5@aswftesting/vfx2026
-openssl/*: openssl/system@aswftesting/vfx2026
+openssl/*: openssl/1.1.1k@aswftesting/vfx2026
 opensubdiv/*: opensubdiv/3.7.0@aswftesting/vfx2026
 openusd/*: openusd/26.03@aswftesting/vfx2026
 openvdb/*: openvdb/13.0.0@aswftesting/vfx2026
