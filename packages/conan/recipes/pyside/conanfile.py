@@ -228,7 +228,7 @@ class PySide6Conan(ConanFile):
         env = Environment()
         env.define("LLVM_INSTALL_DIR", llvmInfo.package_folder)
         env.define("CMAKE_PREFIX_PATH", f"{qtInfo.package_folder}:{llvmInfo.package_folder}")
-        env.defiine("CXXFLAGS", f"-I{pythonInfo.cpp_info.includedirs[0]}")
+        env.define("CXXFLAGS", f"-I{pythonInfo.cpp_info.includedirs[0]}")
         env_vars = env.vars(self)
 
         with env_vars.apply():

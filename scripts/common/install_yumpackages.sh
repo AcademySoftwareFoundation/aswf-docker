@@ -320,6 +320,7 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
         ${PYTHON39_RPM} \
         python3.11 \
         python3.11-devel \
+        python3.11-pip \
         python3.11-setuptools
     dnf -y module install nodejs:18
 

@@ -92,7 +92,7 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-base:2024.5](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2024.5)
+## [aswf/ci-base:2024.6](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2024.6)
 
 Contains:
 * b2-5.2.1
@@ -118,12 +118,13 @@ Contains:
 * glew-2.2.0
 * glfw-3.4
 * log4cplus-2.1.2
+* nanobind-2.11.0
 * boost-1.82.0
 * pybind11-2.13.6
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-base:2025.4](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2025.4)
+## [aswf/ci-base:2025.5](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2025.5)
 
 Contains:
 * b2-5.2.1
@@ -149,12 +150,13 @@ Contains:
 * glew-2.2.0
 * glfw-3.4
 * log4cplus-2.1.2
+* nanobind-2.11.0
 * boost-1.85.0
 * pybind11-2.13.6
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-base:2026.2](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2026.2)
+## [aswf/ci-base:2026.3](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2026.3)
 
 Contains:
 * b2-5.3.2
@@ -180,6 +182,7 @@ Contains:
 * glew-2.2.0
 * glfw-3.4
 * log4cplus-2.1.2
+* nanobind-2.11.0
 * boost-1.88.0
 * pybind11-2.13.6
 * numpy-2.3.2

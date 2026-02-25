@@ -1,0 +1,114 @@
+diff --git src/cmake/llvm_macros.cmake src/cmake/llvm_macros.cmake
+index d99dd79ac..bfda2778a 100644
+--- src/cmake/llvm_macros.cmake
++++ src/cmake/llvm_macros.cmake
+@@ -31,8 +31,8 @@
+         if (NOT LLVM_BC_GENERATOR)
+             find_program (LLVM_BC_GENERATOR NAMES "clang++"
+                         PATHS "${LLVM_DIRECTORY}/bin" "${LLVM_DIRECTORY}/tools/llvm"
+-                        NO_CMAKE_PATH NO_DEFAULT_PATH NO_CMAKE_SYSTEM_PATH
+-                        NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_ENVIRONMENT_PATH)
++                        NO_CMAKE_PATH NO_CMAKE_SYSTEM_PATH 
++                        NO_CMAKE_ENVIRONMENT_PATH)
+         endif ()
+
+         if (NOT LLVM_BC_GENERATOR)
+@@ -48,15 +48,15 @@
+         if (NOT LLVM_AS_TOOL)
+             find_program (LLVM_AS_TOOL NAMES "llvm-as"
+                         PATHS "${LLVM_DIRECTORY}/bin" "${LLVM_DIRECTORY}/tools/llvm"
+-                        NO_CMAKE_PATH NO_DEFAULT_PATH NO_CMAKE_SYSTEM_PATH
+-                        NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_ENVIRONMENT_PATH)
++                        NO_CMAKE_PATH NO_CMAKE_SYSTEM_PATH
++                        NO_CMAKE_ENVIRONMENT_PATH)
+         endif ()
+
+         if (NOT LLVM_LINK_TOOL)
+             find_program (LLVM_LINK_TOOL NAMES "llvm-link"
+                     PATHS "${LLVM_DIRECTORY}/bin" "${LLVM_DIRECTORY}/tools/llvm"
+-                    NO_CMAKE_PATH NO_DEFAULT_PATH NO_CMAKE_SYSTEM_PATH
+-                    NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_ENVIRONMENT_PATH)
++                    NO_CMAKE_PATH NO_CMAKE_SYSTEM_PATH
++                    NO_CMAKE_ENVIRONMENT_PATH)
+         endif ()
+
+         if (APPLE)
+--- src/cmake/cuda_macros.cmake
++++ src/cmake/cuda_macros.cmake
+@@ -24,11 +24,11 @@
+     file ( GLOB cuda_headers "${cuda_src_dir}/*.h" )
+     list (APPEND cuda_headers ${extra_headers})
+
+-    list (TRANSFORM IMATH_INCLUDES PREPEND -I
++    list (TRANSFORM Imath_INCLUDE_DIRS PREPEND -I
+           OUTPUT_VARIABLE ALL_IMATH_INCLUDES)
+-    list (TRANSFORM OPENEXR_INCLUDES PREPEND -I
++    list (TRANSFORM OpenEXR_INCLUDE_DIRS PREPEND -I
+           OUTPUT_VARIABLE ALL_OPENEXR_INCLUDES)
+-    list (TRANSFORM OpenImageIO_INCLUDES PREPEND -I
++    list (TRANSFORM OpenImageIO_INCLUDE_DIRS PREPEND -I
+           OUTPUT_VARIABLE ALL_OpenImageIO_INCLUDES)
+
+     if (NOT CUDA_NO_FTZ)
+@@ -86,7 +86,7 @@
+
+     # Setup the bitcode generator
+     if (NOT LLVM_BC_GENERATOR)
+-        FIND_PROGRAM(LLVM_BC_GENERATOR NAMES "clang++" PATHS "${LLVM_DIRECTORY}/bin" NO_DEFAULT_PATH NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_ENVIRONMENT_PATH NO_CMAKE_PATH)
++        FIND_PROGRAM(LLVM_BC_GENERATOR NAMES "clang++" PATHS "${LLVM_DIRECTORY}/bin" NO_CMAKE_PATH NO_CMAKE_SYSTEM_PATH NO_CMAKE_ENVIRONMENT_PATH)
+     endif ()
+     # If that didn't work, look anywhere
+     if (NOT LLVM_BC_GENERATOR)
+@@ -102,29 +102,29 @@
+     if (NOT LLVM_AS_TOOL)
+       find_program (LLVM_AS_TOOL NAMES "llvm-as"
+                 PATHS "${LLVM_DIRECTORY}/bin" "${LLVM_DIRECTORY}/tools/llvm"
+-                NO_CMAKE_PATH NO_DEFAULT_PATH NO_CMAKE_SYSTEM_PATH
+-                NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_ENVIRONMENT_PATH)
++                NO_CMAKE_PATH NO_CMAKE_SYSTEM_PATH
++                NO_CMAKE_ENVIRONMENT_PATH)
+     endif ()
+
+     if (NOT LLVM_LINK_TOOL)
+         find_program (LLVM_LINK_TOOL NAMES "llvm-link"
+                 PATHS "${LLVM_DIRECTORY}/bin" "${LLVM_DIRECTORY}/tools/llvm"
+-                NO_CMAKE_PATH NO_DEFAULT_PATH NO_CMAKE_SYSTEM_PATH
+-                NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_ENVIRONMENT_PATH)
++                NO_CMAKE_PATH NO_CMAKE_SYSTEM_PATH
++                NO_CMAKE_ENVIRONMENT_PATH)
+     endif ()
+
+     if (NOT LLVM_LLC_TOOL)
+         find_program (LLVM_LLC_TOOL NAMES "llc"
+                 PATHS "${LLVM_DIRECTORY}/bin" "${LLVM_DIRECTORY}/tools/llvm"
+-                NO_CMAKE_PATH NO_DEFAULT_PATH NO_CMAKE_SYSTEM_PATH
+-                NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_ENVIRONMENT_PATH)
++                NO_CMAKE_PATH NO_CMAKE_SYSTEM_PATH
++                NO_CMAKE_ENVIRONMENT_PATH)
+     endif ()
+
+     if (NOT LLVM_OPT_TOOL)
+         find_program (LLVM_OPT_TOOL NAMES "opt"
+                 PATHS "${LLVM_DIRECTORY}/bin" "${LLVM_DIRECTORY}/tools/llvm"
+-                NO_CMAKE_PATH NO_DEFAULT_PATH NO_CMAKE_SYSTEM_PATH
+-                NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_ENVIRONMENT_PATH)
++                NO_CMAKE_PATH NO_CMAKE_SYSTEM_PATH
++                NO_CMAKE_ENVIRONMENT_PATH)
+     endif ()
+
+     if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+@@ -148,11 +148,11 @@
+         set (CUDA_TEXREF_FIX "-D__CLANG_CUDA_TEXTURE_INTRINSICS_H__")
+     endif()
+
+-    list (TRANSFORM IMATH_INCLUDES PREPEND -I
++    list (TRANSFORM Imath_INCLUDE_DIRS PREPEND -I
+           OUTPUT_VARIABLE ALL_IMATH_INCLUDES)
+-    list (TRANSFORM OPENEXR_INCLUDES PREPEND -I
++    list (TRANSFORM OpenEXR_INCLUDE_DIRS PREPEND -I
+           OUTPUT_VARIABLE ALL_OPENEXR_INCLUDES)
+-    list (TRANSFORM OpenImageIO_INCLUDES PREPEND -I
++    list (TRANSFORM OpenImageIO_INCLUDE_DIRS PREPEND -I
+           OUTPUT_VARIABLE ALL_OpenImageIO_INCLUDES)
+
+     add_custom_command (OUTPUT ${bc_cuda}

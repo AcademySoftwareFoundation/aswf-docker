@@ -74,7 +74,7 @@ CONAN_REQUIREMENTS = (
     "iconv",
     "icu",
     "lzma",
-    "cpython", # ASWF: Conan package is named cpython
+    "python",
     "zlib",
     "zstd",
 )

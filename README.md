@@ -165,14 +165,13 @@ as the branch is called `testing`. Images in this org will change without
 notice and could be broken in many unexpected ways!
 
 To get write access to the `aswftesting` Docker Hub organization you can open
-a ticket with the [Linux Foundation Project IT Services Support Portal]
-(https://jira.linuxfoundation.org/plugins/servlet/desk/portal/2). You may need
-to first create a free [Linux Foundation account](https://sso.linuxfoundation.org).
+a ticket with the [Linux Foundation Project IT Services Support Portal](https://jira.linuxfoundation.org/plugins/servlet/desk/portal/2).
+You may need to first create a free [Linux Foundation account](https://sso.linuxfoundation.org).
 
 ### Status
 
-As of July 2025 there are full 2018, 2019, 2020, 2021, 2022,
-2023, 2024 and 2025 [VFX Platform](https://vfxplatform.com) compliant images. The 2026 images are for testing purposes only and won't be complete until the fall of 2025 when some major ASWF packages release their new versions called for by the 2026 VFX Platform.
+As of December 2025 there are full 2018, 2019, 2020, 2021, 2022,
+2023, 2024, 2025 and 2026. [VFX Platform](https://vfxplatform.com) compliant images.
 
 Note that the
 pre-2024 versions of the images still exist but are not maintained / rebuilt anymore, which
@@ -197,7 +196,7 @@ folders to be mounted at build time, and is built with `docker buildx`. The new
 Docker BuildKit system allows the building of many packages in parallel in an
 efficient way with support for [ccache](https://ccache.dev/).
 
-Starting with the 2023 versions, the non-ASWF dependencies and several of the ASWF
+Starting with the 2023 versions, the non-ASWF dependencies and most of the ASWF
 projects are being built as Conan packages only, with the eventual goal of getting
 rid of all the ci-package-{packagename} intermediate Docker images, and mostly
 assembling the CI build images from Conan packages.

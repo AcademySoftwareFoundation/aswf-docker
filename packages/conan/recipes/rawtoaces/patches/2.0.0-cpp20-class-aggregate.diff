@@ -1,0 +1,14 @@
+diff --git src/rawtoaces_util/image_converter.cpp src/rawtoaces_util/image_converter.cpp
+index d99dd79ac..bfda2778a 100644
+--- src/rawtoaces_util/image_converter.cpp
++++ src/rawtoaces_util/image_converter.cpp
+@@ -22,7 +22,8 @@
+     std::string make;
+     std::string model;
+
+-    CameraIdentifier() = default;
++    // In C++ 20 a default constructure means the class is no longer an aggregate
++    // CameraIdentifier() = default;
+
+     bool is_empty() const { return make.empty() && model.empty(); }
+

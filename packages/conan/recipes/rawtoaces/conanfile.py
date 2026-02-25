@@ -8,6 +8,7 @@ from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rmdir
 from conan.tools.scm import Version
+from conan.tools.env import Environment
 import os
 
 required_conan_version = ">=2"
@@ -50,12 +51,22 @@ class RawtoacesConan(ConanFile):
         # Conan environment overrides
         self.requires("ceres-solver/2.2.0")
         self.requires("imath/3.1.12")
-        self.requires("libraw/0.21.4")
         self.requires("boost/1.88.0")
-        self.requires("aces_container/1.0.2")
-        # At next version the requirements below are added
-        self.requires("oiio/3.0.7.0")
-        self.requires("nlohmann_json/3.12.0")
+        # 2.0.0 drops libraw and aces_container
+        # adds OpenImageIO, nlohman_json and nanobind
+        if Version(self.version) < 2:
+            self.requires("libraw/0.21.4")
+            self.requires("aces_container/1.0.2")
+        else:
+            self.requires("oiio/3.0.7.0")
+            self.requires("nlohmann_json/3.12.0")
+            self.requires("cpython/[>=3.0.0]")
+            self.requires("nanobind/2.11.0")
+
+    def build_requirements(self):
+        # tool_requires() dependencies are not transitive, nanobind needs this
+        if Version(self.version) >= 2:
+            self.tool_requires("cpython/[>=3.0.0]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -66,6 +77,7 @@ class RawtoacesConan(ConanFile):
         tc.cache_variables["CMAKE_INSTALL_RPATH_USE_LINK_PATH"] = False
         tc.cache_variables["CMAKE_INSTALL_RPATH"] = ""
         tc.cache_variables["CMAKE_SKIP_RPATH"] = True
+        tc.cache_variables["RTA_BUILD_PYTHON_BINDINGS"] = False # ASWF FIXME: until we can make nanobind work
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()

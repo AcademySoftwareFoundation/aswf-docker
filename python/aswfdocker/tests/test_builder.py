@@ -56,7 +56,7 @@ class TestBuilder(unittest.TestCase):
             "packages/vfx2/Dockerfile",
         )
 
-    def test_package_osl_2019_dict_conan(self):
+    def test_package_otio_2019_dict_conan(self):
         b = builder.Builder(
             self.build_info,
             groupinfo.GroupInfo(
@@ -66,27 +66,27 @@ class TestBuilder(unittest.TestCase):
                 targets=[],
             ),
         )
-        osl_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "osl")
+        otio_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "otio")
         )[0]
         baked = b.make_bake_dict(False, False)
         self.assertIn(
-            "ASWF_OSL_VERSION", baked["target"]["ci-package-osl-2019"]["args"]
+            "ASWF_OSL_VERSION", baked["target"]["ci-package-otio-2019"]["args"]
         )
         self.assertEqual(
-            baked["target"]["ci-package-osl-2019"]["tags"],
+            baked["target"]["ci-package-otio-2019"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-osl:2019",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-osl:{osl_version}",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-osl:2019-1.10.9",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:2019",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:{otio_version}",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:2019-0.12.1",
             ],
         )
         self.assertEqual(
-            baked["target"]["ci-package-osl-2019"]["args"]["ASWF_VERSION"],
-            osl_version,
+            baked["target"]["ci-package-otio-2019"]["args"]["ASWF_VERSION"],
+            otio_version,
         )
         self.assertEqual(
-            baked["target"]["ci-package-osl-2019"]["dockerfile"],
+            baked["target"]["ci-package-otio-2019"]["dockerfile"],
             "packages/vfx2/Dockerfile",
         )
 

@@ -1,0 +1,116 @@
+diff --git src/liboslexec/CMakeLists.txt src/liboslexec/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/liboslexec/CMakeLists.txt
++++ src/liboslexec/CMakeLists.txt
+@@ -187,8 +187,8 @@
+     set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR})
+     list(APPEND include_dirs ${CMAKE_SOURCE_DIR}/src/include)
+     list(APPEND include_dirs ${CMAKE_BINARY_DIR}/include)
+-    list(APPEND include_dirs ${IMATH_INCLUDES})
+-    list(APPEND include_dirs ${OpenImageIO_INCLUDES})
++    list(APPEND include_dirs ${Imath_INCLUDE_DIRS})
++    list(APPEND include_dirs ${OpenImageIO_INCLUDE_DIRS})
+     list(APPEND include_dirs ${ROBINMAP_INCLUDES})
+
+     EMBED_LLVM_BITCODE_IN_CPP ( "${llvm_ops_srcs}" "_host" "osl_llvm_compiled_ops" lib_src "" "${include_dirs}")
+@@ -514,7 +514,7 @@
+     target_include_directories (${batched_target_lib}
+         PUBLIC
+             ${CMAKE_INSTALL_FULL_INCLUDEDIR}
+-            ${IMATH_INCLUDES}
++            ${Imath_INCLUDE_DIRS}
+         PRIVATE
+             ${ROBINMAP_INCLUDES}
+         )
+@@ -534,13 +534,13 @@
+ target_include_directories (${local_lib}
+     PUBLIC
+         ${CMAKE_INSTALL_FULL_INCLUDEDIR}
+-        ${IMATH_INCLUDES}
++        ${Imath_INCLUDE_DIRS}
+     PRIVATE
+         "${CMAKE_SOURCE_DIR}/src/liboslcomp"
+         ${ROBINMAP_INCLUDES}
+     )
+
+-target_include_directories (${local_lib}  BEFORE PRIVATE ${OpenImageIO_INCLUDES})
++target_include_directories (${local_lib}  BEFORE PRIVATE ${OpenImageIO_INCLUDE_DIRS})
+
+ target_compile_definitions (${local_lib}
+     PRIVATE
+@@ -610,19 +610,19 @@
+ if (OSL_BUILD_TESTS AND BUILD_TESTING)
+     add_executable (accum_test accum_test.cpp)
+     target_link_libraries (accum_test PRIVATE oslexec ${CMAKE_DL_LIBS})
+-    target_include_directories (accum_test  BEFORE PRIVATE ${OpenImageIO_INCLUDES})
++    target_include_directories (accum_test  BEFORE PRIVATE ${OpenImageIO_INCLUDE_DIRS})
+     set_target_properties (accum_test PROPERTIES FOLDER "Unit Tests")
+     add_test (unit_accum ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/accum_test)
+
+     add_executable (dual_test dual_test.cpp)
+     target_link_libraries (dual_test PRIVATE OpenImageIO::OpenImageIO Imath::Imath ${CMAKE_DL_LIBS})
+-    target_include_directories (dual_test  BEFORE PRIVATE ${OpenImageIO_INCLUDES})
++    target_include_directories (dual_test  BEFORE PRIVATE ${OpenImageIO_INCLUDE_DIRS})
+     set_target_properties (dual_test PROPERTIES FOLDER "Unit Tests")
+     add_test (unit_dual ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/dual_test)
+
+     add_executable (llvmutil_test llvmutil_test.cpp)
+     target_link_libraries (llvmutil_test PRIVATE oslexec ${CMAKE_DL_LIBS})
+-    target_include_directories (llvmutil_test  BEFORE PRIVATE ${OpenImageIO_INCLUDES})
++    target_include_directories (llvmutil_test  BEFORE PRIVATE ${OpenImageIO_INCLUDE_DIRS})
+     set_target_properties (llvmutil_test PROPERTIES FOLDER "Unit Tests")
+     add_test (unit_llvmutil ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/llvmutil_test)
+ endif ()
+diff --git src/cmake/externalpackages.cmake src/cmake/externalpackages.cmake
+index d99dd79ac..bfda2778a 100644
+--- src/cmake/externalpackages.cmake
++++ src/cmake/externalpackages.cmake
+@@ -38,11 +38,11 @@
+ # IlmBase & OpenEXR
+ checked_find_package (Imath REQUIRED
+                       VERSION_MIN 3.1
+-                      PRINT IMATH_INCLUDES Imath_VERSION
++                      PRINT IMATH_INCLUDE_DIRS Imath_VERSION
+                      )
+ # Force Imath includes to be before everything else to ensure that we have
+ # the right Imath version, not some older version in the system library.
+-include_directories(BEFORE ${IMATH_INCLUDES})
++include_directories(BEFORE ${IMATH_INCLUDE_DIRS})
+ set (OSL_USING_IMATH 3)
+
+
+@@ -62,8 +62,8 @@
+                       PRINT LLVM_SYSTEM_LIBRARIES CLANG_LIBRARIES
+                             LLVM_SHARED_MODE)
+ # ensure include directory is added (in case of non-standard locations
+-include_directories (BEFORE SYSTEM "${LLVM_INCLUDES}")
+-link_directories ("${LLVM_LIB_DIR}")
++include_directories (BEFORE SYSTEM "${LLVM_INCLUDE_DIRS}")
++link_directories ("${LLVM_LIBBRARY_DIRS}")
+ # Extract and concatenate major & minor, remove wayward patches,
+ # dots, and "svn" or other suffixes.
+ string (REGEX REPLACE "([0-9]+)\\.([0-9]+).*" "\\1\\2" OSL_LLVM_VERSION ${LLVM_VERSION})
+@@ -156,7 +156,7 @@
+         set (CUDA_INCLUDES ${CUDA_TOOLKIT_ROOT_DIR}/include)
+         include_directories (BEFORE "${CUDA_INCLUDES}")
+
+-        STRING (FIND ${LLVM_TARGETS} "NVPTX" nvptx_index)
++        STRING (FIND "${LLVM_TARGETS_TO_BUILD}" "NVPTX" nvptx_index)
+         if (NOT ${nvptx_index} GREATER -1)
+             message (FATAL_ERROR "NVPTX target is not available in the provided LLVM build")
+         endif()
+diff --git src/testshade/CMakeLists.txt src/testshade/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/testshade/CMakeLists.txt
++++ src/testshade/CMakeLists.txt
+@@ -70,8 +70,8 @@
+ set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR})
+ list(APPEND include_dirs ${CMAKE_SOURCE_DIR}/src/include)
+ list(APPEND include_dirs ${CMAKE_BINARY_DIR}/include)
+-list(APPEND include_dirs ${IMATH_INCLUDES})
+-list(APPEND include_dirs ${OpenImageIO_INCLUDES})
++list(APPEND include_dirs ${Imath_INCLUDE_DIRS})
++list(APPEND include_dirs ${OpenImageIO_INCLUDE_DIRS})
+
+ EMBED_LLVM_BITCODE_IN_CPP ( "${rs_srcs}" "_host" "testshade_llvm_compiled_rs" testshade_srcs "-DOSL_HOST_RS_BITCODE=1" "${include_dirs}")
+

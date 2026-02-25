@@ -18,21 +18,21 @@ Warning: this image does *not* contain Imath itself as it is used to *build* Ima
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-imath/Dockerfile)
 
-## [aswf/ci-imath:2024.5](https://hub.docker.com/r/aswf/ci-imath/tags?page=1&name=2024.5)
+## [aswf/ci-imath:2024.6](https://hub.docker.com/r/aswf/ci-imath/tags?page=1&name=2024.6)
 
 Contains:
 * imath-3.1.12
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-imath:2025.4](https://hub.docker.com/r/aswf/ci-imath/tags?page=1&name=2025.4)
+## [aswf/ci-imath:2025.5](https://hub.docker.com/r/aswf/ci-imath/tags?page=1&name=2025.5)
 
 Contains:
 * imath-3.1.12
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-imath:2026.2](https://hub.docker.com/r/aswf/ci-imath/tags?page=1&name=2026.2)
+## [aswf/ci-imath:2026.3](https://hub.docker.com/r/aswf/ci-imath/tags?page=1&name=2026.3)
 
 Contains:
 * imath-3.2.2

@@ -1,0 +1,26 @@
+diff --git src/rawtoaces_core/CMakeLists.txt src/rawtoaces_core/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/rawtoaces_core/CMakeLists.txt
++++ src/rawtoaces_core/CMakeLists.txt
+@@ -26,6 +26,8 @@
+     ${RAWTOACES_CORE_LIB}
+     PUBLIC
+         Eigen3::Eigen
++    PRIVATE
++        nlohmann_json::nlohmann_json
+ )
+
+ if ( ${Ceres_VERSION_MAJOR} GREATER 1 )
+diff --git tests/CMakeLists.txt tests/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- tests/CMakeLists.txt
++++ tests/CMakeLists.txt
+@@ -197,6 +197,8 @@
+     PUBLIC
+         ${RAWTOACES_UTIL_LIB}
+         OpenImageIO::OpenImageIO
++    PRIVATE
++        nlohmann_json::nlohmann_json
+ )
+
+ setup_test_coverage(Test_ImageConverter)

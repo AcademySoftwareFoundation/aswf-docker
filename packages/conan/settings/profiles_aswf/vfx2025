@@ -58,10 +58,12 @@ libxcrypt/*: libxcrypt/4.4.36@aswf/vfx2025
 libxshmfence/*: libxshmfence/system@aswf/vfx2025
 log4cplus/*: log4cplus/2.1.2@aswf/vfx2025
 lz4/*: lz4/1.10.0@aswf/vfx2025
+materialx/*: materialx/1.39.3@aswf/vfx2025
 md4c/*: md4c/0.4.8@aswf/vfx2025
 minizip-ng/*: minizip-ng/4.0.10@aswf/vfx2025
 mpdecimal/*: mpdecimal/system@aswf/vfx2025
 mpg123/*: mpg123/system@aswf/vfx2025
+nanobind/*: nanobind/2.11.0@aswf/vfx2025
 nlohmann_json/*: nlohmann_json/3.12.0@aswf/vfx2025
 nspr/*: nspr/system@aswf/vfx2025
 nss/*: nss/3.112.0@aswf/vfx2025
@@ -72,13 +74,15 @@ onetbb/*: onetbb/2021.13.0@aswf/vfx2025
 openal-soft/*: openal-soft/system@aswf/vfx2025
 opencl-headers/*: opencl-headers/system@aswf/vfx2025
 opencl-icd-loader/*: opencl-icd-loader/system@aswf/vfx2025
-openexr/*: openexr/3.3.6@aswf/vfx2025
+openexr/*: openexr/3.3.7@aswf/vfx2025
 opengl/*: opengl/system@aswf/vfx2025
 openjpeg/*: openjpeg/2.4.0@aswf/vfx2025
 openjph/*: openjph/0.24.5@aswf/vfx2025
 openssl/*: openssl/system@aswf/vfx2025
 openvdb/*: openvdb/12.1.1@aswf/vfx2025
 opus/*: opus/system@aswf/vfx2025
+osl/*: osl/1.14.7.0@aswf/vfx2025
+partio/*: partio/1.19.0@aswf/vfx2025
 pcre2/*: pcre2/system@aswf/vfx2025
 ptex/*: ptex/2.4.3@aswf/vfx2025
 pugixml/*: pugixml/1.14@aswf/vfx2025
@@ -86,6 +90,7 @@ pulseaudio/*: pulseaudio/system@aswr/vfx2025
 pybind11/*: pybind11/2.13.6@aswf/vfx2025
 pystring/*: pystring/1.1.4@aswf/vfx2025
 qt/*: qt/6.5.6@aswf/vfx2025
+rawtoaces/*: rawtoaces@1.1.0@aswf/vfx2025
 snappy/*: snappy/1.1.10@aswf/vfx2025
 spdlog/*: spdlog/1.15.3@aswf/vfx2025
 sqlite3/*: sqlite3/system@aswf/vfx2025

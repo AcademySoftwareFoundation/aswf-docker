@@ -5,6 +5,12 @@
 # From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/openexr/3.x/conandata.yml
 
 sources:
+  "3.4.5":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4.5.tar.gz"
+    sha256: "b10f21d3f8ff3211eb1687a2e2bf7a79d361aec8dfaca1f9b79f3d70755b4f48"
+  "3.4.4":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4.4.tar.gz"
+    sha256: "7c663c3c41da9354b5af277bc2fd1d2360788050b4e0751a32bcd50e8abaef8f"
   "3.4.3":
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4.3.tar.gz"
     sha256: "06494da42eb91c47265ffbad02d0c73cf65d8ad7f24683b801f34d842c4ecb6d"
@@ -20,6 +26,9 @@ sources:
   "3.4-alpha":
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4-alpha.tar.gz"
     sha256: "5a78b497576a323979b03a343ad63a253d955462365c67597ab6fcac87e79193"
+  "3.3.7":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.7/openexr-3.3.7.tar.gz"
+    sha256: "5302e8204c7f503fd6b20eb2940a44c993f81154de9e476581ac3bc60c0cdf13"
   "3.3.6":
     url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.6/openexr-3.3.6.tar.gz"
     sha256: "35d3d597ca2a9dcbf405874c774bd716cd729fb35ab27ccbd75a1355ee9d9c0f"
@@ -63,6 +72,12 @@ sources:
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.1.7.tar.gz"
     sha256: "78dbca39115a1c526e6728588753955ee75fa7f5bb1a6e238bed5b6d66f91fd7"
 patches:
+  "3.4.5":
+    - patch_file: "patches/3.4.3-openjph-setup.patch"
+      patch_description: "Find previously installed openjph"
+  "3.4.4":
+    - patch_file: "patches/3.4.3-openjph-setup.patch"
+      patch_description: "Find previously installed openjph"
   "3.4.3":
     - patch_file: "patches/3.4.3-openjph-setup.patch"
       patch_description: "Find previously installed openjph"

@@ -272,6 +272,10 @@ class OpenVDBConan(ConanFile):
         cmake = CMake(self)
         cmake.install()
 
+        # ASWF: libopenvdb_ax.a gets built even in shared lib mode
+        if self.options.shared:
+            rm(self, "*.a", os.path.join(self.package_folder, "lib"))
+
     @property
     def _public_defines(self):
         defines = []
