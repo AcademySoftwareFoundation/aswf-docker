@@ -49,4 +49,3 @@ patches:
     - patch_file: "patches/1.13.11.0-cmake-oiio-imath-includes.patch"
       patch_description: "Allow imath and oiio to be found when building inside Conan"
       patch_type: "conan"
-
