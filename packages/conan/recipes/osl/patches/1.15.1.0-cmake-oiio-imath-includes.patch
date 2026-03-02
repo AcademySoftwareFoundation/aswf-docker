@@ -70,12 +70,12 @@ index d99dd79ac..bfda2778a 100644
  checked_find_package (Imath REQUIRED
                        VERSION_MIN 3.1
 -                      PRINT IMATH_INCLUDES Imath_VERSION
-+                      PRINT IMATH_INCLUDE_DIRS Imath_VERSION
++                      PRINT Imath_INCLUDE_DIRS Imath_VERSION
                       )
  # Force Imath includes to be before everything else to ensure that we have
  # the right Imath version, not some older version in the system library.
 -include_directories(BEFORE ${IMATH_INCLUDES})
-+include_directories(BEFORE ${IMATH_INCLUDE_DIRS})
++include_directories(BEFORE ${Imath_INCLUDE_DIRS})
  set (OSL_USING_IMATH 3)
 
 

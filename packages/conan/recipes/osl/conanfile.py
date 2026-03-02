@@ -64,6 +64,9 @@ class OpenShadingLanguageConan(ConanFile):
         self.requires("tsl-robin-map/1.2.1")
         self.requires("oiio/[>=2.5]")
         self.requires("imath/3.1.9", transitive_headers=True)
+        if Version(self.version) <= "1.13":
+            # OSL 1.13 has vestigial OpenEXR includes
+            self.requires("openexr/[>=3.0.0]")
         self.requires("pugixml/[>=1.8]")
         if self.options.with_partio:
             self.requires("partio/[>=1.19.0]")

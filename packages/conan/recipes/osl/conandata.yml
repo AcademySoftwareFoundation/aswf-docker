@@ -43,4 +43,10 @@ patches:
     - patch_file: "patches/1.13.11.0-serialize-cuda-build.patch"
       patch_description: "Serialize CUDA build steps to avoid race conditions"
       patch_type: "conan"
+    - patch_file: "patches/1.13.11.0-find-llvm-binaries.patch"
+      patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
+      patch_type: "conan"
+    - patch_file: "patches/1.13.11.0-cmake-oiio-imath-includes.patch"
+      patch_description: "Allow imath and oiio to be found when building inside Conan"
+      patch_type: "conan"
 
