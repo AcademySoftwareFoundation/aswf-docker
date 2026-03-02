@@ -270,4 +270,4 @@ RUN --mount=type=cache,target=/opt/conan_home/d \
     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} otio
 
 
-RUN sudo pip3 install flake8 tox urllib3
+RUN pip3 install flake8 tox urllib3
