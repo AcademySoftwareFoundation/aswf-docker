@@ -1,0 +1,37 @@
+diff --git cmake/nanobind-config.cmake cmake/nanobind-config.cmake
+index d99dd79ac..bfda2778a 100644
+--- cmake/nanobind-config.cmake
++++ cmake/nanobind-config.cmake
+@@ -1,8 +1,9 @@
+ include_guard(GLOBAL)
+
+-if (NOT TARGET Python::Module)
+-  message(FATAL_ERROR "You must invoke 'find_package(Python COMPONENTS Interpreter Development REQUIRED)' prior to including nanobind.")
+-endif()
++#if (NOT TARGET Python::Module)
++#  message(FATAL_ERROR "You must invoke 'find_package(Python COMPONENTS Interpreter Development REQUIRED)' prior to including nanobind.")
++#endif()
++#set(Python_EXECUTABLE "${Python3_EXECUTABLE}")
+
+ if (Python_VERSION VERSION_LESS "3.9")
+   message(FATAL_ERROR "nanobind requires Python 3.9 or newer (found Python ${Python_VERSION}).")
+@@ -70,6 +71,19 @@
+     RESULT_VARIABLE NB_SUFFIX_RET
+     OUTPUT_VARIABLE EXT_SUFFIX
+     OUTPUT_STRIP_TRAILING_WHITESPACE)
++  message(STATUS "Python_VERSION = '${Python_VERSION}'")
++  message(STATUS "Python3_VERSION = '${Python3_VERSION}'")
++  message(STATUS "Python_EXECUTABLE = '${Python_EXECUTABLE}'")
++  message(STATUS "Python3_EXECUTABLE = '${Python3_EXECUTABLE}'")
++  message(STATUS "Python_INCLUDE_DIRS = '${Python_INCLUDE_DIRS}'")
++  message(STATUS "Python3_INCLUDE_DIRS = '${Python3_INCLUDE_DIRS}'")
++  message(STATUS "Python_INTERPRETER_ID = '${Python_INTERPRETER_ID}'")
++  message(STATUS "Python3_INTERPRETER_ID = '${Python3_INTERPRETER_ID}'")
++  message(STATUS "NB_SUFFIX_RET = '${NB_SUFFIX_RET}'")
++  message(STATUS "NB_SUFFIX = '${NB_SUFFIX}'")
++  message(STATUS "EXT_SUFFIX = '${EXT_SUFFIX}'")
++  message(STATUS "PYTHONPATH = '$ENV{PYTHONPATH}'")
++  message(STATUS "LD_LIBRARY_PATH = '$ENV{LD_LIBRARY_PATH}'")
+
+   if(NB_SUFFIX_RET AND NOT NB_SUFFIX_RET EQUAL 0)
+     message(FATAL_ERROR "nanobind: Python sysconfig query to "

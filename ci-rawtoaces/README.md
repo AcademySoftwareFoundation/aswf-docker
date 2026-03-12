@@ -18,24 +18,24 @@ Warning: this image does *not* contain rawtoaces itself as it is used to *build*
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-rawtoaces/Dockerfile)
 
-## [aswf/ci-rawtoaces:2024.5](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2024.5)
+## [aswf/ci-rawtoaces:2024.6](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2024.6)
 
 Contains:
 * rawtoaces-1.1.0
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-rawtoaces:2025.4](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2025.4)
+## [aswf/ci-rawtoaces:2025.5](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2025.5)
 
 Contains:
 * rawtoaces-1.1.0
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-rawtoaces:2026.2](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2026.2)
+## [aswf/ci-rawtoaces:2026.3](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2026.3)
 
 Contains:
-* rawtoaces-1.1.0
+* rawtoaces-2.0.0
 * numpy-2.3.2
 * vfxplatform-2026
 

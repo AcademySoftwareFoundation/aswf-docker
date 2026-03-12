@@ -1,0 +1,13 @@
+diff --git a/configure.cmake b/configure.cmake
+index d99dd79ac..bfda2778a 100644
+--- a/configure.cmake
++++ b/configure.cmake
+@@ -20,7 +20,7 @@
+         set( DEV_MODULE Development.Module )
+     endif ()
+
+-    find_package ( Python 3.8 COMPONENTS Interpreter ${DEV_MODULE} REQUIRED )
++    find_package ( Python 3.8 COMPONENTS Interpreter Development.Module REQUIRED )
+
+     execute_process (
+         COMMAND "${Python_EXECUTABLE}" -m nanobind --cmake_dir

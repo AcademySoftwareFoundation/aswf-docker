@@ -58,10 +58,12 @@ libxcrypt/*: libxcrypt/4.4.36@aswf/vfx2024
 libxshmfence/*: libxshmfence/system@aswf/vfx2024
 log4cplus/*: log4cplus/2.1.2@aswf/vfx2024
 lz4/*: lz4/1.10.0@aswf/vfx2024
+materialx/*: materialx/1.39.1@aswf/vfx2024
 md4c/*: md4c/0.4.8@aswf/vfx2024
 minizip-ng/*: minizip-ng/4.0.10@aswf/vfx2024
 mpdecimal/*: mpdecimal/system@aswf/vfx2024
 mpg123/*: mpg123/system@aswf/vfx2024
+nanobind/*: nanobind/2.11.0@aswf/vfx2024
 nlohmann_json/*: nlohmann_json/3.12.0@aswf/vfx2024
 nspr/*: nspr/system@aswf/vfx2024
 nss/*: nss/3.112.0@aswf/vfx2024
@@ -79,6 +81,8 @@ openjph/*: openjph/0.24.5@aswf/vfx2024
 openssl/*: openssl/system@aswf/vfx2024
 openvdb/*: openvdb/11.0.0@aswf/vfx2024
 opus/*: opus/system@aswf/vfx2024
+osl/*: osl/1.13.11.0@aswf/vfx2024
+partio/*: partio/1.19.0@aswf/vfx2024
 pcre2/*: pcre2/system@aswf/vfx2024
 ptex/*: ptex/2.4.2@aswf/vfx2024
 pugixml/*: pugixml/1.14@aswf/vfx2024
@@ -86,6 +90,7 @@ pulseaudio/*: pulseaudio/system@aswf/vfx2024
 pybind11/*: pybind11/2.13.6@aswf/vfx2024
 pystring/*: pystring/1.1.4@aswf/vfx2024
 qt/*: qt/6.5.6@aswf/vfx2024
+rawtoaces/*: rawtoaces/1.1.0@aswf/vfx2024
 snappy/*: snappy/1.1.10@aswf/vfx2024
 spdlog/*: spdlog/1.15.3@aswf/vfx2024
 sqlite3/*: sqlite3/system@aswf/vfx2024
@@ -110,7 +115,7 @@ cpython/*: cpython/3.11.13@aswf/vfx2024
 flex/*: flex/2.6.1@system
 gperf/*: gperf/3.1@system
 libtool/*: libtool/2.4.6@system
-mesno/*: meson/0.58.2@system
+meson/*: meson/0.58.2@system
 nasm/*: nasm/system@aswf/vfx2024
 nodejs/*: nodejs/18.20.4@system
 pkgconf/*: pkgconf/1.4.2@system

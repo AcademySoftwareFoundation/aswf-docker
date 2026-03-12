@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/2858fecda521cbf5d21aace586bc5b5b2ea55f23/recipes/boost/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/8ac58f85fed5418f986bd1021b4952bcd56d16e5/recipes/boost/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanException, ConanInvalidConfiguration
@@ -705,6 +705,8 @@ class BoostConan(ConanFile):
             libraries.append("thread")
         if Version(self.version) >= "1.85.0":
             libraries.append("system")
+        if Version(self.version) >= "1.89.0":
+            libraries.append("atomic")
         libraries.sort()
         return list(filter(lambda library: f"without_{library}" in self.options, libraries))
 
@@ -856,6 +858,8 @@ class BoostConan(ConanFile):
             del self.info.options.python_executable  # PATH to the interpreter is not important, only version matters
             if self.info.options.without_python:
                 del self.info.options.python_version
+            if Version(self.version) >= "1.89.0":
+                del self.info.options.system_use_utf8 
 
     def build_requirements(self):
         if not self.options.header_only:
@@ -1223,7 +1227,7 @@ class BoostConan(ConanFile):
 
     @property
     def _b2_address_model(self):
-        if self.settings.arch in ("x86_64", "ppc64", "ppc64le", "mips64", "armv8", "armv8.3", "sparcv9", "s390x", "riscv64"):
+        if self.settings.arch in ("x86_64", "ppc64", "ppc64le", "mips64", "armv8", "armv8.3", "sparcv9", "s390x", "riscv64", "wasm64"):
             return "64"
 
         return "32"
@@ -1492,11 +1496,13 @@ class BoostConan(ConanFile):
         if self.options.extra_b2_flags:
             flags.extend(shlex.split(str(self.options.extra_b2_flags)))
 
+        njobs = build_jobs(self)
+        njobs = f"-j{njobs}" if njobs else ""  # boost.build doesn't take -j0 as valid
         flags.extend([
             "install",
             f"--prefix={self.package_folder}",
             f"--libdir={self.package_folder}/lib",
-            f"-j{build_jobs(self)}",
+            njobs,
             "--abbreviate-paths",
             f"-d{self.options.debug_level}",
         ])
@@ -1677,7 +1683,7 @@ class BoostConan(ConanFile):
             return "clang-win" if self.settings.compiler.get_safe("toolset") == "ClangCL" else "msvc"
         if self.settings.os == "Windows" and self.settings.compiler == "clang":
             return "clang-win"
-        if self.settings.os == "Emscripten" and self.settings.compiler == "clang":
+        if self.settings.os == "Emscripten" and self.settings.compiler in ("clang", "emcc"):
             return "emscripten"
         if self.settings.compiler == "gcc" and is_apple_os(self):
             return "darwin"
@@ -1788,7 +1794,7 @@ class BoostConan(ConanFile):
         return {
             "lzma": "xz_utils",
             "iconv": "libiconv",
-            "cpython": None,  # FIXME: change to cpython when it becomes available ASWF package now called cpython
+            "python": "cpython",  # FIXME: change to cpython when it becomes available ASWF package now called cpython
         }.get(name, name)
 
     def package_info(self):
@@ -2119,12 +2125,15 @@ class BoostConan(ConanFile):
                 # we already figured out the python version with _detect_python_version()
                 # pyversion = Version(self._python_version)
                 pyversion = Version(self.options.python_version)
-                # ASWF: Python package is called cpython
-                self.cpp_info.components[f"python{pyversion.major}{pyversion.minor}"].requires = ["cpython::cpython"]
+                python_versioned_component_name = f"python{pyversion.major}{pyversion.minor}"
+                self.cpp_info.components[python_versioned_component_name].requires = ["python"]
+                self.cpp_info.components[python_versioned_component_name].set_property("cmake_target_name", "Boost::" + python_versioned_component_name)
                 if not self._shared:
                     self.cpp_info.components["python"].defines.append("BOOST_PYTHON_STATIC_LIB")
 
-                self.cpp_info.components[f"numpy{pyversion.major}{pyversion.minor}"].requires = ["numpy"]
+                numpy_versioned_component_name = f"numpy{pyversion.major}{pyversion.minor}"
+                self.cpp_info.components[numpy_versioned_component_name].requires = ["numpy"]
+                self.cpp_info.components[numpy_versioned_component_name].set_property("cmake_target_name", "Boost::" + numpy_versioned_component_name)
 
             if not self.options.get_safe("without_process"):
                 if self.settings.os == "Windows":

@@ -21,12 +21,7 @@ Warning: this image does *not* contain OpenShadingLanguage itself as it is used 
 ## [aswf/ci-osl:2019-clang6.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang6.5)
 
 Contains:
-* cpython-2.7.15
-* imath-2.3.0
-* oiio-2.0.8
-* partio-1.10.1
-* pybind11-2.4.3
-* qt-5.12.6
+* osl-1.10.9
 * cuda-10.2
 * optix-7.1.0
 * numpy-1.14
@@ -35,12 +30,7 @@ Contains:
 ## [aswf/ci-osl:2019-clang7.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang7.5)
 
 Contains:
-* cpython-2.7.15
-* imath-2.3.0
-* oiio-2.0.8
-* partio-1.10.1
-* pybind11-2.4.3
-* qt-5.12.6
+* osl-1.10.9
 * cuda-10.2
 * optix-7.1.0
 * numpy-1.14
@@ -49,12 +39,7 @@ Contains:
 ## [aswf/ci-osl:2019-clang8.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang8.5)
 
 Contains:
-* cpython-2.7.15
-* imath-2.3.0
-* oiio-2.0.8
-* partio-1.10.1
-* pybind11-2.4.3
-* qt-5.12.6
+* osl-1.10.9
 * cuda-10.2
 * optix-7.1.0
 * numpy-1.14
@@ -63,12 +48,7 @@ Contains:
 ## [aswf/ci-osl:2019-clang9.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang9.5)
 
 Contains:
-* cpython-2.7.15
-* imath-2.3.0
-* oiio-2.0.8
-* partio-1.10.1
-* pybind11-2.4.3
-* qt-5.12.6
+* osl-1.10.9
 * cuda-10.2
 * optix-7.1.0
 * numpy-1.14
@@ -77,12 +57,7 @@ Contains:
 ## [aswf/ci-osl:2019-clang10.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2019-clang10.5)
 
 Contains:
-* cpython-2.7.15
-* imath-2.3.0
-* oiio-2.0.8
-* partio-1.10.1
-* pybind11-2.4.3
-* qt-5.12.6
+* osl-1.10.9
 * cuda-10.2
 * optix-7.1.0
 * numpy-1.14
@@ -91,12 +66,7 @@ Contains:
 ## [aswf/ci-osl:2020-clang7.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2020-clang7.5)
 
 Contains:
-* cpython-3.7.3
-* imath-2.4.0
-* oiio-2.1.13.0
-* partio-1.10.1
-* pybind11-2.4.3
-* qt-5.12.6
+* osl-1.10.10
 * cuda-10.2
 * optix-7.1.0
 * numpy-1.16
@@ -105,12 +75,7 @@ Contains:
 ## [aswf/ci-osl:2021-clang10.7](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang10.7)
 
 Contains:
-* cpython-3.7.9
-* imath-2.5.5
-* oiio-2.2.14.0
-* partio-1.14.0
-* pybind11-2.6.2
-* qt-5.15.2
+* osl-1.11.13.0
 * cuda-11.4.0
 * optix-7.2.0
 * numpy-1.19
@@ -119,12 +84,7 @@ Contains:
 ## [aswf/ci-osl:2021-clang11.7](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2021-clang11.7)
 
 Contains:
-* cpython-3.7.9
-* imath-2.5.5
-* oiio-2.2.14.0
-* partio-1.14.0
-* pybind11-2.6.2
-* qt-5.15.2
+* osl-1.11.13.0
 * cuda-11.4.0
 * optix-7.2.0
 * numpy-1.19
@@ -133,12 +93,7 @@ Contains:
 ## [aswf/ci-osl:2022-clang10.11](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang10.11)
 
 Contains:
-* cpython-3.9.15
-* imath-3.1.5
-* oiio-2.4.5.0
-* partio-1.14.0
-* pybind11-2.8.1
-* qt-5.15.2
+* osl-1.12.7.0
 * cuda-11.4.0
 * optix-7.2.0
 * numpy-1.20
@@ -147,12 +102,7 @@ Contains:
 ## [aswf/ci-osl:2022-clang11.11](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang11.11)
 
 Contains:
-* cpython-3.9.15
-* imath-3.1.5
-* oiio-2.4.5.0
-* partio-1.14.0
-* pybind11-2.8.1
-* qt-5.15.2
+* osl-1.12.7.0
 * cuda-11.4.0
 * optix-7.2.0
 * numpy-1.20
@@ -161,12 +111,7 @@ Contains:
 ## [aswf/ci-osl:2022-clang12.2](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang12.2)
 
 Contains:
-* cpython-3.9.15
-* imath-3.1.5
-* oiio-2.4.5.0
-* partio-1.14.0
-* pybind11-2.8.1
-* qt-5.15.2
+* osl-1.12.7.0
 * cuda-11.4.0
 * optix-7.2.0
 * numpy-1.20
@@ -175,12 +120,7 @@ Contains:
 ## [aswf/ci-osl:2022-clang13.2](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang13.2)
 
 Contains:
-* cpython-3.9.15
-* imath-3.1.5
-* oiio-2.4.5.0
-* partio-1.14.0
-* pybind11-2.8.1
-* qt-5.15.2
+* osl-1.12.7.0
 * cuda-11.4.0
 * optix-7.2.0
 * numpy-1.20
@@ -189,12 +129,7 @@ Contains:
 ## [aswf/ci-osl:2022-clang14.1](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2022-clang14.1)
 
 Contains:
-* cpython-3.9.15
-* imath-3.1.5
-* oiio-2.4.5.0
-* partio-1.14.0
-* pybind11-2.8.1
-* qt-5.15.2
+* osl-1.12.7.0
 * cuda-11.4.0
 * optix-7.2.0
 * numpy-1.20
@@ -203,12 +138,7 @@ Contains:
 ## [aswf/ci-osl:2023-clang14.2](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2023-clang14.2)
 
 Contains:
-* cpython-3.10.11
-* imath-3.1.9
-* oiio-2.4.13.0
-* partio-1.17.1
-* pybind11-2.9.2
-* qt-5.15.9
+* osl-1.12.13.0
 * cuda-11.8.0
 * optix-7.7.0
 * numpy-1.23.5
@@ -217,114 +147,61 @@ Contains:
 ## [aswf/ci-osl:2023-clang15.2](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2023-clang15.2)
 
 Contains:
-* cpython-3.10.11
-* imath-3.1.9
-* oiio-2.4.13.0
-* partio-1.17.1
-* pybind11-2.9.2
-* qt-5.15.9
+* osl-1.12.13.0
 * cuda-11.8.0
 * optix-7.7.0
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-osl:2024-clang16.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang16.5)
+## [aswf/ci-osl:2024-clang16.6](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang16.6)
 
 Contains:
-* cpython-3.11.13
-* fmt-11.2.0
-* imath-3.1.12
-* oiio-2.5.19.0
-* partio-1.19.0
-* pugixml-1.14
-* pybind11-2.13.6
-* qt-6.5.6
-* zlib-1.3.1
+* osl-1.13.11.0
 * cuda-12.6.3
 * optix-8.0.0
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-osl:2024-clang17.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang17.5)
+## [aswf/ci-osl:2024-clang17.6](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2024-clang17.6)
 
 Contains:
-* cpython-3.11.13
-* fmt-11.2.0
-* imath-3.1.12
-* oiio-2.5.19.0
-* partio-1.19.0
-* pugixml-1.14
-* pybind11-2.13.6
-* qt-6.5.6
-* zlib-1.3.1
+* osl-1.13.11.0
 * cuda-12.6.3
 * optix-8.0.0
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-osl:2025-clang18.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2025-clang18.4)
+## [aswf/ci-osl:2025-clang18.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2025-clang18.5)
 
 Contains:
-* cpython-3.11.13
-* fmt-11.2.0
-* imath-3.1.12
-* oiio-3.1.6.2
-* partio-1.19.0
-* pugixml-1.14
-* pybind11-2.13.6
-* qt-6.5.6
-* zlib-1.3.1
+* osl-1.14.7.0
 * cuda-12.6.3
 * optix-8.0.0
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-osl:2025-clang19.4](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2025-clang19.4)
+## [aswf/ci-osl:2025-clang19.5](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2025-clang19.5)
 
 Contains:
-* cpython-3.11.13
-* fmt-11.2.0
-* imath-3.1.12
-* oiio-3.1.6.2
-* partio-1.19.0
-* pugixml-1.14
-* pybind11-2.13.6
-* qt-6.5.6
-* zlib-1.3.1
+* osl-1.14.7.0
 * cuda-12.6.3
 * optix-8.0.0
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-osl:2026-clang19.2](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang19.2)
+## [aswf/ci-osl:2026-clang19.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang19.3)
 
 Contains:
-* cpython-3.13.3
-* fmt-11.2.0
-* imath-3.2.2
-* oiio-3.1.6.2
-* partio-1.19.0
-* pugixml-1.15
-* pybind11-2.13.6
-* qt-6.8.3
-* zlib-1.3.1
+* osl-1.15.1.0
 * cuda-12.9.1
 * optix-8.0.0
 * numpy-2.3.2
 * vfxplatform-2026
 
-## [aswf/ci-osl:2026-clang20.2](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang20.2)
+## [aswf/ci-osl:2026-clang20.3](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang20.3)
 
 Contains:
-* cpython-3.13.3
-* fmt-11.2.0
-* imath-3.2.2
-* oiio-3.1.6.2
-* partio-1.19.0
-* pugixml-1.15
-* pybind11-2.13.6
-* qt-6.8.3
-* zlib-1.3.1
+* osl-1.15.1.0
 * cuda-12.9.1
 * optix-8.0.0
 * numpy-2.3.2

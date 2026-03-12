@@ -247,6 +247,9 @@ test.
 Pre-commit hooks need to be installed by running `pre-commit install`, and
 tests can be run manually by running `pre-commit run --all-files`.
 
+If the `test_releaser.py` test fails, it is possibly because your GitHub API
+token has expired or didn't get configured with `aswfdocker settings  --github-access-token`.
+
 ## Coding Style
 
 #### Formatting
@@ -408,20 +411,19 @@ as per [Storage Configurations](https://docs.conan.io/2/reference/config_files/g
 During development it can be convenient to peek into the results of a Conan package build. You can use:
 
 ```
-$ docker buildx du --verbose --filter Type=exec.cachemount
-ID:		ltu9ddgwws6cblhemncn9uzaj
-Created at:	2025-03-31 03:09:21.67231777 +0000 UTC
-Mutable:	true
-Reclaimable:	true
-Shared:		false
-Size:		93.56GB
-Description:	cached mount /opt/conan_home/d from exec /bin/sh -c conan create       ${ASWF_CONAN_BUILD_MISSING}       --profile:all ${ASWF_CONAN_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}       --name ${ASWF_PKG_NAME}       --version ${ASWF_PKG_VERSION}       --user ${ASWF_PKG_ORG}       --channel ${ASWF_CONAN_CHANNEL}       ${ASWF_CONAN_HOME}/recipes/${ASWF_PKG_NAME} with id "//opt/conan_home/d"
-Usage count:	159
-Last used:	14 minutes ago
-Type:		exec.cachemount
+$ docker buildx du --format=json --filter Type=exec.cachemount | jq 'select(.Description | contains("conan_home")) | {ID, LastUsedAt}'
+{
+  "ID": "1ltu9ddgwws6cblhemncn9uzaj",
+  "LastUsedAt": "30 minutes ago"
+}
+{
+  "ID": "5u911hfw0umijdpkgrtabyivv",
+  "LastUsedAt": "3 weeks ago"
+}
 ```
 
-to retrieve the volume ID for the cache mount, which is then accessible at a path similar to:
+to retrieve the volume ID for the cache mount (there may be more than one, typically pick the most recently used),
+which is then accessible at a path similar to:
 
 ```
 /var/lib/docker/overlay2/ltu9ddgwws6cblhemncn9uzaj/diff
@@ -615,7 +617,7 @@ Check [#66](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/66) fo
 aswfdocker release -t IMAGE -g baseos-gl-conan -v 4 -v 5 -v 6 --target baseos-gl-conan --docker-org aswf -m "RELEASE_NOTES!"
 
 # Common packages
-aswfdocker release -t PACKAGE -g common -v 4 -v 5 -v 6 --target ninja -target cmake --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common -v 4 -v 5 -v 6 --target ninja --target cmake --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g common -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 -v 6-clang19 -v 6-clang20 --target clang --docker-org aswf -m "RELEASE_NOTES!"
 # Wait for clang builds to finish (from 2 to 3 hours!)
 

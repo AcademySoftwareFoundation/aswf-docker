@@ -29,10 +29,10 @@ class PyBind11Conan(ConanFile):
 
     # ASWF: requirements() and build_requirements() ensure we find our own Python, Conan env provides the real version
     def requirements(self):
-        self.requires(f"cpython/[>=3.0.0]")
+        self.requires("cpython/[>=3.0.0]")
 
     def build_requirements(self):
-        self.tool_requires(f"cpython/[>=3.0.0]")
+        self.tool_requires("cpython/[>=3.0.0]")
 
     def layout(self):
         basic_layout(self, src_folder="src")

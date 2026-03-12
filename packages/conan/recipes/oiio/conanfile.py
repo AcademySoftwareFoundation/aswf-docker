@@ -95,7 +95,8 @@ class OpenImageIOConan(ConanFile):
     def requirements(self):
         # Required libraries
         self.requires("zlib/[>=1.2.11 <2]")
-        self.requires("boost/1.84.0")
+        if Version(self.version) < "3.0":
+            self.requires("boost/1.84.0")
         self.requires("libtiff/4.6.0")
         self.requires("imath/3.1.9", transitive_headers=True)
         self.requires("openexr/3.2.3")
@@ -264,11 +265,9 @@ class OpenImageIOConan(ConanFile):
         # OpenImageIO::OpenImageIO_Util
         # ASWF: _add_component() deprecated in Conan 2.0
         self.cpp_info.components["OpenImageIO_Util"].libs = ["OpenImageIO_Util"]
+        boost_deps = ["boost::filesystem", "boost::thread", "boost::system", "boost::regex"]
         self.cpp_info.components["OpenImageIO_Util"].requires = [
-            "boost::filesystem",
-            "boost::thread",
-            "boost::system",
-            "boost::regex",
+            *(boost_deps if Version(self.version) < "3.0" else []),
             "imath::imath",
             "openexr::openexr",
         ]
@@ -287,10 +286,7 @@ class OpenImageIOConan(ConanFile):
         self.cpp_info.components["OpenImageIO"].requires = [
             "OpenImageIO_Util",
             "zlib::zlib",
-            "boost::thread",
-            "boost::system",
-            "boost::container",
-            "boost::regex",
+            *(boost_deps if Version(self.version) < "3.0" else []),
             "libtiff::libtiff",
             "pugixml::pugixml",
             "tsl-robin-map::tsl-robin-map",
@@ -305,7 +301,7 @@ class OpenImageIOConan(ConanFile):
             self.cpp_info.components["OpenImageIO"].requires.append("libjpeg::libjpeg")
         elif self.options.with_libjpeg == "libjpeg-turbo":
             self.cpp_info.components["OpenImageIO"].requires.append(
-                "libjpeg-turbo::libjpeg-turbo"
+                "libjpeg-turbo::turbojpeg"
             )
         if self.options.with_libpng:
             self.cpp_info.components["OpenImageIO"].requires.append("libpng::libpng")

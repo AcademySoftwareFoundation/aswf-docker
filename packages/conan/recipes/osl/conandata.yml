@@ -1,0 +1,51 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+
+sources:
+  "1.15.1.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.15.1.0.tar.gz"
+    sha256: "c830c2bd95992691bf95871d741a8108c6ddca118278126f5a6bad305b9b7802"
+  "1.14.7.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.14.7.0.tar.gz"
+    sha256: "c4c2ddd3b537cd3a90d50fdd0753614fa24100698d5632b9f1108bd8b505e56c"
+  "1.14.6.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.14.6.0.tar.gz"
+    sha256: "5b56f6f779a092e81ea0cad1f1ad69b1c26f8ad8086e415d1608911328fe4527"
+  "1.13.11.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.13.11.0.tar.gz"
+    sha256: "e448f983049038bb5a611c4fb902d839296c22d3ef221b38e53a14b40ce187a7"
+  "1.12.13.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.12.13.0.tar.gz"
+    sha256: "b5fc9f4814c1ec927773b2236d126072c1d0bbc0f031841b82649ff4d29e9d7e"
+  "1.12.7.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.12.7.0.tar.gz"
+    sha256: "410d11124f1ff943db8a04e8228383fe180462d17d629cde7349859828236334"
+  "1.11.13.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.11.13.0.tar.gz"
+    sha256: "5fface4b487b9bf9448ac5f5a370dbe2075d2941dd11c396448a86ac11663002"
+patches:
+  "1.15.1.0":
+    - patch_file: "patches/1.15.1.0-find-llvm-binaries.patch"
+      patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
+      patch_type: "conan"
+    - patch_file: "patches/1.15.1.0-cmake-oiio-imath-includes.patch"
+      patch_description: "Allow imath and oiio to be found when building inside Conan"
+      patch_type: "conan"
+  "1.14.7.0":
+    - patch_file: "patches/1.14.7.0-find-llvm-binaries.patch"
+      patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
+      patch_type: "conan"
+    - patch_file: "patches/1.14.7.0-cmake-oiio-imath-includes.patch"
+      patch_description: "Allow imath and oiio to be found when building inside Conan"
+      patch_type: "conan"
+  "1.13.11.0":
+    - patch_file: "patches/1.13.11.0-serialize-cuda-build.patch"
+      patch_description: "Serialize CUDA build steps to avoid race conditions"
+      patch_type: "conan"
+    - patch_file: "patches/1.13.11.0-find-llvm-binaries.patch"
+      patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
+      patch_type: "conan"
+    - patch_file: "patches/1.13.11.0-cmake-oiio-imath-includes.patch"
+      patch_description: "Allow imath and oiio to be found when building inside Conan"
+      patch_type: "conan"

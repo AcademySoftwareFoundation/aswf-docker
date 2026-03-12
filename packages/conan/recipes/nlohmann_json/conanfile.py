@@ -6,7 +6,7 @@
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
-from conan.tools.files import copy, get
+from conan.tools.files import copy, get, mkdir
 from conan.tools.layout import basic_layout
 import os
 
@@ -51,6 +51,32 @@ class NlohmannJsonConan(ConanFile):
         # ASWF: license file in package specific directories
         copy(self, "LICENSE*", self.source_folder, os.path.join(self.package_folder, "licenses", self.name))
         copy(self, "*", os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
+        # ASWF: a trivial CMake config to help with outside Conan builds
+        cmakepath = os.path.join(self.package_folder, "lib", "cmake", "nlohmann_json")
+        mkdir(self, cmakepath)
+        with open(os.path.join(cmakepath, "nlohmann_jsonConfig.cmake"), "w") as f:
+            f.write("""
+if(NOT TARGET nlohmann_json::nlohmann_json)
+    add_library(nlohmann_json::nlohmann_json INTERFACE IMPORTED)
+endif()
+""")
+        with open(os.path.join(cmakepath, "nlohmann_jsonConfigVersion.cmake"), "w") as f:
+            f.write(f"""
+set(PACKAGE_VERSION "{ self.version }")
+if(NOT DEFINED PACKAGE_FIND_VERSION)
+    set(PACKAGE_VERSION_COMPATIBLE TRUE)
+    set(PACKAGE_VERSION_EXACT TRUE)
+    return()
+endif()
+if(PACKAGE_FIND_VERSION VERSION_LESS PACKAGE_VERSION)
+    set(PACKAGE_VERSION_COMPATIBLE TRUE)
+else()
+    set(PACKAGE_VERSION_COMPATIBLE FALSE)
+endif()
+if(PACKAGE_FIND_VERSION VERSION_EQUAL PACKAGE_VERSION)
+    set(PACKAGE_VERSION_EXACT TRUE)
+endif()
+""")
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "nlohmann_json")

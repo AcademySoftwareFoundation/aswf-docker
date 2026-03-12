@@ -23,7 +23,7 @@ ARG {{ arg }}
 {% for package in packages + implicit_packages -%}
 ARG ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
-{% if name == "osl" or name == "usd" -%}
+{% if name ==  "usd" -%}
 ARG ASWF_{{name|upper}}_VERSION
 {% endif -%}
 
@@ -69,7 +69,7 @@ ARG {{ arg }}
 {% for package in packages + implicit_packages -%}
 ARG ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
-{% if name == "osl" or name == "usd" -%}
+{% if name == "usd" -%}
 ARG ASWF_{{name|upper}}_VERSION
 {% endif -%}
 
@@ -116,7 +116,7 @@ ENV {{ arg }}=${{ arg }}
 {% for package in packages + implicit_packages -%}
 ENV ASWF_{{package|upper|replace("-", "_")}}_VERSION=$ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
-{% if name == "osl" or name == "usd" -%}
+{% if name == "usd" -%}
 ENV ASWF_{{name|upper}}_VERSION=$ASWF_{{name|upper}}_VERSION
 {% endif -%}
 

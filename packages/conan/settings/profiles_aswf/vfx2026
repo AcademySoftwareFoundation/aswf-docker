@@ -9,7 +9,7 @@ qt/*:compiler.cppstd=gnu20
 [tool_requires]
 [replace_requires]
 aces_container/*: aces_container/1.0.2@aswf/vfx2026
-alembic/*: alembic/1.8.8@aswf/vfx2026
+alembic/*: alembic/1.8.10@aswf/vfx2026
 boost/*: boost/1.88.0@aswf/vfx2026
 brotli/*: brotli/system@aswf/vfx2026
 bzip2/*: bzip2/1.0.8@aswf/vfx2026
@@ -60,27 +60,32 @@ libxcrypt/*: libxcrypt/4.4.38@aswf/vfx2026
 libxshmfence/*: libxshmfence/system@aswf/vfx2026
 log4cplus/*: log4cplus/2.1.2@aswf/vfx2026
 lz4/*: lz4/1.10.0@aswf/vfx2026
+materiax/*: materialx/1.39.4@aswf/vfx2026
 md4c/*: md4c/0.5.2@aswf/vfx2026
 minizip-ng/*: minizip-ng/4.0.10@aswf/vfx2026
 mpdecimal/*: mpdecimal/system@aswf/vfx2026
 mpg123/*: mpg123/system@aswf/vfx2026
+nanobind/*: nanobind/2.11.0@aswf/vfx2026
 nlohmann_json/*: nlohmann_json/3.12.0@aswf/vfx2026
 nspr/*: nspr/system@aswf/vfx2026
 nss/*: nss/3.112.0@aswf/vfx2026
-ocio/*: ocio/2.5.0@aswf/vfx2026
-oiio/*: oiio/3.1.6.2@aswf/vfx2026
+ocio/*: ocio/2.5.1@aswf/vfx2026
+oiio/*: oiio/3.1.10.0@aswf/vfx2026
 ogg/*: ogg/system@aswf/vfx2026
 onetbb/*: onetbb/2022.1.0@aswf/vfx2026
 openal-soft/*: openal-soft/system@aswf/vfx2026
 opencl-headers/*: opencl-headers/system@aswf/vfx2026
 opencl-icd-loader/*: opencl-icd-loader/system@aswf/vfx2026
-openexr/*: openexr/3.4.3@aswf/vfx2026
+openexr/*: openexr/3.4.5@aswf/vfx2026
 opengl/*: opengl/system@aswf/vfx2026
 openjpeg/*: openjpeg/2.4.0@aswf/vfx2026
 openjph/*: openjph/0.24.5@aswf/vfx2026
 openssl/*: openssl/system@aswf/vfx2026
+opensubdiv/*: opensubdiv/3.7.0@aswf/vfx2026
 openvdb/*: openvdb/13.0.0/vfx2026
 opus/*: opus/system@aswf/vfx2026
+osl/*: osl/1.15.1.0@aswf/vfx2026
+partio/*: partio/1.19.0@aswf/vfx2026
 pcre2/*: pcre2/system@aswf/vfx2026
 ptex/*: ptex/2.4.3@aswf/vfx2026
 pugixml/*: pugixml/1.15@aswf/vfx2026
@@ -88,6 +93,7 @@ pulseaudio/*: pulseaudio/system@aswf/vfx2026
 pybind11/*: pybind11/2.13.6@aswf/vfx2026
 pystring/*: pystring/1.1.4@aswf/vfx2026
 qt/*: qt/6.8.3@aswf/vfx2026
+rawtoaces/*: rawtoaces/2.0.0@aswf/vfx2026
 snappy/*: snappy/1.2.2@aswf/vfx2026
 spdlog/*: spdlog/1.15.3@aswf/vfx2026
 sqlite3/*: sqlite3/system@aswf/vfx2026

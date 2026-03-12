@@ -45,7 +45,6 @@ ARG ASWF_VFXPLATFORM_VERSION
 
 # Comment out this block to use Conan packages
 FROM ${ASWF_PKG_ORG}/ci-package-usd:$ASWF_VFXPLATFORM_VERSION-$ASWF_USD_VERSION AS ci-package-usd
-FROM ${ASWF_PKG_ORG}/ci-package-osl:$ASWF_VFXPLATFORM_VERSION-$ASWF_OSL_VERSION AS ci-package-osl
 FROM ${ASWF_PKG_ORG}/ci-package-otio:$ASWF_VFXPLATFORM_VERSION-$ASWF_OTIO_VERSION AS ci-package-otio
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-vfxall
 
@@ -161,7 +160,6 @@ ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
 
 
 COPY --from=ci-package-usd /. /usr/local/
-COPY --from=ci-package-osl /. /usr/local/
 COPY --from=ci-package-otio /. /usr/local/
 COPY ci-vfxall/README.md ci-vfxall/image.yaml /usr/local/aswf/
 
@@ -195,7 +193,7 @@ openfx/${ASWF_OPENFX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 openvdb/${ASWF_OPENVDB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # usd/${ASWF_USD_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-# osl/${ASWF_OSL_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+osl/${ASWF_OSL_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 # otio/${ASWF_OTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 rawtoaces/${ASWF_RAWTOACES_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF

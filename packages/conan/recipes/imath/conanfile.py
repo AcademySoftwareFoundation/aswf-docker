@@ -2,17 +2,17 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/imath/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/8ac58f85fed5418f986bd1021b4952bcd56d16e5/recipes/imath/all/conanfile.py
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
-from conan.tools.files import apply_conandata_patches, collect_libs, copy, export_conandata_patches, get, replace_in_file, rmdir
+from conan.tools.files import copy, get, rmdir, collect_libs, replace_in_file
 from conan.tools.microsoft import is_msvc
 from conan.tools.scm import Version
 import os
 
-required_conan_version = ">=1.53.0"
+required_conan_version = ">=2.0"
 
 
 class ImathConan(ConanFile):
@@ -37,23 +37,13 @@ class ImathConan(ConanFile):
         "fPIC": True,
     }
 
-    def export_sources(self):
-        export_conandata_patches(self)
-
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
-
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
+    implements = ["auto_shared_fpic"]
 
     def layout(self):
         cmake_layout(self, src_folder="src")
 
     def validate(self):
-        if self.settings.compiler.get_safe("cppstd"):
-            check_min_cppstd(self, 11)
+        check_min_cppstd(self, 11)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -70,14 +60,12 @@ class ImathConan(ConanFile):
             # when msvc is working with a C++ standard level higher
             # than the default, we need the __cplusplus macro to be correct
             tc.variables["CMAKE_CXX_FLAGS"] = "/Zc:__cplusplus"
-        # ASWF: Build Python bindings, pybind11 not quire ready yet
+        # ASWF: Build Python bindings, pybind11 not quite ready yet
         tc.variables["PYTHON"] = "ON"
         tc.variables["PYBIND11"] = "OFF"
         tc.generate()
 
     def build(self):
-        apply_conandata_patches(self)
-
         # ASWF: starting with version 3.2.0, src/python/CMakeLists.txt calls:
         # find_package(Boost CONFIG REQUIRED COMPONENTS python)
         # but our builds of boost::python bake in the python version, so we have
@@ -134,16 +122,6 @@ class ImathConan(ConanFile):
         imath_lib.set_property("pkg_config_name", "Imath")
         imath_lib.libs = collect_libs(self)
         imath_lib.requires = ["imath_config"]
-        imath_lib.requires.extend(["boost::boost", "boost::python", "boost::graph", "boost::container"])
+        imath_lib.requires.extend(["boost::python"])
         if self.settings.os == "Windows" and self.options.shared:
             imath_lib.defines.append("IMATH_DLL")
-
-        # TODO: to remove in conan v2 once cmake_find_package_* generators removed
-        self.cpp_info.names["cmake_find_package"] = "Imath"
-        self.cpp_info.names["cmake_find_package_multi"] = "Imath"
-        self.cpp_info.names["pkg_config"] = "Imath"
-        imath_config.names["cmake_find_package"] = "ImathConfig"
-        imath_config.names["cmake_find_package_multi"] = "ImathConfig"
-        imath_lib.names["cmake_find_package"] = "Imath"
-        imath_lib.names["cmake_find_package_multi"] = "Imath"
-        imath_lib.names["pkg_config"] = "Imath"

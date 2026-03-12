@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-02-24
+
+2024.6 / 2025.5 / 2026.3 releases.
+
+- All releases
+  - [clang / llvm now built with dynamic libraries](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/336), significant reduction in image sizes
+  - OpenShadingLanguage converted to a Conan package
+  - don't set rpath when building imath, OCIO
+  - nanobind 2.9.2 (needed by rawtoaces 2.0.0)
+
+- 2025.5
+  - OpenEXR 3.3.6 to 3.3.7
+
+- 2026.3
+  - Alembic 1.8.8 to 1.8.10
+  - [OpenSubdiv 3.6.1 to 3.7.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/328), VFX Platform 2026 calls for OpenSubdiv 3.7.x but this was missed in previous 2026 releases
+  - OpenColorIO 2.5.0 to 2.5.1, note that [2.5.1 is not ABI compatible with 2.5.0](https://opencolorio.readthedocs.io/en/latest/releases/ocio_2_5.html#library-version)
+  - [MaterialX 1.39.3 to 1.39.4](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/339)
+  - [OpenEXR 3.4.3 to 3.4.5](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/322)
+  - [OpenImageIO 3.1.6.2 to 3.1.10.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/329)
+  - [OpenShadingLanguage 1.14.7.0 to 1.15.1.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/330)
+  - [rawtoaces 1.1.0 to 2.0.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/324) - Python bindings via nanobind not enabled yet
+
 # 2025-12-06
 
 Re-releasing 2025.5 / 2025.4 / 2026.2 without 1.5GB of Conan download cache bloat.

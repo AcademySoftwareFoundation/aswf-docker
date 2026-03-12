@@ -2,16 +2,17 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/b9c8a5391082c2940205ec80a619ec01b157fb59/recipes/libultrahdr/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/e02c3afa01526f030cf8369b268991b2af09b5da/recipes/libultrahdr/all/conanfile.py
 
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps, cmake_layout
-from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rmdir
+from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rm, rmdir
 
 import os
 
 required_conan_version = ">=2.0.0"
+
 
 class LibultrahdrConan(ConanFile):
     name = "libultrahdr"
@@ -49,11 +50,11 @@ class LibultrahdrConan(ConanFile):
 
     def requirements(self):
         if self.options.with_jpeg == "libjpeg":
-            self.requires("libjpeg/9e")
+            self.requires("libjpeg/[>=9e]")
         elif self.options.with_jpeg == "libjpeg-turbo":
-            self.requires("libjpeg-turbo/3.0.0")
+            self.requires("libjpeg-turbo/[>=3.0.0 <4]")
         elif self.options.with_jpeg == "mozjpeg":
-            self.requires("mozjpeg/4.1.3")
+            self.requires("mozjpeg/[>=4.1.3 <5]")
 
     def build_requirements(self):
         # The project requires cmake 3.15 but the use of CMAKE_REQUIRE_FIND_PACKAGE_JPEG below
@@ -94,6 +95,10 @@ class LibultrahdrConan(ConanFile):
         # ASWF: license file in package subdir
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # ASWF: get rid of static libraries if we are building dynamic
+        if self.options.shared:
+            rm(self, "*.a", os.path.join(self.package_folder, "lib"))
+            rm(self, "*-static.lib", os.path.join(self.package_folder, "lib"))
 
     def package_info(self):
         self.cpp_info.libs = ['uhdr']

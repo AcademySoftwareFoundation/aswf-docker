@@ -323,7 +323,7 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-vfxall:2024-clang16.5](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang16.5)
+## [aswf/ci-vfxall:2024-clang16.6](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang16.6)
 
 Contains:
 * cppunit-1.15.1
@@ -350,7 +350,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-vfxall:2024-clang17.5](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang17.5)
+## [aswf/ci-vfxall:2024-clang17.6](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang17.6)
 
 Contains:
 * cppunit-1.15.1
@@ -377,7 +377,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-vfxall:2025-clang18.4](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang18.4)
+## [aswf/ci-vfxall:2025-clang18.5](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang18.5)
 
 Contains:
 * cppunit-1.15.1
@@ -391,7 +391,7 @@ Contains:
 * partio-1.19.0
 * alembic-1.8.8
 * imath-3.1.12
-* openexr-3.3.6
+* openexr-3.3.7
 * oiio-3.1.6.2
 * ocio-2.4.2
 * openfx-1.5s
@@ -404,7 +404,7 @@ Contains:
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-vfxall:2025-clang19.4](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang19.4)
+## [aswf/ci-vfxall:2025-clang19.5](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang19.5)
 
 Contains:
 * cppunit-1.15.1
@@ -418,7 +418,7 @@ Contains:
 * partio-1.19.0
 * alembic-1.8.8
 * imath-3.1.12
-* openexr-3.3.6
+* openexr-3.3.7
 * oiio-3.1.6.2
 * ocio-2.4.2
 * openfx-1.5s
@@ -431,7 +431,7 @@ Contains:
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-vfxall:2026-clang19.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2026-clang19.2)
+## [aswf/ci-vfxall:2026-clang19.3](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2026-clang19.3)
 
 Contains:
 * cppunit-1.15.1
@@ -441,24 +441,24 @@ Contains:
 * log4cplus-2.1.2
 * qt-6.8.3
 * pyside-6.8.3
-* opensubdiv-3.6.1
+* opensubdiv-3.7.0
 * partio-1.19.0
-* alembic-1.8.8
+* alembic-1.8.10
 * imath-3.2.2
-* openexr-3.4.3
-* oiio-3.1.6.2
-* ocio-2.5.0
+* openexr-3.4.5
+* oiio-3.1.10.0
+* ocio-2.5.1
 * openfx-1.5s
 * openvdb-13.0.0
-* materialx-1.39.3
+* materialx-1.39.4
 * usd-25.08
-* osl-1.14.7.0
+* osl-1.15.1.0
 * otio-0.17.0
-* rawtoaces-1.1.0
+* rawtoaces-2.0.0
 * numpy-2.3.2
 * vfxplatform-2026
 
-## [aswf/ci-vfxall:2026-clang20.2](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2026-clang20.2)
+## [aswf/ci-vfxall:2026-clang20.3](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2026-clang20.3)
 
 Contains:
 * cppunit-1.15.1
@@ -468,20 +468,20 @@ Contains:
 * log4cplus-2.1.2
 * qt-6.8.3
 * pyside-6.8.3
-* opensubdiv-3.6.1
+* opensubdiv-3.7.0
 * partio-1.19.0
-* alembic-1.8.8
+* alembic-1.8.10
 * imath-3.2.2
-* openexr-3.4.3
-* oiio-3.1.6.2
-* ocio-2.5.0
+* openexr-3.4.5
+* oiio-3.1.10.0
+* ocio-2.5.1
 * openfx-1.5s
 * openvdb-13.0.0
-* materialx-1.39.3
+* materialx-1.39.4
 * usd-25.08
-* osl-1.14.7.0
+* osl-1.15.1.0
 * otio-0.17.0
-* rawtoaces-1.1.0
+* rawtoaces-2.0.0
 * numpy-2.3.2
 * vfxplatform-2026
 

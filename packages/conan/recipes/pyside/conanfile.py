@@ -3,8 +3,6 @@
 
 import os
 import sys
-import glob
-import shutil
 import platform
 
 from conan import ConanFile
@@ -204,14 +202,8 @@ class PySide6Conan(ConanFile):
 
             # Copy the shared libraries shiboken needs to be able to run into the package
             for lib in ("Core", "Gui", "Network", "OpenGL", "Widgets", "Xml"):
-                for f in glob.glob(
-                    os.path.join(qtInfo.package_folder, "lib", f"libQt6{lib}.so*")
-                ):
-                    shutil.copy(f, installBinDir, follow_symlinks=False)
-            for f in glob.glob(
-                os.path.join(llvmInfo.package_folder, "lib", "libclang.so*")
-            ):
-                shutil.copy(f, installBinDir, follow_symlinks=False)
+                copy(self, f"libQt6{lib}.so*", os.path.join(qtInfo.package_folder, "lib"), installBinDir)
+            copy(self, "libclang.so*", os.path.join(llvmInfo.package_folder, "lib"), installBinDir,)
 
     def _buildMac(self, srcDir):
         qtInfo = self.dependencies["qt"]
@@ -228,7 +220,7 @@ class PySide6Conan(ConanFile):
         env = Environment()
         env.define("LLVM_INSTALL_DIR", llvmInfo.package_folder)
         env.define("CMAKE_PREFIX_PATH", f"{qtInfo.package_folder}:{llvmInfo.package_folder}")
-        env.defiine("CXXFLAGS", f"-I{pythonInfo.cpp_info.includedirs[0]}")
+        env.define("CXXFLAGS", f"-I{pythonInfo.cpp_info.includedirs[0]}")
         env_vars = env.vars(self)
 
         with env_vars.apply():
@@ -268,8 +260,7 @@ class PySide6Conan(ConanFile):
 
             shibokenInfo = self.dependencies["pyside-shiboken"]
             installBinDir = os.path.join(self._installDir, "bin")
-            for f in glob.glob(os.path.join(shibokenInfo.package_folder, "bin", "*")):
-                shutil.copy(f, installBinDir)
+            opy(self, "*", os.path.join(shibokenInfo.package_folder, "bin"), installBinDir)
 
             self.run(buildCmd + " --build-type=pyside")
 

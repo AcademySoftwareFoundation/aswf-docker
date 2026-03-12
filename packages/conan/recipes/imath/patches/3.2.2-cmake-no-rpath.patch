@@ -1,0 +1,24 @@
+diff --git a/config/ImathSetup.cmake b/config/ImathSetup.cmake
+index bfec292..c8c2e7e 100644
+--- config/ImathSetup.cmake
++++ config/ImathSetup.cmake
+@@ -75,16 +75,16 @@
+ set(IMATH_STATIC_LIB_SUFFIX "_static" CACHE STRING "name to append to static library (in addition to normal suffix)")
+
+ # rpath related setup. Make sure we force an rpath to the rpath we're compiling
+-set(CMAKE_SKIP_BUILD_RPATH FALSE)
++set(CMAKE_SKIP_BUILD_RPATH TRUE)
+ set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+
+ # Add the automatically determined parts of the rpath which point to
+ # directories outside the build tree to the install RPATH
+-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
++set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
+
+ # If the user sets an install rpath then just use that, or otherwise
+ # set one for them.
+-if(NOT CMAKE_INSTALL_RPATH)
++if(FALSE)
+   list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
+   if("${isSystemDir}" STREQUAL "-1")
+     if("${CMAKE_SYSTEM}" MATCHES "Linux")
