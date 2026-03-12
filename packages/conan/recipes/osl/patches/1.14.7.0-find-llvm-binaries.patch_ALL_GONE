@@ -1,0 +1,14 @@
+diff --git src/cmake/llvm_macros.cmake src/cmake/llvm_macros.cmake
+index d99dd79ac..bfda2778a 100644
+--- src/cmake/llvm_macros.cmake
++++ src/cmake/llvm_macros.cmake
+@@ -31,8 +31,7 @@
+         if (NOT LLVM_BC_GENERATOR)
+             find_program (LLVM_BC_GENERATOR NAMES "clang++"
+                         PATHS "${LLVM_DIRECTORY}/bin" "${LLVM_DIRECTORY}/tools/llvm"
+-                        NO_CMAKE_PATH NO_DEFAULT_PATH NO_CMAKE_SYSTEM_PATH
+-                        NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_ENVIRONMENT_PATH)
++                         )
+         endif ()
+
+         if (NOT LLVM_BC_GENERATOR)

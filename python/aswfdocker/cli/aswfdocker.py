@@ -537,6 +537,7 @@ def pushoverview(
 )
 @pass_build_info
 def conandiff(build_info, recipe, checkwrappers, branch):
+    # pylint: disable=too-many-nested-blocks,too-many-statements
     """Check for outdated conanfile.py files in packages/conan/recipes directory."""
 
     # Initialize GitHub client

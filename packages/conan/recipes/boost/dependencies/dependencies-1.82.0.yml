@@ -111,9 +111,7 @@ dependencies:
   prg_exec_monitor:
   - test
   program_options: []
-  python:
-  - graph
-  - container
+  python: []
   random:
   - system
   regex: []
@@ -271,7 +269,7 @@ requirements:
   - iconv
   - icu
   python:
-  - cpython
+  - python
   regex:
   - icu
   stacktrace:

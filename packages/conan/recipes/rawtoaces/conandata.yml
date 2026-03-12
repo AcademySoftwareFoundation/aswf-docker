@@ -13,6 +13,9 @@ sources:
   "vfx2026.0":
     url: "https://github.com/AcademySoftwareFoundation/rawtoaces/archive/refs/tags/vfx2026.0.tar.gz"
     sha256: "292fdf087dd5543f2de08fb85378f62489436a3146c657b80a0f52ca227680c7"
+  "2.0.0":
+    url: "https://github.com/AcademySoftwareFoundation/rawtoaces/archive/refs/tags/v2.0.0.tar.gz"
+    sha256: "5e0a8d48adf32cb834f7af7daa8b3cd68bab1d521bdc82751e7e561be396d9b9"
 patches:
   "1.1.0":
     - patch_file: "patches/1.1-rc3-cmake_libraw_target.diff"
@@ -26,4 +29,14 @@ patches:
   "vfx2026.0":
     - patch_file: "patches/cmake_libraw_target.diff"
       patch_description: "libraw Cmake target from Conan Center Index recipe"
+      patch_type: "conan"
+  "2.0.0":
+    - patch_file: "patches/2.0.0-findpython-nanobind.diff"
+      patch_description: "Adjust FindPython to make nanobind happy"
+      patch_type: "conan"
+    - patch_file: "patches/2.0.0-nlohmann-cmake.diff"
+      patch_description: "Missing nlohmann_json includes"
+      patch_type: "conan"
+    - patch_file: "patches/2.0.0-cpp20-class-aggregate.diff"
+      patch_description: "c++ 20 compilation fix"
       patch_type: "conan"

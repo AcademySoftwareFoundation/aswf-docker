@@ -101,6 +101,8 @@ class MaterialXConan(ConanFile):
         tc.variables["MATERIALX_BUILD_TESTS"] = False
         tc.variables["MATERIALX_TEST_RENDER"] = False
         tc.variables["MATERIALX_BUILD_PYTHON"] = "ON"
+        if self.options.with_openimageio:
+          tc.variables["MATERIALX_BUILD_OIIO"] = "ON" # ASWF: tell MaterialX to build against OIIO
         tc.variables["MATERIALX_PYTHON_VERSION"] = self.dependencies["cpython"].ref.version
         tc.variables["MATERIALX_BUILD_SHARED_LIBS"] = self.options.shared
         tc.variables["MATERIALX_BUILD_GEN_MSL"] = self.options.build_gen_msl and is_apple_os

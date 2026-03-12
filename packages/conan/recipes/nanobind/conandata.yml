@@ -1,0 +1,18 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/75b9e9922496dc0acc2499df76f8f10601042b60/recipes/nanobind/all/conandata.yml
+
+sources:
+  "2.11.0":
+    url: "https://github.com/wjakob/nanobind/archive/refs/tags/v2.11.0.tar.gz"
+    sha256: "62ba05e5f720c76c510d6ab2a77f8ccc17a76c5cea951bea47355a7dfa460449"
+  "2.9.2":
+    url: "https://github.com/wjakob/nanobind/archive/refs/tags/v2.9.2.tar.gz"
+    sha256: "8ce3667dce3e64fc06bfb9b778b6f48731482362fb89a43da156632266cd5a90"
+patches:
+  "2.11.0":
+    - patch_file: "patches/2.11.0-cmake-python-module.diff"
+      patch_description: "Debugging code for Conan environment"
+      patch_type: "conan"

@@ -2,7 +2,7 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/opensubdiv/all/conanfile.py
+# From: https://github.com/conan-io/conan-center-index/blob/8ac58f85fed5418f986bd1021b4952bcd56d16e5/recipes/opensubdiv/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -77,6 +77,8 @@ class OpenSubdivConan(ConanFile):
             del self.options.with_dx
         if self.settings.os != "Macos":
             del self.options.with_metal
+        if Version(self.version) >= "3.7.0":
+            self.license = "DocumentRef-LICENSE.txt:LicenseRef-Tomorrow-Open-Source-Technology"
 
     def configure(self):
         if self.options.shared:

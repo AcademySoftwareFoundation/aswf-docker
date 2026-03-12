@@ -525,7 +525,7 @@ class ClangConan(ConanFile):
         build_info = self._write_build_info()
 
         cmake_folder = self._package_folder_path / "lib" / "cmake" / "llvm"
-        # rm(self, "LLVMConfig.cmake", cmake_folder)
+        # rm(self, "LLVMConfig.cmake", cmake_folder) # ASWF: keep for non-Conan use
         # rm(self, "LLVMExports*", cmake_folder)
         # rm(self, "Find*", cmake_folder)
         rm(self, "*.pdb", self._package_folder_path / "lib")
@@ -534,10 +534,15 @@ class ClangConan(ConanFile):
         # downstream packages
         rename(self, cmake_folder / "LLVM-Config.cmake", cmake_folder / "LLVM-ConfigInternal.cmake")
         replace_in_file(self, cmake_folder / "AddLLVM.cmake", "LLVM-Config", "LLVM-ConfigInternal")
-        replace_in_file(self, (cmake_folder / "LLVMConfig.cmake").as_posix(), "LLVM-Config", "LLVM-ConfigInternal")
+        replace_in_file(self, cmake_folder / "LLVMConfig.cmake", "LLVM-Config", "LLVM-ConfigInternal")
         rmdir(self, self._package_folder_path / "share")
         if self.options.shared:
             rm(self, "*.a", self._package_folder_path / "lib")
+            # ASWF: since we remove the static components from the installed package, disable the check for
+            # those in LLVMExports.cmake
+            replace_in_file(self, cmake_folder / "LLVMExports.cmake", "if(NOT EXISTS \"${_cmake_file}\")", "if(FALSE)")
+            replace_in_file(self, self._package_folder_path / "lib" / "cmake" / "clang" / "ClangTargets.cmake",
+                            "if(NOT EXISTS \"${_cmake_file}\")", "if(FALSE)")
 
         self._create_cmake_build_module(
             build_info,

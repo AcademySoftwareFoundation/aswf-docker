@@ -1,0 +1,64 @@
+diff --git src/raw.imageio/CMakeLists.txt src/raw.imageio/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/raw.imageio/CMakeLists.txt
++++ src/raw.imageio/CMakeLists.txt
+@@ -2,10 +2,10 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # https://github.com/AcademySoftwareFoundation/OpenImageIO
+
+-if (LIBRAW_FOUND)
++if (LIBRAW_FOUND OR LibRaw_FOUND)
+     add_oiio_plugin (rawinput.cpp
+                      INCLUDE_DIRS ${LibRaw_INCLUDE_DIR}
+-                     LINK_LIBRARIES ${LibRaw_r_LIBRARIES}
++                     LINK_LIBRARIES "libraw::libraw_r"
+                      COMPILE_OPTIONS ${LibRaw_r_DEFINITIONS}
+                      DEFINITIONS "USE_LIBRAW=1")
+ else ()
+diff --git src/jpeg2000.imageio/CMakeLists.txt src/jpeg2000.imageio/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/jpeg2000.imageio/CMakeLists.txt
++++ src/jpeg2000.imageio/CMakeLists.txt
+@@ -2,7 +2,7 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # https://github.com/AcademySoftwareFoundation/OpenImageIO
+
+-if (OPENJPEG_FOUND)
++if (OPENJPEG_FOUND OR OpenJPEG_FOUND)
+     if (TARGET openjp2_static AND (NOT TARGET openjp2 OR
+                                    LINKSTATIC OR OpenJPEG_LINKSTATIC))
+         # Use static OpenJPEG library for LINKSTATIC situations, or if
+@@ -11,14 +11,17 @@
+     elseif (TARGET openjp2)
+         set (OPENJPEG_TARGET openjp2)
+     else ()
+-        set(_jpeg2000_includes ${OPENJPEG_INCLUDES})
+-        set(_jpeg2000_lib_dirs ${OPENJPEG_LIBRARY_DIRS})
+-        set(_jpeg2000_libs ${OPENJPEG_LIBRARIES})
++        set(_jpeg2000_includes ${OpenJPEG_INCLUDES})
++        set(_jpeg2000_lib_dirs ${OpenJPEG_LIBRARY_DIRS})
++        set(_jpeg2000_libs ${OpenJPEG_LIBRARIES})
+     endif ()
+     message (VERBOSE "OPENJPEG_TARGET=${OPENJPEG_TARGET}")
+     set(_jpeg2000_defs "USE_OPENJPEG")
+
+     if (openjph_FOUND)
++        list(APPEND _jpeg2000_includes ${openjph_INCLUDE_DIR})
++        list(APPEND _jpeg2000_lib_dirs ${openjph_LIB_DIRS_RELEASE})
++        list(APPEND _jpeg2000_libs ${openjph_LIBS_RELEASE})
+         list(APPEND _jpeg2000_defs "USE_OPENJPH")
+     endif()
+
+diff --git src/cmake/modules/FindLibRaw.cmake src/cmake/FindLibRaw.cmake
+index d99dd79ac..bfda2778a 100644
+--- src/cmake/modules/FindLibRaw.cmake
++++ src/cmake/modules/FindLibRaw.cmake
+@@ -38,7 +38,7 @@
+              ${PC_LIBRAW_LIBRARY_DIRS}
+             )
+
+-find_library(LibRaw_r_LIBRARIES NAMES raw_r
++find_library(LibRaw_r_LIBRARIES NAMES raw_r libraw_r
+              HINTS
+              ${LIBRAW_LIBDIR_HINT}
+              ${PC_LIBRAW_R_LIBDIR}

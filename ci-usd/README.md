@@ -150,7 +150,7 @@ Contains:
 * hdf5-1.8.23
 * vfxplatform-2023
 
-## [aswf/ci-usd:2024.5](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.5)
+## [aswf/ci-usd:2024.6](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.6)
 
 Contains:
 * b2-5.2.1
@@ -198,7 +198,7 @@ Contains:
 * hdf5-1.14.6
 * vfxplatform-2024
 
-## [aswf/ci-usd:2025.4](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2025.4)
+## [aswf/ci-usd:2025.5](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2025.5)
 
 Contains:
 * b2-5.2.1
@@ -237,7 +237,7 @@ Contains:
 * partio-1.19.0
 * ptex-2.4.3
 * libjxl-0.11.1
-* openexr-3.3.6
+* openexr-3.3.7
 * alembic-1.8.8
 * ocio-2.4.2
 * oiio-3.1.6.2
@@ -246,7 +246,7 @@ Contains:
 * hdf5-1.14.6
 * vfxplatform-2025
 
-## [aswf/ci-usd:2026.2](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2026.2)
+## [aswf/ci-usd:2026.3](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2026.3)
 
 Contains:
 * b2-5.3.2
@@ -281,15 +281,15 @@ Contains:
 * imath-3.2.2
 * lcms-2.17
 * libultrahdr-1.4.0
-* opensubdiv-3.6.1
+* opensubdiv-3.7.0
 * partio-1.19.0
 * ptex-2.4.3
 * libjxl-0.11.1
-* openexr-3.4.3
-* alembic-1.8.8
-* ocio-2.5.0
-* oiio-3.1.6.2
-* materialx-1.39.3
+* openexr-3.4.5
+* alembic-1.8.10
+* ocio-2.5.1
+* oiio-3.1.10.0
+* materialx-1.39.4
 * numpy-2.3.2
 * hdf5-1.14.6
 * vfxplatform-2026

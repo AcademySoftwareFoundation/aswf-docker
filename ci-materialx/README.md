@@ -32,24 +32,24 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-materialx:2024.5](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2024.5)
+## [aswf/ci-materialx:2024.6](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2024.6)
 
 Contains:
 * materialx-1.39.1
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-materialx:2025.4](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2025.4)
+## [aswf/ci-materialx:2025.5](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2025.5)
 
 Contains:
 * materialx-1.39.3
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-materialx:2026.2](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2026.2)
+## [aswf/ci-materialx:2026.3](https://hub.docker.com/r/aswf/ci-materialx/tags?page=1&name=2026.3)
 
 Contains:
-* materialx-1.39.3
+* materialx-1.39.4
 * numpy-2.3.2
 * vfxplatform-2026
 

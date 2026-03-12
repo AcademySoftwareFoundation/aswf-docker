@@ -30,6 +30,7 @@ packages:
   - glfw
   - log4cplus
   - minizip-ng
+  - nanobind
   - boost              # base1-3 packages
   - pybind11
   - libjpeg-turbo      # base2-1 packages

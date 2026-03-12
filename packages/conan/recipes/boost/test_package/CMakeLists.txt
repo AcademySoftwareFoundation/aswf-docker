@@ -2,12 +2,12 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-# From: https://github.com/conan-io/conan-center-index/blob/7abb9ee39e6009e3dbc45043307a1098246d4ad7/recipes/boost/all/test_package/CMakeLists.txt
+# From: https://github.com/conan-io/conan-center-index/blob/bd0d8f78f4c7b6a32e7e57bf7b4142face3354b2/recipes/boost/all/test_package/CMakeLists.txt
 
 cmake_minimum_required(VERSION 3.15)
 project(test_package LANGUAGES CXX)
 
-if(UNIX AND NOT APPLE)
+if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN)
     # use RPATH instead of RUNPATH so that
     # transitive dependencies can be located
     add_link_options("LINKER:--disable-new-dtags")

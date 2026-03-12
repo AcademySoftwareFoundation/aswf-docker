@@ -151,6 +151,7 @@ class OpenColorIOConan(ConanFile):
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0077"] = "NEW"
         tc.cache_variables["CMAKE_POLICY_DEFAULT_CMP0091"] = "NEW"
         tc.variables["CMAKE_CXX_STANDARD"] = self.settings.compiler.cppstd # ASWF
+        tc.variables["CMAKE_SKIP_INSTALL_RPATH"] = True # ASWF: don't want RPATH
         tc.generate()
 
         deps = CMakeDeps(self)

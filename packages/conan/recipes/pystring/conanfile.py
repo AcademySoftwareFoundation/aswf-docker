@@ -6,7 +6,7 @@
 
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
-from conan.tools.files import copy, get
+from conan.tools.files import copy, get, mkdir
 import os
 
 required_conan_version = ">=1.53.0"
@@ -62,6 +62,32 @@ class PystringConan(ConanFile):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
+        # ASWF: a trivial CMake config to help with outside Conan builds
+        cmakepath = os.path.join(self.package_folder, "lib", "cmake", "pystring")
+        mkdir(self, cmakepath)
+        with open(os.path.join(cmakepath, "pystringConfig.cmake"), "w") as f:
+            f.write("""
+if(NOT TARGET pystring::pystring)
+    add_library(pystring::pystring INTERFACE IMPORTED)
+endif()
+""")
+        with open(os.path.join(cmakepath, "pystringConfigVersion.cmake"), "w") as f:
+            f.write(f"""
+set(PACKAGE_VERSION "{ self.version }")
+if(NOT DEFINED PACKAGE_FIND_VERSION)
+    set(PACKAGE_VERSION_COMPATIBLE TRUE)
+    set(PACKAGE_VERSION_EXACT TRUE)
+    return()
+endif()
+if(PACKAGE_FIND_VERSION VERSION_LESS PACKAGE_VERSION)
+    set(PACKAGE_VERSION_COMPATIBLE TRUE)
+else()
+    set(PACKAGE_VERSION_COMPATIBLE FALSE)
+endif()
+if(PACKAGE_FIND_VERSION VERSION_EQUAL PACKAGE_VERSION)
+    set(PACKAGE_VERSION_EXACT TRUE)
+endif()
+""")
 
     def package_info(self):
         self.cpp_info.libs = ["pystring"]
