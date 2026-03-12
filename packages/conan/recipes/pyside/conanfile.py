@@ -260,7 +260,7 @@ class PySide6Conan(ConanFile):
 
             shibokenInfo = self.dependencies["pyside-shiboken"]
             installBinDir = os.path.join(self._installDir, "bin")
-            opy(self, "*", os.path.join(shibokenInfo.package_folder, "bin"), installBinDir)
+            copy(self, "*", os.path.join(shibokenInfo.package_folder, "bin"), installBinDir)
 
             self.run(buildCmd + " --build-type=pyside")
 
