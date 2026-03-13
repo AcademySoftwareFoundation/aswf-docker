@@ -107,6 +107,8 @@ class OpenShadingLanguageConan(ConanFile):
         tc.variables["USE_PYTHON"] = self.options.with_python
         tc.variables["USE_QT"] = self.options.with_qt
         tc.variables["OPTIXHOME"] = "/usr/local/NVIDIA-OptiX-SDK-9.0.0" # ASWF FIXME
+        if Version(self.version) <= "1.13":
+            tc.variables["INSTALL_DOCS"] = "OFF" # skip documentation build
 
         tc.generate()
         cd = CMakeDeps(self)
@@ -116,7 +118,7 @@ class OpenShadingLanguageConan(ConanFile):
         apply_conandata_patches(self)
         cmake = CMake(self)
         cmake.configure()
-        cmake.build()
+        cmake.build(cli_args=["--verbose"])
 
     def package(self):
         # ASWF: license files in package subdirectory
