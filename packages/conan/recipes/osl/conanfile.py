@@ -64,9 +64,6 @@ class OpenShadingLanguageConan(ConanFile):
         self.requires("tsl-robin-map/1.2.1")
         self.requires("oiio/[>=2.5]")
         self.requires("imath/3.1.9", transitive_headers=True)
-        if Version(self.version) <= "1.13":
-            # OSL 1.13 has vestigial OpenEXR includes
-            self.requires("openexr/[>=3.0.0]")
         self.requires("pugixml/[>=1.8]")
         if self.options.with_partio:
             self.requires("partio/[>=1.19.0]")
@@ -107,8 +104,8 @@ class OpenShadingLanguageConan(ConanFile):
         tc.variables["USE_PYTHON"] = self.options.with_python
         tc.variables["USE_QT"] = self.options.with_qt
         tc.variables["OPTIXHOME"] = "/usr/local/NVIDIA-OptiX-SDK-9.0.0" # ASWF FIXME
-        if Version(self.version) <= "1.13":
-            tc.variables["INSTALL_DOCS"] = "OFF" # skip documentation build
+        if Version(self.version) < "1.14":
+            tc.variables["INSTALL_DOCS"] = "OFF" # skip documentation build for 1.13 and older
 
         tc.generate()
         cd = CMakeDeps(self)
@@ -118,7 +115,7 @@ class OpenShadingLanguageConan(ConanFile):
         apply_conandata_patches(self)
         cmake = CMake(self)
         cmake.configure()
-        cmake.build(cli_args=["--verbose"])
+        cmake.build()
 
     def package(self):
         # ASWF: license files in package subdirectory
