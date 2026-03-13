@@ -79,6 +79,7 @@ class OpenShadingLanguageConan(ConanFile):
         self.tool_requires("cmake/[>=3.19]")
         self.tool_requires("bison/[>=2.7]")
         self.tool_requires("flex/[>=2.5.35]")
+        self.tool_requires("cpython/[>=3.0.0]") # used for bitfile generation
 
     def validate(self):
         if self.settings.compiler.cppstd:
