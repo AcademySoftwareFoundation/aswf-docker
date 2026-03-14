@@ -1584,11 +1584,12 @@
         },
         "pip": {
             "hashes": [
-                "sha256:13b4aa0aaad055020a11bec8a1c2a70a2b2d080e12d89b962266029fff0a16ba",
-                "sha256:272bdd1289f80165e9070a4f881e8f9e1001bbb50378561d1af20e49bf5a2200"
+                "sha256:3ce220a0a17915972fbf1ab451baae1521c4539e778b28127efa79b974aff0fa",
+                "sha256:98436feffb9e31bc9339cf369fd55d3331b1580b6a6f1173bacacddcf9c34754"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.9'",
-            "version": "==25.1"
+            "version": "==26.0"
         },
         "pip-shims": {
             "hashes": [
