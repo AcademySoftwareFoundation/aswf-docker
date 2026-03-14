@@ -76,7 +76,7 @@ class OpenImageIOConan(ConanFile):
         "with_libwebp": True,
         "with_libjxl": True,
         "with_libultrahdr": True,
-        "with_iv": False, # ASWF: enable once we figure out why configure doesn't find Qt or OpenGL
+        "with_iv": True,
         "with_python": True, # ASWF: build Python bindings
         "with_openjph": True, # ASWF: use OpenJPH since OpenEXR uses it
     }
@@ -151,7 +151,7 @@ class OpenImageIOConan(ConanFile):
             self.requires("libultrahdr/1.4.0")
         # TODO: R3DSDK dependency
         # TODO: Nuke dependency
-        if self.options.with_iv:
+        if self.options.with_iv:# ASWF: need Qt and OpenGL to build iv
            self.requires("opengl/system")
            self.requires("qt/6.8.3")
         if self.options.with_python: # ASWF: build Python bindings
@@ -214,11 +214,13 @@ class OpenImageIOConan(ConanFile):
         tc.variables["USE_R3DSDK"] = False
         tc.variables["USE_NUKE"] = False
         tc.variables["USE_OPENGL"] = False
-        tc.variables["USE_QT"] = False
+        tc.variables["USE_QT"] = self.options.with_iv
         tc.variables["USE_LIBPNG"] = self.options.with_libpng
         tc.variables["USE_FREETYPE"] = self.options.with_freetype
         tc.variables["USE_LIBWEBP"] = self.options.with_libwebp
         tc.variables["USE_OPENJPEG"] = self.options.with_openjpeg
+        if Version(self.version) < "2.6":
+          tc.variables["CMAKE_CXX_STANDARD"] = self.settings.compiler.cppstd # ASWF: older OIIO versions need to be told compiler version
 
         tc.generate()
         cd = CMakeDeps(self)
@@ -341,6 +343,17 @@ class OpenImageIOConan(ConanFile):
             self.cpp_info.components["OpenImageIO"].requires.append("openjph::openjph")
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.components["OpenImageIO"].system_libs.extend(["dl", "m", "pthread"])
+
+        # ASWF: iv needs Qt and OpenGL, but we don't want force consummers of OpenImageIO libraries to need Qt
+        if self.options.with_iv:
+            iv = self.cpp_info.components["iv"]
+            # no iv.libs, it is an executable, but we expose its bindir
+            iv.bindirs = ["bin"]
+            # Make sure consumers can locate the binary if needed
+            iv.set_property("cmake_file_name", "OpenImageIO")
+            iv.set_property("cmake_target_name", "OpenImageIO::iv")
+            # Do NOT add "qt" (or Qt components) to the library components' requires
+            iv.requires = ["qt::qt", "opengl::opengl"]
 
         if not self.options.shared:
             self.cpp_info.components["OpenImageIO"].defines.append("OIIO_STATIC_DEFINE")

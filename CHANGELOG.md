@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-03-14
+
+- All releases
+  - Update GitHub action versions for [NodeJS 24](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/350)
+  - Update some Python dependencies
+  - [Enable building iv for OpenImageIO](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/357) to include Qt in ci-oiio, re-release ci-oiio 2026.3 / 2025.5 / 2024.6 images
+
 # 2026-02-24
 
 2024.6 / 2025.5 / 2026.3 releases.

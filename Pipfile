@@ -23,6 +23,7 @@ twine = "*"
 [packages]
 aswfdocker = {editable = true, path = "."}
 click = "*"
+setuptools = "*"
 pygithub = "*"
 pyyaml = "*"
 jinja2 = "*"

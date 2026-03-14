@@ -2,6 +2,15 @@ diff --git src/cmake/externalpackages.cmake src/cmake/externalpackages.cmake
 index d99dd79ac..bfda2778a 100644
 --- src/cmake/externalpackages.cmake
 +++ src/cmake/externalpackages.cmake
+@@ -212,7 +212,7 @@
+ # Qt -- used for iv
+ option (USE_QT "Use Qt if found" ON)
+ if (USE_QT)
+-    checked_find_package (OpenGL)   # used for iv
++    set(OPENGL_FOUND TRUE)   # used for iv
+ endif ()
+ if (USE_QT AND OPENGL_FOUND)
+     checked_find_package (Qt6 COMPONENTS Core Gui Widgets OpenGLWidgets)
 @@ -238,7 +238,9 @@
                        VERSION_MIN 7.0
                        BUILD_LOCAL missing
