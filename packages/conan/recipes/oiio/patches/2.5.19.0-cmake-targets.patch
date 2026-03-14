@@ -286,14 +286,12 @@ index 6556cd2eb..b9c4cd958 100644
  
  if (FFmpeg_FOUND OR FREETYPE_FOUND)
      checked_find_package (BZip2)   # Used by ffmpeg and freetype
-@@ -273,8 +309,8 @@ endif()
- 
+@@ -274,7 +310,7 @@
  # Qt -- used for iv
  option (USE_QT "Use Qt if found" ON)
--if (USE_QT)
+ if (USE_QT)
 -    checked_find_package (OpenGL)   # used for iv
-+if (USE_OPENGL)
-+    checked_find_package (OpenGL REQUIRED)   # used for iv
++    set(OPENGL_FOUND TRUE)   # used for iv
  endif ()
  if (USE_QT AND OPENGL_FOUND)
      checked_find_package (Qt6 COMPONENTS Core Gui Widgets OpenGLWidgets)
