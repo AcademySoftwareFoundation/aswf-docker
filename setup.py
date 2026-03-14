@@ -43,7 +43,7 @@ setup(
         "pluginbase==1.0.1",
         "pygithub==2.2.0",
         "pygments==2.17.2; python_version >= '3.7'",
-        "pyjwt==2.8.0",
+        "pyjwt==2.12.0",
         "python-dateutil==2.9.0.post0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
         "pyyaml==5.4.1",  # capped by conan
         "requests==2.32.0",
