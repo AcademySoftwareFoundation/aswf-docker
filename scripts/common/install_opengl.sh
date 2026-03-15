@@ -13,7 +13,7 @@
 set -ex
 
 # Don't need to do this on centos7, cudagl container still available
-if [ ${ASWF_BASEOS_DISTRO} == "centos7" ]; then
+if [[ ${ASWF_BASEOS_DISTRO} == "centos7" ]]; then
     exit 0
 fi
 

@@ -6,7 +6,7 @@ set -ex
 
 BASEOS_MAJORVERSION=$(sed -n  's/^.* release \([0-9]*\)\..*$/\1/p' /etc/redhat-release)
 
-if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
+if [[ "$BASEOS_MAJORVERSION" -gt "7" ]]; then
     python3 -m ensurepip --upgrade
 
     # There is a package called python3-html5lib through yum/dnf but it installs

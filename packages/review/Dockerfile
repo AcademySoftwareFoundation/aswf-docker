@@ -76,7 +76,7 @@ EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}"
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
@@ -132,7 +132,7 @@ EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION}
+    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}"
 
 # Qt files are under /tmp/qttemp because OpenRV compiles its own PySide2 and it
 # causes issues during the build when Qt is within system folder (e.g. /usr/local)
@@ -148,7 +148,7 @@ EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /tmp/qttemp vfx${ASWF_VFXPLATFORM_VERSION}
+    /tmp/install_conanpackages.sh /tmp/qttemp vfx"${ASWF_VFXPLATFORM_VERSION}"
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \

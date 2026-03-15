@@ -137,14 +137,14 @@ RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
     --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
     --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
     conan create \
-      ${ASWF_CONAN_BUILD_MISSING} \
-      ${ASWF_CONAN_NO_REMOTE} \
-      --profile:all ${ASWF_CONAN_HOME}/.conan2/profiles_${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} \
-      --name ${ASWF_PKG_NAME} \
-      --version ${ASWF_PKG_VERSION} \
-      --user ${ASWF_PKG_ORG} \
-      --channel ${ASWF_CONAN_CHANNEL} \
-      ${ASWF_PKG_DIR}/$(if [ -f ${ASWF_PKG_YML} ] ; then yq '.versions["'"${ASWF_PKG_VERSION}"'"].folder' ${ASWF_PKG_YML} ; fi)
+      "${ASWF_CONAN_BUILD_MISSING}" \
+      "${ASWF_CONAN_NO_REMOTE}" \
+      --profile:all "${ASWF_CONAN_HOME}"/.conan2/profiles_"${ASWF_PKG_ORG}"/"${ASWF_CONAN_CHANNEL}" \
+      --name "${ASWF_PKG_NAME}" \
+      --version "${ASWF_PKG_VERSION}" \
+      --user "${ASWF_PKG_ORG}" \
+      --channel "${ASWF_CONAN_CHANNEL}" \
+      "${ASWF_PKG_DIR}"/$(if [ -f "${ASWF_PKG_YML}" ] ; then yq '.versions["'"${ASWF_PKG_VERSION}"'"].folder' "${ASWF_PKG_YML}" ; fi)
 
 # Upload build to repository if called for
 RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
@@ -154,7 +154,7 @@ RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
     --mount=type=secret,id=conan_login_username,env=CONAN_LOGIN_USERNAME \
     --mount=type=secret,id=conan_password,env=CONAN_PASSWORD \
     if [ -n "${ASWF_CONAN_PUSH}" ] ; then \
-      conan upload --remote ${ASWF_PKG_ORG} ${ASWF_PKG_NAME}/${ASWF_PKG_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} ;\
+      conan upload --remote "${ASWF_PKG_ORG}" "${ASWF_PKG_NAME}"/"${ASWF_PKG_VERSION}"@"${ASWF_PKG_ORG}"/"${ASWF_CONAN_CHANNEL}" ;\
     else \
       echo "conan upload of package ${ASWF_PKG_NAME} skipped" ; \
     fi

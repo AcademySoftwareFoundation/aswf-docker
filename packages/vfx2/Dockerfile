@@ -90,7 +90,7 @@ EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} vfx2
+    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" vfx2
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
@@ -183,7 +183,7 @@ EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} usd
+    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" usd
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
@@ -259,7 +259,7 @@ COPY ../scripts/vfx/build_otio.sh \
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
      --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-     /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} otio
+     /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" otio
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,sharing=private,target=/tmp/downloads \
