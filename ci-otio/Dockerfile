@@ -267,7 +267,7 @@ ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx${ASWF_VFXPLATFORM_VERSION} otio
+    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" otio
 
 
 RUN pip3 install flake8 tox urllib3

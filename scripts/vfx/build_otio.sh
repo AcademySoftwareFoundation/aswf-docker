@@ -7,7 +7,7 @@ set -ex
 git clone https://github.com/AcademySoftwareFoundation/OpenTimelineIO.git
 cd OpenTimelineIO
 
-if [ "$ASWF_OTIO_VERSION" != "latest" ]; then
+if [[ "$ASWF_OTIO_VERSION" != "latest" ]]; then
     git checkout "tags/v${ASWF_OTIO_VERSION}" -b "v${ASWF_OTIO_VERSION}"
 fi
 

@@ -7,7 +7,7 @@ set -ex
 mkdir alembic
 cd alembic
 
-if [ ! -f "$DOWNLOADS_DIR/hdf5-${ASWF_HDF5_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/hdf5-${ASWF_HDF5_VERSION}.tar.gz" ]]; then
     curl --location "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-${ASWF_HDF5_VERSION}/src/hdf5-${ASWF_HDF5_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/hdf5-${ASWF_HDF5_VERSION}.tar.gz"
 fi
 
@@ -18,12 +18,12 @@ cd "hdf5-${ASWF_HDF5_VERSION}"
     --enable-threadsafe \
     --disable-hl \
     --with-pthread=/usr/include
-make -j$(nproc)
-make install
+cmake --build . -j$(nproc)
+cmake --install .
 
 cd ..
 
-if [ ! -f "$DOWNLOADS_DIR/alembic-${ASWF_ALEMBIC_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/alembic-${ASWF_ALEMBIC_VERSION}.tar.gz" ]]; then
     curl --location "https://github.com/alembic/alembic/archive/${ASWF_ALEMBIC_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/alembic-${ASWF_ALEMBIC_VERSION}.tar.gz"
 fi
 tar -zxf "$DOWNLOADS_DIR/alembic-${ASWF_ALEMBIC_VERSION}.tar.gz"
@@ -48,8 +48,8 @@ cmake \
     -D USE_PRMAN=FALSE \
     -D USE_MAYA=FALSE \
     .
-make -j$(nproc)
-make install
+cmake --build . -j$(nproc)
+cmake --install .
 
 cd ../..
 rm -rf alembic

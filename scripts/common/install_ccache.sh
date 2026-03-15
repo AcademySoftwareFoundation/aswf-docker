@@ -7,7 +7,7 @@ set -ex
 mkdir ccache
 cd ccache
 
-if [ ! -f "$DOWNLOADS_DIR/ccache-${ASWF_CCACHE_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/ccache-${ASWF_CCACHE_VERSION}.tar.gz" ]]; then
     curl --location "https://github.com/ccache/ccache/releases/download/v${ASWF_CCACHE_VERSION}/ccache-${ASWF_CCACHE_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/ccache-${ASWF_CCACHE_VERSION}.tar.gz"
 fi
 
@@ -32,7 +32,7 @@ ln -s /usr/local/bin/ccache /usr/local/bin/_ccache/clang
 cat <<EOF > /usr/local/bin/activate_ccache.sh
 #!/usr/bin/env bash
 export PATH=/usr/local/bin/_ccache:$PATH
-if [ -z "$CCACHE_DIR"]
+if [[ -z "$CCACHE_DIR" ]]
 then
     export CCACHE_DIR=/tmp/ccache
 fi

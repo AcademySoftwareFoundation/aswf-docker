@@ -7,7 +7,7 @@ set -ex
 mkdir ocio
 cd ocio
 
-if [ ! -f "$DOWNLOADS_DIR/ocio-${ASWF_OCIO_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/ocio-${ASWF_OCIO_VERSION}.tar.gz" ]]; then
     curl --location "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v${ASWF_OCIO_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/ocio-${ASWF_OCIO_VERSION}.tar.gz"
 fi
 tar -zxf "$DOWNLOADS_DIR/ocio-${ASWF_OCIO_VERSION}.tar.gz"
@@ -34,8 +34,8 @@ cmake \
     -DGLEW_ROOT="${ASWF_INSTALL_PREFIX}" \
     -DCMAKE_CXX_FLAGS="-Wno-error=unused-function -Wno-error=deprecated-declarations"\
     ..
-make -j$(nproc)
-make install
+cmake --build . -j$(nproc)
+cmake --install .
 
 # As per the OCIO Slack #dev channel, we no longer need to download  OCIO configs
 # separately, the 2.x configs are now built-in to the library.

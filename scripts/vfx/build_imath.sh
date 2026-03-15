@@ -8,7 +8,7 @@ if [[ $ASWF_IMATH_VERSION == 2* ]]; then
     echo "Imath package is a dummy package with no actual file for v2."
     touch ${ASWF_INSTALL_PREFIX}/no-imath-${ASWF_IMATH_VERSION}-package
 else
-    if [ ! -f "$DOWNLOADS_DIR/Imath-${ASWF_IMATH_VERSION}.tar.gz" ]; then
+    if [[ ! -f "$DOWNLOADS_DIR/Imath-${ASWF_IMATH_VERSION}.tar.gz" ]]; then
         curl --location "https://github.com/AcademySoftwareFoundation/Imath/archive/v${ASWF_IMATH_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/Imath-${ASWF_IMATH_VERSION}.tar.gz"
     fi
 
@@ -21,8 +21,8 @@ else
         -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
         -DPYTHON=ON \
         ..
-    make -j$(nproc)
-    make install
+    cmake --build . -j$(nproc) --verbose
+    cmake --install .
 
     cd ../..
     rm -rf $IMATH_FOLDER

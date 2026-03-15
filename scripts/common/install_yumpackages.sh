@@ -11,9 +11,9 @@ XORG_X11_XKB_UTILS_RPM="xorg-x11-xkb-utils xorg-x11-xkb-utils-devel"
 LIBXVMC_DEVEL_RPM="libXvMC-devel"
 
 BASEOS_MAJORVERSION=$(sed -n  's/^.* release \([0-9]*\)\..*$/\1/p' /etc/redhat-release)
-if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
+if [[ "$BASEOS_MAJORVERSION" -gt "7" ]]; then
     dnf -y install 'dnf-command(config-manager)'
-    if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+    if [[ "$BASEOS_MAJORVERSION" -eq "8" ]]; then
         # Rocky 8 needs PowerTools and Devel repos enabled for some of these packages
         dnf config-manager --set-enabled powertools
         # The Rocky 8 mirror repos seem to be getting increasingly unreliable, prefer going to the source
@@ -229,7 +229,7 @@ dbus-uuidgen > /etc/machine-id
 
 yum -y groupinstall "Development Tools"
 
-if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
+if [[ "$BASEOS_MAJORVERSION" -gt "7" ]]; then
     dnf -y install gcc-toolset-$ASWF_DTS_VERSION gcc-toolset-$ASWF_DTS_VERSION-libatomic-devel
 else
     yum install -y --setopt=tsflags=nodocs centos-release-scl-rh
@@ -276,7 +276,7 @@ yum install -y \
     xcb-util-cursor-devel \
     zvbi-devel
 
-if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+if [[ "$BASEOS_MAJORVERSION" -eq "8" ]]; then
     # For Rocky 8 these exist in the mostly off limits devel repo. In Rocky 9 they are in EPEL.
     dnf config-manager --set-enabled devel
 fi
@@ -286,11 +286,11 @@ yum install -y \
     libdc1394-devel \
     yasm-devel
 
-if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+if [[ "$BASEOS_MAJORVERSION" -eq "8" ]]; then
     dnf config-manager --set-disabled devel
 fi
 
-if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
+if [[ "$BASEOS_MAJORVERSION" -gt "7" ]]; then
     # Rocky 8 has git 2.31 and OpenSSL 1.1.1k by default
     # Recent Qt 5.15.x wants wayland-devel
     # Qt 6 wants python3-html5lib, python3-importlib-metadata, nodejs, brotli,
@@ -300,7 +300,7 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
 
     # On EL 9 Python 3.9 is the default and perl-FindBin is no longer in
     # the perl-interpreter package, but instead in its own.
-    if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+    if [[ "$BASEOS_MAJORVERSION" -eq "8" ]]; then
         PYTHON39_RPM="python39 python39-devel"
     else
         PERL_FIND_BIN_RPM="perl-FindBin"
@@ -325,7 +325,7 @@ if [ "$BASEOS_MAJORVERSION" -gt "7" ]; then
     dnf -y module install nodejs:18
 
     # Make Python 3.11 the default Python. Can't change default system python on EL 9.
-    if [ "$BASEOS_MAJORVERSION" -eq "8" ]; then
+    if [[ "$BASEOS_MAJORVERSION" -eq "8" ]]; then
         alternatives --set python /usr/bin/python3
         alternatives --set python3 /usr/bin/python3.11
     fi

@@ -7,7 +7,7 @@ set -ex
 mkdir materialx
 cd materialx
 
-if [ ! -f "$DOWNLOADS_DIR/materialx-${ASWF_MATERIALX_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/materialx-${ASWF_MATERIALX_VERSION}.tar.gz" ]]; then
     curl --location "https://github.com/AcademySoftwareFoundation/MaterialX/archive/v${ASWF_MATERIALX_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/materialx-${ASWF_MATERIALX_VERSION}.tar.gz"
 fi
 tar -zxf "$DOWNLOADS_DIR/materialx-${ASWF_MATERIALX_VERSION}.tar.gz"

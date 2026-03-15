@@ -4,7 +4,7 @@
 
 set -ex
 
-if [ ! -f "$DOWNLOADS_DIR/openvdb-${ASWF_OPENVDB_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/openvdb-${ASWF_OPENVDB_VERSION}.tar.gz" ]]; then
      curl --location "https://github.com/AcademySoftwareFoundation/openvdb/archive/v${ASWF_OPENVDB_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/openvdb-${ASWF_OPENVDB_VERSION}.tar.gz"
 fi
 
@@ -53,9 +53,8 @@ cmake \
     -DOPENVDB_BUILD_VDB_RENDER=ON \
     -DOPENVDB_BUILD_VDB_VIEW=ON \
     ..
-
-make -j$(nproc)
-make install
+cmake --build . -j$(nproc)
+cmake --install .
 
 cd ../..
 rm -rf "openvdb-${ASWF_OPENVDB_VERSION}"

@@ -4,7 +4,7 @@
 
 set -ex
 
-if [ ! -f "$DOWNLOADS_DIR/openexr-${ASWF_OPENEXR_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/openexr-${ASWF_OPENEXR_VERSION}.tar.gz" ]]; then
     curl --location "https://github.com/AcademySoftwareFoundation/openexr/archive/v${ASWF_OPENEXR_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/openexr-${ASWF_OPENEXR_VERSION}.tar.gz"
 fi
 
@@ -49,8 +49,8 @@ else
         -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
         -DOPENEXR_BUILD_PYTHON_LIBS="${BUILD_PYILMBASE}" \
         ..
-    make -j$(nproc)
-    make install
+    cmake --build . -j$(nproc)
+    cmake --install .
 fi
 
 cd ../..
