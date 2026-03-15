@@ -8,7 +8,7 @@ pytest = "*"
 atomicwrites = {version = "*", markers = "platform_system == 'Windows'"}
 pytest-cov = "*"
 pylint = "==3.2.7"
-black = "==22.12"
+black = "*"
 mypy = "*"
 pre-commit = "*"
 pytest-pylint = "*"
