@@ -32,9 +32,6 @@ jobs:
     - name: Run pylint linter
       run: pipenv run pytest python/aswfdocker --doctest-modules --pylint --junitxml=test-pylint-results.xml --cov=. --cov-report=xml
 
-    - name: Fetch unshallow to help sonar
-      run: git fetch --unshallow
-
     - name: Install and Run Sonar Scanner
       uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9 # v7.0.0
       env:
