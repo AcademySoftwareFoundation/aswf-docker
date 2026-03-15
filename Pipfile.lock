@@ -2115,6 +2115,14 @@
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'",
             "version": "==5.4.1"
         },
+        "python-discovery": {
+            "hashes": [
+                "sha256:90e795f0121bc84572e737c9aa9966311b9fde44ffb88a5953b3ec9b31c6945e",
+                "sha256:7acca36e818cd88e9b2ba03e045ad7e93e1713e29c6bbfba5d90202310b7baa5"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==1.1.3"
+        },
         "readme-renderer": {
             "hashes": [
                 "sha256:2fbca89b81a08526aadf1357a8c2ae889ec05fb03f5da67f9769c9a592166151",
