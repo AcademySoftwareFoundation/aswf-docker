@@ -7,7 +7,7 @@ set -ex
 mkdir opensubdiv
 cd opensubdiv
 
-if [ ! -f "$DOWNLOADS_DIR/opensubdiv-${ASWF_OPENSUBDIV_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/opensubdiv-${ASWF_OPENSUBDIV_VERSION}.tar.gz" ]]; then
      curl --location "https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v${ASWF_OPENSUBDIV_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/opensubdiv-${ASWF_OPENSUBDIV_VERSION}.tar.gz"
 fi
 
@@ -55,8 +55,8 @@ cmake .. \
       -DNO_DOC=1 \
       -DNO_TUTORIALS=ON \
       -DOSD_CUDA_NVCC_FLAGS="--gpu-architecture ${CUDA_COMPUTE_VERSION}"
-make # random cuda build failure when more than one job in //...
-make install
+cmake --build . # random cuda build failure when more than one job in //...
+cmake --install .
 
 cd ../../..
 rm -rf opensubdiv

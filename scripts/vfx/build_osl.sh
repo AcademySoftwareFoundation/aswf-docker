@@ -4,7 +4,7 @@
 
 set -ex
 
-if [ ! -f "$DOWNLOADS_DIR/osl-${ASWF_OSL_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/osl-${ASWF_OSL_VERSION}.tar.gz" ]]; then
     curl --location "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v${ASWF_OSL_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/osl-${ASWF_OSL_VERSION}.tar.gz"
 fi
 
@@ -59,8 +59,7 @@ cmake -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
       -DOPTIX_VERSION=${ASWF_OPTIX_VERSION} \
       -DOPTIXHOME=${ASWF_INSTALL_PREFIX}/NVIDIA-OptiX-SDK-${ASWF_OPTIX_VERSION} \
       ../.
-
-cmake --build . -j$(nproc) --verbose
+cmake --build . -j$(nproc)
 cmake --install .
 
 cd ../..

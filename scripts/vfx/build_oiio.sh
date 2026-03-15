@@ -4,7 +4,7 @@
 
 set -ex
 
-if [ ! -f "$DOWNLOADS_DIR/-${ASWF_OPENVDB_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/-${ASWF_OPENVDB_VERSION}.tar.gz" ]]; then
      curl --location "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/v${ASWF_OIIO_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/oiio-${ASWF_OIIO_VERSION}.tar.gz"
 fi
 
@@ -59,7 +59,7 @@ cmake -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
       -DCMAKE_CXX_STANDARD="${ASWF_CXX_STANDARD}" \
       ../.
 cmake --build . -j$(nproc)
-make install
+cmake --install .
 
 cd ../..
 rm -rf oiio

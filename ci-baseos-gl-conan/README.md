@@ -25,7 +25,7 @@ Contains:
 * glvnd-1.7.0
 * ccache-4.9.1
 * dts-11
-* sonar-7.1.0.4889
+* sonar-8.0.1.6346
 * cmake-3.31.7
 * conan-2.18.1
 * yq-4.45.2
@@ -38,7 +38,7 @@ Contains:
 * glvnd-1.7.0
 * ccache-4.9.1
 * dts-11
-* sonar-7.1.0.4889
+* sonar-8.0.1.6346
 * cmake-3.31.7
 * conan-2.18.1
 * yq-4.45.2
@@ -51,7 +51,7 @@ Contains:
 * glvnd-1.7.0
 * ccache-4.11.3
 * dts-14
-* sonar-7.1.0.4889
+* sonar-8.0.1.6346
 * cmake-4.0.2
 * conan-2.18.1
 * yq-4.45.4

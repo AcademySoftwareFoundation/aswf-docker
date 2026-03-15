@@ -13,7 +13,7 @@ if [[ ${ASWF_RAWTOACES_VERSION_DOWNLOAD} == 1.1.0 ]]; then
     ASWF_RAWTOACES_VERSION_DOWNLOAD=1.1
 fi
 
-if [ ! -f "$DOWNLOADS_DIR/rawtoaces-${ASWF_RAWTOACES_VERSION_DOWNLOAD}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/rawtoaces-${ASWF_RAWTOACES_VERSION_DOWNLOAD}.tar.gz" ]]; then
     curl --location "https://github.com/AcademySoftwareFoundation/rawtoaces/archive/refs/tags/v${ASWF_RAWTOACES_VERSION_DOWNLOAD}.tar.gz" -o "$DOWNLOADS_DIR/rawtoaces-${ASWF_RAWTOACES_VERSION_DOWNLOAD}.tar.gz"
 fi
 

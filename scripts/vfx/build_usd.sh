@@ -6,7 +6,7 @@ set -ex
 
 pip3 install jinja2 PyOpenGL
 
-if [ ! -f "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/usd-${ASWF_USD_VERSION}.tar.gz" ]]; then
     # For VFX Platform 2025, we need a somewhat newer release of USD than the latest 25.05a tag to
     # get MaterialX 1.39.3 compatibility.
     if [[ $ASWF_USD_VERSION == 25.02a.eae7e67 ]]; then

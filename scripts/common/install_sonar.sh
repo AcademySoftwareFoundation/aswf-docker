@@ -7,7 +7,7 @@ set -ex
 mkdir sonar
 cd sonar
 
-if [ ! -f "$DOWNLOADS_DIR/sonar-bw.zip" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/sonar-bw.zip" ]]; then
     curl --location "https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip" -o "$DOWNLOADS_DIR/sonar-bw.zip"
 fi
 unzip "$DOWNLOADS_DIR/sonar-bw.zip"
@@ -16,7 +16,7 @@ ln -s /var/opt/build-wrapper-linux-x86/build-wrapper-linux-x86-64 /usr/bin/build
 # Returns with non-zero exit code, catch error with $()
 echo $(build-wrapper-linux-x86-64)
 
-if [ ! -f "$DOWNLOADS_DIR/sonar-scanner.zip" ]; then
+if [[ ! -f "$DOWNLOADS_DIR/sonar-scanner.zip" ]]; then
     curl --location "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${ASWF_SONAR_VERSION}-linux-x64.zip" -o "$DOWNLOADS_DIR/sonar-scanner.zip"
 fi
 unzip "$DOWNLOADS_DIR/sonar-scanner.zip"
