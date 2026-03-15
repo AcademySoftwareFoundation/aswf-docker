@@ -158,7 +158,7 @@ COPY scripts/common/install_sonar.sh \
 RUN export DOWNLOADS_DIR=/tmp/downloads && \
   mkdir /tmp/downloads && \
   /tmp/install_sonar.sh && \
-  export PATH=${PATH}:/opt/aswfbuilder/bin && \
+  export PATH="${PATH}":/opt/aswfbuilder/bin && \
   /tmp/install_dev_cmake.sh && \
   /tmp/install_ccache.sh && \
   rm -rf /tmp/downloads && \

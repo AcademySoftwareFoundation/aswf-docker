@@ -120,4 +120,4 @@ RUN --mount=type=cache,target=/opt/conan_home/d \
 # This approach may be revisited if OpenRV uses PySide2 package from Artifactory.
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-    conan install qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL} --install-folder /tmp/qttemp
+    conan install qt/"${ASWF_QT_VERSION}"@"${ASWF_PKG_ORG}"/"${ASWF_CONAN_CHANNEL}" --install-folder /tmp/qttemp

@@ -62,7 +62,7 @@ else
         # Better hope there's only one version of the package
         RELEASE_DIR=""
         INSTALLED_PACKAGE_VERSION=$(find $1/full_deploy/host/${INSTALLED_PACKAGE} -mindepth 1 -maxdepth 1 -printf "%f\n" -quit)
-        if [ -d $1/full_deploy/host/${INSTALLED_PACKAGE}/${INSTALLED_PACKAGE_VERSION}/Release ]; then
+        if [[ -d $1/full_deploy/host/${INSTALLED_PACKAGE}/${INSTALLED_PACKAGE_VERSION}/Release ]]; then
             # Full packages have extra path component based on Debug/Release and architecture, header-only packages don't
             RELEASE_DIR="Release/x86_64"
         fi
