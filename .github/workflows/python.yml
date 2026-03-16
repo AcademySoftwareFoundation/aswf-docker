@@ -22,15 +22,18 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
       with:
-        python-version: 3.9
-        cache: 'pipenv'
-    - name: Install pipenv
-      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-    - name: Install aswfdocker and dev dependencies with pipenv
-      run: pipenv install --dev
+        python-version: "3.9"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+      with:
+        enable-cache: auto
+
+    - name: Install aswfdocker and dev dependencies
+      run: uv sync --all-extras
 
     - name: Run all pre-commit tests
-      run: pipenv run pre-commit run --all-files
+      run: uv run pre-commit run --all-files
 
     - name: Check that all templated Dockerfile and README.md are up to date
-      run: pipenv run aswfdocker dockergen --check
+      run: uv run aswfdocker dockergen --check

@@ -7,67 +7,79 @@ image builds.
 
 ## Installation
 
-### For users
+### For users and developers
 
-Clone this repository and run the setup:
+Install [uv](https://docs.astral.sh/uv/) (Python 3.9+ required):
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Then clone this repository and install the project and its dependencies:
 
 ```bash
 git clone https://github.com/AcademySoftwareFoundation/aswf-docker
 cd aswf-docker
-python3 setup.py install
 ```
 
-### For developers
-
-Install [pipenv](https://github.com/pypa/pipenv) for Python 3 first:
+For users, install the dependencies for `aswfdocker`:
 
 ```bash
-pip3 install pipenv
+uv sync
 ```
 
-Then clone this repository, start the pipenv shell and install the
-dev dependencies:
+For developers, install the `aswfdocker` dependencies and additional tools:
 
 ```bash
-git clone https://github.com/AcademySoftwareFoundation/aswf-docker
-cd aswf-docker
-pipenv shell
-pipenv install --dev
+uv sync --all-extras
 ```
 
-You should now be in a Python `virtualenv` shell where the `aswfdocker`
-command is available.
+Run the `aswfdocker` command via `uv run`:
+
+```bash
+uv run aswfdocker --help
+```
 
 ### Finally
 
-You should check the command is working:
+Check that the command works:
 
 ```bash
-aswfdocker --help
+uv run aswfdocker --help
 ```
 
 ## Usage
+
+### Activating the venv created by `uv`
+
+`uv` creates a venv which you can explicitly activate to avoid having to prefix
+every invocation of `aswfdocker` with `uv run`:
+
+```bash
+source .venv/bin/activate
+aswfdocker --version
+```
 
 ### List packages and images
 
 List all known packages:
 
 ```bash
-aswfdocker packages
+uv run aswfdocker packages
 ```
 
 List all known images:
 
 ```bash
-aswfdocker images
+uv run aswfdocker images
 ```
 
 ## Development
 
 ### Process
 
-Once in the `pipenv shell` you should first install the
-[pre-commit](https://pre-commit.com/) hooks by running `pre-commit install`.
+First install the [pre-commit](https://pre-commit.com/) hooks by running
+`uv run pre-commit install`.
 
 The pre-commit hooks will run the following commands, which can be run
 individually as well:
@@ -81,8 +93,8 @@ individually as well:
 
 To run them all manually use `pre-commit run --all-files`.
 
-### Adding new pip dependencies
+### Adding new dependencies
 
-* Run `pipenv install xyz`
-* Run `pipenv-setup sync` to update `setup.py` with added dependency
-  (`pipenv-setup` is a "dev" dependency already declared in `Pipfile`)
+* Add a runtime dependency: `uv add <package>`
+* Add a dev dependency: `uv add --dev <package>`
+* Dependencies are declared in `pyproject.toml`; run `uv lock` after editing.
