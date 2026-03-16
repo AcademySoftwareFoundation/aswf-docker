@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 # 2026-03-14
 
 - All releases
+  - [Replace Pipenv with uv](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/269) for Python dependency management; use `uv sync --all-extras` and `uv run` (see `python/README.md`). Lockfile is `uv.lock`; dependencies are in `pyproject.toml` [project].
   - Update GitHub action versions for [NodeJS 24](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/350)
   - Update some Python dependencies
   - [Enable building iv for OpenImageIO](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/357) to include Qt in ci-oiio, re-release ci-oiio 2026.3 / 2025.5 / 2024.6 images

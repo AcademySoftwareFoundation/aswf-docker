@@ -38,12 +38,15 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
       with:
-        python-version: 3.9
-        cache: 'pipenv'
-    - name: Install pipenv
-      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-    - name: Install aswfdocker and dependencies with pipenv
-      run: pipenv install
+        python-version: "3.9"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+      with:
+        enable-cache: auto
+
+    - name: Install aswfdocker and dependencies
+      run: uv sync
 
     - name: Login to DockerHub
       if: ${{ matrix.build }}
@@ -52,7 +55,7 @@ jobs:
     - name: Build and Push
       if: ${{ matrix.build }}
       run: |
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
           --verbose \
           build \
@@ -63,7 +66,7 @@ jobs:
     - name: Update Docker Hub Description
       if: ${{ matrix.push_description }}
       run: |
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           pushoverview \
           --username aswfdocker \
           --password ${{ secrets.DOCKERHUB_PASSWORD }} \

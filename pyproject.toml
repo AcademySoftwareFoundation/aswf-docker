@@ -1,6 +1,81 @@
 [build-system]
 requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta:__legacy__"
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aswfdocker"
+version = "1.0.0"
+description = "ASWF Docker Utilities"
+readme = "python/README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.9"
+authors = [
+  { name = "Aloys Baillet", email = "aloys.baillet+github@gmail.com" }
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "bottle==0.12.25",
+  "certifi==2024.7.4",
+  "charset-normalizer==3.3.2",
+  "click==8.1.7",
+  "colorama==0.4.6",
+  "conan==2.26.2",
+  "deprecated==1.2.14",
+  "distro==1.8.0; sys_platform == \"linux\" or sys_platform == \"linux2\"",
+  "fasteners==0.19",
+  "idna==3.7",
+  "importlib-resources==5.12.0",
+  "jinja2==3.1.6",
+  "markupsafe==2.1.5",
+  "node-semver==0.6.1",
+  "patch-ng==1.18.0",
+  "pluginbase==1.0.1",
+  "pygithub==2.2.0",
+  "pygments==2.17.2",
+  "pyjwt[crypto]==2.12.0",
+  "python-dateutil==2.9.0.post0",
+  "pyyaml==6.0.3",
+  "requests==2.32.5",
+  "six==1.16.0",
+  "typing_extensions==4.7.1",
+  "tqdm==4.66.3",
+  "urllib3>=1.26.6,<3",
+  "wrapt==1.16.0",
+  "zipp==3.19.1; python_version < \"3.10\"",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "atomicwrites; sys_platform == \"win32\"",
+  "pytest-cov",
+  "pylint==3.2.7",
+  "black",
+  "mypy",
+  "pre-commit",
+  "pytest-pylint",
+  "types-click",
+  "types-jinja2",
+  "types-pyyaml",
+  "types-requests",
+  "twine",
+]
+
+[project.scripts]
+aswfdocker = "aswfdocker.cli.aswfdocker:cli"
+
+[tool.setuptools]
+packages = { find = { where = ["python"] } }
+
+[tool.setuptools.package-data]
+aswfdocker = ["data/*.yaml", "data/*.jinja2"]
+
+[tool.uv]
+required-version = "0.10.10"
 
 [tool.pytest.ini_options]
 testpaths = [
@@ -8,7 +83,7 @@ testpaths = [
 ]
 
 [tool.black]
-target-version = ['py37', 'py38', 'py39', 'py310', 'py311' ]
+target-version = ['py39']
 include = '''
 (
     python/.*\.py$

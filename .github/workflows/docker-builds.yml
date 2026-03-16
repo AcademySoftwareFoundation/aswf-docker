@@ -43,12 +43,15 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
       with:
-        python-version: 3.9
-        cache: 'pipenv'
-    - name: Install pipenv
-      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-    - name: Install aswfdocker and dependencies with pipenv
-      run: pipenv install
+        python-version: "3.9"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+      with:
+        enable-cache: auto
+
+    - name: Install aswfdocker and dependencies
+      run: uv sync
 
     - name: Free up disk space
       run: |
@@ -77,7 +80,7 @@ jobs:
     - name: Build Conan Builder Image
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type IMAGE \
@@ -88,7 +91,7 @@ jobs:
     - name: Build Ninja and CMake (Conan)
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -103,7 +106,7 @@ jobs:
     - name: Build Clang (Conan)
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -116,7 +119,7 @@ jobs:
 
     - name: Build ci-common Docker Image for downstream images
       run: |
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type IMAGE \
@@ -127,7 +130,7 @@ jobs:
     - name: Build base1 system wrapper packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -140,7 +143,7 @@ jobs:
     - name: Build base1 level 1 Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -153,7 +156,7 @@ jobs:
     - name: Build base1 level 2 Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -166,7 +169,7 @@ jobs:
     - name: Build base1 level 3 Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -179,7 +182,7 @@ jobs:
     - name: Build base2 system wrapper Conan packages for ci-baseqt image
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -192,7 +195,7 @@ jobs:
     - name: Build base2 system Conan packages for ci-baseqt image
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -205,7 +208,7 @@ jobs:
     - name: Build base2 level 2 Conan packages (Qt) for ci-baseqt image
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -218,7 +221,7 @@ jobs:
     - name: Build base3 Conan packages (PySide) for base image
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -231,7 +234,7 @@ jobs:
     - name: Build base and baseqt images
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type IMAGE \
@@ -242,7 +245,7 @@ jobs:
     - name: Build vfx1 system wrapper Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -255,7 +258,7 @@ jobs:
     - name: Build vfx1 level 1 Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -268,7 +271,7 @@ jobs:
     - name: Build vfx1 level 2 Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -281,7 +284,7 @@ jobs:
     - name: Build vfx1 level 3 Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -294,7 +297,7 @@ jobs:
     - name: Build vfx1 level 4 Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -307,7 +310,7 @@ jobs:
     - name: Build vfx1 level 5 Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -320,7 +323,7 @@ jobs:
     - name: Build vfx2 level 1 Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -333,7 +336,7 @@ jobs:
     - name: Build vfx2 level 2 non-Conan packages
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
@@ -345,7 +348,7 @@ jobs:
     - name: Build vfx1 / vfx2 images   
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type IMAGE \
@@ -357,7 +360,7 @@ jobs:
     - name: Build vfx images
       run: |
         set -ex
-        pipenv run aswfdocker \
+        uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type IMAGE \
@@ -367,7 +370,7 @@ jobs:
 
     - run: |
         set -ex
-        export DOCKER_ORG=`pipenv run aswfdocker --repo-uri $GITHUB_REPOSITORY --source-branch $GITHUB_REF getdockerorg`
+        export DOCKER_ORG=`uv run aswfdocker --repo-uri $GITHUB_REPOSITORY --source-branch $GITHUB_REF getdockerorg`
         test_script=scripts/tests/${{ matrix.version }}/test_${{ matrix.test }}.sh
         if [ -f $test_script ]
         then

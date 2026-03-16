@@ -17,20 +17,23 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
       with:
-        python-version: 3.9
-        cache: 'pipenv'
-    - name: Install pipenv
-      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-    - name: Install aswfdocker and dev dependencies with pipenv
-      run: pipenv install --dev
+        python-version: "3.9"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+      with:
+        enable-cache: auto
+
+    - name: Install aswfdocker and dev dependencies
+      run: uv sync --all-extras
 
     # mypy static type checks with junit XML report
     - name: Run mypy
-      run: pipenv run mypy python/aswfdocker --junit-xml=test-mypy-results.xml
+      run: uv run mypy python/aswfdocker --junit-xml=test-mypy-results.xml
 
     # python unittests with junit XML report, PyLint and coverage XML Cobertura report for publishing task
     - name: Run pylint linter
-      run: pipenv run pytest python/aswfdocker --doctest-modules --pylint --junitxml=test-pylint-results.xml --cov=. --cov-report=xml
+      run: uv run pytest python/aswfdocker --doctest-modules --pylint --junitxml=test-pylint-results.xml --cov=. --cov-report=xml
 
     - name: Install and Run Sonar Scanner
       uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9 # v7.0.0
