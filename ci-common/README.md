@@ -185,7 +185,7 @@ Contains:
 * ccache-4.9.1
 * dts-11
 * sonar-8.0.1.6346
-* conan-2.18.1
+* conan-2.26.2
 * yq-4.45.2
 
 ## [aswf/ci-common:4-clang17.6](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang17.6)
@@ -200,7 +200,7 @@ Contains:
 * ccache-4.9.1
 * dts-11
 * sonar-8.0.1.6346
-* conan-2.18.1
+* conan-2.26.2
 * yq-4.45.2
 
 ## [aswf/ci-common:5-clang18.5](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang18.5)
@@ -215,7 +215,7 @@ Contains:
 * ccache-4.9.1
 * dts-11
 * sonar-8.0.1.6346
-* conan-2.18.1
+* conan-2.26.2
 * yq-4.45.2
 
 ## [aswf/ci-common:5-clang19.5](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang19.5)
@@ -230,7 +230,7 @@ Contains:
 * ccache-4.9.1
 * dts-11
 * sonar-8.0.1.6346
-* conan-2.18.1
+* conan-2.26.2
 * yq-4.45.2
 
 ## [aswf/ci-common:6-clang19.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=6-clang19.3)
@@ -245,7 +245,7 @@ Contains:
 * ccache-4.11.3
 * dts-14
 * sonar-8.0.1.6346
-* conan-2.18.1
+* conan-2.26.2
 * yq-4.45.4
 
 ## [aswf/ci-common:6-clang20.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=6-clang20.3)
@@ -260,6 +260,6 @@ Contains:
 * ccache-4.11.3
 * dts-14
 * sonar-8.0.1.6346
-* conan-2.18.1
+* conan-2.26.2
 * yq-4.45.4
 

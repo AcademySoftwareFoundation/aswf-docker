@@ -149,7 +149,7 @@ versions:
     package_versions:
       ASWF_DTS_VERSION: "11"
       ASWF_DTS_PREFIX: "gcc-toolset"
-      ASWF_CONAN_VERSION: "2.18.1"
+      ASWF_CONAN_VERSION: "2.26.2"
       ASWF_CONAN_PYTHON_VERSION: "3.11.11"
       ASWF_CUDA_VERSION: "12.6.3"
       ASWF_OPTIX_VERSION: "8.0.0"
@@ -184,7 +184,7 @@ versions:
     package_versions:
       ASWF_DTS_VERSION: "11"
       ASWF_DTS_PREFIX: "gcc-toolset"
-      ASWF_CONAN_VERSION: "2.18.1"
+      ASWF_CONAN_VERSION: "2.26.2"
       ASWF_CONAN_PYTHON_VERSION: "3.11.11"
       ASWF_CUDA_VERSION: "12.6.3"
       ASWF_OPTIX_VERSION: "8.0.0"
@@ -220,7 +220,7 @@ versions:
     package_versions:
       ASWF_DTS_VERSION: "14"
       ASWF_DTS_PREFIX: "gcc-toolset"
-      ASWF_CONAN_VERSION: "2.18.1"
+      ASWF_CONAN_VERSION: "2.26.2"
       ASWF_CONAN_PYTHON_VERSION: "3.13.3"
       ASWF_CUDA_VERSION: "12.9.1"
       ASWF_OPTIX_VERSION: "8.0.0"
