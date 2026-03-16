@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 # 2026-03-14
 
 - All releases
+  - Conan 2.18.1 to 2.26.2
   - [Replace Pipenv with uv](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/269) for Python dependency management; use `uv sync --all-extras` and `uv run` (see `python/README.md`). Lockfile is `uv.lock`; dependencies are in `pyproject.toml` [project].
   - Update GitHub action versions for [NodeJS 24](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/350)
   - Update some Python dependencies

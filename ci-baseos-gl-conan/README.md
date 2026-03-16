@@ -27,7 +27,7 @@ Contains:
 * dts-11
 * sonar-8.0.1.6346
 * cmake-3.31.7
-* conan-2.18.1
+* conan-2.26.2
 * yq-4.45.2
 
 ## [aswf/ci-baseos-gl-conan:5.5](https://hub.docker.com/r/aswf/ci-baseos-gl-conan/tags?page=1&name=5.5)
@@ -40,7 +40,7 @@ Contains:
 * dts-11
 * sonar-8.0.1.6346
 * cmake-3.31.7
-* conan-2.18.1
+* conan-2.26.2
 * yq-4.45.2
 
 ## [aswf/ci-baseos-gl-conan:6.3](https://hub.docker.com/r/aswf/ci-baseos-gl-conan/tags?page=1&name=6.3)
@@ -53,6 +53,6 @@ Contains:
 * dts-14
 * sonar-8.0.1.6346
 * cmake-4.0.2
-* conan-2.18.1
+* conan-2.26.2
 * yq-4.45.4
 
