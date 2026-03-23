@@ -284,7 +284,7 @@ versions:
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "2.7"
       ASWF_QT_VERSION: "5.12.6"
       ASWF_ONETBB_VERSION: "2018"
-      ASWF_USD_VERSION: "19.11"
+      ASWF_OPENUSD_VERSION: "19.11"
       ASWF_VFXPLATFORM_VERSION: "2019"
       ASWF_CXX_STANDARD: "14"
   "2019-clang6":
@@ -343,7 +343,7 @@ versions:
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.7"
       ASWF_QT_VERSION: "5.12.6"
       ASWF_ONETBB_VERSION: "2019_u6"
-      ASWF_USD_VERSION: "20.11"
+      ASWF_OPENUSD_VERSION: "20.11"
       ASWF_VFXPLATFORM_VERSION: "2020"
       ASWF_CXX_STANDARD: "17"
   "2020-clang7":
@@ -385,7 +385,7 @@ versions:
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.7"
       ASWF_QT_VERSION: "5.15.2"
       ASWF_ONETBB_VERSION: "2020_u2"
-      ASWF_USD_VERSION: "21.05"
+      ASWF_OPENUSD_VERSION: "21.05"
       ASWF_VFXPLATFORM_VERSION: "2021"
       ASWF_CXX_STANDARD: "17"
   "2021-clang10":
@@ -432,7 +432,7 @@ versions:
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.9"
       ASWF_QT_VERSION: "5.15.2"
       ASWF_ONETBB_VERSION: "2020.3"
-      ASWF_USD_VERSION: "22.11"
+      ASWF_OPENUSD_VERSION: "22.11"
       ASWF_VFXPLATFORM_VERSION: "2022"
       ASWF_CXX_STANDARD: "17"
   "2022-clang10":
@@ -492,7 +492,7 @@ versions:
       ASWF_PYTHON_MAJOR_MINOR_VERSION: "3.10"
       ASWF_QT_VERSION: "5.15.9"
       ASWF_ONETBB_VERSION: "2020.3"
-      ASWF_USD_VERSION: "23.05"
+      ASWF_OPENUSD_VERSION: "23.05"
       ASWF_VFXPLATFORM_VERSION: "2023"
       ASWF_CXX_STANDARD: "17"
   "2023-clang14":
@@ -600,7 +600,7 @@ versions:
       ASWF_SNAPPY_VERSION: "1.1.10"
       ASWF_SPDLOG_VERSION: "1.15.3"
       ASWF_TSL_ROBIN_MAP_VERSION: "1.3.0"
-      ASWF_USD_VERSION: "24.08"
+      ASWF_OPENUSD_VERSION: "24.08"
       ASWF_YAML_CPP_VERSION: "0.8.0"
       ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_ZSTD_VERSION: "1.5.6"
@@ -736,7 +736,7 @@ versions:
       ASWF_SNAPPY_VERSION: "1.1.10"
       ASWF_SPDLOG_VERSION: "1.15.3"
       ASWF_TSL_ROBIN_MAP_VERSION: "1.3.0"
-      ASWF_USD_VERSION: "25.05.01"
+      ASWF_OPENUSD_VERSION: "25.05.01"
       ASWF_YAML_CPP_VERSION: "0.8.0"
       ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_ZSTD_VERSION: "1.5.6"
@@ -873,7 +873,7 @@ versions:
       ASWF_SNAPPY_VERSION: "1.2.2"
       ASWF_SPDLOG_VERSION: "1.15.3"
       ASWF_TSL_ROBIN_MAP_VERSION: "1.4.0"
-      ASWF_USD_VERSION: "25.08"
+      ASWF_OPENUSD_VERSION: "26.03"
       ASWF_YAML_CPP_VERSION: "0.8.0"
       ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_ZSTD_VERSION: "1.5.7"
@@ -1128,19 +1128,19 @@ ci-packages:
     - "2024.6"
     - "2025.5"
     - "2026.3"
-  openvdb:
-    - "2019.2"
+  openusd:
+    - "2019.3"
     - "2020.2"
-    - "2021.3"
+    - "2021.5"
     - "2022.4"
     - "2023.2"
     - "2024.6"
     - "2025.5"
     - "2026.3"
-  usd:
-    - "2019.3"
+  openvdb:
+    - "2019.2"
     - "2020.2"
-    - "2021.5"
+    - "2021.3"
     - "2022.4"
     - "2023.2"
     - "2024.6"
@@ -1823,11 +1823,11 @@ groups:
       vfx1-5:
         - osl
         - rawtoaces
-      vfx2-1: 
         - materialx
+      vfx1-6:
+        - openusd
       vfx2:
         - otio
-        - usd
       review:
         - openrv
   image:
@@ -1949,6 +1949,7 @@ conan_only:
   - openjph
   - openssl
   - opensubdiv
+  - openusd
   - openvdb
   - opus
   - osl

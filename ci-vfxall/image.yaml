@@ -18,9 +18,9 @@ packages:
   - oiio
   - ocio
   - openfx
+  - openusd
   - openvdb
   - materialx
-  - usd
   - osl
   - otio
   - rawtoaces

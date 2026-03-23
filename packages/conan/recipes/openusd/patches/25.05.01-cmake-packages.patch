@@ -1,0 +1,110 @@
+diff --git cmake/defaults/Packages.cmake cmake/defaults/Packages.cmake
+index d99dd79ac..bfda2778a 100644
+--- cmake/defaults/Packages.cmake
++++ cmake/defaults/Packages.cmake
+@@ -248,6 +248,16 @@
+     # --Ptex
+     if (PXR_ENABLE_PTEX_SUPPORT)
+         find_package(PTex REQUIRED)
++        get_target_property(
++            PTEX_INCLUDE_DIR
++            Ptex::Ptex_dynamic
++            INTERFACE_INCLUDE_DIRECTORIES
++        )
++        get_target_property(
++            PTEX_LIBRARY
++            Ptex::Ptex_dynamic
++            INTERFACE_LINK_LIBRARIES
++        )
+         add_definitions(-DPXR_PTEX_SUPPORT_ENABLED)
+     endif()
+     # --OpenVDB
+@@ -282,6 +282,9 @@
+
+ if (PXR_BUILD_ALEMBIC_PLUGIN)
+     find_package(Alembic REQUIRED)
++    set(ALEMBIC_FOUND TRUE)
++    set(ALEMBIC_INCLUDE_DIR ${Alembic_INCLUDE_DIR})
++    set(ALEMBIC_LIBRARIES ${Alembic_LIBRARIES})
+     set(REQUIRES_Imath TRUE)
+     if (PXR_ENABLE_HDF5_SUPPORT)
+         find_package(HDF5 REQUIRED
+--- pxr/usd/usdMtlx/CMakeLists.txt
++++ pxr/usd/usdMtlx/CMakeLists.txt
+@@ -5,9 +5,15 @@
+     add_definitions(-DPXR_MATERIALX_STDLIB_DIR="${MATERIALX_STDLIB_DIR}")
+ endif()
+
++get_target_property(MATERIALX_CORE_LIBS materialx::MaterialXCore INTERFACE_LINK_LIBRARIES)
++get_target_property(MATERIALX_FORMAT_LIBS materialx::MaterialXFormat INTERFACE_LINK_LIBRARIES)
++
+ pxr_library(usdMtlx
+     INCLUDE_SCHEMA_FILES
+
++    INCLUDE_DIRS
++        ${materialx_INCLUDE_DIR}
++
+     LIBRARIES
+         arch
+         gf
+@@ -20,8 +20,8 @@
+         usdShade
+         usdUI
+         usdUtils
+-        MaterialXCore
+-        MaterialXFormat
++        ${MATERIALX_CORE_LIBS}
++        ${MATERIALX_FORMAT_LIBS}
+
+     CPPFILES
+         discovery.cpp
+--- pxr/imaging/plugin/hioOiio/CMakeLists.txt
++++ pxr/imaging/plugin/hioOiio/CMakeLists.txt
+@@ -26,7 +26,7 @@
+         ${__OIIO_IMATH_LIBS}
+
+     INCLUDE_DIRS
+-        ${OIIO_INCLUDE_DIRS}
++        ${OpenImageIO_INCLUDE_DIR}
+         ${__OIIO_IMATH_INCLUDE}
+
+     CPPFILES
+--- pxr/imaging/hdx/CMakeLists.txt
++++ pxr/imaging/hdx/CMakeLists.txt
+@@ -11,8 +11,8 @@
+
+ set (optionalCppFiles "")
+ if (PXR_BUILD_OPENCOLORIO_PLUGIN)
+-    list(APPEND optionalLibs ${OCIO_LIBRARIES})
+-    list(APPEND optionalIncludeDirs ${OCIO_INCLUDE_DIRS})
++    list(APPEND optionalLibs ${OpenColorIO_LIBRARIES})
++    list(APPEND optionalIncludeDirs ${OpenColorIO_INCLUDE_DIR})
+ endif()
+
+ pxr_library(hdx
+--- pxr/usd/plugin/sdrOsl/CMakeLists.txt
++++ pxr/usd/plugin/sdrOsl/CMakeLists.txt
+@@ -26,7 +26,7 @@
+
+     INCLUDE_DIRS
+         ${OSL_INCLUDE_DIR}
+-        ${OIIO_INCLUDE_DIRS}
++        ${OpenImageIO_INCLUDE_DIRS}
+         ${__OSL_IMATH_INCLUDE}
+
+     PUBLIC_CLASSES
+--- pxr/imaging/hioOpenVDB/CMakeLists.txt
++++ pxr/imaging/hioOpenVDB/CMakeLists.txt
+@@ -28,10 +28,10 @@
+         tf
+         usd
+         ${__VDB_IMATH_LIBS}
+-        ${OPENVDB_LIBRARY}
++        ${OpenVDB_LIBRARIES}
+
+     INCLUDE_DIRS
+-        ${OPENVDB_INCLUDE_DIR}
++        ${OpenVDB_INCLUDE_DIR}
+         ${Boost_INCLUDE_DIRS}
+
+     PUBLIC_CLASSES

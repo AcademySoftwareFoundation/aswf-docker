@@ -1,0 +1,13 @@
+diff --git pxr/exec/ef/dependencyCache.h pxr/exec/ef/dependencyCache.h
+index d99dd79ac..bfda2778a 10064
+--- pxr/exec/ef/dependencyCache.h
++++ pxr/exec/ef/dependencyCache.h
+@@ -151,7 +151,7 @@
+         }
+
+         void Invalidate() {
+-            valid.store(std::memory_order_relaxed);
++            valid.store(false, std::memory_order_relaxed);
+         }
+
+         // The resulting output dependencies.

@@ -12,10 +12,11 @@ boost/*: boost/1.82.0@aswftesting/vfx2024
 brotli/*: brotli/system@aswftesting/vfx2024
 bzip2/*: bzip2/1.0.8@aswftesting/vfx2024
 c-blosc/*: c-blosc/1.21.6@aswftesting/vfx2024
-dbus/*: dbus/system@aswftesting/vfx2024
 ceres-solver/*: ceres-solver/2.2.0@aswftesting/vfx2024
 cimg/*: cimg/3.3.2@aswftesting/vfx2024
+cppunit/*: cppunit/1.15.1@aswftesting/vfx2024
 cpython/*: cpython/3.11.13@aswftesting/vfx2024
+dbus/*: dbus/system@aswftesting/vfx2024
 double-conversion/*: double-conversion/system@aswftesting/vfx2024
 eigen/*: eigen/3.4.0@aswftesting/vfx2024
 expat/*: expat/2.6.4@aswftesting/vfx2024
@@ -58,7 +59,7 @@ libwebp/*: libwebp/1.5.0@aswftesting/vfx2024
 libxshmfence/*: libxshmfence/system@aswftesting/vfx2024
 log4cplus/*: log4cplus/2.1.2@aswftesting/vfx2024
 lz4/*: lz4/1.10.0@aswftesting/vfx2024
-materiax/*: materialx/1.39.1@aswftesting/vfx2024
+materialx/*: materialx/1.39.1@aswftesting/vfx2024
 md4c/*: md4c/0.4.8@aswftesting/vfx2024
 minizip-ng/*: minizip-ng/4.0.10@aswftesting/vfx2024
 mpdecimal/*: mpdecimal/system@aswftesting/vfx2024
@@ -75,10 +76,13 @@ openal-soft/*: openal-soft/system@aswftesting/vfx2024
 opencl-headers/*: opencl-headers/system@aswftesting/vfx2024
 opencl-icd-loader/*: opencl-icd-loader/system@aswftesting/vfx2024
 openexr/*: openexr/3.2.5@aswftesting/vfx2024
+openfx/*: openfx/1.5s@aswftesting/vfx2024
 opengl/*: opengl/system@aswftesting/vfx2024
 openjpeg/*: openjpeg/2.4.0@aswftesting/vfx2024
 openjph/*: openjph/0.24.5@aswftesting/vfx2024
 openssl/*: openssl/system@aswftesting/vfx2024
+opensubdiv/*: opensubdiv/3.6.1@aswftesting/vfx2024
+openusd/*: openusd/24.08@aswftesting/vfx2024
 openvdb/*: openvdb/11.0.0@aswftesting/vfx2024
 opus/*: opus/system@aswftesting/vfx2024
 osl/*: osl/1.13.11.0@aswftesting/vfx2024
@@ -88,6 +92,7 @@ ptex/*: ptex/2.4.2@aswftesting/vfx2024
 pugixml/*: pugixml/1.14@aswftesting/vfx2024
 pulseaudio/*: pulseaudio/system@aswftesting/vfx2024
 pybind11/*: pybind11/2.13.6@aswftesting/vfx2024
+pyside/*: pyside/6.5.6@aswftesting/vfx2024
 pystring/*: pystring/1.1.4@aswftesting/vfx2024
 qt/*: qt/6.5.6@aswftesting/vfx2024
 rawtoaces/*: rawtoaces/1.1.0@aswftesting/vfx2024
@@ -119,6 +124,7 @@ meson/*: meson/0.58.2@system
 nasm/*: nasm/system@aswftesting/vfx2024
 nodejs/*: nodejs/18.20.4@system
 pkgconf/*: pkgconf/1.4.2@system
+pyside/*: pyside/6.5.6@aswftesting/vfx2024
 wayland/*: wayland/1.21.0@system
 wayland-protocols/*: wayland-protocols/1.25@system
 [platform_requires]

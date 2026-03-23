@@ -5,6 +5,7 @@
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.env import VirtualRunEnv
 from conan.tools.files import apply_conandata_patches, export_conandata_patches, copy, get, rm, rmdir
 from conan.tools.microsoft import is_msvc, is_msvc_static_runtime
 from conan.tools.scm import Version
@@ -111,12 +112,18 @@ class OpenShadingLanguageConan(ConanFile):
         tc.generate()
         cd = CMakeDeps(self)
         cd.generate()
+        # Host DSOs (Qt, HarfBuzz, …) must be on LD_LIBRARY_PATH when CMake runs oslc, etc.
+        VirtualRunEnv(self).generate()
 
     def build(self):
         apply_conandata_patches(self)
         cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
+        # CMake.build() has no env= parameter (unlike self.run / CMake.ctest). Apply
+        # VirtualRunEnv so cmake/configure and cmake --build child processes (oslc, …)
+        # see LD_LIBRARY_PATH for host deps (Qt, HarfBuzz, …) before /usr/lib64.
+        with VirtualRunEnv(self).vars().apply():
+            cmake.configure()
+            cmake.build()
 
     def package(self):
         # ASWF: license files in package subdirectory
@@ -143,14 +150,15 @@ class OpenShadingLanguageConan(ConanFile):
         return component
 
     def package_info(self):
-        self.cpp_info.set_property("cmake_file_name", "OpenShadingLanguage")
-        self.cpp_info.set_property("cmake_target_name", "OpenShadingLanguage::OpenShadingLanguage")
-        self.cpp_info.set_property("pkg_config_name", "OpenOpenShadingLanguage")
+        self.cpp_info.set_property("cmake_file_name", "OSL")
+        self.cpp_info.set_property("cmake_target_name", "OSL::OSL")
+        self.cpp_info.set_property("pkg_config_name", "OSL")
 
-        self.cpp_info.libs = ["oslcomp", "oslexec", "oslnoise", "oslquery", "osltestshade"]
+        self.cpp_info.libs = ["oslcomp", "oslexec", "oslnoise", "oslquery", "testshade"]
+        self.cpp_info.bindirs = ["bin"]
 
         self.cpp_info.requires = [
-            "clang::LLVM",
+            "clang::clang",
             "zlib::zlib",
             "fmt::fmt",
             "tsl-robin-map::tsl-robin-map",

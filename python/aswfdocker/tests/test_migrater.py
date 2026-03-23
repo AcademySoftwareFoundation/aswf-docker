@@ -23,29 +23,29 @@ class TestMigrater(unittest.TestCase):
 
     def test_migrate_pkgfilter(self):
         m = migrater.Migrater("src", "dst")
-        m.gather("usd", "")
+        m.gather("otio", "")
         self.assertEqual(len(m.migration_list), 8)
 
     def test_migrate_versionfilter(self):
         m = migrater.Migrater("src", "dst")
-        m.gather("usd", "2019")
+        m.gather("otio", "2019")
         current_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "usd")
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "otio")
         )[0]
         self.assertEqual(len(m.migration_list), 1)
         minfo = m.migration_list[0]
-        self.assertEqual(minfo.image, "ci-package-usd")
+        self.assertEqual(minfo.image, "ci-package-otio")
         oexr_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "usd")
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "otio")
         )[0]
         self.assertEqual(minfo.version, oexr_version)
         self.assertEqual(
             minfo.source,
-            f"{constants.DOCKER_REGISTRY}/src/ci-package-usd:{current_version}",
+            f"{constants.DOCKER_REGISTRY}/src/ci-package-otio:{current_version}",
         )
         self.assertEqual(
             minfo.destination,
-            f"{constants.DOCKER_REGISTRY}/dst/ci-package-usd:{current_version}",
+            f"{constants.DOCKER_REGISTRY}/dst/ci-package-otio:{current_version}",
         )
 
         m.migrate(dry_run=True)
@@ -53,13 +53,13 @@ class TestMigrater(unittest.TestCase):
         self.assertEqual(
             m.cmds,
             [
-                f"docker pull {reg}/src/ci-package-usd:{current_version}",
-                f"docker tag {reg}/src/ci-package-usd:{current_version} "
-                f"{reg}/dst/ci-package-usd:{current_version}",
-                f"docker push {reg}/dst/ci-package-usd:{current_version}",
-                f"docker tag {reg}/dst/ci-package-usd:{current_version} "
-                f"{reg}/dst/ci-package-usd:2019",
-                f"docker push {reg}/dst/ci-package-usd:2019",
+                f"docker pull {reg}/src/ci-package-otio:{current_version}",
+                f"docker tag {reg}/src/ci-package-otio:{current_version} "
+                f"{reg}/dst/ci-package-otio:{current_version}",
+                f"docker push {reg}/dst/ci-package-otio:{current_version}",
+                f"docker tag {reg}/dst/ci-package-otio:{current_version} "
+                f"{reg}/dst/ci-package-otio:2019",
+                f"docker push {reg}/dst/ci-package-otio:2019",
             ],
         )
 
@@ -83,7 +83,7 @@ class TestMigraterCli(unittest.TestCase):
                 "--to",
                 "dst",
                 "--package",
-                "usd",
+                "otio",
                 "--version",
                 "2019",
                 "--dry-run",
@@ -92,17 +92,17 @@ class TestMigraterCli(unittest.TestCase):
         )
         self.assertEqual(result.exit_code, 0)
         current_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "usd")
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "otio")
         )[0]
         reg = constants.DOCKER_REGISTRY
         self.assertEqual(
             result.output,
             f"Are you sure you want to migrate the following 1 packages?\n"
-            f"{reg}/src/ci-package-usd:{current_version} -> "
-            f"{reg}/dst/ci-package-usd:{current_version}\n"
+            f"{reg}/src/ci-package-otio:{current_version} -> "
+            f"{reg}/dst/ci-package-otio:{current_version}\n"
             f" [y/N]: y\n"
             f"INFO:aswfdocker.migrater:Migrating "
-            f"{reg}/src/ci-package-usd:{current_version} -> "
-            f"{reg}/dst/ci-package-usd:{current_version}\n"
+            f"{reg}/src/ci-package-otio:{current_version} -> "
+            f"{reg}/dst/ci-package-otio:{current_version}\n"
             f"Migration done.\n",
         )
