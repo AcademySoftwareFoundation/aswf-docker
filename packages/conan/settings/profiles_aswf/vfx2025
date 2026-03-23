@@ -14,6 +14,7 @@ bzip2/*: bzip2/1.0.8@aswf/vfx2025
 c-blosc/*: c-blosc/1.21.6@aswf/vfx2025
 ceres-solver/*: ceres-solver/2.2.0@aswf/vfx2025
 cimg/*: cimg/3.3.2@aswf/vfx2025
+cppunit/*: cppunit/1.15.1@aswf/vfx2025
 cpython/*: cpython/3.11.13@aswf/vfx2025
 dbus/*: dbus/system@aswf/vfx2025
 double-conversion/*: double-conversion/system@aswf/vfx2025
@@ -36,7 +37,7 @@ imath/*: imath/3.1.12@aswf/vfx2025
 jasper/*: jasper/4.2.5@aswf/vfx2025
 lcms/*: lcms/2.17@aswf/vfx2025
 libalsa/*: libalsa/system@aswf/vfx2025
-libaom-av1/*: libaom/system@aswf/vfx2025
+libaom-av1/*: libaom-av1/system@aswf/vfx2025
 libbacktrace/*: libbacktrace/cci.20210118@aswf/vfx2025
 libdeflate/*: libdeflate/1.23@aswf/vfx2025
 libdrm/*: libdrm/system@aswf/vfx2025
@@ -49,7 +50,7 @@ libpng/*: libpng/1.6.34@aswf/vfx2025
 libraw/*: libraw/0.21.4@aswf/vfx2025
 libsndfile/*: libsndfile/system@aswf/vfx2025
 libsquish/*: libsquish/system@aswf/vfx2025
-libsvt-av1/*: libsvt-av1/system@aswf/vfx2025
+libsvtav1/*: libsvtav1/system@aswf/vfx2025
 libtiff/*: libtiff/4.0.9@aswf/vfx2025
 libultrahdr/*: libultrahdr/1.4.0@aswf/vfx2025
 libvpx/*: libvpx/system@aswf/vfx2025
@@ -75,10 +76,13 @@ openal-soft/*: openal-soft/system@aswf/vfx2025
 opencl-headers/*: opencl-headers/system@aswf/vfx2025
 opencl-icd-loader/*: opencl-icd-loader/system@aswf/vfx2025
 openexr/*: openexr/3.3.7@aswf/vfx2025
+openfx/*: openfx/1.5s@aswf/vfx2025
 opengl/*: opengl/system@aswf/vfx2025
 openjpeg/*: openjpeg/2.4.0@aswf/vfx2025
 openjph/*: openjph/0.24.5@aswf/vfx2025
 openssl/*: openssl/system@aswf/vfx2025
+opensubdiv/*: opensubdiv/3.6.1@aswf/vfx2025
+openusd/*: openusd/25.05.01@aswf/vfx2025
 openvdb/*: openvdb/12.1.1@aswf/vfx2025
 opus/*: opus/system@aswf/vfx2025
 osl/*: osl/1.14.7.0@aswf/vfx2025
@@ -86,8 +90,9 @@ partio/*: partio/1.19.0@aswf/vfx2025
 pcre2/*: pcre2/system@aswf/vfx2025
 ptex/*: ptex/2.4.3@aswf/vfx2025
 pugixml/*: pugixml/1.14@aswf/vfx2025
-pulseaudio/*: pulseaudio/system@aswr/vfx2025
+pulseaudio/*: pulseaudio/system@aswf/vfx2025
 pybind11/*: pybind11/2.13.6@aswf/vfx2025
+pyside/*: pyside/6.5.6@aswf/vfx2025
 pystring/*: pystring/1.1.4@aswf/vfx2025
 qt/*: qt/6.5.6@aswf/vfx2025
 rawtoaces/*: rawtoaces/1.1.0@aswf/vfx2025
@@ -119,6 +124,7 @@ meson/*: meson/0.58.2@system
 nasm/*: nasm/system@aswf/vfx2025
 nodejs/*: nodejs/18.20.4@system
 pkgconf/*: pkgconf/1.4.2@system
+pyside/*: pyside/6.5.6@aswf/vfx2025
 wayland/*: wayland/1.21.0@system
 wayland-protocols/*: wayland-protocols/1.25@system
 [platform_requires]

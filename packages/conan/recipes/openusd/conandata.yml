@@ -1,0 +1,45 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/EstebanDugueperoux2/conan-center-index/blob/1d8986d11305e1303b1581532f327cdd9d32ed20/recipes/openusd/all/conandata.yml
+
+sources:
+  "26.03":
+    url: "https://github.com/PixarAnimationStudios/OpenUSD/archive/refs/tags/v26.03.tar.gz"
+    sha256: "590ea75ffa3ac0c35fdd080df04d61a696733b8f3d6a79bdc3f13f8077162d36"
+  "25.11":
+    url: "https://github.com/PixarAnimationStudios/OpenUSD/archive/refs/tags/v25.11.tar.gz"
+    sha256: "c37c633b5037a4552f61574670ecca8836229b78326bd62622f3422671188667"
+  "25.05.01":
+    url: "https://github.com/PixarAnimationStudios/OpenUSD/archive/refs/tags/v25.05.01.tar.gz"
+    sha256: "f424e8db26e063a1b005423ee52142e75c38185bbd4b8126ef64173e906dd50f"
+  "24.08":
+    url: "https://github.com/PixarAnimationStudios/OpenUSD/archive/refs/tags/v24.08.tar.gz"
+    sha256: "6640bb184bf602c6df14fa4a83af6ac5ae1ab8d1d38cf7bb7decfaa9a7ad5d06"
+
+patches:
+  "26.03":
+    # Cannot compile with C++ 20 until https://github.com/PixarAnimationStudios/OpenUSD/issues/4017 is resolved
+    # - patch_file: "patches/26.03-cxx-standard.patch"
+    #   patch_description: "Don't overrride C++ version"
+    #   patch_type: "conan"
+    - patch_file: "patches/26.03-dependency-cache.patch"
+      patch_description: "Missing parameter for std::atomic<bool>::store() https://github.com/PixarAnimationStudios/OpenUSD/issues/4016"
+      patch_type: "conan"
+    - patch_file: "patches/26.03-cmake-packages.patch"
+      patch_description: "Emulate behavior of custom CMake modules when building with Conan"
+      patch_type: "conan"
+  "25.05.01":
+    - patch_file: "patches/26.03-dependency-cache.patch"
+      patch_description: "Missing parameter for std::atomic<bool>::store() https://github.com/PixarAnimationStudios/OpenUSD/issues/4016"
+      patch_type: "conan"
+    - patch_file: "patches/25.05.01-cmake-packages.patch"
+      patch_description: "Emulate behavior of custom CMake modules when building with Conan"
+      patch_type: "conan"
+  "24.08":
+    - patch_file: "patches/24.08-cmake-packages.patch"
+      patch_description: "Emulate behavior of custom CMake modules when building with Conan"
+      patch_type: "conan"
+    - patch_file: "patches/24.08-materialx-1.39.diff"
+      patch_description: "Allow 24.08 to build against MaterialX 1.39.x https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/OpenUSD/pull/3159.diff"

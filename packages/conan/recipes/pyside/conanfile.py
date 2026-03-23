@@ -378,3 +378,4 @@ class PySide6Conan(ConanFile):
             self.user_info.site_package = os.path.join(
                 self.package_folder, f"lib/python{v.major}.{v.minor}/site-packages"
             )
+        self.cpp_info.bindirs = ["bin"]

@@ -22,7 +22,7 @@ class TestBuilder(unittest.TestCase):
             repo_uri="notauri", source_branch="testing", aswf_version="2024.123"
         )
 
-    def test_package_usd_2024_dict(self):
+    def test_package_otio_2024_dict(self):
         b = builder.Builder(
             self.build_info,
             groupinfo.GroupInfo(
@@ -32,27 +32,27 @@ class TestBuilder(unittest.TestCase):
                 targets=[],
             ),
         )
-        usd_version = list(
+        otio_version = list(
             filter(
                 lambda package: package.startswith("2024"),
-                index.Index().iter_versions(constants.ImageType.PACKAGE, "usd"),
+                index.Index().iter_versions(constants.ImageType.PACKAGE, "otio"),
             )
         )[0]
         baked = b.make_bake_dict(False, False)
         self.assertEqual(
-            baked["target"]["ci-package-usd-2024"]["tags"],
+            baked["target"]["ci-package-otio-2024"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-usd:2024",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-usd:{usd_version}",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-usd:2024-24.08",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:2024",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:{otio_version}",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:2024-0.17.0",
             ],
         )
         self.assertEqual(
-            baked["target"]["ci-package-usd-2024"]["args"]["ASWF_VERSION"],
-            usd_version,
+            baked["target"]["ci-package-otio-2024"]["args"]["ASWF_VERSION"],
+            otio_version,
         )
         self.assertEqual(
-            baked["target"]["ci-package-usd-2024"]["dockerfile"],
+            baked["target"]["ci-package-otio-2024"]["dockerfile"],
             "packages/vfx2/Dockerfile",
         )
 
@@ -182,7 +182,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_PYTHON_MAJOR_MINOR_VERSION": "2.7",
                             "ASWF_QT_VERSION": "5.12.6",
                             "ASWF_SONAR_VERSION": "4.6.2.2472",
-                            "ASWF_USD_VERSION": "19.11",
+                            "ASWF_OPENUSD_VERSION": "19.11",
                             "ASWF_VERSION": openvdb_version,
                             "ASWF_VFXPLATFORM_VERSION": "2019",
                             "CI_COMMON_VERSION": "1",
@@ -276,7 +276,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_PYTHON_MAJOR_MINOR_VERSION": "3.7",
                             "ASWF_QT_VERSION": "5.12.6",
                             "ASWF_SONAR_VERSION": "4.6.2.2472",
-                            "ASWF_USD_VERSION": "20.11",
+                            "ASWF_OPENUSD_VERSION": "20.11",
                             "ASWF_VERSION": base_versions[1],
                             "ASWF_VFXPLATFORM_VERSION": "2020",
                             "CI_COMMON_VERSION": "1",
@@ -346,7 +346,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_PYTHON_MAJOR_MINOR_VERSION": "2.7",
                             "ASWF_QT_VERSION": "5.12.6",
                             "ASWF_SONAR_VERSION": "4.6.2.2472",
-                            "ASWF_USD_VERSION": "19.11",
+                            "ASWF_OPENUSD_VERSION": "19.11",
                             "ASWF_VERSION": base_versions[0],
                             "ASWF_VFXPLATFORM_VERSION": "2019",
                             "CI_COMMON_VERSION": "1",
@@ -391,7 +391,7 @@ class TestBuilderCli(unittest.TestCase):
                 "--version",
                 "2024",
                 "--target",
-                "usd",
+                "otio",
                 "--dry-run",
             ],
         )
@@ -468,7 +468,7 @@ class TestBuilderCli(unittest.TestCase):
                 "--version",
                 "2025",
                 "--target",
-                "usd",
+                "otio",
                 "--dry-run",
             ],
         )

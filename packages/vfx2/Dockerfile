@@ -36,21 +36,9 @@ ARG ASWF_ONETBB_VERSION
 ARG ASWF_TSL_ROBIN_MAP_VERSION
 ARG ASWF_YAML_CPP_VERSION
 
-ARG ASWF_ALEMBIC_VERSION
-ARG ASWF_C_BLOSC_VERSION
-ARG ASWF_OCIO_VERSION
-ARG ASWF_OIIO_VERSION
-ARG ASWF_OPENEXR_VERSION
-ARG ASWF_IMATH_VERSION
-ARG ASWF_OPENSUBDIV_VERSION
-ARG ASWF_OPENVDB_VERSION
-ARG ASWF_OSL_VERSION
 ARG ASWF_OTIO_VERSION
-ARG ASWF_PARTIO_VERSION
-ARG ASWF_PTEX_VERSION
 ARG ASWF_PYSIDE_VERSION
 ARG ASWF_QT_VERSION
-ARG ASWF_USD_VERSION
 
 #################### ci-base-builder ####################
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-base-builder
@@ -100,125 +88,6 @@ ENV DOWNLOADS_DIR=/tmp/downloads \
      CCACHE_DIR=/tmp/ccache \
      ASWF_INSTALL_PREFIX=/usr/local \
      PYTHONPATH=${ASWF_INSTALL_PREFIX}/lib/python${ASWF_PYTHON_MAJOR_MINOR_VERSION}/site-packages:${PYTHONPATH}
-
-#################### ci-usd-builder ####################
-FROM ci-base-builder AS ci-usd-builder
-
-ARG ASWF_PKG_ORG
-ARG ASWF_CONAN_CHANNEL
-ARG CI_COMMON_VERSION
-ARG ASWF_PYSIDE_CLANG_VERSION
-ARG ASWF_USD_VERSION
-ARG ASWF_NUMPY_VERSION
-ARG ASWF_EXPAT_VERSION
-ARG ASWF_FREETYPE_VERSION
-ARG ASWF_GLEW_VERSION
-ARG ASWF_GLFW_VERSION
-ARG ASWF_MD4C_VERSION
-ARG ASWF_PYBIND11_VERSION
-ARG ASWF_LIBDEFLATE_VERSION
-ARG ASWF_MATERIALX_VERSION
-ARG ASWF_QT_VERSION
-ARG ASWF_PYSIDE_VERSION
-ARG ASWF_ALEMBIC_VERSION
-ARG ASWF_IMATH_VERSION
-ARG ASWF_OPENEXR_VERSION
-ARG ASWF_OPENSUBDIV_VERSION
-ARG ASWF_PARTIO_VERSION
-ARG ASWF_PTEX_VERSION
-ARG ASWF_OIIO_VERSION
-ARG ASWF_OCIO_VERSION
-ARG ASWF_OPENVDB_VERSION
-
-ENV CI_COMMON_VERSION=${CI_COMMON_VERSION}
-ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
-ENV ASWF_USD_VERSION=${ASWF_USD_VERSION}
-ENV ASWF_NUMPY_VERSION=${ASWF_NUMPY_VERSION}
-ENV ASWF_EXPAT_VERSION=${ASWF_EXPAT_VERSION}
-ENV ASWF_FREETYPE_VERSION=${ASWF_FREETYPE_VERSION}
-ENV ASWF_GLEW_VERSION=${ASWF_GLEW_VERSION}
-ENV ASWF_GLFW_VERSION=${ASWF_GLFW_VERSION}
-ENV ASWF_MD4C_VERSION=${ASWF_MD4C_VERSION}
-ENV ASWF_PYBIND11_VERSION=${ASWF_PYBIND11_VERSION}
-ENV ASWF_LIBDEFLATE_VERSION=${ASWF_LIBDEFLATE_VERSION}
-ENV ASWF_MATERIALX_VERSION=${ASWF_MATERIALX_VERSION}
-ENV ASWF_QT_VERSION=${ASWF_PYSIDE_VERSION}
-ENV ASWF_PYSIDE_VERSION=${ASWF_PYSIDE_VERSION}
-ENV ASWF_ALEMBIC_VERSION=${ASWF_ALEMBIC_VERSION}
-ENV ASWF_IMATH_VERSION=${ASWF_IMATH_VERSION}
-ENV ASWF_OPENEXR_VERSION=${ASWF_OPENEXR_VERSION}
-ENV ASWF_OPENSUBDIV_VERSION=${ASWF_OPENSUBDIV_VERSION}
-ENV ASWF_PARTIO_VERSION=${ASWF_PARTIO_VERSION}
-ENV ASWF_PTEX_VERSION=${ASWF_PTEX_VERSION}
-ENV ASWF_OIIO_VERSION=${ASWF_OIIO_VERSION}
-ENV ASWF_OCIO_VERSION=${ASWF_OCIO_VERSION}
-ENV ASWF_OPENVDB_VERSION=${ASWF_OPENVDB_VERSION}
-
-COPY ../scripts/vfx/build_usd.sh \
-     /tmp/
-
-COPY scripts/common/install_conanpackages.sh /tmp
-
-# Use conan to install dependencies
-COPY <<EOF /usr/local/conanfile.txt
-[generators]
-[imports]
-., * -> .
-[requires]
-alembic/${ASWF_ALEMBIC_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-expat/${ASWF_EXPAT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-libdeflate/${ASWF_LIBDEFLATE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-qt/${ASWF_QT_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-pyside/${ASWF_PYSIDE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-opensubdiv/${ASWF_OPENSUBDIV_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-partio/${ASWF_PARTIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-imath/${ASWF_IMATH_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-openexr/${ASWF_OPENEXR_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-materialx/${ASWF_MATERIALX_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-oiio/${ASWF_OIIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-ocio/${ASWF_OCIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-openvdb/${ASWF_OPENVDB_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-EOF
-
-RUN --mount=type=cache,target=/opt/conan_home/d \
-    --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" usd
-
-RUN --mount=type=cache,target=/tmp/ccache \
-     --mount=type=cache,sharing=private,target=/tmp/downloads \
-     /tmp/before_build.sh && \
-     /tmp/build_usd.sh && \
-     /tmp/copy_new_files.sh && \
-     ccache --show-stats
-
-
-#################### ci-package-usd ####################
-FROM scratch AS ci-package-usd
-
-ARG ASWF_ORG
-ARG CI_COMMON_VERSION
-ARG ASWF_DTS_VERSION
-ARG ASWF_DTS_PREFIX
-ARG ASWF_USD_VERSION
-ARG ASWF_VFXPLATFORM_VERSION
-
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-package-usd"
-LABEL org.opencontainers.image.title="USD package built for ASWF Docker images"
-LABEL org.opencontainers.image.description="USD (Universal Scene Description) headers and binaries to be installed in ASWF Docker images"
-LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
-LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
-LABEL org.opencontainers.image.url="https://github.com/PixarAnimationStudios/USD"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/packages/Dockerfile"
-LABEL org.opencontainers.image.version="${ASWF_USD_VERSION}"
-LABEL org.opencontainers.image.licenses="Apache-2.0"
-LABEL io.aswf.docker.versions.ci-common="${CI_COMMON_VERSION}"
-LABEL io.aswf.docker.versions.vfx-platform="${ASWF_VFXPLATFORM_VERSION}"
-LABEL io.aswf.docker.versions.dts="${ASWF_DTS_VERSION}"
-LABEL io.aswf.docker.versions.usd="${ASWF_USD_VERSION}"
-
-COPY --from=ci-usd-builder /package/. /
-
 
 #################### ci-otio-builder ####################
 FROM ci-base-builder AS ci-otio-builder

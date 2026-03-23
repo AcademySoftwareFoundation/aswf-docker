@@ -14,6 +14,7 @@ bzip2/*: bzip2/1.0.8@aswf/vfx2024
 c-blosc/*: c-blosc/1.21.6@aswf/vfx2024
 ceres-solver/*: ceres-solver/2.2.0@aswf/vfx2024
 cimg/*: cimg/3.3.2@aswf/vfx2024
+cppunit/*: cppunit/1.15.1@aswf/vfx2024
 cpython/*: cpython/3.11.13@aswf/vfx2024
 dbus/*: dbus/system@aswf/vfx2024
 double-conversion/*: double-conversion/system@aswf/vfx2024
@@ -75,10 +76,13 @@ openal-soft/*: openal-soft/system@aswf/vfx2024
 opencl-headers/*: opencl-headers/system@aswf/vfx2024
 opencl-icd-loader/*: opencl-icd-loader/system@aswf/vfx2024
 openexr/*: openexr/3.2.5@aswf/vfx2024
+openfx/*: openfx/1.5s@aswf/vfx2024
 opengl/*: opengl/system@aswf/vfx2024
 openjpeg/*: openjpeg/2.4.0@aswf/vfx2024
 openjph/*: openjph/0.24.5@aswf/vfx2024
 openssl/*: openssl/system@aswf/vfx2024
+opensubdiv/*: opensubdiv/3.6.1@aswf/vfx2024
+openusd/*: openusd/24.08@aswf/vfx2024
 openvdb/*: openvdb/11.0.0@aswf/vfx2024
 opus/*: opus/system@aswf/vfx2024
 osl/*: osl/1.13.11.0@aswf/vfx2024
@@ -88,6 +92,7 @@ ptex/*: ptex/2.4.2@aswf/vfx2024
 pugixml/*: pugixml/1.14@aswf/vfx2024
 pulseaudio/*: pulseaudio/system@aswf/vfx2024
 pybind11/*: pybind11/2.13.6@aswf/vfx2024
+pyside/*: pyside/6.5.6@aswf/vfx2024
 pystring/*: pystring/1.1.4@aswf/vfx2024
 qt/*: qt/6.5.6@aswf/vfx2024
 rawtoaces/*: rawtoaces/1.1.0@aswf/vfx2024
@@ -119,6 +124,7 @@ meson/*: meson/0.58.2@system
 nasm/*: nasm/system@aswf/vfx2024
 nodejs/*: nodejs/18.20.4@system
 pkgconf/*: pkgconf/1.4.2@system
+pyside/*: pyside/6.5.6@aswf/vfx2024
 wayland/*: wayland/1.21.0@system
 wayland-protocols/*: wayland-protocols/1.25@system
 [platform_requires]

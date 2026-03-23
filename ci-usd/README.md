@@ -11,286 +11,66 @@ See [aswf.io](https://aswf.io) and [aswf-docker](https://github.com/AcademySoftw
 for further information, and participate in the discussion on the
 [ASWF Slack #wg-ci channel](https://academysoftwarefdn.slack.com/archives/C0169RX7MMK).
 
-## USD CI Docker Image
+## OpenUSD CI Docker Image
 
-Contains: Python, Qt, PySide and other USD upstream dependencies
-Warning: this image does *not* contain USD itself as it is used to *build* USD!
+Contains: Python, Qt, PySide and other OpenUSD upstream dependencies
+Warning: this image does *not* contain OpenUSD itself as it is used to *build* OpenUSD!
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-usd/Dockerfile)
 
 ## [aswf/ci-usd:2019.9](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2019.9)
 
 Contains:
-* cppunit-1.14.0
-* gtest-1.8.1
-* onetbb-2018
-* cpython-2.7.15
-* glew-2.1.0
-* glfw-3.1.2
-* log4cplus-1.1.2
-* boost-1.66.0
-* pybind11-2.4.3
-* qt-5.12.6
-* pyside-5.12.6
-* imath-2.3.0
-* opensubdiv-3_3_3
-* partio-1.10.1
-* ptex-2.1.33
-* openexr-2.3.0
-* alembic-1.7.11
-* ocio-1.1.0
-* oiio-2.0.8
+* openusd-19.11
 * numpy-1.14
-* hdf5-1.8.21
 * vfxplatform-2019
 
 ## [aswf/ci-usd:2020.8](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2020.8)
 
 Contains:
-* cppunit-1.15.1
-* gtest-1.10.0
-* onetbb-2019_u6
-* cpython-3.7.3
-* glew-2.1.0
-* glfw-3.1.2
-* log4cplus-1.1.2
-* boost-1.70.0
-* pybind11-2.4.3
-* qt-5.12.6
-* pyside-5.12.6
-* imath-2.4.0
-* opensubdiv-3_4_3
-* partio-1.10.1
-* ptex-2.3.2
-* openexr-2.4.0
-* alembic-1.7.12
-* ocio-1.1.1
-* oiio-2.1.13.0
+* openusd-20.11
 * numpy-1.16
-* hdf5-1.8.21
 * vfxplatform-2020
 
 ## [aswf/ci-usd:2021.6](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2021.6)
 
 Contains:
-* cppunit-1.15.1
-* gtest-1.11.0
-* onetbb-2020_u2
-* cpython-3.7.9
-* glew-2.1.0
-* glfw-3.1.2
-* log4cplus-1.1.2
-* boost-1.73.0
-* pybind11-2.6.2
-* qt-5.15.2
-* pyside-5.15.2
-* imath-2.5.5
-* opensubdiv-3_4_3
-* partio-1.14.0
-* ptex-2.3.2
-* openexr-2.5.5
-* alembic-1.7.16
-* ocio-2.0.1
-* oiio-2.2.14.0
+* openusd-21.05
 * numpy-1.19
-* hdf5-1.8.21
 * vfxplatform-2021
 
 ## [aswf/ci-usd:2022.4](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2022.4)
 
 Contains:
-* cppunit-1.15.1
-* gtest-1.11.0
-* onetbb-2020.3
-* cpython-3.9.15
-* glew-2.1.0
-* glfw-3.1.2
-* log4cplus-1.1.2
-* boost-1.76.0
-* pybind11-2.8.1
-* qt-5.15.2
-* pyside-5.15.2
-* imath-3.1.5
-* opensubdiv-3_4_4
-* partio-1.14.0
-* ptex-2.4.0
-* openexr-3.1.5
-* alembic-1.8.2
-* ocio-2.1.1
-* oiio-2.4.5.0
-* materialx-1.38.5
+* openusd-22.11
 * numpy-1.20
-* hdf5-1.8.21
 * vfxplatform-2022
 
 ## [aswf/ci-usd:2023.2](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2023.2)
 
 Contains:
-* cppunit-1.15.1
-* gtest-1.11.0
-* onetbb-2020.3
-* cpython-3.10.11
-* glew-2.1.0
-* glfw-3.1.2
-* log4cplus-1.1.2
-* boost-1.80.0
-* pybind11-2.9.2
-* qt-5.15.9
-* pyside-5.15.9
-* imath-3.1.9
-* opensubdiv-3_5_0
-* partio-1.17.1
-* ptex-2.4.2
-* openexr-3.1.11
-* alembic-1.8.5
-* ocio-2.2.1
-* oiio-2.4.13.0
-* materialx-1.38.7
+* openusd-23.05
 * numpy-1.23.5
-* hdf5-1.8.23
 * vfxplatform-2023
 
 ## [aswf/ci-usd:2024.6](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.6)
 
 Contains:
-* b2-5.2.1
-* bzip2-1.0.8
-* cppunit-1.15.1
-* expat-2.6.4
-* fmt-11.2.0
-* gtest-1.15.2
-* libbacktrace-cci.20210118
-* libdeflate-1.23
-* libiconv-1.17
-* libxcrypt-4.4.36
-* lz4-1.10.0
-* pugixml-1.14
-* pystring-1.1.4
-* snappy-1.1.10
-* onetbb-2020.3
-* zlib-1.3.1
-* zstd-1.5.6
-* cpython-3.11.13
-* freetype-2.13.2
-* glew-2.2.0
-* glfw-3.4
-* log4cplus-2.1.2
-* boost-1.82.0
-* pybind11-2.13.6
-* libwebp-1.5.0
-* md4c-0.4.8
-* qt-6.5.6
-* pyside-6.5.6
-* highway-1.2.0
-* imath-3.1.12
-* lcms-2.17
-* libultrahdr-1.4.0
-* opensubdiv-3.6.1
-* partio-1.19.0
-* ptex-2.4.2
-* libjxl-0.11.1
-* openexr-3.2.5
-* alembic-1.8.8
-* ocio-2.3.2
-* oiio-2.5.19.0
-* materialx-1.39.1
+* openusd-24.08
 * numpy-1.24.3
-* hdf5-1.14.6
 * vfxplatform-2024
 
 ## [aswf/ci-usd:2025.5](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2025.5)
 
 Contains:
-* b2-5.2.1
-* bzip2-1.0.8
-* cppunit-1.15.1
-* expat-2.6.4
-* fmt-11.2.0
-* gtest-1.15.2
-* libbacktrace-cci.20210118
-* libdeflate-1.23
-* libiconv-1.17
-* libxcrypt-4.4.36
-* lz4-1.10.0
-* pugixml-1.14
-* pystring-1.1.4
-* snappy-1.1.10
-* onetbb-2021.13.0
-* zlib-1.3.1
-* zstd-1.5.6
-* cpython-3.11.13
-* freetype-2.13.2
-* glew-2.2.0
-* glfw-3.4
-* log4cplus-2.1.2
-* boost-1.85.0
-* pybind11-2.13.6
-* libwebp-1.5.0
-* md4c-0.4.8
-* qt-6.5.6
-* pyside-6.5.6
-* highway-1.2.0
-* imath-3.1.12
-* lcms-2.17
-* libultrahdr-1.4.0
-* opensubdiv-3.6.1
-* partio-1.19.0
-* ptex-2.4.3
-* libjxl-0.11.1
-* openexr-3.3.7
-* alembic-1.8.8
-* ocio-2.4.2
-* oiio-3.1.6.2
-* materialx-1.39.3
+* openusd-25.05.01
 * numpy-1.26.4
-* hdf5-1.14.6
 * vfxplatform-2025
 
 ## [aswf/ci-usd:2026.3](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2026.3)
 
 Contains:
-* b2-5.3.2
-* bzip2-1.0.8
-* cppunit-1.15.1
-* expat-2.7.1
-* fmt-11.2.0
-* gtest-1.17.0
-* libbacktrace-cci.20210118
-* libdeflate-1.24
-* libiconv-1.18
-* libxcrypt-4.4.38
-* lz4-1.10.0
-* pugixml-1.15
-* pystring-1.1.4
-* snappy-1.2.2
-* onetbb-2022.1.0
-* zlib-1.3.1
-* zstd-1.5.7
-* cpython-3.13.3
-* freetype-2.13.2
-* glew-2.2.0
-* glfw-3.4
-* log4cplus-2.1.2
-* boost-1.88.0
-* pybind11-2.13.6
-* libwebp-1.5.0
-* md4c-0.5.2
-* qt-6.8.3
-* pyside-6.8.3
-* highway-1.2.0
-* imath-3.2.2
-* lcms-2.17
-* libultrahdr-1.4.0
-* opensubdiv-3.7.0
-* partio-1.19.0
-* ptex-2.4.3
-* libjxl-0.11.1
-* openexr-3.4.5
-* alembic-1.8.10
-* ocio-2.5.1
-* oiio-3.1.10.0
-* materialx-1.39.4
+* openusd-26.03
 * numpy-2.3.2
-* hdf5-1.14.6
 * vfxplatform-2026
 

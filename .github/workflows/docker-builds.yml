@@ -320,20 +320,20 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build vfx2 level 1 Conan packages
+    - name: Build vfx1 level 6 Conan packages
       run: |
         set -ex
         uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
-          --group vfx2-1 \
+          --group vfx1-6 \
           --version ${{ matrix.version_noclang }} \
           --use-conan \
           --build-missing \
           --push NO
 
-    - name: Build vfx2 level 2 non-Conan packages
+    - name: Build vfx2 non-Conan packages
       run: |
         set -ex
         uv run aswfdocker \

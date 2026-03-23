@@ -14,6 +14,7 @@ bzip2/*: bzip2/1.0.8@aswftesting/vfx2025
 c-blosc/*: c-blosc/1.21.6@aswftesting/vfx2025
 ceres-solver/*: ceres-solver/2.2.0@aswftesting/vfx2025
 cimg/*: cimg/3.3.2@aswftesting/vfx2025
+cppunit/*: cppunit/1.15.1@aswftesting/vfx2025
 cpython/*: cpython/3.11.13@aswftesting/vfx2025
 dbus/*: dbus/system@aswftesting/vfx2025
 double-conversion/*: double-conversion/system@aswftesting/vfx2025
@@ -75,10 +76,13 @@ openal-soft/*: openal-soft/system@aswftesting/vfx2025
 opencl-headers/*: opencl-headers/system@aswftesting/vfx2025
 opencl-icd-loader/*: opencl-icd-loader/system@aswftesting/vfx2025
 openexr/*: openexr/3.3.7@aswftesting/vfx2025
+openfx/*: openfx/1.5s@aswftesting/vfx2025
 opengl/*: opengl/system@aswftesting/vfx2025
 openjpeg/*: openjpeg/2.4.0@aswftesting/vfx2025
 openjph/*: openjph/0.24.5@aswftesting/vfx2025
 openssl/*: openssl/system@aswftesting/vfx2025
+opensubdiv/*: opensubdiv/3.6.1@aswftesting/vfx2025
+openusd/*: openusd/25.05.01@aswftesting/vfx2025
 openvdb/*: openvdb/12.1.1@aswftesting/vfx2025
 opus/*: opus/system@aswftesting/vfx2025
 osl/*: osl/1.14.7.0@aswftesting/vfx2025
@@ -88,6 +92,7 @@ ptex/*: ptex/2.4.3@aswftesting/vfx2025
 pugixml/*: pugixml/1.14@aswftesting/vfx2025
 pulseaudio/*: pulseaudio/system@aswftesting/vfx2025
 pybind11/*: pybind11/2.13.6@aswftesting/vfx2025
+pyside/*: pyside/6.5.6@aswftesting/vfx2025
 pystring/*: pystring/1.1.4@aswftesting/vfx2025
 qt/*: qt/6.5.6@aswftesting/vfx2025
 rawtoaces/*: rawtoaces/1.1.0@aswftesting/vfx2025
@@ -119,6 +124,7 @@ meson/*: meson/0.58.2@system
 nasm/*: nasm/system@aswftesting/vfx2025
 nodejs/*: nodejs/18.20.4@system
 pkgconf/*: pkgconf/1.4.2@system
+pyside/*: pyside/6.5.6@aswftesting/vfx2025
 wayland/*: wayland/1.21.0@system
 wayland-protocols/*: wayland-protocols/1.25@system
 [platform_requires]

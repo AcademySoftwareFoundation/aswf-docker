@@ -1,58 +1,12 @@
 name: "usd"
-title: "USD CI Docker Image"
+title: "OpenUSD CI Docker Image"
 description: |
-  Contains: Python, Qt, PySide and other USD upstream dependencies
-  Warning: this image does *not* contain USD itself as it is used to *build* USD!
+  Contains: Python, Qt, PySide and other OpenUSD upstream dependencies
+  Warning: this image does *not* contain OpenUSD itself as it is used to *build* OpenUSD!
 packages:
-  - b2                 # base1-1 packages
-  - bzip2
-  - cppunit
-  - expat
-  - fmt
-  - gtest
-  - libbacktrace
-  - libdeflate
-  - libiconv
-  - libxcrypt
-  - lz4
-  - pugixml
-  - pystring
-  - snappy
-  - onetbb
-  - tsl-robin-map
-  - yaml-cpp
-  - zlib
-  - zstd
-  - c-blosc              # base1-2 packages
-  - cpython
-  - freetype
-  - glew
-  - glfw
-  - log4cplus
-  - minizip-ng
-  - boost              # base1-3 packages
-  - pybind11
-  - libjpeg-turbo      # base2-1 packages
-  - libwebp
-  - md4c
-  - qt                 # base2-2 packages
-  - pyside             # base2-3 packages
-  - highway            # vfx1-1 packages
-  - imath
-  - lcms
-  - libultrahdr
-  - opensubdiv
-  - partio
-  - ptex
-  - libjxl             # vfx1-2 packages
-  - openexr
-  - alembic            # vfx1-3 packages
-  - ocio
-  - oiio               # vfx1-4 packages
-  - materialx          # vfx2-1 packages
+  - openusd # all dependencies will be installed except openusd itself
 implicit_packages:
   - numpy
-  - hdf5
   - vfxplatform
 docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
 docker_package_version: $ASWF_VFXPLATFORM_VERSION

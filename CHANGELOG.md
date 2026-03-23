@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-03-23
+
+OpenUSD updates and Conan package.
+
+- All releases
+  - [OpenUSD now built as a Conan package](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/231)
+    - Conan package is named openusd, build container remains ci-usd to avoid breaking existing workflows
+    - [additional OpenUSD dependencies enabled](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/262)
+      - usdview
+      - Python
+      - Alembic with hdf5
+      - MaterialX (previously enabled)
+      - OpenColorIO
+      - OpenImageIO
+      - OpenShadingLanguage (updates to osl Conan recipe now that OpenUSD requires() it)
+      - OpenVDB
+      - Ptex
+    - Following optional components are not enabled yet due to more complex dependencies
+      - Draco
+      - Embree
+      - Mayapi
+      - Renderman
+      - Vulkan
+  - Document use cases in `README.md`:
+    - GitHub Actions
+    - GPU Workloads
+    - Extracting binaries from images and packages
+- 2026.x (no new container image release yet)
+  - [OpenUSD 25.08 to 26.03](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/343)
+
 # 2026-03-14
 
 - All releases
