@@ -354,12 +354,7 @@ Unfortunately there is duplication between the version information in
 When a sufficiently recent package is provided by the underlying OS distribution, packages labeled as version `system` are created which are thin wrappers around system installed components, and the Conan profile is used to remap `requires()`
 call to specific versions to these wrapper packages. Confusingly some will have an actual version number since some dependent packages check for acceptable version ranges. A better versioning scheme would be desirable for these wrapper packages.
 
-To test locally, use the `aswfdocker build` command with the `--use-conan` argument.
-The `--keep-source` and `--keep-build` can help when iterating on the build recipe to
-avoid re-downloading the source, and even keep the previous build artifact.
-All regular aswfdocker commands and options work the same with conan or docker packages.
-
-You can use the `aswfdocker conandiff` command to view updates in the upstream Conan Center Index recipes since the last time the local copy was updated. This requires the `From: https://...` header comment to be updated correctly.
+You can use the `aswfdocker conandiff` command to view updates in the upstream Conan Center Index recipes since the last time the local copy was updated. This requires the `From: https://...` header comment to be updated correctly in our vendored copies of the CCI recipes.
 
 ```
 $ aswfdocker conandiff
@@ -392,7 +387,7 @@ at the end of the `versions.yaml` file, see `gtest` as an example.
 
 ### Peeking into the Conan cache
 
-When building a Conan package, `aswfdocker build --use-conan` uses [common/packages/Dockerfile](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/packages/common/Dockerfile) which uses a
+When building a Conan package, `aswfdocker build` uses [common/packages/Dockerfile](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/packages/common/Dockerfile) which uses a
 [Docker Cache Mount](https://docs.docker.com/build/cache/optimize/#use-cache-mounts) to store the persistent
 cache of local Conan package builds (similarly for the [ccache](https://ccache.dev/) persistent cache):
 

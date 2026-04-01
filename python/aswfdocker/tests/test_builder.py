@@ -22,72 +22,39 @@ class TestBuilder(unittest.TestCase):
             repo_uri="notauri", source_branch="testing", aswf_version="2024.123"
         )
 
-    def test_package_otio_2024_dict(self):
+    def test_package_opentimelineio_2019_dict(self):
         b = builder.Builder(
             self.build_info,
             groupinfo.GroupInfo(
-                names=["vfx2"],
-                versions=["2024"],
-                type_=constants.ImageType.PACKAGE,
-                targets=[],
-            ),
-        )
-        otio_version = list(
-            filter(
-                lambda package: package.startswith("2024"),
-                index.Index().iter_versions(constants.ImageType.PACKAGE, "otio"),
-            )
-        )[0]
-        baked = b.make_bake_dict(False, False)
-        self.assertEqual(
-            baked["target"]["ci-package-otio-2024"]["tags"],
-            [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:2024",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:{otio_version}",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:2024-0.17.0",
-            ],
-        )
-        self.assertEqual(
-            baked["target"]["ci-package-otio-2024"]["args"]["ASWF_VERSION"],
-            otio_version,
-        )
-        self.assertEqual(
-            baked["target"]["ci-package-otio-2024"]["dockerfile"],
-            "packages/vfx2/Dockerfile",
-        )
-
-    def test_package_otio_2019_dict_conan(self):
-        b = builder.Builder(
-            self.build_info,
-            groupinfo.GroupInfo(
-                names=["vfx2"],
+                names=["vfx1-2"],
                 versions=["2019"],
                 type_=constants.ImageType.PACKAGE,
                 targets=[],
             ),
         )
-        otio_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "otio")
+        opentimelineio_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "opentimelineio")
         )[0]
         baked = b.make_bake_dict(False, False)
         self.assertIn(
-            "ASWF_OSL_VERSION", baked["target"]["ci-package-otio-2019"]["args"]
+            "ASWF_OPENTIMELINEIO_VERSION",
+            baked["target"]["ci-package-opentimelineio-2019"]["args"],
         )
+        # tags may not make much sense for Conan packages
         self.assertEqual(
-            baked["target"]["ci-package-otio-2019"]["tags"],
+            baked["target"]["ci-package-opentimelineio-2019"]["tags"],
             [
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:2019",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:{otio_version}",
-                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-package-otio:2019-0.12.1",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-baseos-gl-conan:2019.1",
+                f"{constants.DOCKER_REGISTRY}/aswflocaltesting/ci-baseos-gl-conan:2019",
             ],
         )
         self.assertEqual(
-            baked["target"]["ci-package-otio-2019"]["args"]["ASWF_VERSION"],
-            otio_version,
+            baked["target"]["ci-package-opentimelineio-2019"]["args"]["ASWF_VERSION"],
+            opentimelineio_version,
         )
         self.assertEqual(
-            baked["target"]["ci-package-otio-2019"]["dockerfile"],
-            "packages/vfx2/Dockerfile",
+            baked["target"]["ci-package-opentimelineio-2019"]["dockerfile"],
+            "packages/common/Dockerfile",
         )
 
     def test_image_base_2019_dict(self):
@@ -172,7 +139,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_OPTIX_VERSION": "7.1.0",
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_OSL_VERSION": "1.10.9",
-                            "ASWF_OTIO_VERSION": "0.12.1",
+                            "ASWF_OPENTIMELINEIO_VERSION": "0.12.1",
                             "ASWF_PARTIO_VERSION": "1.10.1",
                             "ASWF_PKG_ORG": "aswftesting",
                             "ASWF_PTEX_VERSION": "2.1.33",
@@ -266,7 +233,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_OPTIX_VERSION": "7.1.0",
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_OSL_VERSION": "1.10.10",
-                            "ASWF_OTIO_VERSION": "0.12.1",
+                            "ASWF_OPENTIMELINEIO_VERSION": "0.12.1",
                             "ASWF_PARTIO_VERSION": "1.10.1",
                             "ASWF_PKG_ORG": "aswftesting",
                             "ASWF_PTEX_VERSION": "2.3.2",
@@ -336,7 +303,7 @@ class TestBuilder(unittest.TestCase):
                             "ASWF_OPTIX_VERSION": "7.1.0",
                             "ASWF_ORG": "aswflocaltesting",
                             "ASWF_OSL_VERSION": "1.10.9",
-                            "ASWF_OTIO_VERSION": "0.12.1",
+                            "ASWF_OPENTIMELINEIO_VERSION": "0.12.1",
                             "ASWF_PARTIO_VERSION": "1.10.1",
                             "ASWF_PKG_ORG": "aswftesting",
                             "ASWF_PTEX_VERSION": "2.1.33",
@@ -389,37 +356,10 @@ class TestBuilderCli(unittest.TestCase):
                 "--ci-image-type",
                 "PACKAGE",
                 "--version",
-                "2024",
-                "--target",
-                "otio",
-                "--dry-run",
-            ],
-        )
-        self.assertFalse(result.exception)
-        bake_path = os.path.join(
-            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx2-2024.json"
-        )
-        cmd = f"docker buildx bake -f {bake_path} --progress auto"
-        self.assertEqual(
-            result.output,
-            f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
-        )
-        self.assertEqual(result.exit_code, 0)
-
-    def test_builder_cli_conan(self):
-        runner = CliRunner()
-        result = runner.invoke(
-            aswfdocker.cli,
-            [
-                "build",
-                "--ci-image-type",
-                "PACKAGE",
-                "--version",
                 "2019",
                 "--target",
                 "openexr",
                 "--dry-run",
-                "--use-conan",
             ],
         )
         self.assertFalse(result.exception)
@@ -455,39 +395,11 @@ class TestBuilderCli(unittest.TestCase):
         )
         self.assertEqual(result.exit_code, 0)
 
-    def test_builderlist_cli(self):
-        runner = CliRunner()
-        result = runner.invoke(
-            aswfdocker.cli,
-            [
-                "build",
-                "--ci-image-type",
-                "PACKAGE",
-                "--version",
-                "2024",
-                "--version",
-                "2025",
-                "--target",
-                "otio",
-                "--dry-run",
-            ],
-        )
-        self.assertFalse(result.exception)
-        bake_path = os.path.join(
-            tempfile.gettempdir(), "docker-bake-PACKAGE-vfx2-2024-2025.json"
-        )
-        cmd = f"docker buildx bake -f {bake_path} --progress auto"
-        self.assertEqual(
-            result.output,
-            f"INFO:aswfdocker.builder:Would run: '{cmd}'\n",
-        )
-        self.assertEqual(result.exit_code, 0)
-
     def _assertEndsWith(self, cmds, expected):
         self.assertTrue(cmds[self._i].endswith(expected), "got: " + cmds[self._i])
         self._i += 1
 
-    def test_builderlist_cli_conan(self):
+    def test_builderlist_cli(self):
         runner = CliRunner()
         result = runner.invoke(
             aswfdocker.cli,
@@ -502,7 +414,6 @@ class TestBuilderCli(unittest.TestCase):
                 "--target",
                 "openexr",
                 "--dry-run",
-                "--use-conan",
                 "--build-missing",
                 "--push",
                 "YES",

@@ -8,7 +8,7 @@ version = "1.0.0"
 description = "ASWF Docker Utilities"
 readme = "python/README.md"
 license = { text = "Apache-2.0" }
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 authors = [
   { name = "Aloys Baillet", email = "aloys.baillet+github@gmail.com" }
 ]
@@ -21,7 +21,7 @@ dependencies = [
   "bottle==0.12.25",
   "certifi==2024.7.4",
   "charset-normalizer==3.3.2",
-  "click==8.1.7",
+  "click==8.3.1",
   "colorama==0.4.6",
   "conan==2.26.2",
   "deprecated==1.2.14",
@@ -83,7 +83,7 @@ testpaths = [
 ]
 
 [tool.black]
-target-version = ['py39']
+target-version = ['py310']
 include = '''
 (
     python/.*\.py$
