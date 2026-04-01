@@ -18,11 +18,11 @@ packages:
   - oiio
   - ocio
   - openfx
+  - opentimelineio
   - openusd
   - openvdb
   - materialx
   - osl
-  - otio
   - rawtoaces
 implicit_packages:
   - numpy

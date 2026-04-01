@@ -278,7 +278,7 @@ versions:
       ASWF_OPENSUBDIV_VERSION: "3_3_3"
       ASWF_OPENVDB_VERSION: "6.2.1"
       ASWF_OSL_VERSION: "1.10.9"
-      ASWF_OTIO_VERSION: "0.12.1"
+      ASWF_OPENTIMELINEIO_VERSION: "0.12.1"
       ASWF_PARTIO_VERSION: "1.10.1"
       ASWF_PTEX_VERSION: "2.1.33"
       ASWF_PYBIND11_VERSION: "2.4.3"
@@ -337,7 +337,7 @@ versions:
       ASWF_OPENSUBDIV_VERSION: "3_4_3"
       ASWF_OPENVDB_VERSION: "7.1.0"
       ASWF_OSL_VERSION: "1.10.10"
-      ASWF_OTIO_VERSION: "0.12.1"
+      ASWF_OPENTIMELINEIO_VERSION: "0.12.1"
       ASWF_PARTIO_VERSION: "1.10.1"
       ASWF_PTEX_VERSION: "2.3.2"
       ASWF_PYBIND11_VERSION: "2.4.3"
@@ -380,7 +380,7 @@ versions:
       ASWF_OPENSUBDIV_VERSION: "3_4_3"
       ASWF_OPENVDB_VERSION: "8.0.1"
       ASWF_OSL_VERSION: "1.11.13.0"
-      ASWF_OTIO_VERSION: "0.13"
+      ASWF_OPENTIMELINEIO_VERSION: "0.13"
       ASWF_PARTIO_VERSION: "1.14.0"
       ASWF_PTEX_VERSION: "2.3.2"
       ASWF_PYBIND11_VERSION: "2.6.2"
@@ -427,7 +427,7 @@ versions:
       ASWF_OPENSUBDIV_VERSION: "3_4_4"
       ASWF_OPENVDB_VERSION: "9.1.0"
       ASWF_OSL_VERSION: "1.12.7.0"
-      ASWF_OTIO_VERSION: "0.14.1"
+      ASWF_OPENTIMELINEIO_VERSION: "0.14.1"
       ASWF_PARTIO_VERSION: "1.14.0"
       ASWF_PTEX_VERSION: "2.4.0"
       ASWF_PYBIND11_VERSION: "2.8.1"
@@ -486,7 +486,7 @@ versions:
       ASWF_OPENSUBDIV_VERSION: "3_5_0"
       ASWF_OPENVDB_VERSION: "10.0.1"
       ASWF_OSL_VERSION: "1.12.13.0"
-      ASWF_OTIO_VERSION: "0.15"
+      ASWF_OPENTIMELINEIO_VERSION: "0.15"
       ASWF_PARTIO_VERSION: "1.17.1"
       ASWF_PTEX_VERSION: "2.4.2"
       ASWF_PYBIND11_VERSION: "2.9.2"
@@ -599,6 +599,7 @@ versions:
       ASWF_PUGIXML_VERSION: "1.14"
       ASWF_PYBIND11_VERSION: "2.13.6"
       ASWF_PYSTRING_VERSION: "1.1.4"
+      ASWF_RAPIDJSON_VERSION: "cci.20250205"
       ASWF_SNAPPY_VERSION: "1.1.10"
       ASWF_SPDLOG_VERSION: "1.15.3"
       ASWF_TSL_ROBIN_MAP_VERSION: "1.3.0"
@@ -631,7 +632,7 @@ versions:
       ASWF_OPENRV_VERSION: "2.1.0"
       ASWF_OPENVDB_VERSION: "11.0.0"
       ASWF_OSL_VERSION: "1.13.11.0"
-      ASWF_OTIO_VERSION: "0.17.0"
+      ASWF_OPENTIMELINEIO_VERSION: "0.17.0"
       ASWF_RAWTOACES_VERSION: "1.1.0"
   "2024-clang16":
     parent_versions: ["4", "4-clang16", "2024"]
@@ -734,6 +735,7 @@ versions:
       ASWF_PUGIXML_VERSION: "1.14"
       ASWF_PYBIND11_VERSION: "2.13.6"
       ASWF_PYSTRING_VERSION: "1.1.4"
+      ASWF_RAPIDJSON_VERSION: "cci.20250205"
       ASWF_SNAPPY_VERSION: "1.1.10"
       ASWF_SPDLOG_VERSION: "1.15.3"
       ASWF_TSL_ROBIN_MAP_VERSION: "1.3.0"
@@ -766,7 +768,7 @@ versions:
       ASWF_OPENRV_VERSION: "2.1.0"
       ASWF_OPENVDB_VERSION: "12.1.1"
       ASWF_OSL_VERSION: "1.14.7.0"
-      ASWF_OTIO_VERSION: "0.17.0"
+      ASWF_OPENTIMELINEIO_VERSION: "0.17.0"
       ASWF_RAWTOACES_VERSION: "1.1.0" 
   "2025-clang18":
     parent_versions: ["5", "5-clang18", "2025"]
@@ -870,6 +872,7 @@ versions:
       ASWF_PUGIXML_VERSION: "1.15"
       ASWF_PYBIND11_VERSION: "2.13.6"
       ASWF_PYSTRING_VERSION: "1.1.4"
+      ASWF_RAPIDJSON_VERSION: "cci.20250205"
       ASWF_SNAPPY_VERSION: "1.2.2"
       ASWF_SPDLOG_VERSION: "1.15.3"
       ASWF_TSL_ROBIN_MAP_VERSION: "1.4.0"
@@ -902,7 +905,7 @@ versions:
       ASWF_OPENRV_VERSION: "2.1.0"
       ASWF_OPENVDB_VERSION: "13.0.0"
       ASWF_OSL_VERSION: "1.15.1.0"
-      ASWF_OTIO_VERSION: "0.17.0"
+      ASWF_OPENTIMELINEIO_VERSION: "0.18.1"
       ASWF_RAWTOACES_VERSION: "2.0.0"
   "2026-clang19":
     parent_versions: ["6", "6-clang19", "2026"]
@@ -1168,7 +1171,7 @@ ci-packages:
     - "2024.6"
     - "2025.5"
     - "2026.3"
-  otio:
+  opentimelineio:
     - "2019.1"
     - "2020.1"
     - "2021.3"
@@ -1448,6 +1451,10 @@ ci-packages:
     - "2025.5"
     - "2026.3"
   pystring:
+    - "2024.6"
+    - "2025.5"
+    - "2026.3"
+  rapidjson:
     - "2024.6"
     - "2025.5"
     - "2026.3"
@@ -1742,6 +1749,7 @@ groups:
         - onetbb
         - pugixml
         - pystring
+        - rapidjson
         - snappy
         - tk
         - tsl-robin-map
@@ -1815,6 +1823,7 @@ groups:
          - libraw
          - openexr
          - openfx
+         - opentimelineio
       vfx1-3:
         - alembic
         - ocio
@@ -1827,8 +1836,6 @@ groups:
         - materialx
       vfx1-6:
         - openusd
-      vfx2:
-        - otio
       review:
         - openrv
   image:
@@ -1950,6 +1957,7 @@ conan_only:
   - openjph
   - openssl
   - opensubdiv
+  - opentimelineio
   - openusd
   - openvdb
   - opus
@@ -1963,6 +1971,7 @@ conan_only:
   - pyside
   - pystring
   - qt
+  - rapidjson
   - rawtoaces
   - snappy
   - spdlog

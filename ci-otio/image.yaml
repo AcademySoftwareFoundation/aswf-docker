@@ -1,43 +1,10 @@
 name: "otio"
 title: "OpenTimelineIO CI Docker Image"
 description: |
-  Contains: Python, Qt, PySide and other OpenTimelineIO upstream dependencies
+  Contains: Imath, RapidJSON and other OpenTimelineIO upstream dependencies
   Warning: this image does *not* contain OpenTimelineIO itself as it is used to *build* OpenTimelineIO!
 packages:
-  - b2                 # base1-1 packages
-  - bzip2
-  - cppunit
-  - expat
-  - fmt
-  - gtest
-  - libbacktrace
-  - libdeflate
-  - libiconv
-  - libxcrypt
-  - lz4
-  - pugixml
-  - pystring
-  - snappy
-  - onetbb
-  - tsl-robin-map
-  - yaml-cpp
-  - zlib
-  - zstd
-  - c-blosc              # base1-2 packages
-  - cpython
-  - freetype
-  - glew
-  - glfw
-  - log4cplus
-  - minizip-ng
-  - boost              # base1-3 packages
-  - pybind11
-  - libjpeg-turbo      # base2-1 packages
-  - libwebp
-  - md4c
-  - qt                 # base2-2 packages
-  - pyside             # base2-3 packages
-  - imath              # vfx1-1 packages
+  - opentimelineio # all dependencies will be installed except opentimelineio itself
 implicit_packages:
   - numpy
   - vfxplatform

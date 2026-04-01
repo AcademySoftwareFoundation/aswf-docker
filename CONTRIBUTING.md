@@ -654,7 +654,6 @@ aswfdocker release -t PACKAGE -g vfx1-3 -v 2024 -v 2025 -v 2026 --docker-org asw
 aswfdocker release -t PACKAGE -g vfx1-4 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g vfx1-5 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g vfx1-6 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx2 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Finally build the CI images
 aswfdocker release -t IMAGE -g base -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"

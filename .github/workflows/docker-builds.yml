@@ -333,18 +333,6 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build vfx2 non-Conan packages
-      run: |
-        set -ex
-        uv run aswfdocker \
-          --verbose \
-          build \
-          --ci-image-type PACKAGE \
-          --group vfx2 \
-          --version ${{ matrix.version_noclang }} \
-          --build-missing \
-          --push NO
-
     - name: Build vfx1 / vfx2 images   
       run: |
         set -ex

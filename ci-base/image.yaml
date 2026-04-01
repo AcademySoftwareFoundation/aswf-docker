@@ -16,6 +16,7 @@ packages:
   - lz4
   - pugixml
   - pystring
+  - rapidjson
   - snappy
   - onetbb
   - tsl-robin-map

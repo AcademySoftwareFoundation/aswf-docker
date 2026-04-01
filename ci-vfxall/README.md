@@ -33,10 +33,10 @@ Contains:
 * openexr-2.3.0
 * oiio-2.0.8
 * ocio-1.1.0
+* opentimelineio-0.12.1
 * openusd-19.11
 * openvdb-6.2.1
 * osl-1.10.9
-* otio-0.12.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -56,10 +56,10 @@ Contains:
 * openexr-2.3.0
 * oiio-2.0.8
 * ocio-1.1.0
+* opentimelineio-0.12.1
 * openusd-19.11
 * openvdb-6.2.1
 * osl-1.10.9
-* otio-0.12.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -79,10 +79,10 @@ Contains:
 * openexr-2.3.0
 * oiio-2.0.8
 * ocio-1.1.0
+* opentimelineio-0.12.1
 * openusd-19.11
 * openvdb-6.2.1
 * osl-1.10.9
-* otio-0.12.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -102,10 +102,10 @@ Contains:
 * openexr-2.3.0
 * oiio-2.0.8
 * ocio-1.1.0
+* opentimelineio-0.12.1
 * openusd-19.11
 * openvdb-6.2.1
 * osl-1.10.9
-* otio-0.12.1
 * numpy-1.14
 * vfxplatform-2019
 
@@ -125,10 +125,10 @@ Contains:
 * openexr-2.4.0
 * oiio-2.1.13.0
 * ocio-1.1.1
+* opentimelineio-0.12.1
 * openusd-20.11
 * openvdb-7.1.0
 * osl-1.10.10
-* otio-0.12.1
 * numpy-1.16
 * vfxplatform-2020
 
@@ -148,10 +148,10 @@ Contains:
 * openexr-2.5.5
 * oiio-2.2.14.0
 * ocio-2.0.1
+* opentimelineio-0.13
 * openusd-21.05
 * openvdb-8.0.1
 * osl-1.11.13.0
-* otio-0.13
 * numpy-1.19
 * vfxplatform-2021
 
@@ -171,11 +171,11 @@ Contains:
 * openexr-3.1.5
 * oiio-2.4.5.0
 * ocio-2.1.1
+* opentimelineio-0.14.1
 * openusd-22.11
 * openvdb-9.1.0
 * materialx-1.38.5
 * osl-1.12.7.0
-* otio-0.14.1
 * numpy-1.20
 * vfxplatform-2022
 
@@ -195,11 +195,11 @@ Contains:
 * openexr-3.1.5
 * oiio-2.4.5.0
 * ocio-2.1.1
+* opentimelineio-0.14.1
 * openusd-22.11
 * openvdb-9.1.0
 * materialx-1.38.5
 * osl-1.12.7.0
-* otio-0.14.1
 * numpy-1.20
 * vfxplatform-2022
 
@@ -219,11 +219,11 @@ Contains:
 * openexr-3.1.5
 * oiio-2.4.5.0
 * ocio-2.1.1
+* opentimelineio-0.14.1
 * openusd-22.11
 * openvdb-9.1.0
 * materialx-1.38.5
 * osl-1.12.7.0
-* otio-0.14.1
 * numpy-1.20
 * vfxplatform-2022
 
@@ -243,11 +243,11 @@ Contains:
 * openexr-3.1.5
 * oiio-2.4.5.0
 * ocio-2.1.1
+* opentimelineio-0.14.1
 * openusd-22.11
 * openvdb-9.1.0
 * materialx-1.38.5
 * osl-1.12.7.0
-* otio-0.14.1
 * numpy-1.20
 * vfxplatform-2022
 
@@ -267,11 +267,11 @@ Contains:
 * openexr-3.1.5
 * oiio-2.4.5.0
 * ocio-2.1.1
+* opentimelineio-0.14.1
 * openusd-22.11
 * openvdb-9.1.0
 * materialx-1.38.5
 * osl-1.12.7.0
-* otio-0.14.1
 * numpy-1.20
 * vfxplatform-2022
 
@@ -291,11 +291,11 @@ Contains:
 * openexr-3.1.11
 * oiio-2.4.13.0
 * ocio-2.2.1
+* opentimelineio-0.15
 * openusd-23.05
 * openvdb-10.0.1
 * materialx-1.38.7
 * osl-1.12.13.0
-* otio-0.15
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -315,11 +315,11 @@ Contains:
 * openexr-3.1.11
 * oiio-2.4.13.0
 * ocio-2.2.1
+* opentimelineio-0.15
 * openusd-23.05
 * openvdb-10.0.1
 * materialx-1.38.7
 * osl-1.12.13.0
-* otio-0.15
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -341,11 +341,11 @@ Contains:
 * oiio-2.5.19.0
 * ocio-2.3.2
 * openfx-1.5s
+* opentimelineio-0.17.0
 * openusd-24.08
 * openvdb-11.0.0
 * materialx-1.39.1
 * osl-1.13.11.0
-* otio-0.17.0
 * rawtoaces-1.1.0
 * numpy-1.24.3
 * vfxplatform-2024
@@ -368,11 +368,11 @@ Contains:
 * oiio-2.5.19.0
 * ocio-2.3.2
 * openfx-1.5s
+* opentimelineio-0.17.0
 * openusd-24.08
 * openvdb-11.0.0
 * materialx-1.39.1
 * osl-1.13.11.0
-* otio-0.17.0
 * rawtoaces-1.1.0
 * numpy-1.24.3
 * vfxplatform-2024
@@ -395,11 +395,11 @@ Contains:
 * oiio-3.1.6.2
 * ocio-2.4.2
 * openfx-1.5s
+* opentimelineio-0.17.0
 * openusd-25.05.01
 * openvdb-12.1.1
 * materialx-1.39.3
 * osl-1.14.7.0
-* otio-0.17.0
 * rawtoaces-1.1.0
 * numpy-1.26.4
 * vfxplatform-2025
@@ -422,11 +422,11 @@ Contains:
 * oiio-3.1.6.2
 * ocio-2.4.2
 * openfx-1.5s
+* opentimelineio-0.17.0
 * openusd-25.05.01
 * openvdb-12.1.1
 * materialx-1.39.3
 * osl-1.14.7.0
-* otio-0.17.0
 * rawtoaces-1.1.0
 * numpy-1.26.4
 * vfxplatform-2025
@@ -449,11 +449,11 @@ Contains:
 * oiio-3.1.10.0
 * ocio-2.5.1
 * openfx-1.5s
+* opentimelineio-0.18.1
 * openusd-26.03
 * openvdb-13.0.0
 * materialx-1.39.4
 * osl-1.15.1.0
-* otio-0.17.0
 * rawtoaces-2.0.0
 * numpy-2.3.2
 * vfxplatform-2026
@@ -476,11 +476,11 @@ Contains:
 * oiio-3.1.10.0
 * ocio-2.5.1
 * openfx-1.5s
+* opentimelineio-0.18.1
 * openusd-26.03
 * openvdb-13.0.0
 * materialx-1.39.4
 * osl-1.15.1.0
-* otio-0.17.0
 * rawtoaces-2.0.0
 * numpy-2.3.2
 * vfxplatform-2026
