@@ -270,9 +270,11 @@ def getdockerorg(build_info):
 def getdockerpush(build_info):
     """Prints if the images should be pushed according to the current repo uri and branch name"""
     click.echo(
-        "true"
-        if utils.get_docker_push(build_info.repo_uri, build_info.source_branch)
-        else "false",
+        (
+            "true"
+            if utils.get_docker_push(build_info.repo_uri, build_info.source_branch)
+            else "false"
+        ),
         nl=False,
     )
 

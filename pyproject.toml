@@ -91,4 +91,3 @@ include = '''
   | setup\.py
 )
 '''
-line-length = 130
