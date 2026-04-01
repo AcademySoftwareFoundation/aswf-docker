@@ -24,7 +24,6 @@ ARG ASWF_USD_VERSION
 
 
 
-# Comment out this block to use Conan packages
 FROM ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION} AS ci-usd
 
 

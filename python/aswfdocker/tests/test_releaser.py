@@ -66,7 +66,7 @@ class TestReleaserCli(unittest.TestCase):
     def tearDown(self):
         logging.getLogger("").handlers = self._log_handlers
 
-    def test_migrate_cli(self):
+    def test_release_cli(self):
         current_version = list(
             index.Index().iter_versions(constants.ImageType.PACKAGE, "boost")
         )[1]

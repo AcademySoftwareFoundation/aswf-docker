@@ -33,7 +33,6 @@ ARG ASWF_BASEOS_IMAGE
 ARG ASWF_BASEOS_DISTRO
 
 
-# Comment out this block to use Conan packages
 FROM ${ASWF_BASEOS_IMAGE}:${ASWF_CUDA_VERSION}-runtime-${ASWF_BASEOS_DISTRO} AS ci-common
 
 
