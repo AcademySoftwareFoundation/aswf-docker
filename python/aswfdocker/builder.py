@@ -109,9 +109,9 @@ class Builder:
                             + "_VERSION"
                         ),
                         "ASWF_CONAN_HOME": constants.ASWF_CONAN_HOME,
-                        "ASWF_CONAN_BUILD_MISSING": "--build=missing"
-                        if build_missing
-                        else "",
+                        "ASWF_CONAN_BUILD_MISSING": (
+                            "--build=missing" if build_missing else ""
+                        ),
                         "ASWF_CONAN_NO_REMOTE": "--no-remote" if no_remote else "",
                         "ASWF_CONAN_PUSH": "TRUE" if self.push else "",
                     }

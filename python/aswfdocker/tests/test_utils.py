@@ -33,11 +33,15 @@ class TestUtils(unittest.TestCase):
             "aswftesting",
         )
         self.assertEqual(
-            utils.get_docker_org("https://github.com/randomfork/aswf-docker", "refs/heads/main"),
+            utils.get_docker_org(
+                "https://github.com/randomfork/aswf-docker", "refs/heads/main"
+            ),
             "aswflocaltesting",
         )
         self.assertEqual(
-            utils.get_docker_org("https://github.com/randomfork/aswf-docker", "refs/heads/randombranch"),
+            utils.get_docker_org(
+                "https://github.com/randomfork/aswf-docker", "refs/heads/randombranch"
+            ),
             "aswflocaltesting",
         )
 
@@ -55,8 +59,16 @@ class TestUtils(unittest.TestCase):
                 "refs/heads/testing",
             )
         )
-        self.assertFalse(utils.get_docker_push("https://github.com/randomfork/aswf-docker", "refs/heads/main"))
-        self.assertFalse(utils.get_docker_push("https://github.com/randomfork/aswf-docker", "refs/heads/randombranch"))
+        self.assertFalse(
+            utils.get_docker_push(
+                "https://github.com/randomfork/aswf-docker", "refs/heads/main"
+            )
+        )
+        self.assertFalse(
+            utils.get_docker_push(
+                "https://github.com/randomfork/aswf-docker", "refs/heads/randombranch"
+            )
+        )
 
     def test_image_def_from_name(self):
         with self.assertRaises(RuntimeError):
@@ -142,7 +154,9 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         pkgs = result.output.split("\n")
         self.assertGreater(len(pkgs), 20)
-        clang_version = list(index.Index().iter_versions(constants.ImageType.PACKAGE, "openssl"))[0]
+        clang_version = list(
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "openssl")
+        )[0]
         self.assertEqual(
             pkgs[0],
             f"common-wrappers/ci-package-openssl:{clang_version}",
@@ -154,7 +168,9 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         imgs = result.output.split("\n")
         self.assertGreater(len(imgs), 15)
-        baseos_gl_conan_version = list(index.Index().iter_versions(constants.ImageType.IMAGE, "baseos-gl-conan"))[0]
+        baseos_gl_conan_version = list(
+            index.Index().iter_versions(constants.ImageType.IMAGE, "baseos-gl-conan")
+        )[0]
         self.assertEqual(
             imgs[0],
             f"baseos-gl-conan/ci-baseos-gl-conan:{baseos_gl_conan_version}",
