@@ -83,6 +83,7 @@ openjph/*: openjph/0.24.5@aswf/vfx2024
 openssl/*: openssl/1.1.1k@aswf/vfx2024
 opensubdiv/*: opensubdiv/3.6.1@aswf/vfx2024
 openusd/*: openusd/24.08@aswf/vfx2024
+opentimelineio/*: opentimelineio/0.17.0@aswf/vfx2024
 openvdb/*: openvdb/11.0.0@aswf/vfx2024
 opus/*: opus/system@aswf/vfx2024
 osl/*: osl/1.13.11.0@aswf/vfx2024
@@ -95,6 +96,7 @@ pybind11/*: pybind11/2.13.6@aswf/vfx2024
 pyside/*: pyside/6.5.6@aswf/vfx2024
 pystring/*: pystring/1.1.4@aswf/vfx2024
 qt/*: qt/6.5.6@aswf/vfx2024
+rapidjson/*: rapidjson/cci.20250205@aswf/vfx2024
 rawtoaces/*: rawtoaces/1.1.0@aswf/vfx2024
 snappy/*: snappy/1.1.10@aswf/vfx2024
 spdlog/*: spdlog/1.15.3@aswf/vfx2024

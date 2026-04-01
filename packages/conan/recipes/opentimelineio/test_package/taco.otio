@@ -1,0 +1,139 @@
+{
+  "OTIO_SCHEMA": "Timeline.1",
+  "metadata": {},
+  "name": "transition_test",
+  "tracks": {
+    "OTIO_SCHEMA": "Stack.1",
+    "children": [
+      {
+        "OTIO_SCHEMA": "Track.1",
+        "children": [
+          {
+            "OTIO_SCHEMA": "Gap.1",
+            "effects": [],
+            "markers": [],
+            "enabled": true,
+            "metadata": {},
+            "name": "Gap A",
+            "source_range": {
+              "OTIO_SCHEMA": "TimeRange.1",
+              "duration": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 8
+              },
+              "start_time": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 0
+              }
+            }
+          },
+          {
+            "OTIO_SCHEMA": "Clip.1",
+            "effects": [],
+            "markers": [],
+            "enabled": true,
+            "media_reference": {
+              "OTIO_SCHEMA": "MissingReference.1",
+              "available_range": {
+                "OTIO_SCHEMA": "TimeRange.1",
+                "duration": {
+                  "OTIO_SCHEMA": "RationalTime.1",
+                  "rate": 24,
+                  "value": 8
+                },
+                "start_time": {
+                  "OTIO_SCHEMA": "RationalTime.1",
+                  "rate": 24,
+                  "value": 0
+                }
+              },
+              "metadata": {},
+              "available_image_bounds": {
+                "OTIO_SCHEMA": "Box2d.1",
+                "min": {
+                  "OTIO_SCHEMA":"V2d.1",
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                "max": {
+                  "OTIO_SCHEMA":"V2d.1",
+                  "x": 16.0,
+                  "y": 9.0
+                }
+              },
+              "name": null
+            },
+            "metadata": {},
+            "name": "Clip-001",
+            "source_range": {
+              "OTIO_SCHEMA": "TimeRange.1",
+              "duration": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 3
+              },
+              "start_time": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 3
+              }
+            }
+          },
+          {
+            "OTIO_SCHEMA": "Transition.1",
+            "metadata": {},
+            "name": "Dissolve",
+            "transition_type": "SMPTE_Dissolve",
+            "parameters": {},
+            "in_offset": {
+              "OTIO_SCHEMA": "RationalTime.1",
+              "rate": 24,
+              "value": 2
+            },
+            "out_offset": {
+              "OTIO_SCHEMA": "RationalTime.1",
+              "rate": 24,
+              "value": 1
+            }
+          },
+          {
+            "OTIO_SCHEMA": "Gap.1",
+            "effects": [],
+            "markers": [],
+            "enabled": true,
+            "metadata": {},
+            "name": "Gap B",
+            "source_range": {
+              "OTIO_SCHEMA": "TimeRange.1",
+              "duration": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 8
+              },
+              "start_time": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 0
+              }
+            }
+          }
+        ],
+        "effects": [],
+        "kind": "Video",
+        "markers": [],
+        "enabled": true,
+        "metadata": {},
+        "name": "Track-001",
+        "source_range": null
+      }
+    ],
+    "effects": [],
+    "markers": [],
+    "enabled": true,
+    "metadata": {},
+    "name": "tracks",
+    "source_range": null
+  }
+}
