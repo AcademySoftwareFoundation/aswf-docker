@@ -80,7 +80,6 @@ openfx/*: openfx/1.5s@aswf/vfx2025
 opengl/*: opengl/system@aswf/vfx2025
 openjpeg/*: openjpeg/2.4.0@aswf/vfx2025
 openjph/*: openjph/0.24.5@aswf/vfx2025
-openssl/*: openssl/1.1.1k@aswf/vfx2025
 opensubdiv/*: opensubdiv/3.6.1@aswf/vfx2025
 opentimelineio/*: opentimelineio/0.17.0@aswf/vfx205
 openusd/*: openusd/25.05.01@aswf/vfx2025
