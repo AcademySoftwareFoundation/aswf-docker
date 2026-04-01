@@ -254,6 +254,25 @@ aswfdocker --verbose build --ci-image-type IMAGE --group vfx1 --version 2026 --t
 aswfdocker build --ci-image-type aswftesting/ci-openexr:2026
 ```
 
+### Windows Considerations
+
+Native Windows support is our goal, but due to limited resources, active development is intermittent. In the meantime, our existing build workflows work under WSL.
+
+1. Download and install [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install)
+    * Tested on a Windows mini server with an AMD Ryzen 7 6800U (8 cores / 16 logical processors) and 32GB of memory.
+
+    * For decent performance, configure WSL to use 8 cores and a minimum of 14GB of memory.
+    * We recommend using the WSL Settings GUI to manage these limits. If you prefer configuring manually via `.wslconfig`, see [WSL configuration settings](https://learn.microsoft.com/en-us/windows/wsl/wsl-config).
+
+1. Confirm that Docker is properly configured to use WSL 2 for builds. Go [here](https://docs.docker.com/desktop/features/wsl/) for more information on Docker on WSL.
+
+1. Install `uv` (winget example):
+
+     `winget install --id=astral-sh.uv  -e`
+
+    [Here](https://docs.astral.sh/uv/) are the `uv` docs. 
+
+
 ## Use Cases
 
 ### GitHub Actions
