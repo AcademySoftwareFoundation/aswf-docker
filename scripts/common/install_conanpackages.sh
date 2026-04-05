@@ -28,8 +28,8 @@ if (( $VFXYEAR < 2023 )); then
     conan config set general.default_profile=$2
     conan install .
 else
-    # Escape / or & in install dir for use in regexp
-    ESCAPED_PATH=$(printf '%s' "$1" | sed 's/[\/&]/\\&/g')
+    # Escape & in install dir for use in regexp
+    ESCAPED_PATH=$(printf '%s' "$1" | sed 's/[&]/\\&/g')
     # In case we don't actually install anything
     mkdir -p $1/full_deploy/host
     # Extract references from conanfile.txt and install them by reference
@@ -47,11 +47,12 @@ else
     # conan cache clean "*" --download
     rm -rf /tmp/downloads/*
 
-    # The full_deploy generator just copies over generated CMake files which may contain absolute paths pointing inside the Conan cache
+    # The full_deploy generator copies over generated package files which may contain absolute paths pointing inside the Conan cache
     # in the format:
-    # /opt/conan_home/d/b/boost64b7fc4516f80/p/...
+    # /opt/conan_home/d/b/cpyth64b7fc4516f80/p/...
+    # /opt/conan_home/d/cpyth/64b7fc4516f80/p/...
     # Replace those by our installation prefix.
-    find $1/full_deploy -name '*.cmake' -exec sed -i -E 's/\/opt\/conan_home\/d\/b\/[^/]+\/p/'$ESCAPED_PATH'/g' {} \;
+    find $1/full_deploy -name '*.cmake' -exec sed -i -E 's#/opt/conan_home/d/b/[^/]+/p#'"$ESCAPED_PATH"'#g' {} \;
 
     for INSTALLED_PACKAGE in $(find $1/full_deploy/host -mindepth 1 -maxdepth 1 -printf "%f\n"); do
         # Don't relocate the excluded package
@@ -74,13 +75,51 @@ else
         fi
     
         # Currently cannot build a relocatable CPython package, conan_home paths are hardcoded in sysconfig
+        # Also python scripts should not hardcode the Conan package path in their shebang
         if [[ $INSTALLED_PACKAGE == cpython ]]; then
-            find $1/full_deploy/host/cpython -name '_sysconfigdata__linux_x86_64-linux-gnu.py' -exec sed -i -E 's/\/opt\/conan_home\/d\/b\/[^/]+\/p/'$ESCAPED_PATH'/g' {} \;
+            find $1/full_deploy/host/cpython/${INSTALLED_PACKAGE_VERSION}/${RELEASE_DIR} -name '_sysconfigdata__linux_x86_64-linux-gnu.py' -exec sed -i -E 's#/opt/conan_home/d(/b)?/[^/]+/p#'"$ESCAPED_PATH"'#g' {} \;
+            find $1/full_deploy/host/cpython/${INSTALLED_PACKAGE_VERSION}/${RELEASE_DIR}/lib -name '*.py' -exec sed -i -E '1s@^#!/opt/conan_home/d/b/cpyth.*/bin/(.*)$@#!/usr/bin/env \1@'  {} \;
+            for f in $1/full_deploy/host/cpython/${INSTALLED_PACKAGE_VERSION}/${RELEASE_DIR}/bin/*; do
+                [[ -f $f ]] || continue
+                read -r first < "$f" || continue
+                case "$first" in
+                    "#!"*python*)   # any python* interpreter
+                        sed -i -E '1s@^#!/opt/conan_home/d/b/cpyth.*/bin/(.*)$@#!/usr/bin/env \1@' "$f"
+                        ;;
+                    *)
+                        : # not a Python script; skip
+                        ;;
+                esac
+            done
         fi
 
         # One off patch for pybind11 : overwrite pybind11Common.cmake with un-modified version
         if [[ $INSTALLED_PACKAGE == pybind11 ]]; then
             mv $1/full_deploy/host/pybind11/${INSTALLED_PACKAGE_VERSION}/lib/cmake/pybind11/pybind11Common.{cmake_NO_CONAN,cmake}
+        fi
+
+        # Qt has scripts which bake in cmake binary location
+        if [[ $INSTALLED_PACKAGE == qt ]]; then
+            for f in $1/full_deploy/host/qt/${INSTALLED_PACKAGE_VERSION}/${RELEASE_DIR}/bin/{qt-cmake,qt-cmake-create}; do
+                [[ -f $f ]] || continue
+                sed -i -E 's#/opt/conan_home/d/b/cmake[^/]+/p#'"$ESCAPED_PATH"'#g' $f
+            done
+        fi
+
+        # OpenUSD installs a number of Python scripts and bakes in the conan cache path in the shebang
+        if [[ $INSTALLED_PACKAGE == openusd ]]; then
+            for f in $1/full_deploy/host/openusd/${INSTALLED_PACKAGE_VERSION}/${RELEASE_DIR}/bin/*; do
+                [[ -f $f ]] || continue
+                read -r first < "$f" || continue
+                case "$first" in
+                    "#!"*python*)   # any python* interpreter
+                        sed -i -E '1s@^#!/opt/conan_home/d/b/cpyth.*/bin/(.*)$@#!/usr/bin/env \1@' "$f"
+                        ;;
+                    *)
+                        : # not a Python script; skip
+                        ;;
+                esac
+            done
         fi
 
         rsync --remove-source-files --exclude conaninfo.txt --exclude conanmanifest.txt -a $1/full_deploy/host/${INSTALLED_PACKAGE}/${INSTALLED_PACKAGE_VERSION}/${RELEASE_DIR}/ $1/
