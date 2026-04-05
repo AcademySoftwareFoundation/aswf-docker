@@ -244,7 +244,7 @@ def build(
     help="Version of the package to migrate (all versions are migrated by default)",
 )
 @click.option("--dry-run", "-d", is_flag=True)
-def migrate(from_org, to_org, package, version, dry_run):
+def migrate(**kwargs):
     pass
 
 
@@ -289,7 +289,7 @@ def getdockerpush(build_info):
     help="Package version to download",
 )
 @pass_build_info
-def download(build_info, docker_org, package, version):
+def download(*_args, **_kwargs):
     pass
 
 
