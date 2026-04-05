@@ -336,7 +336,7 @@ The container images include CUDA, OptiX, OpenGL and Vulkan libraries and can be
 
 The host system must have the [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-container-toolkit) installed to allow GPU devices to be mapped into the container and accessible by a binary running inside it. The NVIDIA GPU driver also needs to be installed on the host: the Container Toolkit will map the hardware specific shared libraries into the container at startup time. There is no need to install the GPU driver in the container itself.
 
-Academy Software Foundation projects running their CI in the context of the [https://github.com/AcademySoftwareFoundation/] GitHub organization have access to GPU accelerated hosted runners where the NVIDIA Container Toolkit is already installed.
+Academy Software Foundation projects running their CI in the context of the [ASWF GitHub organization](https://github.com/AcademySoftwareFoundation/) have access to GPU accelerated hosted runners where the NVIDIA Container Toolkit is already installed.
 
 #### CUDA CI Workloads
 
@@ -352,7 +352,7 @@ container:
 
 The[Open Shading Language](https://github.com/AcademySoftwareFoundation/OpenShadingLanguage) optionally uses NVIDIA OptiX for ray tracing acceleration. This requires additional [driver capabilities](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/1.10.0/user-guide.html#driver-capabilities) to be mapped into the container at startup time:
 
-[https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/blob/main/.github/workflows/ci.yml]
+[OpenShadingLanguage .github/workflows/ci.yml](https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/blob/main/.github/workflows/ci.yml)
 
 ```
 container:

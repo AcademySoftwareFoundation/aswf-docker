@@ -204,7 +204,7 @@ jobs:
           --verbose \
           build \
           --ci-image-type PACKAGE \
-          --group base2-1
+          --group base2-1 \
           --version ${{ matrix.version_noclang }} \
           --build-missing \
           --push NO
