@@ -6,6 +6,7 @@ include(ci_common5)
 *:shared=True
 [tool_requires]
 [replace_requires]
+openssl/*: openssl/1.1.1k@aswftesting/ci_common5
 aces_container/*: aces_container/1.0.2@aswftesting/vfx2025
 alembic/*: alembic/1.8.8@aswftesting/vfx2025
 boost/*: boost/1.85.0@aswftesting/vfx2025
