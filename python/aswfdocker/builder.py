@@ -213,8 +213,9 @@ class Builder:
 
         # buildx bake --set allows us to override settings in the bake file and avoid having
         #   to rewrite it.
-        # output=type=cacheonly : no container is produced, we only want the cache containing
-        #   the output of conan builds
+        # output uses the bake file default (type=docker) which produces a local image
+        #   and ensures BuildKit cache mounts (used for the Conan package cache) are
+        #   reliably persisted between separate bake invocations.
         # target.target=ci-conan-package-builder : see packages/common/Dockerfile for the Conan
         #   build container which runs:
         #
@@ -222,7 +223,7 @@ class Builder:
         # - conan upload main version (conditional)
         #
         runcmd = (
-            f"docker buildx bake -f {bake_jsonfile} --set=*.output=type=cacheonly "
+            f"docker buildx bake -f {bake_jsonfile} "
             f"--set=*.target.target=ci-conan-package-builder --progress {progress} "
             f"ci-package-{image}-{major_version}"
         )
