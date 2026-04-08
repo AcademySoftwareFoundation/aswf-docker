@@ -3,10 +3,12 @@
 """
 CI Image and Package Builder
 """
+
 import logging
 import subprocess
 import json
 import os
+import sys
 import tempfile
 import typing
 
@@ -109,9 +111,9 @@ class Builder:
                             + "_VERSION"
                         ),
                         "ASWF_CONAN_HOME": constants.ASWF_CONAN_HOME,
-                        "ASWF_CONAN_BUILD_MISSING": "--build=missing"
-                        if build_missing
-                        else "",
+                        "ASWF_CONAN_BUILD_MISSING": (
+                            "--build=missing" if build_missing else ""
+                        ),
                         "ASWF_CONAN_NO_REMOTE": "--no-remote" if no_remote else "",
                         "ASWF_CONAN_PUSH": "TRUE" if self.push else "",
                     }
@@ -132,6 +134,9 @@ class Builder:
                     "id=conan_password,env=CONAN_PASSWORD",
                 ],
             }
+            # Docker Desktop on Apple Silicon defaults to linux/arm64; pin amd64 to match CI.
+            if sys.platform == "darwin":
+                target_dict["platforms"] = ["linux/amd64"]
             if self.group_info.type == constants.ImageType.PACKAGE:
                 if not use_conan:
                     target_dict["target"] = image
