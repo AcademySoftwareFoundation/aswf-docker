@@ -6,8 +6,6 @@ Tests for the utility commands
 
 import unittest
 import logging
-import tempfile
-import os
 
 from click.testing import CliRunner
 

@@ -43,9 +43,7 @@ class Builder:
             version_info = self.index.version_info(major_version)
             if self.group_info.type == constants.ImageType.PACKAGE:
                 image_base = image.replace("ci-package-", "")
-                group = self.index.get_group_from_image(
-                    self.group_info.type, image_base
-                )
+                self.index.get_group_from_image(self.group_info.type, image_base)
                 if version in versions_to_bake:
                     # Only one version per image needed
                     continue
