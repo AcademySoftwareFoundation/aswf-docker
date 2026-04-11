@@ -88,6 +88,18 @@ jobs:
           --version ${{ matrix.common_version_noclang }} \
           --push NO
 
+    - name: Build common wrappers (Conan)
+      run: |
+        set -ex
+        uv run aswfdocker \
+          --verbose \
+          build \
+          --ci-image-type PACKAGE \
+          --group common-wrappers \
+          --version ${{ matrix.common_version_noclang }} \
+          --build-missing \
+          --push NO
+
     - name: Build Ninja and CMake (Conan)
       run: |
         set -ex
@@ -97,7 +109,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group common \
           --version ${{ matrix.common_version_noclang }} \
-          --use-conan \
           --build-missing \
           --target ninja \
           --target cmake \
@@ -112,7 +123,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group common \
           --version ${{ matrix.common_version }} \
-          --use-conan \
           --build-missing \
           --target clang \
           --push NO
@@ -136,7 +146,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group base1-wrappers \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -149,7 +158,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group base1-1 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -162,7 +170,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group base1-2 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -175,7 +182,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group base1-3 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -188,7 +194,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group base2-wrappers \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -199,9 +204,8 @@ jobs:
           --verbose \
           build \
           --ci-image-type PACKAGE \
-          --group base2-1
+          --group base2-1 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -214,7 +218,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group base2-2 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -227,7 +230,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group base3 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -251,7 +253,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group vfx1-wrappers \ 
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -264,7 +265,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group vfx1-1 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -277,7 +277,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group vfx1-2 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -290,7 +289,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group vfx1-3 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -303,7 +301,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group vfx1-4 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -316,7 +313,6 @@ jobs:
           --ci-image-type PACKAGE \
           --group vfx1-5 \
           --version ${{ matrix.version_noclang }} \
-          --use-conan \
           --build-missing \
           --push NO
 
@@ -328,19 +324,6 @@ jobs:
           build \
           --ci-image-type PACKAGE \
           --group vfx1-6 \
-          --version ${{ matrix.version_noclang }} \
-          --use-conan \
-          --build-missing \
-          --push NO
-
-    - name: Build vfx2 non-Conan packages
-      run: |
-        set -ex
-        uv run aswfdocker \
-          --verbose \
-          build \
-          --ci-image-type PACKAGE \
-          --group vfx2 \
           --version ${{ matrix.version_noclang }} \
           --build-missing \
           --push NO

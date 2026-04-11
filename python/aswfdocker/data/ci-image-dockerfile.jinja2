@@ -38,14 +38,6 @@ ARG ASWF_BASEOS_IMAGE
 ARG ASWF_BASEOS_DISTRO
 {% endif %}
 
-# Comment out this block to use Conan packages
-{% for package in packages -%}
-{% if not index.is_conan_only_package(package) -%}
-FROM ${ASWF_PKG_ORG}/ci-package-{{ package }}:{{docker_package_version}}-$ASWF_{{package|upper|replace("-", "_")}}_VERSION AS ci-package-{{ package }}
-{% endif -%}
-{% endfor -%}
-
-
 FROM {{ docker_from }} AS ci-{{ name }}
 
 
@@ -126,12 +118,6 @@ ENV {{ arg }}=${{ arg }}
 {% endfor -%}
 {% endfor %}
 
-{% for package in packages -%}
-{% if not index.is_conan_only_package(package) -%}
-COPY --from=ci-package-{{ package }} /. /usr/local/
-{% endif -%}
-{% endfor -%}
-
 COPY ci-{{name}}/README.md ci-{{name}}/image.yaml /usr/local/aswf/
 {% if name != "common" and name != "baseos-gl-conan" and name != "base" and name != "baseqt" and name != "vfxall" %}
 COPY scripts/vfx/build_{{name}}.sh /usr/local/aswf
@@ -155,11 +141,7 @@ COPY <<EOF /usr/local/conanfile.txt
 ., * -> .
 [requires]
 {% for package in packages -%}
-{% if index.is_conan_only_package(package) -%}
 {{package}}/${ASWF_{{package|upper|replace("-", "_")}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-{% else -%}
-# {{package}}/${ASWF_{{package|upper|replace("-", "_")}}_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
-{% endif -%}
 {% endfor -%}
 EOF
 

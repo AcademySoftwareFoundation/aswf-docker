@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-03-31
+
+- All releases
+  - [OpenTimelineIO now built as a Conan package](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/231)
+    - we previously weren't actually building the C++ components of OTIO, just installing Python prerequisites
+    - for now we only build the C++ libraries, need to resolve issue of installation location to also build Python module
+  - aswfdocker cleanup
+    - since all packages are now built as Conan packages, we remove obsolete support for building packages as container images
+    - `aswfdocker build -c / --use-conan` emits a warning about being deprecated
+    - `aswfdocker migrate` and `aswfdocker download` emit a warning about being deprecated
+    - minimum Python version to run aswfdocker is now Python 3.10, needed for Click 8.3.1
+  - [CMake built with SSL support](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/326), can download from https://
+- 2026.x (no new container image release yet)
+  - [OTIO 0.17.0 to 0.18.1](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/313)
+
 # 2026-03-23
 
 OpenUSD updates and Conan package.

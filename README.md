@@ -265,6 +265,24 @@ Configure Docker with a minimum of:
 
 Due to conflicts with Rosetta, [buildx](https://docs.docker.com/buildx/working-with-buildx/) should be run on the Docker VMM.
 
+### Windows Considerations
+
+Native Windows support is our goal, but due to limited resources, active development is intermittent. In the meantime, our existing build workflows work under WSL.
+
+1. Download and install [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install)
+    * Tested on a Windows mini server with an AMD Ryzen 7 6800U (8 cores / 16 logical processors) and 32GB of memory.
+
+    * For decent performance, configure WSL to use 8 cores and a minimum of 14GB of memory.
+    * We recommend using the WSL Settings GUI to manage these limits. If you prefer configuring manually via `.wslconfig`, see [WSL configuration settings](https://learn.microsoft.com/en-us/windows/wsl/wsl-config).
+
+1. Confirm that Docker is properly configured to use WSL 2 for builds. Go [here](https://docs.docker.com/desktop/features/wsl/) for more information on Docker on WSL.
+
+1. Install `uv` (winget example):
+
+     `winget install --id=astral-sh.uv  -e`
+
+    [Here](https://docs.astral.sh/uv/) are the `uv` docs. 
+
 ## Use Cases
 
 ### GitHub Actions
@@ -328,7 +346,7 @@ The container images include CUDA, OptiX, OpenGL and Vulkan libraries and can be
 
 The host system must have the [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-container-toolkit) installed to allow GPU devices to be mapped into the container and accessible by a binary running inside it. The NVIDIA GPU driver also needs to be installed on the host: the Container Toolkit will map the hardware specific shared libraries into the container at startup time. There is no need to install the GPU driver in the container itself.
 
-Academy Software Foundation projects running their CI in the context of the [https://github.com/AcademySoftwareFoundation/] GitHub organization have access to GPU accelerated hosted runners where the NVIDIA Container Toolkit is already installed.
+Academy Software Foundation projects running their CI in the context of the [ASWF GitHub organization](https://github.com/AcademySoftwareFoundation/) have access to GPU accelerated hosted runners where the NVIDIA Container Toolkit is already installed.
 
 #### CUDA CI Workloads
 
@@ -344,7 +362,7 @@ container:
 
 The[Open Shading Language](https://github.com/AcademySoftwareFoundation/OpenShadingLanguage) optionally uses NVIDIA OptiX for ray tracing acceleration. This requires additional [driver capabilities](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/1.10.0/user-guide.html#driver-capabilities) to be mapped into the container at startup time:
 
-[https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/blob/main/.github/workflows/ci.yml]
+[OpenShadingLanguage .github/workflows/ci.yml](https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/blob/main/.github/workflows/ci.yml)
 
 ```
 container:

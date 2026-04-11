@@ -108,6 +108,7 @@ Contains:
 * lz4-1.10.0
 * pugixml-1.14
 * pystring-1.1.4
+* rapidjson-cci.20250205
 * snappy-1.1.10
 * onetbb-2020.3
 * zlib-1.3.1
@@ -140,6 +141,7 @@ Contains:
 * lz4-1.10.0
 * pugixml-1.14
 * pystring-1.1.4
+* rapidjson-cci.20250205
 * snappy-1.1.10
 * onetbb-2021.13.0
 * zlib-1.3.1
@@ -172,6 +174,7 @@ Contains:
 * lz4-1.10.0
 * pugixml-1.15
 * pystring-1.1.4
+* rapidjson-cci.20250205
 * snappy-1.2.2
 * onetbb-2022.1.0
 * zlib-1.3.1

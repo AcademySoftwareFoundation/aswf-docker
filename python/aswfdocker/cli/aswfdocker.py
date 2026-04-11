@@ -15,7 +15,6 @@ from github.GithubException import GithubException
 
 from aswfdocker import (
     builder,
-    migrater,
     aswfinfo,
     groupinfo,
     constants,
@@ -77,7 +76,7 @@ def common_image_options(function):
         "--ci-image-type",
         "-t",
         required=False,
-        help="Builds a ci-package or a ci-image.",
+        help="Builds a Conan package or a container image.",
         type=click.Choice(constants.ImageType.__members__.keys(), case_sensitive=True),
     )(function)
     function = click.option(
@@ -157,24 +156,33 @@ def get_group_info(build_info, ci_image_type, groups, versions, full_name, targe
     default="auto",
     help='Set type of progress output for "docker buildx bake" command.',
 )
-@click.option("--use-conan", "-c", is_flag=True, help="Use Conan to build packages")
+@click.option(
+    "--use-conan",
+    "-c",
+    is_flag=True,
+    expose_value=False,
+    deprecated="This option is no longer relevant since all packages are built with Conan.",
+)
 @click.option(
     "--keep-source",
     "-ks",
     is_flag=True,
-    help="[DEPRECATED] This option is no longer relevant with Conan 2.",
+    expose_value=False,
+    deprecated="This option is no longer relevant with Conan 2.",
 )
 @click.option(
     "--keep-build",
     "-kb",
     is_flag=True,
-    help="[DEPRECATED] This option is no longer relevant with Conan 2.",
+    expose_value=False,
+    deprecated="This option is no longer relevant with Conan 2.",
 )
 @click.option(
     "--conan-login",
     "-cl",
     is_flag=True,
-    help="[DEPRECATED] This option is no longer used as authentication is now handled via buildx secrets.",
+    expose_value=False,
+    deprecated="This option is no longer relevant as authentication is now handled via buildx secrets.",
 )
 @click.option(
     "--build-missing",
@@ -199,14 +207,10 @@ def build(
     push,
     dry_run,
     progress,
-    use_conan,
-    keep_source,  # pylint: disable=unused-argument
-    keep_build,  # pylint: disable=unused-argument
-    conan_login,  # pylint: disable=unused-argument
     build_missing,
     no_remote,
 ):
-    """Builds a ci-package or ci-image Docker image."""
+    """Builds a Conan package or ci-image Docker image."""
     if push == "YES":
         pushb = True
     elif push == "AUTO":
@@ -217,9 +221,7 @@ def build(
     group_info = get_group_info(
         build_info, ci_image_type, group, version, full_name, target
     )
-    b = builder.Builder(
-        build_info=build_info, group_info=group_info, push=pushb, use_conan=use_conan
-    )
+    b = builder.Builder(build_info=build_info, group_info=group_info, push=pushb)
     b.build(
         dry_run=dry_run,
         progress=progress,
@@ -228,7 +230,7 @@ def build(
     )
 
 
-@cli.command()
+@cli.command(deprecated="No longer relevant since all packages are built with Conan.")
 @click.option("--from", "-f", "from_org", default="aswftesting")
 @click.option("--to", "-t", "to_org", default="aswf")
 @click.option(
@@ -243,17 +245,7 @@ def build(
 )
 @click.option("--dry-run", "-d", is_flag=True)
 def migrate(from_org, to_org, package, version, dry_run):
-    """Migrates packages from a Docker Hub org to another."""
-    m = migrater.Migrater(from_org, to_org)
-    m.gather(package, version)
-    mig_list = "\n".join(f"{mi.source} -> {mi.destination}" for mi in m.migration_list)
-    if not click.confirm(
-        f"Are you sure you want to migrate the following {len(m.migration_list)} packages?\n{mig_list}\n"
-    ):
-        click.echo("Migration cancelled.")
-        return
-    m.migrate(dry_run)
-    click.echo("Migration done.")
+    pass
 
 
 @cli.command()
@@ -270,14 +262,16 @@ def getdockerorg(build_info):
 def getdockerpush(build_info):
     """Prints if the images should be pushed according to the current repo uri and branch name"""
     click.echo(
-        "true"
-        if utils.get_docker_push(build_info.repo_uri, build_info.source_branch)
-        else "false",
+        (
+            "true"
+            if utils.get_docker_push(build_info.repo_uri, build_info.source_branch)
+            else "false"
+        ),
         nl=False,
     )
 
 
-@cli.command()
+@cli.command(deprecated="No longer relevant since all packages are built with Conan.")
 @click.option(
     "--docker-org",
     "-d",
@@ -296,9 +290,7 @@ def getdockerpush(build_info):
 )
 @pass_build_info
 def download(build_info, docker_org, package, version):
-    """Downloads and extracts a ci-package into the packages folder."""
-    path = utils.download_package(build_info.repo_root, docker_org, package, version)
-    click.echo(path, nl=False)
+    pass
 
 
 @cli.command()

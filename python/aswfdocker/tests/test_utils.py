@@ -127,27 +127,6 @@ class TestUtilsCli(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(result.output, "false")
 
-    def test_cli_download(self):
-        runner = CliRunner()
-        with tempfile.TemporaryDirectory() as tmpdirname:
-            result = runner.invoke(
-                aswfdocker.cli,
-                [
-                    "--repo-root",
-                    tmpdirname,
-                    "download",
-                    "--package",
-                    "tbb",
-                    "--version",
-                    "2019",
-                ],
-                catch_exceptions=False,
-            )
-            self.assertEqual(result.exit_code, 0)
-            path = os.path.join(tmpdirname, "packages", "2019", "tbb.tar.gz")
-            self.assertEqual(result.output, path)
-            self.assertTrue(os.path.exists(result.output))
-
     def test_cli_packages(self):
         runner = CliRunner()
         result = runner.invoke(aswfdocker.cli, ["packages"], catch_exceptions=False)
@@ -155,11 +134,11 @@ class TestUtilsCli(unittest.TestCase):
         pkgs = result.output.split("\n")
         self.assertGreater(len(pkgs), 20)
         clang_version = list(
-            index.Index().iter_versions(constants.ImageType.PACKAGE, "clang")
+            index.Index().iter_versions(constants.ImageType.PACKAGE, "openssl")
         )[0]
         self.assertEqual(
             pkgs[0],
-            f"common/ci-package-clang:{clang_version}",
+            f"common-wrappers/ci-package-openssl:{clang_version}",
         )
 
     def test_cli_images(self):

@@ -25,12 +25,10 @@ class Builder:
         build_info: aswfinfo.ASWFInfo,
         group_info: groupinfo.GroupInfo,
         push: bool = False,
-        use_conan: bool = False,
     ):
         self.push = push
         self.build_info = build_info
         self.group_info = group_info
-        self.use_conan = use_conan
         self.index = index.Index()
 
     def make_bake_dict(
@@ -42,10 +40,6 @@ class Builder:
         root: typing.Dict[str, dict] = {}
         root["target"] = {}
         for image, version in self.group_info.iter_images_versions():
-            use_conan = self.group_info.type == constants.ImageType.PACKAGE and (
-                self.use_conan
-                or self.index.is_conan_only_package(image.replace("ci-package-", ""))
-            )
             versions_to_bake = set()
             major_version = utils.get_major_version(version)
             version_info = self.index.version_info(major_version)
@@ -54,35 +48,23 @@ class Builder:
                 group = self.index.get_group_from_image(
                     self.group_info.type, image_base
                 )
-                if use_conan:
-                    if version in versions_to_bake:
-                        # Only one version per image needed
-                        continue
-                    # if version_info.ci_common_version != major_version:
-                    # Only bake conan images in ci_common container!
-                    # version = version_info.ci_common_version
-                    # major_version = utils.get_major_version(version)
-                    versions_to_bake.add(version)
-                    tags = list(
-                        map(
-                            lambda tag: f"{constants.DOCKER_REGISTRY}/{self.build_info.docker_org}"
-                            + f"/ci-baseos-gl-conan:{tag}",
-                            [version, major_version],
-                        )
+                if version in versions_to_bake:
+                    # Only one version per image needed
+                    continue
+                # if version_info.ci_common_version != major_version:
+                # Only bake conan images in ci_common container!
+                # version = version_info.ci_common_version
+                # major_version = utils.get_major_version(version)
+                versions_to_bake.add(version)
+                # tags may not make much sense for Conan packages
+                tags = list(
+                    map(
+                        lambda tag: f"{constants.DOCKER_REGISTRY}/{self.build_info.docker_org}"
+                        + f"/ci-baseos-gl-conan:{tag}",
+                        [version, major_version],
                     )
-                    docker_file = "packages/common/Dockerfile"
-                else:
-                    tags = version_info.get_tags(
-                        version,
-                        self.build_info.docker_org,
-                        image,
-                        extra_suffix=version_info.package_versions.get(
-                            "ASWF_"
-                            + image.replace("ci-package-", "").upper()
-                            + "_VERSION"
-                        ),
-                    )
-                    docker_file = f"packages/{group}/Dockerfile"
+                )
+                docker_file = "packages/common/Dockerfile"
             else:
                 tags = version_info.get_tags(version, self.build_info.docker_org, image)
                 docker_file = f"{image}/Dockerfile"
@@ -99,14 +81,14 @@ class Builder:
                 "CI_COMMON_VERSION": version_info.ci_common_version,
                 "ASWF_CONAN_CHANNEL": channel,
             }
-            if use_conan:
+            if self.group_info.type == constants.ImageType.PACKAGE:
                 # params as env var needed for conan build
                 args.update(
                     {
                         "ASWF_PKG_NAME": image.replace("ci-package-", ""),
                         "ASWF_PKG_VERSION": version_info.package_versions.get(
                             "ASWF_"
-                            # Handle dependencies with hyhpen in their name.
+                            # Handle dependencies with hyphens in their name.
                             + image.replace("ci-package-", "").upper().replace("-", "_")
                             + "_VERSION"
                         ),
@@ -137,9 +119,6 @@ class Builder:
             # Docker Desktop on Apple Silicon defaults to linux/arm64; pin amd64 to match CI.
             if sys.platform == "darwin":
                 target_dict["platforms"] = ["linux/amd64"]
-            if self.group_info.type == constants.ImageType.PACKAGE:
-                if not use_conan:
-                    target_dict["target"] = image
             root["target"][f"{image}-{major_version}"] = target_dict
 
         root["group"] = {"default": {"targets": list(root["target"].keys())}}
@@ -267,13 +246,6 @@ class Builder:
     ) -> None:
         images_and_versions = []
         for image, version in self.group_info.iter_images_versions(get_image=True):
-            if (
-                self.group_info.type == constants.ImageType.PACKAGE
-                and not self.use_conan
-                and self.index.is_conan_only_package(image)
-            ):
-                logger.warning("Skipping %s as it is a conan-only package!", image)
-                continue
             images_and_versions.append((image, version))
 
         if not images_and_versions:
@@ -281,7 +253,7 @@ class Builder:
 
         path = self.make_bake_jsonfile(build_missing, no_remote)
         if path:
-            if not self.use_conan:
+            if self.group_info.type == constants.ImageType.IMAGE:
                 self._run(
                     f"docker buildx bake -f {path} --progress {progress}",
                     dry_run=dry_run,
