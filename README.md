@@ -254,6 +254,17 @@ aswfdocker --verbose build --ci-image-type IMAGE --group vfx1 --version 2026 --t
 aswfdocker build --ci-image-type aswftesting/ci-openexr:2026
 ```
 
+### Building on macOS
+
+Native macOS support is our goal, but due to limited resources, active development is intermittent. In the meantime, our existing build workflows only build Linux artifacts on macOS: `aswfdocker` drives Linux containers (for example `linux/amd64` images and Conan packages for Linux), not native macOS toolchains.
+
+Configure Docker with a minimum of:
+
+- 8 CPU cores allocated to Docker
+- 16 GB of memory allocated to Docker
+
+Due to conflicts with Rosetta, [buildx](https://docs.docker.com/buildx/working-with-buildx/) should be run on the Docker VMM.
+
 ### Windows Considerations
 
 Native Windows support is our goal, but due to limited resources, active development is intermittent. In the meantime, our existing build workflows work under WSL.
@@ -271,7 +282,6 @@ Native Windows support is our goal, but due to limited resources, active develop
      `winget install --id=astral-sh.uv  -e`
 
     [Here](https://docs.astral.sh/uv/) are the `uv` docs. 
-
 
 ## Use Cases
 
