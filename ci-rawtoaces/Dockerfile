@@ -101,6 +101,9 @@ ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 RUN --mount=type=cache,id=aswf-conan-cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
+    --mount=type=bind,rw,target=/opt/conan_home/recipes,source=packages/conan/recipes \
+    --mount=type=bind,source=packages/common/export_profile_recipes.sh,target=/tmp/export_profile_recipes.sh \
+    ASWF_CONAN_CHANNEL=vfx${ASWF_VFXPLATFORM_VERSION} /tmp/export_profile_recipes.sh && \
     /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" rawtoaces
 
 

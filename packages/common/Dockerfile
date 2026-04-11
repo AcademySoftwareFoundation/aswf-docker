@@ -136,6 +136,8 @@ RUN --mount=type=cache,id=aswf-conan-cache,target=${ASWF_CONAN_HOME}/d \
     --mount=type=cache,id=aswf-ccache,target=${CCACHE_DIR} \
     --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
     --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
+    --mount=type=bind,source=packages/common/export_profile_recipes.sh,target=/tmp/export_profile_recipes.sh \
+    /tmp/export_profile_recipes.sh && \
     conan create \
       ${ASWF_CONAN_BUILD_MISSING} \
       ${ASWF_CONAN_NO_REMOTE} \
