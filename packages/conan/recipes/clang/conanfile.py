@@ -541,8 +541,12 @@ class ClangConan(ConanFile):
             # ASWF: since we remove the static components from the installed package, disable the check for
             # those in LLVMExports.cmake
             replace_in_file(self, cmake_folder / "LLVMExports.cmake", "if(NOT EXISTS \"${_cmake_file}\")", "if(FALSE)")
+            # The -release.cmake variants may or may not contain the pattern depending on LLVM version
+            replace_in_file(self, cmake_folder / "LLVMExports-release.cmake", "if(NOT EXISTS \"${_cmake_file}\")", "if(FALSE)", strict=False)
             replace_in_file(self, self._package_folder_path / "lib" / "cmake" / "clang" / "ClangTargets.cmake",
                             "if(NOT EXISTS \"${_cmake_file}\")", "if(FALSE)")
+            replace_in_file(self, self._package_folder_path / "lib" / "cmake" / "clang" / "ClangTargets-release.cmake",
+                            "if(NOT EXISTS \"${_cmake_file}\")", "if(FALSE)", strict=False)
 
         self._create_cmake_build_module(
             build_info,
