@@ -538,11 +538,23 @@ class ClangConan(ConanFile):
         rmdir(self, self._package_folder_path / "share")
         if self.options.shared:
             rm(self, "*.a", self._package_folder_path / "lib")
-            # ASWF: since we remove the static components from the installed package, disable the check for
-            # those in LLVMExports.cmake
-            replace_in_file(self, cmake_folder / "LLVMExports.cmake", "if(NOT EXISTS \"${_cmake_file}\")", "if(FALSE)")
-            replace_in_file(self, self._package_folder_path / "lib" / "cmake" / "clang" / "ClangTargets.cmake",
-                            "if(NOT EXISTS \"${_cmake_file}\")", "if(FALSE)")
+            # ASWF: since we remove the static components from the installed package, disable all
+            # file-existence checks in the cmake export files. There are two types of checks:
+            # 1. if(NOT EXISTS "${_cmake_file}") - file include guard
+            # 2. foreach(_target ${_cmake_import_check_targets}) - imported location verification
+            # We disable both by patching the guard and clearing the import check targets list.
+            for cmake_export_file in [
+                cmake_folder / "LLVMExports.cmake",
+                cmake_folder / "LLVMExports-release.cmake",
+                self._package_folder_path / "lib" / "cmake" / "clang" / "ClangTargets.cmake",
+                self._package_folder_path / "lib" / "cmake" / "clang" / "ClangTargets-release.cmake",
+            ]:
+                if cmake_export_file.exists():
+                    replace_in_file(self, cmake_export_file,
+                                    "if(NOT EXISTS \"${_cmake_file}\")", "if(FALSE)", strict=False)
+                    # Disable the IMPORTED_LOCATION file checks by clearing the targets list
+                    replace_in_file(self, cmake_export_file,
+                                    "set(_cmake_import_check_targets ", "set(_cmake_import_check_targets ) #", strict=False)
 
         self._create_cmake_build_module(
             build_info,
