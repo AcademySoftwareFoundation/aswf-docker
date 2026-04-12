@@ -373,7 +373,7 @@ class TestBuilderCli(unittest.TestCase):
         self.assertEqual(
             cmds[0],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
-            + "--set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder "
+            + "--set=*.target.target=ci-conan-package-builder "
             + "--progress auto ci-package-openexr-2019'",
         )
         self.assertEqual(result.exit_code, 0)
@@ -430,14 +430,14 @@ class TestBuilderCli(unittest.TestCase):
         self.assertEqual(
             cmds[self._i],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
-            + "--set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder "
+            + "--set=*.target.target=ci-conan-package-builder "
             + "--progress auto ci-package-openexr-2025'",
         )
         self._i += 1
         self.assertEqual(
             cmds[self._i],
             f"INFO:aswfdocker.builder:Would run: 'docker buildx bake -f {bake_path} "
-            + "--set=*.output=type=cacheonly --set=*.target.target=ci-conan-package-builder "
+            + "--set=*.target.target=ci-conan-package-builder "
             + "--progress auto ci-package-openexr-2026'",
         )
         self._i += 1
