@@ -8,6 +8,7 @@ qt/*:compiler.cppstd=gnu20
 *:shared=True
 [tool_requires]
 [replace_requires]
+openssl/*: openssl/1.1.1k@aswftesting/ci_common6
 aces_container/*: aces_container/1.0.2@aswftesting/vfx2026
 alembic/*: alembic/1.8.10@aswftesting/vfx2026
 boost/*: boost/1.88.0@aswftesting/vfx2026
@@ -69,7 +70,7 @@ mpg123/*: mpg123/system@aswftesting/vfx2026
 nanobind/*: nanobind/2.11.0@aswftesting/vfx2026
 nlohmann_json/*: nlohmann_json/3.12.0@aswftesting/vfx2026
 nspr/*: nspr/system@aswftesting/vfx2026
-nss/*: nss/3.112.0@aswftesting/vfx2026
+nss/*: nss/3.101.0@aswftesting/vfx2026
 ocio/*: ocio/2.5.1@aswftesting/vfx2026
 oiio/*: oiio/3.1.10.0@aswftesting/vfx2026
 ogg/*: ogg/system@aswftesting/vfx2026
