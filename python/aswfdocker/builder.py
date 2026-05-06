@@ -3,10 +3,12 @@
 """
 CI Image and Package Builder
 """
+
 import logging
 import subprocess
 import json
 import os
+import sys
 import tempfile
 import typing
 
@@ -114,6 +116,9 @@ class Builder:
                     "id=conan_password,env=CONAN_PASSWORD",
                 ],
             }
+            # Docker Desktop on Apple Silicon defaults to linux/arm64; pin amd64 to match CI.
+            if sys.platform == "darwin":
+                target_dict["platforms"] = ["linux/amd64"]
             root["target"][f"{image}-{major_version}"] = target_dict
 
         root["group"] = {"default": {"targets": list(root["target"].keys())}}
