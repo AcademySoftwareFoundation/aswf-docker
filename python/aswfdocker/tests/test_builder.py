@@ -8,6 +8,7 @@ import os
 import unittest
 import logging
 import tempfile
+from unittest.mock import patch
 
 from click.testing import CliRunner
 
@@ -21,6 +22,43 @@ class TestBuilder(unittest.TestCase):
         self.build_info = aswfinfo.ASWFInfo(
             repo_uri="notauri", source_branch="testing", aswf_version="2024.123"
         )
+
+    @patch.object(builder.sys, "platform", "darwin")
+    def test_bake_dict_sets_linux_amd64_platform_on_macos(self):
+        """Match CI arch on Docker Desktop (Apple Silicon defaults to linux/arm64)."""
+        b = builder.Builder(
+            self.build_info,
+            groupinfo.GroupInfo(
+                names=["base"],
+                versions=["2019"],
+                type_=constants.ImageType.IMAGE,
+                targets=[],
+            ),
+        )
+        baked = b.make_bake_dict(False, False)
+        self.assertEqual(
+            baked["target"]["ci-base-2019"]["platforms"],
+            ["linux/amd64"],
+        )
+
+    def test_bake_dict_omits_platforms_when_not_darwin(self):
+        b = builder.Builder(
+            self.build_info,
+            groupinfo.GroupInfo(
+                names=["base"],
+                versions=["2019"],
+                type_=constants.ImageType.IMAGE,
+                targets=[],
+            ),
+        )
+        for plat in ("linux", "win32"):
+            with patch.object(builder.sys, "platform", plat):
+                baked = b.make_bake_dict(False, False)
+            self.assertNotIn(
+                "platforms",
+                baked["target"]["ci-base-2019"],
+                msg=f"host sys.platform={plat!r}",
+            )
 
     def test_package_opentimelineio_2019_dict(self):
         b = builder.Builder(
@@ -82,6 +120,7 @@ class TestBuilder(unittest.TestCase):
             baked["target"]["ci-base-2019"]["args"]["ASWF_VERSION"], base_version
         )
 
+    @patch.object(builder.sys, "platform", "linux")
     def test_image_base_2019clang_dict(self):
         b = builder.Builder(
             self.build_info,
@@ -174,6 +213,7 @@ class TestBuilder(unittest.TestCase):
             },
         )
 
+    @patch.object(builder.sys, "platform", "linux")
     def test_image_base_2019_2020_dict(self):
         b = builder.Builder(
             self.build_info,
