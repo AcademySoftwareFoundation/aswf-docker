@@ -102,6 +102,23 @@ to test them. The `aswfdocker` Python utility wraps many of the complexities
 of the Docker build process and must be installed locally before starting.
 Please read the Python [README.md](python/README.md) file for further instructions.
 
+Docker must be configured to use the `docker` driver, rather than the newer
+`docker-container` driver. Tools such as `docker/setup-buildx-action` (used in
+GitHub Actions) create a `docker-container` builder and set it as the active
+builder, which can also happen on local installations. You can use the command:
+
+```
+docker buildx ls
+```
+
+to see how your installation is configured, and if necessary:
+
+```
+docker buildx use default
+```
+
+to switch back to using the `docker` driver.
+
 ### Repository Structure and Commit Policy
 
 The aswf-docker repository uses a simple branching and merging strategy.
