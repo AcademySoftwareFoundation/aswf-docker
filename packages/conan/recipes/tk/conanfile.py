@@ -13,6 +13,12 @@ class SystemTkConan(ConanFile):
     version = "system"
     
     settings = "os", "arch", "compiler", "build_type"
+    options = {
+        "shared": [True, False],
+    }
+    default_options = {
+        "shared": False,
+    }
 
     def requirements(self):
       # Conan profile provides real versions

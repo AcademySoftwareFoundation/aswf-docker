@@ -49,7 +49,7 @@ ENV ASWF_NINJA_VERSION=${ASWF_NINJA_VERSION}
 ARG ASWF_CLANG_VERSION
 ENV ASWF_CLANG_VERSION=${ASWF_CLANG_VERSION}
 ARG ASWF_PYSIDE_CLANG_VERSION
-ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_CLANG_VERSION}
+ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
 ARG ASWF_CPYTHON_VERSION
 ENV ASWF_CPYTHON_VERSION=${ASWF_CPYTHON_VERSION}
 ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
@@ -118,24 +118,30 @@ ENV ASWF_PKG_DIR=${ASWF_CONAN_HOME}/recipes/${ASWF_PKG_NAME}
 ENV ASWF_PKG_YML=${ASWF_PKG_DIR}/config.yml
 
 # When you want to delete a specific package from the cache, use * for all packages
-#RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
-#    --mount=type=cache,target=${CCACHE_DIR} \
+#RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=${ASWF_CONAN_HOME}/d \
+#    --mount=type=cache,id=aswf-ccache,sharing=locked,target=${CCACHE_DIR} \
 #    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
 #    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
+#    --mount=type=secret,id=conan_login_username,env=CONAN_LOGIN_USERNAME \
+#    --mount=type=secret,id=conan_password,env=CONAN_PASSWORD \
 #    conan cache clean "fmt/*"  --source --build --download --temp --backup-sources && \
 #    conan remove --confirm "fmt/*"
 
 # When you want to list the package versions found in the cache
-#RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
-#    --mount=type=cache,target=${CCACHE_DIR} \
+#RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=${ASWF_CONAN_HOME}/d \
+#    --mount=type=cache,id=aswf-ccache,sharing=locked,target=${CCACHE_DIR} \
 #    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
 #    --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
-#    conan list "fmt/11.2.0@aswftesting/vfx2026:*"
+#    --mount=type=secret,id=conan_login_username,env=CONAN_LOGIN_USERNAME \
+#    --mount=type=secret,id=conan_password,env=CONAN_PASSWORD \
+#    conan list
 
-RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
-    --mount=type=cache,target=${CCACHE_DIR} \
+RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=${ASWF_CONAN_HOME}/d \
+    --mount=type=cache,id=aswf-ccache,sharing=locked,target=${CCACHE_DIR} \
     --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
     --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
+    --mount=type=secret,id=conan_login_username,env=CONAN_LOGIN_USERNAME \
+    --mount=type=secret,id=conan_password,env=CONAN_PASSWORD \
     conan create \
       ${ASWF_CONAN_BUILD_MISSING} \
       ${ASWF_CONAN_NO_REMOTE} \
@@ -147,8 +153,8 @@ RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
       "${ASWF_PKG_DIR}"/$(if [[ -f "${ASWF_PKG_YML}" ]] ; then yq '.versions["'"${ASWF_PKG_VERSION}"'"].folder' "${ASWF_PKG_YML}" ; fi)
 
 # Upload build to repository if called for
-RUN --mount=type=cache,target=${ASWF_CONAN_HOME}/d \
-    --mount=type=cache,target=${CCACHE_DIR} \
+RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=${ASWF_CONAN_HOME}/d \
+    --mount=type=cache,id=aswf-ccache,sharing=locked,target=${CCACHE_DIR} \
     --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/.conan2,source=packages/conan/settings \
     --mount=type=bind,rw,target=${ASWF_CONAN_HOME}/recipes,source=packages/conan/recipes \
     --mount=type=secret,id=conan_login_username,env=CONAN_LOGIN_USERNAME \

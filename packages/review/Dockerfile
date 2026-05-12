@@ -151,7 +151,7 @@ RUN --mount=type=cache,target=/opt/conan_home/d \
     /tmp/install_conanpackages.sh /tmp/qttemp vfx"${ASWF_VFXPLATFORM_VERSION}"
 
 RUN --mount=type=cache,target=/tmp/ccache \
-     --mount=type=cache,sharing=private,target=/tmp/downloads \
+     --mount=type=cache,id=aswf-downloads,sharing=private,target=/tmp/downloads \
      /tmp/before_build.sh && \
      /tmp/build_openrv.sh && \
      /tmp/copy_new_files.sh && \

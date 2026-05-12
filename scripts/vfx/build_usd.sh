@@ -24,7 +24,26 @@ if [[ $ASWF_OPENUSD_VERSION == 23.05 && $ASWF_MATERIALX_VERSION == 1.38.7 ]]; th
     curl --location "https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/USD/pull/2402.diff" | patch -p1
 fi 
 
-if [[ $ASWF_OPENUSD_VERSION == 24.08 && $ASWF_MATERIALX_VERSION == 1.39.1 ]]; then
+if [[ $ASWF_OPENUSD_VERSION == 23.08 ]]; then
+
+cat << 'EOF' | patch -p0
+diff --git cmake/defaults/CXXDefaults.cmake cmake/defaults/CXXDefaults.cmake
+index d99dd79ac..bfda2778a 100644
+--- cmake/defaults/CXXDefaults.cmake
++++ cmake/defaults/CXXDefaults.cmake
+@@ -26,7 +26,7 @@
+ include(Options)
+
+ # Require C++14
+-set(CMAKE_CXX_STANDARD 14)
++set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ set(CMAKE_CXX_EXTENSIONS OFF)
+EOF
+
+fi
+
+if [[ $ASWF_OPENUSD_VERSION == 24.08 ]]; then
     # Apply patch from https://github.com/PixarAnimationStudios/USD/pull/3159
     curl --location "https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/OpenUSD/pull/3159.diff" | patch -p1
 fi
@@ -54,6 +73,7 @@ cmake \
      -DPXR_BUILD_USDVIEW=ON \
      -DPYSIDEUICBINARY="${ASWF_INSTALL_PREFIX}/bin/uic" \
      ${USD_EXTRA_ARGS} \
+     -DPython3_EXECUTABLE=/usr/local/bin/python"${ASWF_PYTHON_MAJOR_MINOR_VERSION}" \
      ..
 cmake --build . -j$(nproc)
 cmake --install .

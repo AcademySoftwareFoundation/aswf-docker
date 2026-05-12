@@ -72,7 +72,7 @@ class MaterialXConan(ConanFile):
 
     def requirements(self):
         if self.options.with_openimageio:
-            self.requires("oiio/[>=1.0.0.0]")
+            self.requires("openimageio/[>=1.0.0.0]")
         self.requires("cpython/[>=3.0.0]")
         # Comment out to use vendored pybind11
         self.requires("pybind11/[>=2.0.0]")
@@ -106,7 +106,9 @@ class MaterialXConan(ConanFile):
         tc.variables["MATERIALX_PYTHON_VERSION"] = self.dependencies["cpython"].ref.version
         tc.variables["MATERIALX_BUILD_SHARED_LIBS"] = self.options.shared
         tc.variables["MATERIALX_BUILD_GEN_MSL"] = self.options.build_gen_msl and is_apple_os
-        tc.variables["MATERIALX_INSTALL_STDLIB_PATH"] = os.path.join("share","MaterialX") # ASWF: otherwise end up in python
+        tc.variables["MATERIALX_INSTALL_STDLIB_PATH"] = os.path.join("share", "MaterialX", "libraries") # ASWF: otherwise end up in /usr/local
+        tc.variables["MATERIALX_INSTALL_RESOURCES_PATH"] = os.path.join("share", "MaterialX", "resources") # ASWF: otherwise end  up in /usr/local
+        tc.variables["MATERIALX_PYTHON_FOLDER_NAME"] = os.path.join("share", "MaterialX", "python") # ASWF: otherwise end up in /usr/local
         # TODO: Remove when Conan 1 support is dropped
         if not self.settings.compiler.cppstd:
             tc.variables["MATERIALX_BUILD_USE_CCACHE"] = self._min_cppstd
@@ -133,12 +135,12 @@ class MaterialXConan(ConanFile):
 
     def package(self):
         # ASWF: license files in package subdirs
-        copy(self, "LICENSE.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
+        copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
 
-        rmdir(self, os.path.join(self.package_folder, "resources"))
-        rmdir(self, os.path.join(self.package_folder, "libraries"))
+        # rmdir(self, os.path.join(self.package_folder, "resources")) # ASWF: keep resources
+        # rmdir(self, os.path.join(self.package_folder, "libraries")) # ASWF: keep libraries
         # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files
         rm(self, "README.md", self.package_folder)
         rm(self, "CHANGELOG.md", self.package_folder)
@@ -182,7 +184,7 @@ class MaterialXConan(ConanFile):
         self.cpp_info.components["MaterialXRender"].libs = ["MaterialXRender"]
         self.cpp_info.components["MaterialXRender"].requires = ["MaterialXGenShader"]
         if self.options.with_openimageio:
-            self.cpp_info.components["MaterialXRender"].requires.append("oiio::OpenImageIO") # ASWF: Conan package named oiio
+            self.cpp_info.components["MaterialXRender"].requires.append("openimageio::openimageio")
 
         self.cpp_info.components["MaterialXRenderGlsl"].libs = ["MaterialXRenderGlsl"]
         self.cpp_info.components["MaterialXRenderGlsl"].requires = ["MaterialXRenderHw", "MaterialXGenGlsl"]

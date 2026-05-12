@@ -1,0 +1,14 @@
+--- cmake/modules/MaterialXConfig.cmake.in
++++ cmake/modules/MaterialXConfig.cmake.in
+@@ -8,6 +8,11 @@
+ # Auto-generated content:
+ @PACKAGE_INIT@
+
++include(CMakeFindDependencyMacro)
++if(@MATERIALX_BUILD_OIIO@)
++    find_dependency(OpenImageIO CONFIG)
++endif()
++
+ # Gather MaterialX targets:
+ include("${CMAKE_CURRENT_LIST_DIR}/@CMAKE_PROJECT_NAME@Targets.cmake")
+

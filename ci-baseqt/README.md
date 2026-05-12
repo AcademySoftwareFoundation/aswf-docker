@@ -85,24 +85,43 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-baseqt:2023.2](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2023.2)
+## [aswf/ci-baseqt:2023.3](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2023.3)
 
 Contains:
+* b2-5.2.1
+* bzip2-1.0.8
 * cppunit-1.15.1
-* gtest-1.11.0
+* expat-2.6.4
+* fmt-11.2.0
+* gtest-1.15.2
+* libbacktrace-cci.20210118
+* libdeflate-1.23
+* libiconv-1.17
+* libxcrypt-4.4.36
+* lz4-1.10.0
+* pugixml-1.14
+* pystring-1.1.4
+* snappy-1.1.10
 * onetbb-2020.3
-* cpython-3.10.11
-* glew-2.1.0
-* glfw-3.1.2
-* log4cplus-1.1.2
+* zlib-1.3.1
+* zstd-1.5.6
+* cpython-3.10.20
+* freetype-2.13.2
+* gdbm-system
+* glew-2.2.0
+* glfw-3.4
+* log4cplus-2.1.2
+* nanobind-2.11.0
 * boost-1.80.0
-* pybind11-2.9.2
-* qt-5.15.9
-* pyside-5.15.9
+* pybind11-2.13.6
+* libwebp-1.5.0
+* md4c-0.4.8
+* qt-5.15.18
+* pyside-5.15.18
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-baseqt:2024.6](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2024.6)
+## [aswf/ci-baseqt:2024.7](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2024.7)
 
 Contains:
 * b2-5.2.1
@@ -138,7 +157,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-baseqt:2025.5](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2025.5)
+## [aswf/ci-baseqt:2025.6](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2025.6)
 
 Contains:
 * b2-5.2.1
@@ -174,7 +193,7 @@ Contains:
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-baseqt:2026.3](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2026.3)
+## [aswf/ci-baseqt:2026.4](https://hub.docker.com/r/aswf/ci-baseqt/tags?page=1&name=2026.4)
 
 Contains:
 * b2-5.3.2

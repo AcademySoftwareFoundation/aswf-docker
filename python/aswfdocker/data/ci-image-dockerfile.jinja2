@@ -23,9 +23,6 @@ ARG {{ arg }}
 {% for package in packages + implicit_packages -%}
 ARG ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
-{% if name ==  "usd" -%}
-ARG ASWF_{{name|upper}}_VERSION
-{% endif -%}
 
 {% for package in packages + implicit_packages -%}
 {% for arg in index.package_data(package).get("docker_args", []) -%}
@@ -38,7 +35,7 @@ ARG ASWF_BASEOS_IMAGE
 ARG ASWF_BASEOS_DISTRO
 {% endif %}
 
-FROM {{ docker_from }} AS ci-{{ name }}
+FROM {{ docker_from }} AS ci-{{ name_image | default(name) }}
 
 
 ARG ASWF_ORG
@@ -61,9 +58,6 @@ ARG {{ arg }}
 {% for package in packages + implicit_packages -%}
 ARG ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
-{% if name == "usd" -%}
-ARG ASWF_{{name|upper}}_VERSION
-{% endif -%}
 
 {% for package in packages + implicit_packages -%}
 {% for arg in index.package_data(package).get("docker_args", []) -%}
@@ -71,11 +65,11 @@ ARG {{ arg }}
 {% endfor -%}
 {% endfor %}
 
-LABEL org.opencontainers.image.name="$ASWF_ORG/ci-{{ name }}"
+LABEL org.opencontainers.image.name="$ASWF_ORG/ci-{{ name_image | default(name) }}"
 LABEL org.opencontainers.image.title="{{ title }}"
 LABEL org.opencontainers.image.description="{{ "\\\n".join(description.strip().split("\n")) }}"
 LABEL org.opencontainers.image.url="http://aswf.io/"
-LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-{{ name }}/Dockerfile"
+LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-{{ name_image | default(name) }}/Dockerfile"
 LABEL org.opencontainers.image.vendor="AcademySoftwareFoundation"
 LABEL org.opencontainers.image.authors="Built by aswf.io CI Working Group"
 LABEL org.opencontainers.image.version="${ASWF_VERSION}"
@@ -108,9 +102,6 @@ ENV {{ arg }}=${{ arg }}
 {% for package in packages + implicit_packages -%}
 ENV ASWF_{{package|upper|replace("-", "_")}}_VERSION=$ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}
-{% if name == "usd" -%}
-ENV ASWF_{{name|upper}}_VERSION=$ASWF_{{name|upper}}_VERSION
-{% endif -%}
 
 {% for package in packages + implicit_packages -%}
 {% for arg in index.package_data(package).get("docker_args", []) -%}
@@ -118,9 +109,9 @@ ENV {{ arg }}=${{ arg }}
 {% endfor -%}
 {% endfor %}
 
-COPY ci-{{name}}/README.md ci-{{name}}/image.yaml /usr/local/aswf/
+COPY ci-{{name_image | default(name)}}/README.md ci-{{name_image | default(name)}}/image.yaml /usr/local/aswf/
 {% if name != "common" and name != "baseos-gl-conan" and name != "base" and name != "baseqt" and name != "vfxall" %}
-COPY scripts/vfx/build_{{name}}.sh /usr/local/aswf
+COPY scripts/vfx/build_{{name_image | default(name)}}.sh /usr/local/aswf
 {% endif -%}
 
 {{ docker_commands }}
@@ -148,11 +139,11 @@ EOF
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 {% if name != "common" and name != "baseos-gl-conan" %}
-RUN --mount=type=cache,target=/opt/conan_home/d \
+RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" {{ name }}
 {% else %}
-RUN --mount=type=cache,target=/opt/conan_home/d \
+RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local ci_common"${CI_COMMON_VERSION}" {{ name }}
 {% endif %}

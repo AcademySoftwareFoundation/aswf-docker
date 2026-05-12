@@ -147,38 +147,42 @@ Contains:
 * sonar-4.7.0.2747
 * conan-1.47.0
 
-## [aswf/ci-common:3-clang14.2](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=3-clang14.2)
+## [aswf/ci-common:3-clang14.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=3-clang14.3)
 
 Contains:
 * clang-14.0.6
-* ninja-1.11.1
-* cuda-11.8.0
-* optix-7.7.0
-* glvnd-1.6.0
-* ccache-4.7.4
+* cmake-3.31.11
+* ninja-1.13.2
+* cuda-12.6.3
+* optix-8.0.0
+* glvnd-1.7.0
+* ccache-4.9.1
 * dts-11
-* sonar-4.8.0.2856
-* conan-1.58.0
+* sonar-8.0.1.6346
+* conan-2.26.2
+* yq-4.45.2
 
-## [aswf/ci-common:3-clang15.](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=3-clang15.)
+## [aswf/ci-common:3-clang15.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=3-clang15.3)
 
 Contains:
 * clang-15.0.7
-* ninja-1.11.1
-* cuda-11.8.0
-* optix-7.7.0
-* glvnd-1.6.0
-* ccache-4.7.4
+* cmake-3.31.11
+* ninja-1.13.2
+* cuda-12.6.3
+* optix-8.0.0
+* glvnd-1.7.0
+* ccache-4.9.1
 * dts-11
-* sonar-4.8.0.2856
-* conan-1.58.0
+* sonar-8.0.1.6346
+* conan-2.26.2
+* yq-4.45.2
 
-## [aswf/ci-common:4-clang16.6](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang16.6)
+## [aswf/ci-common:4-clang16.7](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang16.7)
 
 Contains:
 * clang-16.0.6
-* cmake-3.31.7
-* ninja-1.13.1
+* cmake-3.31.11
+* ninja-1.13.2
 * cuda-12.6.3
 * optix-8.0.0
 * glvnd-1.7.0
@@ -188,12 +192,12 @@ Contains:
 * conan-2.26.2
 * yq-4.45.2
 
-## [aswf/ci-common:4-clang17.6](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang17.6)
+## [aswf/ci-common:4-clang17.7](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=4-clang17.7)
 
 Contains:
 * clang-17.0.6
-* cmake-3.31.7
-* ninja-1.13.1
+* cmake-3.31.11
+* ninja-1.13.2
 * cuda-12.6.3
 * optix-8.0.0
 * glvnd-1.7.0
@@ -203,12 +207,12 @@ Contains:
 * conan-2.26.2
 * yq-4.45.2
 
-## [aswf/ci-common:5-clang18.5](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang18.5)
+## [aswf/ci-common:5-clang18.6](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang18.6)
 
 Contains:
 * clang-18.1.8
-* cmake-3.31.7
-* ninja-1.13.1
+* cmake-3.31.11
+* ninja-1.13.2
 * cuda-12.6.3
 * optix-8.0.0
 * glvnd-1.7.0
@@ -218,12 +222,12 @@ Contains:
 * conan-2.26.2
 * yq-4.45.2
 
-## [aswf/ci-common:5-clang19.5](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang19.5)
+## [aswf/ci-common:5-clang19.6](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=5-clang19.6)
 
 Contains:
 * clang-19.1.7
-* cmake-3.31.7
-* ninja-1.13.1
+* cmake-3.31.11
+* ninja-1.13.2
 * cuda-12.6.3
 * optix-8.0.0
 * glvnd-1.7.0
@@ -233,12 +237,12 @@ Contains:
 * conan-2.26.2
 * yq-4.45.2
 
-## [aswf/ci-common:6-clang19.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=6-clang19.3)
+## [aswf/ci-common:6-clang19.4](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=6-clang19.4)
 
 Contains:
 * clang-19.1.7
-* cmake-4.0.2
-* ninja-1.13.1
+* cmake-4.0.6
+* ninja-1.13.2
 * cuda-12.9.1
 * optix-8.0.0
 * glvnd-1.7.0
@@ -248,12 +252,12 @@ Contains:
 * conan-2.26.2
 * yq-4.45.4
 
-## [aswf/ci-common:6-clang20.3](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=6-clang20.3)
+## [aswf/ci-common:6-clang20.4](https://hub.docker.com/r/aswf/ci-common/tags?page=1&name=6-clang20.4)
 
 Contains:
 * clang-20.1.7
-* cmake-4.0.2
-* ninja-1.13.1
+* cmake-4.0.6
+* ninja-1.13.2
 * cuda-12.9.1
 * optix-8.0.0
 * glvnd-1.7.0

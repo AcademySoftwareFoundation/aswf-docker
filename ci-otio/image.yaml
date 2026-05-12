@@ -1,4 +1,5 @@
-name: "otio"
+name: "opentimelineio"
+name_image: "otio" # image is named otio, Conan package is opentimelineio
 title: "OpenTimelineIO CI Docker Image"
 description: |
   Contains: Imath, RapidJSON and other OpenTimelineIO upstream dependencies

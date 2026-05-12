@@ -1,4 +1,5 @@
-name: "usd"
+name: "openusd"
+name_image: "usd" # image is named usd, Conan package is openusd
 title: "OpenUSD CI Docker Image"
 description: |
   Contains: Python, Qt, PySide and other OpenUSD upstream dependencies

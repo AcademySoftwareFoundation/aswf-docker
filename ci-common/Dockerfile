@@ -170,7 +170,7 @@ ENV ASWF_CONAN_ROOT=/opt/conan
 
 COPY ../scripts/common/install_conan.sh /tmp/
 
-RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
+RUN --mount=type=cache,id=aswf-downloads,sharing=private,target=/tmp/downloads \
     /tmp/install_conan.sh
 
 COPY ../packages/conan/settings /opt/conan_home/.conan
@@ -196,7 +196,7 @@ EOF
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 
-RUN --mount=type=cache,target=/opt/conan_home/d \
+RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
     /tmp/install_conanpackages.sh /usr/local ci_common"${CI_COMMON_VERSION}" common
 

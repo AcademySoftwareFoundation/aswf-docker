@@ -2,6 +2,62 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-05-03
+
+2023.3 / 2024.7 / 2025.6 / 2026.4 releases. 2023 update for Conan 2.
+
+- All releases
+  - ocio and oiio Conan packages renamed opencolorio and openimageio to [match Conan Center Index](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/387)
+
+- 2023.3
+  - Large update to environment, mostly match 2024 except ASWF / VFX Platform:
+  - Alembic 1.8.5 to 1.8.8
+  - Boost 1.80.0
+  - Imath 3.1.9 to 3.1.12 
+  - MaterialX 1.38.7
+  - OpenColorIO 2.2.1
+  - OpenImageIO 2.4.13.0 to 2.4.17.0
+  - OpenEXR 3.1.11 to 3.1.13
+  - OpenSubDiv 3.5.0 to 3.5.1
+  - OpenTimelineIO 0.15
+  - OpenUSD 23.05 to 23.08
+  - OpenVDB 10.0.1 to 10.1.0
+  - OSL 1.12.13.0 to 1.12.14.0
+  - PySide 5.15.9 to 5.15.18
+  - Python 3.10.11 to 3.10.20
+  - Qt 5.15.9 to 5.15.18
+
+- 2024.7
+  - Python 3.11.11 to 3.11.15
+  - CMake 3.31.7 to 3.31.11
+  - Ninja 1.13.1 to 1.13.2
+  - Ptex 2.4.2 to 2.4.3
+  - OpenImageIO 2.5.19.0 to 2.5.15.1
+  - [OpenEXR 3.2.5 to 3.2.9](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/346)
+  - [Qt 6 no longer installs in /usr/local top level](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/389)
+  - All other updates since 2024.6
+
+- 2025.6
+  - Python 3.11.11 to 3.11.15
+  - CMake 3.31.7 to 3.31.11
+  - Ninja 1.13.1 to 1.13.2
+  - [OpenEXR 3.3.7 to 3.3.11](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/346)
+  - [OSL 1.14.7.0 to 1.14.9.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/348)
+  - [Qt 6 no longer installs in /usr/local top level](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/389)
+  - All other updates since 2025.5
+
+- 2026.4
+  - Python 3.13.3 to 3.13.12
+  - CMake 4.0.2 to 4.0.6
+  - Ninja 1.13.1 to 1.13.2
+  - [OpenImageIO 3.1.10.0 to 3.1.13.1](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/344)
+  - [OpenEXR 3.4.5 to 3.4.11](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/346)
+  - [OpenFX 1.5 to 1.5.1](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/323)
+  - [OSL 1.15.1.0 to 1.15.4.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/348)
+  - [Rawtoaces 2.0.0 to 2.1.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/367)
+  - [Qt 6 no longer installs in /usr/local top level](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/389)
+  - All other updates since 2026.3
+ 
 # 2026-03-31
 
 - All releases

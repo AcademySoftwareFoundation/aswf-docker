@@ -102,6 +102,23 @@ to test them. The `aswfdocker` Python utility wraps many of the complexities
 of the Docker build process and must be installed locally before starting.
 Please read the Python [README.md](python/README.md) file for further instructions.
 
+Docker must be configured to use the `docker` driver, rather than the newer
+`docker-container` driver. Tools such as `docker/setup-buildx-action` (used in
+GitHub Actions) create a `docker-container` builder and set it as the active
+builder, which can also happen on local installations. You can use the command:
+
+```
+docker buildx ls
+```
+
+to see how your installation is configured, and if necessary:
+
+```
+docker buildx use default
+```
+
+to switch back to using the `docker` driver.
+
 ### Repository Structure and Commit Policy
 
 The aswf-docker repository uses a simple branching and merging strategy.
@@ -387,6 +404,10 @@ at the end of the `versions.yaml` file, see `gtest` as an example.
 
 ### Peeking into the Conan cache
 
+> [!NOTE]
+> The following section only applies to the `overlay2` Docker storage driver. If you switch to the `containerd` storage driver (which is the
+> default for new installations starting with Docker Engine 29.0), the on disk layout is completely different.
+
 When building a Conan package, `aswfdocker build` uses [common/packages/Dockerfile](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/packages/common/Dockerfile) which uses a
 [Docker Cache Mount](https://docs.docker.com/build/cache/optimize/#use-cache-mounts) to store the persistent
 cache of local Conan package builds (similarly for the [ccache](https://ccache.dev/) persistent cache):
@@ -469,7 +490,7 @@ and enable tracing / verbose in the `configure()` and `build()` calls:
     def build(self):
         self._patch_sources()
         cmake = CMake(self)
-        cmake.configure(cli_args=["--trace"])
+        cmake.configure(cli_args=["--trace-expand"])
         cmake.build(cli_args=["--verbose"])
 ```
 
@@ -609,25 +630,25 @@ Check [#66](https://github.com/AcademySoftwareFoundation/aswf-docker/pull/66) fo
 
 ```bash
 # Image for building Conan packages
-aswfdocker release -t IMAGE -g baseos-gl-conan -v 4 -v 5 -v 6 --target baseos-gl-conan --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g baseos-gl-conan -v 3 -v 4 -v 5 -v 6 --target baseos-gl-conan --docker-org aswf -m "RELEASE_NOTES!"
 
 # Common packages
-aswfdocker release -t PACKAGE -g common -v 4 -v 5 -v 6 --target openssl --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g common -v 4 -v 5 -v 6 --target ninja -target cmake --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g common -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 -v 6-clang19 -v 6-clang20 --target clang --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common-wrappers -v 3 -v 4 -v 5 -v 6 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common-1 -v 3 -v 4 -v 5 -v 6 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g common-2 -v 3-clang14-v 3-clang15 -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 -v 6-clang19 -v 6-clang20 --docker-org aswf -m "RELEASE_NOTES!"
 # Wait for clang builds to finish (from 2 to 3 hours!)
 
 # ci-common needs to be built before base packages can be built
 aswfdocker release -t IMAGE -g common -v 4-clang16 -v 4-clang17 -v 5-clang18 -v 5-clang19 -v 6-clang19 -v 6-clang20 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Base packages
-aswfdocker release -t PACKAGE -g base1-wrappers -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g base1-1 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g base1-2 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g base1-3 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-wrappers -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-1 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-2 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base1-3 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 
-aswfdocker release -t PACKAGE -g base2-wrappers -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g base2-2 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base2-wrappers -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base2-2 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 # Wait for Qt builds to finish (2-6 hours!)
 
 # Usually some Qt build will fail as too big and too slow for free GitHub actions... So here's how to build qt locally:
@@ -639,20 +660,20 @@ docker push aswf/ci-package-qt:preview
 docker push aswf/ci-package-qt:2025.0
 
 # Once all Qt are out, release PySide packages
-aswfdocker release -t PACKAGE -g base3 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base3 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Wait for all Qt and Pyside builds to finish, then build downstream packages:
 # VFX packages
-aswfdocker release -t PACKAGE -g vfx1-wrappers -g vfx1-1 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx1-2 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx1-3 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx1-4 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx1-5 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t PACKAGE -g vfx1-6 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-wrappers -g vfx1-1 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-2 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-3 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-4 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-5 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-6 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Finally build the CI images
-aswfdocker release -t IMAGE -g base -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t IMAGE -g vfx1 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t IMAGE -g vfx2 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
-aswfdocker release -t IMAGE -g vfx3 -v 2024-clang16 -v 2024-clang17 -v 2025-clang18 -v 2025-clang19 -v 2026-clang19 -v 2026-clang20 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g base -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx1 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx2 -v 2023 -v 2024 -v 2025 -v 2026 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t IMAGE -g vfx3 -v 2023-clang14 -v 2023-clang15 -v 2024-clang16 -v 2024-clang17 -v 2025-clang18 -v 2025-clang19 -v 2026-clang19 -v 2026-clang20 --docker-org aswf -m "RELEASE_NOTES!"
 ```
