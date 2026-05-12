@@ -37,8 +37,16 @@ jobs:
 
     - name: Activate Docker buildx
       uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
-      with: 
-        driver-opts: env.BUILDKIT_STEP_LOG_MAX_SIZE=10485760
+      with:
+        # Use the docker driver so locally built images (e.g. ci-baseos-gl-conan) are
+        # visible to subsequent buildx steps via the shared Docker daemon image store,
+        # consistent with local development behaviour. The docker-container driver
+        # (the default) runs BuildKit in an isolated container with its own image store,
+        # causing subsequent steps to pull base images from Docker Hub instead of reusing
+        # locally built ones.
+        driver: docker
+      env:
+        BUILDKIT_STEP_LOG_MAX_SIZE: 10485760
 
     - name: Set up Python
       uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0

@@ -33,7 +33,12 @@ jobs:
     - name: Activate Docker buildx
       uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
       with:
-        driver-opts: env.BUILDKIT_STEP_LOG_MAX_SIZE=10485760
+        # Use the docker driver for consistency with docker-builds.yml and local development.
+        # All images are pushed to Docker Hub in this workflow so the image store sharing
+        # behaviour difference between drivers has no practical effect here.
+        driver: docker
+      env:
+        BUILDKIT_STEP_LOG_MAX_SIZE: 10485760
 
     - name: Set up Python
       uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
