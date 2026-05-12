@@ -32,6 +32,7 @@ Contains:
 * imath-2.3.0
 * opencolorio-1.1.0
 * openexr-2.3.0
+* openimageio-2.0.8
 * opentimelineio-0.12.1
 * openusd-19.11
 * openvdb-6.2.1
@@ -54,6 +55,7 @@ Contains:
 * imath-2.3.0
 * opencolorio-1.1.0
 * openexr-2.3.0
+* openimageio-2.0.8
 * opentimelineio-0.12.1
 * openusd-19.11
 * openvdb-6.2.1
@@ -76,6 +78,7 @@ Contains:
 * imath-2.3.0
 * opencolorio-1.1.0
 * openexr-2.3.0
+* openimageio-2.0.8
 * opentimelineio-0.12.1
 * openusd-19.11
 * openvdb-6.2.1
@@ -98,6 +101,7 @@ Contains:
 * imath-2.3.0
 * opencolorio-1.1.0
 * openexr-2.3.0
+* openimageio-2.0.8
 * opentimelineio-0.12.1
 * openusd-19.11
 * openvdb-6.2.1
