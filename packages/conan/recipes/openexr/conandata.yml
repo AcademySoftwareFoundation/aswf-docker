@@ -5,6 +5,15 @@
 # From: https://github.com/conan-io/conan-center-index/blob/cceee569179c10fa56d1fd9c3582f3371944ba59/recipes/openexr/3.x/conandata.yml
 
 sources:
+  "3.4.11":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.4.11/openexr-3.4.11.tar.gz"
+    sha256: "25f6a008e4060441a9e9d805bceda58fb811e0adef64b39807dfd73b94e12c91"
+  "3.4.10":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.4.10/openexr-3.4.10.tar.gz"
+    sha256: "2e054a8f5030c25d1585cbfa537feaaf86d69388b75c00d96c3a91f676e88cbe"
+  "3.4.9":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.4.9/openexr-3.4.9.tar.gz"
+    sha256: "0af2c6bd41d5c61511ee521fd091e45410e35d1acbaf2ef674e0993fee8aafe9"
   "3.4.5":
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4.5.tar.gz"
     sha256: "b10f21d3f8ff3211eb1687a2e2bf7a79d361aec8dfaca1f9b79f3d70755b4f48"
@@ -26,6 +35,15 @@ sources:
   "3.4-alpha":
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4-alpha.tar.gz"
     sha256: "5a78b497576a323979b03a343ad63a253d955462365c67597ab6fcac87e79193"
+  "3.3.11":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.11/openexr-3.3.11.tar.gz"
+    sha256: "bee7ed0e7b360a0e25545d693aa406e201d0753cca36973d1495afacbfe8c57a"
+  "3.3.10":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.10/openexr-3.3.10.tar.gz"
+    sha256: "357c011f6f9b1cabc87bff3fc60d3009b4fd352b34c7a7b66ff6fb42e5332d7c"
+  "3.3.9":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.9/openexr-3.3.9.tar.gz"
+    sha256: "9553fc70356ffeb4bda798ae88a20595ca3ee14b4fc890b6ece8bb6c58d85704"
   "3.3.7":
     url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.7/openexr-3.3.7.tar.gz"
     sha256: "5302e8204c7f503fd6b20eb2940a44c993f81154de9e476581ac3bc60c0cdf13"
@@ -50,6 +68,15 @@ sources:
   "3.3.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.3.0.tar.gz"
     sha256: "58b00f50d2012f3107573c4b7371f70516d2972c2b301a50925e1b4a60a7be6f"
+  "3.2.9":
+    url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.2.9.tar.gz"
+    sha256: "d93eace74dc9e8933bd354e5ec9da9aa14cdb501ae6adac606b249d9c646a0d1"
+  "3.2.8":
+    url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.2.8.tar.gz"
+    sha256: "e2760836c0b9829882a868f5681874c1122ca8d989c9b6ba14305b386a2b016f"
+  "3.2.7":
+    url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.2.7.tar.gz"
+    sha256: "489875d2de7d073c6a4172228b29b3ecb1dfc8dfe5bef16c9eb18cb2b11f0e04"
   "3.2.5":
     url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.2.5.tar.gz"
     sha256: "89374d93401dda1a49bf4acb930a906b9936f9526523d0f318dacb9fa8f025d7"
@@ -65,6 +92,9 @@ sources:
   "3.2.1":
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.2.1.tar.gz"
     sha256: "61e175aa2203399fb3c8c2288752fbea3c2637680d50b6e306ea5f8ffdd46a9b"
+  "3.1.13":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.1.13.tar.gz"
+    sha256: "26d265d8cf8df4dad115b066ba209118ca8832cda076ec704ce1a57f827c75c6"
   "3.1.9":
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.1.9.tar.gz"
     sha256: "103e902d3902800ab07b5f3a298be7afd2755312737b2cdbfa01326ff99dac07"
@@ -72,6 +102,15 @@ sources:
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.1.7.tar.gz"
     sha256: "78dbca39115a1c526e6728588753955ee75fa7f5bb1a6e238bed5b6d66f91fd7"
 patches:
+  "3.4.11":
+    - patch_file: "patches/3.4.10-openjph-setup.patch"
+      patch_description: "Find previously installed openjph"
+  "3.4.10":
+    - patch_file: "patches/3.4.10-openjph-setup.patch"
+      patch_description: "Find previously installed openjph"
+  "3.4.9":
+    - patch_file: "patches/3.4.3-openjph-setup.patch"
+      patch_description: "Find previously installed openjph"
   "3.4.5":
     - patch_file: "patches/3.4.3-openjph-setup.patch"
       patch_description: "Find previously installed openjph"
@@ -81,6 +120,21 @@ patches:
   "3.4.3":
     - patch_file: "patches/3.4.3-openjph-setup.patch"
       patch_description: "Find previously installed openjph"
+  "3.2.9":
+    - patch_file: "patches/3.2.1-gcc5-bug-workaround.patch"
+      patch_description: "Workaround for GCC 5 bug"
+      patch_type: "portability"
+      patch_source: "https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82336"
+  "3.2.8":
+    - patch_file: "patches/3.2.1-gcc5-bug-workaround.patch"
+      patch_description: "Workaround for GCC 5 bug"
+      patch_type: "portability"
+      patch_source: "https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82336"
+  "3.2.7":
+    - patch_file: "patches/3.2.1-gcc5-bug-workaround.patch"
+      patch_description: "Workaround for GCC 5 bug"
+      patch_type: "portability"
+      patch_source: "https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82336"
   "3.2.4":
     - patch_file: "patches/3.2.1-gcc5-bug-workaround.patch"
       patch_description: "Workaround for GCC 5 bug"
@@ -109,6 +163,11 @@ patches:
       patch_description: "Use find_package for libdeflate"
       patch_type: "backport"
       patch_source: "https://github.com/AcademySoftwareFoundation/openexr/pull/1613"
+  "3.1.13":
+    - patch_file: "patches/3.1.4-gcc5-bug-workaround.patch"
+      patch_description: "Workaround for GCC 5 bug"
+      patch_type: "portability"
+      patch_source: "https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82336"
   "3.1.9":
     - patch_file: "patches/3.1.4-gcc5-bug-workaround.patch"
       patch_description: "Workaround for GCC 5 bug"

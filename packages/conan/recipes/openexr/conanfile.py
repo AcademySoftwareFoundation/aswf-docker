@@ -62,7 +62,7 @@ class OpenEXRConan(ConanFile):
         # Note: OpenEXR and Imath are versioned independently.
         self.requires("imath/3.1.9", transitive_headers=True)
         if self._with_libdeflate:
-            self.requires("libdeflate/1.19")
+            self.requires("libdeflate/1.19", transitive_libs=True) # ASWF: otherwise linked looks at system libdeflate
         # ASWF: add explicit dependencies on cpython, Conan profile provides real versions
         self.requires("cpython/[>=3.0.0]")
         # ASWF: OpenEXR 3.4 supports OpenJPH

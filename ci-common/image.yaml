@@ -75,7 +75,7 @@ docker_commands: |
 
   COPY ../scripts/common/install_conan.sh /tmp/
 
-  RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
+  RUN --mount=type=cache,id=aswf-downloads,sharing=private,target=/tmp/downloads \
       /tmp/install_conan.sh
 
   COPY ../packages/conan/settings /opt/conan_home/.conan

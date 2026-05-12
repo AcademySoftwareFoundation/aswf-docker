@@ -20,7 +20,7 @@ class SystemICUConan(ConanFile):
 
         # icudata
         self.cpp_info.components["icu-data"].set_property("cmake_target_name", "ICU::data")
-        self.cpp_info.components["icu-data"].libs = ["icudata"]
+        self.cpp_info.components["icu-data"].system_libs = ["icudata"]
 
         # Alias of data CMake component
         self.cpp_info.components["icu-data-alias"].set_property("cmake_target_name", "ICU::dt")
@@ -33,7 +33,7 @@ class SystemICUConan(ConanFile):
 
         # icui18n
         self.cpp_info.components["icu-i18n"].set_property("cmake_target_name", "ICU::i18n")
-        self.cpp_info.components["icu-i18n"].systemlibs = ["icui18n", "m"]
+        self.cpp_info.components["icu-i18n"].system_libs = ["icui18n", "m"]
         self.cpp_info.components["icu-i18n"].requires = ["icu-uc"]
 
         # Alias of i18n CMake component

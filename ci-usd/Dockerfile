@@ -19,7 +19,6 @@ ARG ASWF_VFXPLATFORM_VERSION
 ARG ASWF_OPENUSD_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
-ARG ASWF_USD_VERSION
 
 
 
@@ -41,7 +40,6 @@ ARG ASWF_CXX_STANDARD
 ARG ASWF_OPENUSD_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
-ARG ASWF_USD_VERSION
 
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-usd"
@@ -77,7 +75,6 @@ ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 ENV ASWF_OPENUSD_VERSION=$ASWF_OPENUSD_VERSION
 ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
 ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
-ENV ASWF_USD_VERSION=$ASWF_USD_VERSION
 
 
 COPY ci-usd/README.md ci-usd/image.yaml /usr/local/aswf/
@@ -102,9 +99,9 @@ EOF
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 
-RUN --mount=type=cache,target=/opt/conan_home/d \
+RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" usd
+    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" openusd
 
 
 RUN pip3 install jinja2 PyOpenGL

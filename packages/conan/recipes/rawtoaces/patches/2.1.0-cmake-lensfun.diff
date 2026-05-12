@@ -1,0 +1,31 @@
+diff --git a/configure.cmake b/configure.cmake
+index d99dd79ac..bfda2778a 100644
+--- a/configure.cmake
++++ b/configure.cmake
+@@ -13,8 +13,7 @@
+ endif ()
+
+ if ( RTA_ENABLE_LENSFUN )
+-    find_package ( PkgConfig REQUIRED )
+-    pkg_check_modules( lensfun REQUIRED lensfun>=0.3.2 )
++    find_package ( lensfun 0.3.2 REQUIRED )
+ endif ( RTA_ENABLE_LENSFUN )
+
+ if (RTA_BUILD_PYTHON_BINDINGS)
+--- a/src/rawtoaces_util/CMakeLists.txt
++++ b/src/rawtoaces_util/CMakeLists.txt
+@@ -40,12 +40,8 @@
+ )
+
+ if ( ${RTA_ENABLE_LENSFUN} )
+-    target_include_directories(rawtoaces_util PUBLIC "${lensfun_INCLUDEDIR}/lensfun" )
+-    target_compile_options ( rawtoaces_util PUBLIC ${lensfun_CFLAGS} )
+-    target_link_directories(rawtoaces_util PUBLIC ${lensfun_LIBDIR} )
+-    target_link_libraries(rawtoaces_util PUBLIC ${lensfun_LINK_LIBRARIES} )
+-    target_link_options ( rawtoaces_util PUBLIC ${lensfun_LDFLAGS} )
+-    target_compile_definitions(rawtoaces_util PRIVATE RTA_ENABLE_LENSFUN=1 )
++    target_link_libraries(rawtoaces_util PUBLIC lensfun::lensfun)
++    target_compile_definitions(rawtoaces_util PRIVATE RTA_ENABLE_LENSFUN=1)
+ endif()
+
+ target_compile_definitions( rawtoaces_util PRIVATE RAWTOACES_VERSION="${RAWTOACES_VERSION}" )

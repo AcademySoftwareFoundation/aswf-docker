@@ -4,14 +4,23 @@
 
 set -ex
 
-if [[ ! -f "$DOWNLOADS_DIR/-${ASWF_OPENVDB_VERSION}.tar.gz" ]]; then
-     curl --location "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/v${ASWF_OIIO_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/oiio-${ASWF_OIIO_VERSION}.tar.gz"
+if [[ ! -f "$DOWNLOADS_DIR/-${ASWF_OPENIMAGEIO_VERSION}.tar.gz" ]]; then
+     curl --location "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/v${ASWF_OPENIMAGEIO_VERSION}.tar.gz" -o "$DOWNLOADS_DIR/oiio-${ASWF_OPENIMAGEIO_VERSION}.tar.gz"
 fi
 
-tar -zxf "$DOWNLOADS_DIR/oiio-${ASWF_OIIO_VERSION}.tar.gz"
-cd "OpenImageIO-${ASWF_OIIO_VERSION}"
+tar -zxf "$DOWNLOADS_DIR/oiio-${ASWF_OPENIMAGEIO_VERSION}.tar.gz"
+cd "OpenImageIO-${ASWF_OPENIMAGEIO_VERSION}"
 
-if [[ $ASWF_OIIO_VERSION == 3.1.10.0 ]]; then
+BUILD_FMT_FORCE=OFF
+
+if [[ $ASWF_OPENIMAGEIO_VERSION == 2.4.17.0 ]]; then
+
+# Picking up pre-built fmt is complicated in 2.4.x
+BUILD_FMT_FORCE=ON
+
+fi
+
+if [[ $ASWF_OPENIMAGEIO_VERSION == 3.1.13.1 ]]; then
 
 cat << 'EOF' | patch -p1
 diff --git a/src/cmake/dependency_utils.cmake b/src/cmake/dependency_utils.cmake
@@ -57,6 +66,7 @@ cmake -DCMAKE_INSTALL_PREFIX="${ASWF_INSTALL_PREFIX}" \
       -DBoost_NO_BOOST_CMAKE=ON \
       -Dpybind11_ROOT="${ASWF_INSTALL_PREFIX}" \
       -DCMAKE_CXX_STANDARD="${ASWF_CXX_STANDARD}" \
+      -DBUILD_FMT_FORCE="${BUILD_FMT_FORCE}" \
       ../.
 cmake --build . -j$(nproc)
 cmake --install .

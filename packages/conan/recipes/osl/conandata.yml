@@ -3,9 +3,18 @@
 # SPDX-License-Identifier: MIT
 
 sources:
+  "1.15.4.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.15.4.0.tar.gz"
+    sha256: "c721a1487d9dafdf77aec86ff9ff84efc4347f3c296a10ec2036b5849facf334"
+  "1.15.3.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.15.3.0.tar.gz"
+    sha256: "d11f14c7bd40ffe37e3a0e4739352a1f2b230517aad60669b953ff497ab42572"
   "1.15.1.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.15.1.0.tar.gz"
     sha256: "c830c2bd95992691bf95871d741a8108c6ddca118278126f5a6bad305b9b7802"
+  "1.14.9.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.14.9.0.tar.gz"
+    sha256: "b5971503cb56bb642b8847e5c0aeb45fb42530ad043d00224ab9fe6f6efc5bc4"
   "1.14.7.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.14.7.0.tar.gz"
     sha256: "c4c2ddd3b537cd3a90d50fdd0753614fa24100698d5632b9f1108bd8b505e56c"
@@ -15,6 +24,9 @@ sources:
   "1.13.11.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.13.11.0.tar.gz"
     sha256: "e448f983049038bb5a611c4fb902d839296c22d3ef221b38e53a14b40ce187a7"
+  "1.12.14.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.12.14.0.tar.gz"
+    sha256: "6562a3fa10b80b8d328951004258ab6d12a6a23c23143f46a86d2f48f55354d3"
   "1.12.13.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.12.13.0.tar.gz"
     sha256: "b5fc9f4814c1ec927773b2236d126072c1d0bbc0f031841b82649ff4d29e9d7e"
@@ -25,11 +37,32 @@ sources:
     url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.11.13.0.tar.gz"
     sha256: "5fface4b487b9bf9448ac5f5a370dbe2075d2941dd11c396448a86ac11663002"
 patches:
+  "1.15.4.0":
+    - patch_file: "patches/1.15.1.0-find-llvm-binaries.patch"
+      patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
+      patch_type: "conan"
+    - patch_file: "patches/1.15.3.0-cmake-oiio-imath-includes.patch"
+      patch_description: "Allow imath and oiio to be found when building inside Conan"
+      patch_type: "conan"
+  "1.15.3.0":
+    - patch_file: "patches/1.15.1.0-find-llvm-binaries.patch"
+      patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
+      patch_type: "conan"
+    - patch_file: "patches/1.15.3.0-cmake-oiio-imath-includes.patch"
+      patch_description: "Allow imath and oiio to be found when building inside Conan"
+      patch_type: "conan"
   "1.15.1.0":
     - patch_file: "patches/1.15.1.0-find-llvm-binaries.patch"
       patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
       patch_type: "conan"
     - patch_file: "patches/1.15.1.0-cmake-oiio-imath-includes.patch"
+      patch_description: "Allow imath and oiio to be found when building inside Conan"
+      patch_type: "conan"
+  "1.14.9.0":
+    - patch_file: "patches/1.14.7.0-find-llvm-binaries.patch"
+      patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
+      patch_type: "conan"
+    - patch_file: "patches/1.14.9.0-cmake-oiio-imath-includes.patch"
       patch_description: "Allow imath and oiio to be found when building inside Conan"
       patch_type: "conan"
   "1.14.7.0":
@@ -47,5 +80,15 @@ patches:
       patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
       patch_type: "conan"
     - patch_file: "patches/1.13.11.0-cmake-oiio-imath-includes.patch"
+      patch_description: "Allow imath and oiio to be found when building inside Conan"
+      patch_type: "conan"
+  "1.12.14.0":
+    - patch_file: "patches/1.12.14.0-serialize-cuda-build.patch"
+      patch_description: "Serialize CUDA build steps to avoid race conditions"
+      patch_type: "conan"
+    - patch_file: "patches/1.12.14.0-find-llvm-binaries.patch"
+      patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
+      patch_type: "conan"
+    - patch_file: "patches/1.12.14.0-cmake-oiio-imath-includes.patch"
       patch_description: "Allow imath and oiio to be found when building inside Conan"
       patch_type: "conan"

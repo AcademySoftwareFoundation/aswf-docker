@@ -66,6 +66,11 @@ class PySide6Conan(ConanFile):
         if self.settings.os == "Windows":
             self.tool_requires(f"pyside-shiboken/{self.version}")
 
+        if Version(self.version) < "6.0":
+            self.tool_requires("cpython/[>=3.0.0]")
+            self.tool_requires("qt/[>=5.0.0]")
+            self.tool_requires(f"clang/{os.environ['ASWF_PYSIDE_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
+
     def export_sources(self):
         export_conandata_patches(self)
 
@@ -138,22 +143,26 @@ class PySide6Conan(ConanFile):
             f"{pythonBinPath} -m pip install -qq wheel==0.34.2 packaging setuptools --index-url {index_url}"
         )
 
+        qmakeArg = "--qtpaths" if Version(self.version) >= "6.0" else "--qmake"
         args = [
             pythonBinPath,
             os.path.join(srcDir, "setup.py"),
             "build",
-            "--qtpaths",
+            qmakeArg,
             qmakePath,
             "--verbose-build",
             "--skip-modules",
             ",".join(skipModules),
-            "--make-spec",
-            "ninja",
             "--parallel",
             str(os.cpu_count()),
             "--ignore-git",
             "--reuse-build",
         ]
+        if Version(self.version) >= "6.0":
+            args.extend([
+                "--make-spec",
+                "ninja",
+            ])
         if self.settings.build_type == "Debug":
             args.append("--debug")
         return " ".join(args)
@@ -161,7 +170,8 @@ class PySide6Conan(ConanFile):
     def _buildLinux(self, srcDir):
         qtInfo = self.dependencies["qt"]
         qtBinPath = qtInfo.cpp_info.bindirs[0]
-        qmakePath = os.path.join(qtBinPath, "qtpaths6")
+        qtpathName = "qtpaths6" if Version(self.version) >= "6.0" else "qmake"
+        qmakePath = os.path.join(qtBinPath, qtpathName)
 
         llvmInfo = self.dependencies["clang"]
 
@@ -208,7 +218,8 @@ class PySide6Conan(ConanFile):
     def _buildMac(self, srcDir):
         qtInfo = self.dependencies["qt"]
         qtBinPath = qtInfo.cpp_info.bin_paths[0]
-        qmakePath = os.path.join(qtBinPath, "qtpaths6")
+        qtpathName = "qtpaths6" if Version(self.version) >= "6.0" else "qmake"
+        qmakePath = os.path.join(qtBinPath, qtpatName)
 
         llvmInfo = self.dependencies["clang"]
 
@@ -230,7 +241,8 @@ class PySide6Conan(ConanFile):
     def _buildWindows(self, srcDir):
         qtInfo = self.dependencies["qt"]
         qtBinPath = qtInfo.cpp_info.bin_paths[0]
-        qmakePath = os.path.join(qtBinPath, "qtpaths6.exe")
+        qtpathName = "qtpaths6.exe" if Version(self.version) >= "6.0" else "qmake.exe"
+        qmakePath = os.path.join(qtBinPath, qtpathName)
 
         llvmInfo = self.dependencies["clang"]
 
@@ -283,17 +295,23 @@ class PySide6Conan(ConanFile):
 
         src_dir = os.path.join(self.source_folder, self._checkout_folder)
 
-        # pyside is using the venv name to contain the install dir.
-        # see https://a_gitlab_url/libraries/conan/thirdparty/pyside/pyside/-/commit/0a40ebb1
-        # venv_name = os.path.basename(sys.prefix)
-        # Not sure what's the best way to do this, but this is unlikely to be it
-        venv_name = f"qfp-py{pythonVersionMajorMinor}-qt{qtVersion}-64bit-"
+        if Version(self.version) >= "6.0":
+            # pyside is using the venv name to contain the install dir.
+            # see https://a_gitlab_url/libraries/conan/thirdparty/pyside/pyside/-/commit/0a40ebb1
+            # venv_name = os.path.basename(sys.prefix)
+            # Not sure what's the best way to do this, but this is unlikely to be it
+            venv_name = f"qfp-py{pythonVersionMajorMinor}-qt{qtVersion}-64bit-"
+        else:
+            venv_name = f"py{pythonVersionMajorMinor}-qt{qtVersion}-64bit-"
         if self.settings.build_type == "Debug":
             venv_name += "debug"
         else:
             venv_name += "release"
 
-        install_dir = os.path.join(src_dir, "build", venv_name, "install")
+        if Version(self.version) >= "6.0":
+            install_dir = os.path.join(src_dir, "build", venv_name, "install")
+        else:
+            install_dir = os.path.join(src_dir, "pyside3_install", venv_name)
         if not os.path.isdir(install_dir):
             raise ConanException(f"Could not find the install directory {install_dir}")
 
@@ -352,8 +370,19 @@ class PySide6Conan(ConanFile):
         # self._set_r_paths(libs, '@loader_path/../../../../bin')
 
     def package(self):
-        copy(self,pattern="*", src=self._installDir, dst=self.package_folder )
-        # copy(self,pattern="*", src="cmake", dst="cmake")
+        if Version(self.version) >= "6.0":
+            copy(self,pattern="*", src=self._installDir, dst=self.package_folder )
+        else:
+            pythonInfo = self.dependencies["cpython"]
+            pythonBinPath = os.path.join(
+                pythonInfo.package_folder,
+                pythonInfo.cpp_info.bindirs[0],
+                "python"
+            )
+            self.run(
+                f"{pythonBinPath} setup.py install --prefix {self.package_folder}",
+                cwd=os.path.join(self.source_folder, self._checkout_folder)
+            )
 
         if self.settings.os == "Macos":
             self._configure_package_mac()
@@ -379,3 +408,7 @@ class PySide6Conan(ConanFile):
                 self.package_folder, f"lib/python{v.major}.{v.minor}/site-packages"
             )
         self.cpp_info.bindirs = ["bin"]
+
+        if Version(self.version) < "6.0":
+            # pyside2-uic is a Python script, clients need PYTHONPATH
+            self.buildenv_info.prepend_path("PYTHONPATH", self.user_info.site_package)

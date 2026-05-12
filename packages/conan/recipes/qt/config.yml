@@ -1,0 +1,23 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/8abb942c5fb4acd481548950143024fdcf29ef8f/recipes/qt/config.yml
+
+versions:
+  "6.10.1":
+    folder: 6.x.x
+  "6.8.3":
+    folder: 6.x.x
+  "6.7.3":
+    folder: 6.x.x
+  "6.6.3":
+    folder: 6.x.x
+  "6.5.6":
+    folder: 6.x.x
+  "6.5.4":
+    folder: 6.x.x
+  "6.5.3":
+    folder: 6.x.x
+  "5.15.18":
+    folder: 5.x.x

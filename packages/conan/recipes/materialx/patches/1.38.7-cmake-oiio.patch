@@ -1,0 +1,17 @@
+--- source/MaterialXRender/CMakeLists.txt
++++ source/MaterialXRender/CMakeLists.txt
+@@ -30,10 +30,10 @@
+ if(MATERIALX_BUILD_OIIO)
+     set(OPENIMAGEIO_ROOT_DIR ${MATERIALX_OIIO_DIR})
+     list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/External/OpenImageIO")
+-    find_package(OpenImageIO REQUIRED)
+-    if(OPENIMAGEIO_FOUND)
+-        include_directories(${OPENIMAGEIO_INCLUDE_DIR})
+-        target_link_libraries(MaterialXRender ${OPENIMAGEIO_LIBRARIES})
++    find_package(OpenImageIO CONFIG REQUIRED)
++    if(OpenImageIO_FOUND)
++        include_directories(${OpenImageIO_INCLUDE_DIR})
++        target_link_libraries(MaterialXRender OpenImageIO::OpenImageIO OpenImageIO::OpenImageIO_Util)
+         # Also needed by MaterialXTest:
+         set(OPENIMAGEIO_FOUND "${OPENIMAGEIO_FOUND}" PARENT_SCOPE)
+         set(OPENIMAGEIO_INCLUDE_DIR "${OPENIMAGEIO_INCLUDE_DIR}" PARENT_SCOPE)

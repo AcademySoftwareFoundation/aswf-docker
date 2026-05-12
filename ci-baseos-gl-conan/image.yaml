@@ -57,7 +57,7 @@ docker_commands: |
       LD_LIBRARY_PATH=/usr/local/lib:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib64:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/lib:${LD_LIBRARY_PATH} \
       PATH=/opt/aswfbuilder/bin:/usr/local/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin:/opt/app-root/src/bin:/opt/rh/${ASWF_DTS_PREFIX}-${ASWF_DTS_VERSION}/root/usr/bin/:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
 
-  RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
+  RUN --mount=type=cache,id=aswf-downloads,sharing=private,target=/tmp/downloads \
       /tmp/install_dev_cmake.sh && \
       /tmp/install_dev_ccache.sh
 
@@ -77,5 +77,5 @@ docker_commands: |
 
   COPY ../scripts/common/install_conan.sh /tmp/
 
-  RUN --mount=type=cache,sharing=private,target=/tmp/downloads \
+  RUN --mount=type=cache,id=aswf-downloads,sharing=private,target=/tmp/downloads \
       /tmp/install_conan.sh

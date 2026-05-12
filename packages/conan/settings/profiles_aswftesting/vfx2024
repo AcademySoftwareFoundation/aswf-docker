@@ -36,6 +36,7 @@ icu/*: icu/system@aswftesting/vfx2024
 imath/*: imath/3.1.12@aswftesting/vfx2024
 jasper/*: jasper/4.2.5@aswftesting/vfx2024
 lcms/*: lcms/2.17@aswftesting/vfx2024
+lensfun/*: lensfun/0.3.4@aswftesting/vfx2024
 libalsa/*: libalsa/system@aswftesting/vfx2024
 libaom-av1/*: libaom-av1/system@aswftesting/vfx2024
 libbacktrace/*: libbacktrace/cci.20210118@aswftesting/vfx2024
@@ -52,10 +53,10 @@ libsndfile/*: libsndfile/system@aswftesting/vfx2024
 libsquish/*: libsquish/system@aswftesting/vfx2024
 libsvtav1/*: libsvtav1/system@aswftesting/vfx2024
 libtiff/*: libtiff/4.0.9@aswftesting/vfx2024
-libxcrypt/*: libxcrypt/4.4.36@aswftesting/vfx2024
 libultrahdr/*: libultrahdr/1.4.0@aswftesting/vfx2024
 libvpx/*: libvpx/system@aswftesting/vfx2024
 libwebp/*: libwebp/1.5.0@aswftesting/vfx2024
+libxcrypt/*: libxcrypt/4.4.36@aswftesting/vfx2024
 libxshmfence/*: libxshmfence/system@aswftesting/vfx2024
 log4cplus/*: log4cplus/2.1.2@aswftesting/vfx2024
 lz4/*: lz4/1.10.0@aswftesting/vfx2024
@@ -68,16 +69,16 @@ nanobind/*: nanobind/2.11.0@aswftesting/vfx2024
 nlohmann_json/*: nlohmann_json/3.12.0@aswftesting/vfx2024
 nspr/*: nspr/system@aswftesting/vfx2024
 nss/*: nss/3.112.0@aswftesting/vfx2024
-ocio/*: ocio/2.3.2@aswftesting/vfx2024
-oiio/*: oiio/2.5.19.0@aswftesting/vfx2024
 ogg/*: ogg/system@aswftesting/vfx2024
 onetbb/*: onetbb/2020.3@aswftesting/vfx2024
 openal-soft/*: openal-soft/system@aswftesting/vfx2024
 opencl-headers/*: opencl-headers/system@aswftesting/vfx2024
 opencl-icd-loader/*: opencl-icd-loader/system@aswftesting/vfx2024
-openexr/*: openexr/3.2.5@aswftesting/vfx2024
+opencolorio/*: opencolorio/2.3.2@aswftesting/vfx2024
+openexr/*: openexr/3.2.9@aswftesting/vfx2024
 openfx/*: openfx/1.5s@aswftesting/vfx2024
 opengl/*: opengl/system@aswftesting/vfx2024
+openimageio/*: openimageio/2.5.19.1@aswftesting/vfx2024
 openjpeg/*: openjpeg/2.4.0@aswftesting/vfx2024
 openjph/*: openjph/0.24.5@aswftesting/vfx2024
 opensubdiv/*: opensubdiv/3.6.1@aswftesting/vfx2024
@@ -88,7 +89,7 @@ opus/*: opus/system@aswftesting/vfx2024
 osl/*: osl/1.13.11.0@aswftesting/vfx2024
 partio/*: partio/1.19.0@aswftesting/vfx2024
 pcre2/*: pcre2/system@aswftesting/vfx2024
-ptex/*: ptex/2.4.2@aswftesting/vfx2024
+ptex/*: ptex/2.4.3@aswftesting/vfx2024
 pugixml/*: pugixml/1.14@aswftesting/vfx2024
 pulseaudio/*: pulseaudio/system@aswftesting/vfx2024
 pybind11/*: pybind11/2.13.6@aswftesting/vfx2024
@@ -126,6 +127,7 @@ nasm/*: nasm/system@aswftesting/vfx2024
 nodejs/*: nodejs/18.20.4@system
 pkgconf/*: pkgconf/1.4.2@system
 pyside/*: pyside/6.5.6@aswftesting/vfx2024
+qt/*: qt/6.5.6@aswftesting/vfx2024
 wayland/*: wayland/1.21.0@system
 wayland-protocols/*: wayland-protocols/1.25@system
 [platform_requires]

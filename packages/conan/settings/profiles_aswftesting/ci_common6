@@ -13,8 +13,8 @@ build_type=Release
 [replace_requires]
 openssl/*: openssl/1.1.1k@aswftesting/ci_common6
 [replace_tool_requires]
-cmake/*: cmake/4.0.2@aswftesting/ci_common6
-ninja/*: ninja/1.13.1@aswftesting/ci_common6
+cmake/*: cmake/4.0.6@aswftesting/ci_common6
+ninja/*: ninja/1.13.2@aswftesting/ci_common6
 [platform_requires]
 [buildenv]
 GCC_INSTALL_DIR=/opt/rh/gcc-toolset-14/root/lib/gcc/x86_64-redhat-linux/14

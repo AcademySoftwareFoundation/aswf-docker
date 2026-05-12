@@ -16,7 +16,8 @@ ARG ASWF_CXX_STANDARD
 ARG ASWF_VFXPLATFORM_VERSION
 
 
-ARG ASWF_OCIO_VERSION
+ARG ASWF_GLEW_VERSION
+ARG ASWF_OPENCOLORIO_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
@@ -37,7 +38,8 @@ ARG ASWF_CXX_STANDARD
 
 
 
-ARG ASWF_OCIO_VERSION
+ARG ASWF_GLEW_VERSION
+ARG ASWF_OPENCOLORIO_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
@@ -56,7 +58,8 @@ LABEL org.opencontainers.image.version="${ASWF_VERSION}"
 LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
 
 
-LABEL io.aswf.docker.versions.ocio="$ASWF_OCIO_VERSION"
+LABEL io.aswf.docker.versions.glew="$ASWF_GLEW_VERSION"
+LABEL io.aswf.docker.versions.opencolorio="$ASWF_OPENCOLORIO_VERSION"
 LABEL io.aswf.docker.versions.numpy="$ASWF_NUMPY_VERSION"
 LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
 
@@ -72,7 +75,8 @@ ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
 
-ENV ASWF_OCIO_VERSION=$ASWF_OCIO_VERSION
+ENV ASWF_GLEW_VERSION=$ASWF_GLEW_VERSION
+ENV ASWF_OPENCOLORIO_VERSION=$ASWF_OPENCOLORIO_VERSION
 ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
 ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
 
@@ -93,14 +97,15 @@ COPY <<EOF /usr/local/conanfile.txt
 [imports]
 ., * -> .
 [requires]
-ocio/${ASWF_OCIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+glew/${ASWF_GLEW_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+opencolorio/${ASWF_OPENCOLORIO_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
 
-RUN --mount=type=cache,target=/opt/conan_home/d \
+RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" ocio
+    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" opencolorio
 
 

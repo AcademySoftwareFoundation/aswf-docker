@@ -21,56 +21,64 @@ Warning: this image does *not* contain OpenColorIO itself as it is used to *buil
 ## [aswf/ci-ocio:2019.9](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2019.9)
 
 Contains:
-* ocio-1.1.0
+* glew-2.1.0
+* opencolorio-1.1.0
 * numpy-1.14
 * vfxplatform-2019
 
 ## [aswf/ci-ocio:2020.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2020.8)
 
 Contains:
-* ocio-1.1.1
+* glew-2.1.0
+* opencolorio-1.1.1
 * numpy-1.16
 * vfxplatform-2020
 
 ## [aswf/ci-ocio:2021.6](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2021.6)
 
 Contains:
-* ocio-2.0.1
+* glew-2.1.0
+* opencolorio-2.0.1
 * numpy-1.19
 * vfxplatform-2021
 
 ## [aswf/ci-ocio:2022.4](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2022.4)
 
 Contains:
-* ocio-2.1.1
+* glew-2.1.0
+* opencolorio-2.1.1
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-ocio:2023.2](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2023.2)
+## [aswf/ci-ocio:2023.3](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2023.3)
 
 Contains:
-* ocio-2.2.1
+* glew-2.2.0
+* opencolorio-2.2.1
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-ocio:2024.6](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.6)
+## [aswf/ci-ocio:2024.7](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.7)
 
 Contains:
-* ocio-2.3.2
+* glew-2.2.0
+* opencolorio-2.3.2
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-ocio:2025.5](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2025.5)
+## [aswf/ci-ocio:2025.6](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2025.6)
 
 Contains:
-* ocio-2.4.2
+* glew-2.2.0
+* opencolorio-2.4.2
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-ocio:2026.3](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2026.3)
+## [aswf/ci-ocio:2026.4](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2026.4)
 
 Contains:
-* ocio-2.5.1
+* glew-2.2.0
+* opencolorio-2.5.1
 * numpy-2.3.2
 * vfxplatform-2026
 

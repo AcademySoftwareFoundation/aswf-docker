@@ -18,24 +18,35 @@ Warning: this image does *not* contain OpenImageIO itself as it is used to *buil
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-oiio/Dockerfile)
 
-## [aswf/ci-oiio:2024.6](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2024.6)
+## [aswf/ci-oiio:2023.3](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2023.3)
 
 Contains:
-* oiio-2.5.19.0
+* qt-5.15.18
+* openimageio-2.4.17.0
+* numpy-1.23.5
+* vfxplatform-2023
+
+## [aswf/ci-oiio:2024.7](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2024.7)
+
+Contains:
+* qt-6.5.6
+* openimageio-2.5.19.1
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-oiio:2025.5](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2025.5)
+## [aswf/ci-oiio:2025.6](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2025.6)
 
 Contains:
-* oiio-3.1.6.2
+* qt-6.5.6
+* openimageio-3.1.6.2
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-oiio:2026.3](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2026.3)
+## [aswf/ci-oiio:2026.4](https://hub.docker.com/r/aswf/ci-oiio/tags?page=1&name=2026.4)
 
 Contains:
-* oiio-3.1.10.0
+* qt-6.8.3
+* openimageio-3.1.13.1
 * numpy-2.3.2
 * vfxplatform-2026
 

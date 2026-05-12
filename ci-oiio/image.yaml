@@ -1,10 +1,12 @@
-name: "oiio"
+name: "openimageio"
+name_image: "oiio" # image is named oiio, Conan package is opeaimageion
 title: "OpenImageIO CI Docker Image"
 description: |
   Contains: Python, OpenEXR, Partio and other OpenImageIO upstream dependencies
   Warning: this image does *not* contain OpenImageIO itself as it is used to *build* OpenImageIO!
 packages:
-  - oiio # all dependencies will be installed except oiio itself
+  - qt # hidden dependency for building iv
+  - openimageio # all dependencies will be installed except openimageio itself
 implicit_packages:
   - numpy
   - vfxplatform

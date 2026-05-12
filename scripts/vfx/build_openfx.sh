@@ -99,6 +99,29 @@ index 6cf74b219a1..501394deede 10064
  target_include_directories(${TGT} PUBLIC ${OFX_HEADER_DIR} ${OFX_SUPPORT_HEADER_DIR})
 EOF
 
+if [[ $ASWF_OPENFX_VERSION == 1.5.1 ]]; then
+
+cat << 'EOF' | patch -p1
+diff --git a/Examples/ColourSpace/colourspace.cpp b/Examples/ColourSpace/colourspace.cpp
+index d99dd79ac..bfda2778a 100644
+--- a/Examples/ColourSpace/colourspace.cpp
++++ b/Examples/ColourSpace/colourspace.cpp
+@@ -33,9 +33,9 @@
+ #endif
+
+ // In some environments {fmt} needs FMT_STRING
+-#ifndef FMT_STRING
++//#ifndef FMT_STRING
+ #define FMT_STRING(x) x
+-#endif
++//#endif
+
+ enum class ColourManagementStyle
+ {
+EOF
+
+fi
+
 mkdir build
 cd build
 cmake \

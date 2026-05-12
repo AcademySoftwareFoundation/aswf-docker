@@ -106,23 +106,23 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-openvdb:2023-clang14.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang14.2)
+## [aswf/ci-openvdb:2023-clang14.3](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang14.3)
 
 Contains:
-* openvdb-10.0.1
-* gtest-1.11.0
+* openvdb-10.1.0
+* gtest-1.15.2
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-openvdb:2023-clang15.2](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang15.2)
+## [aswf/ci-openvdb:2023-clang15.3](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2023-clang15.3)
 
 Contains:
-* openvdb-10.0.1
-* gtest-1.11.0
+* openvdb-10.1.0
+* gtest-1.15.2
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-openvdb:2024-clang16.6](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang16.6)
+## [aswf/ci-openvdb:2024-clang16.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang16.7)
 
 Contains:
 * openvdb-11.0.0
@@ -130,7 +130,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-openvdb:2024-clang17.6](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang17.6)
+## [aswf/ci-openvdb:2024-clang17.7](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2024-clang17.7)
 
 Contains:
 * openvdb-11.0.0
@@ -138,7 +138,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-openvdb:2025-clang18.5](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2025-clang18.5)
+## [aswf/ci-openvdb:2025-clang18.6](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2025-clang18.6)
 
 Contains:
 * openvdb-12.1.1
@@ -146,7 +146,7 @@ Contains:
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-openvdb:2025-clang19.5](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2025-clang19.5)
+## [aswf/ci-openvdb:2025-clang19.6](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2025-clang19.6)
 
 Contains:
 * openvdb-12.1.1
@@ -154,7 +154,7 @@ Contains:
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-openvdb:2026-clang19.3](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2026-clang19.3)
+## [aswf/ci-openvdb:2026-clang19.4](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2026-clang19.4)
 
 Contains:
 * openvdb-13.0.0
@@ -162,7 +162,7 @@ Contains:
 * numpy-2.3.2
 * vfxplatform-2026
 
-## [aswf/ci-openvdb:2026-clang20.3](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2026-clang20.3)
+## [aswf/ci-openvdb:2026-clang20.4](https://hub.docker.com/r/aswf/ci-openvdb/tags?page=1&name=2026-clang20.4)
 
 Contains:
 * openvdb-13.0.0
