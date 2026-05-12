@@ -14,10 +14,10 @@ packages:
   - partio        # Dependency of OSL once it becomes Conan package
   - alembic       # Dependency of USD once it becomes Conan package
   - imath
+  - opencolorio
   - openexr
-  - oiio
-  - ocio
   - openfx
+  - openimageio
   - opentimelineio
   - openusd
   - openvdb

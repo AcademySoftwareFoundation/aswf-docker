@@ -1,0 +1,16 @@
+diff --git Examples/ColourSpace/colourspace.cpp Examples/ColourSpace/colourspace.cpp
+index d99dd79ac..bfda2778a 100644
+--- Examples/ColourSpace/colourspace.cpp
++++ Examples/ColourSpace/colourspace.cpp
+@@ -33,9 +33,9 @@
+ #endif
+
+ // In some environments {fmt} needs FMT_STRING
+-#ifndef FMT_STRING
++//#ifndef FMT_STRING
+ #define FMT_STRING(x) x
+-#endif
++//#endif
+
+ enum class ColourManagementStyle
+ {

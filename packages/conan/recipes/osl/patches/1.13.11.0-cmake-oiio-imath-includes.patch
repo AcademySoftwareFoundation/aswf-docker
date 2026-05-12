@@ -92,23 +92,6 @@ index d99dd79ac..bfda2778a 100644
          if (NOT ${nvptx_index} GREATER -1)
              message (FATAL_ERROR "NVPTX target is not available in the provided LLVM build")
          endif()
-diff --git src/testshade/CMakeLists.txt src/testshade/CMakeLists.txt
-index d99dd79ac..bfda2778a 100644
---- src/testshade/CMakeLists.txt
-+++ src/testshade/CMakeLists.txt
-@@ -68,9 +68,9 @@
- set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR})
- list(APPEND include_dirs ${CMAKE_SOURCE_DIR}/src/include)
- list(APPEND include_dirs ${CMAKE_BINARY_DIR}/include)
--list(APPEND include_dirs ${IMATH_INCLUDES})
--list(APPEND include_dirs ${OPENEXR_INCLUDES})
--list(APPEND include_dirs ${OpenImageIO_INCLUDES})
-+list(APPEND include_dirs ${Imath_INCLUDE_DIRS})
-+list(APPEND include_dirs ${OpenEXR_INCLUDE_DIRS})
-+list(APPEND include_dirs ${OpenImageIO_INCLUDE_DIRS})
- list(APPEND include_dirs ${Boost_INCLUDE_DIRS})
-
- EMBED_LLVM_BITCODE_IN_CPP ( "${rs_srcs}" "_host" "testshade_llvm_compiled_rs" testshade_srcs "-DOSL_HOST_RS_BITCODE=1" "${include_dirs}")
 diff --git src/liboslexec/shadingsys.cpp src/liboslexec/shadingsys.cpp
 index d99dd79ac..bfda2778a 100644
 --- src/liboslexec/shadingsys.cpp

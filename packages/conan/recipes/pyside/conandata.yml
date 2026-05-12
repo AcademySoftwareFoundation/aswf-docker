@@ -1,36 +1,35 @@
 sources:
-  "5.12.6":
-    url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.12.6-src/pyside-setup-everywhere-src-5.12.6.tar.xz"
-    sha256: "53379f43891a6bc72fc344f5963d77de0916344637132aae634677dfbba185d8"
-  "5.15.2":
-    url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.2-src/pyside-setup-opensource-src-5.15.2.tar.xz"
-    sha256: "b306504b0b8037079a8eab772ee774b9e877a2d84bab2dbefbe4fa6f83941418"
-  "5.15.9":
-    url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.9-src/pyside-setup-opensource-src-5.15.9-1.tar.xz"
-    sha256: "3298660742037c71274a30770541abf6d1552ec65fc93678eedee5718852a62c"
-  "6.5.3":
-    url: "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.3-src/pyside-setup-everywhere-src-6.5.3.tar.xz"
-    sha256: "6606b1634fb2981f9ca7ce2e206cc92c252401de328df4ce23f63e8c998de8d3"
-  "6.5.4":
-    url: "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.4-src/pyside-setup-opensource-src-6.5.4.tar.xz"
-    sha256: "1bd5e63bede4ac2930579abd09a2803f8a508693d210c77efe7e838c8da360ae"
-  "6.5.6":
-    url: "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.6-src/pyside-setup-opensource-src-6.5.6.tar.xz"
-    sha256: "af11a872c7ed75f54cfa088bcbf46bae14bd0d9b1ec23b08168a6fc1cdfa1fc7"
   "6.8.3":
     url: "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.8.3-src/pyside-setup-everywhere-src-6.8.3.tar.xz"
     sha256: "d2c896f7f1a6a7ea4c9f98cfe317272fd139703ddf612b86999f09e48aeef0e6"
-patches:
-  "5.12.6":
-    # typing-patch.zip from https://codereview.qt-project.org/changes/pyside%2Fpyside-setup~271412/revisions/4/patch?zip
-    - patch_file: "patches/28958df.diff"
-      base_path: "source_subfolder"
-    # clang10-patch.zip from https://codereview.qt-project.org/changes/pyside%2Fpyside-setup~296271/revisions/2/patch?zip
-    - patch_file: "patches/9ae6382.diff"
-      base_path: "source_subfolder"
+  "6.5.6":
+    url: "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.6-src/pyside-setup-opensource-src-6.5.6.tar.xz"
+    sha256: "af11a872c7ed75f54cfa088bcbf46bae14bd0d9b1ec23b08168a6fc1cdfa1fc7"
+  "6.5.4":
+    url: "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.4-src/pyside-setup-opensource-src-6.5.4.tar.xz"
+    sha256: "1bd5e63bede4ac2930579abd09a2803f8a508693d210c77efe7e838c8da360ae"
+  "6.5.3":
+    url: "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.3-src/pyside-setup-everywhere-src-6.5.3.tar.xz"
+    sha256: "6606b1634fb2981f9ca7ce2e206cc92c252401de328df4ce23f63e8c998de8d3"
+  "5.15.18":
+    url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.18-src/pyside-setup-opensource-src-5.15.18.tar.xz"
+    sha256: "aa13963698991589fdec4f19735c6fd7200b7544ba521d64a69e2cea365fd98b"
   "5.15.9":
-    - patch_file: "patches/shiboken_numpy_1_23.diff"
-      base_path: "source_subfolder"
+    url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.9-src/pyside-setup-opensource-src-5.15.9-1.tar.xz"
+    sha256: "3298660742037c71274a30770541abf6d1552ec65fc93678eedee5718852a62c"
+  "5.15.2":
+    url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.2-src/pyside-setup-opensource-src-5.15.2.tar.xz"
+    sha256: "b306504b0b8037079a8eab772ee774b9e877a2d84bab2dbefbe4fa6f83941418"
+  "5.12.6":
+    url: "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.12.6-src/pyside-setup-everywhere-src-5.12.6.tar.xz"
+    sha256: "53379f43891a6bc72fc344f5963d77de0916344637132aae634677dfbba185d8"
+patches:
+  "6.8.3":
+    - patch_file: "patches/libpython_conan-6.8.3.diff"
+      base_path: "pyside_src"
+  "6.5.6":
+    - patch_file: "patches/libpython_conan.diff"
+      base_path: "pyside_src"
   "6.5.4":
     - patch_file: "patches/shiboken_sbkcontainer.diff"
       base_path: "pyside_src"
@@ -38,9 +37,13 @@ patches:
       base_path: "pyside_src"
     - patch_file: "patches/pyside_pysidesignal.diff"
       base_path: "pyside_src"
-  "6.5.6":
-    - patch_file: "patches/libpython_conan.diff"
-      base_path: "pyside_src"
-  "6.8.3":
-    - patch_file: "patches/libpython_conan-6.8.3.diff"
-      base_path: "pyside_src"
+  "5.15.9":
+    - patch_file: "patches/shiboken_numpy_1_23.diff"
+      base_path: "source_subfolder"
+  "5.12.6":
+    # typing-patch.zip from https://codereview.qt-project.org/changes/pyside%2Fpyside-setup~271412/revisions/4/patch?zip
+    - patch_file: "patches/28958df.diff"
+      base_path: "source_subfolder"
+    # clang10-patch.zip from https://codereview.qt-project.org/changes/pyside%2Fpyside-setup~296271/revisions/2/patch?zip
+    - patch_file: "patches/9ae6382.diff"
+      base_path: "source_subfolder"

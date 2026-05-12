@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/cpython/all/conandata.yml
 
 sources:
+  "3.13.12":
+    url: "https://www.python.org/ftp/python/3.13.12/Python-3.13.12.tgz"
+    sha256: "12e7cb170ad2d1a69aee96a1cc7fc8de5b1e97a2bdac51683a3db016ec9a2996"
   "3.13.3":
     url: "https://www.python.org/ftp/python/3.13.3/Python-3.13.3.tgz"
     sha256: "988d735a6d33568cbaff1384a65cb22a1fb18a9ecb73d43ef868000193ce23ed"  
@@ -14,6 +17,9 @@ sources:
   "3.12.2":
     url: "https://www.python.org/ftp/python/3.12.2/Python-3.12.2.tgz"
     sha256: "a7c4f6a9dc423d8c328003254ab0c9338b83037bd787d680826a5bf84308116e"
+  "3.11.15":
+    url: "https://www.python.org/ftp/python/3.11.15/Python-3.11.15.tgz"
+    sha256: "f4de1b10bd6c70cbb9fa1cd71fc5038b832747a74ee59d599c69ce4846defb50"
   "3.11.13":
     url: "https://www.python.org/ftp/python/3.11.13/Python-3.11.13.tgz"
     sha256: "0f1a22f4dfd34595a29cf69ee7ea73b9eff8b1cc89d7ab29b3ab0ec04179dad8"
@@ -32,6 +38,9 @@ sources:
   "3.11.8":
     url: "https://www.python.org/ftp/python/3.11.8/Python-3.11.8.tgz"
     sha256: "d3019a613b9e8761d260d9ebe3bd4df63976de30464e5c0189566e1ae3f61889"
+  "3.10.20":
+    url: "https://www.python.org/ftp/python/3.10.20/Python-3.10.20.tgz"
+    sha256: "4ff5fd4c5bab803b935019f3e31d7219cebd6f870d00389cea53b88bbe935d1a"
   "3.10.14":
     url: "https://www.python.org/ftp/python/3.10.14/Python-3.10.14.tgz"
     sha256: "cefea32d3be89c02436711c95a45c7f8e880105514b78680c14fe76f5709a0f6"
@@ -54,6 +63,13 @@ sources:
     url: "https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz"
     sha256: "d62e3015f2f89c970ac52343976b406694931742fbde2fed8d1ce8ebb4e1f8ff"
 patches:
+  "3.13.12":
+    - patch_file: "patches/3.13/3.13.0-0002-remove-module-deps.patch"
+      patch_description: "Remove section of solution file forcing projects to be built that might not be used for this recipe"
+      patch_type: "conan"
+    - patch_file: "patches/3.13/3.13.0-0003-relocatable-python-config.patch"
+      patch_description: "Allow package to be relocatable"
+      patch_type: "conan"
   "3.13.3":
     - patch_file: "patches/3.13/3.13.0-0002-remove-module-deps.patch"
       patch_description: "Remove section of solution file forcing projects to be built that might not be used for this recipe"
@@ -87,6 +103,19 @@ patches:
     - patch_file: "patches/3.12/3.12.1-0002-remove-module-deps.patch"
       patch_description: "Remove section of solution file forcing projects to be built that might not be used for this recipe"
       patch_type: "conan"
+  "3.11.15":
+    - patch_file: "patches/3.9/3.9.7-0002-_msi-vcxproj.patch"
+      patch_description: "Fix ARM/ARM64 mismatch in project file"
+      patch_type: "bugfix"
+    - patch_file: "patches/3.11/3.11.7-0001-_ctypes-ffi.patch"
+      patch_description: "Support shared libffi"
+      patch_type: "portability"
+    - patch_file: "patches/3.x-0001-relocatable-python-config.patch"
+      patch_description: "Allow package to be relocatable"
+      patch_type: "conan"
+    - patch_file: "patches/3.x-0002-remove-module-deps.patch"
+      patch_description: "Remove section of solution file forcing projects to be built that might not be used for this recipe"
+      patch_type: "conan"
   "3.11.10":
     - patch_file: "patches/3.9/3.9.7-0002-_msi-vcxproj.patch"
       patch_description: "Fix ARM/ARM64 mismatch in project file"
@@ -119,6 +148,19 @@ patches:
       patch_type: "bugfix"
     - patch_file: "patches/3.11/3.11.7-0001-_ctypes-ffi.patch"
       patch_description: "Support shared libffi"
+      patch_type: "portability"
+    - patch_file: "patches/3.x-0001-relocatable-python-config.patch"
+      patch_description: "Allow package to be relocatable"
+      patch_type: "conan"
+    - patch_file: "patches/3.x-0002-remove-module-deps.patch"
+      patch_description: "Remove section of solution file forcing projects to be built that might not be used for this recipe"
+      patch_type: "conan"
+  "3.10.20":
+    - patch_file: "patches/3.9/3.9.7-0002-_msi-vcxproj.patch"
+      patch_description: "Fix ARM/ARM64 mismatch in project file"
+      patch_type: "bugfix"
+    - patch_file: "patches/3.10/3.10.0-0003-_ctypes-ffi.patch"
+      patch_description: "Remove duplicate libffi symbols and support shared libffi"
       patch_type: "portability"
     - patch_file: "patches/3.x-0001-relocatable-python-config.patch"
       patch_description: "Allow package to be relocatable"

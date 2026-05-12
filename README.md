@@ -173,7 +173,7 @@ You may need to first create a free [Linux Foundation account](https://sso.linux
 As of December 2025 there are full 2018, 2019, 2020, 2021, 2022,
 2023, 2024, 2025 and 2026. [VFX Platform](https://vfxplatform.com) compliant images.
 
-The pre-2024 versions of the images still exist but are not maintained / rebuilt anymore, which
+The pre-2023 versions of the images still exist but are not maintained / rebuilt anymore, which
 means they might be obsolete (especially the OS part).
 
 ## CI Packages

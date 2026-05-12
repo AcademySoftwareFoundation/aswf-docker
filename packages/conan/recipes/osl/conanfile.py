@@ -63,7 +63,7 @@ class OpenShadingLanguageConan(ConanFile):
         self.requires("zlib/[>=1.2.11 <2]")
         self.requires("fmt/10.2.1", transitive_headers=True)
         self.requires("tsl-robin-map/1.2.1")
-        self.requires("oiio/[>=2.5]")
+        self.requires("openimageio/[>=2.5]")
         self.requires("imath/3.1.9", transitive_headers=True)
         self.requires("pugixml/[>=1.8]")
         if self.options.with_partio:
@@ -162,7 +162,7 @@ class OpenShadingLanguageConan(ConanFile):
             "zlib::zlib",
             "fmt::fmt",
             "tsl-robin-map::tsl-robin-map",
-            "oiio::OpenImageIO",
+            "openimageio::openimageio",
             "imath::imath",
             "pugixml::pugixml",
         ]

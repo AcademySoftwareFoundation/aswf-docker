@@ -36,6 +36,7 @@ icu/*: icu/system@aswf/vfx2025
 imath/*: imath/3.1.12@aswf/vfx2025
 jasper/*: jasper/4.2.5@aswf/vfx2025
 lcms/*: lcms/2.17@aswf/vfx2025
+lensfun/*: lensfun/0.3.4@aswf/vfx2025
 libalsa/*: libalsa/system@aswf/vfx2025
 libaom-av1/*: libaom-av1/system@aswf/vfx2025
 libbacktrace/*: libbacktrace/cci.20210118@aswf/vfx2025
@@ -68,16 +69,16 @@ nanobind/*: nanobind/2.11.0@aswf/vfx2025
 nlohmann_json/*: nlohmann_json/3.12.0@aswf/vfx2025
 nspr/*: nspr/system@aswf/vfx2025
 nss/*: nss/3.112.0@aswf/vfx2025
-ocio/*: ocio/2.4.2@aswf/vfx2025
-oiio/*: oiio/3.1.6.2@aswf/vfx2025
 ogg/*: ogg/system@aswf/vfx2025
 onetbb/*: onetbb/2021.13.0@aswf/vfx2025
 openal-soft/*: openal-soft/system@aswf/vfx2025
 opencl-headers/*: opencl-headers/system@aswf/vfx2025
 opencl-icd-loader/*: opencl-icd-loader/system@aswf/vfx2025
-openexr/*: openexr/3.3.7@aswf/vfx2025
+opencolorio/*: opencolorio/2.4.2@aswf/vfx2025
+openexr/*: openexr/3.3.11@aswf/vfx2025
 openfx/*: openfx/1.5s@aswf/vfx2025
 opengl/*: opengl/system@aswf/vfx2025
+openimageio/*: openimageio/3.1.6.2@aswf/vfx2025
 openjpeg/*: openjpeg/2.4.0@aswf/vfx2025
 openjph/*: openjph/0.24.5@aswf/vfx2025
 opensubdiv/*: opensubdiv/3.6.1@aswf/vfx2025
@@ -85,7 +86,7 @@ opentimelineio/*: opentimelineio/0.17.0@aswf/vfx205
 openusd/*: openusd/25.05.01@aswf/vfx2025
 openvdb/*: openvdb/12.1.1@aswf/vfx2025
 opus/*: opus/system@aswf/vfx2025
-osl/*: osl/1.14.7.0@aswf/vfx2025
+osl/*: osl/1.14.9.0@aswf/vfx2025
 partio/*: partio/1.19.0@aswf/vfx2025
 pcre2/*: pcre2/system@aswf/vfx2025
 ptex/*: ptex/2.4.3@aswf/vfx2025
@@ -126,6 +127,7 @@ nasm/*: nasm/system@aswf/vfx2025
 nodejs/*: nodejs/18.20.4@system
 pkgconf/*: pkgconf/1.4.2@system
 pyside/*: pyside/6.5.6@aswf/vfx2025
+qt/*: qt/6.5.6@aswf/vfx2025
 wayland/*: wayland/1.21.0@system
 wayland-protocols/*: wayland-protocols/1.25@system
 [platform_requires]

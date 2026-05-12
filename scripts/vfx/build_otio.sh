@@ -11,6 +11,234 @@ fi
 tar -zxf "$DOWNLOADS_DIR/OpenTimelineIO-${ASWF_OPENTIMELINEIO_VERSION}.tar.gz"
 cd "OpenTimelineIO-${ASWF_OPENTIMELINEIO_VERSION}"
 
+if [[ $ASWF_OPENTIMELINEIO_VERSION == 0.15 ]]; then
+
+cat << 'EOF' | patch -p0
+diff --git src/opentimelineio/any.h src/opentimelineio/any.h
+index d99dd79ac..bfda2778a 100644
+--- src/opentimelineio/any.h
++++ src/opentimelineio/any.h
+@@ -3,12 +3,12 @@
+
+ #pragma once
+
+-#include "any/any.hpp"
++#include <any>
+ #include "opentimelineio/version.h"
+
+ namespace opentimelineio { namespace OPENTIMELINEIO_VERSION {
+
+-using linb::any;
+-using linb::any_cast;
++using std::any;
++using std::any_cast;
+
+ }} // namespace opentimelineio::OPENTIMELINEIO_VERSION
+diff --git src/opentimelineio/optional.h src/opentimelineio/optional.h
+index d99dd79ac..bfda2778a 100644
+--- src/opentimelineio/optional.h
++++ src/opentimelineio/optional.h
+@@ -3,13 +3,13 @@
+
+ #pragma once
+
+-#include "nonstd/optional.hpp"
++#include <optional>
+ #include "opentimelineio/version.h"
+
+ namespace opentimelineio { namespace OPENTIMELINEIO_VERSION {
+
+-using nonstd::nullopt;
+-using nonstd::nullopt_t;
+-using nonstd::optional;
++using std::nullopt;
++using std::nullopt_t;
++using std::optional;
+
+ }} // namespace opentimelineio::OPENTIMELINEIO_VERSION
+diff --git src/opentimelineio/serialization.cpp src/opentimelineio/serialization.cpp
+index d99dd79ac..bfda2778a 100644
+--- src/opentimelineio/serialization.cpp
++++ src/opentimelineio/serialization.cpp
+@@ -3,7 +3,7 @@
+
+ #include "opentimelineio/serialization.h"
+ #include "errorStatus.h"
+-#include "nonstd/optional.hpp"
++#include "opentimelineio/optional.h"
+ #include "opentimelineio/anyDictionary.h"
+ #include "opentimelineio/serializableObject.h"
+ #include "opentimelineio/unknownSchema.h"
+@@ -1032,7 +1032,7 @@
+
+     // write the contents of the object to the encoder, either the downgraded
+     // anydictionary or the SerializableObject
+-    if (!(downgraded.empty()))
++    if (downgraded.has_value())
+     {
+         for (const auto& kv: any_cast<AnyDictionary>(downgraded))
+         {
+diff --git CMakeLists.txt CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- CMakeLists.txt
++++ CMakeLists.txt
+@@ -33,6 +33,8 @@
+ option(OTIO_INSTALL_CONTRIB           "Install the opentimelineio_contrib Python package" ON)
+ set(OTIO_IMATH_LIBS "" CACHE STRING   "Imath library overrides to use instead of src/deps or find_package")
+ option(OTIO_FIND_IMATH                "Find Imath using find_package, ignored if OTIO_IMATH_LIBS is set" OFF)
++option(OTIO_FIND_PYBIND11             "Find pybind11 using find_package" OFF)
++option(OTIO_FIND_RAPIDJSON            "Find RapidJSON using find_package" OFF)
+ set(OTIO_PYTHON_INSTALL_DIR "" CACHE STRING "Python installation dir (such as the site-packages dir)")
+
+ # Build options
+@@ -259,6 +261,28 @@
+     set(USE_DEPS_IMATH ON)
+ endif()
+
++#----- pybind11
++if(OTIO_FIND_PYBIND11)
++    find_package(pybind11 REQUIRED)
++    if (pybind11_FOUND)
++        message(STATUS "Found pybind11 at ${pybind11_CONFIG}")
++    endif()
++else()
++    message(STATUS "Using src/deps/pybind11 by default")
++endif()
++
++
++#----- RapidJSON
++
++if(OTIO_FIND_RAPIDJSON)
++    find_package(RapidJSON CONFIG REQUIRED)
++    if (RapidJSON_FOUND)
++        message(STATUS "Found RapidJSON at ${RapidJSON_CONFIG}")
++    endif()
++else()
++    message(STATUS "Using src/deps/rapidjson by default")
++endif()
++
+ # set up the internally hosted dependencies
+ add_subdirectory(src/deps)
+
+diff --git src/deps/CMakeLists.txt src/deps/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/deps/CMakeLists.txt
++++ src/deps/CMakeLists.txt
+@@ -4,9 +4,21 @@
+ #----- Other dependencies
+
+ # detect if the submodules haven't been updated
+-set(DEPS_SUBMODULES any optional-lite pybind11 rapidjson)
++if(NOT OTIO_FIND_PYBIND11 AND OTIO_PYTHON_INSTALL)
++    # pybind11 only needed when building Python bindings
++    set(DEPS_SUBMODULES ${DEPS_SUBMODULES} pybind11)
++endif()
++
++if(USE_DEPS_IMATH)
++    set(DEPS_SUBMODULES ${DEPS_SUBMODULES} Imath)
++endif()
++
++if(NOT OTIO_FIND_RAPIDJSON)
++    set(DEPS_SUBMODULES ${DEPS_SUBMODULES} rapidjson)
++endif()
++
+ foreach(submodule IN LISTS DEPS_SUBMODULES)
+-    file(GLOB SUBMOD_CONTENTS ${submodule})
++    file(GLOB SUBMOD_CONTENTS "${submodule}/*")
+     list(LENGTH SUBMOD_CONTENTS SUBMOD_CONTENT_LEN)
+     if(SUBMOD_CONTENT_LEN EQUAL 0)
+         message(
+@@ -16,7 +28,8 @@
+     endif()
+ endforeach()
+
+-if(OTIO_PYTHON_INSTALL)
++if(NOT OTIO_FIND_PYBIND11 AND OTIO_PYTHON_INSTALL)
++    # pybind11 only needed when building Python bindings
+     add_subdirectory(pybind11)
+ endif()
+
+@@ -27,6 +40,8 @@
+     	    DESTINATION "${OTIO_RESOLVED_CXX_INSTALL_DIR}/include/opentimelineio/deps/nonstd")
+ endif()
+
++# Don't try to build rapidjson, it won't, and since it's header-only, we don't need to built it.
++
+ if (USE_DEPS_IMATH)
+     # preserve BUILD_SHARED_LIBS options for this project, but set it off for Imath
+     option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+diff --git src/opentime/CMakeLists.txt src/opentime/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/opentime/CMakeLists.txt
++++ src/opentime/CMakeLists.txt
+@@ -49,7 +49,7 @@
+             RUNTIME DESTINATION "${OTIO_RESOLVED_CXX_DYLIB_INSTALL_DIR}")
+
+     install(EXPORT OpenTimeConfig
+-            DESTINATION "${OTIO_RESOLVED_CXX_INSTALL_DIR}/share/opentime"
++            DESTINATION "${OTIO_RESOLVED_CXX_INSTALL_DIR}/lib/cmake/opentime"
+             NAMESPACE OTIO:: )
+ endif()
+
+diff --git src/opentimelineio/CMakeLists.txt src/opentimelineio/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- src/opentimelineio/CMakeLists.txt
++++ src/opentimelineio/CMakeLists.txt
+@@ -82,9 +82,16 @@
+                   "${PROJECT_SOURCE_DIR}/src"
+                   "${PROJECT_SOURCE_DIR}/src/deps"
+                   "${PROJECT_SOURCE_DIR}/src/deps/optional-lite/include"
+-                  "${PROJECT_SOURCE_DIR}/src/deps/rapidjson/include"
+                   "${IMATH_INCLUDES}")
+
++if(OTIO_FIND_RAPIDJSON)
++    target_include_directories(opentimelineio
++        PRIVATE "${RapidJSON_INCLUDE_DIRS}")
++else()
++    target_include_directories(opentimelineio
++        PRIVATE "${PROJECT_SOURCE_DIR}/src/deps/rapidjson/include")
++endif()
++
+ target_link_libraries(opentimelineio 
+     PUBLIC opentime ${OTIO_IMATH_TARGETS})
+
+@@ -125,6 +132,6 @@
+            RUNTIME DESTINATION "${OTIO_RESOLVED_CXX_DYLIB_INSTALL_DIR}")
+
+     install(EXPORT OpenTimelineIOConfig
+-           DESTINATION "${OTIO_RESOLVED_CXX_INSTALL_DIR}/share/opentimelineio"
++           DESTINATION "${OTIO_RESOLVED_CXX_INSTALL_DIR}/lib/cmake/opentimelineio"
+            NAMESPACE OTIO:: )
+ endif()
+diff --git src/py-opentimelineio/opentimelineio-bindings/otio_utils.h src/py-opentimelineio/opentimelineio-bindings/otio_utils.h
+index d99dd79ac..bfda2778a 100644
+--- src/py-opentimelineio/opentimelineio-bindings/otio_utils.h
++++ src/py-opentimelineio/opentimelineio-bindings/otio_utils.h
+@@ -17,13 +17,13 @@
+
+ void install_external_keepalive_monitor(SerializableObject* so, bool apply_now);
+
+-namespace pybind11 { namespace detail {
+-    template<typename T> struct type_caster<optional<T>>
+-        : public optional_caster<optional<T>> {};
+-
+-    template<> struct type_caster<nullopt_t>
+-        : public void_caster<nullopt_t> {};
+-}}
++//namespace pybind11 { namespace detail {
++//    template<typename T> struct type_caster<optional<T>>
++//        : public optional_caster<optional<T>> {};
++//
++//    template<> struct type_caster<nullopt_t>
++//        : public void_caster<nullopt_t> {};
++//}}
+
+ template <typename T>
+ struct managing_ptr {
+EOF
+
+fi
+
 if [[ $ASWF_OPENTIMELINEIO_VERSION == 0.17.0 ]]; then
 
 cat << 'EOF' | patch -p0
@@ -335,6 +563,7 @@ cmake -DOTIO_CXX_INSTALL=ON \
       -DOTIO_FIND_PYBIND11=ON \
       -DOTIO_FIND_RAPIDJSON=ON \
       -DOTIO_AUTOMATIC_SUBMODULES=OFF \
+      -DCMAKE_CXX_STANDARD="${ASWF_CXX_STANDARD}" \
       ../.
 cmake --build . -j$(nproc)
 cmake --install .

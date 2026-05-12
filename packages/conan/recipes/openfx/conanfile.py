@@ -83,19 +83,19 @@ class openfx(ConanFile):
 		cmake.build()
 
 	def package(self):
-		copy(self, "cmake/*", src=self.source_folder, dst=self.package_folder)
+		copy(self, "*.cmake", src=os.path.join(self.source_folder, "cmake"), dst=os.path.join(self.package_folder, "lib", "cmake", "OpenFX"))
                 # ASWF: license files in project specific directory
-		copy(self, "LICENSE, README.md, INSTALL.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
+		copy(self, "LICENSE.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
 		copy(self, "include/*.h", src=self.source_folder, dst=self.package_folder)
-		copy(self,"HostSupport/include/*.h", src=self.source_folder, dst=self.package_folder)
-		copy(self,"Support/*.h", src=self.source_folder, dst=self.package_folder)
-		copy(self,"Support/Plugins/include/*.h", src=self.source_folder, dst=self.package_folder)
+		copy(self,"*.h", src=os.path.join(self.source_folder, "HostSupport", "include"), dst=os.path.join(self.package_folder, "include", "HostSupport"))
+		copy(self,"*.h", src=os.path.join(self.source_folder, "Support", "include"), dst=os.path.join(self.package_folder, "include", "Support"))
+		copy(self,"*.h", src=os.path.join(self.source_folder, "Support", "Plugins", "include"), dst=os.path.join(self.package_folder, "include", "Support", "Plugins"))
 		copy(self,"*.a", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
 		copy(self,"*.lib", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
 		copy(self,"*.ofx", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
 		copy(self,"*.dll", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
 		copy(self,"*.so", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
-		copy(self,"*", src=os.path.join(self.source_folder, "Examples"), dst=os.path.join(self.package_folder, "Examples"))
+		copy(self,"*", src=os.path.join(self.source_folder, "Examples"), dst=os.path.join(self.package_folder, "share", "OpenFX", "Examples"))
 
 	def package_info(self):
 		libs = collect_libs(self)
@@ -103,13 +103,13 @@ class openfx(ConanFile):
 		self.cpp_info.set_property("cmake_file_name", "openfx")
 		self.cpp_info.set_property("cmake_target_name", "openfx::openfx")
 
-		self.cpp_info.set_property("cmake_build_modules", [os.path.join("cmake", "OpenFX.cmake")])
+		self.cpp_info.set_property("cmake_build_modules", [os.path.join("lib", "cmake", "OpenFX", "OpenFX.cmake")])
 		self.cpp_info.components["Api"].includedirs = ["include"]
 		self.cpp_info.components["HostSupport"].libs = [i for i in libs if "OfxHost" in i]
-		self.cpp_info.components["HostSupport"].includedirs = ["HostSupport/include"]
+		self.cpp_info.components["HostSupport"].includedirs = ["include/HostSupport"]
 		self.cpp_info.components["HostSupport"].requires = ["expat::expat"]
 		self.cpp_info.components["Support"].libs = [i for i in libs if "OfxSupport" in i]
-		self.cpp_info.components["Support"].includedirs = ["Support/include"]
+		self.cpp_info.components["Support"].includedirs = ["include/Support"]
 		self.cpp_info.components["Support"].requires = ["opengl::opengl"]
 
 		if self.settings.os == "Windows":

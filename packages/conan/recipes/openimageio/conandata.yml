@@ -1,0 +1,198 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/openimageio/all/conandata.yml
+
+sources:
+  "3.1.13.1":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.1.13.1.tar.gz"
+    sha256: "0fc59b8e2708ded02d3793b8f3331f037ed49bfcde38158f05ac0e876ebb85b7"
+  "3.1.12.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.1.12.0.tar.gz"
+    sha256: "24aa5a7af5c7a98887a8f495e18079d82ef73913370e906fa5d73016d37964c7"
+  "3.1.10.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.1.10.0.tar.gz"
+    sha256: "6b62ceb83c8131ec49a999e0008750b52d98162d79265af47430cf83ed03ec0b"
+  "3.1.7.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.1.7.0.tar.gz"
+    sha256: "d5160dc44a62897104f44488ebdb19249a78448a25fbae3504fc1ea6fda54878"
+  "3.1.6.2":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.1.6.2.tar.gz"
+    sha256: "a1e515e6a6ea9925a70c23db21dda37f3ce2c24780a6bfedd8685fea063f698a"
+  "3.0.9.1":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.9.1.tar.gz"
+    sha256: "bbc5db069b7d8e4e2fccf994d55a262953057745a5e398e44a2e5235a8736d1d"
+  "3.0.8.1":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.8.1.tar.gz"
+    sha256: "1b9b0d27e802243c1aa490b951580d10e8be645459f8080bfa0ed6f213e1082a"
+  "3.0.7.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.7.0.tar.gz"
+    sha256: "2798e398b6ffd836ba7810e8ea510902a4aabc4a373ca0523a3f0d830c5eb103"
+  "3.0.6.1":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.6.1.tar.gz"
+    sha256: "4d0fb92e4964f79dfaed77ac73f1a7f754c671a9f5ad29c7950c0844916ce5f5"
+  "3.0.6.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.6.0.tar.gz"
+    sha256: "670f8753d5604beb4a17e5279fb1948fa978bc72d8e0991103ddbbfea54df1b5"
+  "3.0.5.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.5.0.tar.gz"
+    sha256: "340bb14a084d94918de8d46af14e361168215430f3dd6c336b2ffb895fe9d5cb"
+  "3.0.4.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.4.0.tar.gz"
+    sha256: "dd481071d532c1ab38242011bb7af16f6ec7d915c58cada9fb78ed72b402ebc5"
+  "3.0.1.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.1.0.tar.gz"
+    sha256: "7f84c2b9c13be74c4a187fefe3844b391374ba329aa63fbbca21fa232e43c87b"
+  "2.5.19.1":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.19.1.tar.gz"
+    sha256: "adb73f270f2eaae81c3c7cde311239944ae9faf6d206552da4ee12d746628b26"
+  "2.5.19.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.19.0.tar.gz"
+    sha256: "108bb43da6ba7dedf9197886ce5cc45771f1bbf62d88bcab8b080dd549cef03c"
+  "2.5.17.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.17.0.tar.gz"
+    sha256: "9cf1b98762ce5aa5f3f7cd34672549034f5716da1eba26eb5173c18aa21e6583"
+  "2.5.16.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.16.0.tar.gz"
+    sha256: "e5438e28d34a5b0a09428ed77ec310edd47c141db1b259364859110847e161e7"
+  "2.5.15.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.15.0.tar.gz"
+    sha256: "7779ef2c3d03c5ed95e13ff292de85c3f8cee301cd46baad0d2dc83c93bfe85c"
+  "2.5.14.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.14.0.tar.gz"
+    sha256: "0e74372c658f083820872311d126867f10d59b526a856672746de7b2c772034d"
+  "2.4.13.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.4.13.0.tar.gz"
+    sha256: "bb10a7ab6dff5dae2c6d854e9da38136546232235913237e8b1b3c99abb7dd0b"
+  "2.4.7.1":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.4.7.1.tar.gz"
+    sha256: "a3dc6fdb3693eb5f1e22191e41c05800a4944f3c76daffe90bd203f956180126"
+  "2.4.17.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.4.17.0.tar.gz"
+    sha256: "7fe81d8e5bce30cc4a212f020ac3cc4344e6b7c1c0842475e3a048515099c65c"
+
+patches:
+  "3.1.13.1":
+    - patch_file: "patches/3.1.13.1-cmake-fmt.patch"
+      patch_description: "fmt vs fmt-header-only"
+      patch_type: "conan"
+    - patch_file: "patches/3.1.13.1-utils-includes-libs.patch"
+      patch_description: "Link binaries against libdeflate"
+      patch_type: "conan"
+    - patch_file: "patches/3.1.10.0-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
+      patch_type: "conan"
+  "3.1.12.0":
+    - patch_file: "patches/3.1.10.0-cmake-fmt.patch"
+      patch_description: "fmt vs fmt-header-only"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.8.1-utils-includes-libs.patch"
+      patch_description: "Missing includes and libs for binaries"
+      patch_type: "conan"
+    - patch_file: "patches/3.1.10.0-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
+      patch_type: "conan"
+  "3.1.10.0":
+    - patch_file: "patches/3.1.10.0-cmake-fmt.patch"
+      patch_description: "fmt vs fmt-header-only"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.8.1-utils-includes-libs.patch"
+      patch_description: "Missing includes and libs for binaries"
+      patch_type: "conan"
+    - patch_file: "patches/3.1.10.0-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
+      patch_type: "conan"
+  "3.1.6.2":
+    - patch_file: "patches/3.1.6.2-cmake-fmt.patch"
+      patch_description: "fmt vs fmt-header-only"
+      patch_type: "conan"
+    - patch_file: "patches/3.1.6.2-utils-includes-libs.patch"
+      patch_description: "Link binaries against libdeflate"
+      patch_type: "conan"
+    - patch_file: "patches/3.1.6.2-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
+      patch_type: "conan"
+  "3.0.9.1":
+    - patch_file: "patches/3.0.6.1-cmake-fmt.patch"
+      patch_description: "Deal with generator expression from fmt Conan package"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.8.1-utils-includes-libs.patch"
+      patch_description: "Missing includes and libs for binaries"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.8.1-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
+      patch_type: "conan"
+  "3.0.8.1":
+    - patch_file: "patches/3.0.6.1-cmake-fmt.patch"
+      patch_description: "Deal with generator expression from fmt Conan package"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.8.1-utils-includes-libs.patch"
+      patch_description: "Missing includes and libs for binaries"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.8.1-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
+      patch_type: "conan"
+  "3.0.6.1":
+    - patch_file: "patches/3.0.6.1-cmake-fmt.patch"
+      patch_description: "Deal with generator expression from fmt Conan package"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.6.1-imath-includes.txt"
+      patch_description: "Missing includes when Imath from Conan package"
+      patch_type: "conan"
+  "3.0.5.0":
+    - patch_file: "patches/3.0.5.0-cmake-fmt.patch"
+      patch_description: "Deal with generator expression from fmt Conan package"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.5.0-imath-includes.txt"
+      patch_description: "Missing includes when Imath from Conan package"
+      patch_type: "conan"
+  "3.0.4.0":
+    - patch_file: "patches/3.0.4.0-cmake-fmt.patch"
+      patch_description: "Deal with generator expression from fmt Conan package"
+      patch_type: "conan"
+    - patch_file: "patches/3.0.4.0-imath-includes.txt"
+      patch_description: "Missing includes when Imath from Conan package"
+      patch_type: "conan"
+  "2.5.19.1":
+    - patch_file: "patches/2.5.19.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+    - patch_file: "patches/2.5.19.0-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
+      patch_type: "conan"
+  "2.5.19.0":
+    - patch_file: "patches/2.5.19.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+    - patch_file: "patches/2.5.19.0-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
+      patch_type: "conan"
+  "2.5.17.0":
+    - patch_file: "patches/2.5.17.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+  "2.5.16.0":
+    - patch_file: "patches/2.5.14.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+  "2.5.15.0":
+    - patch_file: "patches/2.5.14.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+  "2.5.14.0":
+    - patch_file: "patches/2.5.14.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+  "2.4.17.0":
+    - patch_file: "patches/2.4.17.0-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+  "2.4.7.1":
+    - patch_file: "patches/2.4.7.1-cmake-targets.patch"
+      patch_description: "Ensure project builds correctly with Conan (don't pick up disabled dependencies from the system, fix different spelling of libraries)"
+      patch_type: "conan"
+    - patch_file: "patches/2.4.7.1-fix-msvc2017.patch"
+      patch_description: "Fix compile error with MSVC 2017"
+      patch_type: "official"
+

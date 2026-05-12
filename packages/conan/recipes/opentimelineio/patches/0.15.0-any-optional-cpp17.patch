@@ -1,0 +1,64 @@
+diff --git src/opentimelineio/any.h src/opentimelineio/any.h
+index d99dd79ac..bfda2778a 100644
+--- src/opentimelineio/any.h
++++ src/opentimelineio/any.h
+@@ -3,12 +3,12 @@
+
+ #pragma once
+
+-#include "any/any.hpp"
++#include <any>
+ #include "opentimelineio/version.h"
+
+ namespace opentimelineio { namespace OPENTIMELINEIO_VERSION {
+
+-using linb::any;
+-using linb::any_cast;
++using std::any;
++using std::any_cast;
+
+ }} // namespace opentimelineio::OPENTIMELINEIO_VERSION
+diff --git src/opentimelineio/optional.h src/opentimelineio/optional.h
+index d99dd79ac..bfda2778a 100644
+--- src/opentimelineio/optional.h
++++ src/opentimelineio/optional.h
+@@ -3,13 +3,13 @@
+
+ #pragma once
+
+-#include "nonstd/optional.hpp"
++#include <optional>
+ #include "opentimelineio/version.h"
+
+ namespace opentimelineio { namespace OPENTIMELINEIO_VERSION {
+
+-using nonstd::nullopt;
+-using nonstd::nullopt_t;
+-using nonstd::optional;
++using std::nullopt;
++using std::nullopt_t;
++using std::optional;
+
+ }} // namespace opentimelineio::OPENTIMELINEIO_VERSION
+diff --git src/opentimelineio/serialization.cpp src/opentimelineio/serialization.cpp
+index d99dd79ac..bfda2778a 100644
+--- src/opentimelineio/serialization.cpp
++++ src/opentimelineio/serialization.cpp
+@@ -3,7 +3,7 @@
+
+ #include "opentimelineio/serialization.h"
+ #include "errorStatus.h"
+-#include "nonstd/optional.hpp"
++#include "opentimelineio/optional.h"
+ #include "opentimelineio/anyDictionary.h"
+ #include "opentimelineio/serializableObject.h"
+ #include "opentimelineio/unknownSchema.h"
+@@ -1032,7 +1032,7 @@
+
+     // write the contents of the object to the encoder, either the downgraded
+     // anydictionary or the SerializableObject
+-    if (!(downgraded.empty()))
++    if (downgraded.has_value())
+     {
+         for (const auto& kv: any_cast<AnyDictionary>(downgraded))
+         {

@@ -1,0 +1,50 @@
+diff --git CMakeLists.txt CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- CMakeLists.txt
++++ CMakeLists.txt
+@@ -288,7 +288,7 @@
+     add_subdirectory (src/iinfo)
+     add_subdirectory (src/maketx)
+     add_subdirectory (src/oiiotool)
+-    add_subdirectory (src/testtex)
++    #add_subdirectory (src/testtex)
+     add_subdirectory (src/iv)
+ endif ()
+
+diff --git src/cmake/externalpackages.cmake src/cmake/externalpackages.cmake
+index d99dd79ac..bfda2778a 100644
+--- src/cmake/externalpackages.cmake
++++ src/cmake/externalpackages.cmake
+@@ -210,7 +210,7 @@
+ # Qt -- used for iv
+ option (USE_QT "Use Qt if found" ON)
+ if (USE_QT)
+-    checked_find_package (OpenGL)   # used for iv
++    set(OPENGL_FOUND TRUE)   # used for iv
+ endif ()
+ if (USE_QT AND OPENGL_FOUND)
+     checked_find_package (Qt6 COMPONENTS Core Gui Widgets OpenGLWidgets)
+--- src/cmake/externalpackages.cmake
++++ src/cmake/externalpackages.cmake
+@@ -236,7 +236,7 @@ checked_find_package (fmt REQUIRED
+                       VERSION_MIN 7.0
+                       BUILD_LOCAL missing
+                      )
+-get_target_property(FMT_INCLUDE_DIR fmt::fmt-header-only INTERFACE_INCLUDE_DIRECTORIES)
++#get_target_property(FMT_INCLUDE_DIR fmt::fmt-header-only INTERFACE_INCLUDE_DIRECTORIES)
+ 
+ 
+ ###########################################################################
+diff --git src/libutil/CMakeLists.txt src/libutil/CMakeLists.txt
+index 2a159e449..64b3ee17e 100644
+--- src/libutil/CMakeLists.txt
++++ src/libutil/CMakeLists.txt
+@@ -82,7 +82,7 @@ function (setup_oiio_util_library targetname)
+         add_dependencies(${targetname} fmt_internal_target)
+     else ()
+         target_link_libraries (${targetname}
+-                               PUBLIC fmt::fmt-header-only)
++                               PUBLIC fmt::fmt)
+     endif ()
+ 
+     if (WIN32)

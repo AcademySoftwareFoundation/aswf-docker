@@ -410,6 +410,10 @@ class ClangConan(ConanFile):
             libdirs_host = [l for dependency in self.dependencies.host.values() for l in dependency.cpp_info.aggregated_components().libdirs]
             tc.variables["CMAKE_BUILD_RPATH"] = ";".join(libdirs_host)
 
+        if Version(self.version) < 17:
+            # ASWF: make sure we don't try to build 32 bit compiler-rt
+            cmake_variables["COMPILER_RT_DEFAULT_TARGET_ONLY"] = "ON"
+
         tc.cache_variables.update(cmake_variables)
         tc.generate()
 
@@ -439,8 +443,8 @@ class ClangConan(ConanFile):
             set(GRAPHVIZ_IGNORE_TARGETS "{';'.join(exclude_patterns)}")
         """)
         save(self, PurePosixPath(self.build_folder) / "CMakeGraphVizOptions.cmake", graphviz_options)
-        if Version(self.version) < 18:
-            cmake.configure(build_script_folder="llvm-main/llvm", cli_args=graphviz_args) # ASWF: building llvm + clang
+        if Version(self.version) < 15:
+            cmake.configure(build_script_folder="llvm", cli_args=graphviz_args) # ASWF: building llvm + clang
         else:
             cmake.configure(build_script_folder="llvm-main/llvm", cli_args=graphviz_args) # ASWF: building llvm + clang
         cmake.build()
@@ -451,7 +455,7 @@ class ClangConan(ConanFile):
 
     @property
     def _llvm_source_folder_path(self):
-        if (Version(self.version) < 18):
+        if (Version(self.version) < 15):
             return PurePosixPath(self.source_folder)
 
         return PurePosixPath(self.source_folder) / "llvm-main"

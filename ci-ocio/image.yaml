@@ -1,10 +1,12 @@
-name: "ocio"
+name: "opencolorio"
+name_image: "ocio" # image is named ocio, Conan package is opencolorio
 title: "OpenColorIO CI Docker Image"
 description: |
   Contains: Python, TBB, Boost and other OpenColorIO upstream dependencies
   Warning: this image does *not* contain OpenColorIO itself as it is used to *build* OpenColorIO!
 packages:
-  - ocio # all dependencies will be installed except ocio itself
+  - glew # hidden dependency for GUI tools
+  - opencolorio # all dependencies will be installed except opencolorio itself
 implicit_packages:
   - numpy
   - vfxplatform

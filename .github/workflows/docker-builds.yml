@@ -88,7 +88,7 @@ jobs:
           --version ${{ matrix.common_version_noclang }} \
           --push NO
 
-    - name: Build common wrappers (Conan)
+    - name: Build common wrappers
       run: |
         set -ex
         uv run aswfdocker \
@@ -100,31 +100,28 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build Ninja and CMake (Conan)
+    - name: Build Ninja and CMake
       run: |
         set -ex
         uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
-          --group common \
+          --group common-1 \
           --version ${{ matrix.common_version_noclang }} \
           --build-missing \
-          --target ninja \
-          --target cmake \
           --push NO
 
-    - name: Build Clang (Conan)
+    - name: Build Clang
       run: |
         set -ex
         uv run aswfdocker \
           --verbose \
           build \
           --ci-image-type PACKAGE \
-          --group common \
+          --group common-2 \
           --version ${{ matrix.common_version }} \
           --build-missing \
-          --target clang \
           --push NO
 
     - name: Build ci-common Docker Image for downstream images
@@ -149,7 +146,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build base1 level 1 Conan packages
+    - name: Build base1 level 1 packages
       run: |
         set -ex
         uv run aswfdocker \
@@ -161,7 +158,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build base1 level 2 Conan packages
+    - name: Build base1 level 2 packages
       run: |
         set -ex
         uv run aswfdocker \
@@ -173,7 +170,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build base1 level 3 Conan packages
+    - name: Build base1 level 3 packages
       run: |
         set -ex
         uv run aswfdocker \
@@ -185,7 +182,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build base2 system wrapper Conan packages for ci-baseqt image
+    - name: Build base2 system wrapper packages for ci-baseqt image
       run: |
         set -ex
         uv run aswfdocker \
@@ -197,7 +194,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build base2 system Conan packages for ci-baseqt image
+    - name: Build base2 system packages for ci-baseqt image
       run: |
         set -ex
         uv run aswfdocker \
@@ -209,7 +206,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build base2 level 2 Conan packages (Qt) for ci-baseqt image
+    - name: Build base2 level 2 packages (Qt) for ci-baseqt image
       run: |
         set -ex
         uv run aswfdocker \
@@ -221,7 +218,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build base3 Conan packages (PySide) for base image
+    - name: Build base3 packages (PySide) for base image
       run: |
         set -ex
         uv run aswfdocker \
@@ -244,7 +241,7 @@ jobs:
           --version ${{ matrix.version }} \
           --push NO
 
-    - name: Build vfx1 system wrapper Conan packages
+    - name: Build vfx1 system wrapper packages
       run: |
         set -ex
         uv run aswfdocker \
@@ -256,7 +253,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build vfx1 level 1 Conan packages
+    - name: Build vfx1 level 1 packages
       run: |
         set -ex
         uv run aswfdocker \
@@ -268,7 +265,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build vfx1 level 2 Conan packages
+    - name: Build vfx1 level 2 packages
       run: |
         set -ex
         uv run aswfdocker \
@@ -280,7 +277,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build vfx1 level 3 Conan packages
+    - name: Build vfx1 level 3 packages
       run: |
         set -ex
         uv run aswfdocker \
@@ -292,7 +289,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build vfx1 level 4 Conan packages
+    - name: Build vfx1 level 4 packages
       run: |
         set -ex
         uv run aswfdocker \
@@ -304,7 +301,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build vfx1 level 5 Conan packages
+    - name: Build vfx1 level 5 packages
       run: |
         set -ex
         uv run aswfdocker \
@@ -316,7 +313,7 @@ jobs:
           --build-missing \
           --push NO
 
-    - name: Build vfx1 level 6 Conan packages
+    - name: Build vfx1 level 6 packages
       run: |
         set -ex
         uv run aswfdocker \
@@ -340,7 +337,7 @@ jobs:
           --version ${{ matrix.version_noclang }} \
           --push NO
 
-    - name: Build vfx images
+    - name: Build vfx3 images
       run: |
         set -ex
         uv run aswfdocker \

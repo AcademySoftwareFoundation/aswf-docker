@@ -13,6 +13,26 @@ fi
 tar -zxf "$DOWNLOADS_DIR/materialx-${ASWF_MATERIALX_VERSION}.tar.gz"
 cd "MaterialX-${ASWF_MATERIALX_VERSION}"
 
+if [[ $ASWF_MATERIALX_VERSION == 1.38.7 ]]; then
+
+cat << 'EOF' | patch -p1
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -6,7 +6,7 @@
+
+ # Cmake setup
+ cmake_minimum_required(VERSION 3.1)
+-set(CMAKE_CXX_STANDARD 11)
++set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+ set(CMAKE_MACOSX_RPATH ON)
+ enable_testing()
+EOF
+
+fi
+
 mkdir build
 cd build
 # Can't enable MATERIALX_BUILD_VIEWER until we provide NanoGUI
@@ -25,6 +45,9 @@ cmake \
     -DMATERIALX_BUILD_SHARED_LIBS=ON \
     -DMATERIALX_BUILD_OIIO=ON \
     -DMATERIALX_BUILD_OCIO=ON \
+    -DMATERIALX_INSTALL_STDLIB_PATH="share/MaterialX/libraries" \
+    -DMATERIALX_INSTALL_RESOURCES_PATH="share/MaterialX/resources" \
+    -DMATERIALX_PYTHON_FOLDER_NAME="share/MateriaX/python" \
     ..
 cmake --build . -j$(nproc)
 cmake --install .

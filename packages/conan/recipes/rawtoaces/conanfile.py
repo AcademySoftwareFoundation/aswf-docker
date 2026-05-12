@@ -58,10 +58,12 @@ class RawtoacesConan(ConanFile):
             self.requires("libraw/0.21.4")
             self.requires("aces_container/1.0.2")
         else:
-            self.requires("oiio/3.0.7.0")
+            self.requires("openimageio/3.0.7.0")
             self.requires("nlohmann_json/3.12.0")
             self.requires("cpython/[>=3.0.0]")
             self.requires("nanobind/2.11.0")
+            if Version(self.version) >= "2.1":
+                self.requires("lensfun/0.3.4")
 
     def build_requirements(self):
         # tool_requires() dependencies are not transitive, nanobind needs this

@@ -106,9 +106,9 @@ class OpenUSDConan(ConanFile):
         if self.options.with_materialx:
             self.requires("materialx/1.39.4")
         if self.options.with_opencolorio:
-            self.requires("ocio/2.5.1")
+            self.requires("opencolorio/2.5.1")
         if self.options.with_openimageio:
-            self.requires("oiio/3.1.10.0")
+            self.requires("openimageio/3.1.10.0")
         if self.options.with_openvdb:
             self.requires("openvdb/13.0.0")
         if self.options.with_osl:
@@ -160,7 +160,7 @@ class OpenUSDConan(ConanFile):
             tc.variables["PYSIDEUICBINARY"] = os.path.join(
                 pyside_info.package_folder,
                 pyside_info.cpp_info.bindirs[0],
-                "uic"
+                "pyside2-uic" if Version(str(pyside_info.ref.version)) < "6" else "uic"
             )
 
         tc.variables["PXR_BUILD_TESTS"] = False
@@ -211,7 +211,8 @@ class OpenUSDConan(ConanFile):
                 python_info.cpp_info.bindirs[0],
                 "python"
             )
-            subprocess.check_call([python_bin, "-m", "pip", "install", "PyOpenGL", "jinja2"])
+            with VirtualRunEnv(self).vars().apply():
+                subprocess.check_call([python_bin, "-m", "pip", "install", "PyOpenGL", "jinja2"])
  
         cmake = CMake(self)
         cmake.configure()
@@ -279,7 +280,7 @@ class OpenUSDConan(ConanFile):
             self.cpp_info.components["usd_hdSt"].requires.extend(["materialx::MaterialXCore", "materialx::MaterialXFormat", "materialx::MaterialXGenShader",
                                                                   "materialx::MaterialXGenGlsl", "materialx::MaterialXGenMsl", "materialx::MaterialXRender"])
         if self.options.with_openimageio:
-            self.cpp_info.components["usd_hdSt"].requires.append("oiio::OpenImageIO")
+            self.cpp_info.components["usd_hdSt"].requires.append("openimageio::openimageio")
 
         self.cpp_info.components["usd_hdx"].libs = ["usd_hdx"]
         self.cpp_info.components["usd_hdx"].requires = ["usd_plug", "usd_tf", "usd_vt", "usd_gf", "usd_work", "usd_garch", "usd_glf", "usd_pxOsd", "usd_hd", "usd_hdSt", "usd_hgi", "usd_hgiInterop", "usd_cameraUtil", "usd_sdf"]
@@ -289,9 +290,9 @@ class OpenUSDConan(ConanFile):
             self.cpp_info.components["usd_hdx"].requires.extend(["materialx::MaterialXCore", "materialx::MaterialXFormat", "materialx::MaterialXGenShader",
                                                                  "materialx::MaterialXGenGlsl", "materialx::MaterialXGenMsl", "materialx::MaterialXRender"])
         if self.options.with_opencolorio:
-            self.cpp_info.components["usd_hdx"].requires.append("ocio::ocio")
+            self.cpp_info.components["usd_hdx"].requires.append("opencolorio::opencolorio")
         if self.options.with_openimageio:
-            self.cpp_info.components["usd_hdx"].requires.append("oiio::OpenImageIO")
+            self.cpp_info.components["usd_hdx"].requires.append("openimageio::openimageio")
 
         self.cpp_info.components["usd_hf"].libs = ["usd_hf"]
         self.cpp_info.components["usd_hf"].requires = ["usd_plug", "usd_tf", "usd_trace"]
@@ -325,8 +326,9 @@ class OpenUSDConan(ConanFile):
         if self.options.shared:
             self.cpp_info.components["usd_pcp"].requires.append("onetbb::libtbb")
 
-        self.cpp_info.components["usd_pegtl"].libs = ["usd_pegtl"]
-        self.cpp_info.components["usd_pegtl"].requires = ["usd_arch"]
+        if Version(self.version) >= "24.08":
+            self.cpp_info.components["usd_pegtl"].libs = ["usd_pegtl"]
+            self.cpp_info.components["usd_pegtl"].requires = ["usd_arch"]
 
         self.cpp_info.components["usd_plug"].libs = ["usd_plug"]
         self.cpp_info.components["usd_plug"].requires = ["usd_arch", "usd_tf", "usd_js", "usd_trace", "usd_work"]
@@ -337,7 +339,9 @@ class OpenUSDConan(ConanFile):
         self.cpp_info.components["usd_pxOsd"].requires = ["usd_tf", "usd_gf", "usd_vt", "opensubdiv::opensubdiv"]
 
         self.cpp_info.components["usd_sdf"].libs = ["usd_sdf"]
-        self.cpp_info.components["usd_sdf"].requires = ["usd_arch", "usd_tf", "usd_ts", "usd_gf", "usd_trace", "usd_vt", "usd_work", "usd_ar"]
+        self.cpp_info.components["usd_sdf"].requires = ["usd_arch", "usd_tf", "usd_gf", "usd_trace", "usd_vt", "usd_work", "usd_ar"]
+        if Version(self.version) >= "24.08":
+            self.cpp_info.components["usd_sdf"].requires.append("usd_ts")
 
         self.cpp_info.components["usd_sdr"].libs = ["usd_sdr"]
         self.cpp_info.components["usd_sdr"].requires = ["usd_tf", "usd_vt", "usd_ar", "usd_sdf"]
@@ -364,8 +368,9 @@ class OpenUSDConan(ConanFile):
         if self.options.shared:
             self.cpp_info.components["usd_trace"].requires.append("onetbb::libtbb")
 
-        self.cpp_info.components["usd_ts"].libs = ["usd_ts"]
-        self.cpp_info.components["usd_ts"].requires = ["usd_arch", "usd_gf", "usd_plug", "usd_tf", "usd_trace", "usd_vt"]
+        if Version(self.version) >= "24.08":
+            self.cpp_info.components["usd_ts"].libs = ["usd_ts"]
+            self.cpp_info.components["usd_ts"].requires = ["usd_arch", "usd_gf", "usd_plug", "usd_tf", "usd_trace", "usd_vt"]
 
         self.cpp_info.components["usd_usd"].libs = ["usd_usd"]
         self.cpp_info.components["usd_usd"].requires = ["usd_arch", "usd_kind", "usd_pcp", "usd_sdf", "usd_ar", "usd_plug", "usd_tf", "usd_trace", "usd_vt", "usd_work"]
@@ -381,9 +386,9 @@ class OpenUSDConan(ConanFile):
                                                                          "materialx::MaterialXGenShader", "materialx::MaterialXRender",
                                                                          "materialx::MaterialXGenGlsl", "materialx::MaterialXGenMsl"])
         if self.options.with_opencolorio:
-            self.cpp_info.components["usd_usdAppUtils"].requires.append("ocio::ocio")
+            self.cpp_info.components["usd_usdAppUtils"].requires.append("opencolorio::opencolorio")
         if self.options.with_openimageio:
-            self.cpp_info.components["usd_usdAppUtils"].requires.append("oiio::OpenImageIO")                                                              
+            self.cpp_info.components["usd_usdAppUtils"].requires.append("openimageio::openimageio")
 
         self.cpp_info.components["usd_usdGeom"].libs = ["usd_usdGeom"]
         self.cpp_info.components["usd_usdGeom"].requires = ["usd_js", "usd_tf", "usd_plug", "usd_vt", "usd_sdf", "usd_trace", "usd_usd", "usd_work"]
@@ -413,9 +418,9 @@ class OpenUSDConan(ConanFile):
                                                                           "materialx::MaterialXGenShader", "materialx::MaterialXRender",
                                                                           "materialx::MaterialXGenGlsl", "materialx::MaterialXGenMsl"])
         if self.options.with_opencolorio:
-            self.cpp_info.components["usd_usdImagingGL"].requires.append("ocio::ocio")
+            self.cpp_info.components["usd_usdImagingGL"].requires.append("opencolorio::opencolorio")
         if self.options.with_openimageio:
-            self.cpp_info.components["usd_usdImagingGL"].requires.append("oiio::OpenImageIO")
+            self.cpp_info.components["usd_usdImagingGL"].requires.append("openimageio::openimageio")
 
         self.cpp_info.components["usd_usdLux"].libs = ["usd_usdLux"]
         self.cpp_info.components["usd_usdLux"].requires = ["usd_tf", "usd_vt", "usd_sdf", "usd_usd", "usd_usdGeom", "usd_usdShade"]
@@ -443,10 +448,11 @@ class OpenUSDConan(ConanFile):
         self.cpp_info.components["usd_usdRi"].libs = ["usd_usdRi"]
         self.cpp_info.components["usd_usdRi"].requires = ["usd_tf", "usd_vt", "usd_sdf", "usd_usd", "usd_usdShade", "usd_usdGeom"]
 
-        self.cpp_info.components["usd_usdRiPxrImaging"].libs = ["usd_usdRiPxrImaging"]
-        self.cpp_info.components["usd_usdRiPxrImaging"].requires = ["usd_gf", "usd_tf", "usd_plug", "usd_trace", "usd_vt", "usd_work", "usd_hd", "usd_pxOsd", "usd_sdf", "usd_usd", "usd_usdGeom", "usd_usdLux", "usd_usdShade", "usd_usdImaging", "usd_usdVol", "usd_ar"]
-        if self.options.shared:
-            self.cpp_info.components["usd_usdRiPxrImaging"].requires.append("onetbb::libtbb")
+        if Version(self.version) >= "24.08":
+            self.cpp_info.components["usd_usdRiPxrImaging"].libs = ["usd_usdRiPxrImaging"]
+            self.cpp_info.components["usd_usdRiPxrImaging"].requires = ["usd_gf", "usd_tf", "usd_plug", "usd_trace", "usd_vt", "usd_work", "usd_hd", "usd_pxOsd", "usd_sdf", "usd_usd", "usd_usdGeom", "usd_usdLux", "usd_usdShade", "usd_usdImaging", "usd_usdVol", "usd_ar"]
+            if self.options.shared:
+                self.cpp_info.components["usd_usdRiPxrImaging"].requires.append("onetbb::libtbb")
 
         if Version(self.version) > "24.08":
             self.cpp_info.components["usd_usdSemantics"].libs = ["usd_usdSemantics"]
@@ -516,7 +522,7 @@ class OpenUSDConan(ConanFile):
                 self.cpp_info.components["usd_usdMtlx"].requires.append("onetbb::libtbb")
                 self.cpp_info.components["usd_usdBakeMtlx"].requires.append("onetbb::libtbb")
             if self.options.with_openimageio:
-                    self.cpp_info.components["usd_usdBakeMtlx"].requires.append("oiio::OpenImageIO")
+                    self.cpp_info.components["usd_usdBakeMtlx"].requires.append("openimageio::openimageio")
 
         if self.options.with_openvdb:
             self.cpp_info.components["usd_usdHioOpenVDB"].requires = ["openvdb::openvdb"]

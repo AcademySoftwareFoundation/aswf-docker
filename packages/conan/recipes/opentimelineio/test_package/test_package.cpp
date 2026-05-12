@@ -17,7 +17,11 @@ int main(int argc, char *argv[])
                 OTIO_NS::Timeline::from_json_file(argv[1])
         )
     );
+#ifdef OTIO_USE_CLIP_IF
+    for (const auto& cl : tl->clip_if())
+#else
     for (const auto& cl : tl->find_clips())
+#endif
     {
         OTIO_NS::RationalTime dur = cl->duration();
         std::cout << "Name: " << cl->name() << " [";
