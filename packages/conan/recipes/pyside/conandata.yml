@@ -37,6 +37,9 @@ patches:
       base_path: "pyside_src"
     - patch_file: "patches/pyside_pysidesignal.diff"
       base_path: "pyside_src"
+  "5.15.18":
+    - patch_file: "patches/python_include_dir-5.15.18.diff"
+      base_path: "pyside_src"
   "5.15.9":
     - patch_file: "patches/shiboken_numpy_1_23.diff"
       base_path: "source_subfolder"
