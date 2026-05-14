@@ -14,19 +14,6 @@ jobs:
       CONAN_PASSWORD: ${{ secrets.ARTIFACTORY_TOKEN }}
       GITHUB_REF_LOCAL: ${{ github.ref || format('{0}{1}', 'refs/tags/', github.event.release.tag_name) }}
 
-    strategy:
-      matrix:
-        group: [docker, conan]
-        include:
-          - group: docker
-            args: ""
-            build: true
-            push_description: true
-          - group: conan
-            args: ""
-            build: ${{ contains(github.ref, '/ci-package') }}
-            push_description: false
-
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -54,22 +41,20 @@ jobs:
       run: uv sync
 
     - name: Login to DockerHub
-      if: ${{ matrix.build }}
+      if: ${{ !contains(github.ref, '/ci-package') }}
       run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u aswfdocker --password-stdin
 
     - name: Build and Push
-      if: ${{ matrix.build }}
       run: |
         uv run aswfdocker \
           --repo-uri $GITHUB_REPOSITORY \
           --verbose \
           build \
           --full-name $GITHUB_REF_LOCAL \
-          --push YES \
-          ${{ matrix.args }}
+          --push YES
 
     - name: Update Docker Hub Description
-      if: ${{ matrix.push_description }}
+      if: ${{ !contains(github.ref, '/ci-package') }}
       run: |
         uv run aswfdocker \
           pushoverview \
