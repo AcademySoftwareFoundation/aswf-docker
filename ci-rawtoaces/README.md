@@ -21,21 +21,21 @@ Warning: this image does *not* contain rawtoaces itself as it is used to *build*
 ## [aswf/ci-rawtoaces:2023.3](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2023.3)
 
 Contains:
-* rawtoaces-1.1.0
+* rawtoaces-2.1.0
 * numpy-1.23.5
 * vfxplatform-2023
 
 ## [aswf/ci-rawtoaces:2024.7](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2024.7)
 
 Contains:
-* rawtoaces-1.1.0
+* rawtoaces-2.1.0
 * numpy-1.24.3
 * vfxplatform-2024
 
 ## [aswf/ci-rawtoaces:2025.6](https://hub.docker.com/r/aswf/ci-rawtoaces/tags?page=1&name=2025.6)
 
 Contains:
-* rawtoaces-1.1.0
+* rawtoaces-2.1.0
 * numpy-1.26.4
 * vfxplatform-2025
 

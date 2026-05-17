@@ -298,7 +298,7 @@ Contains:
 * openvdb-10.1.0
 * materialx-1.38.7
 * osl-1.12.14.0
-* rawtoaces-1.1.0
+* rawtoaces-2.1.0
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -325,7 +325,7 @@ Contains:
 * openvdb-10.1.0
 * materialx-1.38.7
 * osl-1.12.14.0
-* rawtoaces-1.1.0
+* rawtoaces-2.1.0
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -352,7 +352,7 @@ Contains:
 * openvdb-11.0.0
 * materialx-1.39.1
 * osl-1.13.11.0
-* rawtoaces-1.1.0
+* rawtoaces-2.1.0
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -379,7 +379,7 @@ Contains:
 * openvdb-11.0.0
 * materialx-1.39.1
 * osl-1.13.11.0
-* rawtoaces-1.1.0
+* rawtoaces-2.1.0
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -406,7 +406,7 @@ Contains:
 * openvdb-12.1.1
 * materialx-1.39.3
 * osl-1.14.9.0
-* rawtoaces-1.1.0
+* rawtoaces-2.1.0
 * numpy-1.26.4
 * vfxplatform-2025
 
@@ -433,7 +433,7 @@ Contains:
 * openvdb-12.1.1
 * materialx-1.39.3
 * osl-1.14.9.0
-* rawtoaces-1.1.0
+* rawtoaces-2.1.0
 * numpy-1.26.4
 * vfxplatform-2025
 
