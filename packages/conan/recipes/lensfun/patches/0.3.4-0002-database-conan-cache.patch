@@ -1,0 +1,11 @@
+--- include/lensfun/config.h.in.cmake
++++ include/lensfun/config.h.in.cmake
+@@ -18,7 +18,7 @@
+ #ifndef PLATFORM_WINDOWS
+ //fix path to data works only on *nix systems
+ //on windows that data dir is relocatable
+-#define CONF_DATADIR "${CMAKE_INSTALL_FULL_DATAROOTDIR}/lensfun"
++#define CONF_DATADIR "/usr/local/share/lensfun"
+ #define SYSTEM_DB_UPDATE_PATH "/${CMAKE_INSTALL_LOCALSTATEDIR}/lib/lensfun-updates"
+ #else
+ #define CONF_DATADIR "${LENSFUN_WINDOWS_DATADIR}"

@@ -11,3 +11,5 @@ patches:
   "0.3.4":
     - patch_file: "patches/0.3.4-0001-cmake-minimum-version-3.5.patch"
       patch_description: "CMake 4 compatibility."
+    - patch_file: "patches/0.3.4-0002-database-conan-cache.patch"
+      patch_description: "Don't look for lens database in Conan cache"

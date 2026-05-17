@@ -97,7 +97,7 @@ pyside/*: pyside/6.5.6@aswftesting/vfx2024
 pystring/*: pystring/1.1.4@aswftesting/vfx2024
 qt/*: qt/6.5.6@aswftesting/vfx2024
 rapidjson/*: rapidjson/cci.20250205@aswftesting/vfx2024
-rawtoaces/*: rawtoaces/1.1.0@aswftesting/vfx2024
+rawtoaces/*: rawtoaces/2.1.0@aswftesting/vfx2024
 snappy/*: snappy/1.1.10@aswftesting/vfx2024
 spdlog/*: spdlog/1.15.3@aswftesting/vfx2024
 sqlite3/*: sqlite3/system@aswftesting/vfx2024

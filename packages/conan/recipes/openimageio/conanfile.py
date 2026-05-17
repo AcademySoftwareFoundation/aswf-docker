@@ -271,6 +271,7 @@ class OpenImageIOConan(ConanFile):
 
         if Version(self.version) < "2.6":
           tc.variables["CMAKE_CXX_STANDARD"] = self.settings.compiler.cppstd # ASWF: older OIIO versions need to be told compiler version
+          tc.cache_variables["OPENIMAGEIO_IMATH_DEPENDENCY_VISIBILITY"] = "PRIVATE"  # ASWF: don't expose OpenEXR dependency, leaks Conan internal paths
 
         if self.settings.os == "Linux":
             # Workaround for: https://github.com/conan-io/conan/issues/13560
@@ -298,8 +299,8 @@ class OpenImageIOConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(cli_args=["--trace-expand"])
-        cmake.build(cli_args=["--verbose"])
+        cmake.configure()
+        cmake.build()
 
     def package(self):
         # ASWF: license files in package subdirectory
