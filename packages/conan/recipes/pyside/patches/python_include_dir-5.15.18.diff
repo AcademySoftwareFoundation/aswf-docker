@@ -1,0 +1,16 @@
+--- a/build_scripts/main.py
++++ b/build_scripts/main.py
+@@ -534,6 +534,13 @@
+         if not py_prefix or not os.path.exists(py_prefix):
+             py_prefix = sys.prefix
+         self.py_prefix = py_prefix
++        # ASWF: with a non-relocatable Python Conan package, INCLUDEPY
++        # returns a path inside the build cache that is invalid on a
++        # different machine. Fall back to deriving the include dir from
++        # py_prefix, which already has the correct relocatable fallback.
++        if not py_include_dir or not os.path.exists(py_include_dir):
++            py_include_dir = os.path.join(py_prefix, "include",
++                                          f"python{py_version}")
+         if sys.platform == "win32":
+             py_scripts_dir = os.path.join(py_prefix, "Scripts")
+         else:

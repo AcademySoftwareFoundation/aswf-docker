@@ -50,11 +50,11 @@ class RawtoacesConan(ConanFile):
     def requirements(self):
         # Conan environment overrides
         self.requires("ceres-solver/2.2.0")
-        self.requires("imath/3.1.12")
-        self.requires("boost/1.88.0")
-        # 2.0.0 drops libraw and aces_container
+        # 2.0.0 drops imath, boost, libraw, aces_container
         # adds OpenImageIO, nlohman_json and nanobind
         if Version(self.version) < 2:
+            self.requires("imath/3.1.12")
+            self.requires("boost/1.88.0")
             self.requires("libraw/0.21.4")
             self.requires("aces_container/1.0.2")
         else:

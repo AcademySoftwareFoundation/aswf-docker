@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-05-16
+
+Fixes for 2023.3 / 2024.7 / 2025.6 / 2026.4 releases
+
+- All releases
+  - Avoid lensfun default lens library path pointing to internal Conan build cache (used by rawtoaces)
+
+- 2023.3 / 2024.7
+  - Get rid of Conan internal path in OIIO CMake files, breaks clients of OIIO
+
+- 2023.3 / 2024.7 / 2025.6
+  - Update rawtoaces version to 2.1.0 to bring current set of dependencies into all ci-rawtoaces images
+
+
 # 2026-05-03
 
 2023.3 / 2024.7 / 2025.6 / 2026.4 releases. 2023 update for Conan 2.
