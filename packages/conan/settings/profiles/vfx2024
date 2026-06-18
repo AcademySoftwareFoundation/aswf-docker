@@ -24,6 +24,7 @@ cpython/*: cpython/3.11.13@{{ org }}/vfx2024
 dbus/*: dbus/system@{{ org }}/vfx2024
 double-conversion/*: double-conversion/system@{{ org }}/vfx2024
 eigen/*: eigen/3.4.0@{{ org }}/vfx2024
+embree/*: embree/4.2.0@{{ org }}/vfx2024
 expat/*: expat/2.6.4@{{ org }}/vfx2024
 fmt/*: fmt/11.2.0@{{ org }}/vfx2024
 fontconfig/*: fontconfig/system@{{ org }}/vfx2024
@@ -39,10 +40,13 @@ hdf5/*: hdf5/1.14.6@{{ org }}/vfx2024
 highway/*: highway/1.2.0@{{ org }}/vfx2024
 icu/*: icu/system@{{ org }}/vfx2024
 imath/*: imath/3.1.12@{{ org }}/vfx2024
+ispc/*: ispc/1.21.0@{{ org }}/vfx2024
 jasper/*: jasper/4.2.5@{{ org }}/vfx2024
+jsoncpp/*: jsoncpp/1.9.5@{{ org }}/vfx2024
 lcms/*: lcms/2.17@{{ org }}/vfx2024
 lensfun/*: lensfun/0.3.4@{{ org }}/vfx2024
 libalsa/*: libalsa/system@{{ org }}/vfx2024
+libcgroup/*: libcgroup/0.42.2@{{ org }}/vfx2024
 libaom-av1/*: libaom-av1/system@{{ org }}/vfx2024
 libbacktrace/*: libbacktrace/cci.20210118@{{ org }}/vfx2024
 libdeflate/*: libdeflate/1.23@{{ org }}/vfx2024
@@ -52,6 +56,7 @@ libiconv/*: libiconv/1.17@{{ org }}/vfx2024
 libjpeg-turbo/*: libjpeg-turbo/3.0.4@{{ org }}/vfx2024
 libjxl/*: libjxl/0.11.1@{{ org }}/vfx2024
 libmp3lame/*: libmp3lame/system@{{ org }}/vfx2024
+libmicrohttpd/*: libmicrohttpd/0.9.72@{{ org }}/vfx2024
 libpng/*: libpng/1.6.34@{{ org }}/vfx2024
 libraw/*: libraw/0.21.4@{{ org }}/vfx2024
 libsndfile/*: libsndfile/system@{{ org }}/vfx2024
@@ -64,10 +69,12 @@ libwebp/*: libwebp/1.5.0@{{ org }}/vfx2024
 libxcrypt/*: libxcrypt/4.4.36@{{ org }}/vfx2024
 libxshmfence/*: libxshmfence/system@{{ org }}/vfx2024
 log4cplus/*: log4cplus/2.1.2@{{ org }}/vfx2024
+lua/*: lua/5.4.4@{{ org }}/vfx2024
 lz4/*: lz4/1.10.0@{{ org }}/vfx2024
 materialx/*: materialx/1.39.1@{{ org }}/vfx2024
 md4c/*: md4c/0.4.8@{{ org }}/vfx2024
 minizip-ng/*: minizip-ng/4.0.10@{{ org }}/vfx2024
+moonray/*: moonray/3.6.0.1@{{ org }}/vfx2024
 mpdecimal/*: mpdecimal/system@{{ org }}/vfx2024
 mpg123/*: mpg123/system@{{ org }}/vfx2024
 nanobind/*: nanobind/2.11.0@{{ org }}/vfx2024
@@ -84,6 +91,7 @@ openexr/*: openexr/3.2.9@{{ org }}/vfx2024
 openfx/*: openfx/1.5s@{{ org }}/vfx2024
 opengl/*: opengl/system@{{ org }}/vfx2024
 openimageio/*: openimageio/2.5.19.1@{{ org }}/vfx2024
+openimagedenoise/*: openimagedenoise/2.3.3@{{ org }}/vfx2024
 openjpeg/*: openjpeg/2.4.0@{{ org }}/vfx2024
 openjph/*: openjph/0.24.5@{{ org }}/vfx2024
 opensubdiv/*: opensubdiv/3.6.1@{{ org }}/vfx2024
@@ -101,6 +109,7 @@ pybind11/*: pybind11/2.13.6@{{ org }}/vfx2024
 pyside/*: pyside/6.5.6@{{ org }}/vfx2024
 pystring/*: pystring/1.1.4@{{ org }}/vfx2024
 qt/*: qt/6.5.6@{{ org }}/vfx2024
+random123/*: random123/1.14.0@{{ org }}/vfx2024
 rapidjson/*: rapidjson/cci.20250205@{{ org }}/vfx2024
 rawtoaces/*: rawtoaces/2.1.0@{{ org }}/vfx2024
 snappy/*: snappy/1.1.10@{{ org }}/vfx2024

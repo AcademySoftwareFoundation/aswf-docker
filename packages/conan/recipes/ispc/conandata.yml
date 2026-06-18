@@ -1,0 +1,11 @@
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+sources:
+  "1.21.0":
+    x86_64:
+      url: "https://github.com/ispc/ispc/releases/download/v1.21.0/ispc-v1.21.0-linux.tar.gz"
+      sha256: "fe658893799af46c9cac0153f0bdc9a2ff93541fff9b17cf6b09ffc7576cfdcc"
+    armv8:
+      url: "https://github.com/ispc/ispc/releases/download/v1.21.0/ispc-v1.21.0-linux.aarch64.tar.gz"
+      sha256: "63002ab88c5e290d69bd9700fba0dcffbb7b95f0c8dfda0a15f1ba157ca6326b"

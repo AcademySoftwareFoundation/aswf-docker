@@ -1,0 +1,7 @@
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+sources:
+  "1.14.0":
+    url: "https://github.com/DEShawResearch/random123/archive/refs/tags/v1.14.0.tar.gz"
+    sha256: "effafd8656b18030b2a5b995cd3650c51a7c45052e6e1c21e48b9fa7a59d926e"

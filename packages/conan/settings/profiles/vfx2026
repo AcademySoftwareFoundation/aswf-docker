@@ -26,6 +26,7 @@ cpython/*: cpython/3.13.3@{{ org }}/vfx2026
 dbus/*: dbus/system@{{ org }}/vfx2026
 double-conversion/*: double-conversion/system@{{ org }}/vfx2026
 eigen/*: eigen/3.4.0@{{ org }}/vfx2026
+embree/*: embree/4.2.0@{{ org }}/vfx2026
 expat/*: expat/2.7.1@{{ org }}/vfx2026
 fmt/*: fmt/11.2.0@{{ org }}/vfx2026
 fontconfig/*: fontconfig/system@{{ org }}/vfx2026
@@ -41,10 +42,13 @@ hdf5/*: hdf5/1.14.6@{{ org }}/vfx2026
 highway/*: highway/1.2.0@{{ org }}/vfx2026
 icu/*: icu/system@{{ org }}/vfx2026
 imath/*: imath/3.2.2@{{ org }}/vfx2026
+ispc/*: ispc/1.21.0@{{ org }}/vfx2026
 jasper/*: jasper/4.2.5@{{ org }}/vfx2026
+jsoncpp/*: jsoncpp/1.9.5@{{ org }}/vfx2026
 lcms/*: lcms/2.17@{{ org }}/vfx2026
 lensfun/*: lensfun/0.3.4@{{ org }}/vfx2026
 libalsa/*: libalsa/system@{{ org }}/vfx2026
+libcgroup/*: libcgroup/0.42.2@{{ org }}/vfx2026
 libaom-av1/*: libaom-av1/system@{{ org }}/vfx2026
 libbacktrace/*: libbacktrace/cci.20210118@{{ org }}/vfx2026
 libdeflate/*: libdeflate/1.24@{{ org }}/vfx2026
@@ -54,6 +58,7 @@ libiconv/*: libiconv/1.18@{{ org }}/vfx2026
 libjpeg-turbo/*: libjpeg-turbo/3.1.0@{{ org }}/vfx2026
 libjxl/*: libjxl/0.11.1@{{ org }}/vfx2026
 libmp3lame/*: libmp3lame/system@{{ org }}/vfx2026
+libmicrohttpd/*: libmicrohttpd/0.9.72@{{ org }}/vfx2026
 libpng/*: libpng/1.6.34@{{ org }}/vfx2026
 libraw/*: libraw/0.21.4@{{ org }}/vfx2026
 libsndfile/*: libsndfile/system@{{ org }}/vfx2026
@@ -66,10 +71,12 @@ libwebp/*: libwebp/1.5.0@{{ org }}/vfx2026
 libxcrypt/*: libxcrypt/4.4.38@{{ org }}/vfx2026
 libxshmfence/*: libxshmfence/system@{{ org }}/vfx2026
 log4cplus/*: log4cplus/2.1.2@{{ org }}/vfx2026
+lua/*: lua/5.4.4@{{ org }}/vfx2026
 lz4/*: lz4/1.10.0@{{ org }}/vfx2026
 materialx/*: materialx/1.39.4@{{ org }}/vfx2026
 md4c/*: md4c/0.5.2@{{ org }}/vfx2026
 minizip-ng/*: minizip-ng/4.0.10@{{ org }}/vfx2026
+moonray/*: moonray/3.6.0.1@{{ org }}/vfx2026
 mpdecimal/*: mpdecimal/system@{{ org }}/vfx2026
 mpg123/*: mpg123/system@{{ org }}/vfx2026
 nanobind/*: nanobind/2.11.0@{{ org }}/vfx2026
@@ -86,6 +93,7 @@ openexr/*: openexr/3.4.11@{{ org }}/vfx2026
 openfx/*: openfx/1.5.1@{{ org }}/vfx2026
 opengl/*: opengl/system@{{ org }}/vfx2026
 openimageio/*: openimageio/3.1.13.1@{{ org }}/vfx2026
+openimagedenoise/*: openimagedenoise/2.3.3@{{ org }}/vfx2026
 openjpeg/*: openjpeg/2.4.0@{{ org }}/vfx2026
 openjph/*: openjph/0.24.5@{{ org }}/vfx2026
 opensubdiv/*: opensubdiv/3.7.0@{{ org }}/vfx2026
@@ -103,6 +111,7 @@ pybind11/*: pybind11/2.13.6@{{ org }}/vfx2026
 pyside/*: pyside/6.8.3@{{ org }}/vfx2026
 pystring/*: pystring/1.1.4@{{ org }}/vfx2026
 qt/*: qt/6.8.3@{{ org }}/vfx2026
+random123/*: random123/1.14.0@{{ org }}/vfx2026
 rapidjson/*: rapidjson/cci.20250205@{{ org }}/vfx2026
 rawtoaces/*: rawtoaces/2.1.0@{{ org }}/vfx2026
 snappy/*: snappy/1.2.2@{{ org }}/vfx2026

@@ -1,8 +1,6 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
-#
-# From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/log4cplus/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -94,6 +92,8 @@ class Log4cplusConan(ConanFile):
         tc.variables["WITH_ICONV"] = self.options.with_iconv
         tc.variables["LOG4CPLUS_WORKING_LOCALE"] = self.options.working_locale
         tc.variables["LOG4CPLUS_WORKING_C_LOCALE"] = self.options.working_c_locale
+        # Prevent libnsl from being detected and linked (matches CCI approach)
+        tc.cache_variables["LIBNSL"] = "LIBNSL-NOTFOUND"
         tc.generate()
 
         dpes = CMakeDeps(self)
@@ -124,8 +124,7 @@ class Log4cplusConan(ConanFile):
         if self.options.unicode:
             self.cpp_info.defines = ["UNICODE", "_UNICODE"]
         if self.settings.os in ["Linux", "FreeBSD"]:
-            # ASWF: don't need / want libnsl
-            self.cpp_info.system_libs = ["dl", "m", "rt"] # , "nsl"]
+            self.cpp_info.system_libs = ["dl", "m", "rt"]
             if not self.options.single_threaded:
                 self.cpp_info.system_libs.append("pthread")
         elif self.settings.os == "Windows":

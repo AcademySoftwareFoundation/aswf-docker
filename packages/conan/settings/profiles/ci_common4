@@ -17,6 +17,7 @@ build_type=Release
 [tool_requires]
 [replace_requires]
 openssl/*: openssl/1.1.1k@{{ org }}/ci_common4
+gnutls/*: gnutls/3.6.16@{{ org }}/ci_common4
 [replace_tool_requires]
 cmake/*: cmake/3.31.11@{{ org }}/ci_common4
 ninja/*: ninja/1.13.2@{{ org }}/ci_common4

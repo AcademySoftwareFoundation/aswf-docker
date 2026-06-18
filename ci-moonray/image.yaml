@@ -1,0 +1,11 @@
+name: "moonray"
+title: "MoonRay CI Docker Image"
+description: |
+  Contains: all upstream dependencies required to build MoonRay
+  Warning: this image does *not* contain MoonRay itself as it is used to *build* MoonRay!
+packages:
+  - moonray # all dependencies will be installed except moonray itself
+implicit_packages:
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION

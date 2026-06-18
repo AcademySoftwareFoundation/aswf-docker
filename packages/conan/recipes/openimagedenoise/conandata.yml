@@ -1,0 +1,8 @@
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+sources:
+  "2.3.3":
+    x86_64:
+      url: "https://github.com/OpenImageDenoise/oidn/releases/download/v2.3.3/oidn-2.3.3.x86_64.linux.tar.gz"
+      sha256: "3c385230d9e6f63527ba72f2229594dbac5051674219d72e0044b5d0b841796f"

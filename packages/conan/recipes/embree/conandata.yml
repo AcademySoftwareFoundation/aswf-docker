@@ -1,0 +1,10 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# From: https://github.com/conan-io/conan-center-index/blob/07d86dd3417383985563955e5cbca19920e77fdc/recipes/embree/all/conandata.yml
+
+sources:
+  "4.2.0":
+    url: "https://github.com/RenderKit/embree/archive/refs/tags/v4.2.0.tar.gz"
+    sha256: "b0479ce688045d17aa63ce6223c84b1cdb5edbf00d7eda71c06b7e64e21f53a0"

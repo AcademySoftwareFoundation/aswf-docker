@@ -1,0 +1,7 @@
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+sources:
+  "0.42.2":
+    url: "https://github.com/libcgroup/libcgroup/releases/download/v0.42.2/libcgroup-0.42.2.tar.gz"
+    sha256: "e85e8a908073d1245ad1898d643a3d1336dc79d2fa64d0d30f59d2686542b113"
