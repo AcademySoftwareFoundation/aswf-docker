@@ -81,15 +81,7 @@ index a4f895c07..f55da37cb 100644
  endif ()
  
  # Pugixml setup.  Normally we just use the version bundled with oiio, but
-@@ -162,106 +165,110 @@ else ()
- endif()
- 
- # From pythonutils.cmake
--find_python()
-+#find_python()
- 
- 
- ###########################################################################
+@@ -169,99 +172,103 @@
  # Dependencies for optional formats and features. If these are not found,
  # we will continue building, but the related functionality will be disabled.
  
@@ -348,16 +340,16 @@ index 31a986d31..9a7e5ce54 100644
 @@ -55,9 +55,9 @@ OIIO_PRAGMA_WARNING_PUSH
  #    pragma GCC diagnostic ignored "-Wtautological-constant-compare"
  #endif
- 
+
 -#include <OpenImageIO/detail/fmt/format.h>
 -#include <OpenImageIO/detail/fmt/ostream.h>
 -#include <OpenImageIO/detail/fmt/printf.h>
 +#include <fmt/format.h>
 +#include <fmt/ostream.h>
 +#include <fmt/printf.h>
- 
+
  OIIO_PRAGMA_WARNING_POP
- 
+
 diff --git src/jpeg2000.imageio/CMakeLists.txt src/jpeg2000.imageio/CMakeLists.txt
 index 560e8d486..94b5cd2dc 100644
 --- src/jpeg2000.imageio/CMakeLists.txt
@@ -413,6 +405,8 @@ index ed42f1c94..82d2b9770 100644
 +                     INCLUDE_DIRS ${ptex_INCLUDE_DIRS}
                       DEFINITIONS "-DUSE_PTEX")
  endif ()
+diff --git src/penvdb.imageio/CMakeLists.txt src/openvdb.imageio/CMakeLists.txt
+index ed42f1c94..82d2b9770 100644
 --- src/openvdb.imageio/CMakeLists.txt
 +++ src/openvdb.imageio/CMakeLists.txt
 @@ -4,7 +4,7 @@
@@ -426,3 +420,18 @@ index ed42f1c94..82d2b9770 100644
                                       $<TARGET_NAME_IF_EXISTS:TBB::tbb>)
  endif()
   
+diff --git src/python/CMakeLists.txt src/python/CMakeLists.txt
+index ed42f1c94..82d2b9770 100644
+--- src/python/CMakeLists.txt
++++ src/python/CMakeLists.txt
+@@ -21,3 +21,10 @@
+                           UNITY_BUILD_BATCH_SIZE ${UNITY_SMALL_BATCH_SIZE})
+ set_source_files_properties(${python_srcs} PROPERTIES
+                             UNITY_GROUP PyOpenImageIO)
++
++if (NOT OIIO_USING_FMT_LOCAL)
++    target_include_directories (PyOpenImageIO
++                                PUBLIC ${FMT_INCLUDES} )
++    target_link_libraries (PyOpenImageIO
++                           PUBLIC $<TARGET_NAME_IF_EXISTS:fmt::fmt> )
++endif ()

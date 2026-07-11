@@ -1,0 +1,22 @@
+diff --git src/include/OpenImageIO/detail/fmt.h src/include/OpenImageIO/detail/fmt.h
+index a4f895c07..f55da37cb 100644
+--- src/include/OpenImageIO/detail/fmt.h
++++ src/include/OpenImageIO/detail/fmt.h
+@@ -115,7 +115,7 @@
+          OIIO_ENABLE_IF(has_subscript<T>::value&& has_size_method<T>::value)>
+ struct index_formatter : format_parser_with_separator {
+     // inherits parse() from format_parser_with_separator
+-    template<typename FormatContext> auto format(const T& v, FormatContext& ctx)
++    template<typename FormatContext> auto format(const T& v, FormatContext& ctx) const
+     {
+         std::string vspec = elem_fmt.size() ? fmt::format("{{:{}}}", elem_fmt)
+                                             : std::string("{}");
+@@ -159,7 +159,7 @@
+ template<typename T, typename Elem, int Size>
+ struct array_formatter : format_parser_with_separator {
+     // inherits parse() from format_parser_with_separator
+-    template<typename FormatContext> auto format(const T& v, FormatContext& ctx)
++    template<typename FormatContext> auto format(const T& v, FormatContext& ctx) const
+     {
+         std::string vspec = elem_fmt.size() ? fmt::format("{{:{}}}", elem_fmt)
+                                             : std::string("{}");

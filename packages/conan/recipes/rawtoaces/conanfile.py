@@ -79,7 +79,10 @@ class RawtoacesConan(ConanFile):
         tc.cache_variables["CMAKE_INSTALL_RPATH_USE_LINK_PATH"] = False
         tc.cache_variables["CMAKE_INSTALL_RPATH"] = ""
         tc.cache_variables["CMAKE_SKIP_RPATH"] = True
-        tc.cache_variables["RTA_BUILD_PYTHON_BINDINGS"] = False # ASWF FIXME: until we can make nanobind work
+        if Version(self.version) >= 2:
+            tc.cache_variables["RTA_ENABLE_LENSFUN"] = True
+            tc.cache_variables["RTA_ENABLE_EIGEN"] = True
+        tc.cache_variables["RTA_BUILD_PYTHON_BINDINGS"] = True
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()

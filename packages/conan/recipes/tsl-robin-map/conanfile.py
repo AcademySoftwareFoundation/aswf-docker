@@ -7,7 +7,8 @@
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
 from conan.tools.files import copy, get
-from conan.tools.layout import basic_layout
+# from conan.tools.layout import basic_layout
+from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout # ASWF: full CMake build
 import os
 
 required_conan_version = ">=1.50.0"
@@ -22,10 +23,11 @@ class TslRobinMapConan(ConanFile):
     topics = ("robin-map", "structure", "hash map", "hash set", "header-only")
     package_type = "header-library"
     settings = "os", "arch", "compiler", "build_type"
-    no_copy_source = True
+    no_copy_source = False # ASWF: full CMake build
 
     def layout(self):
-        basic_layout(self, src_folder="src")
+        # basic_layout(self, src_folder="src") # ASWF: full CMake build
+        cmake_layout(self, src_folder="src")
 
     def package_id(self):
         self.info.clear()
@@ -37,17 +39,33 @@ class TslRobinMapConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
+    def generate(self):
+        # ASWF: full CMake build
+        tc = CMakeToolchain(self)
+        tc.variables["TSL_ROBIN_MAP_ENABLE_INSTALL"] = True
+        # Upstream installs cmake config to ${CMAKE_INSTALL_DATAROOTDIR}/cmake/...
+        # (share/cmake by default). Override to match the lib/cmake convention.
+        tc.variables["CMAKE_INSTALL_DATAROOTDIR"] = "lib"
+        tc.generate()
+
     def build(self):
-        pass
+        cmake = CMake(self) # ASWF: full CMake build
+        cmake.configure()
+        cmake.build()
+        # pass
 
     def package(self):
         # ASWF: prevent license files from overwritting each other when installing multiple packages
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
-        copy(self, "*.h", src=os.path.join(self.source_folder, "include"), dst=os.path.join(self.package_folder, "include"))
+        # ASWF: full CMake build
+        # copy(self, "*.h", src=os.path.join(self.source_folder, "include"), dst=os.path.join(self.package_folder, "include"))
+        cmake = CMake(self)
+        cmake.install()
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "tsl-robin-map")
         self.cpp_info.set_property("cmake_target_name", "tsl::robin_map")
+        self.cpp_info.builddirs = ["lib/cmake/tsl-robin-map"]
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []
 

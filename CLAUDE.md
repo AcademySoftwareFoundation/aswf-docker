@@ -162,7 +162,25 @@ uv run aswfdocker dockergen --check
    package versions edit `versions.yaml`; to change profile structure edit
    `conan-profile-ci-common.jinja2` or `conan-profile-vfx.jinja2`, then run
    `uv run aswfdocker dockergen`.
-3. **Conan recipes in `packages/conan/recipes/` are vendored** from Conan Center
-   Index. They are excluded from Black formatting and SonarCloud analysis.
+3. **Conan recipes in `packages/conan/recipes/` are mostly vendored** from Conan Center
+   Index:
+   - They are excluded from Black formatting and SonarCloud analysis.
+   - They retain the overall MIT license from Conan Center Index (even the recipes
+     which are unique to this project).
+   - Local modifications should be kept to a minimum. Every deviation from the upstream
+     CCI recipe **must** be marked with an `# ASWF:` comment (Python) or `# ASWF:`
+     comment (CMake/shell) that explains *why* the change is needed, not just *what* it
+     does. The comment goes on the same line as a one-liner, or on the line immediately
+     above a multi-line block. Removed upstream code should be commented out rather than
+     deleted, with an `# ASWF:` explanation, so the diff from upstream stays readable.
+     Examples of correct style:
+     ```python
+     self.requires("expat/[>=2.6.2 <3]")  # ASWF: use Conan expat instead of system one
+     # ASWF: imath does not use CMakeDeps, so we set Python hints directly
+     tc.variables["Python3_EXECUTABLE"] = py_exe
+     # self.requires("ncurses/6.4")  # ASWF: ncurses not a Conan package in this project
+     ```
 4. **`versions.yaml` is a symlink** to `python/aswfdocker/data/versions.yaml`.
 5. The `migrate` and `download` CLI commands are **deprecated**.
+6. Conan packages are built inside a container and the results are stored in a
+   BuildKit cache which is not directly accessible.

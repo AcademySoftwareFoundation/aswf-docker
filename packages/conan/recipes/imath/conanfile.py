@@ -63,6 +63,21 @@ class ImathConan(ConanFile):
         # ASWF: Build Python bindings, pybind11 not quite ready yet
         tc.variables["PYTHON"] = "ON"
         tc.variables["PYBIND11"] = "OFF"
+        # ASWF: imath does not use CMakeDeps, so cpython's use_conan_python.cmake
+        # build module never runs.  Set Python finder hints directly so
+        # FindPython(3) resolves to the Conan Python rather than a system Python
+        # that lacks development headers.
+        if "cpython" in self.dependencies:
+            cpython_info = self.dependencies["cpython"]
+            py_version = Version(cpython_info.ref.version)
+            py_exe = os.path.join(
+                cpython_info.package_folder, "bin",
+                f"python{py_version.major}.{py_version.minor}"
+            )
+            tc.variables["Python_EXECUTABLE"] = py_exe
+            tc.variables["Python3_EXECUTABLE"] = py_exe
+            tc.variables["Python_ROOT_DIR"] = cpython_info.package_folder
+            tc.variables["Python3_ROOT_DIR"] = cpython_info.package_folder
         tc.generate()
 
     def build(self):

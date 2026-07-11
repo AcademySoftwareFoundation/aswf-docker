@@ -715,46 +715,111 @@ class CPythonConan(ConanFile):
 
     def _write_cmake_findpython_wrapper_file(self):
         template = textwrap.dedent("""
-        if (DEFINED Python3_VERSION_STRING)
-            set(_CONAN_PYTHON_SUFFIX "3")
-        else()
-            set(_CONAN_PYTHON_SUFFIX "")
-        endif()
-        set(Python${_CONAN_PYTHON_SUFFIX}_EXECUTABLE @PYTHON_EXECUTABLE@)
-        set(Python${_CONAN_PYTHON_SUFFIX}_LIBRARY @PYTHON_LIBRARY@)
+        # Set up both Python and Python3 namespaces using the Conan cpython package.
+        # Packages may call find_package(Python ...) OR find_package(Python3 ...).
+        # Populating both namespaces here (at toolchain-load time) prevents any later
+        # call from searching fresh and finding the wrong (e.g. system) Python.
+        foreach(_CONAN_PYTHON_SUFFIX IN ITEMS "" "3")
+            set(Python${_CONAN_PYTHON_SUFFIX}_EXECUTABLE @PYTHON_EXECUTABLE@)
+            set(Python${_CONAN_PYTHON_SUFFIX}_LIBRARY @PYTHON_LIBRARY@)
 
-        # Fails if these are set beforehand
-        unset(Python${_CONAN_PYTHON_SUFFIX}_INCLUDE_DIRS)
-        unset(Python${_CONAN_PYTHON_SUFFIX}_INCLUDE_DIR)
+            # Fails if these are set beforehand
+            unset(Python${_CONAN_PYTHON_SUFFIX}_INCLUDE_DIRS)
+            unset(Python${_CONAN_PYTHON_SUFFIX}_INCLUDE_DIR)
 
-        include(${CMAKE_ROOT}/Modules/FindPython${_CONAN_PYTHON_SUFFIX}.cmake)
+            # Only call include(FindPython*.cmake) when the suffix matches the active
+            # find_package context.  When this module is loaded from inside a
+            # find_package(Python3) call (CMAKE_FIND_PACKAGE_NAME="Python3"), including
+            # FindPython.cmake (no suffix) triggers a cmake developer warning because
+            # FindPython.cmake passes "Python" to find_package_handle_standard_args
+            # while the outer context expects "Python3".
+            if(NOT DEFINED CMAKE_FIND_PACKAGE_NAME OR
+               CMAKE_FIND_PACKAGE_NAME STREQUAL "" OR
+               CMAKE_FIND_PACKAGE_NAME STREQUAL "Python${_CONAN_PYTHON_SUFFIX}")
+                # cmake's FindPython(3)/Support.cmake only defines __Python(3)_add_library
+                # (and therefore python(3)_add_library) when Development.Module is present
+                # in FIND_COMPONENTS during the include() call.  pybind11 >= 2.13 checks
+                # Python3_FOUND (set by Conan's Python3Config.cmake) rather than the target
+                # Python3::Python to decide whether to call its own find_package(Python3
+                # REQUIRED COMPONENTS Development.Module).  When Python3_FOUND is already
+                # TRUE, pybind11 skips that call, so python3_add_library is never defined
+                # unless we ensure Development.Module is processed here.
+                # Temporarily add Development.Module to FIND_COMPONENTS (as optional) so
+                # cmake defines the function even in toolchain/build-module context.
+                set(_conan_prev_find_components "${Python${_CONAN_PYTHON_SUFFIX}_FIND_COMPONENTS}")
+                if(NOT "Development.Module" IN_LIST Python${_CONAN_PYTHON_SUFFIX}_FIND_COMPONENTS)
+                    list(APPEND Python${_CONAN_PYTHON_SUFFIX}_FIND_COMPONENTS Development.Module)
+                endif()
+                set(Python${_CONAN_PYTHON_SUFFIX}_FIND_REQUIRED_Development.Module FALSE)
 
-        # Sanity check: The former comes from FindPython(3), the latter comes from the injected find module
-        if(NOT Python${_CONAN_PYTHON_SUFFIX}_VERSION STREQUAL Python${_CONAN_PYTHON_SUFFIX}_VERSION_STRING)
-            message(FATAL_ERROR "CMake detected wrong cpython version - this is likely a bug with the cpython Conan package")
-        endif()
+                include(${CMAKE_ROOT}/Modules/FindPython${_CONAN_PYTHON_SUFFIX}.cmake)
 
-        if (TARGET Python${_CONAN_PYTHON_SUFFIX}::Module)
-            set_target_properties(Python${_CONAN_PYTHON_SUFFIX}::Module PROPERTIES INTERFACE_LINK_LIBRARIES cpython::python)
-        endif()
-        if (TARGET Python${_CONAN_PYTHON_SUFFIX}::SABIModule)
-            set_target_properties(Python${_CONAN_PYTHON_SUFFIX}::SABIModule PROPERTIES INTERFACE_LINK_LIBRARIES cpython::python)
-        endif()
-        if (TARGET Python${_CONAN_PYTHON_SUFFIX}::Python)
-            set_target_properties(Python${_CONAN_PYTHON_SUFFIX}::Python PROPERTIES INTERFACE_LINK_LIBRARIES cpython::embed)
-        endif()
+                set(Python${_CONAN_PYTHON_SUFFIX}_FIND_COMPONENTS "${_conan_prev_find_components}")
+                unset(_conan_prev_find_components)
+                unset(Python${_CONAN_PYTHON_SUFFIX}_FIND_REQUIRED_Development.Module)
+
+                # Sanity check: version found by cmake must agree with the Conan package version.
+                if (DEFINED Python${_CONAN_PYTHON_SUFFIX}_VERSION_STRING)
+                    if(NOT Python${_CONAN_PYTHON_SUFFIX}_VERSION STREQUAL Python${_CONAN_PYTHON_SUFFIX}_VERSION_STRING)
+                        message(FATAL_ERROR "CMake detected wrong cpython version - this is likely a bug with the cpython Conan package")
+                    endif()
+                endif()
+            endif()
+
+            # FindPython(3) only creates Python::Module when Development.Module is
+            # explicitly requested via find_package.  In the build-module context
+            # (toolchain inclusion) no components are requested, so the Module target
+            # may be absent.  Create it here so consumers (nanobind, rawtoaces, etc.)
+            # that call find_package(Python COMPONENTS Development.Module ...) after
+            # this module runs find the target without triggering a fresh search that
+            # could pick up the wrong (e.g. system) Python.
+            #
+            # NOTE: We intentionally do NOT pre-create Python::Python (Development.Embed).
+            # pybind11 >= 2.13 checks Python3_FOUND (not the Python3::Python target) to
+            # decide whether to call find_package(Python3 REQUIRED COMPONENTS Development.Module).
+            # When Python3_FOUND is TRUE (set by Conan's Python3Config.cmake) pybind11 skips
+            # that call.  If we pre-create Python3::Python the older pybind11 check
+            # "if(NOT TARGET Python3::Python)" is also satisfied, so in all versions pybind11
+            # would skip the call that defines python3_add_library.  Packages that need
+            # Development.Embed can call find_package(Python3 COMPONENTS Development.Embed)
+            # themselves and cmake will create Python3::Python correctly.
+            if (NOT TARGET Python${_CONAN_PYTHON_SUFFIX}::Module)
+                add_library(Python${_CONAN_PYTHON_SUFFIX}::Module INTERFACE IMPORTED GLOBAL)
+                set(Python${_CONAN_PYTHON_SUFFIX}_Development.Module_FOUND TRUE CACHE INTERNAL "" FORCE)
+            endif()
+            if (NOT Python${_CONAN_PYTHON_SUFFIX}_INCLUDE_DIRS)
+                set(Python${_CONAN_PYTHON_SUFFIX}_INCLUDE_DIRS "@PYTHON_INCLUDE_DIR@" CACHE INTERNAL "" FORCE)
+            endif()
+
+            if (TARGET Python${_CONAN_PYTHON_SUFFIX}::Module)
+                set_target_properties(Python${_CONAN_PYTHON_SUFFIX}::Module PROPERTIES INTERFACE_LINK_LIBRARIES cpython::python)
+            endif()
+            if (TARGET Python${_CONAN_PYTHON_SUFFIX}::SABIModule)
+                set_target_properties(Python${_CONAN_PYTHON_SUFFIX}::SABIModule PROPERTIES INTERFACE_LINK_LIBRARIES cpython::python)
+            endif()
+        endforeach()
         """)
 
         # In order for the package to be relocatable, these variables must be relative to the installed CMake file
         if is_msvc(self):
             python_exe = "${CMAKE_CURRENT_LIST_DIR}/../../" + self._cpython_interpreter_name
             python_library = "${CMAKE_CURRENT_LIST_DIR}/../" + self._exact_lib_name
+            python_include_dir = "${CMAKE_CURRENT_LIST_DIR}/../../include"
         else:
             python_exe = "${CMAKE_CURRENT_LIST_DIR}/../../bin/" + self._cpython_interpreter_name
             python_library = "${CMAKE_CURRENT_LIST_DIR}/../" + self._exact_lib_name
+            python_include_dir = (
+                "${CMAKE_CURRENT_LIST_DIR}/../../include/python"
+                + self._version_suffix
+                + self._abi_suffix
+            )
 
         cmake_file = os.path.join(self.package_folder, self._cmake_module_path, "use_conan_python.cmake")
-        content = template.replace("@PYTHON_EXECUTABLE@", python_exe).replace("@PYTHON_LIBRARY@", python_library)
+        content = (
+            template.replace("@PYTHON_EXECUTABLE@", python_exe)
+            .replace("@PYTHON_LIBRARY@", python_library)
+            .replace("@PYTHON_INCLUDE_DIR@", python_include_dir)
+        )
         save(self, cmake_file, content)
 
     def package(self):

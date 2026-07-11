@@ -53,8 +53,12 @@ class OpenEXRConan(ConanFile):
         self.requires("imath/[>=3.1.9 <4]", transitive_headers=True)
         if Version(self.version) >= "3.2": # ASWF: we still support pre-libdeflate 3.1.x
             self.requires("libdeflate/[>=1.19 <2]", transitive_libs=True) # ASWF: otherwise linked looks at system libdeflate
-        # ASWF: add explicit dependencies on cpython, Conan profile provides real versions
-        self.requires("cpython/[>=3.0.0]")
+        # ASWF: OpenEXR 3.2 adds Python bindings
+        if Version(self.version) >= "3.2":
+            self.requires("cpython/[>=3.0.0]", visible=False)
+        # ASWF: Starting with 3.3 they use pybind11
+        if Version(self.version) >= "3.3":
+            self.requires("pybind11/[>=2.0.0]", visible=False)
 
         if Version(self.version) >= "3.4":
             self.requires("openjph/[>=0.23.1 <1]")
@@ -67,8 +71,7 @@ class OpenEXRConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        # ASWF FIXME: does not work for now
-        # tc.variables["OPENEXR_BUILD_PYTHON"] = True # ASWF Build Python bindings
+        tc.variables["OPENEXR_BUILD_PYTHON"] = True # ASWF Build Python bindings
         tc.variables["OPENEXR_INSTALL_EXAMPLES"] = False
         tc.variables["BUILD_TESTING"] = False
         tc.variables["BUILD_WEBSITE"] = False
@@ -87,10 +90,23 @@ class OpenEXRConan(ConanFile):
             replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"),
                             "add_subdirectory(website/src)",
                             "#  add_subdirectory(website/src)")
-            # ASWF FIXME: pybind11
-            # replace_in_file(self, os.path.join(self.source_folder, "src", "wrappers", "python", "CMakeLists.txt"),
-            #                 "find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)",
-            #                 "find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)")
+            if Version(self.version) <= "3.4":
+                # ASWF: use Python3 cmake namespace instead of unversioned Python so that
+                # Conan's Python3Config.cmake (config mode) is used rather than FindPython.cmake
+                # (module mode).  Config mode calls find_dependency for cpython's transitive
+                # deps (EXPAT::EXPAT, ZLIB::ZLIB, etc.) before the targets file is included,
+                # which avoids "target EXPAT::EXPAT not found" errors at cmake generate time.
+                # 3.4.x already uses Python3 cmake symbols so no patching needed there.
+                py_cmake = os.path.join(self.source_folder, "src", "wrappers", "python", "CMakeLists.txt")
+                replace_in_file(self, py_cmake,
+                                "find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)",
+                                "find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)")
+                replace_in_file(self, py_cmake,
+                                "python_add_library (",
+                                "python3_add_library (")
+                replace_in_file(self, py_cmake,
+                                '"${Python_LIBRARIES}"',
+                                '"${Python3_LIBRARIES}"')
 
     def build(self):
         self._patch_sources()
@@ -183,8 +199,19 @@ class OpenEXRConan(ConanFile):
         if self.settings.os in ["Linux", "FreeBSD"]:
             OpenEXRUtil.system_libs = ["m"]
 
+        # ASWF: OpenEXR::Python — Python bindings (PyOpenEXR.so, installed to site-packages).
+        # No libs or includes exposed to consumers; this component exists solely to satisfy
+        # Conan's requirement that every declared requires() appears in package_info, and to
+        # keep cpython/pybind11 out of the main OpenEXR::OpenEXR cmake link interface.
+        if Version(self.version) >= "3.2":
+            openexr_python = self.cpp_info.components["openexr_python"]
+            openexr_python.set_property("cmake_target_name", "OpenEXR::Python")
+            openexr_python.libs = []
+            openexr_python.libdirs = []
+            openexr_python.includedirs = []
+            openexr_python.requires = ["cpython::python"]
+            if Version(self.version) >= "3.3":
+                openexr_python.requires.append("pybind11::pybind11")
+
         # Add tools directory to PATH
         self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
-
-        # ASWF: add explicit dependencies to cpython
-        self.cpp_info.requires.append("cpython::python")

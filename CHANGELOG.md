@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-07-05
+
+- All releases
+  - tsl-robin-map installs CMake files for outside Conan builds
+  - nanobind installs in /usr/local/lib/python3.xx/site-packages/nanobind and [can be found outside Conan](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/399)
+  - generated use_conan_python.cmake should help packages to locate Python and development whether they call find_package(Python ...) or find_package(Python3 ...)
+  - Imath Python bindings now build
+  - OpenEXR Python bindings now build
+  - [OIIO Python bindings now build](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/272)
+  - rawtoaces images include working nanobind / tsl-robin-map and now build Python bindings
+
 # 2026-06-22
 
 - Draft support for [VFX Platform 2027](https://vfxplatform.com/)
