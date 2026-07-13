@@ -1,0 +1,13 @@
+diff --git devices/cpu/CMakeLists.txt devices/cpu/CMakeLists.txt
+index f509aa1..5435e46 100644
+--- devices/cpu/CMakeLists.txt
++++ devices/cpu/CMakeLists.txt
+@@ -4,7 +4,7 @@
+ find_package(Threads REQUIRED)
+
+ # oneTBB
+-set(OIDN_TBB_MIN_VERSION 2017.0)
++set(OIDN_TBB_MIN_VERSION 2020.0)
+ if(TBB_ROOT)
+   find_package(TBB ${OIDN_TBB_MIN_VERSION} COMPONENTS tbb CONFIG NO_DEFAULT_PATH)
+ else()

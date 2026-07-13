@@ -42,7 +42,7 @@ hdf5/*: hdf5/1.14.6@{{ org }}/vfx2027
 highway/*: highway/1.4.0@{{ org }}/vfx2027
 icu/*: icu/system@{{ org }}/vfx2027
 imath/*: imath/3.2.2@{{ org }}/vfx2027
-ispc/*: ispc/1.21.0@{{ org }}/vfx2027
+ispc/*: ispc/1.31.0@{{ org }}/vfx2027
 jasper/*: jasper/4.2.9@{{ org }}/vfx2027
 jsoncpp/*: jsoncpp/1.9.5@{{ org }}/vfx2027
 lcms/*: lcms/2.19.1@{{ org }}/vfx2027
@@ -92,7 +92,7 @@ opencolorio/*: opencolorio/2.5.2@{{ org }}/vfx2027
 openexr/*: openexr/3.4.13@{{ org }}/vfx2027
 openfx/*: openfx/1.5.1@{{ org }}/vfx2027
 opengl/*: opengl/system@{{ org }}/vfx2027
-openimagedenoise/*: openimagedenoise/2.3.3@{{ org }}/vfx2027
+openimagedenoise/*: openimagedenoise/2.5.0@{{ org }}/vfx2027
 openimageio/*: openimageio/3.1.14.1@{{ org }}/vfx2027
 openjpeg/*: openjpeg/2.4.0@{{ org }}/vfx2027
 openjph/*: openjph/0.30.1@{{ org }}/vfx2027
@@ -137,7 +137,7 @@ bison/*: bison/3.7.4@system
 cpython/*: cpython/3.13.14@{{ org }}/vfx2027
 flex/*: flex/2.6.4@system
 gperf/*: gperf/3.1.13@system
-ispc/*: ispc/1.21.0@{{ org }}/vfx2027
+ispc/*: ispc/1.31.0@{{ org }}/vfx2027
 libtool/*: libtool/2.4.6@system
 meson/*: meson/0.63.3@system
 nasm/*: nasm/system@{{ org }}/vfx2027

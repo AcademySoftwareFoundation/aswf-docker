@@ -90,7 +90,7 @@ opencolorio/*: opencolorio/2.2.1@{{ org }}/vfx2023
 openexr/*: openexr/3.1.13@{{ org }}/vfx2023
 openfx/*: openfx/1.5s@{{ org }}/vfx2023
 opengl/*: opengl/system@{{ org }}/vfx2023
-openimagedenoise/*: openimagedenoise/1.2.4@{{ org }}/vfx2023
+openimagedenoise/*: openimagedenoise/2.3.3@{{ org }}/vfx2023
 openimageio/*: openimageio/2.4.17.0@{{ org }}/vfx2023
 openjpeg/*: openjpeg/2.4.0@{{ org }}/vfx2023
 openjph/*: openjph/0.24.5@{{ org }}/vfx2023

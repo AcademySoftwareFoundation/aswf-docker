@@ -1,0 +1,34 @@
+diff --git cmake/oidn_macros.cmake cmake/oidn_macros.cmake
+index d99dd79ac..bfda2778a 100644
+--- cmake/oidn_macros.cmake
++++ cmake/oidn_macros.cmake
+@@ -38,7 +38,7 @@
+   get_filename_component(path "${path}" ABSOLUTE)
+   string(FIND "${path}" "${CMAKE_CURRENT_BINARY_DIR}" _path_binary_dir_pos)
+   if(_path_binary_dir_pos EQUAL 0)
+-    set(build_path ${path})
++    set(bpath ${path})
+   else()
+     file(RELATIVE_PATH bpath ${CMAKE_CURRENT_SOURCE_DIR} ${path})
+     string(REGEX REPLACE "^[/]+" "" bpath "${bpath}")
+diff --git devices/CMakeFiles.txt devices/CMakeFiles.txt
+index d99dd79ac..bfda2778a 100644
+--- devices/CMakeLists.txt
++++ devices/CMakeLists.txt
+@@ -81,11 +81,11 @@
+
+   # Due to limitations of CMake, the module is pre-installed at build time to a temporary location,
+   # and then copied to the real install location at install time.
+-  install(DIRECTORY
+-    ${CMAKE_CURRENT_BINARY_DIR}/cuda/preinstall/
+-    DESTINATION "."
+-    USE_SOURCE_PERMISSIONS
+-  )
++  #install(DIRECTORY
++  #  ${CMAKE_CURRENT_BINARY_DIR}/cuda/preinstall/
++  #  DESTINATION "."
++  #  USE_SOURCE_PERMISSIONS
++  #)
+ endif()
+
+ if(OIDN_DEVICE_HIP)

@@ -1,0 +1,81 @@
+diff --git cmake/oidn_macros.cmake cmake/oidn_macros.cmake
+index d99dd79ac..bfda2778a 100644
+--- cmake/oidn_macros.cmake
++++ cmake/oidn_macros.cmake
+@@ -38,7 +38,7 @@
+   get_filename_component(path "${path}" ABSOLUTE)
+   string(FIND "${path}" "${CMAKE_CURRENT_BINARY_DIR}" _path_binary_dir_pos)
+   if(_path_binary_dir_pos EQUAL 0)
+-    set(build_path ${path})
++    set(bpath ${path})
+   else()
+     file(RELATIVE_PATH bpath ${CMAKE_CURRENT_SOURCE_DIR} ${path})
+     string(REGEX REPLACE "^[/]+" "" bpath "${bpath}")
+diff --git devices/CMakeFiles.txt devices/CMakeFiles.txt
+index d99dd79ac..bfda2778a 100644
+--- devices/CMakeLists.txt
++++ devices/CMakeLists.txt
+@@ -56,7 +56,6 @@
+       -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/cuda/preinstall
+       -DCMAKE_INSTALL_BINDIR:PATH=${CMAKE_INSTALL_BINDIR}
+       -DCMAKE_INSTALL_LIBDIR:PATH=${CMAKE_INSTALL_LIBDIR}
+-      -DCUDAToolkit_ROOT:PATH=${CUDAToolkit_ROOT}
+       -DOIDN_ROOT_BINARY_DIR:PATH=${OIDN_ROOT_BINARY_DIR}
+       -DOIDN_INSTALL_RPATH_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
+       -DOIDN_INSTALL_DEPENDENCIES:BOOL=${OIDN_INSTALL_DEPENDENCIES}
+@@ -71,14 +70,19 @@
+     DEPENDS
+       OpenImageDenoise_core
+   )
++  if(DEFINED CUDAToolkit_ROOT)
++    list(APPEND _oidn_cuda_cache_args
++      -DCUDAToolkit_ROOT:PATH=${CUDAToolkit_ROOT}
++    )
++  endif()
+
+   # Due to limitations of CMake, the module is pre-installed at build time to a temporary location,
+   # and then copied to the real install location at install time.
+-  install(DIRECTORY
+-    ${CMAKE_CURRENT_BINARY_DIR}/cuda/preinstall/
+-    DESTINATION "."
+-    USE_SOURCE_PERMISSIONS
+-  )
++  #install(DIRECTORY
++  #  ${CMAKE_CURRENT_BINARY_DIR}/cuda/preinstall/
++  #  DESTINATION "."
++  #  USE_SOURCE_PERMISSIONS
++  #)
+ endif()
+
+ if(OIDN_DEVICE_HIP)
+diff --git devices/cuda/CMakeFiles.txt devices/cuda/CMakeFiles.txt
+index d99dd79ac..bfda2778a 100644
+--- devices/cuda/CMakeLists.txt
++++ devices/cuda/CMakeLists.txt
+@@ -20,7 +20,7 @@
+ )
+
+ # CUDA
+-find_package(CUDAToolkit 12.8 REQUIRED)
++find_package(CUDAToolkit 12.6 REQUIRED)
+ set(CMAKE_CUDA_COMPILER ${CUDAToolkit_NVCC_EXECUTABLE})
+ enable_language(CUDA)
+
+@@ -56,7 +56,7 @@
+   set(${output_var} "${${output_var}}" PARENT_SCOPE)
+ endfunction()
+
+-oidn_set_cuda_sm_flags(OIDN_CUDA_SM_FLAGS 70 75 80 90 100 120)
++oidn_set_cuda_sm_flags(OIDN_CUDA_SM_FLAGS 70 75 80 90)
+ set_source_files_properties(
+   cuda_conv.cu
+   cuda_device.cu
+@@ -76,7 +76,7 @@
+   PROPERTIES COMPILE_FLAGS ${OIDN_CUDA_SM75_FLAGS}
+ )
+
+-oidn_set_cuda_sm_flags(OIDN_CUDA_SM80_FLAGS 80 90 100 120)
++oidn_set_cuda_sm_flags(OIDN_CUDA_SM80_FLAGS 80 90)
+ set_source_files_properties(
+   cutlass_conv_sm80.cu
+   PROPERTIES COMPILE_FLAGS ${OIDN_CUDA_SM80_FLAGS}

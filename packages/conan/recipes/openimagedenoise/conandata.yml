@@ -1,12 +1,27 @@
+# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
 sources:
+  "2.5.0":
+    url: "https://github.com/RenderKit/oidn/releases/download/v2.5.0/oidn-2.5.0.src.tar.gz"
+    sha256: "96c3a46122759803d5f6701ffba4bef6eac0981dced5279e66f2815e3ed3c2cc"
   "2.3.3":
-    x86_64:
-      url: "https://github.com/OpenImageDenoise/oidn/releases/download/v2.3.3/oidn-2.3.3.x86_64.linux.tar.gz"
-      sha256: "3c385230d9e6f63527ba72f2229594dbac5051674219d72e0044b5d0b841796f"
-  "1.2.4":
-    x86_64:
-      url: "https://github.com/OpenImageDenoise/oidn/releases/download/v1.2.4/oidn-1.2.4.x86_64.linux.tar.gz"
-      sha256: "49fcec0f82cd2874f374e878262c41a52635325d7f100b4f70487686d7a01104"
+    url: "https://github.com/RenderKit/oidn/releases/download/v2.3.3/oidn-2.3.3.src.tar.gz"
+    sha256: "ccf221535b4007607fb53d3ff5afa74de25413bb8ef5d03d215f46c7cc2f96cf"
+  "2.3.2":
+    url: "https://github.com/RenderKit/oidn/releases/download/v2.3.2/oidn-2.3.2.src.tar.gz"
+    sha256: "0ca50e621294e8be238bee2d814fb0391e252e3f3c93fdd4bc253a60e0d00c68"
+
+patches:
+  "2.5.0":
+    - patch_file: "patches/2.5.0-cmake-bpath-cuda.diff"
+      patch_description: "Fix issue with binary weight destination directory and cuda install"
+      patch_type: "conan"
+  "2.3.3":
+    - patch_file: "patches/2.3.3-cmake-bpath-cuda.diff"
+      patch_description: "Fix issue with binary weight destination directory and cuda install"
+      patch_type: "conan"
+    - patch_file: "patches/2.3.3-tbb-min-version.diff"
+      patch_description: "Raise OIDN_TBB_MIN_VERSION to 2020.0 so CMake's find_package(TBB) CONFIG lookup accepts onetbb 2020.x; Conan's default SameMajorVersion compatibility check otherwise always rejects the 2017.0 floor against onetbb's year-as-major legacy versioning"
+      patch_type: "conan"

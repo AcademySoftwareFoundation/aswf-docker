@@ -1,11 +1,16 @@
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 
 sources:
+  "1.31.0":
+    url: "https://github.com/ispc/ispc/archive/refs/tags/v1.31.0.tar.gz"
+    sha256: "671c79bdff2d97aead3897da1a6b67a163af8c4e329350d07cf3e63d592955ff"
+  "1.26.0":
+    url: "https://github.com/ispc/ispc/archive/refs/tags/v1.26.0.tar.gz"
+    sha256: "f75b26894af1429a3dc6929ae03e2c9e99bb8c5930eda14add5d2f6674db7afb"
+  "1.24.0":
+    url: "https://github.com/ispc/ispc/archive/refs/tags/v1.24.0.tar.gz"
+    sha256: "a45ec5402d8a3b23d752125a083fa031becf093b8304ccec55b1c2f37b5479c3"
   "1.21.0":
-    x86_64:
-      url: "https://github.com/ispc/ispc/releases/download/v1.21.0/ispc-v1.21.0-linux.tar.gz"
-      sha256: "fe658893799af46c9cac0153f0bdc9a2ff93541fff9b17cf6b09ffc7576cfdcc"
-    armv8:
-      url: "https://github.com/ispc/ispc/releases/download/v1.21.0/ispc-v1.21.0-linux.aarch64.tar.gz"
-      sha256: "63002ab88c5e290d69bd9700fba0dcffbb7b95f0c8dfda0a15f1ba157ca6326b"
+    url: "https://github.com/ispc/ispc/archive/refs/tags/v1.21.0.tar.gz"
+    sha256: "ac0941ce4a0aae76901133c0d65975a17632734534668ce2871aacb0d99a036c"
