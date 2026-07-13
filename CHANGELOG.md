@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
     - 2025 : 1.26.0 / LLVM 18
     - 2026 : 1.31.0 / LLVM 20
     - 2027 : 1.31.0 / LLVM 22
-  - [openimagedenoise build frmo source instead of binary downloads](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/428)
+  - [openimagedenoise build frmo source instead of binary downloads](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/428). Only the cpu and cuda device plugins are currently being built.
     - disable compute_100 and compute_120 (aka Blackwell) CUDA support in 2.3.3 since in 2023/2024/2025 we have CUDA Toolkit 12.6.3 which is too old
     - 2023 : 2.3.3
     - 2024 : 2.3.3

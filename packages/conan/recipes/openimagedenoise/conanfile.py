@@ -90,3 +90,11 @@ class OpenImageDenoiseConan(ConanFile):
         self.cpp_info.bindirs = ["bin"]
         if self.settings.os == "Linux":
             self.cpp_info.system_libs = ["pthread", "dl", "m"]
+        # _core/_device_cpu/_device_cuda are installed without an
+        # unversioned .so symlink (upstream uses NAMELINK_SKIP for core, and
+        # a plugin-style module install for the devices), so none of them
+        # can be resolved via -l/find_library(). They are not modeled as
+        # Conan components: libOpenImageDenoise already pulls _core in via
+        # its own DT_NEEDED, and device_cpu/device_cuda are dlopen()'d as
+        # plugins at runtime, found next to it in lib/ (already installed
+        # there by cmake.install() above) without any Conan involvement.
