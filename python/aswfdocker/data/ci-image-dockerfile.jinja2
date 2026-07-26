@@ -102,6 +102,10 @@ ENV ASWF_DTS_PREFIX=$ASWF_DTS_PREFIX
 ENV {{ arg }}=${{ arg }}
 {% endfor -%}
 
+{% for name, value in environment | default({}) | items -%}
+ENV {{ name }}={{ value }}
+{% endfor -%}
+
 {% for package in packages + implicit_packages -%}
 ENV ASWF_{{package|upper|replace("-", "_")}}_VERSION=$ASWF_{{package|upper|replace("-", "_")}}_VERSION
 {% endfor -%}

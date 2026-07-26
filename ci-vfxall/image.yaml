@@ -29,3 +29,5 @@ implicit_packages:
   - vfxplatform
 docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
 docker_package_version: $ASWF_VFXPLATFORM_VERSION
+environment:
+  PXR_MTLX_STDLIB_SEARCH_PATHS: ${ASWF_INSTALL_PREFIX}/share/MaterialX/libraries
