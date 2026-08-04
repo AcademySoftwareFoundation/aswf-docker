@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-08-04
+
+- All releases
+  - rework `aswfdocker conandiff` to [track and merge changes from upstream Conan Center Index recipes](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/420)
+    - manifest in `packages/conan/recipes/conan-center-index-upstream.json` tracks per-recipe SHA of latest upstream version (instead of polluting individual file headers)
+    - `aswfdocker conandiff` displays changes since last recorded SHA
+    - `aswfdocker conandiff --merge` performs 3 way merge between upstream and local changes
+    - `aswfdocker conandiff --update-manifest` updates local manifest after merging upstream changes
+  - merge changes to Conan recipes from upstream Conan Center Index
+  - follow up work will remove SHA tracking comments from individual recipe files and local changes to `package()` method to avoid license file conflicts
+  - replace `scripts/common/install_conanpackages.sh` shell script with a [custom Python Conan deployer](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/289) in `packages/conan/settings/extensions/deployers/aswf_deploy.py`
+    - custom deployer lands files directly in destination instead of two step process
+    - adds special handling to avoid conflicts between license files
+    - generally faster
+  - [better clang/llvm version propagation](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/437)
+    - osl, pyside, and openvdb each resolve their own clang/llvm version via a
+      `user.aswf:*_clang_ref` Conan profile conf value instead of a Dockerfile-threaded
+      environment variable
+    - ci-usd's base image now matches OSL's required clang major version
+      (`ASWF_OSL_CLANG_MAJOR_VERSION`) instead of the generic per-image default, fixing a
+      symlink collision crash in aswf_deploy.py when OSL's clang differs from the one
+      already baked into the base image
+
 # 2026-07-05
 
 - All releases

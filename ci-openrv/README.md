@@ -49,7 +49,7 @@ Contains:
 
 Contains:
 * cpython-3.13.14
-* expat-2.8.1
+* expat-2.8.2
 * qt-6.8.3
 * numpy-2.4.6
 * vfxplatform-2027

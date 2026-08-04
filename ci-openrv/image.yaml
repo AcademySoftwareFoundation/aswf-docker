@@ -17,5 +17,8 @@ docker_post_commands: |
   # This is effectively a copy since Qt is already in the cache from previous steps.
   # This approach may be revisited if OpenRV uses PySide2 package from Artifactory.
   RUN --mount=type=cache,target=/opt/conan_home/d \
-      --mount=type=bind,rw,target=/opt/conan_home/.conan,source=packages/conan/settings \
-      conan install qt/"${ASWF_QT_VERSION}"@"${ASWF_PKG_ORG}"/"${ASWF_CONAN_CHANNEL}" --install-folder /tmp/qttemp
+      --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
+      conan install --requires qt/"${ASWF_QT_VERSION}"@"${ASWF_PKG_ORG}"/"${ASWF_CONAN_CHANNEL}" \
+          --profile:all "${ASWF_CONAN_CHANNEL}" \
+          --deployer aswf_deploy \
+          --deployer-folder /tmp/qttemp

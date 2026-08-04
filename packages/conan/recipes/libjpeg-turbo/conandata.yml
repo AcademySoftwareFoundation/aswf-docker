@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/1ce15d41e0301e69706f20bf3d6d942221d8baae/recipes/libjpeg-turbo/all/conandata.yml
 
 sources:
+  "3.2.0":
+    url: "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.2.0/libjpeg-turbo-3.2.0.tar.gz"
+    sha256: "6f30092cef9fb839779646608f4ee14ae3cbac989c47fa05e841b0841f09878e"
   "3.1.4.1":
     url: "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.4.1/libjpeg-turbo-3.1.4.1.tar.gz"
     sha256: "ecae8008e2cc9ade2f2c1bb9d5e6d4fb73e7c433866a056bd82980741571a022"
@@ -33,6 +36,8 @@ sources:
     url: "https://sourceforge.net/projects/libjpeg-turbo/files/2.0.6/libjpeg-turbo-2.0.6.tar.gz"
     sha256: "d74b92ac33b0e3657123ddcf6728788c90dc84dcb6a52013d758af3c4af481bb"
 patches:
+  "3.2.0":
+    - patch_file: "patches/3.2.0-0001-skip-custom-cmake-install.patch"
   "3.1.4.1":
     - patch_file: "patches/3.1.4.1-0001-skip-custom-cmake-install.patch"
   "3.1.0":

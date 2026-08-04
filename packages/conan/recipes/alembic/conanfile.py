@@ -51,11 +51,9 @@ class AlembicConan(ConanFile):
 
     def requirements(self):
         # ASWF: explicit dependencies, specific versions in Conan environment
-        self.requires(f"cpython/3.13.3")
-        self.requires(f"boost/1.88.0")
-        # ASWF: imath half.h is part of Alembic API
-        self.requires(f"imath/[>=3.1.9 <4]", transitive_headers = True, transitive_libs = True)
-        self.requires(f"openexr/3.3.4")
+        self.requires("cpython/3.13.3")
+        self.requires("boost/1.88.0")
+        self.requires("imath/[>=3.1.9 <4]", transitive_headers=True, transitive_libs=True) # ASWF: imath libs required
         if self.options.with_hdf5:
             self.requires("hdf5/1.14.3")
 
@@ -77,11 +75,10 @@ class AlembicConan(ConanFile):
         tc.variables["USE_HDF5"] = self.options.with_hdf5
         tc.variables["USE_TESTS"] = False
         tc.variables["ALEMBIC_BUILD_LIBS"] = True
-        tc.variables["ALEMBIC_ILMBASE_LINK_STATIC"] = False  # for -DOPENEXR_DLL, handled by OpenEXR package
+        tc.variables["ALEMBIC_ILMBASE_LINK_STATIC"] = False  # ASWF for -DOPENEXR_DLL, handled by OpenEXR package
         tc.variables["ALEMBIC_SHARED_LIBS"] = self.options.shared
-        tc.variables["ALEMBIC_USING_IMATH_3"] = True
+        tc.variables["ALEMBIC_USING_IMATH_3"] = True # ASWF
         tc.variables["ALEMBIC_ILMBASE_FOUND"] = 1
-        tc.variables["ALEMBIC_ILMBASE_LIBS"] = "OpenEXR::OpenEXR"
         if Version(self.version) >= "1.8.4":
             tc.variables["ALEMBIC_DEBUG_WARNINGS_AS_ERRORS"] = False
         tc.generate()
@@ -99,7 +96,7 @@ class AlembicConan(ConanFile):
         copy(self, "LICENSE.txt", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
-        rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
+        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake")) # ASWF: keep cmake files for outside Conan build
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "Alembic")

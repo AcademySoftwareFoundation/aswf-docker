@@ -32,15 +32,15 @@ sources:
 patches:
   "1.8.11":
     - patch_file: "patches/1.8.11-0001-fix-cmake.patch"
-      patch_description: "CMake: fix install layout, don't link directly to zlib if hdf5, relocatable shared lib for macOS"
+      patch_description: "CMake: let conan specify fPIC, don't change rpath"
       patch_type: "conan"
   "1.8.10":
     - patch_file: "patches/1.8.10-0001-fix-cmake.patch"
-      patch_description: "CMake: fix install layout, don't link directly to zlib if hdf5, relocatable shared lib for macOS"
+      patch_description: "CMake: let conan specify fPIC, don't change rpath"
       patch_type: "conan"
   "1.8.8":
     - patch_file: "patches/1.8.8-0001-fix-cmake.patch"
-      patch_description: "CMake: fix install layout, don't link directly to zlib if hdf5, relocatable shared lib for macOS"
+      patch_description: "CMake: let conan specify fPIC, don't change rpath"
       patch_type: "conan"
   "1.8.7":
     - patch_file: "patches/1.8.5-0001-fix-cmake.patch"

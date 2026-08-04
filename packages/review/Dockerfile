@@ -6,7 +6,6 @@
 ARG ASWF_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
-ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 ARG ASWF_BOOST_VERSION
@@ -60,8 +59,6 @@ ENV ASWF_BOOST_VERSION=${ASWF_BOOST_VERSION}
 ENV ASWF_ONETBB_VERSION=${ASWF_ONETBB_VERSION}
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
-COPY scripts/common/install_conanpackages.sh /tmp
-
 # Use conan to install some packages
 COPY <<EOF /usr/local/conanfile.txt
 [generators]
@@ -76,7 +73,10 @@ EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}"
+    conan install /usr/local \
+        --profile:all "${ASWF_CONAN_CHANNEL}" \
+        --deployer aswf_deploy \
+        --deployer-folder /usr/local
 
 COPY ../scripts/common/before_build.sh \
      ../scripts/common/copy_new_files.sh \
@@ -98,8 +98,6 @@ ARG CI_COMMON_VERSION
 ENV CI_COMMON_VERSION=${CI_COMMON_VERSION}
 ARG ASWF_VFXPLATFORM_VERSION
 ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
-ARG ASWF_PYSIDE_CLANG_VERSION
-ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
 ARG ASWF_CXX_STANDARD
 ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
 ARG ASWF_EXPAT_VERSION
@@ -117,8 +115,6 @@ COPY --from=ci-package-ocio-external /. /usr/local/
 COPY ../scripts/review/build_openrv.sh \
      /tmp/
 
-COPY scripts/common/install_conanpackages.sh /tmp
-
 # Use conan to install dependencies
 COPY <<EOF /usr/local/conanfile.txt
 [generators]
@@ -132,7 +128,10 @@ EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}"
+    conan install /usr/local \
+        --profile:all "${ASWF_CONAN_CHANNEL}" \
+        --deployer aswf_deploy \
+        --deployer-folder /usr/local
 
 # Qt files are under /tmp/qttemp because OpenRV compiles its own PySide2 and it
 # causes issues during the build when Qt is within system folder (e.g. /usr/local)
@@ -148,7 +147,10 @@ EOF
 
 RUN --mount=type=cache,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /tmp/qttemp vfx"${ASWF_VFXPLATFORM_VERSION}"
+    conan install /tmp/qttemp \
+        --profile:all "${ASWF_CONAN_CHANNEL}" \
+        --deployer aswf_deploy \
+        --deployer-folder /tmp/qttemp
 
 RUN --mount=type=cache,target=/tmp/ccache \
      --mount=type=cache,id=aswf-downloads,sharing=private,target=/tmp/downloads \

@@ -359,36 +359,77 @@ profile, so a single set of profile files serves both organizations.
 When a sufficiently recent package is provided by the underlying OS distribution, packages labeled as version `system` are created which are thin wrappers around system installed components, and the Conan profile is used to remap `requires()`
 call to specific versions to these wrapper packages. Confusingly some will have an actual version number since some dependent packages check for acceptable version ranges. A better versioning scheme would be desirable for these wrapper packages.
 
-You can use the `aswfdocker conandiff` command to view updates in the upstream Conan Center Index recipes since the last time the local copy was updated. This requires the `From: https://...` header comment to be updated correctly in our vendored copies of the CCI recipes.
+You can use the `aswfdocker conandiff` command to view, and optionally pull in, updates
+from the upstream Conan Center Index (CCI) recipes that our recipes in
+`packages/conan/recipes/` are vendored from. Upstream tracking state lives in a single
+manifest, [`packages/conan/recipes/conan-center-index-upstream.json`](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/packages/conan/recipes/conan-center-index-upstream.json),
+rather than in the historical per-file `# From: https://...` header comments (those
+headers are now legacy/informational only — no tooling reads them anymore, and they will
+be removed from the recipe files in a future PR).
+
+Every recipe in the manifest is classified as one of:
+
+- `cci`: vendored from CCI, with one tracked SHA per upstream folder (or one per version
+  folder, for the two recipes — `qt` and `onetbb` — that have real multi-version CCI
+  layouts). Only `cci` recipes are ever diffed or merged against upstream.
+- `unique`: not tracked against any upstream (recipes unique to this project, or whose
+  `From:` link points somewhere other than canonical CCI, e.g. a fork).
+- `system`: a thin wrapper around a system-installed package; never diffed either.
+
+#### Checking for updates
 
 ```
-$ aswfdocker conandiff
-Checking conanfile.py files...
-
-Found outdated conanfile.py:
-aswf-docker/packages/conan/recipes/minizip-ng/conanfile.py:
-  Package: minizip-ng
+$ aswfdocker conandiff --target minizip-ng
+Found outdated recipe:
+  Recipe: minizip-ng
+  Folder: all
   Current SHA: 156d3592a823c0d3d297d8c365eee01f27532a49
   Found 1 newer commits:
     Commit: 7e056a381694e0fd0b791b9fd06d87d391f461c0
     Diff URL: https://github.com/conan-io/conan-center-index/commit/7e056a381694e0fd0b791b9fd06d87d391f461c0
     Timestamp: 2024-12-31 14:55:30+00:00
-    Message:
-      minizip-ng: add version 4.0.7 (#26112)
-
-      * minizip-ng: add version 4.0.7
-
-      * rename windows library names in 4.0.7
+    Message: minizip-ng: add version 4.0.7 (#26112)
 ```
 
-### Docker-only Packages
+Like `aswfdocker build`, `conandiff` accepts `--group`/`-g` (a group name from
+`versions.yaml`) and `--target`/`-tg` (a specific recipe name) to limit which recipes are
+checked; with neither, every `cci` recipe in the manifest is checked.
 
-If a package has no Conan recipe folder its conan package will be skipped at release time.
+#### Pulling in upstream changes with `--merge`
 
-### Conan-only Packages
+Before merging, `aswfdocker conandiff --merge --dry-run --target <name>` shows exactly
+what changed **upstream** — a unified diff of each affected file's content between the
+tracked SHA and the current upstream HEAD — without touching any local files or
+attempting to merge:
 
-If a package can only be built using Conan its name must be added to the `conan_only` list
-at the end of the `versions.yaml` file, see `gtest` as an example.
+```
+$ aswfdocker conandiff --merge --dry-run --target minizip-ng
+
+minizip-ng: all/conanfile.py (modified)
+--- a/conanfile.py@156d3592a823
++++ b/conanfile.py@7e056a381694
+@@ -42,7 +42,7 @@
+     def export_sources(self):
+-        export_conandata_patches(self)
++        export_conandata_patches(self)  # keep patches in sync
+```
+
+Once you've reviewed what upstream actually changed, `aswfdocker conandiff --merge
+--target <name>` (no `--dry-run`) attempts a real 3-way merge of those changes into your
+locally-modified recipe files, using `git merge-file` — the same mechanism `git merge`
+itself uses per-file, so a clean merge is applied automatically and a conflicting one
+leaves familiar `<<<<<<<`/`=======`/`>>>>>>>` conflict markers in place for you to resolve
+by hand. `--merge` always requires `--group`/`--target` (it refuses to run unscoped, to
+avoid rewriting every vendored recipe's files in one shot), and it refuses to touch a
+recipe directory with uncommitted changes unless you pass `--force`.
+
+Once you're satisfied a recipe's upstream changes have been incorporated — either because
+`--merge` applied them cleanly, or because you resolved conflicts (or merged) by hand —
+run `aswfdocker conandiff --update-manifest --target <name>` to record the new tracked
+SHA. Passing `--merge --update-manifest` together only bumps the manifest for recipes that
+merged with zero conflicts; conflicting recipes keep their old tracked SHA so a later
+`conandiff` run still reports them outdated until you finish resolving them and re-run
+`--update-manifest` alone.
 
 ### Peeking into the Conan cache
 

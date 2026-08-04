@@ -86,8 +86,15 @@ testpaths = [
 target-version = ['py310']
 include = '''
 (
-    python/.*\.py$
-  | packages/conan/recipes/.*\.py$
-  | setup\.py
+    ^/python/.*\.py$
+  | ^/packages/conan/settings/extensions/deployers/.*\.py$
+  | ^/setup\.py$
 )
+'''
+# Vendored Conan recipes must never be reformatted (would diverge from
+# upstream CCI for no reason). force-exclude, unlike include/exclude, is
+# honored even when black is invoked with explicit file paths (as every
+# pre-commit hook does), not just when recursing into a directory.
+force-exclude = '''
+^/packages/conan/recipes/
 '''

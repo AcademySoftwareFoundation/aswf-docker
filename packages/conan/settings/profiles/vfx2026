@@ -159,3 +159,8 @@ pkgconf/1.4.2
 wayland/1.21.0
 wayland-protocols/1.25
 [buildenv]
+[conf]
+user.aswf:osl_clang_ref=clang/20.1.7@{{ org }}/ci_common6
+user.aswf:pyside_clang_ref=clang/19.1.7@{{ org }}/ci_common6
+user.aswf:ispc_clang_ref=clang/20.1.7@{{ org }}/ci_common6
+user.aswf:openvdb_clang_ref=clang/19.1.7@{{ org }}/ci_common6

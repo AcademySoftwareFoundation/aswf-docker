@@ -232,10 +232,10 @@ Contains:
 ## [aswf/ci-base:2027.0](https://hub.docker.com/r/aswf/ci-base/tags?page=1&name=2027.0)
 
 Contains:
-* b2-5.4.2
+* b2-5.5.3
 * bzip2-1.0.8
 * cppunit-1.15.1
-* expat-2.8.1
+* expat-2.8.2
 * fmt-12.1.0
 * gtest-1.17.0
 * jsoncpp-1.9.5
@@ -247,7 +247,7 @@ Contains:
 * libxcrypt-4.5.2
 * lua-5.4.4
 * lz4-1.10.0
-* pugixml-1.15
+* pugixml-1.16
 * pystring-1.1.5
 * random123-1.14.0
 * rapidjson-cci.20250205

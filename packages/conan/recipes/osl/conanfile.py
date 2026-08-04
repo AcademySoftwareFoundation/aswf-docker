@@ -57,8 +57,7 @@ class OpenShadingLanguageConan(ConanFile):
             self.options.rm_safe("fPIC")
 
     def requirements(self):
-        # FIXME need better way to determine llvm version
-        self.requires(f"clang/{os.environ['ASWF_OSL_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
+        self.requires(self.conf.get("user.aswf:osl_clang_ref", check_type=str))
         # Required libraries
         self.requires("zlib/[>=1.2.11 <2]")
         self.requires("fmt/10.2.1", transitive_headers=True)
@@ -75,8 +74,7 @@ class OpenShadingLanguageConan(ConanFile):
             self.requires("qt/6.5.6")
 
     def build_requirements(self):
-        # FIXME need better way to determine llvm version
-        self.tool_requires(f"clang/{os.environ['ASWF_OSL_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
+        self.tool_requires(self.conf.get("user.aswf:osl_clang_ref", check_type=str))
         self.tool_requires("cmake/[>=3.19]")
         self.tool_requires("bison/[>=2.7]")
         self.tool_requires("flex/[>=2.5.35]")

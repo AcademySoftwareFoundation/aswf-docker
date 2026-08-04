@@ -37,7 +37,6 @@ class OpenImageIOConan(ConanFile):
         "with_libjxl": [True, False],
         "with_libpng": [True, False],
         "with_freetype": [True, False],
-        "with_hdf5": [True, False],
         "with_opencolorio": [True, False],
         "with_opencv": [True, False],
         "with_tbb": [True, False],
@@ -52,7 +51,7 @@ class OpenImageIOConan(ConanFile):
         "with_ptex": [True, False],
         "with_libwebp": [True, False],
         "with_libultrahdr": [True, False],
-        "with_iv": [True, False],
+        "with_iv": [True, False], # ASWF
         "with_python": [True, False], # ASWF
     }
     default_options = {
@@ -62,7 +61,6 @@ class OpenImageIOConan(ConanFile):
         "with_libjxl": True,
         "with_libpng": True,
         "with_freetype": True,
-        "with_hdf5": True,
         "with_opencolorio": True,
         "with_opencv": False,
         "with_tbb": True, # ASWF: exercise dependency
@@ -124,14 +122,12 @@ class OpenImageIOConan(ConanFile):
             self.requires("libpng/[>=1.6 <2]")
         if self.options.with_freetype:
             self.requires("freetype/2.13.2")
-        if self.options.with_hdf5:
-            self.requires("hdf5/1.14.3")
         if self.options.get_safe("with_opencolorio", True):
             self.requires("opencolorio/[>=2.3.1 <4]")
         if self.options.with_opencv:
             self.requires("opencv/[>=4.8.1 <5]")
         if self.options.with_tbb:
-            self.requires("onetbb/2021.10.0")
+            self.requires("onetbb/[>=2021.10.0 <2024]")
         if self.options.with_dicom:
             self.requires("dcmtk/3.6.7")
         if self.options.with_ffmpeg:
@@ -148,7 +144,7 @@ class OpenImageIOConan(ConanFile):
         if self.options.get_safe("with_openjph", False):
             self.requires("openjph/[>=0.16.0 <1]")
         if self.options.with_openvdb:
-            self.requires("openvdb/8.0.1")
+            self.requires("openvdb/[>=8.0.1 <13]")
         if self.options.with_ptex:
             self.requires("ptex/2.4.2")
         if self.options.with_libwebp:
@@ -213,7 +209,6 @@ class OpenImageIOConan(ConanFile):
         tc.variables[
             "USE_JPEG"
         ] = True  # Needed for jpeg.imageio plugin, libjpeg/libjpeg-turbo selection still works
-        tc.variables["USE_HDF5"] = self.options.with_hdf5
         tc.cache_variables["USE_JXL"] = self.options.get_safe("with_libjxl", False)
         tc.variables["USE_OPENCOLORIO"] = self.options.get_safe("with_opencolorio", True)
         tc.variables["USE_OPENCV"] = self.options.with_opencv
@@ -348,7 +343,7 @@ class OpenImageIOConan(ConanFile):
                 ["dl", "m", "pthread"]
             )
         if self.options.with_tbb:
-            open_image_io_util.requires.append("onetbb::onetbb")
+            open_image_io_util.requires.append("onetbb::libtbb")
 
         # OpenImageIO::OpenImageIO
         open_image_io = self._add_component("OpenImageIO")
@@ -377,8 +372,6 @@ class OpenImageIOConan(ConanFile):
             open_image_io.requires.append("libpng::libpng")
         if self.options.with_freetype:
             open_image_io.requires.append("freetype::freetype")
-        if self.options.with_hdf5:
-            open_image_io.requires.append("hdf5::hdf5")
         if self.options.get_safe("with_opencolorio", True):
             open_image_io.requires.append("opencolorio::opencolorio")
         if self.options.with_opencv:

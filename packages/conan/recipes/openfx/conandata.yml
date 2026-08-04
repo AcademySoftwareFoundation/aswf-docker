@@ -19,8 +19,11 @@ sources:
     sha256: "1f2d057b2cff025979f631f092f138020315524d4c0c0dcc2dccdadc2313a62f"
 patches:
   "1.5.1":
+    - patch_file: "patches/1.5.1-0001-disable-example-requirements.patch"
     - patch_file: "patches/1.5.1-spdlog-fmt.patch"
       patch_description: "FMT_STRING() breaks compilation"
   "1.5s":
+    - patch_file: "patches/1.5s-0001-add-cmake-install.patch"
+      patch_description: "Upstream has no install(TARGETS) rule for OfxHost/OfxSupport; add one (mirrors the equivalent 1.5.1 patch) so the Conan package actually contains the libraries and headers"
     - patch_file: "patches/openfx_cmake_relative.patch"
       patch_description: "Don't reference CMake source directory"

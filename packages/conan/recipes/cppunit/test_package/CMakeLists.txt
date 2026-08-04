@@ -4,7 +4,7 @@
 #
 # From: https://github.com/conan-io/conan-center-index/blob/6aeda9d870a1253535297cb50b01bebfc8c62910/recipes/cppunit/all/test_package/CMakeLists.txt
 
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.15)
 project(test_package LANGUAGES CXX)
 
 find_package(cppunit REQUIRED CONFIG)

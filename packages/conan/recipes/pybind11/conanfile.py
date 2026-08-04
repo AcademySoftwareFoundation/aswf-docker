@@ -45,6 +45,7 @@ class PyBind11Conan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
+        tc.variables["PYBIND11_FINDPYTHON"] = True
         tc.variables["PYBIND11_INSTALL"] = True
         tc.variables["PYBIND11_TEST"] = False
         tc.variables["PYBIND11_CMAKECONFIG_INSTALL_DIR"] = os.path.join("lib", "cmake", "pybind11")

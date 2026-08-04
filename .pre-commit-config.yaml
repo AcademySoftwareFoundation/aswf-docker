@@ -1,13 +1,11 @@
 repos:
--   repo: https://github.com/ambv/black
-    rev: 22.12.0
-    hooks:
-    # Don't reformat vendored Conan recipes
-    - id: black
-      language_version: python3.10
-      exclude: packages/conan/recipes/
 -   repo: local
     hooks:
+      - id: black
+        name: Check black formatting
+        entry: uv run black
+        language: system
+        types: [python]
       - id: pytest
         name: Check pytest unit tests pass
         entry: uv run pytest python/aswfdocker

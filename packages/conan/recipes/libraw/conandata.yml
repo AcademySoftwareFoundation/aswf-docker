@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/1ce15d41e0301e69706f20bf3d6d942221d8baae/recipes/libraw/all/conandata.yml
 
 sources:
+  "0.22.2":
+    url: "https://github.com/LibRaw/LibRaw/archive/0.22.2.tar.gz"
+    sha256: "627928088300ecde6ca91ffd202e189203f04ad61ad12f0fe9dc57b9a7a0fb3c"
   "0.22.1":
     url: "https://github.com/LibRaw/LibRaw/archive/0.22.1.tar.gz"
     sha256: "e676248284075605aa2697a66eeed7dc258820bd1d4988c724d29edffd726726"

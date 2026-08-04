@@ -136,7 +136,7 @@ class OpenVDBConan(ConanFile):
     def requirements(self):
         # https://github.com/AcademySoftwareFoundation/openvdb/blob/v10.0.1/doc/dependencies.txt#L36-L84
         self.requires("boost/1.84.0", transitive_headers=True)
-        self.requires("onetbb/2021.10.0", transitive_headers=True, transitive_libs=True)
+        self.requires("onetbb/[>=2021.10.0 <2024]", transitive_headers=True, transitive_libs=True)
         if self.options.use_imath_half:
             self.requires("imath/[>=3.1.9 <4]", transitive_headers=True, transitive_libs=True)
         if self.options.with_zlib:
@@ -176,8 +176,8 @@ class OpenVDBConan(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.20]")
         if self.options.build_ax:
-             # ASWF: need clang / llvm to build AX, FIXME need better way to determine llvm version
-            self.tool_requires(f"clang/{os.environ['ASWF_OSL_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
+            # ASWF: need clang / llvm to build AX
+            self.tool_requires(self.conf.get("user.aswf:openvdb_clang_ref", check_type=str))
             if self._settings_build.os == "Windows":
                 self.tool_requires("winflexbison/2.5.25")
             else:
@@ -296,7 +296,7 @@ class OpenVDBConan(ConanFile):
         main_component.requires = [
             "boost::iostreams",
             # "boost::system", # ASWF: has been header only since 1.69.0, stub is gone in 1.89.0
-            "onetbb::onetbb",
+            "onetbb::libtbb",
         ]
         if Version(self.dependencies["boost"].ref.version) < "1.89.0":
             main_component.requires.append("boost::system")

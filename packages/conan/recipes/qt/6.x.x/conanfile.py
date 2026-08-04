@@ -691,6 +691,9 @@ class QtConan(ConanFile):
         tc.variables["CMAKE_DISABLE_FIND_PACKAGE_Wayland"] = not with_wayland
         tc.variables["FEATURE_wayland"] = with_wayland
 
+        with_egl = self.options.get_safe("with_egl", False)
+        tc.variables["CMAKE_DISABLE_FIND_PACKAGE_EGL"] = not with_egl
+
         # ASWF: relocate arch-specific data (plugins, qml, mkspecs) out of package root.
         # Set both the root and each derived variable explicitly — Qt sets INSTALL_PLUGINSDIR,
         # INSTALL_QMLDIR, INSTALL_MKSPECSDIR as independent cache variables and they may
@@ -934,6 +937,8 @@ class QtConan(ConanFile):
         filecontents += f"set(QT_VERSION_PATCH {ver.patch})\n"
         if self.settings.os == "Macos":
             filecontents += 'set(__qt_internal_cmake_apple_support_files_path "${CMAKE_CURRENT_LIST_DIR}/../../../lib/cmake/Qt6/macos")\n'
+        if self.settings.os == "Windows":
+            filecontents += 'set(__qt_internal_cmake_windows_support_files_path "${CMAKE_CURRENT_LIST_DIR}/../../../lib/cmake/Qt6/windows")\n'
         targets = ["moc", "qlalr", "rcc", "tracegen", "cmake_automoc_parser", "qmake", "qtpaths", "syncqt", "tracepointgen"]
         disabled_features = str(self.options.disabled_features).split()
         if self.options.with_dbus:
@@ -968,6 +973,8 @@ class QtConan(ConanFile):
             targets.extend(["qmlformat", "qml", "qmlprofiler", "qmlpreview", "qmltc"])
             if Version(self.version) >= "6.8.3":
                 targets.extend(["qmlaotstats"])
+
+            # Note: consider "qmltestrunner", see https://github.com/conan-io/conan-center-index/issues/24276
         if self.options.get_safe("qtremoteobjects"):
             targets.append("repc")
         if self.options.get_safe("qtscxml"):
@@ -1032,7 +1039,7 @@ class QtConan(ConanFile):
             save(self, os.path.join(self.package_folder, "lib", "cmake", "Qt6Qml", "conan_qt_qt6_policies.cmake"), textwrap.dedent("""\
                     set(QT_KNOWN_POLICY_QTP0001 TRUE)
                     set(QT_KNOWN_POLICY_QTP0004 TRUE)
-                    set(QT_KNOWN_POLICY_QTP0005 TRUE)                                                                                                                                 
+                    set(QT_KNOWN_POLICY_QTP0005 TRUE)
                     """))
             if self.options.gui and self.options.qtshadertools:
                 _create_private_module("Quick", ["CorePrivate", "GuiPrivate", "QmlPrivate", "Quick"])
@@ -1170,7 +1177,6 @@ class QtConan(ConanFile):
             core_reqs.append("zstd::zstd")
         if self.options.with_glib:
             core_reqs.append("glib::glib")
-        # ASWF: openssl dependency is tricky
         if self.options.openssl:
             core_reqs.append("openssl::openssl") # used by QCryptographicHash
 
@@ -1331,7 +1337,6 @@ class QtConan(ConanFile):
             else:
                 self.cpp_info.components["qtQODBCDriverPlugin"].system_libs.append("odbc32")
         networkReqs = []
-        # ASWF: openssl dependency is tricky
         if self.options.openssl:
             networkReqs.append("openssl::openssl")
         if self.options.with_brotli:
@@ -1698,6 +1703,10 @@ class QtConan(ConanFile):
                     _add_build_module(component_name, module)
 
                 module = os.path.join("lib", "cmake", m, f"{m}ConfigExtras.cmake")
+                if os.path.isfile(module):
+                    _add_build_module(component_name, module)
+
+                module = os.path.join("lib", "cmake", m, "QtInstallPaths.cmake")
                 if os.path.isfile(module):
                     _add_build_module(component_name, module)
 

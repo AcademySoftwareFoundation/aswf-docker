@@ -68,7 +68,7 @@ class PySide6Conan(ConanFile):
         if Version(self.version) < "6.0":
             self.tool_requires("cpython/[>=3.0.0]")
             self.tool_requires("qt/[>=5.0.0]")
-        self.tool_requires(f"clang/{os.environ['ASWF_PYSIDE_CLANG_VERSION']}@{self.user}/ci_common{os.environ['CI_COMMON_VERSION']}")
+        self.tool_requires(self.conf.get("user.aswf:pyside_clang_ref", check_type=str))
 
     def export_sources(self):
         export_conandata_patches(self)

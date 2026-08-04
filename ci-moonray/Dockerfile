@@ -9,8 +9,6 @@ ARG ASWF_ORG
 ARG ASWF_PKG_ORG
 ARG CI_COMMON_VERSION
 ARG ASWF_CLANG_MAJOR_VERSION
-ARG ASWF_OSL_CLANG_VERSION
-ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_CONAN_CHANNEL
 ARG ASWF_CXX_STANDARD
 
@@ -31,8 +29,6 @@ ARG ASWF_CONAN_HOME
 ARG ASWF_PKG_ORG
 ARG ASWF_VERSION
 ARG CI_COMMON_VERSION
-ARG ASWF_OSL_CLANG_VERSION
-ARG ASWF_PYSIDE_CLANG_VERSION
 ARG ASWF_CONAN_CHANNEL
 ARG ASWF_CXX_STANDARD
 
@@ -63,8 +59,6 @@ LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
 ENV ASWF_ORG=${ASWF_ORG}
 ENV ASWF_VERSION=${ASWF_VERSION}
 ENV ASWF_INSTALL_PREFIX=/usr/local
-ENV ASWF_OSL_CLANG_VERSION=${ASWF_OSL_CLANG_VERSION}
-ENV ASWF_PYSIDE_CLANG_VERSION=${ASWF_PYSIDE_CLANG_VERSION}
 ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
 
 
@@ -81,8 +75,6 @@ COPY ci-moonray/README.md ci-moonray/image.yaml /usr/local/aswf/
 COPY scripts/vfx/build_moonray.sh /usr/local/aswf
 
 
-COPY scripts/common/install_conanpackages.sh /tmp/
-
 ARG ASWF_PYTHON_MAJOR_MINOR_VERSION
 ENV ASWF_PYTHON_MAJOR_MINOR_VERSION=${ASWF_PYTHON_MAJOR_MINOR_VERSION}
 
@@ -97,9 +89,12 @@ EOF
 
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2
 
-
 RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=/opt/conan_home/d \
     --mount=type=bind,rw,target=/opt/conan_home/.conan2,source=packages/conan/settings \
-    /tmp/install_conanpackages.sh /usr/local vfx"${ASWF_VFXPLATFORM_VERSION}" moonray
-
+    conan install /usr/local \
+        --profile:all "${ASWF_CONAN_CHANNEL}" \
+        --deployer aswf_deploy \
+        --deployer-folder /usr/local \
+        --conf user.aswf:exclude_package="moonray" \
+    && rm -rf /tmp/downloads/*
 

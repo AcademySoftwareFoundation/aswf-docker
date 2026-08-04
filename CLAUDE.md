@@ -74,7 +74,7 @@ uv run mypy python/aswfdocker
 uv run pylint python/aswfdocker
 
 # Formatting (Black, targets Python 3.10)
-uv run black python/ packages/conan/recipes/
+uv run black python/ packages/conan/settings/extensions/deployers/
 
 # Run all pre-commit hooks
 uv run pre-commit run --all-files
@@ -108,6 +108,14 @@ uv run aswfdocker dockergen --check
 
 ## Code Conventions
 
+- **Copyright header** on new source files project-wide (Python, shell
+  scripts, Jinja2 templates, etc.), where appropriate for the file type:
+  `# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.`
+  `# SPDX-License-Identifier: Apache-2.0`
+  This does not apply to vendored Conan recipes (which keep upstream's own
+  license header — see the vendored-recipes rules below) or to
+  auto-generated/pure-data files (e.g. `image.yaml`, generated Dockerfiles).
+
 ### Python
 
 - **Python >= 3.10** required
@@ -116,9 +124,6 @@ uv run aswfdocker dockergen --check
 - **MyPy** strict type checking (Python 3.11 target)
 - **Pylint** with fail-under score of 8.0
 - **Naming**: PascalCase classes, snake_case functions/variables, UPPER_CASE constants
-- **Copyright header** on all files:
-  `# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.`
-  `# SPDX-License-Identifier: Apache-2.0`
 
 ### Docker Images
 

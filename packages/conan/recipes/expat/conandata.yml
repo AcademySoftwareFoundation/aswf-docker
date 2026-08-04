@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/1ce15d41e0301e69706f20bf3d6d942221d8baae/recipes/expat/all/conandata.yml
 
 sources:
+  "2.8.2":
+    url: "https://github.com/libexpat/libexpat/releases/download/R_2_8_2/expat-2.8.2.tar.xz"
+    sha256: "3ad89b8588e6644bd4e49981480d48b21289eebbcd4f0a1a4afb1c29f99b6ab4"
   "2.8.1":
     url: "https://github.com/libexpat/libexpat/releases/download/R_2_8_1/expat-2.8.1.tar.xz"
     sha256: "10b195ee78160a908388180a8fe3603d4e9a12f4755fbf5f3816b23a9d750da0"
@@ -20,21 +23,9 @@ sources:
   "2.6.4":
     url: "https://github.com/libexpat/libexpat/releases/download/R_2_6_4/expat-2.6.4.tar.xz"
     sha256: "a695629dae047055b37d50a0ff4776d1d45d0a4c842cf4ccee158441f55ff7ee"
-  "2.6.3":
-    url: "https://github.com/libexpat/libexpat/releases/download/R_2_6_3/expat-2.6.3.tar.xz"
-    sha256: "274db254a6979bde5aad404763a704956940e465843f2a9bd9ed7af22e2c0efc"
-  "2.6.2":
-    url: "https://github.com/libexpat/libexpat/releases/download/R_2_6_2/expat-2.6.2.tar.xz"
-    sha256: "ee14b4c5d8908b1bec37ad937607eab183d4d9806a08adee472c3c3121d27364"
-  "2.6.0":
-    url: "https://github.com/libexpat/libexpat/releases/download/R_2_6_0/expat-2.6.0.tar.xz"
-    sha256: "cb5f5a8ea211e1cabd59be0a933a52e3c02cc326e86a4d387d8d218e7ee47a3e"
   "2.5.0":
     url: "https://github.com/libexpat/libexpat/releases/download/R_2_5_0/expat-2.5.0.tar.xz"
     sha256: "ef2420f0232c087801abf705e89ae65f6257df6b7931d37846a193ef2e8cdcbe"
-  "2.4.9":
-    sha256: "6e8c0728fe5c7cd3f93a6acce43046c5e4736c7b4b68e032e9350daa0efc0354"
-    url: "https://github.com/libexpat/libexpat/releases/download/R_2_4_9/expat-2.4.9.tar.xz"
   "2.4.8":
     sha256: "f79b8f904b749e3e0d20afeadecf8249c55b2e32d4ebb089ae378df479dcaf25"
     url: "https://github.com/libexpat/libexpat/releases/download/R_2_4_8/expat-2.4.8.tar.xz"

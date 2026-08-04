@@ -5,120 +5,111 @@
 # This conanfile.py comes from the OpenFX project itself until it gets accepted
 # into the Conan Center Index.
 #
-# From: https://github.com/AcademySoftwareFoundation/openfx/blob/158c8b69d9a2016755696138e027fdfd71bab552/conanfile.py
-
+# From: https://github.com/conan-io/conan-center-index/blob/3ec80603bbbaf2179639c32bafd9150581679060/recipes/openfx/all/conanfile.py
 
 from conan import ConanFile
+from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import apply_conandata_patches, export_conandata_patches, copy, collect_libs, get
+from conan.tools.files import copy, get, export_conandata_patches, apply_conandata_patches
 import os
 
-required_conan_version = ">=1.59.0"
+required_conan_version = ">=2.1"
 
-class openfx(ConanFile):
-	name = "openfx"
-	# version = "1.4.0" # ASWF: version comes from environment
-	license = "BSD-3-Clause"
-	url = "https://github.com/AcademySoftwareFoundation/openfx"
-	description = "OpenFX image processing plug-in standard"
-	
-	exports_sources = (
-		"cmake/*",
-		"Examples/*",
-		"HostSupport/*",
-		"include/*",
-		"scripts/*",
-		"Support/*",
-		"CMakeLists.txt",
-		"LICENSE",
-		"README.md",
-		"INSTALL.md"
-	)
 
-	settings = "os", "arch", "compiler", "build_type"
-	options = {"use_opencl": [True, False]}
-	default_options = {
-		"expat/*:shared": True,
-                "use_opencl": True,            # ASWF: build with OpenCL support
-                "spdlog/*:header_only": True,
-                "fmt/*:header_only": False     # ASWF: our fmt is not build header_only
-	}
+class Openfx(ConanFile):
+    name = "openfx"
+    license = "BSD-3-Clause"
+    description = "OpenFX image processing plug-in standard"
+    url = "https://github.com/conan-io/conan-center-index"
+    homepage = "https://github.com/AcademySoftwareFoundation/openfx"
+    topics = ("graphics", "vfx", "image-processing", "plugins")
+    package_type = "static-library"
 
-	def export_sources(self):
-		export_conandata_patches(self)
-	
-	def requirements(self):
-		if self.options.use_opencl: # for OpenCL examples
-			self.requires("opencl-icd-loader/2023.12.14")
-			self.requires("opencl-headers/2023.12.14")
-		self.requires("opengl/system") # for OpenGL examples
-		self.requires("expat/2.4.8") # for HostSupport
-		self.requires("cimg/3.3.2") # to draw text into images
-		self.requires("spdlog/1.13.0") # for logging
+    options = {
+        "fPIC": [True, False],
+        "use_opencl": [True, False], # ASWF
+    }
 
-	def layout(self):
-		cmake_layout(self)
+    settings = "os", "arch", "compiler", "build_type"
+    default_options = {
+        "fPIC": True,
+        # "expat/*:shared": True,
+        "use_opencl": True,            # ASWF: build with OpenCL support
+        "spdlog/*:header_only": True,
+        "fmt/*:header_only": False     # ASWF: our fmt is not build header_only
+    }
 
-	def source(self):
-		get(self, **self.conan_data["sources"][self.version], strip_root=True) # ASWF: download sources
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
 
-	def generate(self):
-		deps = CMakeDeps(self)
-		deps.generate()
+    def export_sources(self):
+        export_conandata_patches(self)
 
-		tc = CMakeToolchain(self)
-		tc.variables["OFX_SUPPORTS_OPENGLRENDER"] = True # ASWF: exercise OpenGL / OpenCL / CUDA dependencies
-		tc.variables["OFX_SUPPORTS_OPENCLRENDER"] = True
-		tc.variables["OFX_SUPPORTS_CUDARENDER"] = True
-		tc.variables["BUILD_EXAMPLE_PLUGINS"] = True
-		if self.settings.os == "Windows":
-			tc.preprocessor_definitions["WINDOWS"] = 1
-			tc.preprocessor_definitions["NOMINMAX"] = 1
-		tc.generate()
+    def source(self):
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
 
-	def build(self):
-		apply_conandata_patches(self)
-		cmake = CMake(self)
-		cmake.configure()
-		cmake.build()
+    def requirements(self):
+        # Symbols used in public headers
+        self.requires("expat/[>=2.6.2 <3]", transitive_headers=True)
 
-	def package(self):
-		copy(self, "*.cmake", src=os.path.join(self.source_folder, "cmake"), dst=os.path.join(self.package_folder, "lib", "cmake", "OpenFX"))
-                # ASWF: license files in project specific directory
-		copy(self, "LICENSE.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
-		copy(self, "include/*.h", src=self.source_folder, dst=self.package_folder)
-		copy(self,"*.h", src=os.path.join(self.source_folder, "HostSupport", "include"), dst=os.path.join(self.package_folder, "include", "HostSupport"))
-		copy(self,"*.h", src=os.path.join(self.source_folder, "Support", "include"), dst=os.path.join(self.package_folder, "include", "Support"))
-		copy(self,"*.h", src=os.path.join(self.source_folder, "Support", "Plugins", "include"), dst=os.path.join(self.package_folder, "include", "Support", "Plugins"))
-		copy(self,"*.a", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
-		copy(self,"*.lib", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
-		copy(self,"*.ofx", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
-		copy(self,"*.dll", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
-		copy(self,"*.so", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
-		copy(self,"*", src=os.path.join(self.source_folder, "Examples"), dst=os.path.join(self.package_folder, "share", "OpenFX", "Examples"))
+        # ASWF: additional requirements
+        if self.options.use_opencl: # for OpenCL examples
+            self.requires("opencl-icd-loader/2023.12.14")
+            self.requires("opencl-headers/2023.12.14")
+        self.requires("opengl/system") # for OpenGL examples
+        self.requires("cimg/3.3.2") # to draw text into images
+        self.requires("spdlog/1.13.0") # for logging
 
-	def package_info(self):
-		libs = collect_libs(self)
+    def build_requirements(self):
+        self.tool_requires("cmake/[>=3.16]")
 
-		self.cpp_info.set_property("cmake_file_name", "openfx")
-		self.cpp_info.set_property("cmake_target_name", "openfx::openfx")
+    def validate(self):
+        check_min_cppstd(self, 17)
 
-		self.cpp_info.set_property("cmake_build_modules", [os.path.join("lib", "cmake", "OpenFX", "OpenFX.cmake")])
-		self.cpp_info.components["Api"].includedirs = ["include"]
-		self.cpp_info.components["HostSupport"].libs = [i for i in libs if "OfxHost" in i]
-		self.cpp_info.components["HostSupport"].includedirs = ["include/HostSupport"]
-		self.cpp_info.components["HostSupport"].requires = ["expat::expat"]
-		self.cpp_info.components["Support"].libs = [i for i in libs if "OfxSupport" in i]
-		self.cpp_info.components["Support"].includedirs = ["include/Support"]
-		self.cpp_info.components["Support"].requires = ["opengl::opengl"]
+    def layout(self):
+        cmake_layout(self, src_folder="src")
 
-		if self.settings.os == "Windows":
-			win_defines = ["WINDOWS", "NOMINMAX"]
-			self.cpp_info.components["Api"].defines = win_defines
-			self.cpp_info.components["HostSupport"].defines = win_defines
-			self.cpp_info.components["Support"].defines = win_defines
+    def generate(self):
+        deps = CMakeDeps(self)
+        deps.generate()
 
-		# ASWF: need to reference all dependencies to make Conan happy
-		self.cpp_info.components["Examples"].requires = ["spdlog::spdlog", "cimg::cimg"]
-		if self.options.use_opencl: # for OpenCL examples
-			self.cpp_info.components["Examples"].requires.extend(["opencl-icd-loader::opencl-icd-loader", "opencl-headers::opencl-headers"])
+        tc = CMakeToolchain(self)
+        tc.variables["OFX_SUPPORTS_OPENGLRENDER"] = True # ASWF: exercise OpenGL / OpenCL / CUDA dependencies
+        tc.variables["OFX_SUPPORTS_OPENCLRENDER"] = True
+        tc.variables["OFX_SUPPORTS_CUDARENDER"] = True
+        tc.variables["BUILD_EXAMPLE_PLUGINS"] = True
+        tc.generate()
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+
+    def package(self):
+        copy(self, "LICENSE.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name)) # ASWF license file in project directory
+        cmake = CMake(self)
+        cmake.install()
+
+        # ASWF deploy example files
+        copy(self,"*", src=os.path.join(self.source_folder, "Examples"), dst=os.path.join(self.package_folder, "share", "OpenFX", "Examples"))
+
+    def package_info(self):
+        self.cpp_info.set_property("cmake_build_modules", [os.path.join("lib", "cmake", "OpenFX", "OpenFX.cmake")])
+
+        self.cpp_info.components["Api"].includedirs = ["include"]
+        self.cpp_info.components["HostSupport"].libs = ["OfxHost"]
+        self.cpp_info.components["HostSupport"].includedirs = [os.path.join("include", "HostSupport")]
+        self.cpp_info.components["HostSupport"].requires = ["Api", "expat::expat"]
+        self.cpp_info.components["Support"].libs = ["OfxSupport"]
+        self.cpp_info.components["Support"].includedirs = [os.path.join("include", "Support")]
+        self.cpp_info.components["Support"].requires = ["Api"]
+
+        if self.settings.os in ["Linux", "FreeBSD"]:
+            self.cpp_info.components["HostSupport"].system_libs = ["dl"]
+
+        # ASWF: need to reference all dependencies to make Conan happy
+        self.cpp_info.components["Examples"].requires = ["spdlog::spdlog", "cimg::cimg", "opengl::opengl"]
+        if self.options.use_opencl: # for OpenCL examples
+            self.cpp_info.components["Examples"].requires.extend(["opencl-icd-loader::opencl-icd-loader", "opencl-headers::opencl-headers"])

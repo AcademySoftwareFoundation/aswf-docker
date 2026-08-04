@@ -66,9 +66,9 @@ Contains:
 
 Contains:
 * qt-6.8.3
-* libjxl-0.11.2
+* libjxl-0.12.0
 * libultrahdr-1.4.0
-* openjph-0.27.4
+* openjph-0.30.1
 * openimageio-3.1.14.1
 * numpy-2.4.6
 * vfxplatform-2027

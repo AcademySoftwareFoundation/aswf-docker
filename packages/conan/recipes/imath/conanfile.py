@@ -132,11 +132,16 @@ class ImathConan(ConanFile):
         imath_config.includedirs.append(os.path.join("include", "Imath"))
 
         # Imath::Imath - linkable library
+        suffix = f"-{Version(self.version).major}_{Version(self.version).minor}"
+        if self.settings.build_type == "Debug":
+            suffix += "_d"
         imath_lib = self.cpp_info.components["imath_lib"]
         imath_lib.set_property("cmake_target_name", "Imath::Imath")
         imath_lib.set_property("pkg_config_name", "Imath")
-        imath_lib.libs = collect_libs(self)
+        imath_lib.libs = [f"Imath{suffix}"]
         imath_lib.requires = ["imath_config"]
         imath_lib.requires.extend(["boost::python"])
         if self.settings.os == "Windows" and self.options.shared:
             imath_lib.defines.append("IMATH_DLL")
+        elif self.settings.os in ["Linux", "FreeBSD"]:
+            imath_lib.system_libs.append("m")

@@ -55,13 +55,12 @@ class OpenColorIOConan(ConanFile):
     def requirements(self):
         self.requires("expat/[>=2.6.2 <3]")
         self.requires("openexr/[>=3.3.2 <4]")
-        self.requires("imath/[>=3.1.9 <4]", transitive_libs=True)
-        self.requires("pystring/1.1.4", transitive_libs=True)
-        self.requires("yaml-cpp/0.8.0", transitive_libs=True)
-        if Version(self.version) >= "2.3.0":
-            self.requires("minizip-ng/4.0.3", transitive_libs=True)
-        elif Version(self.version) >= "2.2.0":
-            self.requires("minizip-ng/3.0.9", transitive_libs=True)
+        self.requires("imath/[>=3.1.9 <4]", transitive_libs=True) # ASWF: clients need to link against these
+        self.requires("pystring/1.1.4", transitive_libs=True)  # ASWF: clients need to link against these
+        self.requires("yaml-cpp/0.8.0", transitive_libs=True)  # ASWF: clients need to link against these
+        self.requires("minizip-ng/[>=4.0.3 <5]", transitive_libs=True) # ASWF: clients need to link against these
+        if self.settings.arch == "armv8" and str(self.settings.os) in ["Windows", "Macos"]:
+            self.requires("sse2neon/1.9.1")
 
         # for tools only
         self.requires("lcms/[>=2.16 <3]")

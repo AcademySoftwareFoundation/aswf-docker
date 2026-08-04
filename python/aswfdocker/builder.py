@@ -76,6 +76,10 @@ class Builder:
                 "ASWF_VERSION": version,
                 "CI_COMMON_VERSION": version_info.ci_common_version,
                 "ASWF_CONAN_CHANNEL": channel,
+                # Needed by every Dockerfile's own `conan install` (both IMAGE and
+                # PACKAGE types), so CONAN_HOME lines up with the bind-mounted
+                # packages/conan/settings and its profiles are found.
+                "ASWF_CONAN_HOME": constants.ASWF_CONAN_HOME,
             }
             if self.group_info.type == constants.ImageType.PACKAGE:
                 # params as env var needed for conan build
@@ -88,7 +92,6 @@ class Builder:
                             + image.replace("ci-package-", "").upper().replace("-", "_")
                             + "_VERSION"
                         ),
-                        "ASWF_CONAN_HOME": constants.ASWF_CONAN_HOME,
                         "ASWF_CONAN_BUILD_MISSING": (
                             "--build=missing" if build_missing else ""
                         ),

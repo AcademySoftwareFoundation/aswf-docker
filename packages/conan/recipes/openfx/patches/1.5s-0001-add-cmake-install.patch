@@ -1,0 +1,52 @@
+diff --git CMakeLists.txt CMakeLists.txt
+--- CMakeLists.txt
++++ CMakeLists.txt
+@@ -85,3 +85,28 @@
+ if(BUILD_EXAMPLE_PLUGINS)
+   add_subdirectory(Examples)
+ endif()
++
++include(GNUInstallDirs)
++install(TARGETS OfxHost OfxSupport
++        EXPORT OpenFXTargets
++        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++)
++install(DIRECTORY ${OFX_HEADER_DIR}/
++        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
++        FILES_MATCHING PATTERN "*.h"
++)
++
++install(DIRECTORY ${OFX_HOSTSUPPORT_INCLUDE_DIR}/
++        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/HostSupport
++        FILES_MATCHING PATTERN "*.h"
++)
++install(DIRECTORY ${OFX_SUPPORT_INCLUDE_DIR}/
++        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Support
++        FILES_MATCHING PATTERN "*.h"
++)
++# Install cmake/OpenFX.cmake file that contains useful macros
++install(FILES ${PROJECT_SOURCE_DIR}/cmake/OpenFX.cmake
++        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OpenFX
++)
+
+diff --git HostSupport/CMakeLists.txt HostSupport/CMakeLists.txt
+--- HostSupport/CMakeLists.txt
++++ HostSupport/CMakeLists.txt
+@@ -1,4 +1,5 @@
+ set(OFX_HOSTSUPPORT_HEADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
++set(OFX_HOSTSUPPORT_INCLUDE_DIR ${OFX_HOSTSUPPORT_HEADER_DIR} PARENT_SCOPE)
+ set(OFX_HOSTSUPPORT_LIBRARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+
+ file(GLOB_RECURSE OFX_HOSTSUPPORT_HEADER_FILES "${OFX_HOSTSUPPORT_HEADER_DIR}/*.h")
+
+diff --git Support/CMakeLists.txt Support/CMakeLists.txt
+--- Support/CMakeLists.txt
++++ Support/CMakeLists.txt
+@@ -1,4 +1,5 @@
+ set(OFX_SUPPORT_HEADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
++set(OFX_SUPPORT_INCLUDE_DIR ${OFX_SUPPORT_HEADER_DIR} PARENT_SCOPE)
+ file(GLOB_RECURSE OFX_SUPPORT_HEADER_FILES "${OFX_SUPPORT_HEADER_DIR}/*.h")
+
+ add_subdirectory(Library)

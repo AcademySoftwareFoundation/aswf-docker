@@ -1,0 +1,507 @@
+{
+  "$schema_version": 1,
+  "recipes": {
+    "aces_container": {
+      "class": "unique"
+    },
+    "alembic": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3cc4bd8989ad0e52bc3d702fa37165d746c395e0"
+    },
+    "b2": {
+      "class": "cci",
+      "folder": "portable",
+      "sha": "dbbc3ab7058125d87acbfa2430700c25b7430e29"
+    },
+    "boost": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "86b110f84352662594aee31bd9d9534bc9b4d0e6"
+    },
+    "brotli": {
+      "class": "system"
+    },
+    "bzip2": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "f25250f89fade4b6ebb271e4cb5123801894a0e3"
+    },
+    "c-blosc": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "fba8c094ce9a29fd84773b5fa4fab8fb9f70c1e4"
+    },
+    "ceres-solver": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3dbd3db9d9f9247ba13b170f8b8ed726d3b25301"
+    },
+    "cimg": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "484337002573051c389051710648f906e01028b8"
+    },
+    "clang": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0",
+      "upstream_name": "llvm-core"
+    },
+    "cmake": {
+      "class": "cci",
+      "folder": "3.x.x",
+      "sha": "3a769726d182aa06bf39521a2189fbd49bd4a2bc"
+    },
+    "cppunit": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "5c5dac85149b205c8e12f3b41b14175b762b9a15"
+    },
+    "cpython": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "6aeda9d870a1253535297cb50b01bebfc8c62910"
+    },
+    "dbus": {
+      "class": "system"
+    },
+    "double-conversion": {
+      "class": "system"
+    },
+    "eigen": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "98d9c297fc92467bb5c0dbf361ea3b48c57788ff"
+    },
+    "embree": {
+      "class": "unique"
+    },
+    "expat": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "0114383e14ea11c87f0ba1f5d93444ca316b3751"
+    },
+    "fmt": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "afb02c002d843196c35250e3f1117673531df212"
+    },
+    "fontconfig": {
+      "class": "system"
+    },
+    "freetype": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "f2c56e90ae28fef1ee1a392adf59f96199ee1277"
+    },
+    "gdbm": {
+      "class": "system"
+    },
+    "giflib": {
+      "class": "system"
+    },
+    "glew": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0"
+    },
+    "glfw": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0"
+    },
+    "glib": {
+      "class": "system"
+    },
+    "gtest": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "002c575bbe77c40d234d3e5042db0ce63dc7833b"
+    },
+    "harfbuzz": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "0d0b9e26a776b2738aeb6ace74d8fd1357b442bc"
+    },
+    "hdf5": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "03fe340ae1ed913547d03326e1cecec5f6baf6dd"
+    },
+    "highway": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "01ec05d8c0f6bacd7ed4d90526e3cb276c1331d3"
+    },
+    "icu": {
+      "class": "system"
+    },
+    "imath": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "fa2dd5187dda9c99b6aaf4ebfe87ce75993a2960"
+    },
+    "ispc": {
+      "class": "unique"
+    },
+    "jasper": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "2a09be4054b440fc4cbfe505b5cb7fee24cd5c58"
+    },
+    "jsoncpp": {
+      "class": "unique"
+    },
+    "lcms": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "52f0d89637745dbc12de711db25fce44b44cbbd2"
+    },
+    "lensfun": {
+      "class": "unique"
+    },
+    "libalsa": {
+      "class": "system"
+    },
+    "libaom-av1": {
+      "class": "system"
+    },
+    "libbacktrace": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "5c5dac85149b205c8e12f3b41b14175b762b9a15"
+    },
+    "libcgroup": {
+      "class": "unique"
+    },
+    "libdeflate": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "ab4f8a9abcbec0f16d6fda04984b558117affc62"
+    },
+    "libdrm": {
+      "class": "system"
+    },
+    "libffi": {
+      "class": "system"
+    },
+    "libiconv": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "1ce15d41e0301e69706f20bf3d6d942221d8baae"
+    },
+    "libjpeg-turbo": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "e0d69243d552c4b1fbdcf1f594c833882777eb93"
+    },
+    "libjxl": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "973b68c1b11079ad6d08fa61271c792717e1cc18"
+    },
+    "libmicrohttpd": {
+      "class": "unique"
+    },
+    "libmp3lame": {
+      "class": "system"
+    },
+    "libpng": {
+      "class": "system"
+    },
+    "libraw": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "9fdacfbd4e5524d6ef2fcced96894329aaed5eb0"
+    },
+    "libsndfile": {
+      "class": "system"
+    },
+    "libsquish": {
+      "class": "system"
+    },
+    "libsvtav1": {
+      "class": "system"
+    },
+    "libtiff": {
+      "class": "system"
+    },
+    "libultrahdr": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "40568eaabf0c86f5c9ef76a603655ab128aae039"
+    },
+    "libvpx": {
+      "class": "system"
+    },
+    "libwebp": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "a6bb00486f2ce1813b96324fa8088afc7e653f4c"
+    },
+    "libxcrypt": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "5c5dac85149b205c8e12f3b41b14175b762b9a15"
+    },
+    "libxshmfence": {
+      "class": "system"
+    },
+    "log4cplus": {
+      "class": "unique"
+    },
+    "lua": {
+      "class": "unique"
+    },
+    "lz4": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "9e1c7b11c7b85b329fc9d6fa49c3dfb483f34caf"
+    },
+    "materialx": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "7075dd43f6f9db41ae3e59a857408e21df8427b4"
+    },
+    "md4c": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "9e662511770364e8f80627724131e973510453c6"
+    },
+    "minizip-ng": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "1ce15d41e0301e69706f20bf3d6d942221d8baae"
+    },
+    "moonray": {
+      "class": "unique"
+    },
+    "mpdecimal": {
+      "class": "system"
+    },
+    "mpg123": {
+      "class": "system"
+    },
+    "nanobind": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "73a57187cc452b4aa91942df50e6163f5bb28262"
+    },
+    "nasm": {
+      "class": "system"
+    },
+    "ninja": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "ad43484e7b3d32bac8ca9b585d573c09c59143ce"
+    },
+    "nlohmann_json": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "5f19361f49bc31a349b383c1f95c7f79627f728a"
+    },
+    "nspr": {
+      "class": "system"
+    },
+    "nss": {
+      "class": "system"
+    },
+    "ogg": {
+      "class": "system"
+    },
+    "onetbb": {
+      "class": "cci",
+      "versions": {
+        "2020.x": {
+          "sha": "3dbd3db9d9f9247ba13b170f8b8ed726d3b25301"
+        },
+        "all": {
+          "sha": "3dbd3db9d9f9247ba13b170f8b8ed726d3b25301"
+        }
+      }
+    },
+    "openal-soft": {
+      "class": "system"
+    },
+    "opencl-headers": {
+      "class": "system"
+    },
+    "opencl-icd-loader": {
+      "class": "system"
+    },
+    "opencolorio": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "7cb5abe6c65326016458d4d38a4a255a2cef2bd6"
+    },
+    "openexr": {
+      "class": "cci",
+      "folder": "3.x",
+      "sha": "63c30ddfc1e19a31ea3424965aa32ead7e02ac48"
+    },
+    "openfx": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3ec80603bbbaf2179639c32bafd9150581679060"
+    },
+    "opengl": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "7799a7d9eae7b1a36cacbaf26875e5bcdfa8384d"
+    },
+    "openimagedenoise": {
+      "class": "unique"
+    },
+    "openimageio": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "cc51ef6979e31a36f1726784385d8a53a7b9ab66"
+    },
+    "openjpeg": {
+      "class": "system"
+    },
+    "openjph": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "61524a015a51e481cf247e250d3f966f2c12698e"
+    },
+    "opensubdiv": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3dbd3db9d9f9247ba13b170f8b8ed726d3b25301"
+    },
+    "opentimelineio": {
+      "class": "unique"
+    },
+    "openusd": {
+      "class": "unique"
+    },
+    "openvdb": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3dbd3db9d9f9247ba13b170f8b8ed726d3b25301"
+    },
+    "opus": {
+      "class": "system"
+    },
+    "osl": {
+      "class": "unique"
+    },
+    "partio": {
+      "class": "unique"
+    },
+    "pcre2": {
+      "class": "system"
+    },
+    "ptex": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "5c5dac85149b205c8e12f3b41b14175b762b9a15"
+    },
+    "pugixml": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "5468e31f11e6b891cf0ac8e73bee5e55a8f115a3"
+    },
+    "pulseaudio": {
+      "class": "system"
+    },
+    "pybind11": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "015260e94f056dd5760faff12fb682bea5427ada"
+    },
+    "pyside": {
+      "class": "unique"
+    },
+    "pystring": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "7fa453dde519336471db14505d8e2ea02774da21"
+    },
+    "qt": {
+      "class": "cci",
+      "versions": {
+        "5.x.x": {
+          "sha": "fa3fd32a9a43d064226e690880587e495975f5c9"
+        },
+        "6.x.x": {
+          "sha": "23d7ee9cf3c4bee04a51d4be5faf0abdb09cce3f"
+        }
+      }
+    },
+    "random123": {
+      "class": "unique"
+    },
+    "rapidjson": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3c237f4a7e8f29eacae90b809e4f18e75dfc05a3"
+    },
+    "rawtoaces": {
+      "class": "unique"
+    },
+    "snappy": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0"
+    },
+    "spdlog": {
+      "class": "unique"
+    },
+    "sqlite3": {
+      "class": "system"
+    },
+    "tcl": {
+      "class": "system"
+    },
+    "tk": {
+      "class": "system"
+    },
+    "tsl-robin-map": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "119f801122e023cff3b7737343eefc252770f180"
+    },
+    "util-linux-libuuid": {
+      "class": "system"
+    },
+    "vorbis": {
+      "class": "system"
+    },
+    "vulkan-headers": {
+      "class": "system"
+    },
+    "vulkan-loader": {
+      "class": "system"
+    },
+    "xkbcommon": {
+      "class": "system"
+    },
+    "xorg": {
+      "class": "system"
+    },
+    "xorg-proto": {
+      "class": "system"
+    },
+    "xz_utils": {
+      "class": "system"
+    },
+    "yaml-cpp": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "1ce15d41e0301e69706f20bf3d6d942221d8baae"
+    },
+    "zlib": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "1ce15d41e0301e69706f20bf3d6d942221d8baae"
+    },
+    "zstd": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "3cd48f71906d79a44c8447475c8e852f7998e516"
+    }
+  }
+}

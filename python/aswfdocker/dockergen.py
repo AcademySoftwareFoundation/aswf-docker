@@ -78,11 +78,22 @@ class ConanProfileGen:
         distro_versions: typing.Dict[str, str] = {}
         if baseos_distro:
             distro_versions = self._idx.version_info(baseos_distro).package_versions
+        ci_common_version = self.version_info.ci_common_version
+        clang_versions: typing.Dict[str, str] = {}
+        if ci_common_version:
+            prefix = f"{ci_common_version}-clang"
+            for vi in self._idx.iter_version_info():
+                if vi.version.startswith(prefix):
+                    major = vi.package_versions.get("ASWF_CLANG_MAJOR_VERSION")
+                    full = vi.package_versions.get("ASWF_CLANG_VERSION")
+                    if major and full:
+                        clang_versions[major] = full
         return {
             "versions": self.version_info.all_package_versions,
             "distro_versions": distro_versions,
             "conan_profile": self.version_info.conan_profile,
-            "ci_common_version": self.version_info.ci_common_version,
+            "ci_common_version": ci_common_version,
+            "clang_versions": clang_versions,
         }
 
     def _output_path(self) -> str:

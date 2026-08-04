@@ -3,15 +3,13 @@
 """
 Main aswfdocker command line implementation using click
 """
+
 import os
 import sys
 import logging
 import warnings
-import re
 
 import click
-from github import Github, Auth
-from github.GithubException import GithubException
 
 from aswfdocker import (
     builder,
@@ -24,6 +22,7 @@ from aswfdocker import (
     releaser,
     settings as aswf_settings,
 )
+from aswfdocker import conandiff as conandiff_mod
 
 # Avoid pylint giving us grief for complex command lines
 # pylint: disable=too-many-arguments
@@ -521,149 +520,160 @@ def pushoverview(
 
 @cli.command()
 @click.option(
-    "--recipe",
-    "-p",
+    "--group",
+    "-g",
+    required=False,
     multiple=True,
-    help="Specific recipe(s) to check. If not provided, checks all recipes.",
+    help='The name of the group of recipes to check, e.g. "common",'
+    " can be specified multiple times.",
 )
 @click.option(
-    "--checkwrappers",
-    is_flag=True,
-    default=False,
-    help="Check system wrapper packages (classes starting with 'System').",
+    "--target",
+    "-tg",
+    required=False,
+    multiple=True,
+    help='An optional recipe name to check, e.g. "usd", can be specified multiple times.',
 )
 @click.option(
     "--branch",
-    default="master",
-    help="GitHub branch to check against (default: master)",
+    default=constants.CCI_DEFAULT_BRANCH,
+    help=f"GitHub branch to check against (default: {constants.CCI_DEFAULT_BRANCH})",
+)
+@click.option(
+    "--merge",
+    "do_merge",
+    is_flag=True,
+    default=False,
+    help="Attempt a 3-way merge of upstream changes into locally-modified recipe files.",
+)
+@click.option(
+    "--update-manifest",
+    "update_manifest",
+    is_flag=True,
+    default=False,
+    help="Record the latest upstream SHA in the manifest for the selected recipes.",
+)
+@click.option(
+    "--force",
+    is_flag=True,
+    default=False,
+    help="With --merge, proceed even if the recipe directory has uncommitted changes.",
+)
+@click.option(
+    "--dry-run",
+    "-d",
+    is_flag=True,
+    default=False,
+    help="With --merge, print the upstream file diff (tracked SHA vs current "
+    "upstream) without merging.",
 )
 @pass_build_info
-def conandiff(build_info, recipe, checkwrappers, branch):
-    # pylint: disable=too-many-nested-blocks,too-many-statements
-    """Check for outdated conanfile.py files in packages/conan/recipes directory."""
-
-    # Initialize GitHub client
-    s = aswf_settings.Settings()
-    if s.github_access_token:
-        auth = Auth.Token(s.github_access_token)
-        g = Github(auth=auth)
-    else:
-        g = Github()
-
-    github_org = "conan-io"
-    github_repo = "conan-center-index"
-
-    repo = g.get_repo(f"{github_org}/{github_repo}")
-
-    recipes_dir = os.path.join(build_info.repo_root, "packages", "conan", "recipes")
-    if not os.path.exists(recipes_dir):
-        click.secho(f"Error: {recipes_dir} directory not found", fg="red")
+def conandiff(  # pylint: disable=too-many-statements
+    build_info,
+    group,
+    target,
+    branch,
+    do_merge,
+    update_manifest,
+    force,
+    dry_run,
+):
+    """Check for outdated vendored Conan recipes against Conan Center Index."""
+    if do_merge and dry_run:
+        preview = conandiff_mod.run_conanmerge_preview(
+            build_info.repo_root, groups=group, targets=target, branch=branch
+        )
+        if not preview.diffs:
+            click.secho(
+                "No upstream changes found for the selected recipes.", fg="green"
+            )
+        for file_diff in preview.diffs:
+            click.secho(
+                f"\n{file_diff.recipe}: {file_diff.path} ({file_diff.status})",
+                fg="yellow",
+            )
+            if file_diff.diff:
+                click.echo(file_diff.diff)
         return
 
-    # Get list of recipes to check
-    if recipe:
-        recipe_dirs = []
-        for r in recipe:
-            recipe_path = os.path.join(recipes_dir, r)
-            if os.path.exists(recipe_path):
-                recipe_dirs.append(recipe_path)
-            else:
-                click.secho(
-                    f"Warning: Recipe '{r}' not found in {recipes_dir}", fg="yellow"
-                )
-    else:
-        recipe_dirs = [
-            os.path.join(recipes_dir, d)
-            for d in os.listdir(recipes_dir)
-            if os.path.isdir(os.path.join(recipes_dir, d))
-        ]
-
-    # Sort recipe directories for consistent output
-    recipe_dirs.sort()
-
-    found_outdated = False
-    click.secho("Checking conanfile.py files...", fg="blue")
-
-    for recipe_dir in recipe_dirs:
-        conanfile_path = os.path.join(recipe_dir, "conanfile.py")
-        if not os.path.exists(conanfile_path):
-            continue
-
-        with open(conanfile_path, "r", encoding="utf-8") as f:
-            content = f.read()
-
-        # Skip system wrapper packages unless --checkwrappers is specified
-        if not checkwrappers and "class System" in content:
-            continue
-
-        # Extract package name from conanfile.py
-        package_name = os.path.basename(recipe_dir)
-
-        # Find SHA-1 hashes in URLs
-        sha_pattern = (
-            r"https://github.com/conan-io/conan-center-index/blob/"
-            r"([a-fA-F0-9]{40})/recipes/([^/]+)/all/conanfile\.py"
+    merge_report = None
+    if do_merge:
+        merge_report = conandiff_mod.run_conanmerge(
+            build_info.repo_root,
+            groups=group,
+            targets=target,
+            branch=branch,
+            force=force,
         )
-        matches = re.findall(sha_pattern, content)
-        if not matches:
-            continue
-
-        old_sha, upstream_package = matches[0]
-        try:
-            # Get the commit SHA from the permalink
-            permalink_commits = list(
-                repo.get_commits(
-                    path=f"recipes/{upstream_package}/all/conanfile.py",
-                    sha=old_sha,
+        for result in merge_report.results:
+            if result.skipped_reason:
+                click.secho(
+                    f"{result.recipe}: skipped ({result.skipped_reason})", fg="yellow"
                 )
-            )
-            if not permalink_commits:
                 continue
-            permalink_commit = permalink_commits[0]
-            permalink_sha = permalink_commit.sha
+            if result.conflicts:
+                click.secho(f"{result.recipe}: conflicts", fg="red")
+                for c in result.conflicts:
+                    click.echo(f"  {c.path}: {c.reason}")
+            else:
+                click.secho(f"{result.recipe}: clean merge", fg="green")
+            for path in result.added:
+                click.echo(f"  added: {path}")
+            for path in result.removed:
+                click.echo(f"  removed: {path}")
+            for path in result.merged:
+                click.echo(f"  merged: {path}")
 
-            # Get all commits for this file after the permalink SHA
-            all_commits = list(
-                repo.get_commits(
-                    path=f"recipes/{upstream_package}/all/conanfile.py",
-                    sha=branch,
-                )
+    if update_manifest:
+        updated = conandiff_mod.run_update_manifest(
+            build_info.repo_root,
+            groups=group,
+            targets=target,
+            branch=branch,
+            merge_report=merge_report,
+        )
+        for name in updated:
+            click.secho(f"{name}: manifest sha updated", fg="green")
+
+    if do_merge or update_manifest:
+        return
+
+    report = conandiff_mod.run_conandiff(
+        build_info.repo_root, groups=group, targets=target, branch=branch
+    )
+    found_outdated = False
+    for outdated in report.outdated:
+        found_outdated = True
+        click.secho("\nFound outdated recipe:", fg="yellow")
+        click.echo(f"  Recipe: {outdated.recipe}")
+        click.echo(f"  Folder: {outdated.folder}")
+        click.echo(f"  Current SHA: {outdated.tracked_sha}")
+        click.echo(f"  Found {len(outdated.newer_commits)} newer commits:")
+        for commit in outdated.newer_commits:
+            click.echo(f"    Commit: {commit.sha}")
+            click.echo(
+                f"    Diff URL: https://github.com/{constants.CCI_GITHUB_ORG}/"
+                f"{constants.CCI_GITHUB_REPO_NAME}/commit/{commit.sha}"
             )
-            if not all_commits:
-                continue
-
-            # Filter commits to only those after the permalink SHA
-            newer_commits = []
-            for commit in all_commits:
-                if commit.sha == permalink_sha:
-                    break
-                newer_commits.append(commit)
-
-            if newer_commits:
-                found_outdated = True
-                click.secho("\nFound outdated conanfile.py:", fg="yellow")
-                click.echo(f"{conanfile_path}:")
-                click.echo(f"  Package: {package_name}")
-                click.echo(f"  Current SHA: {permalink_sha}")
-                click.echo(f"  Found {len(newer_commits)} newer commits:")
-                for commit in newer_commits:
-                    click.echo(f"    Commit: {commit.sha}")
-                    click.echo(
-                        f"    Diff URL: https://github.com/{github_org}/{github_repo}/commit/{commit.sha}"
-                    )
-                    click.echo(f"    Timestamp: {commit.commit.author.date}")
-                    if "\n" in commit.commit.message:
-                        click.echo("    Message:")
-                        for line in commit.commit.message.split("\n"):
-                            click.echo(f"      {line}")
-                    else:
-                        click.echo(f"    Message: {commit.commit.message}")
-                    click.echo()
-                click.echo()
-
-        except GithubException as e:
-            click.secho(f"Error checking {conanfile_path}: {str(e)}", fg="red")
-            continue
+            click.echo(f"    Timestamp: {commit.commit.author.date}")
+            if "\n" in commit.commit.message:
+                click.echo("    Message:")
+                for line in commit.commit.message.split("\n"):
+                    click.echo(f"      {line}")
+            else:
+                click.echo(f"    Message: {commit.commit.message}")
+            click.echo()
+        click.echo()
+    for removed in report.removed:
+        found_outdated = True
+        click.secho(
+            f"Removed upstream: {removed.recipe}/{removed.folder} ({removed.reason})",
+            fg="red",
+        )
+    for error in report.errors:
+        click.secho(
+            f"Error checking {error.recipe}/{error.folder}: {error.message}", fg="red"
+        )
 
     if not found_outdated:
-        click.secho("\nAll conanfile.py files are up to date!", fg="green")
+        click.secho("\nAll recipes are up to date!", fg="green")
