@@ -3,6 +3,7 @@
 """
 GroupInfo
 """
+
 import typing
 import logging
 

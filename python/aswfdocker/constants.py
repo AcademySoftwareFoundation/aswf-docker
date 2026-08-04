@@ -3,6 +3,7 @@
 """
 Main configuration and constants for aswfdocker
 """
+
 import enum
 
 

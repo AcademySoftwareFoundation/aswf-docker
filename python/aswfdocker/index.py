@@ -3,6 +3,7 @@
 """
 Index of Docker images and versions.
 """
+
 import logging
 import yaml
 import importlib_resources

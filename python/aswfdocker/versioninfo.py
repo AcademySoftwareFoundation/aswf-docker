@@ -3,6 +3,7 @@
 """
 Docker Image Version information
 """
+
 import typing
 from aswfdocker import constants
 

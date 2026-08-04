@@ -3,6 +3,7 @@
 """
 Generation of Dockerfiles, READMEs and Conan profiles from Jinja2 templates.
 """
+
 import logging
 import os
 import typing
@@ -11,7 +12,6 @@ import yaml
 from jinja2 import Environment, PackageLoader
 
 from aswfdocker import utils, index, constants
-
 
 logger = logging.getLogger(__name__)
 
