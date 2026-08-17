@@ -54,7 +54,7 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-ocio:2023.4](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2023.4)
+## [aswf/ci-ocio:2023.5](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2023.5)
 
 Contains:
 * glew-2.2.0
@@ -63,7 +63,7 @@ Contains:
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-ocio:2024.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.8)
+## [aswf/ci-ocio:2024.9](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2024.9)
 
 Contains:
 * glew-2.2.0
@@ -72,7 +72,7 @@ Contains:
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-ocio:2025.7](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2025.7)
+## [aswf/ci-ocio:2025.8](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2025.8)
 
 Contains:
 * glew-2.2.0
@@ -81,20 +81,20 @@ Contains:
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-ocio:2026.5](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2026.5)
+## [aswf/ci-ocio:2026.6](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2026.6)
 
 Contains:
 * glew-2.2.0
-* openimageio-3.1.14.1
+* openimageio-3.1.16.0
 * opencolorio-2.5.2
 * numpy-2.3.2
 * vfxplatform-2026
 
-## [aswf/ci-ocio:2027.0](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2027.0)
+## [aswf/ci-ocio:2027.1](https://hub.docker.com/r/aswf/ci-ocio/tags?page=1&name=2027.1)
 
 Contains:
 * glew-2.3.1
-* openimageio-3.1.14.1
+* openimageio-3.1.16.0
 * opencolorio-2.5.2
 * numpy-2.4.6
 * vfxplatform-2027

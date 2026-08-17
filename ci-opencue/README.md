@@ -46,35 +46,35 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-opencue:2023.4](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2023.4)
+## [aswf/ci-opencue:2023.5](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2023.5)
 
 Contains:
 * cpython-3.10.20
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-opencue:2024.8](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2024.8)
+## [aswf/ci-opencue:2024.9](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2024.9)
 
 Contains:
 * cpython-3.11.15
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-opencue:2025.7](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2025.7)
+## [aswf/ci-opencue:2025.8](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2025.8)
 
 Contains:
 * cpython-3.11.15
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-opencue:2026.5](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2026.5)
+## [aswf/ci-opencue:2026.6](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2026.6)
 
 Contains:
 * cpython-3.13.14
 * numpy-2.3.2
 * vfxplatform-2026
 
-## [aswf/ci-opencue:2027.0](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2027.0)
+## [aswf/ci-opencue:2027.1](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2027.1)
 
 Contains:
 * cpython-3.13.14

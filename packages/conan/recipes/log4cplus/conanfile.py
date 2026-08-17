@@ -43,7 +43,10 @@ class Log4cplusConan(ConanFile):
         "working_locale": False,
         "working_c_locale": False,
         "decorated_name": False,
-        "unicode": True,
+        # ASWF: default to the narrow-char (std::string) API. unicode=True builds
+        # log4cplus against wchar_t/std::wstring, which downstream consumers using
+        # the narrow-char API (e.g. MoonRay) cannot link against.
+        "unicode": False,
         "thread_pool": True,
     }
     short_paths = True

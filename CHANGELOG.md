@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-# 2026-08-08
+# 2026-08-16
 
 - All releases
   - [ispc built from source instead of binary downloads](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/426)
@@ -12,13 +12,44 @@ All notable changes to this project will be documented in this file.
     - 2025 : 1.26.0 / LLVM 18
     - 2026 : 1.31.0 / LLVM 20
     - 2027 : 1.31.0 / LLVM 22
-  - [openimagedenoise build frmo source instead of binary downloads](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/428). Only the cpu and cuda device plugins are currently being built.
+  - [openimagedenoise build from source instead of binary downloads](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/428). Only the cpu and cuda device plugins are currently being built.
     - disable compute_100 and compute_120 (aka Blackwell) CUDA support in 2.3.3 since in 2023/2024/2025 we have CUDA Toolkit 12.6.3 which is too old
     - 2023 : 2.3.3
     - 2024 : 2.3.3
     - 2025 : 2.5.0
     - 2026 : 2.5.0
     - 2027 : 2.5.0
+  - rawtoaces package gets a [test_package](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/268)
+  - rawtoaces [builds its tests](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/441)
+  - wide character support disabled in log4cplus for Moonray compatibility
+  - enable log4cplus when building OpenVDB (log4cplus 2.x.x supports C++ 17)
+  - Match OpenSubdiv own CMake targets
+  - OpenUSD OSL and OIIO plugins [linked to required DSOs](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/450)
+  - Include CLI tools with lua to avoid mismatch with system installed version
+- 2024.9 releases
+  - OpenEXR 3.2.10 to 3.2.11
+- 2025.8 releases
+  - OpenEXR 3.3.12 to 3.3.13
+- 2026.6 releases
+  - OpenEXR 3.4.13 to 3.4.14
+  - OpenImageIO 3.1.14.1 to [3.1.16.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/440)
+  - OpenShadingLanguage 1.15.5.0 to [1.15.6.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/440)
+  - OpenUSD MaterialX shader issues [#454](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/454) and [#455](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/454)
+  - rawtoaces 2.1.1 to 2.2.0
+- 2027.1 releases
+  - b2 5.4.2 to 5.4.3
+  - Expat 2.8.1 to 2.8.2
+  - libjpeg-turbo 3.1.4.1 to 3.2.0
+  - libjxl 0.11.2 to 0.12.0
+  - libraw 0.22.1 to 0.22.2
+  - OpenEXR 3.4.14
+  - OpenImageIO 3.1.14.1 to [3.1.16.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/440)
+  - OpenJPH 0.27.4 to 0.30.1
+  - OpenShadingLanguage 1.15.5.0 to [1.15.6.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/440)
+  - OpenUSD 26.05 to 26.08
+  - OpenUSD MaterialX shader issues [#454](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/454) and [#455](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/454)
+  - pugixml 1.15 to 1.16
+  - rawtoaces 2.1.1 to 2.2.0
 
 # 2026-08-04
 

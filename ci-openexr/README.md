@@ -46,38 +46,38 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-openexr:2023.4](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2023.4)
+## [aswf/ci-openexr:2023.5](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2023.5)
 
 Contains:
 * openexr-3.1.13
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-openexr:2024.8](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2024.8)
+## [aswf/ci-openexr:2024.9](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2024.9)
 
 Contains:
-* openexr-3.2.10
+* openexr-3.2.11
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-openexr:2025.7](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2025.7)
+## [aswf/ci-openexr:2025.8](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2025.8)
 
 Contains:
-* openexr-3.3.12
+* openexr-3.3.13
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-openexr:2026.5](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2026.5)
+## [aswf/ci-openexr:2026.6](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2026.6)
 
 Contains:
-* openexr-3.4.13
+* openexr-3.4.14
 * numpy-2.3.2
 * vfxplatform-2026
 
-## [aswf/ci-openexr:2027.0](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2027.0)
+## [aswf/ci-openexr:2027.1](https://hub.docker.com/r/aswf/ci-openexr/tags?page=1&name=2027.1)
 
 Contains:
-* openexr-3.4.13
+* openexr-3.4.14
 * numpy-2.4.6
 * vfxplatform-2027
 

@@ -89,11 +89,11 @@ openal-soft/*: openal-soft/system@{{ org }}/vfx2026
 opencl-headers/*: opencl-headers/system@{{ org }}/vfx2026
 opencl-icd-loader/*: opencl-icd-loader/system@{{ org }}/vfx2026
 opencolorio/*: opencolorio/2.5.2@{{ org }}/vfx2026
-openexr/*: openexr/3.4.13@{{ org }}/vfx2026
+openexr/*: openexr/3.4.14@{{ org }}/vfx2026
 openfx/*: openfx/1.5.1@{{ org }}/vfx2026
 opengl/*: opengl/system@{{ org }}/vfx2026
 openimagedenoise/*: openimagedenoise/2.5.0@{{ org }}/vfx2026
-openimageio/*: openimageio/3.1.14.1@{{ org }}/vfx2026
+openimageio/*: openimageio/3.1.16.0@{{ org }}/vfx2026
 openjpeg/*: openjpeg/2.4.0@{{ org }}/vfx2026
 openjph/*: openjph/0.24.5@{{ org }}/vfx2026
 opensubdiv/*: opensubdiv/3.7.0@{{ org }}/vfx2026
@@ -101,7 +101,7 @@ opentimelineio/*: opentimelineio/0.18.1@{{ org }}/vfx2026
 openusd/*: openusd/26.03@{{ org }}/vfx2026
 openvdb/*: openvdb/13.0.0@{{ org }}/vfx2026
 opus/*: opus/system@{{ org }}/vfx2026
-osl/*: osl/1.15.5.0@{{ org }}/vfx2026
+osl/*: osl/1.15.6.0@{{ org }}/vfx2026
 partio/*: partio/1.19.0@{{ org }}/vfx2026
 pcre2/*: pcre2/system@{{ org }}/vfx2026
 ptex/*: ptex/2.4.3@{{ org }}/vfx2026
@@ -113,7 +113,7 @@ pystring/*: pystring/1.1.4@{{ org }}/vfx2026
 qt/*: qt/6.8.3@{{ org }}/vfx2026
 random123/*: random123/1.14.0@{{ org }}/vfx2026
 rapidjson/*: rapidjson/cci.20250205@{{ org }}/vfx2026
-rawtoaces/*: rawtoaces/2.1.1@{{ org }}/vfx2026
+rawtoaces/*: rawtoaces/2.2.0@{{ org }}/vfx2026
 snappy/*: snappy/1.2.2@{{ org }}/vfx2026
 spdlog/*: spdlog/1.15.3@{{ org }}/vfx2026
 sqlite3/*: sqlite3/system@{{ org }}/vfx2026

@@ -140,11 +140,11 @@ class OpenShadingLanguageConan(ConanFile):
 
     @staticmethod
     def _conan_comp(name):
-        return f"openimageio_{name.lower()}"
+        return f"osl_{name.lower()}"
 
     def _add_component(self, name):
         component = self.cpp_info.components[self._conan_comp(name)]
-        component.set_property("cmake_target_name", f"OpenImageIO::{name}")
+        component.set_property("cmake_target_name", f"OSL::{name}")
         component.names["cmake_find_package"] = name
         component.names["cmake_find_package_multi"] = name
         return component
@@ -153,11 +153,19 @@ class OpenShadingLanguageConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "OSL")
         self.cpp_info.set_property("cmake_target_name", "OSL::OSL")
         self.cpp_info.set_property("pkg_config_name", "OSL")
-
-        self.cpp_info.libs = ["oslcomp", "oslexec", "oslnoise", "oslquery", "testshade"]
         self.cpp_info.bindirs = ["bin"]
 
-        self.cpp_info.requires = [
+        # ASWF: split into per-library components (instead of one flat
+        # OSL::OSL aggregate) so consumers like OpenUSD's sdrOsl plugin can
+        # link a specific OSL library by name -- see
+        # openusd's patches/*-cmake-packages.patch, which references
+        # OSL::oslquery in place of the OSL_QUERY_LIBRARY variable that
+        # OpenUSD's own FindOSL.cmake module would have set (ignored when
+        # building with Conan, since CMakeDeps takes config mode over
+        # OpenUSD's custom module). Conan still auto-generates the
+        # aggregate OSL::OSL target linking all components together, so
+        # existing consumers of the whole thing are unaffected.
+        common_requires = [
             "clang::clang",
             "zlib::zlib",
             "fmt::fmt",
@@ -167,10 +175,35 @@ class OpenShadingLanguageConan(ConanFile):
             "pugixml::pugixml",
         ]
         if self.options.with_partio:
-            self.cpp_info.requires.append("partio::partio")
+            common_requires.append("partio::partio")
         if self.options.with_python:
-            self.cpp_info.requires.append("cpython::cpython")
-            self.cpp_info.requires.append("pybind11::pybind11")
+            common_requires.append("cpython::cpython")
+            common_requires.append("pybind11::pybind11")
         if self.options.with_qt:
             # ASWF FIXME: may not need the whole thing
-            self.cpp_info.requires.append("qt::qt")
+            common_requires.append("qt::qt")
+
+        oslcomp = self._add_component("oslcomp")
+        oslcomp.libs = ["oslcomp"]
+        oslcomp.requires = common_requires
+
+        oslexec = self._add_component("oslexec")
+        oslexec.libs = ["oslexec"]
+        oslexec.requires = common_requires
+
+        oslnoise = self._add_component("oslnoise")
+        oslnoise.libs = ["oslnoise"]
+        oslnoise.requires = common_requires
+
+        # ASWF: liboslquery only actually links OpenImageIO_Util (verified
+        # against upstream src/liboslquery/CMakeLists.txt), so it's kept
+        # deliberately minimal here rather than inheriting common_requires
+        # -- consumers that only need shader metadata queries (like
+        # sdrOsl) shouldn't be forced to also pull in clang/LLVM.
+        oslquery = self._add_component("oslquery")
+        oslquery.libs = ["oslquery"]
+        oslquery.requires = ["openimageio::openimageio_openimageio_util"]
+
+        testshade = self._add_component("testshade")
+        testshade.libs = ["testshade"]
+        testshade.requires = common_requires

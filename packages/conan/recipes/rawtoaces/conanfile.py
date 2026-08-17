@@ -78,11 +78,12 @@ class RawtoacesConan(ConanFile):
         # Dont point rpath to internal Conan directories
         tc.cache_variables["CMAKE_INSTALL_RPATH_USE_LINK_PATH"] = False
         tc.cache_variables["CMAKE_INSTALL_RPATH"] = ""
-        tc.cache_variables["CMAKE_SKIP_RPATH"] = True
         if Version(self.version) >= 2:
             tc.cache_variables["RTA_ENABLE_LENSFUN"] = True
             tc.cache_variables["RTA_ENABLE_EIGEN"] = True
         tc.cache_variables["RTA_BUILD_PYTHON_BINDINGS"] = True
+        tc.cache_variables["RTA_PYTHON_VERSION"] = str(self.dependencies["cpython"].ref.version)
+        tc.cache_variables["RTA_BUILD_TESTS"] = True
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()
@@ -101,5 +102,16 @@ class RawtoacesConan(ConanFile):
         rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 
     def package_info(self):
-        pass
+        self.cpp_info.set_property("cmake_file_name", "rawtoaces")
+
+        # Expose rawtoaces_core as a proper component so downstream
+        # consumers (and this recipe's own test_package) can compile/link
+        # against it directly; upstream's own CMake export has no
+        # namespace, but we follow this project's cmake_target_name
+        # convention. ceres/nlohmann_json/eigen are private implementation
+        # details of rawtoaces_core (not referenced by its public headers),
+        # so they are intentionally not listed here.
+        core = self.cpp_info.components["rawtoaces_core"]
+        core.libs = ["rawtoaces_core"]
+        core.set_property("cmake_target_name", "rawtoaces::rawtoaces_core")
 

@@ -46,38 +46,38 @@ Contains:
 * numpy-1.20
 * vfxplatform-2022
 
-## [aswf/ci-usd:2023.4](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2023.4)
+## [aswf/ci-usd:2023.5](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2023.5)
 
 Contains:
 * openusd-23.08
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-usd:2024.8](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.8)
+## [aswf/ci-usd:2024.9](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2024.9)
 
 Contains:
 * openusd-24.08
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-usd:2025.7](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2025.7)
+## [aswf/ci-usd:2025.8](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2025.8)
 
 Contains:
 * openusd-25.05.01
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-usd:2026.5](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2026.5)
+## [aswf/ci-usd:2026.6](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2026.6)
 
 Contains:
 * openusd-26.03
 * numpy-2.3.2
 * vfxplatform-2026
 
-## [aswf/ci-usd:2027.0](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2027.0)
+## [aswf/ci-usd:2027.1](https://hub.docker.com/r/aswf/ci-usd/tags?page=1&name=2027.1)
 
 Contains:
-* openusd-26.05
+* openusd-26.08
 * numpy-2.4.6
 * vfxplatform-2027
 

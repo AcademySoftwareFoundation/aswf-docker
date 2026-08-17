@@ -187,19 +187,20 @@ class OpenSubdivConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "OpenSubdiv")
         target_suffix = "" if self.options.shared else "_static"
 
-        self.cpp_info.components["osdcpu"].set_property("cmake_target_name", f"OpenSubdiv::osdcpu{target_suffix}")
-        self.cpp_info.components["osdcpu"].libs = ["osdCPU"]
+        # ASWF: match camelCase target names used in OpenSubdiv CMakeLists.txt
+        self.cpp_info.components["osdCPU"].set_property("cmake_target_name", f"OpenSubdiv::osdCPU{target_suffix}")
+        self.cpp_info.components["osdCPU"].libs = ["osdCPU"]
         if self.options.with_tbb:
-            self.cpp_info.components["osdcpu"].requires = ["onetbb::libtbb"]
+            self.cpp_info.components["osdCPU"].requires = ["onetbb::libtbb"]
 
         if self._osd_gpu_enabled:
-            self.cpp_info.components["osdgpu"].set_property("cmake_target_name", f"OpenSubdiv::osdgpu{target_suffix}")
-            self.cpp_info.components["osdgpu"].libs = ["osdGPU"]
-            self.cpp_info.components["osdgpu"].requires = ["osdcpu"]
+            self.cpp_info.components["osdGPU"].set_property("cmake_target_name", f"OpenSubdiv::osdGPU{target_suffix}")
+            self.cpp_info.components["osdGPU"].libs = ["osdGPU"]
+            self.cpp_info.components["osdGPU"].requires = ["osdCPU"]
             if self.options.with_opengl:
-                self.cpp_info.components["osdgpu"].requires.extend(["opengl::opengl", "glfw::glfw"])
+                self.cpp_info.components["osdGPU"].requires.extend(["opengl::opengl", "glfw::glfw"])
             if self.options.get_safe("with_metal"):
-                self.cpp_info.components["osdgpu"].requires.append("metal-cpp::metal-cpp")
+                self.cpp_info.components["osdGPU"].requires.append("metal-cpp::metal-cpp")
             dl_required = self.options.with_opengl or self.options.with_opencl
             if self.settings.os in ["Linux", "FreeBSD"] and dl_required:
-                self.cpp_info.components["osdgpu"].system_libs = ["dl"]
+                self.cpp_info.components["osdGPU"].system_libs = ["dl"]

@@ -177,7 +177,12 @@ class OpenUSDConan(ConanFile):
         tc.variables["PXR_ENABLE_MATERIALX_SUPPORT"] = self.options.with_materialx   # ASWF: build MaterialX support
         if self.options.with_materialx:
             materialx_info = self.dependencies["materialx"]
-            tc.variables["MATERIALX_STDLIB_DIR"] = os.path.join(materialx_info.package_folder,"share","MaterialX")
+            # This bakes a Conan cache path into libusd_usdMtlx.so but it doesn't matter since OpenUSD caches
+            # a copy of the MaterialX library files at build time, and the PXR_MTLX_STDLIB_SEARCH_PATHS
+            # env var can be used to point to a different location.
+            # Make sure to append "libraries" since this is what MaterialXConfig.cmake (provided by MaterialX)
+            # does when building outside Conan, but the generated CMake config for MaterialX does not do that.
+            tc.variables["MATERIALX_STDLIB_DIR"] = os.path.join(materialx_info.package_folder,"share","MaterialX","libraries")
         tc.variables["PXR_BUILD_OPENCOLORIO_PLUGIN"] = self.options.with_opencolorio # ASWF: build OpenColorIO plugin
         tc.variables["PXR_BUILD_OPENIMAGEIO_PLUGIN"] = self.options.with_openimageio # ASWF: build OpenImageIO plugin
         tc.variables["PXR_ENABLE_OPENVDB_SUPPORT"] = self.options.with_openvdb       # ASWF: build OpenVDB support
@@ -186,16 +191,16 @@ class OpenUSDConan(ConanFile):
         tc.variables["PXR_ENABLE_PYTHON_SUPPORT"] = self.options.with_python         # ASWF: build Python support
         tc.variables["PXR_PYTHON_SHEBANG"] = "/usr/bin/env python3"                  # ASWF: don't bake Conan paths into Python scripts
        
-        tc.variables["OPENSUBDIV_LIBRARIES"] = "OpenSubdiv::osdcpu;OpenSubdiv::osdgpu"
+        tc.variables["OPENSUBDIV_LIBRARIES"] = "OpenSubdiv::osdCPU;OpenSubdiv::osdGPU"
         tc.variables["OPENSUBDIV_INCLUDE_DIR"] = self.dependencies['opensubdiv'].cpp_info.includedirs[0].replace("\\", "/")
         target_suffix = "" if self.dependencies["opensubdiv"].options.shared else "_static"
-        tc.variables["OPENSUBDIV_OSDCPU_LIBRARY"] = "OpenSubdiv::osdcpu"+target_suffix
+        tc.variables["OPENSUBDIV_OSDCPU_LIBRARY"] = "OpenSubdiv::osdCPU"+target_suffix
         tc.variables["TBB_tbb_LIBRARY"] = "TBB::tbb"
         tc.generate()
 
         tc = CMakeDeps(self)
-        tc.set_property("opensubdiv::osdcpu", "cmake_target_name", "OpenSubdiv::osdcpu")
-        tc.set_property("opensubdiv::osdcpu", "cmake_target_aliases", ["OpenSubdiv::osdcpu_static"])
+        tc.set_property("opensubdiv::osdCPU", "cmake_target_name", "OpenSubdiv::osdCPU")
+        tc.set_property("opensubdiv::osdCPU", "cmake_target_aliases", ["OpenSubdiv::osdCPU_static"])
 
         tc.generate()
 

@@ -18,31 +18,31 @@ Warning: this image does *not* contain MoonRay itself as it is used to *build* M
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-moonray/Dockerfile)
 
-## [aswf/ci-moonray:2023.4](https://hub.docker.com/r/aswf/ci-moonray/tags?page=1&name=2023.4)
+## [aswf/ci-moonray:2023.5](https://hub.docker.com/r/aswf/ci-moonray/tags?page=1&name=2023.5)
 
 Contains:
 * moonray-3.6.0.1
 * vfxplatform-2023
 
-## [aswf/ci-moonray:2024.8](https://hub.docker.com/r/aswf/ci-moonray/tags?page=1&name=2024.8)
+## [aswf/ci-moonray:2024.9](https://hub.docker.com/r/aswf/ci-moonray/tags?page=1&name=2024.9)
 
 Contains:
 * moonray-3.6.0.1
 * vfxplatform-2024
 
-## [aswf/ci-moonray:2025.7](https://hub.docker.com/r/aswf/ci-moonray/tags?page=1&name=2025.7)
+## [aswf/ci-moonray:2025.8](https://hub.docker.com/r/aswf/ci-moonray/tags?page=1&name=2025.8)
 
 Contains:
 * moonray-3.6.0.1
 * vfxplatform-2025
 
-## [aswf/ci-moonray:2026.5](https://hub.docker.com/r/aswf/ci-moonray/tags?page=1&name=2026.5)
+## [aswf/ci-moonray:2026.6](https://hub.docker.com/r/aswf/ci-moonray/tags?page=1&name=2026.6)
 
 Contains:
 * moonray-3.6.0.1
 * vfxplatform-2026
 
-## [aswf/ci-moonray:2027.0](https://hub.docker.com/r/aswf/ci-moonray/tags?page=1&name=2027.0)
+## [aswf/ci-moonray:2027.1](https://hub.docker.com/r/aswf/ci-moonray/tags?page=1&name=2027.1)
 
 Contains:
 * moonray-3.6.0.1

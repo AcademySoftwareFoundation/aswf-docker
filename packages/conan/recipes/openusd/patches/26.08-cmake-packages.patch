@@ -2,20 +2,7 @@ diff --git cmake/defaults/Packages.cmake cmake/defaults/Packages.cmake
 index d99dd79ac..bfda2778a 100644
 --- cmake/defaults/Packages.cmake
 +++ cmake/defaults/Packages.cmake
-@@ -131,10 +131,10 @@
-     set(python_version_nodot "${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}")
-     find_package(Boost
-         COMPONENTS
--        python${python_version_nodot}
-+        python
-         REQUIRED
-     )
--    set(Boost_PYTHON_LIBRARY "${Boost_PYTHON${python_version_nodot}_LIBRARY}")
-+    get_target_property(Boost_PYTHON_LIBRARY Boost::python INTERFACE_LINK_LIBRARIES)
-
-     # --Jinja2
-     find_package(Jinja2)
-@@ -272,6 +272,16 @@
+@@ -266,6 +266,16 @@
      # --Ptex
      if (PXR_ENABLE_PTEX_SUPPORT)
          find_package(PTex REQUIRED)
@@ -32,7 +19,7 @@ index d99dd79ac..bfda2778a 100644
          add_definitions(-DPXR_PTEX_SUPPORT_ENABLED)
      endif()
      # --OpenVDB
-@@ -305,6 +305,9 @@
+@@ -300,6 +310,9 @@
 
  if (PXR_BUILD_ALEMBIC_PLUGIN)
      find_package(Alembic REQUIRED)
@@ -44,21 +31,23 @@ index d99dd79ac..bfda2778a 100644
          find_package(HDF5 REQUIRED
 --- pxr/usd/usdMtlx/CMakeLists.txt
 +++ pxr/usd/usdMtlx/CMakeLists.txt
-@@ -5,7 +5,13 @@
-     add_definitions(-DPXR_MATERIALX_STDLIB_DIR="${MATERIALX_STDLIB_DIR}")
+@@ -39,9 +39,15 @@
+
  endif()
 
 +get_target_property(MATERIALX_CORE_LIBS materialx::MaterialXCore INTERFACE_LINK_LIBRARIES)
 +get_target_property(MATERIALX_FORMAT_LIBS materialx::MaterialXFormat INTERFACE_LINK_LIBRARIES)
 +
  pxr_library(usdMtlx
+     INCLUDE_SCHEMA_FILES
+
 +    INCLUDE_DIRS
 +        ${materialx_INCLUDE_DIR}
 +
      LIBRARIES
          arch
          gf
-@@ -19,8 +25,8 @@
+@@ -54,8 +60,8 @@
          usdShade
          usdUI
          usdUtils
@@ -68,7 +57,7 @@ index d99dd79ac..bfda2778a 100644
 +        ${MATERIALX_FORMAT_LIBS}
 
      CPPFILES
-         debugCodes.cpp
+         discovery.cpp
 --- pxr/imaging/plugin/hioOiio/CMakeLists.txt
 +++ pxr/imaging/plugin/hioOiio/CMakeLists.txt
 @@ -22,11 +22,11 @@
@@ -81,7 +70,7 @@ index d99dd79ac..bfda2778a 100644
 
      INCLUDE_DIRS
 -        ${OIIO_INCLUDE_DIRS}
-+        ${OpenImageIO_INCLUDE_DIRS}
++        ${OpenImageIO_INCLUDE_DIR}
          ${__OIIO_IMATH_INCLUDE}
 
      CPPFILES
@@ -100,8 +89,8 @@ index d99dd79ac..bfda2778a 100644
  pxr_library(hdx
 --- pxr/usd/plugin/sdrOsl/CMakeLists.txt
 +++ pxr/usd/plugin/sdrOsl/CMakeLists.txt
-@@ -5,6 +5,8 @@
-     return()
+@@ -13,6 +13,8 @@
+     set(__OSL_IMATH_LIBS ${OPENEXR_LIBRARIES})
  endif()
 
 +get_target_property(OSL_OSLQUERY_LIBRARIES OSL::oslquery INTERFACE_LINK_LIBRARIES)
@@ -109,24 +98,23 @@ index d99dd79ac..bfda2778a 100644
  pxr_plugin(sdrOsl
      LIBRARIES
          gf
-@@ -13,13 +15,13 @@
+@@ -20,13 +22,13 @@
+         vt
          ar
-         ndr
          sdr
 -        ${OSL_QUERY_LIBRARY}
 -        ${OIIO_LIBRARIES}
 +        ${OSL_OSLQUERY_LIBRARIES}
 +        ${OpenImageIO_LIBRARIES}
+         ${__OSL_IMATH_LIBS}
 
      INCLUDE_DIRS
--        ${OPENEXR_INCLUDE_DIR}
-+        ${Imath_INCLUDE_DIRS}
          ${OSL_INCLUDE_DIR}
 -        ${OIIO_INCLUDE_DIRS}
-+        ${OpenImageIO_INCLUDE_DIRS}
++        ${OpenImageIO_INCLUDE_DIR}
+         ${__OSL_IMATH_INCLUDE}
 
      PUBLIC_CLASSES
-         oslParser
 --- pxr/imaging/hioOpenVDB/CMakeLists.txt
 +++ pxr/imaging/hioOpenVDB/CMakeLists.txt
 @@ -28,10 +28,10 @@
@@ -139,6 +127,6 @@ index d99dd79ac..bfda2778a 100644
      INCLUDE_DIRS
 -        ${OPENVDB_INCLUDE_DIR}
 +        ${OpenVDB_INCLUDE_DIR}
+         ${Boost_INCLUDE_DIRS}
 
      PUBLIC_CLASSES
-         utils

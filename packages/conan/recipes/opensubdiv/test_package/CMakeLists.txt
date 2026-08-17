@@ -10,8 +10,9 @@ project(test_package LANGUAGES CXX)
 find_package(OpenSubdiv REQUIRED CONFIG)
 
 add_executable(${PROJECT_NAME} test_package.cpp)
-if(TARGET OpenSubdiv::osdcpu_static)
-    target_link_libraries(${PROJECT_NAME} PRIVATE OpenSubdiv::osdcpu_static)
+# ASWF: match camelCase from target names used in OpenSubdiv CMakeLists.txt
+if(TARGET OpenSubdiv::osdCPU_static)
+    target_link_libraries(${PROJECT_NAME} PRIVATE OpenSubdiv::osdCPU_static)
 else()
-    target_link_libraries(${PROJECT_NAME} PRIVATE OpenSubdiv::osdcpu)
+    target_link_libraries(${PROJECT_NAME} PRIVATE OpenSubdiv::osdCPU)
 endif()

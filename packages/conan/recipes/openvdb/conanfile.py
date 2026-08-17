@@ -64,7 +64,7 @@ class OpenVDBConan(ConanFile):
         "use_imath_half": True,
         "with_blosc": True,
         "with_exr": "deprecated",
-        "with_log4cplus": False,  # Disabled by default because it is not compatible with C++17
+        "with_log4cplus": True,  # Disabled by default because it is not compatible with C++17 ASWF: version 2 is compatible
         "with_zlib": True,
     }
     options_description = {
@@ -145,7 +145,7 @@ class OpenVDBConan(ConanFile):
             self.requires("c-blosc/1.21.5")
         if self.options.with_log4cplus:
             # log4cplus 2.x is not supported
-            self.requires("log4cplus/1.2.2", transitive_headers=True)
+            self.requires("log4cplus/1.2.2", transitive_headers=True, transitive_libs=True) # ASWF: without transitive_libs clients don't link
         if self.options.build_binaries:
             self.requires("glfw/3.4") # ASWF: build binaries to exercise additional dependencies
         if self.options.build_tests:

@@ -44,6 +44,8 @@ class MoonrayConan(ConanFile):
         self.requires("zlib/[>=1.2.11 <2]")
         self.requires("openssl/system")
         self.requires("opengl/system")
+        self.requires("cppunit/1.15.1")
+        self.requires("c-blosc/1.21.6")
 
         # ---- MoonRay-specific dependencies ----
         self.requires("embree/4.2.0")         # SIMD ray traversal

@@ -87,7 +87,7 @@ openal-soft/*: openal-soft/system@{{ org }}/vfx2024
 opencl-headers/*: opencl-headers/system@{{ org }}/vfx2024
 opencl-icd-loader/*: opencl-icd-loader/system@{{ org }}/vfx2024
 opencolorio/*: opencolorio/2.3.2@{{ org }}/vfx2024
-openexr/*: openexr/3.2.10@{{ org }}/vfx2024
+openexr/*: openexr/3.2.11@{{ org }}/vfx2024
 openfx/*: openfx/1.5s@{{ org }}/vfx2024
 opengl/*: opengl/system@{{ org }}/vfx2024
 openimagedenoise/*: openimagedenoise/2.3.3@{{ org }}/vfx2024
