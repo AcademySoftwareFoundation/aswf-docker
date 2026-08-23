@@ -302,6 +302,7 @@ Contains:
 * moonray-3.6.0.1
 * numpy-1.23.5
 * vfxplatform-2023
+* rez-3.4.0
 
 ## [aswf/ci-vfxall:2023-clang15.5](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2023-clang15.5)
 
@@ -330,6 +331,7 @@ Contains:
 * moonray-3.6.0.1
 * numpy-1.23.5
 * vfxplatform-2023
+* rez-3.4.0
 
 ## [aswf/ci-vfxall:2024-clang16.9](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang16.9)
 
@@ -358,6 +360,7 @@ Contains:
 * moonray-3.6.0.1
 * numpy-1.24.3
 * vfxplatform-2024
+* rez-3.4.0
 
 ## [aswf/ci-vfxall:2024-clang17.9](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2024-clang17.9)
 
@@ -386,6 +389,7 @@ Contains:
 * moonray-3.6.0.1
 * numpy-1.24.3
 * vfxplatform-2024
+* rez-3.4.0
 
 ## [aswf/ci-vfxall:2025-clang18.8](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang18.8)
 
@@ -414,6 +418,7 @@ Contains:
 * moonray-3.6.0.1
 * numpy-1.26.4
 * vfxplatform-2025
+* rez-3.4.0
 
 ## [aswf/ci-vfxall:2025-clang19.8](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2025-clang19.8)
 
@@ -442,6 +447,7 @@ Contains:
 * moonray-3.6.0.1
 * numpy-1.26.4
 * vfxplatform-2025
+* rez-3.4.0
 
 ## [aswf/ci-vfxall:2026-clang19.6](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2026-clang19.6)
 
@@ -470,6 +476,7 @@ Contains:
 * moonray-3.6.0.1
 * numpy-2.3.2
 * vfxplatform-2026
+* rez-3.4.0
 
 ## [aswf/ci-vfxall:2026-clang20.6](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2026-clang20.6)
 
@@ -498,6 +505,7 @@ Contains:
 * moonray-3.6.0.1
 * numpy-2.3.2
 * vfxplatform-2026
+* rez-3.4.0
 
 ## [aswf/ci-vfxall:2027-clang21.1](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2027-clang21.1)
 
@@ -526,6 +534,7 @@ Contains:
 * moonray-3.6.0.1
 * numpy-2.4.6
 * vfxplatform-2027
+* rez-3.4.0
 
 ## [aswf/ci-vfxall:2027-clang22.1](https://hub.docker.com/r/aswf/ci-vfxall/tags?page=1&name=2027-clang22.1)
 
@@ -554,4 +563,5 @@ Contains:
 * moonray-3.6.0.1
 * numpy-2.4.6
 * vfxplatform-2027
+* rez-3.4.0
 
