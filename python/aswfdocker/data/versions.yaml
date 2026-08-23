@@ -681,6 +681,7 @@ versions:
       ASWF_OSL_CLANG_MAJOR_VERSION: "15"
       ASWF_OPENTIMELINEIO_VERSION: "0.15"
       ASWF_RAWTOACES_VERSION: "2.1.1"
+      ASWF_REZ_VERSION: "3.4.0"
   "2023-clang14":
     parent_versions: ["3", "3-clang14", "2023"]
     major_version: "2023"
@@ -831,6 +832,7 @@ versions:
       ASWF_OSL_CLANG_MAJOR_VERSION: "17"
       ASWF_OPENTIMELINEIO_VERSION: "0.17.0"
       ASWF_RAWTOACES_VERSION: "2.1.1"
+      ASWF_REZ_VERSION: "3.4.0"
   "2024-clang16":
     parent_versions: ["4", "4-clang16", "2024"]
     major_version: "2024"
@@ -981,6 +983,7 @@ versions:
       ASWF_OSL_CLANG_MAJOR_VERSION: "18"
       ASWF_OPENTIMELINEIO_VERSION: "0.17.0"
       ASWF_RAWTOACES_VERSION: "2.1.1"
+      ASWF_REZ_VERSION: "3.4.0"
   "2025-clang18":
     parent_versions: ["5", "5-clang18", "2025"]
     major_version: "2025"
@@ -1132,6 +1135,7 @@ versions:
       ASWF_OSL_CLANG_MAJOR_VERSION: "20"
       ASWF_OPENTIMELINEIO_VERSION: "0.18.1"
       ASWF_RAWTOACES_VERSION: "2.2.0"
+      ASWF_REZ_VERSION: "3.4.0"
   "2026-clang19":
     parent_versions: ["6", "6-clang19", "2026"]
     major_version: "2026"
@@ -1284,6 +1288,7 @@ versions:
       ASWF_OSL_CLANG_MAJOR_VERSION: "22"
       ASWF_OPENTIMELINEIO_VERSION: "0.18.1"
       ASWF_RAWTOACES_VERSION: "2.2.0"
+      ASWF_REZ_VERSION: "3.4.0"
   "2027-clang21":
     parent_versions: ["7", "7-clang21", "2027"]
     major_version: "2027"
