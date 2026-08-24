@@ -1,0 +1,13 @@
+name: "rez"
+title: "Rez CI Docker Image"
+description: |
+  Contains: Python and other Rez dependencies for building and testing Rez
+  in a VFX Platform compliant environment
+  Warning: this image does *not* contain Rez itself as it is used to *build* Rez!
+packages:
+  - cpython
+implicit_packages:
+  - numpy
+  - vfxplatform
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_package_version: $ASWF_VFXPLATFORM_VERSION
