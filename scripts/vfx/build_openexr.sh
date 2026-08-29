@@ -84,7 +84,7 @@ EOF
 
 fi
 
-if [[ $ASWF_OPENEXR_VERSION == 3.4.13 ]]; then
+if [[ $ASWF_OPENEXR_VERSION == 3.4.15 ]]; then
 
 cat << 'EOF' | patch -p1
 diff --git a/src/wrappers/python/CMakeLists.txt b/src/wrappers/python/CMakeLists.txt

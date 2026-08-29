@@ -276,7 +276,7 @@ Contains:
 * random123-1.14.0
 * rapidjson-cci.20250205
 * snappy-1.2.2
-* onetbb-2023.0.0
+* onetbb-2023.1.0
 * zlib-1.3.2
 * zstd-1.5.7
 * cpython-3.13.14

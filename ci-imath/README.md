@@ -42,14 +42,14 @@ Contains:
 ## [aswf/ci-imath:2026.6](https://hub.docker.com/r/aswf/ci-imath/tags?page=1&name=2026.6)
 
 Contains:
-* imath-3.2.2
+* imath-3.2.3
 * numpy-2.3.2
 * vfxplatform-2026
 
 ## [aswf/ci-imath:2027.1](https://hub.docker.com/r/aswf/ci-imath/tags?page=1&name=2027.1)
 
 Contains:
-* imath-3.2.2
+* imath-3.2.3
 * numpy-2.4.6
 * vfxplatform-2027
 

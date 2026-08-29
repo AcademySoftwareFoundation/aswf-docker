@@ -269,12 +269,17 @@ def _deploy_licenses(dep, output_folder) -> None:
 
 
 def _cache_path_pattern(cache_root: str) -> str:
-    """Matches an absolute Conan-cache *build*-folder path (created at
-    package-build/upload time, baked into some installed files), e.g.
-    <cache_root>/b/<hash>/p. This is a different shape than a normal
-    installed dep.package_folder (a single opaque segment, no literal 'b'),
-    so it can't be derived from the current package_folder path."""
-    return re.escape(cache_root) + r"/b/[^/]+/p"
+    """Matches an absolute Conan-cache package-folder path baked into some
+    installed files at package-build/upload time. Its shape depends on how
+    the package ended up in the cache: <cache_root>/b/<hash>/p for a package
+    built locally in this cache (PkgCache.create_build_pkg_layout(), a
+    random-salted hash under a literal 'b' build-tracking folder), or
+    <cache_root>/<hash>/p for one downloaded as a prebuilt binary from a
+    remote (PkgCache.create_pkg_layout(), a deterministic hash with no 'b'
+    segment at all) -- so the 'b/' component has to be optional to catch
+    both. Either way this is a different shape than the current
+    dep.package_folder, so it can't be derived from that path directly."""
+    return re.escape(cache_root) + r"(?:/b)?/[^/]+/p"
 
 
 def _iter_destination_files(dep, output_folder, name_pattern=None):
@@ -315,7 +320,8 @@ def _rewrite_cache_paths(dep, output_folder, cache_root) -> None:
 
 
 def _shebang_pattern(cache_root: str):
-    return re.compile(r"^#!" + re.escape(cache_root) + r"/b/[^/]+/p/bin/(\S+)\s*$")
+    # 'b/' is optional here too -- see _cache_path_pattern().
+    return re.compile(r"^#!" + re.escape(cache_root) + r"(?:/b)?/[^/]+/p/bin/(\S+)\s*$")
 
 
 def _fix_shebang(path: str, shebang_re) -> None:
@@ -334,13 +340,31 @@ def _fix_shebang(path: str, shebang_re) -> None:
         f.writelines(lines)
 
 
+def _cpython_build_dir_pattern(cache_root: str) -> str:
+    """cpython also bakes in its own *build* directory (never deployed,
+    unlike its package folder) -- <cache_root>(/b)?/<hash>/b/build-<type> --
+    into a handful of Makefile/_sysconfigdata variables (RUNSHARED,
+    TESTPYTHON, TESTRUNNER, COVERAGE_INFO, COVERAGE_REPORT, abs_builddir)
+    used only by cpython's own 'make test'/'make coverage' targets, plus the
+    archival CONFIG_ARGS record of its own configure invocation (which
+    itself embeds a PKG_CONFIG_PATH pointing there). None of these are read
+    by sysconfig/distutils when compiling a downstream C extension, and
+    there's no deployed equivalent to redirect them to, so they're stripped
+    (see _fixup_cpython) rather than rewritten like the package-folder
+    pattern above."""
+    return re.escape(cache_root) + r"(?:/b)?/[^/]+/b/build-[a-z]+(?:/[^\s:'\"]*)?"
+
+
 def _fixup_cpython(dep, output_folder, cache_root) -> None:
-    # _sysconfigdata__*.py bakes in absolute build-time cache paths
+    # _sysconfigdata__*.py and the installed build Makefile (read by
+    # sysconfig/distutils, e.g. when pip needs to compile a C extension)
+    # both bake in absolute build-time cache paths
     pattern_re = re.compile(_cache_path_pattern(cache_root))
-    for dest_path in _iter_destination_files(
-        dep, output_folder, "_sysconfigdata__*.py"
-    ):
-        _rewrite_file_pattern(dest_path, pattern_re, output_folder)
+    build_dir_re = re.compile(_cpython_build_dir_pattern(cache_root))
+    for name_pattern in ("_sysconfigdata__*.py", "Makefile"):
+        for dest_path in _iter_destination_files(dep, output_folder, name_pattern):
+            _rewrite_file_pattern(dest_path, pattern_re, output_folder)
+            _rewrite_file_pattern(dest_path, build_dir_re, "")
 
     # shebangs: any lib/**/*.py, and any bin/* file, that points at the
     # cache-cached python interpreter
@@ -368,14 +392,48 @@ def _fixup_pybind11(
         os.replace(stashed, target)
 
 
-def _fixup_qt(
-    dep, output_folder, cache_root
-) -> None:  # pylint: disable=unused-argument
+def _fixup_qt(dep, output_folder, cache_root) -> None:
     pattern_re = re.compile(_cache_path_pattern(cache_root))
     for name in ("qt-cmake", "qt-cmake-create"):
         path = os.path.join(output_folder, "bin", name)
         if os.path.isfile(path):
             _rewrite_file_pattern(path, pattern_re, output_folder)
+
+    # mkspecs/qmodule.pri and mkspecs/modules/qt_lib_*_private.pri record
+    # each third-party dependency's own lib/include dirs (QMAKE_LIBDIR_ZLIB,
+    # QMAKE_INCDIR_FREETYPE, etc.) as absolute paths into whatever package
+    # cache folder qmake found them in at build time -- not just Qt's own.
+    for dest_path in _iter_destination_files(dep, output_folder, "*.pri"):
+        _rewrite_file_pattern(dest_path, pattern_re, output_folder)
+
+
+def _fixup_pkgconfig(dep, output_folder, cache_root) -> None:
+    # Generated *.pc files bake in absolute build-time cache paths for
+    # prefix/bindir/libdir/includedir/etc, whether from the package's own
+    # cache folder (lensfun) or another dependency's (shiboken6.pc's
+    # python_interpreter/python_include_dir point at cpython's).
+    pattern_re = re.compile(_cache_path_pattern(cache_root))
+    for dest_path in _iter_destination_files(dep, output_folder, "*.pc"):
+        _rewrite_file_pattern(dest_path, pattern_re, output_folder)
+
+
+def _pyside_install_dir_pattern(cache_root: str) -> str:
+    """PySide/shiboken's own build tooling (not Conan's normal package
+    layout) stages its output at
+    <cache_root>/<hash>/s/pyside_src/build/<venv_name>/install
+    (conanfile.py's _installDir property) before package() copies it
+    verbatim into self.package_folder (copy(pattern="*", src=self._installDir,
+    dst=self.package_folder)) -- so unlike a transient build-only directory,
+    this really is a 1:1 stand-in for the deployed package folder and can be
+    substituted with output_folder the same way."""
+    return re.escape(cache_root) + r"/[^/]+/s/pyside_src/build/[^/]+/install"
+
+
+def _fixup_pyside(dep, output_folder, cache_root) -> None:
+    _fixup_pkgconfig(dep, output_folder, cache_root)
+    install_dir_re = re.compile(_pyside_install_dir_pattern(cache_root))
+    for dest_path in _iter_destination_files(dep, output_folder, "*.pc"):
+        _rewrite_file_pattern(dest_path, install_dir_re, output_folder)
 
 
 _PACKAGE_HOOKS.update(
@@ -383,5 +441,7 @@ _PACKAGE_HOOKS.update(
         "cpython": _fixup_cpython,
         "pybind11": _fixup_pybind11,
         "qt": _fixup_qt,
+        "lensfun": _fixup_pkgconfig,
+        "pyside": _fixup_pyside,
     }
 )

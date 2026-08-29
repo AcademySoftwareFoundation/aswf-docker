@@ -168,6 +168,17 @@ index d99dd79ac..bfda2778a 100644
 
  target_link_libraries (testrender
      PRIVATE
+@@ -85,6 +85,10 @@
+         pugixml::pugixml
+         Threads::Threads)
+
++if (OSL_USE_OPTIX)
++    add_dependencies(testrender testrender_ptx)
++endif ()
++
+ osl_optix_target (testrender)
+
+ install ( TARGETS testrender RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} )
 diff --git src/libbsdl/bsdl.cmake src/libbsdl/bsdl.cmake
 index d99dd79ac..bfda2778a 100644
 --- src/libbsdl/bsdl.cmake 

@@ -53,9 +53,6 @@ patches:
     - patch_file: "patches/1.15.5.0-cmake-oiio-imath-includes.patch"
       patch_description: "Allow imath, oiio, and fmt to be found when building inside Conan"
       patch_type: "conan"
-    - patch_file: "patches/1.15.5.0-oslcomp-llvm-filesystem.patch"
-      patch_description: "Build oslcomp with LLVM 22"
-      patch_type: "conan"
   "1.15.5.0":
     - patch_file: "patches/1.15.5.0-find-llvm-binaries.patch"
       patch_description: "Allow CMake to find LLVM binaries when building inside Conan"

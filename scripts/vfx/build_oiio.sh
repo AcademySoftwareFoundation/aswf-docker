@@ -20,7 +20,7 @@ BUILD_FMT_FORCE=ON
 
 fi
 
-if [[ $ASWF_OPENIMAGEIO_VERSION == 3.1.14.1 ]]; then
+if [[ $ASWF_OPENIMAGEIO_VERSION == 3.1.16.0 ]]; then
 
 cat << 'EOF' | patch -p1
 diff --git a/src/cmake/dependency_utils.cmake b/src/cmake/dependency_utils.cmake

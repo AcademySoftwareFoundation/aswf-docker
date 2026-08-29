@@ -340,6 +340,31 @@ class TestCachePathRewrite(unittest.TestCase):
             self.assertIn(f'"{output}/include"', content)
             self.assertNotIn(cache_root, content)
 
+    def test_cmake_file_rewritten_no_b_prefix(self):
+        # A package downloaded as a prebuilt binary from a remote lives at
+        # <cache_root>/<hash>/p (PkgCache.create_pkg_layout()), unlike a
+        # locally-built package's <cache_root>/b/<hash>/p
+        # (PkgCache.create_build_pkg_layout()) -- both shapes must be caught.
+        with tempfile.TemporaryDirectory() as tmp:
+            cache_root = os.path.join(tmp, "conan_home", "d")
+            pkg = os.path.join(tmp, "pkg")
+            output = os.path.join(tmp, "output")
+            baked_path = os.path.join(cache_root, "cpyth1234abcd", "p")
+            _write(
+                os.path.join(pkg, "lib", "cmake", "foo.cmake"),
+                f'set(FOO_INCLUDE_DIR "{baked_path}/include")\n',
+            )
+            _copy_tree(_FakeDep("foo", pkg), output, True)
+
+            aswf_deploy._rewrite_cache_paths(_FakeDep("foo", pkg), output, cache_root)
+
+            with open(
+                os.path.join(output, "lib", "cmake", "foo.cmake"), encoding="utf-8"
+            ) as f:
+                content = f.read()
+            self.assertIn(f'"{output}/include"', content)
+            self.assertNotIn(cache_root, content)
+
     def test_non_matching_file_left_untouched(self):
         with tempfile.TemporaryDirectory() as tmp:
             cache_root = os.path.join(tmp, "conan_home", "d")
@@ -380,6 +405,74 @@ class TestCpythonFixup(unittest.TestCase):
             with open(
                 os.path.join(
                     output, "lib", "_sysconfigdata__linux_x86_64-linux-gnu.py"
+                ),
+                encoding="utf-8",
+            ) as f:
+                content = f.read()
+            self.assertIn(output, content)
+            self.assertNotIn(cache_root, content)
+
+    def test_sysconfigdata_build_dir_variables_stripped(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cache_root, pkg, output = self._setup(tmp)
+            build_dir = os.path.join(
+                cache_root, "b", "cpytha62809013e2f2", "b", "build-release"
+            )
+            _write(
+                os.path.join(pkg, "lib", "_sysconfigdata__linux_x86_64-linux-gnu.py"),
+                "build_time_vars = {\n"
+                f"    'abs_builddir': '{build_dir}',\n"
+                "    'RUNSHARED': 'LD_LIBRARY_PATH="
+                f"{build_dir}:/usr/local/lib',\n"
+                "    'COVERAGE_INFO': "
+                f"'{build_dir}/coverage.info',\n"
+                "    'CONFIG_ARGS': \"'PKG_CONFIG_PATH="
+                f"{build_dir}/conan/../../build-release/conan:/usr/local/lib/pkgconfig'\",\n"
+                "}\n",
+            )
+            dep = _FakeDep("cpython", pkg)
+            _copy_tree(dep, output, True)
+
+            aswf_deploy._fixup_cpython(dep, output, cache_root)
+
+            with open(
+                os.path.join(
+                    output, "lib", "_sysconfigdata__linux_x86_64-linux-gnu.py"
+                ),
+                encoding="utf-8",
+            ) as f:
+                content = f.read()
+            self.assertNotIn(cache_root, content)
+            self.assertIn("'abs_builddir': '',", content)
+            self.assertIn("'RUNSHARED': 'LD_LIBRARY_PATH=:/usr/local/lib',", content)
+            self.assertIn("'COVERAGE_INFO': '',", content)
+            self.assertIn(
+                "'CONFIG_ARGS': \"'PKG_CONFIG_PATH=:/usr/local/lib/pkgconfig'\",",
+                content,
+            )
+
+    def test_config_makefile_rewritten(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cache_root, pkg, output = self._setup(tmp)
+            baked_path = os.path.join(cache_root, "b", "cpyth1234abcd", "p")
+            _write(
+                os.path.join(
+                    pkg, "lib", "python3.13", "config-3.13-x86_64-linux-gnu", "Makefile"
+                ),
+                f"prefix=\t{baked_path}\nLDSHARED=\tclang -shared\n",
+            )
+            dep = _FakeDep("cpython", pkg)
+            _copy_tree(dep, output, True)
+
+            aswf_deploy._fixup_cpython(dep, output, cache_root)
+
+            with open(
+                os.path.join(
+                    output,
+                    "lib",
+                    "python3.13",
+                    "config-3.13-x86_64-linux-gnu",
+                    "Makefile",
                 ),
                 encoding="utf-8",
             ) as f:
@@ -495,6 +588,124 @@ class TestQtFixup(unittest.TestCase):
                     content = f.read()
                 self.assertIn(output, content)
                 self.assertNotIn(cache_root, content)
+
+    def test_mkspecs_pri_files_rewritten(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cache_root = os.path.join(tmp, "conan_home", "d")
+            pkg = os.path.join(tmp, "pkg")
+            output = os.path.join(tmp, "output")
+            zlib_libdir = os.path.join(cache_root, "b", "zlibbe95832dc71d1", "p", "lib")
+            zlib_incdir = os.path.join(
+                cache_root, "b", "zlibbe95832dc71d1", "p", "include"
+            )
+            _write(
+                os.path.join(pkg, "mkspecs", "qmodule.pri"),
+                f"QMAKE_LIBDIR_ZLIB = {zlib_libdir}\n"
+                f"QMAKE_INCDIR_ZLIB = {zlib_incdir}\n",
+            )
+            freetype_libdir = os.path.join(
+                cache_root, "b", "freet30d7274aac070", "p", "lib"
+            )
+            _write(
+                os.path.join(pkg, "mkspecs", "modules", "qt_lib_gui_private.pri"),
+                f'QMAKE_LIBS_FREETYPE = -L"{freetype_libdir}" -lfreetype\n',
+            )
+            dep = _FakeDep("qt", pkg)
+            _copy_tree(dep, output, True)
+
+            aswf_deploy._fixup_qt(dep, output, cache_root)
+
+            with open(
+                os.path.join(output, "mkspecs", "qmodule.pri"), encoding="utf-8"
+            ) as f:
+                content = f.read()
+            self.assertIn(f"QMAKE_LIBDIR_ZLIB = {output}/lib", content)
+            self.assertIn(f"QMAKE_INCDIR_ZLIB = {output}/include", content)
+            self.assertNotIn(cache_root, content)
+
+            with open(
+                os.path.join(output, "mkspecs", "modules", "qt_lib_gui_private.pri"),
+                encoding="utf-8",
+            ) as f:
+                content = f.read()
+            self.assertIn(f'-L"{output}/lib" -lfreetype', content)
+            self.assertNotIn(cache_root, content)
+
+
+class TestPkgconfigFixup(unittest.TestCase):
+    def test_lensfun_pc_rewritten(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cache_root = os.path.join(tmp, "conan_home", "d")
+            pkg = os.path.join(tmp, "pkg")
+            output = os.path.join(tmp, "output")
+            prefix = os.path.join(cache_root, "b", "lensfd42af8fbc2caa", "p")
+            _write(
+                os.path.join(pkg, "lib", "pkgconfig", "lensfun.pc"),
+                f"prefix={prefix}\n"
+                f"bindir={prefix}/bin\n"
+                f"libdir={prefix}/lib\n"
+                f"includedir={prefix}/include\n"
+                f"datadir={prefix}/share\n"
+                f"docdir={prefix}/share/doc/lensfun\n",
+            )
+            dep = _FakeDep("lensfun", pkg)
+            _copy_tree(dep, output, True)
+
+            aswf_deploy._fixup_pkgconfig(dep, output, cache_root)
+
+            with open(
+                os.path.join(output, "lib", "pkgconfig", "lensfun.pc"),
+                encoding="utf-8",
+            ) as f:
+                content = f.read()
+            self.assertIn(f"prefix={output}\n", content)
+            self.assertIn(f"docdir={output}/share/doc/lensfun\n", content)
+            self.assertNotIn(cache_root, content)
+
+    def test_shiboken_pc_rewritten_with_cpython_paths(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cache_root = os.path.join(tmp, "conan_home", "d")
+            pkg = os.path.join(tmp, "pkg")
+            output = os.path.join(tmp, "output")
+            cpython_prefix = os.path.join(cache_root, "b", "cpytha62809013e2f2", "p")
+            install_dir = os.path.join(
+                cache_root,
+                "pysidbd7bd8f2345a5",
+                "s",
+                "pyside_src",
+                "build",
+                "qfp-py3.13-qt6.8.3-64bit-release",
+                "install",
+            )
+            _write(
+                os.path.join(pkg, "lib", "pkgconfig", "shiboken6.pc"),
+                f"prefix={install_dir}\n"
+                f"exec_prefix={install_dir}\n"
+                f"libdir={install_dir}/lib\n"
+                f"includedir={install_dir}/include/shiboken6\n"
+                f"python_interpreter={cpython_prefix}/bin/python\n"
+                f"python_include_dir={cpython_prefix}/include/python3.13\n"
+                f"Cflags: -I{cpython_prefix}/include/python3.13 -I${{includedir}}/\n",
+            )
+            dep = _FakeDep("pyside", pkg)
+            _copy_tree(dep, output, True)
+
+            aswf_deploy._fixup_pyside(dep, output, cache_root)
+
+            with open(
+                os.path.join(output, "lib", "pkgconfig", "shiboken6.pc"),
+                encoding="utf-8",
+            ) as f:
+                content = f.read()
+            self.assertIn(f"prefix={output}\n", content)
+            self.assertIn(f"exec_prefix={output}\n", content)
+            self.assertIn(f"libdir={output}/lib\n", content)
+            self.assertIn(f"includedir={output}/include/shiboken6\n", content)
+            self.assertIn(f"python_interpreter={output}/bin/python\n", content)
+            self.assertIn(
+                f"Cflags: -I{output}/include/python3.13 -I${{includedir}}/\n", content
+            )
+            self.assertNotIn(cache_root, content)
 
 
 class TestSymlinks(unittest.TestCase):

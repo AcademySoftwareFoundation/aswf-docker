@@ -41,24 +41,25 @@ EOF
 
 fi
 
-if [[ $ASWF_OSL_VERSION == 1.15.5.0 ]]; then
-# Build oslcomp with LLVM 22
+if [[ $ASWF_OSL_VERSION == 1.15.6.0 ]]; then
+# Parallel CUDA build race condition fix
 
 cat << 'EOF' | patch -p1
-diff --git a/src/liboslcomp/oslcomp.cpp b/src/liboslcomp/oslcomp.cpp
+diff --git a/src/testrender/CMakeLists.txt b/src/testrender/CMakeLists.txt
 index d99dd79ac..bfda2778a 100644
---- a/src/liboslcomp/oslcomp.cpp
-+++ b/src/liboslcomp/oslcomp.cpp
-@@ -200,6 +200,9 @@
+--- a/src/testrender/CMakeLists.txt
++++ b/src/testrender/CMakeLists.txt
+@@ -85,6 +85,10 @@
+         pugixml::pugixml
+         Threads::Threads)
 
-     inst.setTarget(target);
++if (OSL_USE_OPTIX)
++    add_dependencies(testrender testrender_ptx)
++endif ()
++
+ osl_optix_target (testrender)
 
-+#if OSL_LLVM_VERSION >= 220
-+    inst.createVirtualFileSystem();
-+#endif
-     inst.createFileManager();
- #if OSL_LLVM_VERSION >= 220
-     inst.createSourceManager();
+ install ( TARGETS testrender RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} )
 EOF
 
 fi

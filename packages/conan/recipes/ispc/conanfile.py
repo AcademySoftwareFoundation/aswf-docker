@@ -69,7 +69,11 @@ class IspcConan(ConanFile):
         )
 
     def generate(self):
-        self._ensure_gnu_stubs_32()
+        # _ensure_gnu_stubs_32() is Linux/x86_64-specific (glibc-devel.i686 has
+        # no armv8 equivalent). validate() currently allows armv8 too, so this
+        # will need revisiting for ARM support.
+        if self.settings.os == "Linux" and self.settings.arch == "x86_64":
+            self._ensure_gnu_stubs_32()
         # Build env: puts llvm-config, clang, etc. from tool_requires on PATH.
         VirtualBuildEnv(self).generate()
         # Run env (scope="build"): LLVM DSOs on LD_LIBRARY_PATH so cmake sub-

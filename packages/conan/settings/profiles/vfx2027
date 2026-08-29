@@ -41,7 +41,7 @@ harfbuzz/*: harfbuzz/14.2.1@{{ org }}/vfx2027
 hdf5/*: hdf5/1.14.6@{{ org }}/vfx2027
 highway/*: highway/1.4.0@{{ org }}/vfx2027
 icu/*: icu/system@{{ org }}/vfx2027
-imath/*: imath/3.2.2@{{ org }}/vfx2027
+imath/*: imath/3.2.3@{{ org }}/vfx2027
 ispc/*: ispc/1.31.0@{{ org }}/vfx2027
 jasper/*: jasper/4.2.9@{{ org }}/vfx2027
 jsoncpp/*: jsoncpp/1.9.5@{{ org }}/vfx2027
@@ -84,12 +84,12 @@ nlohmann_json/*: nlohmann_json/3.12.0@{{ org }}/vfx2027
 nspr/*: nspr/system@{{ org }}/vfx2027
 nss/*: nss/3.112.0@{{ org }}/vfx2027
 ogg/*: ogg/system@{{ org }}/vfx2027
-onetbb/*: onetbb/2023.0.0@{{ org }}/vfx2027
+onetbb/*: onetbb/2023.1.0@{{ org }}/vfx2027
 openal-soft/*: openal-soft/system@{{ org }}/vfx2027
 opencl-headers/*: opencl-headers/system@{{ org }}/vfx2027
 opencl-icd-loader/*: opencl-icd-loader/system@{{ org }}/vfx2027
 opencolorio/*: opencolorio/2.5.2@{{ org }}/vfx2027
-openexr/*: openexr/3.4.14@{{ org }}/vfx2027
+openexr/*: openexr/3.4.15@{{ org }}/vfx2027
 openfx/*: openfx/1.5.1@{{ org }}/vfx2027
 opengl/*: opengl/system@{{ org }}/vfx2027
 openimagedenoise/*: openimagedenoise/2.5.0@{{ org }}/vfx2027

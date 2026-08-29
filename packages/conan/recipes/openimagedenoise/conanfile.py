@@ -33,6 +33,9 @@ class OpenImageDenoiseConan(ConanFile):
     def export_sources(self):
         export_conandata_patches(self)
 
+    def layout(self):
+        cmake_layout(self, src_folder="src")
+
     def validate(self):
         if self.settings.os != "Linux":
             raise ConanInvalidConfiguration("Linux only")

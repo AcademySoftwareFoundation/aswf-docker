@@ -299,6 +299,7 @@ Contains:
 * materialx-1.38.7
 * osl-1.12.14.0
 * rawtoaces-2.1.1
+* moonray-3.6.0.1
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -326,6 +327,7 @@ Contains:
 * materialx-1.38.7
 * osl-1.12.14.0
 * rawtoaces-2.1.1
+* moonray-3.6.0.1
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -344,7 +346,7 @@ Contains:
 * alembic-1.8.8
 * imath-3.1.12
 * opencolorio-2.3.2
-* openexr-3.2.11
+* openexr-3.2.12
 * openfx-1.5s
 * openimageio-2.5.19.1
 * opentimelineio-0.17.0
@@ -353,6 +355,7 @@ Contains:
 * materialx-1.39.1
 * osl-1.13.11.0
 * rawtoaces-2.1.1
+* moonray-3.6.0.1
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -371,7 +374,7 @@ Contains:
 * alembic-1.8.8
 * imath-3.1.12
 * opencolorio-2.3.2
-* openexr-3.2.11
+* openexr-3.2.12
 * openfx-1.5s
 * openimageio-2.5.19.1
 * opentimelineio-0.17.0
@@ -380,6 +383,7 @@ Contains:
 * materialx-1.39.1
 * osl-1.13.11.0
 * rawtoaces-2.1.1
+* moonray-3.6.0.1
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -398,7 +402,7 @@ Contains:
 * alembic-1.8.8
 * imath-3.1.12
 * opencolorio-2.4.2
-* openexr-3.3.13
+* openexr-3.3.14
 * openfx-1.5s
 * openimageio-3.1.6.2
 * opentimelineio-0.17.0
@@ -407,6 +411,7 @@ Contains:
 * materialx-1.39.3
 * osl-1.14.11.0
 * rawtoaces-2.1.1
+* moonray-3.6.0.1
 * numpy-1.26.4
 * vfxplatform-2025
 
@@ -425,7 +430,7 @@ Contains:
 * alembic-1.8.8
 * imath-3.1.12
 * opencolorio-2.4.2
-* openexr-3.3.13
+* openexr-3.3.14
 * openfx-1.5s
 * openimageio-3.1.6.2
 * opentimelineio-0.17.0
@@ -434,6 +439,7 @@ Contains:
 * materialx-1.39.3
 * osl-1.14.11.0
 * rawtoaces-2.1.1
+* moonray-3.6.0.1
 * numpy-1.26.4
 * vfxplatform-2025
 
@@ -450,9 +456,9 @@ Contains:
 * opensubdiv-3.7.0
 * partio-1.19.0
 * alembic-1.8.10
-* imath-3.2.2
+* imath-3.2.3
 * opencolorio-2.5.2
-* openexr-3.4.14
+* openexr-3.4.15
 * openfx-1.5.1
 * openimageio-3.1.16.0
 * opentimelineio-0.18.1
@@ -461,6 +467,7 @@ Contains:
 * materialx-1.39.4
 * osl-1.15.6.0
 * rawtoaces-2.2.0
+* moonray-3.6.0.1
 * numpy-2.3.2
 * vfxplatform-2026
 
@@ -477,9 +484,9 @@ Contains:
 * opensubdiv-3.7.0
 * partio-1.19.0
 * alembic-1.8.10
-* imath-3.2.2
+* imath-3.2.3
 * opencolorio-2.5.2
-* openexr-3.4.14
+* openexr-3.4.15
 * openfx-1.5.1
 * openimageio-3.1.16.0
 * opentimelineio-0.18.1
@@ -488,6 +495,7 @@ Contains:
 * materialx-1.39.4
 * osl-1.15.6.0
 * rawtoaces-2.2.0
+* moonray-3.6.0.1
 * numpy-2.3.2
 * vfxplatform-2026
 
@@ -504,9 +512,9 @@ Contains:
 * opensubdiv-3.7.0
 * partio-1.20.0
 * alembic-1.8.11
-* imath-3.2.2
+* imath-3.2.3
 * opencolorio-2.5.2
-* openexr-3.4.14
+* openexr-3.4.15
 * openfx-1.5.1
 * openimageio-3.1.16.0
 * opentimelineio-0.18.1
@@ -515,6 +523,7 @@ Contains:
 * materialx-1.39.5
 * osl-1.15.6.0
 * rawtoaces-2.2.0
+* moonray-3.6.0.1
 * numpy-2.4.6
 * vfxplatform-2027
 
@@ -531,9 +540,9 @@ Contains:
 * opensubdiv-3.7.0
 * partio-1.20.0
 * alembic-1.8.11
-* imath-3.2.2
+* imath-3.2.3
 * opencolorio-2.5.2
-* openexr-3.4.14
+* openexr-3.4.15
 * openfx-1.5.1
 * openimageio-3.1.16.0
 * opentimelineio-0.18.1
@@ -542,6 +551,7 @@ Contains:
 * materialx-1.39.5
 * osl-1.15.6.0
 * rawtoaces-2.2.0
+* moonray-3.6.0.1
 * numpy-2.4.6
 * vfxplatform-2027
 

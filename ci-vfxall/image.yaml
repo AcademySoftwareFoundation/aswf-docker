@@ -24,6 +24,7 @@ packages:
   - materialx
   - osl
   - rawtoaces
+  - moonray
 implicit_packages:
   - numpy
   - vfxplatform

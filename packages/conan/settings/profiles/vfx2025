@@ -87,7 +87,7 @@ openal-soft/*: openal-soft/system@{{ org }}/vfx2025
 opencl-headers/*: opencl-headers/system@{{ org }}/vfx2025
 opencl-icd-loader/*: opencl-icd-loader/system@{{ org }}/vfx2025
 opencolorio/*: opencolorio/2.4.2@{{ org }}/vfx2025
-openexr/*: openexr/3.3.13@{{ org }}/vfx2025
+openexr/*: openexr/3.3.14@{{ org }}/vfx2025
 openfx/*: openfx/1.5s@{{ org }}/vfx2025
 opengl/*: opengl/system@{{ org }}/vfx2025
 openimagedenoise/*: openimagedenoise/2.3.3@{{ org }}/vfx2025

@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-# 2026-08-16
+# 2026-08-28
 
 - All releases
   - [ispc built from source instead of binary downloads](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/426)
@@ -27,11 +27,12 @@ All notable changes to this project will be documented in this file.
   - OpenUSD OSL and OIIO plugins [linked to required DSOs](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/450)
   - Include CLI tools with lua to avoid mismatch with system installed version
 - 2024.9 releases
-  - OpenEXR 3.2.10 to 3.2.11
+  - OpenEXR 3.2.10 to 3.2.12
 - 2025.8 releases
-  - OpenEXR 3.3.12 to 3.3.13
+  - OpenEXR 3.3.12 to 3.3.14
 - 2026.6 releases
-  - OpenEXR 3.4.13 to 3.4.14
+  - Imath 3.2.2 to 3.2.3
+  - OpenEXR 3.4.13 to 3.4.15.
   - OpenImageIO 3.1.14.1 to [3.1.16.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/440)
   - OpenShadingLanguage 1.15.5.0 to [1.15.6.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/440)
   - OpenUSD MaterialX shader issues [#454](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/454) and [#455](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/454)
@@ -39,13 +40,15 @@ All notable changes to this project will be documented in this file.
 - 2027.1 releases
   - b2 5.4.2 to 5.4.3
   - Expat 2.8.1 to 2.8.2
+  - Imath 3.2.2 to 3.2.3
   - libjpeg-turbo 3.1.4.1 to 3.2.0
   - libjxl 0.11.2 to 0.12.0
   - libraw 0.22.1 to 0.22.2
-  - OpenEXR 3.4.14
+  - OpenEXR 3.4.13 to 3.4.15
   - OpenImageIO 3.1.14.1 to [3.1.16.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/440)
   - OpenJPH 0.27.4 to 0.30.1
   - OpenShadingLanguage 1.15.5.0 to [1.15.6.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/440)
+  - OneTBB 2023.0.0 to [2023.1.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/460)
   - OpenUSD 26.05 to 26.08
   - OpenUSD MaterialX shader issues [#454](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/454) and [#455](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/454)
   - pugixml 1.15 to 1.16

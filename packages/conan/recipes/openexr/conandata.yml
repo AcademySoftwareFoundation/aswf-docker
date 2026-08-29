@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/1ce15d41e0301e69706f20bf3d6d942221d8baae/recipes/openexr/3.x/conandata.yml
 
 sources:
+  "3.4.15":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.4.15/openexr-3.4.15.tar.gz"
+    sha256: "ab893d8003773ccd9a5556b2caf38da591ae37e20b06ee9d589a08984c5191f2"
   "3.4.14":
     url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.4.14/openexr-3.4.14.tar.gz"
     sha256: "174d0d711d963c46eaa7cd2669d6cb1ea52579f43aa2726892f0b9554339ba6b"
@@ -41,6 +44,9 @@ sources:
   "3.4-alpha":
     url: "https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.4-alpha.tar.gz"
     sha256: "5a78b497576a323979b03a343ad63a253d955462365c67597ab6fcac87e79193"
+  "3.3.14":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.14/openexr-3.3.14.tar.gz"
+    sha256: "84b097a5106d2928f50b38363d691c981738ba0437cec51bbda3b21a7175d252"
   "3.3.13":
     url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.3.13/openexr-3.3.13.tar.gz"
     sha256: "cfd73e94682865fcda20cf348718bde9c9d62e57bbe1d9755ed02c2f65e35f16"
@@ -80,6 +86,9 @@ sources:
   "3.3.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.3.0.tar.gz"
     sha256: "58b00f50d2012f3107573c4b7371f70516d2972c2b301a50925e1b4a60a7be6f"
+  "3.2.12":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.2.12/openexr-3.2.12.tar.gz"
+    sha256: "95a6499083fd011cabfb00d1295fe5c71e1bd7ef8749cb87b057d7c2e0205188"
   "3.2.11":
     url: "https://github.com/AcademySoftwareFoundation/OpenEXR/archive/v3.2.11.tar.gz"
     sha256: "10f0f948321fa46f058e88afc292e6042e70158a9ce9206f344568189b849b1d"
@@ -138,6 +147,11 @@ patches:
   "3.4.3":
     - patch_file: "patches/3.4.3-openjph-setup.patch"
       patch_description: "Find previously installed openjph"
+  "3.2.12":
+    - patch_file: "patches/3.2.1-gcc5-bug-workaround.patch"
+      patch_description: "Workaround for GCC 5 bug"
+      patch_type: "portability"
+      patch_source: "https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82336"
   "3.2.11":
     - patch_file: "patches/3.2.1-gcc5-bug-workaround.patch"
       patch_description: "Workaround for GCC 5 bug"

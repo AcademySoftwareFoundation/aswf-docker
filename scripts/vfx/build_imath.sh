@@ -29,7 +29,7 @@ index d99dd79ac..bfda2778a 100644
 EOF
 fi
 
-if [[ $ASWF_IMATH_VERSION == 3.2.2 ]]; then
+if [[ $ASWF_IMATH_VERSION == 3.2.3 ]]; then
 cat << 'EOF' | patch -p0
 diff --git src/python/CMakeLists.txt src/python/CMakeLists.txt
 index d99dd79ac..bfda2778a 100644
