@@ -82,7 +82,7 @@ mpg123/*: mpg123/system@{{ org }}/vfx2027
 nanobind/*: nanobind/2.12.0@{{ org }}/vfx2027
 nlohmann_json/*: nlohmann_json/3.12.0@{{ org }}/vfx2027
 nspr/*: nspr/system@{{ org }}/vfx2027
-nss/*: nss/3.112.0@{{ org }}/vfx2027
+nss/*: nss/3.124.0@{{ org }}/vfx2027
 ogg/*: ogg/system@{{ org }}/vfx2027
 onetbb/*: onetbb/2023.1.0@{{ org }}/vfx2027
 openal-soft/*: openal-soft/system@{{ org }}/vfx2027
