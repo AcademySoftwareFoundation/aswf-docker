@@ -11,7 +11,7 @@ fi
 tar xf "$DOWNLOADS_DIR/openexr-${ASWF_OPENEXR_VERSION}.tar.gz"
 cd "openexr-${ASWF_OPENEXR_VERSION}"
 
-if [[ $ASWF_OPENEXR_VERSION == 3.2.10 ]]; then
+if [[ $ASWF_OPENEXR_VERSION == 3.2.12 ]]; then
 
 cat << 'EOF' | patch -p1
 diff --git a/src/wrappers/python/CMakeLists.txt b/src/wrappers/python/CMakeLists.txt
@@ -47,7 +47,7 @@ EOF
 
 fi
 
-if [[ $ASWF_OPENEXR_VERSION == 3.3.12 ]]; then
+if [[ $ASWF_OPENEXR_VERSION == 3.3.14 ]]; then
 
 cat << 'EOF' | patch -p1
 diff --git a/src/wrappers/python/CMakeLists.txt b/src/wrappers/python/CMakeLists.txt
