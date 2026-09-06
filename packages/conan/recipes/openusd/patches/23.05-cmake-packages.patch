@@ -44,28 +44,14 @@ index d99dd79ac..bfda2778a 100644
          find_package(HDF5 REQUIRED
 --- pxr/usd/usdMtlx/CMakeLists.txt
 +++ pxr/usd/usdMtlx/CMakeLists.txt
-@@ -5,7 +5,13 @@
-     add_definitions(-DPXR_MATERIALX_STDLIB_DIR="${MATERIALX_STDLIB_DIR}")
- endif()
-
-+get_target_property(MATERIALX_CORE_LIBS materialx::MaterialXCore INTERFACE_LINK_LIBRARIES)
-+get_target_property(MATERIALX_FORMAT_LIBS materialx::MaterialXFormat INTERFACE_LINK_LIBRARIES)
-+
- pxr_library(usdMtlx
-+    INCLUDE_DIRS
-+        ${materialx_INCLUDE_DIR}
-+
-     LIBRARIES
-         arch
-         gf
-@@ -19,8 +25,8 @@
+@@ -19,8 +19,8 @@
          usdShade
          usdUI
          usdUtils
 -        MaterialXCore
 -        MaterialXFormat
-+        ${MATERIALX_CORE_LIBS}
-+        ${MATERIALX_FORMAT_LIBS}
++        materialx::MaterialXCore
++        materialx::MaterialXFormat
 
      CPPFILES
          debugCodes.cpp
@@ -100,22 +86,13 @@ index d99dd79ac..bfda2778a 100644
  pxr_library(hdx
 --- pxr/usd/plugin/sdrOsl/CMakeLists.txt
 +++ pxr/usd/plugin/sdrOsl/CMakeLists.txt
-@@ -5,6 +5,8 @@
-     return()
- endif()
-
-+get_target_property(OSL_OSLQUERY_LIBRARIES OSL::oslquery INTERFACE_LINK_LIBRARIES)
-+
- pxr_plugin(sdrOsl
-     LIBRARIES
-         gf
-@@ -13,13 +15,13 @@
+@@ -13,13 +13,13 @@
          ar
          ndr
          sdr
 -        ${OSL_QUERY_LIBRARY}
 -        ${OIIO_LIBRARIES}
-+        ${OSL_OSLQUERY_LIBRARIES}
++        OSL::oslquery
 +        ${OpenImageIO_LIBRARIES}
 
      INCLUDE_DIRS
@@ -142,3 +119,92 @@ index d99dd79ac..bfda2778a 100644
 
      PUBLIC_CLASSES
          utils
+--- pxr/imaging/hdSt/CMakeLists.txt
++++ pxr/imaging/hdSt/CMakeLists.txt
+@@ -15,11 +15,11 @@
+ set(optionalPrivateClasses "")
+ if (${PXR_ENABLE_MATERIALX_SUPPORT})
+     list(APPEND optionalLibs
+-        MaterialXGenShader
+-        MaterialXRender
+-        MaterialXCore
+-        MaterialXFormat
+-        MaterialXGenGlsl
++        materialx::MaterialXGenShader
++        materialx::MaterialXRender
++        materialx::MaterialXCore
++        materialx::MaterialXFormat
++        materialx::MaterialXGenGlsl
+         hdMtlx
+     )
+     list(APPEND optionalPrivateClasses
+@@ -28,7 +28,7 @@
+     )
+     if (MaterialX_VERSION VERSION_GREATER_EQUAL "1.38.7")
+         list(APPEND optionalLibs
+-            MaterialXGenMsl
++            materialx::MaterialXGenMsl
+         )
+     endif()
+ endif()
+--- pxr/imaging/hdMtlx/CMakeLists.txt
++++ pxr/imaging/hdMtlx/CMakeLists.txt
+@@ -11,8 +11,8 @@
+         trace
+         usdMtlx
+         vt
+-        MaterialXCore
+-        MaterialXFormat
++        materialx::MaterialXCore
++        materialx::MaterialXFormat
+
+     PUBLIC_CLASSES
+         hdMtlx
+--- pxr/pxrConfig.cmake.in
++++ pxr/pxrConfig.cmake.in
+@@ -74,6 +74,45 @@
+     find_package(Imath REQUIRED)
+ endif()
+
++# If OpenColorIO support was enabled for this USD build, find the associated
++# import targets by invoking the same OpenColorIO cmake package config that
++# was used for that build. This can be overridden by specifying a different
++# OpenColorIO_DIR when running cmake.
++if(@PXR_BUILD_OPENCOLORIO_PLUGIN@)
++    if (NOT DEFINED OpenColorIO_DIR)
++        if (NOT [[@OpenColorIO_DIR@]] STREQUAL "")
++            set(OpenColorIO_DIR [[@OpenColorIO_DIR@]])
++        endif()
++    endif()
++    find_package(OpenColorIO REQUIRED)
++endif()
++
++# If OpenVDB support was enabled for this USD build, find the associated
++# import targets by invoking the same OpenVDB cmake package config that
++# was used for that build. This can be overridden by specifying a different
++# OpenVDB_DIR when running cmake.
++if(@PXR_ENABLE_OPENVDB_SUPPORT@)
++    if (NOT DEFINED OpenVDB_DIR)
++        if (NOT [[@OpenVDB_DIR@]] STREQUAL "")
++            set(OpenVDB_DIR [[@OpenVDB_DIR@]])
++        endif()
++    endif()
++    find_package(OpenVDB REQUIRED)
++endif()
++
++# If Ptex support was enabled for this USD build, find the associated
++# import targets by invoking the same PTex cmake package config that
++# was used for that build. This can be overridden by specifying a different
++# PTex_DIR when running cmake.
++if(@PXR_ENABLE_PTEX_SUPPORT@)
++    if (NOT DEFINED PTex_DIR)
++        if (NOT [[@PTex_DIR@]] STREQUAL "")
++            set(PTex_DIR [[@PTex_DIR@]])
++        endif()
++    endif()
++    find_package(PTex REQUIRED)
++endif()
++
+ include("${PXR_CMAKE_DIR}/cmake/pxrTargets.cmake")
+ if (TARGET usd_ms)
+     set(libs "usd_ms")

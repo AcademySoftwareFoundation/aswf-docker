@@ -1521,6 +1521,15 @@ class BoostConan(ConanFile):
             "--abbreviate-paths",
             f"-d{self.options.debug_level}",
         ])
+        if Version(self.version) >= "1.91.0":
+            # ASWF: since 1.91.0 boost::system uses the "modular" build.jam
+            # layout, whose own `install` alias (declared in its own project
+            # scope) is never wired as a dependency of the top-level `install`
+            # alias driven by --with-<library>. Without requesting it
+            # explicitly here, libs/system never gets its
+            # boost_system-config.cmake / boost_system-config-version.cmake
+            # generated, even though its build.jam does call boost-install().
+            flags.append("/boost/system//install")
         return flags
 
     @property

@@ -7,5 +7,7 @@ packages:
   - moonray # all dependencies will be installed except moonray itself
 implicit_packages:
   - vfxplatform
-docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_CLANG_MAJOR_VERSION}
+docker_args:
+  - ASWF_OSL_CLANG_MAJOR_VERSION
+docker_from: ${ASWF_ORG}/ci-common:${CI_COMMON_VERSION}-clang${ASWF_OSL_CLANG_MAJOR_VERSION}
 docker_package_version: $ASWF_VFXPLATFORM_VERSION

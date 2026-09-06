@@ -10,7 +10,7 @@ exercised against real temporary directories rather than a mocked
 filesystem, since the module is fundamentally filesystem-shaped.
 """
 
-# pylint: disable=protected-access
+# pylint: disable=protected-access,too-many-lines
 
 import contextlib
 import hashlib

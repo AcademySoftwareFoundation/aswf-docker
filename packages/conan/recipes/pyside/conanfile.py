@@ -155,7 +155,14 @@ class PySide6Conan(ConanFile):
             "--parallel",
             str(os.cpu_count()),
             "--ignore-git",
-            "--reuse-build",
+            # --reuse-build let a stale copy of Qt tool binaries (e.g.
+            # qmlls) bundled from an earlier build survive into a fresh
+            # package, since _installDir's staging path is keyed only on
+            # qt's version string (not its package_id/revision) and is
+            # shared across builds via no_copy_source -- causing collisions
+            # in aswf_deploy.py against the current qt package's own copies.
+            # Every Conan package build should be a clean, reproducible
+            # reflection of the current dependency graph.
         ]
         if Version(self.version) >= "6.0":
             args.extend([

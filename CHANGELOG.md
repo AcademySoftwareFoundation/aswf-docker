@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-09-06
+
+- All releases
+  - Re-release ci-moonray images based on correct clang version to match ispc and osl builds
+  - Re-release ci-usd and ci-vfxall images to address USD CMake config issues
+
+- 2027.1 releases
+  - Re-release all 2027.1 images, downgrading CUDA 13.3.0 to 13.1.2 for compatibility with 590.48.01 NVIDIA driver on current GitHub GPU runners
+  - Boost 1.91.0 build now includes CMake config files for header-only system library
+
 # 2026-08-28
 
 - All releases

@@ -332,7 +332,7 @@ container:
 
 #### OptiX CI Workloads
 
-The[Open Shading Language](https://github.com/AcademySoftwareFoundation/OpenShadingLanguage) optionally uses NVIDIA OptiX for ray tracing acceleration. This requires additional [driver capabilities](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/1.10.0/user-guide.html#driver-capabilities) to be mapped into the container at startup time:
+The [Open Shading Language](https://github.com/AcademySoftwareFoundation/OpenShadingLanguage) optionally uses NVIDIA OptiX for ray tracing acceleration. This requires additional [driver capabilities](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/1.10.0/user-guide.html#driver-capabilities) to be mapped into the container at startup time:
 
 [OpenShadingLanguage .github/workflows/ci.yml](https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/blob/main/.github/workflows/ci.yml)
 
