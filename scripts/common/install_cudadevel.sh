@@ -22,8 +22,8 @@
 # For CUDA 12.9.2 and Rocky Linux 8:
 # https://gitlab.com/nvidia/container-images/cuda/-/raw/master/dist/12.9.2/rockylinux8/devel/Dockerfile
 #
-# For CUDA 13.3.0 and Rocky Linux 9:
-# https://gitlab.com/nvidia/container-images/cuda/-/raw/master/dist/13.3.0/rockylinux9/devel/Dockerfile
+# For CUDA 13.1.2 and Rocky Linux 9:
+# https://gitlab.com/nvidia/container-images/cuda/-/raw/master/dist/13.1.2/rockylinux9/devel/Dockerfile
 #
 # Versions will need to be updated when a new version of CUDA is selected.
 #
@@ -33,9 +33,9 @@ IFS='.' read -r CUDA_MAJOR CUDA_MINOR CUDA_PATCH <<< "${ASWF_CUDA_VERSION}"
 declare -A NV_NVPROF_VERSION=( [12.6.1]=12.6.68-1 [12.6.3]=12.6.80-1 [12.9.1]=12.9.79-1 [12.9.2]=12.9.79-1 )
 ver=${NV_NVPROF_VERSION[$ASWF_CUDA_VERSION]}
 NV_NVPROF_DEV_PACKAGE=${ver:+cuda-nvprof-${CUDA_MAJOR}-${CUDA_MINOR}-${ver}}
-declare -A NV_NVML_DEV_VERSION=( [12.6.1]=12.6.68-1 [12.6.3]=12.6.77-1 [12.9.1]=12.9.79-1 [12.9.2]=12.9.79-1 [13.3.0]=13.3.29-1 )
+declare -A NV_NVML_DEV_VERSION=( [12.6.1]=12.6.68-1 [12.6.3]=12.6.77-1 [12.9.1]=12.9.79-1 [12.9.2]=12.9.79-1 [13.1.2]=13.1.115-1 )
 NV_NVML_DEV_PACKAGE=cuda-nvml-devel-${CUDA_MAJOR}-${CUDA_MINOR}-${NV_NVML_DEV_VERSION[$ASWF_CUDA_VERSION]}
-declare -A NV_LIBNCCL_DEV_PACKAGE_VERSION=( [12.6.1]=2.22.3-1 [12.6.3]=2.23.4-1 [12.9.1]=2.27.3-1 [12.9.2]=2.30.7-1 [13.3.0]=2.30.7-1)
+declare -A NV_LIBNCCL_DEV_PACKAGE_VERSION=( [12.6.1]=2.22.3-1 [12.6.3]=2.23.4-1 [12.9.1]=2.27.3-1 [12.9.2]=2.30.7-1 [13.1.2]=2.29.3-1)
 NV_LIBNCCL_DEV_PACKAGE=libnccl-devel-${NV_LIBNCCL_DEV_PACKAGE_VERSION[$ASWF_CUDA_VERSION]}+cuda${CUDA_MAJOR}.${CUDA_MINOR}
 
 # Query and filter the list of packages we want to install from the cuda-libraries-devel meta package

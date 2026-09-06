@@ -31,30 +31,14 @@ index d99dd79ac..bfda2778a 100644
          find_package(HDF5 REQUIRED
 --- pxr/usd/usdMtlx/CMakeLists.txt
 +++ pxr/usd/usdMtlx/CMakeLists.txt
-@@ -39,9 +39,15 @@
-
- endif()
-
-+get_target_property(MATERIALX_CORE_LIBS materialx::MaterialXCore INTERFACE_LINK_LIBRARIES)
-+get_target_property(MATERIALX_FORMAT_LIBS materialx::MaterialXFormat INTERFACE_LINK_LIBRARIES)
-+
- pxr_library(usdMtlx
-     INCLUDE_SCHEMA_FILES
-
-+    INCLUDE_DIRS
-+        ${materialx_INCLUDE_DIR}
-+
-     LIBRARIES
-         arch
-         gf
-@@ -54,8 +60,8 @@
+@@ -54,8 +54,8 @@
          usdShade
          usdUI
          usdUtils
 -        MaterialXCore
 -        MaterialXFormat
-+        ${MATERIALX_CORE_LIBS}
-+        ${MATERIALX_FORMAT_LIBS}
++        materialx::MaterialXCore
++        materialx::MaterialXFormat
 
      CPPFILES
          discovery.cpp
@@ -89,22 +73,13 @@ index d99dd79ac..bfda2778a 100644
  pxr_library(hdx
 --- pxr/usd/plugin/sdrOsl/CMakeLists.txt
 +++ pxr/usd/plugin/sdrOsl/CMakeLists.txt
-@@ -13,6 +13,8 @@
-     set(__OSL_IMATH_LIBS ${OPENEXR_LIBRARIES})
- endif()
-
-+get_target_property(OSL_OSLQUERY_LIBRARIES OSL::oslquery INTERFACE_LINK_LIBRARIES)
-+
- pxr_plugin(sdrOsl
-     LIBRARIES
-         gf
-@@ -20,13 +22,13 @@
+@@ -20,13 +20,13 @@
          vt
          ar
          sdr
 -        ${OSL_QUERY_LIBRARY}
 -        ${OIIO_LIBRARIES}
-+        ${OSL_OSLQUERY_LIBRARIES}
++        OSL::oslquery
 +        ${OpenImageIO_LIBRARIES}
          ${__OSL_IMATH_LIBS}
 
@@ -130,3 +105,85 @@ index d99dd79ac..bfda2778a 100644
          ${Boost_INCLUDE_DIRS}
 
      PUBLIC_CLASSES
+--- pxr/imaging/hdSt/CMakeLists.txt
++++ pxr/imaging/hdSt/CMakeLists.txt
+@@ -15,12 +15,12 @@
+ set(optionalPrivateClasses "")
+ if (${PXR_ENABLE_MATERIALX_SUPPORT})
+     list(APPEND optionalLibs
+-        MaterialXGenShader
+-        MaterialXRender
+-        MaterialXCore
+-        MaterialXFormat
+-        MaterialXGenGlsl
+-        MaterialXGenMsl
++        materialx::MaterialXGenShader
++        materialx::MaterialXRender
++        materialx::MaterialXCore
++        materialx::MaterialXFormat
++        materialx::MaterialXGenGlsl
++        materialx::MaterialXGenMsl
+         hdMtlx
+     )
+     list(APPEND optionalPrivateClasses
+--- pxr/imaging/hdMtlx/CMakeLists.txt
++++ pxr/imaging/hdMtlx/CMakeLists.txt
+@@ -11,8 +11,8 @@
+         trace
+         usdMtlx
+         vt
+-        MaterialXCore
+-        MaterialXFormat
++        materialx::MaterialXCore
++        materialx::MaterialXFormat
+
+     PUBLIC_CLASSES
+         hdMtlx
+--- pxr/pxrConfig.cmake.in
++++ pxr/pxrConfig.cmake.in
+@@ -104,6 +104,45 @@
+     find_dependency(Imath)
+ endif()
+
++# If OpenColorIO support was enabled for this USD build, find the associated
++# import targets by invoking the same OpenColorIO cmake package config that
++# was used for that build. This can be overridden by specifying a different
++# OpenColorIO_DIR when running cmake.
++if(@PXR_BUILD_OPENCOLORIO_PLUGIN@)
++    if (NOT DEFINED OpenColorIO_DIR)
++        if (NOT [[@OpenColorIO_DIR@]] STREQUAL "")
++            set(OpenColorIO_DIR [[@OpenColorIO_DIR@]])
++        endif()
++    endif()
++    find_dependency(OpenColorIO)
++endif()
++
++# If OpenVDB support was enabled for this USD build, find the associated
++# import targets by invoking the same OpenVDB cmake package config that
++# was used for that build. This can be overridden by specifying a different
++# OpenVDB_DIR when running cmake.
++if(@PXR_ENABLE_OPENVDB_SUPPORT@)
++    if (NOT DEFINED OpenVDB_DIR)
++        if (NOT [[@OpenVDB_DIR@]] STREQUAL "")
++            set(OpenVDB_DIR [[@OpenVDB_DIR@]])
++        endif()
++    endif()
++    find_dependency(OpenVDB)
++endif()
++
++# If Ptex support was enabled for this USD build, find the associated
++# import targets by invoking the same PTex cmake package config that
++# was used for that build. This can be overridden by specifying a different
++# PTex_DIR when running cmake.
++if(@PXR_ENABLE_PTEX_SUPPORT@)
++    if (NOT DEFINED PTex_DIR)
++        if (NOT [[@PTex_DIR@]] STREQUAL "")
++            set(PTex_DIR [[@PTex_DIR@]])
++        endif()
++    endif()
++    find_dependency(PTex)
++endif()
++
+ # If this build is using a custom work implementation, find the package
+ # providing that implementation.
+ if(NOT "@PXR_WORK_IMPL_PACKAGE@" STREQUAL "")
