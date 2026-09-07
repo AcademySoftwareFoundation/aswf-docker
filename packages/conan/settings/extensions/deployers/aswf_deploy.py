@@ -14,14 +14,27 @@ with the package to exclude (if any) passed as -c user.aswf:exclude_package=<nam
 
 import fnmatch
 import functools
+import glob
 import hashlib
 import os
 import re
 import shutil
+from typing import Optional
 
 _CONAN_METADATA_FILES = {"conaninfo.txt", "conanmanifest.txt"}
 _LICENSES_DIR_NAME = "licenses"
 _MD5_CHUNK_SIZE = 1024 * 1024  # 1 MiB -- files like libclang-cpp.so are 100+MB
+_OPENUSD_LIBRARY_TARGETS = {
+    "OpenColorIO::OpenColorIO": "libOpenColorIO.so",
+    "OpenVDB::openvdb": "libopenvdb.so",
+    "Ptex::Ptex_dynamic": "libPtex.so",
+    "MaterialXCore": "libMaterialXCore.so",
+    "MaterialXFormat": "libMaterialXFormat.so",
+    "OpenSubdiv::osdcpu": "libosdCPU.so",
+    "OpenSubdiv::osdgpu": "libosdGPU.so",
+    "OpenSubdiv::osdCPU": "libosdCPU.so",
+    "OpenSubdiv::osdGPU": "libosdGPU.so",
+}
 
 _PACKAGE_HOOKS = {}
 
@@ -42,6 +55,8 @@ def deploy(graph, output_folder):
         if _should_skip(dep, exclude_name):
             continue
         _deploy_package(dep, output_folder, cache_root, symlinks, report)
+    _fixup_boost_system(output_folder)
+    _fixup_openusd_targets(output_folder)
     report.print_report()
     report.raise_if_errors()
 
@@ -317,6 +332,110 @@ def _rewrite_cache_paths(dep, output_folder, cache_root) -> None:
     pattern_re = re.compile(_cache_path_pattern(cache_root))
     for dest_path in _iter_destination_files(dep, output_folder, "*.cmake"):
         _rewrite_file_pattern(dest_path, pattern_re, output_folder)
+
+
+def _find_library(output_folder: str, stem: str) -> Optional[str]:
+    for library_dir in (
+        os.path.join(output_folder, "lib"),
+        os.path.join(output_folder, "lib64"),
+        os.path.join(output_folder, "x86_64", "lib"),
+    ):
+        if not os.path.isdir(library_dir):
+            continue
+        for name in os.listdir(library_dir):
+            if name.lower() == stem.lower() or name.lower().startswith(
+                stem.lower() + "."
+            ):
+                return os.path.join(library_dir, name)
+    return None
+
+
+def _conan_library_replacement(match: re.Match, output_folder: str) -> str:
+    target = match.group(1)
+    stripped = re.sub(r"_(?:RELEASE|DEBUG)$", "", target)
+    parts = stripped.split("_")
+    for index in range(len(parts)):
+        candidate = "_".join(parts[index:])
+        library = _find_library(output_folder, f"lib{candidate}")
+        if library:
+            return library
+    return match.group(0)
+
+
+def _fixup_openusd_targets(output_folder: str) -> None:
+    """Make OpenUSD's installed export usable without Conan's build graph.
+
+    OpenUSD's Conan build embeds Conan-generated target names in its installed
+    export when dependency libraries are passed through the upstream CMake
+    helpers. Those targets do not exist after the image's Conan cache is
+    discarded, so replace them with libraries in the published prefix.
+    """
+    targets_path = os.path.join(output_folder, "cmake", "pxrTargets.cmake")
+    if not os.path.isfile(targets_path):
+        return
+    with open(targets_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    conan_target_re = re.compile(r"CONAN_LIB::([A-Za-z0-9_]+)")
+    content = conan_target_re.sub(
+        lambda match: _conan_library_replacement(match, output_folder),
+        content,
+    )
+    for target, library_name in _OPENUSD_LIBRARY_TARGETS.items():
+        library = _find_library(output_folder, library_name)
+        if library:
+            content = re.sub(
+                rf"(?<![A-Za-z0-9_]){re.escape(target)}(?![A-Za-z0-9_])",
+                lambda _: library,
+                content,
+            )
+
+    with open(targets_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+
+def _fixup_boost_system(output_folder: str) -> None:
+    """Provide Boost.System's config file when the library is header-only.
+
+    Recent Boost releases still have BoostConfig.cmake request a separate
+    boost_system package, although Boost.System no longer installs a library.
+    """
+    boost_dirs = glob.glob(os.path.join(output_folder, "lib", "cmake", "Boost-*"))
+    if not boost_dirs:
+        return
+    boost_version = os.path.basename(boost_dirs[0]).removeprefix("Boost-")
+    component_dir = os.path.join(
+        output_folder, "lib", "cmake", f"boost_system-{boost_version}"
+    )
+    config_path = os.path.join(component_dir, "boost_system-config.cmake")
+    if os.path.isfile(config_path):
+        return
+    os.makedirs(component_dir, exist_ok=True)
+    with open(config_path, "w", encoding="utf-8") as f:
+        f.write(
+            "if(NOT TARGET Boost::system)\n"
+            "  add_library(Boost::system INTERFACE IMPORTED GLOBAL)\n"
+            f'  target_include_directories(Boost::system INTERFACE "{output_folder}/include")\n'
+            "endif()\n"
+            "set(boost_system_FOUND TRUE)\n"
+            f"set(boost_system_VERSION {boost_version})\n"
+        )
+    with open(
+        os.path.join(component_dir, "boost_system-config-version.cmake"),
+        "w",
+        encoding="utf-8",
+    ) as f:
+        f.write(
+            f'set(PACKAGE_VERSION "{boost_version}")\n'
+            "if(PACKAGE_VERSION VERSION_LESS PACKAGE_FIND_VERSION)\n"
+            "  set(PACKAGE_VERSION_COMPATIBLE FALSE)\n"
+            "else()\n"
+            "  set(PACKAGE_VERSION_COMPATIBLE TRUE)\n"
+            "  if(PACKAGE_FIND_VERSION STREQUAL PACKAGE_VERSION)\n"
+            "    set(PACKAGE_VERSION_EXACT TRUE)\n"
+            "  endif()\n"
+            "endif()\n"
+        )
 
 
 def _shebang_pattern(cache_root: str):

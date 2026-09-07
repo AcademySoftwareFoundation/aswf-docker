@@ -92,8 +92,11 @@ class IspcConan(ConanFile):
         tc.variables["X86_ENABLED"] = self.settings.arch == "x86_64"
         tc.variables["ARM_ENABLED"] = self.settings.arch == "armv8"
         # Bake the Conan-cache LLVM lib dir into RPATH so the ispc binary
-        # finds LLVM DSOs both in the cache and after patchelf relocation.
-        tc.variables["CMAKE_INSTALL_RPATH_USE_LINK_PATH"] = True
+        # finds LLVM DSOs while building. The installed binary uses its
+        # packaged copies, which keeps it independent of the base image's
+        # compiler version.
+        tc.variables["CMAKE_INSTALL_RPATH"] = "$ORIGIN/../lib"
+        tc.variables["CMAKE_INSTALL_RPATH_USE_LINK_PATH"] = False
         tc.variables["CMAKE_BUILD_WITH_INSTALL_RPATH"] = True
         tc.generate()
         CMakeDeps(self).generate()
@@ -112,6 +115,15 @@ class IspcConan(ConanFile):
              dst=os.path.join(self.package_folder, "licenses", self.name))
         cmake = CMake(self)
         cmake.install()
+        clang_info = self.dependencies.host["clang"]
+        clang_lib_dir = clang_info.cpp_info.libdirs[0]
+        runtime_lib_dir = os.path.join(self.package_folder, "lib")
+        # Keep generic libclang-cpp.so/libLLVM.so symlinks out of the package:
+        # they would collide with the base image's compiler symlinks when the
+        # ISPC package is deployed.
+        copy(self, "libclang-cpp.so.*", src=clang_lib_dir, dst=runtime_lib_dir)
+        copy(self, "libLLVM.so.*", src=clang_lib_dir, dst=runtime_lib_dir)
+        copy(self, "libLLVM-*.so*", src=clang_lib_dir, dst=runtime_lib_dir)
 
     def package_id(self):
         # ispc is a standalone application; the C++ compiler used to build it
