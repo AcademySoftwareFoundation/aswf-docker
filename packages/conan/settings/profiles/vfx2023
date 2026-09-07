@@ -112,6 +112,7 @@ qt/*: qt/5.15.18@{{ org }}/vfx2023
 random123/*: random123/1.14.0@{{ org }}/vfx2023
 rapidjson/*: rapidjson/cci.20250205@{{ org }}/vfx2023
 rawtoaces/*: rawtoaces/2.1.1@{{ org }}/vfx2023
+rez/*: rez/3.4.0@{{ org }}/vfx2023
 snappy/*: snappy/1.1.10@{{ org }}/vfx2023
 spdlog/*: spdlog/1.15.3@{{ org }}/vfx2023
 sqlite3/*: sqlite3/system@{{ org }}/vfx2023
