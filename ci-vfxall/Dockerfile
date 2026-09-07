@@ -210,9 +210,10 @@ RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=/opt/conan_home
 
 # Rez is built and installed from its official source release after the
 # Conan packages are deployed, so that install.py runs with the image
-# Python interpreter. It installs into its own /usr/local/rez prefix:
-# installed Rez trees carry absolute paths and must never be moved after
-# installation. See https://rez.readthedocs.io/en/stable/installation.html
+# Python interpreter. It installs into its own ${ASWF_INSTALL_PREFIX}/rez
+# prefix: installed Rez trees carry absolute paths and must never be moved
+# after installation. See
+# https://rez.readthedocs.io/en/stable/installation.html
 # The same scripts/vfx/build_rez.sh is used by the ci-rez image.
 COPY scripts/vfx/build_rez.sh /tmp/
 
@@ -220,4 +221,4 @@ RUN --mount=type=cache,id=aswf-downloads,sharing=private,target=/tmp/downloads \
     export DOWNLOADS_DIR=/tmp/downloads && \
     /tmp/build_rez.sh
 
-ENV PATH="/usr/local/rez/bin/rez:${PATH}"
+ENV PATH="${ASWF_INSTALL_PREFIX}/rez/bin/rez:${PATH}"
