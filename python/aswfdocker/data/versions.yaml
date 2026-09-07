@@ -152,6 +152,7 @@ versions:
       ASWF_CCACHE_VERSION: "4.9.1"
       ASWF_CMAKE_VERSION: "3.31.11"
       ASWF_NINJA_VERSION: "1.13.2"
+      ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_SONAR_VERSION: "8.1.0.6389"
       ASWF_OPENSSL_VERSION: "1.1.1k"
       ASWF_GNUTLS_VERSION: "3.6.16"
@@ -190,6 +191,7 @@ versions:
       ASWF_CCACHE_VERSION: "4.9.1"
       ASWF_CMAKE_VERSION: "3.31.11"
       ASWF_NINJA_VERSION: "1.13.2"
+      ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_SONAR_VERSION: "8.1.0.6389"
       ASWF_OPENSSL_VERSION: "1.1.1k"
       ASWF_GNUTLS_VERSION: "3.6.16"
@@ -231,6 +233,7 @@ versions:
       ASWF_OPENSSL_VERSION: "1.1.1k"
       ASWF_GNUTLS_VERSION: "3.6.16"
       ASWF_NINJA_VERSION: "1.13.2"
+      ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_SONAR_VERSION: "8.1.0.6389"
       ASWF_YQ_VERSION: "4.45.2"
       ASWF_BASEOS_DISTRO: "rockylinux8"
@@ -271,6 +274,7 @@ versions:
       ASWF_OPENSSL_VERSION: "1.1.1k"
       ASWF_GNUTLS_VERSION: "3.6.16"
       ASWF_NINJA_VERSION: "1.13.2"
+      ASWF_ZLIB_VERSION: "1.3.1"
       ASWF_SONAR_VERSION: "8.1.0.6389"
       ASWF_YQ_VERSION: "4.45.4"
       ASWF_BASEOS_DISTRO: "rockylinux8"
@@ -312,6 +316,7 @@ versions:
       ASWF_OPENSSL_VERSION: "3.5.5"
       ASWF_GNUTLS_VERSION: "3.8.10"
       ASWF_NINJA_VERSION: "1.13.2"
+      ASWF_ZLIB_VERSION: "1.3.2"
       ASWF_SONAR_VERSION: "8.1.0.6389"
       ASWF_YQ_VERSION: "4.53.3"
       ASWF_BASEOS_DISTRO: "rockylinux9"
@@ -2160,11 +2165,11 @@ ci-packages:
     - "2026.6"
     - "2027.1"
   zlib:
-    - "2023.5"
-    - "2024.9"
-    - "2025.8"
-    - "2026.6"
-    - "2027.1"
+    - "3.5"
+    - "4.9"
+    - "5.8"
+    - "6.6"
+    - "7.1"
   zstd:
     - "2023.5"
     - "2024.9"
@@ -2387,6 +2392,7 @@ groups:
         - openssl
         - gnutls
       common-1:
+        - zlib
         - cmake
         - ninja
       common-2:
@@ -2438,7 +2444,6 @@ groups:
         - tk
         - tsl-robin-map
         - yaml-cpp
-        - zlib
         - zstd
       base1-2:
         - c-blosc
