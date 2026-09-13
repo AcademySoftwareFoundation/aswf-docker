@@ -162,7 +162,29 @@ index d99dd79ac..bfda2778a 100644
          hdMtlx
 --- pxr/pxrConfig.cmake.in
 +++ pxr/pxrConfig.cmake.in
-@@ -74,6 +74,45 @@
+@@ -53,7 +53,21 @@
+             set(MaterialX_DIR [[@MaterialX_DIR@]])
+         endif()
+     endif()
++    get_property(_pxr_mx_targets_before DIRECTORY PROPERTY IMPORTED_TARGETS)
+     find_package(MaterialX REQUIRED)
++    get_property(_pxr_mx_targets_after DIRECTORY PROPERTY IMPORTED_TARGETS)
++    if(_pxr_mx_targets_after)
++        list(REMOVE_ITEM _pxr_mx_targets_after ${_pxr_mx_targets_before})
++        foreach(_mx_tgt IN LISTS _pxr_mx_targets_after)
++            if(NOT TARGET MaterialX::${_mx_tgt})
++                add_library(MaterialX::${_mx_tgt} ALIAS ${_mx_tgt})
++            endif()
++        endforeach()
++    endif()
++
++    unset(_pxr_mx_targets_before)
++    unset(_pxr_mx_targets_after)
++    unset(_mx_tgt)
+ endif()
+ 
+ # Similar to MaterialX above, we are using Imath's cmake package config, so set
+@@ -74,6 +88,45 @@
      find_package(Imath REQUIRED)
  endif()
 

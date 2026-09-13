@@ -1,0 +1,50 @@
+--- a/openvdb/openvdb/CMakeLists.txt
++++ b/openvdb/openvdb/CMakeLists.txt
+@@ -736,6 +736,7 @@
+ 
+ if(OPENVDB_CORE_STATIC)
+   install(TARGETS openvdb_static
++    EXPORT OpenVDBTargets
+     RUNTIME DESTINATION ${OPENVDB_INSTALL_BINDIR}
+     LIBRARY DESTINATION ${OPENVDB_INSTALL_LIBDIR}
+     ARCHIVE DESTINATION ${OPENVDB_INSTALL_LIBDIR}
+@@ -744,12 +745,39 @@
+ 
+ if(OPENVDB_CORE_SHARED)
+   install(TARGETS openvdb_shared
++    EXPORT OpenVDBTargets
+     RUNTIME DESTINATION ${OPENVDB_INSTALL_BINDIR}
+     LIBRARY DESTINATION ${OPENVDB_INSTALL_LIBDIR}
+     ARCHIVE DESTINATION ${OPENVDB_INSTALL_LIBDIR}
+   )
+ endif()
+ 
++# ASWF: upstream only ships the module-mode cmake/FindOpenVDB.cmake, which
++# is not installed by this build (see OPENVDB_INSTALL_CMAKE_MODULES); export
++# a target-based CMake package config instead so non-Conan CMake consumers
++# of this installation can find_package(OpenVDB CONFIG).
++install(EXPORT OpenVDBTargets
++  FILE OpenVDBTargets.cmake
++  NAMESPACE OpenVDB::
++  DESTINATION ${OPENVDB_INSTALL_LIBDIR}/cmake/OpenVDB
++)
++include(CMakePackageConfigHelpers)
++write_basic_package_version_file(
++  ${CMAKE_CURRENT_BINARY_DIR}/OpenVDBConfigVersion.cmake
++  VERSION ${OpenVDB_VERSION}
++  COMPATIBILITY AnyNewerVersion
++)
++configure_package_config_file(
++  ${CMAKE_CURRENT_SOURCE_DIR}/OpenVDBConfig.cmake.in
++  ${CMAKE_CURRENT_BINARY_DIR}/OpenVDBConfig.cmake
++  INSTALL_DESTINATION ${OPENVDB_INSTALL_LIBDIR}/cmake/OpenVDB
++)
++install(FILES
++  ${CMAKE_CURRENT_BINARY_DIR}/OpenVDBConfig.cmake
++  ${CMAKE_CURRENT_BINARY_DIR}/OpenVDBConfigVersion.cmake
++  DESTINATION ${OPENVDB_INSTALL_LIBDIR}/cmake/OpenVDB
++)
++
+ install(FILES ${OPENVDB_LIBRARY_INCLUDE_FILES} DESTINATION ${OPENVDB_INSTALL_INCLUDEDIR}/openvdb)
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/openvdb/version.h DESTINATION ${OPENVDB_INSTALL_INCLUDEDIR}/openvdb)
+ install(FILES ${OPENVDB_LIBRARY_IO_INCLUDE_FILES} DESTINATION ${OPENVDB_INSTALL_INCLUDEDIR}/openvdb/io)
