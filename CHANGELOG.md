@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-09-13
+
+- All releases
+  - c-cblosc correctly built against separate snappy and zstd packages
+  - OpenVDB [exports CMake config to allow OpenUSD pxrConfig.cmake to find it](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/480)
+  - OpenUSD pxrConfig.cmake works around lack of MateriaLX:: prefix in MaterialX CMake config 
+
 # 2026-09-06
 
 - All releases

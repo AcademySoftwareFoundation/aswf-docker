@@ -1,0 +1,38 @@
+diff --git a/openvdb/openvdb/OpenVDBConfig.cmake.in b/openvdb/openvdb/OpenVDBConfig.cmake.in
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/openvdb/openvdb/OpenVDBConfig.cmake.in
+@@ -0,0 +1,32 @@
++# Copyright Contributors to the OpenVDB Project
++# SPDX-License-Identifier: Apache-2.0
++#
++# ASWF: this file does not exist upstream. OpenVDB only ships the
++# module-mode cmake/FindOpenVDB.cmake for locating an existing OpenVDB
++# installation, not a target-based config for the one built by this
++# project. It is added so that a non-Conan CMake consumer of this
++# installation can use find_package(OpenVDB CONFIG), the same way Conan
++# consumers already do via the CMakeDeps generator.
++
++@PACKAGE_INIT@
++
++include(CMakeFindDependencyMacro)
++
++find_dependency(TBB REQUIRED)
++find_dependency(Boost REQUIRED COMPONENTS iostreams)
++if(@USE_IMATH_HALF@)
++  find_dependency(Imath REQUIRED CONFIG)
++endif()
++if(@USE_BLOSC@ OR @USE_ZLIB@)
++  find_dependency(ZLIB REQUIRED)
++endif()
++if(@USE_BLOSC@)
++  find_dependency(Blosc REQUIRED)
++endif()
++if(@USE_LOG4CPLUS@)
++  find_dependency(Log4cplus REQUIRED)
++endif()
++
++include("${CMAKE_CURRENT_LIST_DIR}/OpenVDBTargets.cmake")
++
++check_required_components(OpenVDB)

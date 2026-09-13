@@ -12,7 +12,8 @@ from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.env import VirtualBuildEnv
-from conan.tools.files import copy, get, rm, replace_in_file
+# ASWF: apply_conandata_patches/export_conandata_patches for our own CMake package config patches
+from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rm, replace_in_file
 from conan.tools.microsoft import is_msvc
 from conan.tools.scm import Version
 
@@ -91,6 +92,10 @@ class OpenVDBConan(ConanFile):
         "with_log4cplus": "Use log4cplus for improved OpenVDB Logging.",
         "with_zlib": "Use ZLib for disk serialization compression. ZLib can only be disabled if Blosc is also disabled.",
     }
+
+    # ASWF: export our own CMake-package-config patches (see conandata.yml)
+    def export_sources(self):
+        export_conandata_patches(self)
 
     @property
     def _min_cppstd(self):
@@ -239,6 +244,7 @@ class OpenVDBConan(ConanFile):
         tc.generate()
 
     def _patch_sources(self):
+        apply_conandata_patches(self)  # ASWF: applies our own CMake package config patches
         # Remove FindXXX files from OpenVDB. Let Conan do the job
         rm(self, "Find*.cmake", os.path.join(self.source_folder, "cmake"), recursive=True)
         # Relax version checks in find_package(),
