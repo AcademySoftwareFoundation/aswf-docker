@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 - All releases
   - c-cblosc correctly built against separate snappy and zstd packages
+  - LLVM built with AMDGPU support to avoid conflicts with system libOSMesa and libLLVM 17 (vfx2024) or libLLVM 21 (vfx2027)
   - OpenVDB [exports CMake config to allow OpenUSD pxrConfig.cmake to find it](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/480)
   - OpenUSD pxrConfig.cmake works around lack of MateriaLX:: prefix in MaterialX CMake config 
 
