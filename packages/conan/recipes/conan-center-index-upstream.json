@@ -335,6 +335,9 @@
       "folder": "all",
       "sha": "7cb5abe6c65326016458d4d38a4a255a2cef2bd6"
     },
+    "opencue": {
+      "class": "unique"
+    },
     "openexr": {
       "class": "cci",
       "folder": "3.x",
