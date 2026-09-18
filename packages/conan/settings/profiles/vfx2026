@@ -89,6 +89,7 @@ openal-soft/*: openal-soft/system@{{ org }}/vfx2026
 opencl-headers/*: opencl-headers/system@{{ org }}/vfx2026
 opencl-icd-loader/*: opencl-icd-loader/system@{{ org }}/vfx2026
 opencolorio/*: opencolorio/2.5.2@{{ org }}/vfx2026
+opencue/*: opencue/1.19.1@{{ org }}/vfx2026
 openexr/*: openexr/3.4.15@{{ org }}/vfx2026
 openfx/*: openfx/1.5.1@{{ org }}/vfx2026
 opengl/*: opengl/system@{{ org }}/vfx2026

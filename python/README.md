@@ -34,9 +34,7 @@ For developers, install the `aswfdocker` dependencies and additional tools:
 uv sync --all-extras
 ```
 
-### Finally
-
-Check that the command works:
+Run the `aswfdocker` command via `uv run`:
 
 ```bash
 uv run aswfdocker --help
