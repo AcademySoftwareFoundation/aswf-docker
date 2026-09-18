@@ -13,71 +13,16 @@ for further information, and participate in the discussion on the
 
 ## OpenCue CI Docker Image
 
-Contains: Python, CMake and other OpenCue upstream dependencies
+Contains: Python, Java 17, Rust, Protobuf, and other OpenCue upstream dependencies
 Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-opencue/Dockerfile)
-
-## [aswf/ci-opencue:2019.10](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2019.10)
-
-Contains:
-* cpython-2.7.15
-* numpy-1.14
-* vfxplatform-2019
-
-## [aswf/ci-opencue:2020.10](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2020.10)
-
-Contains:
-* cpython-3.7.3
-* numpy-1.16
-* vfxplatform-2020
-
-## [aswf/ci-opencue:2021.7](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2021.7)
-
-Contains:
-* cpython-3.7.9
-* numpy-1.19
-* vfxplatform-2021
-
-## [aswf/ci-opencue:2022.3](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2022.3)
-
-Contains:
-* cpython-3.9.15
-* numpy-1.20
-* vfxplatform-2022
-
-## [aswf/ci-opencue:2023.5](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2023.5)
-
-Contains:
-* cpython-3.10.20
-* numpy-1.23.5
-* vfxplatform-2023
-
-## [aswf/ci-opencue:2024.9](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2024.9)
-
-Contains:
-* cpython-3.11.15
-* numpy-1.24.3
-* vfxplatform-2024
-
-## [aswf/ci-opencue:2025.8](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2025.8)
-
-Contains:
-* cpython-3.11.15
-* numpy-1.26.4
-* vfxplatform-2025
-
-## [aswf/ci-opencue:2026.6](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2026.6)
-
-Contains:
-* cpython-3.13.14
-* numpy-2.3.2
-* vfxplatform-2026
 
 ## [aswf/ci-opencue:2027.1](https://hub.docker.com/r/aswf/ci-opencue/tags?page=1&name=2027.1)
 
 Contains:
 * cpython-3.13.14
+* opencue-1.19.1
 * numpy-2.4.6
 * vfxplatform-2027
 
