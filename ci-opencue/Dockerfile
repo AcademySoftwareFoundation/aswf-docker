@@ -16,6 +16,7 @@ ARG ASWF_VFXPLATFORM_VERSION
 
 
 ARG ASWF_CPYTHON_VERSION
+ARG ASWF_OPENCUE_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
@@ -36,13 +37,14 @@ ARG ASWF_CXX_STANDARD
 
 
 ARG ASWF_CPYTHON_VERSION
+ARG ASWF_OPENCUE_VERSION
 ARG ASWF_NUMPY_VERSION
 ARG ASWF_VFXPLATFORM_VERSION
 
 
 LABEL org.opencontainers.image.name="$ASWF_ORG/ci-opencue"
 LABEL org.opencontainers.image.title="OpenCue CI Docker Image"
-LABEL org.opencontainers.image.description="Contains: Python, CMake and other OpenCue upstream dependencies\
+LABEL org.opencontainers.image.description="Contains: Python, Java 17, Rust, Protobuf, and other OpenCue upstream dependencies\
 Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!"
 LABEL org.opencontainers.image.url="http://aswf.io/"
 LABEL org.opencontainers.image.source="https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-opencue/Dockerfile"
@@ -55,6 +57,7 @@ LABEL com.vfxplatform.version="${ASWF_VFXPLATFORM_VERSION}"
 
 
 LABEL io.aswf.docker.versions.cpython="$ASWF_CPYTHON_VERSION"
+LABEL io.aswf.docker.versions.opencue="$ASWF_OPENCUE_VERSION"
 LABEL io.aswf.docker.versions.numpy="$ASWF_NUMPY_VERSION"
 LABEL io.aswf.docker.versions.vfxplatform="$ASWF_VFXPLATFORM_VERSION"
 
@@ -70,6 +73,7 @@ ENV ASWF_VFXPLATFORM_VERSION=${ASWF_VFXPLATFORM_VERSION}
 
 
 ENV ASWF_CPYTHON_VERSION=$ASWF_CPYTHON_VERSION
+ENV ASWF_OPENCUE_VERSION=$ASWF_OPENCUE_VERSION
 ENV ASWF_NUMPY_VERSION=$ASWF_NUMPY_VERSION
 ENV ASWF_VFXPLATFORM_VERSION=$ASWF_VFXPLATFORM_VERSION
 
@@ -79,8 +83,13 @@ COPY ci-opencue/README.md ci-opencue/image.yaml /usr/local/aswf/
 COPY scripts/vfx/build_opencue.sh /usr/local/aswf
 RUN sudo yum -y install \
     java-17-openjdk.x86_64 \
-    java-17-openjdk-devel.x86_64
-RUN sudo alternatives --set java java-17-openjdk.x86_64 && \
+    java-17-openjdk-devel.x86_64 \
+    cargo \
+    rust \
+    protobuf \
+    protobuf-devel
+RUN export JAVA_HOME=/usr/lib/jvm/java-17-openjdk && \
+    sudo alternatives --set java java-17-openjdk.x86_64 && \
     sudo alternatives --set javac java-17-openjdk.x86_64 && \
     sudo alternatives --set jre_openjdk java-17-openjdk.x86_64
 
@@ -95,6 +104,7 @@ COPY <<EOF /usr/local/conanfile.txt
 ., * -> .
 [requires]
 cpython/${ASWF_CPYTHON_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
+opencue/${ASWF_OPENCUE_VERSION}@${ASWF_PKG_ORG}/${ASWF_CONAN_CHANNEL}
 EOF
 
 ENV CONAN_HOME=${ASWF_CONAN_HOME}/.conan2

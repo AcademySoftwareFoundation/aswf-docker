@@ -34,12 +34,6 @@ For developers, install the `aswfdocker` dependencies and additional tools:
 uv sync --all-extras
 ```
 
-Run the `aswfdocker` command via `uv run`:
-
-```bash
-uv run aswfdocker --help
-```
-
 ### Finally
 
 Check that the command works:
@@ -57,6 +51,13 @@ every invocation of `aswfdocker` with `uv run`:
 
 ```bash
 source .venv/bin/activate
+aswfdocker --version
+```
+
+On Windows, they're stored slightly differently in `Scripts`:
+
+```powershell
+. .\.venv\Scripts\activate
 aswfdocker --version
 ```
 

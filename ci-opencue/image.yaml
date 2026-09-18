@@ -1,10 +1,11 @@
 name: "opencue"
 title: "OpenCue CI Docker Image"
 description: |
-  Contains: Python, CMake and other OpenCue upstream dependencies
+  Contains: Python, Java 17, Rust, Protobuf, and other OpenCue upstream dependencies
   Warning: this image does *not* contain OpenCue itself as it is used to *build* OpenCue!
 packages:
   - cpython
+  - opencue
 implicit_packages:
   - numpy
   - vfxplatform
@@ -13,7 +14,12 @@ docker_package_version: $ASWF_VFXPLATFORM_VERSION
 docker_commands: |
   RUN sudo yum -y install \
       java-17-openjdk.x86_64 \
-      java-17-openjdk-devel.x86_64
-  RUN sudo alternatives --set java java-17-openjdk.x86_64 && \
+      java-17-openjdk-devel.x86_64 \
+      cargo \
+      rust \
+      protobuf \
+      protobuf-devel
+  RUN export JAVA_HOME=/usr/lib/jvm/java-17-openjdk && \
+      sudo alternatives --set java java-17-openjdk.x86_64 && \
       sudo alternatives --set javac java-17-openjdk.x86_64 && \
       sudo alternatives --set jre_openjdk java-17-openjdk.x86_64
