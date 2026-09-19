@@ -79,7 +79,7 @@ patches:
       patch_description: "Allow 24.08 to build against MaterialX 1.39.x https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/OpenUSD/pull/3159.diff"
       patch_type: "conan"
   "23.08":
-    - patch_file: "patches/23.05-cmake-packages.patch"
+    - patch_file: "patches/23.08-cmake-packages.patch"
       patch_description: "Emulate behavior of custom CMake modules when building with Conan"
       patch_type: "conan"
     - patch_file: "patches/23.05-cxx-standard.patch"

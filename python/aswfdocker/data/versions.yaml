@@ -2549,13 +2549,12 @@ groups:
         - otio
         - materialx
         - usd
+        - moonray
         - rawtoaces
       vfx3:
         - osl
         - openvdb
         - vfxall
-      moonray:
-        - moonray
       review:
         - openrv
 

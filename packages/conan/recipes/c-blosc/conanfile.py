@@ -43,6 +43,7 @@ class CbloscConan(ConanFile):
         "with_zstd": True,
     }
 
+    # ASWF: export our own CMake-package-config patches (see conandata.yml)
     def export_sources(self):
         export_conandata_patches(self)
 
@@ -108,7 +109,7 @@ class CbloscConan(ConanFile):
         deps.generate()
 
     def _patch_sources(self):
-        apply_conandata_patches(self)
+        apply_conandata_patches(self)  # ASWF: applies our own CMake package config patches
         rmdir(self, os.path.join(self.source_folder, "cmake"))
 
     def build(self):

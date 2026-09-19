@@ -35,6 +35,9 @@ patches:
 patches:
   "1.3.2":
     - patch_file: "patches/01-keep-previous-filenames.patch"
+    - patch_file: "patches/02-guard-optional-config-components.patch"
+      patch_description: "Guard ZLIB-<component>.cmake includes with EXISTS so find_package(ZLIB) without COMPONENTS doesn't fail when only shared or only static was built"
+      patch_type: "conan"
   "1.3.1":
     - patch_file: "patches/1.3.1/0001-fix-cmake.patch"
       patch_description: "separate static/shared builds, disable debug suffix"
