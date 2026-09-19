@@ -1,6 +1,39 @@
 --- a/openvdb/openvdb/CMakeLists.txt
 +++ b/openvdb/openvdb/CMakeLists.txt
-@@ -723,6 +723,7 @@
+@@ -652,8 +652,16 @@
+ # Configure static build
+ 
+ if(OPENVDB_CORE_STATIC)
++  # ASWF: use BUILD_INTERFACE/INSTALL_INTERFACE generator expressions so
++  # these PUBLIC include dirs can be exported via install(EXPORT ...);
++  # otherwise CMake refuses to export a target whose interface include
++  # dirs point into the source or build tree.
+   target_include_directories(openvdb_static
+-    PUBLIC ../ ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/openvdb
++    PUBLIC
++      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
++      $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
++      $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/openvdb>
++      $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+     PRIVATE .
+   )
+ 
+@@ -685,8 +693,13 @@
+ # Configure shared build
+ 
+ if(OPENVDB_CORE_SHARED)
++  # ASWF: see the matching comment on the openvdb_static target above.
+   target_include_directories(openvdb_shared
+-    PUBLIC ../ ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/openvdb
++    PUBLIC
++      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
++      $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
++      $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/openvdb>
++      $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+     PRIVATE .
+   )
+ 
+@@ -723,6 +736,7 @@
  
  if(OPENVDB_CORE_STATIC)
    install(TARGETS openvdb_static
@@ -8,7 +41,7 @@
      RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-@@ -731,12 +732,39 @@
+@@ -731,12 +745,39 @@
  
  if(OPENVDB_CORE_SHARED)
    install(TARGETS openvdb_shared

@@ -1,0 +1,89 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -356,6 +356,31 @@
+     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/blosc.pc"
+             DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig" COMPONENT DEV)
+
++    # ASWF: upstream only ships a pkg-config blosc.pc file, not a
++    # target-based CMake package config; export one instead so non-Conan
++    # CMake consumers of this installation can find_package(Blosc CONFIG).
++    install(EXPORT BloscTargets
++        FILE BloscTargets.cmake
++        NAMESPACE Blosc::
++        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Blosc
++    )
++    include(CMakePackageConfigHelpers)
++    write_basic_package_version_file(
++        ${CMAKE_CURRENT_BINARY_DIR}/BloscConfigVersion.cmake
++        VERSION ${blosc_VERSION}
++        COMPATIBILITY AnyNewerVersion
++    )
++    configure_package_config_file(
++        ${CMAKE_CURRENT_SOURCE_DIR}/BloscConfig.cmake.in
++        ${CMAKE_CURRENT_BINARY_DIR}/BloscConfig.cmake
++        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Blosc
++    )
++    install(FILES
++        ${CMAKE_CURRENT_BINARY_DIR}/BloscConfig.cmake
++        ${CMAKE_CURRENT_BINARY_DIR}/BloscConfigVersion.cmake
++        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Blosc
++    )
++
+     configure_file(
+         "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+         "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+--- a/blosc/CMakeLists.txt
++++ b/blosc/CMakeLists.txt
+@@ -8,7 +8,10 @@
+ endif(HIDE_SYMBOLS)
+
+ # includes
+-set(BLOSC_INCLUDE_DIRS ${BLOSC_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR})
++# ASWF: use a BUILD_INTERFACE generator expression so this entry can be
++# exported via install(EXPORT ...); otherwise CMake refuses to export a
++# target whose interface include dirs point into the source tree.
++set(BLOSC_INCLUDE_DIRS ${BLOSC_INCLUDE_DIRS} $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+ if(NOT DEACTIVATE_LZ4)
+     if (LZ4_FOUND)
+         set(BLOSC_INCLUDE_DIRS ${BLOSC_INCLUDE_DIRS} ${LZ4_INCLUDE_DIR})
+@@ -207,7 +210,12 @@
+
+ if (BUILD_SHARED)
+     target_link_libraries(blosc_shared ${LIBS})
+-    target_include_directories(blosc_shared PUBLIC ${BLOSC_INCLUDE_DIRS})
++    # ASWF: add the matching INSTALL_INTERFACE for the BUILD_INTERFACE entry
++    # in BLOSC_INCLUDE_DIRS above, needed for install(EXPORT ...).
++    target_include_directories(blosc_shared PUBLIC
++        ${BLOSC_INCLUDE_DIRS}
++        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
++    )
+ endif()
+
+ if (BUILD_TESTS)
+@@ -222,7 +230,11 @@
+         set_target_properties(blosc_static PROPERTIES PREFIX lib)
+     endif()
+     target_link_libraries(blosc_static ${LIBS})
+-    target_include_directories(blosc_static PUBLIC ${BLOSC_INCLUDE_DIRS})
++    # ASWF: see the matching comment on the blosc_shared target above.
++    target_include_directories(blosc_static PUBLIC
++        ${BLOSC_INCLUDE_DIRS}
++        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
++    )
+ endif(BUILD_STATIC)
+
+ # install
+@@ -231,11 +243,12 @@
+             DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT DEV)
+     if(BUILD_SHARED)
+         install(TARGETS blosc_shared
++                EXPORT BloscTargets
+                 LIBRARY COMPONENT LIB
+                 ARCHIVE COMPONENT DEV
+                 RUNTIME COMPONENT LIB)
+     endif(BUILD_SHARED)
+     if(BUILD_STATIC)
+-        install(TARGETS blosc_static COMPONENT DEV)
++        install(TARGETS blosc_static EXPORT BloscTargets COMPONENT DEV)
+     endif(BUILD_STATIC)
+ endif(BLOSC_INSTALL)

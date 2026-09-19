@@ -1,0 +1,29 @@
+--- /dev/null
++++ b/BloscConfig.cmake.in
+@@ -0,0 +1,26 @@
++# ASWF: this file does not exist upstream. c-blosc only installs a
++# pkg-config blosc.pc file, not a target-based CMake package config for
++# the library it builds. It is added so that a non-Conan CMake consumer
++# of this installation can use find_package(Blosc CONFIG), the same way
++# Conan consumers already do via the CMakeDeps generator.
++
++@PACKAGE_INIT@
++
++include(CMakeFindDependencyMacro)
++
++if(NOT @DEACTIVATE_LZ4@)
++  find_dependency(lz4 REQUIRED CONFIG)
++endif()
++if(NOT @DEACTIVATE_SNAPPY@)
++  find_dependency(Snappy REQUIRED CONFIG)
++endif()
++if(NOT @DEACTIVATE_ZLIB@)
++  find_dependency(ZLIB REQUIRED CONFIG)
++endif()
++if(NOT @DEACTIVATE_ZSTD@)
++  find_dependency(zstd REQUIRED CONFIG)
++endif()
++
++include("${CMAKE_CURRENT_LIST_DIR}/BloscTargets.cmake")
++
++check_required_components(Blosc)

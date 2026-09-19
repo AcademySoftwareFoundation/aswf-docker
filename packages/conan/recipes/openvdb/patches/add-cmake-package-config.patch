@@ -3,7 +3,7 @@ new file mode 100644
 index 0000000..0000000
 --- /dev/null
 +++ b/openvdb/openvdb/OpenVDBConfig.cmake.in
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,46 @@
 +# Copyright Contributors to the OpenVDB Project
 +# SPDX-License-Identifier: Apache-2.0
 +#
@@ -19,7 +19,11 @@ index 0000000..0000000
 +include(CMakeFindDependencyMacro)
 +
 +find_dependency(TBB REQUIRED)
-+find_dependency(Boost REQUIRED COMPONENTS iostreams)
++# ASWF: pass CONFIG explicitly; CMake 4.x removed the bundled FindBoost
++# module, so this always resolves via Boost's own BoostConfig.cmake anyway,
++# but without CONFIG, CMake still raises a CMP0167 dev warning about the
++# now-moot Module-vs-Config ambiguity.
++find_dependency(Boost REQUIRED COMPONENTS iostreams CONFIG)
 +if(@USE_IMATH_HALF@)
 +  find_dependency(Imath REQUIRED CONFIG)
 +endif()
@@ -30,7 +34,17 @@ index 0000000..0000000
 +  find_dependency(Blosc REQUIRED)
 +endif()
 +if(@USE_LOG4CPLUS@)
-+  find_dependency(Log4cplus REQUIRED)
++  # ASWF: log4cplus's own upstream config names its package/target
++  # "log4cplus" (lowercase), but OpenVDB's build links against
++  # "Log4cplus::log4cplus" (see cmake/FindLog4cplus.cmake and the
++  # cmake_target_name override in the log4cplus Conan recipe usage),
++  # and that mixed-case name is what ends up baked into
++  # OpenVDBTargets.cmake. Find the real (lowercase) package and alias
++  # it to the name OpenVDBTargets.cmake actually references.
++  find_dependency(log4cplus REQUIRED)
++  if(TARGET log4cplus::log4cplus AND NOT TARGET Log4cplus::log4cplus)
++    add_library(Log4cplus::log4cplus ALIAS log4cplus::log4cplus)
++  endif()
 +endif()
 +
 +include("${CMAKE_CURRENT_LIST_DIR}/OpenVDBTargets.cmake")

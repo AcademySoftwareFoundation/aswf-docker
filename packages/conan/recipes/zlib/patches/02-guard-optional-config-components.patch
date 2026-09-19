@@ -1,0 +1,25 @@
+ASWF: zlibConfig.cmake.in unconditionally includes both the "shared" and
+"static" component files when a consumer calls find_package(ZLIB) without
+COMPONENTS (e.g. via find_dependency(ZLIB REQUIRED) in another package's
+config, which is how Blosc/OpenVDB/OpenUSD chain into ZLIB here). Since this
+recipe only ever builds one of ZLIB_BUILD_SHARED/ZLIB_BUILD_STATIC, the other
+component's ZLIB-<comp>.cmake is never installed, and the unconditional
+include() hard-fails with "could not find requested file". Guard it with
+EXISTS so only the component(s) actually built/installed are loaded. Leave
+the explicit-COMPONENTS branch alone, since asking for a component that
+isn't there should still fail.
+
+diff --git a/zlibConfig.cmake.in b/zlibConfig.cmake.in
+index 1111111..2222222 100644
+--- a/zlibConfig.cmake.in
++++ b/zlibConfig.cmake.in
+@@ -13,6 +13,8 @@
+     endforeach(_comp ${ZLIB_FIND_COMPONENTS})
+ else(ZLIB_FIND_COMPONENTS)
+     foreach(_component_config IN LISTS _ZLIB_supported_components)
+-        include("${CMAKE_CURRENT_LIST_DIR}/ZLIB-${_component_config}.cmake")
++        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/ZLIB-${_component_config}.cmake")
++            include("${CMAKE_CURRENT_LIST_DIR}/ZLIB-${_component_config}.cmake")
++        endif()
+     endforeach(_component_config IN LISTS _ZLIB_supported_components)
+ endif(ZLIB_FIND_COMPONENTS)

@@ -43,6 +43,12 @@ patches:
     - patch_file: "patches/cmake-dependencies-1.21.4+.patch"
       patch_description: "use cci package"
       patch_type: "conan"
+    - patch_file: "patches/add-cmake-package-config.patch"
+      patch_description: "add a target-based CMake package config for non-Conan consumers"
+      patch_type: "conan"
+    - patch_file: "patches/cmake-package-config-1.21.6.patch"
+      patch_description: "export and install the added CMake package config, using generator expressions for interface include dirs"
+      patch_type: "conan"
   "1.21.5":
     - patch_file: "patches/cmake-dependencies-1.21.4+.patch"
       patch_description: "use cci package"

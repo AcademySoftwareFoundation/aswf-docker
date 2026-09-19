@@ -2,12 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-# 2026-09-13
+# 2026-09-19
 
 - All releases
   - c-cblosc correctly built against separate snappy and zstd packages
+  - ci-opencue modernized, opencue dependencies-only Conan package [#314](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/314)
   - LLVM built with AMDGPU support to avoid conflicts with system libOSMesa and libLLVM 17 (vfx2024) or libLLVM 21 (vfx2027)
   - OpenVDB [exports CMake config to allow OpenUSD pxrConfig.cmake to find it](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/480)
+    - Update zlib, c-blosc, log4cplus CMake configs to work with OpenVDB config
   - OpenUSD pxrConfig.cmake works around lack of MateriaLX:: prefix in MaterialX CMake config 
 
 # 2026-09-06
