@@ -219,6 +219,7 @@ COPY scripts/vfx/build_rez.sh /tmp/
 
 RUN --mount=type=cache,id=aswf-downloads,sharing=private,target=/tmp/downloads \
     export DOWNLOADS_DIR=/tmp/downloads && \
-    /tmp/build_rez.sh
+    /tmp/build_rez.sh && \
+    rm -f /tmp/build_rez.sh
 
 ENV PATH="${ASWF_INSTALL_PREFIX}/rez/bin/rez:${PATH}"
