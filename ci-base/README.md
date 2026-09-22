@@ -235,9 +235,9 @@ Contains:
 * b2-5.5.3
 * bzip2-1.0.8
 * cppunit-1.15.1
-* expat-2.8.2
-* fmt-12.1.0
-* gtest-1.17.0
+* expat-2.8.4
+* fmt-12.2.0
+* gtest-1.18.0
 * jsoncpp-1.9.5
 * libbacktrace-cci.20240730
 * libcgroup-0.42.2

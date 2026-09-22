@@ -80,12 +80,12 @@
     "expat": {
       "class": "cci",
       "folder": "all",
-      "sha": "0114383e14ea11c87f0ba1f5d93444ca316b3751"
+      "sha": "87a0ad68ed00baeb7086ea8f7814c760588231e4"
     },
     "fmt": {
       "class": "cci",
       "folder": "all",
-      "sha": "afb02c002d843196c35250e3f1117673531df212"
+      "sha": "e9366a94f4b3904511ee1d3c6a58d279e8ed2d4a"
     },
     "fontconfig": {
       "class": "system"
@@ -104,7 +104,7 @@
     "glew": {
       "class": "cci",
       "folder": "all",
-      "sha": "3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0"
+      "sha": "ffe30df101afd4dc95aac2f14b25bf345e64d7be"
     },
     "glfw": {
       "class": "cci",
@@ -117,7 +117,7 @@
     "gtest": {
       "class": "cci",
       "folder": "all",
-      "sha": "002c575bbe77c40d234d3e5042db0ce63dc7833b"
+      "sha": "4973c981ca0e7c7a92ee743782aada7500540351"
     },
     "harfbuzz": {
       "class": "cci",
@@ -317,7 +317,7 @@
           "sha": "3dbd3db9d9f9247ba13b170f8b8ed726d3b25301"
         },
         "all": {
-          "sha": "3dbd3db9d9f9247ba13b170f8b8ed726d3b25301"
+          "sha": "142a0c05d87bc557d01fa1232e9babe6ac80b237"
         }
       }
     },
@@ -341,7 +341,7 @@
     "openexr": {
       "class": "cci",
       "folder": "3.x",
-      "sha": "63c30ddfc1e19a31ea3424965aa32ead7e02ac48"
+      "sha": "6d9dfc56d8edcf1b2fb6c35aeb864b30333d760d"
     },
     "openfx": {
       "class": "cci",
@@ -430,7 +430,7 @@
           "sha": "fa3fd32a9a43d064226e690880587e495975f5c9"
         },
         "6.x.x": {
-          "sha": "23d7ee9cf3c4bee04a51d4be5faf0abdb09cce3f"
+          "sha": "a78a4927e871b4a868c63833aa0abceb2d3b7b8c"
         }
       }
     },

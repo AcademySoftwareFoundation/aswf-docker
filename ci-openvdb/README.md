@@ -174,7 +174,7 @@ Contains:
 
 Contains:
 * openvdb-13.0.0
-* gtest-1.17.0
+* gtest-1.18.0
 * numpy-2.4.6
 * vfxplatform-2027
 
@@ -182,7 +182,7 @@ Contains:
 
 Contains:
 * openvdb-13.0.0
-* gtest-1.17.0
+* gtest-1.18.0
 * numpy-2.4.6
 * vfxplatform-2027
 

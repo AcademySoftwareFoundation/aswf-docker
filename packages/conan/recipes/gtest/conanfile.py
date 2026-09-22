@@ -1,8 +1,6 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
-#
-# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/gtest/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
@@ -61,8 +59,12 @@ class GTestConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
-        internal_utils = os.path.join(self.source_folder, "googletest", "cmake", "internal_utils.cmake")
-        replace_in_file(self, internal_utils, "-WX", "")
+        if Version(self.version) < "1.18.0":
+            # Removed in 1.18.0
+            # https://github.com/google/googletest/commit/4cb0ab12a15aa95649cb59c4063c206e3f2ee9ba
+            internal_utils = os.path.join(
+                self.source_folder, "googletest", "cmake", "internal_utils.cmake")
+            replace_in_file(self, internal_utils, "-WX", "")
 
     def generate(self):
         tc = CMakeToolchain(self)

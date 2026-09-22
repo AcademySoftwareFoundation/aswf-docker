@@ -174,7 +174,7 @@ Contains:
 ## [aswf/ci-osl:2025-clang18.8](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2025-clang18.8)
 
 Contains:
-* osl-1.14.11.0
+* osl-1.14.12.0
 * cuda-12.6.3
 * optix-8.0.0
 * numpy-1.26.4
@@ -183,7 +183,7 @@ Contains:
 ## [aswf/ci-osl:2025-clang19.8](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2025-clang19.8)
 
 Contains:
-* osl-1.14.11.0
+* osl-1.14.12.0
 * cuda-12.6.3
 * optix-8.0.0
 * numpy-1.26.4
@@ -192,7 +192,7 @@ Contains:
 ## [aswf/ci-osl:2026-clang19.6](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang19.6)
 
 Contains:
-* osl-1.15.6.0
+* osl-1.15.7.0
 * cuda-12.9.2
 * optix-8.0.0
 * numpy-2.3.2
@@ -201,7 +201,7 @@ Contains:
 ## [aswf/ci-osl:2026-clang20.6](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2026-clang20.6)
 
 Contains:
-* osl-1.15.6.0
+* osl-1.15.7.0
 * cuda-12.9.2
 * optix-8.0.0
 * numpy-2.3.2
@@ -210,7 +210,7 @@ Contains:
 ## [aswf/ci-osl:2027-clang21.1](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2027-clang21.1)
 
 Contains:
-* osl-1.15.6.0
+* osl-1.15.7.0
 * cuda-13.1.2
 * optix-9.1.0
 * numpy-2.4.6
@@ -219,7 +219,7 @@ Contains:
 ## [aswf/ci-osl:2027-clang22.1](https://hub.docker.com/r/aswf/ci-osl/tags?page=1&name=2027-clang22.1)
 
 Contains:
-* osl-1.15.6.0
+* osl-1.15.7.0
 * cuda-13.1.2
 * optix-9.1.0
 * numpy-2.4.6

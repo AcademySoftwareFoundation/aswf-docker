@@ -413,7 +413,7 @@ Contains:
 * openusd-25.05.01
 * openvdb-12.1.1
 * materialx-1.39.3
-* osl-1.14.11.0
+* osl-1.14.12.0
 * rawtoaces-2.1.1
 * moonray-3.6.0.1
 * numpy-1.26.4
@@ -442,7 +442,7 @@ Contains:
 * openusd-25.05.01
 * openvdb-12.1.1
 * materialx-1.39.3
-* osl-1.14.11.0
+* osl-1.14.12.0
 * rawtoaces-2.1.1
 * moonray-3.6.0.1
 * numpy-1.26.4
@@ -466,12 +466,12 @@ Contains:
 * opencolorio-2.5.2
 * openexr-3.4.15
 * openfx-1.5.1
-* openimageio-3.1.16.0
+* openimageio-3.1.17.0
 * opentimelineio-0.18.1
 * openusd-26.03
 * openvdb-13.0.0
 * materialx-1.39.4
-* osl-1.15.6.0
+* osl-1.15.7.0
 * rawtoaces-2.2.0
 * moonray-3.6.0.1
 * numpy-2.3.2
@@ -495,12 +495,12 @@ Contains:
 * opencolorio-2.5.2
 * openexr-3.4.15
 * openfx-1.5.1
-* openimageio-3.1.16.0
+* openimageio-3.1.17.0
 * opentimelineio-0.18.1
 * openusd-26.03
 * openvdb-13.0.0
 * materialx-1.39.4
-* osl-1.15.6.0
+* osl-1.15.7.0
 * rawtoaces-2.2.0
 * moonray-3.6.0.1
 * numpy-2.3.2
@@ -512,7 +512,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * glew-2.3.1
-* gtest-1.17.0
+* gtest-1.18.0
 * libxcrypt-4.5.2
 * log4cplus-2.1.2
 * qt-6.8.3
@@ -522,14 +522,14 @@ Contains:
 * alembic-1.8.11
 * imath-3.2.3
 * opencolorio-2.5.2
-* openexr-3.4.15
+* openexr-3.5.0
 * openfx-1.5.1
-* openimageio-3.1.16.0
+* openimageio-3.2.0.4
 * opentimelineio-0.18.1
 * openusd-26.08
 * openvdb-13.0.0
 * materialx-1.39.5
-* osl-1.15.6.0
+* osl-1.15.7.0
 * rawtoaces-2.2.0
 * moonray-3.6.0.1
 * numpy-2.4.6
@@ -541,7 +541,7 @@ Contains:
 Contains:
 * cppunit-1.15.1
 * glew-2.3.1
-* gtest-1.17.0
+* gtest-1.18.0
 * libxcrypt-4.5.2
 * log4cplus-2.1.2
 * qt-6.8.3
@@ -551,14 +551,14 @@ Contains:
 * alembic-1.8.11
 * imath-3.2.3
 * opencolorio-2.5.2
-* openexr-3.4.15
+* openexr-3.5.0
 * openfx-1.5.1
-* openimageio-3.1.16.0
+* openimageio-3.2.0.4
 * opentimelineio-0.18.1
 * openusd-26.08
 * openvdb-13.0.0
 * materialx-1.39.5
-* osl-1.15.6.0
+* osl-1.15.7.0
 * rawtoaces-2.2.0
 * moonray-3.6.0.1
 * numpy-2.4.6

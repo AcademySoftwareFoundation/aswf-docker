@@ -1,10 +1,11 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
-#
-# From: https://github.com/conan-io/conan-center-index/blob/1ce15d41e0301e69706f20bf3d6d942221d8baae/recipes/fmt/all/conandata.yml
 
 sources:
+  "12.2.0":
+    url: "https://github.com/fmtlib/fmt/releases/download/12.2.0/fmt-12.2.0.zip"
+    sha256: "a2f4a8d51178f954e4c339007f77edd76ba0cb2e36f87a48e5a5403d9be5878f"
   "12.1.0":
     url: "https://github.com/fmtlib/fmt/releases/download/12.1.0/fmt-12.1.0.zip"
     sha256: "695fd197fa5aff8fc67b5f2bbc110490a875cdf7a41686ac8512fb480fa8ada7"

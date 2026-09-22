@@ -326,10 +326,15 @@ def images():
 @click.option(
     "--github-access-token",
     "-g",
+    required=True,
     help="GitHub access token generated from https://github.com/settings/tokens",
 )
 def settings(settings_path, github_access_token):
     """Sets user settings"""
+    if not github_access_token.strip():
+        raise click.BadParameter(
+            "must not be empty", param_hint="'--github-access-token' / '-g'"
+        )
     s = aswf_settings.Settings(settings_path=settings_path)
     s.github_access_token = github_access_token
     s.save()

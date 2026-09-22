@@ -24,7 +24,7 @@ Contains:
 * qt-5.15.18
 * libjxl-0.11.1
 * libultrahdr-1.4.0
-* openjph-0.24.5
+* openjph-0.32.0
 * openimageio-2.4.17.0
 * numpy-1.23.5
 * vfxplatform-2023
@@ -35,7 +35,7 @@ Contains:
 * qt-6.5.6
 * libjxl-0.11.1
 * libultrahdr-1.4.0
-* openjph-0.24.5
+* openjph-0.32.0
 * openimageio-2.5.19.1
 * numpy-1.24.3
 * vfxplatform-2024
@@ -46,7 +46,7 @@ Contains:
 * qt-6.5.6
 * libjxl-0.11.1
 * libultrahdr-1.4.0
-* openjph-0.24.5
+* openjph-0.32.0
 * openimageio-3.1.6.2
 * numpy-1.26.4
 * vfxplatform-2025
@@ -57,8 +57,8 @@ Contains:
 * qt-6.8.3
 * libjxl-0.11.1
 * libultrahdr-1.4.0
-* openjph-0.24.5
-* openimageio-3.1.16.0
+* openjph-0.32.0
+* openimageio-3.1.17.0
 * numpy-2.3.2
 * vfxplatform-2026
 
@@ -68,8 +68,8 @@ Contains:
 * qt-6.8.3
 * libjxl-0.12.0
 * libultrahdr-1.4.0
-* openjph-0.30.1
-* openimageio-3.1.16.0
+* openjph-0.32.0
+* openimageio-3.2.0.4
 * numpy-2.4.6
 * vfxplatform-2027
 

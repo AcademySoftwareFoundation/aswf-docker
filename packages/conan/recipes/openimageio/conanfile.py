@@ -114,8 +114,22 @@ class OpenImageIOConan(ConanFile):
         self.requires("pugixml/1.14")
         self.requires("libsquish/1.15")
         self.requires("tsl-robin-map/1.2.1")
-        self.requires("fmt/[>=10.2.1 <13]", transitive_headers=True)
-        self.requires("pybind11/[>=2.0.0]") # ASWF: OIIO now uses pybind11
+        # ASWF: <3.2 always forces FMT_HEADER_ONLY in OIIO's public
+        # detail/fmt.h, for 3.2 we enable OIIO_USE_COMPILED_FMT
+        self.requires("fmt/[>=10.2.1 <13]", transitive_headers=True,
+                       transitive_libs=Version(self.version) >= "3.2")
+        if Version(self.version) < "3.2":
+            self.requires("pybind11/[>=2.0.0]") # ASWF: OIIO now uses pybind11
+        else:
+            # ASWF: OIIO 3.2 defaults OIIO_PYTHON_BINDINGS_BACKEND to "nanobind"
+            # (src/cmake/pythonutils.cmake), replacing pybind11. nanobind's Conan
+            # package has cmake_find_mode="none" (OIIO's build calls its vendored
+            # nanobind_add_module() CMake function directly, located via
+            # `python -m nanobind --cmake_dir`, not a Conan-generated CMake
+            # target) so it can't be referenced from package_info() like
+            # pybind11::pybind11 was; mark it invisible like OpenEXR does for its
+            # own pybind11/cpython Python-binding deps.
+            self.requires("nanobind/[>=2.8.0 <3.10]", visible=False)
 
         # Optional libraries
         if self.options.with_libpng:
@@ -161,7 +175,15 @@ class OpenImageIOConan(ConanFile):
            self.requires("opengl/system")
            self.requires("qt/6.8.3")
         if self.options.with_python: # ASWF: build Python bindings
-           self.requires("cpython/[>=3.0.0")
+           self.requires("cpython/[>=3.0.0]")
+           if Version(self.version) >= "3.2":
+               # ASWF: tool_requires() dependencies are not transitive, and
+               # nanobind's own tool_requires(cpython) (for its build) isn't
+               # inherited by us, but we still need a Python interpreter on
+               # PATH at configure time for its `python -m nanobind
+               # --cmake_dir` lookup (see rawtoaces's conanfile for the same
+               # pattern).
+               self.tool_requires("cpython/[>=3.0.0]")
         self.tool_requires("cmake/[>=3.18]")
 
     def validate(self):
@@ -245,6 +267,8 @@ class OpenImageIOConan(ConanFile):
             tc.cache_variables["INTERNALIZE_FMT"] = False
         else: # Variable renamed with 3.0
             tc.cache_variables["OIIO_INTERNALIZE_FMT"] = False
+        if Version(self.version) >= "3.2":
+            tc.cache_variables["OIIO_USE_COMPILED_FMT"] = True
         tc.cache_variables["ROBINMAP_INCLUDES"] = self.dependencies["tsl-robin-map"].cpp_info.includedirs[0].replace("\\", "/")
         tc.cache_variables["IMATH_INCLUDES"] = self.dependencies["imath"].cpp_info.includedirs[0].replace("\\", "/")
         tc.cache_variables["OPENEXR_INCLUDES"] = self.dependencies["openexr"].cpp_info.includedirs[0].replace("\\", "/")
@@ -283,8 +307,10 @@ class OpenImageIOConan(ConanFile):
         deps.set_property("ffmpeg", "cmake_additional_variables_prefixes", ["FFMPEG"])
         deps.set_property("ffmpeg", "cmake_file_name", "FFmpeg")
         deps.set_property("libheif", "cmake_additional_variables_prefixes", ["LIBHEIF"])
-        deps.set_property("tsl-robin-map", "cmake_file_name", "Robinmap")
-        deps.set_property("tsl-robin-map", "cmake_additional_variables_prefixes", ["ROBINMAP"])
+        if Version(self.version) < "3.2":
+            # ASWF: OIIO 3.2 no longer has custom FindRobinmap.cmake module
+            deps.set_property("tsl-robin-map", "cmake_file_name", "Robinmap")
+            deps.set_property("tsl-robin-map", "cmake_additional_variables_prefixes", ["ROBINMAP"])
         if Version(self.version) >= "3.0":
             deps.set_property("openexr", "cmake_target_name", "OpenEXR::OpenEXR")
             deps.set_property("libultrahdr", "cmake_file_name", "libuhdr")
@@ -344,6 +370,9 @@ class OpenImageIOConan(ConanFile):
             )
         if self.options.with_tbb:
             open_image_io_util.requires.append("onetbb::libtbb")
+        if Version(self.version) >= "3.2":
+            # ASWF: OpenImageIO_Util also calls fmt, no longer header-only starting at 3.2
+            open_image_io_util.requires.append("fmt::fmt")
 
         # OpenImageIO::OpenImageIO
         open_image_io = self._add_component("OpenImageIO")
@@ -359,7 +388,7 @@ class OpenImageIOConan(ConanFile):
             "fmt::fmt",
             "imath::imath",
             "openexr::openexr",
-            "pybind11::pybind11",
+            *(["pybind11::pybind11"] if Version(self.version) < "3.2" else []),
         ]
 
         if self.options.with_libjpeg == "libjpeg":

@@ -9,8 +9,35 @@ All notable changes to this project will be documented in this file.
   - ci-opencue modernized, opencue dependencies-only Conan package [#314](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/314)
   - LLVM built with AMDGPU support to avoid conflicts with system libOSMesa and libLLVM 17 (vfx2024) or libLLVM 21 (vfx2027)
   - OpenVDB [exports CMake config to allow OpenUSD pxrConfig.cmake to find it](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/480)
-    - Update zlib, c-blosc, log4cplus CMake configs to work with OpenVDB config
+    - Update zlib, c-blosc, log4cplus CMake configs to work with OpenVDB CMake config
   - OpenUSD pxrConfig.cmake works around lack of MateriaLX:: prefix in MaterialX CMake config 
+  - [docker-builds.yml GHA workflow builds 2027](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/474)
+  - GHA workflow actions updated to latest pinned versions
+
+- 2023.6 releases
+  - OpenJPH 0.24.5 to 0.32.0 to support building latest OpenEXR 3.5.x
+
+- 2024.10 releases
+  - OpenJPH 0.24.5 to 0.32.0 to support building latest OpenEXR 3.5.x
+
+- 2025.9 releases
+  - OpenJPH 0.24.5 to 0.32.0 to support building latest OpenEXR 3.5.x
+
+- 2026.6 releases
+  - OpenImageIO 3.1.16.0 to [3.1.17.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/466)
+  - OpenJPH 0.24.5 to 0.32.0 to support building latest OpenEXR 3.5.x
+  - OSL 1.15.6.0 to [1.15.7.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/475)
+
+- 2027.2 releases
+  - expat 2.8.2 to 2.8.4
+  - fmt 11.2.0 to 12.2.0
+  - gtest 1.17.0 to 1.18.0
+  - OpenImageIO 3.1.16.0 to 3.2.0.4
+    - Python bindings build with nanobind instead of pybind11
+    - fmt explicitly not built header-only
+  - OpenJPH 0.30.1 to 0.32.0 to support building latest OpenEXR 3.5.x
+  - OpenEXR 3.4.15 to 3.5.0, now VFX Platform 2027 compliant
+  - OSL 1.15.6.0 to [1.15.7.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/475)
 
 # 2026-09-06
 

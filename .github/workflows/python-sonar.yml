@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         # Disabling shallow clones is recommended for improving the relevancy of reporting
         fetch-depth: 0
 
     - name: Install uv
-      uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+      uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
       with:
         enable-cache: auto
 
@@ -35,6 +35,6 @@ jobs:
       run: uv run pytest python/aswfdocker --doctest-modules --pylint --junitxml=test-pylint-results.xml --cov=. --cov-report=xml
 
     - name: Install and Run Sonar Scanner
-      uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9 # v7.0.0
+      uses: SonarSource/sonarqube-scan-action@ba9859eae8dd6bd29e412f25ddbbef3d032000f4 # v8.2.2
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
