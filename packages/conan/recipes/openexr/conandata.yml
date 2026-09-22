@@ -1,10 +1,11 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
-#
-# From: https://github.com/conan-io/conan-center-index/blob/1ce15d41e0301e69706f20bf3d6d942221d8baae/recipes/openexr/3.x/conandata.yml
 
 sources:
+  "3.5.0":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.5.0/openexr-3.5.0.tar.gz"
+    sha256: "2ee8d3551170614a659a49bcf81ce59dd72c68b2b8eb73c08036225140ba283a"
   "3.4.15":
     url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.4.15/openexr-3.4.15.tar.gz"
     sha256: "ab893d8003773ccd9a5556b2caf38da591ae37e20b06ee9d589a08984c5191f2"

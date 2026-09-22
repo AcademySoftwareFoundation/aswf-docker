@@ -85,7 +85,7 @@ Contains:
 
 Contains:
 * glew-2.2.0
-* openimageio-3.1.16.0
+* openimageio-3.1.17.0
 * opencolorio-2.5.2
 * numpy-2.3.2
 * vfxplatform-2026
@@ -94,7 +94,7 @@ Contains:
 
 Contains:
 * glew-2.3.1
-* openimageio-3.1.16.0
+* openimageio-3.2.0.4
 * opencolorio-2.5.2
 * numpy-2.4.6
 * vfxplatform-2027

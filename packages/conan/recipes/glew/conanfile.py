@@ -1,14 +1,12 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
-#
-# From: https://github.com/conan-io/conan-center-index/blob/3375dfbcae9df4cee7b4eb6323b584fb60a2c8d0/recipes/glew/all/conanfile.py
 
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.apple import is_apple_os
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
-from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rm, rmdir
+from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, rm, rmdir, replace_in_file
 import os
 
 required_conan_version = ">=2.1"
@@ -83,6 +81,11 @@ class GlewConan(ConanFile):
 
     def build(self):
         apply_conandata_patches(self)
+        if self.settings.os == "Windows" and self.settings.arch == "armv8":
+            # ARM64 windows does not have legacy C runtime - so just let it run with the defaults
+            replace_in_file(self, os.path.join(self.source_folder, "build/cmake/CMakeLists.txt"),
+                            "target_link_libraries (glew LINK_PRIVATE",
+                            "#target_link_libraries (glew LINK_PRIVATE")
         cmake = CMake(self)
         cmake.configure(build_script_folder=os.path.join(self.source_folder, "build", "cmake"))
         cmake.build()

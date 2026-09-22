@@ -94,7 +94,7 @@ opengl/*: opengl/system@{{ org }}/vfx2024
 openimagedenoise/*: openimagedenoise/2.3.3@{{ org }}/vfx2024
 openimageio/*: openimageio/2.5.19.1@{{ org }}/vfx2024
 openjpeg/*: openjpeg/2.4.0@{{ org }}/vfx2024
-openjph/*: openjph/0.24.5@{{ org }}/vfx2024
+openjph/*: openjph/0.32.0@{{ org }}/vfx2024
 opensubdiv/*: opensubdiv/3.6.1@{{ org }}/vfx2024
 opentimelineio/*: opentimelineio/0.17.0@{{ org }}/vfx2024
 openusd/*: openusd/24.08@{{ org }}/vfx2024

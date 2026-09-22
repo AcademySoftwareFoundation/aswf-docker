@@ -3,6 +3,9 @@
 # SPDX-License-Identifier: MIT
 
 sources:
+  "1.15.7.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/releases/download/v1.15.7.0/OSL-1.15.7.0.tar.gz"
+    sha256: "cfb1bbdecab23bb0c1fd61db340a0e3bef52f2a26fd7bc2e65725a334a08095d"
   "1.15.6.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.15.6.0.tar.gz"
     sha256: "85b71407ad28c464a7ec5c9dcb33ac67f9e98b92495568549d4b9c138c91a579"
@@ -18,6 +21,9 @@ sources:
   "1.15.1.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/releases/download/v1.15.1.0/OSL-1.15.1.0.tar.gz"
     sha256: "4083ca1b0afcefc7d62d52a557693a6c5550eb2d1057b3afb15a1a101a3389fa"
+  "1.14.12.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/releases/download/v1.14.12.0/OSL-1.14.12.0.tar.gz"
+    sha256: "e4c6ab94db11b0d8ab8a8de3b2a9aa105f408fe0f3b50c5f866527db36960a74"
   "1.14.11.0":
     url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/releases/download/v1.14.11.0/OSL-1.14.11.0.tar.gz"
     sha256: "3155fc5c3ad4a2026dd23fb9e7b77e936ac299f4bf1e7b332971471ca21ab714"
@@ -46,6 +52,13 @@ sources:
     url: "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.11.13.0.tar.gz"
     sha256: "5fface4b487b9bf9448ac5f5a370dbe2075d2941dd11c396448a86ac11663002"
 patches:
+  "1.15.7.0":
+    - patch_file: "patches/1.15.5.0-find-llvm-binaries.patch"
+      patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
+      patch_type: "conan"
+    - patch_file: "patches/1.15.7.0-cmake-oiio-imath-includes.patch"
+      patch_description: "Allow imath, oiio, and fmt to be found when building inside Conan"
+      patch_type: "conan"
   "1.15.6.0":
     - patch_file: "patches/1.15.5.0-find-llvm-binaries.patch"
       patch_description: "Allow CMake to find LLVM binaries when building inside Conan"

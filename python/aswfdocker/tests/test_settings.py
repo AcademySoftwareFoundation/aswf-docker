@@ -41,3 +41,31 @@ class TestSettingsCli(unittest.TestCase):
             self.assertEqual(result.exit_code, 0)
             s = settings.Settings(settings_path=settings_path)
             self.assertEqual(s.github_access_token, "foobar")
+
+    def test_settings_cli_missing_token(self):
+        runner = CliRunner()
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            settings_path = os.path.join(tmpdirname, "tmpsettings.yaml")
+            result = runner.invoke(
+                aswfdocker.cli,
+                ["settings", "--settings-path", settings_path],
+            )
+            self.assertNotEqual(result.exit_code, 0)
+            self.assertFalse(os.path.exists(settings_path))
+
+    def test_settings_cli_empty_token(self):
+        runner = CliRunner()
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            settings_path = os.path.join(tmpdirname, "tmpsettings.yaml")
+            result = runner.invoke(
+                aswfdocker.cli,
+                [
+                    "settings",
+                    "--github-access-token",
+                    "",
+                    "--settings-path",
+                    settings_path,
+                ],
+            )
+            self.assertNotEqual(result.exit_code, 0)
+            self.assertFalse(os.path.exists(settings_path))

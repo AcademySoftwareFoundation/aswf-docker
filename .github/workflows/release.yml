@@ -6,7 +6,7 @@ on:
 
 jobs:
   release:
-    runs-on: ${{ (github.repository_owner == 'AcademySoftwareFoundation' && 'ubuntu-22.04-8c-32g-300h') || 'ubuntu-latest' }}
+    runs-on: ${{ (github.repository_owner == 'AcademySoftwareFoundation' && 'ubuntu-latest-8c-32g-300h') || 'ubuntu-latest' }}
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: '1'
@@ -15,10 +15,10 @@ jobs:
       GITHUB_REF_LOCAL: ${{ github.ref || format('{0}{1}', 'refs/tags/', github.event.release.tag_name) }}
 
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
     - name: Activate Docker buildx
-      uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+      uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
       with:
         # Use the docker driver for consistency with docker-builds.yml and local development.
         # All images are pushed to Docker Hub in this workflow so the image store sharing
@@ -28,7 +28,7 @@ jobs:
         BUILDKIT_STEP_LOG_MAX_SIZE: 10485760
 
     - name: Install uv
-      uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+      uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
       with:
         enable-cache: auto
 

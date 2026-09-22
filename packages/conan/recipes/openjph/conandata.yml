@@ -1,9 +1,14 @@
 # Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
-#
-# From: https://github.com/conan-io/conan-center-index/blob/1ce15d41e0301e69706f20bf3d6d942221d8baae/recipes/openjph/all/conandata.yml
+
 sources:
+  "0.32.0":
+    url: "https://github.com/aous72/OpenJPH/archive/refs/tags/0.32.0.tar.gz"
+    sha256: "5cb1ebe18e5ee1322d23ff2130b37562d447d1ad5586c3d16cf84be3ae30f719"
+  "0.31.0":
+    url: "https://github.com/aous72/OpenJPH/archive/refs/tags/0.31.0.tar.gz"
+    sha256: "fe169dbbaae71a169a0a6a68dccb346616193252c1ca044217afa0d5d1dc436f"
   "0.30.1":
     url: "https://github.com/aous72/OpenJPH/archive/refs/tags/0.30.1.tar.gz"
     sha256: "fb3ccf71af838ed2a42c6ea669308a2adaba115ae9d5862dfb1e2865b43eb5b8"
@@ -17,6 +22,14 @@ sources:
     url: "https://github.com/aous72/OpenJPH/archive/0.24.5.tar.gz"
     sha256: "46e33b5c61798bc0fb5aef19bcdd2aa8d207cecc0d389293ee3cf0524165c648"
 patches:
+  "0.32.0":
+    - patch_file: "patches/0.32.0-cmake-cxx-standard-pic.patch"
+      patch_description: "Remove setting of CXX standard to a fixed value overriding the toolchain provided by Conan and PIC hardcoded option"
+      patch_type: "conan"
+  "0.31.0":
+    - patch_file: "patches/0.30.1-cmake-cxx-standard-pic.patch"
+      patch_description: "Remove setting of CXX standard to a fixed value overriding the toolchain provided by Conan and PIC hardcoded option"
+      patch_type: "conan"
   "0.30.1":
     - patch_file: "patches/0.30.1-cmake-cxx-standard-pic.patch"
       patch_description: "Remove setting of CXX standard to a fixed value overriding the toolchain provided by Conan and PIC hardcoded option"
