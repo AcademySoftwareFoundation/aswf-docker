@@ -50,8 +50,8 @@ index d99dd79ac..bfda2778a 100644
          usdUtils
 -        MaterialXCore
 -        MaterialXFormat
-+        materialx::MaterialXCore
-+        materialx::MaterialXFormat
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
 
      CPPFILES
          debugCodes.cpp
@@ -130,11 +130,11 @@ index d99dd79ac..bfda2778a 100644
 -        MaterialXCore
 -        MaterialXFormat
 -        MaterialXGenGlsl
-+        materialx::MaterialXGenShader
-+        materialx::MaterialXRender
-+        materialx::MaterialXCore
-+        materialx::MaterialXFormat
-+        materialx::MaterialXGenGlsl
++        MaterialX::MaterialXGenShader
++        MaterialX::MaterialXRender
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
++        MaterialX::MaterialXGenGlsl
          hdMtlx
      )
      list(APPEND optionalPrivateClasses
@@ -143,7 +143,7 @@ index d99dd79ac..bfda2778a 100644
      if (MaterialX_VERSION VERSION_GREATER_EQUAL "1.38.7")
          list(APPEND optionalLibs
 -            MaterialXGenMsl
-+            materialx::MaterialXGenMsl
++            MaterialX::MaterialXGenMsl
          )
      endif()
  endif()
@@ -155,11 +155,26 @@ index d99dd79ac..bfda2778a 100644
          vt
 -        MaterialXCore
 -        MaterialXFormat
-+        materialx::MaterialXCore
-+        materialx::MaterialXFormat
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
 
      PUBLIC_CLASSES
          hdMtlx
+--- pxr/usdImaging/bin/usdBakeMtlx/CMakeLists.txt
++++ pxr/usdImaging/bin/usdBakeMtlx/CMakeLists.txt
+@@ -10,8 +10,8 @@
+         hd
+         hdMtlx
+         usdImaging
+-        MaterialXCore
+-        MaterialXFormat
+-        MaterialXRenderGlsl
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
++        MaterialX::MaterialXRenderGlsl
+
+     INCLUDE_DIRS
+         ${Boost_INCLUDE_DIRS}
 --- pxr/pxrConfig.cmake.in
 +++ pxr/pxrConfig.cmake.in
 @@ -57,7 +57,21 @@
@@ -182,7 +197,7 @@ index d99dd79ac..bfda2778a 100644
 +    unset(_pxr_mx_targets_after)
 +    unset(_mx_tgt)
  endif()
- 
+
  # Similar to MaterialX above, we are using Imath's cmake package config, so set
 @@ -74,6 +88,45 @@
      find_package(Imath REQUIRED)

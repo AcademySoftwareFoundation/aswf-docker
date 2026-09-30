@@ -75,7 +75,9 @@
       "sha": "98d9c297fc92467bb5c0dbf361ea3b48c57788ff"
     },
     "embree": {
-      "class": "unique"
+      "class": "cci",
+      "folder": "all",
+      "sha": "f250d14b56f404f676ad6340f2749c8e02d890a5"
     },
     "expat": {
       "class": "cci",

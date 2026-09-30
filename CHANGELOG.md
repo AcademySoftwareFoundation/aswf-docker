@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
   - OpenUSD pxrConfig.cmake works around lack of MateriaLX:: prefix in MaterialX CMake config 
   - [docker-builds.yml GHA workflow builds 2027](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/474)
   - GHA workflow actions updated to latest pinned versions
+  - Embreee 4.2.0 to 4.3.3 for Moonray
 
 - 2023.6 releases
   - OpenJPH 0.24.5 to 0.32.0 to support building latest OpenEXR 3.5.x
@@ -32,11 +33,11 @@ All notable changes to this project will be documented in this file.
   - expat 2.8.2 to 2.8.4
   - fmt 11.2.0 to 12.2.0
   - gtest 1.17.0 to 1.18.0
-  - OpenImageIO 3.1.16.0 to 3.2.0.4
+  - OpenImageIO 3.1.16.0 to 3.2.0.5
     - Python bindings build with nanobind instead of pybind11
     - fmt explicitly not built header-only
   - OpenJPH 0.30.1 to 0.32.0 to support building latest OpenEXR 3.5.x
-  - OpenEXR 3.4.15 to 3.5.0, now VFX Platform 2027 compliant
+  - OpenEXR 3.4.15 to 3.5.1, now VFX Platform 2027 compliant
   - OSL 1.15.6.0 to [1.15.7.0](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/475)
 
 # 2026-09-06

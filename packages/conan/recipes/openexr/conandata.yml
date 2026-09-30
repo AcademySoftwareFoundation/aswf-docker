@@ -3,6 +3,9 @@
 # SPDX-License-Identifier: MIT
 
 sources:
+  "3.5.1":
+    url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.5.1/openexr-3.5.1.tar.gz"
+    sha256: "0ae812f7709457d6c4dd711539d0ffe515ddd15edf9351a321c849937ab52908"
   "3.5.0":
     url: "https://github.com/AcademySoftwareFoundation/openexr/releases/download/v3.5.0/openexr-3.5.0.tar.gz"
     sha256: "2ee8d3551170614a659a49bcf81ce59dd72c68b2b8eb73c08036225140ba283a"

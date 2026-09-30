@@ -16,7 +16,7 @@ build_type=Release
 *:shared=True
 [tool_requires]
 [replace_requires]
-openssl/*: openssl/3.5.5@{{ org }}/ci_common7
+openssl/*: openssl/3.5.8@{{ org }}/ci_common7
 gnutls/*: gnutls/3.8.10@{{ org }}/ci_common7
 [replace_tool_requires]
 cmake/*: cmake/4.3.3@{{ org }}/ci_common7

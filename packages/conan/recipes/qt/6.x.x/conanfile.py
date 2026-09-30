@@ -13,7 +13,7 @@ from conan import ConanFile
 from conan.tools.apple import is_apple_os
 from conan.tools.build import cross_building, check_min_cppstd, default_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.env import VirtualBuildEnv, Environment
+from conan.tools.env import VirtualBuildEnv, VirtualRunEnv, Environment
 from conan.tools.files import copy, get, replace_in_file, apply_conandata_patches, save, rm, rmdir, export_conandata_patches
 from conan.tools.gnu import PkgConfigDeps
 from conan.tools.microsoft import msvc_runtime_flag, is_msvc
@@ -495,6 +495,20 @@ class QtConan(ConanFile):
 
         pc = PkgConfigDeps(self)
         pc.generate()
+
+        # ASWF: upstream (conan-io/conan-center-index#30768) dropped this to fix a macOS-only
+        # bug where a build-context tool (bison, via tool_requires) picked up the wrong
+        # DYLD_LIBRARY_PATH from host dependencies, since VirtualBuildEnv (still active above)
+        # and VirtualRunEnv(scope="build") were both active together. But with qtwebengine
+        # enabled, QtWebEngine's own Chromium/GN sub-build compiles and immediately executes
+        # tools (e.g. v8_context_snapshot_generator) that dynamically link against host
+        # dependencies (e.g. libjpeg-turbo). Those aren't CMake targets and get no RPATH from
+        # Conan's toolchain, so without LD_LIBRARY_PATH set for that execution they fail with
+        # "cannot open shared object file". CCI's own CI doesn't build with qtwebengine enabled
+        # (it's very heavy), so this Linux-only regression was never caught upstream. Restore
+        # the old behavior on Linux only, since the actual reported bug was macOS-specific.
+        if self.settings_build.os == "Linux" and not cross_building(self):
+            VirtualRunEnv(self).generate(scope="build")
 
         env = Environment()
         # Tell Python to assume UTF-8 encoding to work around character encoding issues while building Qt WebEngine on Polish locale on Windows.

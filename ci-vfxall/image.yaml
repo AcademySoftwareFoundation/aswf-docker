@@ -15,6 +15,7 @@ packages:
   - alembic       # Dependency of USD once it becomes Conan package
   - imath
   - opencolorio
+  - opencue
   - openexr
   - openfx
   - openimageio
