@@ -15,7 +15,10 @@ from conan.tools.files import chmod, copy, save
 
 class TestPackageConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
-    generators = "CMakeDeps", "CMakeToolchain", "VirtualBuildEnv"
+    # ASWF: CMakeToolchain is instantiated manually in generate() below (to set
+    # CMAKE_AUTO{MOC,RCC,UIC}_EXECUTABLE cache variables), so it can't also be
+    # auto-generated via this list -- Conan rejects declaring it both ways.
+    generators = "CMakeDeps", "VirtualBuildEnv"
     test_type = "explicit"
 
     def layout(self):
@@ -40,8 +43,10 @@ Prefix = {path}""")
             for tool in ["moc", "rcc", "uic"]:
                 tc.cache_variables[f"CMAKE_AUTO{tool.upper()}_EXECUTABLE"] = os.path.join(qt_tools_rootdir, f"{tool}.exe" if self.settings_build.os == "Windows" else tool)
         else:
-            bindir = "bin" if self.settings.os == "Windows" else "libexec"
-            qt_tools_rootdir = os.path.join(self.dependencies["qt"].package_folder, bindir)
+            # ASWF: qt's own INSTALL_LIBEXECDIR=libexec/qt6 (namespaced, FHS-correct for
+            # /usr/local) means the vanilla "bin"/"libexec" layout CCI assumes here is wrong;
+            # read the same user.qt:tools_directory conf the qt package itself exports instead.
+            qt_tools_rootdir = self.dependencies["qt"].conf_info.get("user.qt:tools_directory")
             is_windows = self.settings.os == "Windows"
             if is_windows:
                 exe_ext, wrapper_ext, conanrun_name = ".exe", ".bat", "conanrun.bat"

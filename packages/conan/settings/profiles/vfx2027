@@ -26,7 +26,7 @@ cpython/*: cpython/3.13.14@{{ org }}/vfx2027
 dbus/*: dbus/system@{{ org }}/vfx2027
 double-conversion/*: double-conversion/system@{{ org }}/vfx2027
 eigen/*: eigen/3.4.1@{{ org }}/vfx2027
-embree/*: embree/4.2.0@{{ org }}/vfx2027
+embree/*: embree/4.3.3@{{ org }}/vfx2027
 expat/*: expat/2.8.4@{{ org }}/vfx2027
 fmt/*: fmt/12.2.0@{{ org }}/vfx2027
 fontconfig/*: fontconfig/system@{{ org }}/vfx2027
@@ -90,11 +90,11 @@ opencl-headers/*: opencl-headers/system@{{ org }}/vfx2027
 opencl-icd-loader/*: opencl-icd-loader/system@{{ org }}/vfx2027
 opencolorio/*: opencolorio/2.5.2@{{ org }}/vfx2027
 opencue/*: opencue/1.19.1@{{ org }}/vfx2027
-openexr/*: openexr/3.5.0@{{ org }}/vfx2027
+openexr/*: openexr/3.5.1@{{ org }}/vfx2027
 openfx/*: openfx/1.5.1@{{ org }}/vfx2027
 opengl/*: opengl/system@{{ org }}/vfx2027
 openimagedenoise/*: openimagedenoise/2.5.0@{{ org }}/vfx2027
-openimageio/*: openimageio/3.2.0.4@{{ org }}/vfx2027
+openimageio/*: openimageio/3.2.0.5-rc1@{{ org }}/vfx2027
 openjpeg/*: openjpeg/2.4.0@{{ org }}/vfx2027
 openjph/*: openjph/0.32.0@{{ org }}/vfx2027
 opensubdiv/*: opensubdiv/3.7.0@{{ org }}/vfx2027

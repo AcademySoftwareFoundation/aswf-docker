@@ -37,8 +37,8 @@ index d99dd79ac..bfda2778a 100644
          usdUtils
 -        MaterialXCore
 -        MaterialXFormat
-+        materialx::MaterialXCore
-+        materialx::MaterialXFormat
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
 
      CPPFILES
          discovery.cpp
@@ -116,17 +116,17 @@ index d99dd79ac..bfda2778a 100644
 -        MaterialXCore
 -        MaterialXFormat
 -        MaterialXGenGlsl
-+        materialx::MaterialXGenShader
-+        materialx::MaterialXRender
-+        materialx::MaterialXCore
-+        materialx::MaterialXFormat
-+        materialx::MaterialXGenGlsl
++        MaterialX::MaterialXGenShader
++        MaterialX::MaterialXRender
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
++        MaterialX::MaterialXGenGlsl
          hdMtlx
      )
      if (PXR_ENABLE_METAL_SUPPORT)
          list(APPEND optionalLibs
 -            MaterialXGenMsl
-+            materialx::MaterialXGenMsl
++            MaterialX::MaterialXGenMsl
          )
      endif()
      list(APPEND optionalPrivateClasses
@@ -138,11 +138,26 @@ index d99dd79ac..bfda2778a 100644
          vt
 -        MaterialXCore
 -        MaterialXFormat
-+        materialx::MaterialXCore
-+        materialx::MaterialXFormat
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
 
      PUBLIC_CLASSES
          hdMtlx
+--- pxr/usdImaging/bin/usdBakeMtlx/CMakeLists.txt
++++ pxr/usdImaging/bin/usdBakeMtlx/CMakeLists.txt
+@@ -18,8 +18,8 @@
+         hd
+         hdMtlx
+         usdImaging
+-        MaterialXCore
+-        MaterialXFormat
+-        MaterialXRenderGlsl
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
++        MaterialX::MaterialXRenderGlsl
+
+     PUBLIC_CLASSES
+         bakeMaterialX
 --- pxr/pxrConfig.cmake.in
 +++ pxr/pxrConfig.cmake.in
 @@ -87,7 +87,21 @@

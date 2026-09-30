@@ -24,7 +24,7 @@ cpython/*: cpython/3.11.15@{{ org }}/vfx2025
 dbus/*: dbus/system@{{ org }}/vfx2025
 double-conversion/*: double-conversion/system@{{ org }}/vfx2025
 eigen/*: eigen/3.4.1@{{ org }}/vfx2025
-embree/*: embree/4.2.0@{{ org }}/vfx2025
+embree/*: embree/4.3.3@{{ org }}/vfx2025
 expat/*: expat/2.6.4@{{ org }}/vfx2025
 fmt/*: fmt/11.2.0@{{ org }}/vfx2025
 fontconfig/*: fontconfig/system@{{ org }}/vfx2025

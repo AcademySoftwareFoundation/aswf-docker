@@ -37,8 +37,8 @@ index d99dd79ac..bfda2778a 100644
          usdUtils
 -        MaterialXCore
 -        MaterialXFormat
-+        materialx::MaterialXCore
-+        materialx::MaterialXFormat
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
 
      CPPFILES
          discovery.cpp
@@ -117,12 +117,12 @@ index d99dd79ac..bfda2778a 100644
 -        MaterialXFormat
 -        MaterialXGenGlsl
 -        MaterialXGenMsl
-+        materialx::MaterialXGenShader
-+        materialx::MaterialXRender
-+        materialx::MaterialXCore
-+        materialx::MaterialXFormat
-+        materialx::MaterialXGenGlsl
-+        materialx::MaterialXGenMsl
++        MaterialX::MaterialXGenShader
++        MaterialX::MaterialXRender
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
++        MaterialX::MaterialXGenGlsl
++        MaterialX::MaterialXGenMsl
          hdMtlx
      )
      list(APPEND optionalPrivateClasses
@@ -134,11 +134,26 @@ index d99dd79ac..bfda2778a 100644
          vt
 -        MaterialXCore
 -        MaterialXFormat
-+        materialx::MaterialXCore
-+        materialx::MaterialXFormat
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
 
      PUBLIC_CLASSES
          hdMtlx
+--- pxr/usdImaging/bin/usdBakeMtlx/CMakeLists.txt
++++ pxr/usdImaging/bin/usdBakeMtlx/CMakeLists.txt
+@@ -18,8 +18,8 @@
+         hd
+         hdMtlx
+         usdImaging
+-        MaterialXCore
+-        MaterialXFormat
+-        MaterialXRenderGlsl
++        MaterialX::MaterialXCore
++        MaterialX::MaterialXFormat
++        MaterialX::MaterialXRenderGlsl
+
+     PUBLIC_CLASSES
+         bakeMaterialX
 --- pxr/pxrConfig.cmake.in
 +++ pxr/pxrConfig.cmake.in
 @@ -87,7 +87,21 @@
@@ -161,7 +176,7 @@ index d99dd79ac..bfda2778a 100644
 +    unset(_pxr_mx_targets_after)
 +    unset(_mx_tgt)
  endif()
- 
+
  # Similar to MaterialX above, we are using Imath's cmake package config, so set
 @@ -104,6 +118,45 @@
      find_dependency(Imath)

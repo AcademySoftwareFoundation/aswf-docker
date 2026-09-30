@@ -15,16 +15,44 @@ tar -zxf "$DOWNLOADS_DIR/opencue-${ASWF_OPENCUE_VERSION:-1.19.1}.tar.gz"
 
 pushd OpenCue-${ASWF_OPENCUE_VERSION:-1.19.1}
 
+# Bypass git-only version detection. Only applies to versions whose
+# ci/generate_version_number.py still matches this hunk's context.
+case "${ASWF_OPENCUE_VERSION:-1.19.1}" in
+    1.19.1|1.13.18)
+        cat << 'EOF' | patch -p1
+--- a/ci/generate_version_number.py
++++ b/ci/generate_version_number.py
+@@ -41,6 +41,7 @@
+ This step is already performed automatically within our CI pipelines.
+ """
+
++import os
+ import pathlib
+ import re
+ import subprocess
+@@ -101,6 +102,8 @@
+     Returns:
+         The calculated version string.
+     """
++    if "ASWF_OPENCUE_VERSION" in os.environ:
++        return os.environ["ASWF_OPENCUE_VERSION"]
+     script_dir = pathlib.Path(__file__).parent.resolve()
+     toplevel_dir = script_dir.parent
+     version_in_path = toplevel_dir / "VERSION.in"
+EOF
+        ;;
+esac
+
 # 1. Build Cuebot (Java / Gradle)
 # Assuming OpenCue source code is bound or checked out in the workspace
 # https://docs.opencue.io/docs/getting-started/deploying-cuebot/#option-4-build-from-source
 if [ -d "cuebot" ]; then
-    ./cuebot/gradlew -p cuebot build -x 
+    ./cuebot/gradlew -p cuebot build -x :test
 
     # Create installation directories under ASWF_INSTALL_PREFIX and copy.
     mkdir -p "${ASWF_INSTALL_PREFIX}/lib/opencue"
     mkdir -p "${ASWF_INSTALL_PREFIX}/bin"
-    cp cuebot/build/libs/cuebot-*.jar "${ASWF_INSTALL_PREFIX}/lib/opencue/cuebot.jar"
+    cp cuebot/build/libs/cuebot*.jar "${ASWF_INSTALL_PREFIX}/lib/opencue/cuebot.jar"
     
     # Create a wrapper script to run Cuebot via Java
     cat << 'EOF' > "${ASWF_INSTALL_PREFIX}/bin/cuebot"
@@ -42,9 +70,13 @@ if [ -d "rust" ]; then
 fi
 
 # 3. Build Python packages (pycue, cuesubmit, etc.) via pip/hatch
+# --no-build-isolation below means pip expects each package's build backend
+# to already be installed rather than fetching it itself.
+pip3 install hatchling "grpcio>=1.62.0" "grpcio-tools>=1.62.0"
+
 for pkg in pycue proto rqd cuesubmit cueadmin cuecmd cuenimby; do
     if [ -d "$pkg" ]; then
-        pip3 install --no-build-isolation -e ./$pkg
+        pip3 install --no-build-isolation ./$pkg
     fi
 done
 

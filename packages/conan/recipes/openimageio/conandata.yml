@@ -4,6 +4,9 @@
 
 sources:
   # ASWF FIXME: replace with final release URL
+  "3.2.0.5-rc1":
+    url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.2.0.5-rc1.tar.gz"
+    sha256: "5d87f2f535b3d46aa6f57a335f007701e72017e3bf274da9dc74d199ae1bb5d5"
   "3.2.0.4":
     url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/releases/download/v3.2.0.4-beta2/OpenImageIO-3.2.0.4-beta2.tar.gz"
     sha256: "77ce1dcbb5f1f359f4e16f514bfae965b067105de6218fa6dbc59cef602a0591"
@@ -81,6 +84,16 @@ sources:
     sha256: "7fe81d8e5bce30cc4a212f020ac3cc4344e6b7c1c0842475e3a048515099c65c"
 
 patches:
+  "3.2.0.5-rc1":
+    - patch_file: "patches/3.2.0.5-cmake-fmt.patch"
+      patch_description: "fmt vs fmt-header-only"
+      patch_type: "conan"
+    - patch_file: "patches/3.1.13.1-utils-includes-libs.patch"
+      patch_description: "Link binaries against libdeflate"
+      patch_type: "conan"
+    - patch_file: "patches/3.1.10.0-raw-jp2k-cmake.patch"
+      patch_description: "Find local builds of LibRaw, OpenJPEG"
+      patch_type: "conan"
   "3.2.0.4":
     - patch_file: "patches/3.2.0.4-cmake-fmt.patch"
       patch_description: "fmt vs fmt-header-only"

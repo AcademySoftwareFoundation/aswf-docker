@@ -121,7 +121,18 @@ class MaterialXConan(ConanFile):
         rm(self, "*.pdb", os.path.join(self.package_folder, "lib"))
         rm(self, "*.pdb", os.path.join(self.package_folder, "bin"))
 
+    def _add_component(self, name):
+        # ASWF: Conan doesn't derive component target names from the root
+        # cmake_file_name/cmake_target_name (see CMakeDeps' get_component_alias()),
+        # so each component needs its own explicit override to get the
+        # MaterialX:: namespace matching upstream's real project() name,
+        # instead of Conan's default materialx:: (from the Conan package name).
+        component = self.cpp_info.components[name]
+        component.set_property("cmake_target_name", f"MaterialX::{name}")
+        return component
+
     def package_info(self):
+        self.cpp_info.set_property("cmake_file_name", "MaterialX")
         self.cpp_info.requires.append("cpython::cpython")
         # You can try uncommenting the following to use vendored pybind11
         # instead of Conan dependency
@@ -132,37 +143,45 @@ class MaterialXConan(ConanFile):
             self.cpp_info.system_libs.append("m")
             self.cpp_info.system_libs.append("dl")
 
-        self.cpp_info.components["MaterialXCore"].libs = ["MaterialXCore"]
+        self._add_component("MaterialXCore").libs = ["MaterialXCore"]
 
-        self.cpp_info.components["MaterialXFormat"].libs = ["MaterialXFormat"]
-        self.cpp_info.components["MaterialXFormat"].requires = ["MaterialXCore"]
+        materialx_format = self._add_component("MaterialXFormat")
+        materialx_format.libs = ["MaterialXFormat"]
+        materialx_format.requires = ["MaterialXCore"]
 
-        self.cpp_info.components["MaterialXGenGlsl"].libs = ["MaterialXGenGlsl"]
-        self.cpp_info.components["MaterialXGenGlsl"].requires = ["MaterialXCore", "MaterialXGenShader"]
+        materialx_gen_glsl = self._add_component("MaterialXGenGlsl")
+        materialx_gen_glsl.libs = ["MaterialXGenGlsl"]
+        materialx_gen_glsl.requires = ["MaterialXCore", "MaterialXGenShader"]
 
-        self.cpp_info.components["MaterialXGenMdl"].libs = ["MaterialXGenMdl"]
-        self.cpp_info.components["MaterialXGenMdl"].requires = ["MaterialXCore", "MaterialXGenShader"]
+        materialx_gen_mdl = self._add_component("MaterialXGenMdl")
+        materialx_gen_mdl.libs = ["MaterialXGenMdl"]
+        materialx_gen_mdl.requires = ["MaterialXCore", "MaterialXGenShader"]
 
         if self.options.build_gen_msl:
-            self.cpp_info.components["MaterialXGenMsl"].libs = ["MaterialXGenMsl"]
-            self.cpp_info.components["MaterialXGenMsl"].requires = ["MaterialXCore", "MaterialXGenShader"]
+            materialx_gen_msl = self._add_component("MaterialXGenMsl")
+            materialx_gen_msl.libs = ["MaterialXGenMsl"]
+            materialx_gen_msl.requires = ["MaterialXCore", "MaterialXGenShader"]
 
-        self.cpp_info.components["MaterialXGenOsl"].libs = ["MaterialXGenOsl"]
-        self.cpp_info.components["MaterialXGenOsl"].requires = ["MaterialXCore", "MaterialXGenShader"]
+        materialx_gen_osl = self._add_component("MaterialXGenOsl")
+        materialx_gen_osl.libs = ["MaterialXGenOsl"]
+        materialx_gen_osl.requires = ["MaterialXCore", "MaterialXGenShader"]
 
-        self.cpp_info.components["MaterialXGenShader"].libs = ["MaterialXGenShader"]
-        self.cpp_info.components["MaterialXGenShader"].requires = ["MaterialXCore", "MaterialXFormat"]
+        materialx_gen_shader = self._add_component("MaterialXGenShader")
+        materialx_gen_shader.libs = ["MaterialXGenShader"]
+        materialx_gen_shader.requires = ["MaterialXCore", "MaterialXFormat"]
 
-        self.cpp_info.components["MaterialXRender"].libs = ["MaterialXRender"]
-        self.cpp_info.components["MaterialXRender"].requires = ["MaterialXGenShader"]
+        materialx_render = self._add_component("MaterialXRender")
+        materialx_render.libs = ["MaterialXRender"]
+        materialx_render.requires = ["MaterialXGenShader"]
         if self.options.with_openimageio:
-            self.cpp_info.components["MaterialXRender"].requires.append("openimageio::openimageio")
-            self.cpp_info.components["MaterialXRender"].defines.append("MATERIALX_BUILD_OIIO")
+            materialx_render.requires.append("openimageio::openimageio")
+            materialx_render.defines.append("MATERIALX_BUILD_OIIO")
 
-        self.cpp_info.components["MaterialXRenderGlsl"].libs = ["MaterialXRenderGlsl"]
-        self.cpp_info.components["MaterialXRenderGlsl"].requires = ["MaterialXRenderHw", "MaterialXGenGlsl"]
+        materialx_render_glsl = self._add_component("MaterialXRenderGlsl")
+        materialx_render_glsl.libs = ["MaterialXRenderGlsl"]
+        materialx_render_glsl.requires = ["MaterialXRenderHw", "MaterialXGenGlsl"]
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.components["MaterialXRenderGlsl"].requires.append("opengl::opengl")
+            materialx_render_glsl.requires.append("opengl::opengl")
         elif self.settings.os in ["Macos", "iOS"]:
             self.cpp_info.frameworks.extend(["Foundation", "Cocoa", "OpenGL"])
             if self.settings.os == "Macos":
@@ -172,10 +191,11 @@ class MaterialXConan(ConanFile):
         elif self.settings.os == "Windows":
             self.cpp_info.system_libs.append("opengl32")
 
-        self.cpp_info.components["MaterialXRenderHw"].libs = ["MaterialXRenderHw"]
-        self.cpp_info.components["MaterialXRenderHw"].requires = ["MaterialXRender"]
+        materialx_render_hw = self._add_component("MaterialXRenderHw")
+        materialx_render_hw.libs = ["MaterialXRenderHw"]
+        materialx_render_hw.requires = ["MaterialXRender"]
         if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.components["MaterialXRenderHw"].requires.append("xorg::xorg")
+            materialx_render_hw.requires.append("xorg::xorg")
         elif self.settings.os in ["Macos", "iOS"]:
             self.cpp_info.frameworks.extend(["Foundation", "Cocoa", "AppKit", "Metal"])
             if self.settings.os == "Macos":
@@ -183,12 +203,14 @@ class MaterialXConan(ConanFile):
             else:
                 self.cpp_info.includedirs.extend(["include/compat/ios"])
 
-        self.cpp_info.components["MaterialXRenderOsl"].libs = ["MaterialXRenderOsl"]
-        self.cpp_info.components["MaterialXRenderOsl"].requires = ["MaterialXRender"]
+        materialx_render_osl = self._add_component("MaterialXRenderOsl")
+        materialx_render_osl.libs = ["MaterialXRenderOsl"]
+        materialx_render_osl.requires = ["MaterialXRender"]
 
         if self.options.build_gen_msl and self.settings.os == "Macos":
-            self.cpp_info.components["MaterialXRenderMsl"].libs = ["MaterialXRenderMsl"]
-            self.cpp_info.components["MaterialXRenderMsl"].requires = ["MaterialXRenderHw", "MaterialXGenMsl"]
+            materialx_render_msl = self._add_component("MaterialXRenderMsl")
+            materialx_render_msl.libs = ["MaterialXRenderMsl"]
+            materialx_render_msl.requires = ["MaterialXRenderHw", "MaterialXGenMsl"]
             self.cpp_info.frameworks.extend(["CoreFoundation", "OpenGL", "AppKit", "Metal", "MetalPerformanceShaders"])
             if self.settings.os == "Macos":
                 self.cpp_info.includedirs.extend(["include/compat/osx"])

@@ -1,0 +1,34 @@
+From 0a37015233c4522b90f3600cbd32514e4a7dc363 Mon Sep 17 00:00:00 2001
+From: Moss Heim <moss.heim@qt.io>
+Date: Mon, 8 Sep 2025 15:12:59 +0200
+Subject: [fixup] Adapt autofill component for WebEngine
+
+We were missing two generated header dependencies.
+
+Fixes: QTBUG-139959
+Change-Id: Ie6d78a1d6f097443f238d78e29885cc76587f85b
+Reviewed-on: https://codereview.qt-project.org/c/qt/qtwebengine-chromium/+/674200
+Reviewed-by: Michal Klocek <michal.klocek@qt.io>
+(cherry picked from commit 7673834974857960a2f61fcc0751abdf7880f5a4)
+Reviewed-on: https://codereview.qt-project.org/c/qt/qtwebengine-chromium/+/675505
+Reviewed-by: Qt Cherry-pick Bot <cherrypick_bot@qt-project.org>
+---
+ chromium/components/autofill/core/browser/BUILD.gn | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/chromium/components/autofill/core/browser/BUILD.gn b/chromium/components/autofill/core/browser/BUILD.gn
+index cc40acfeb7e..1add259d0b4 100644
+--- a/chromium/components/autofill/core/browser/BUILD.gn
++++ b/chromium/components/autofill/core/browser/BUILD.gn
+@@ -817,6 +817,8 @@ jumbo_static_library("browser") {
+     public_deps = [
+       "//components/autofill/core/browser/proto",
+       "//components/autofill/core/common",
++      "//components/resources:components_scaled_resources",
++      "//components/strings:components_strings",
+       "//components/autofill/core/common/mojom:mojo_types",
+       "//third_party/abseil-cpp:absl",
+       "//ui/base",
+-- 
+cgit v1.2.3
+
