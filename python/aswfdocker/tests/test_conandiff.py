@@ -255,8 +255,8 @@ class TestResolveRecipeNames(unittest.TestCase):
             conandiff._resolve_recipe_names(["not-a-real-group"], [])
 
     def test_group_and_target_combined(self):
-        names = conandiff._resolve_recipe_names(["base1-1"], ["zlib", "b2"])
-        self.assertEqual(sorted(names), ["b2", "zlib"])
+        names = conandiff._resolve_recipe_names(["common-1"], ["zlib", "cmake"])
+        self.assertEqual(sorted(names), ["cmake", "zlib"])
 
 
 class TestIterFolderShas(unittest.TestCase):
