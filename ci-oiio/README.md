@@ -58,7 +58,7 @@ Contains:
 * libjxl-0.11.1
 * libultrahdr-1.4.0
 * openjph-0.32.0
-* openimageio-3.1.17.0
+* openimageio-3.1.18.1
 * numpy-2.3.2
 * vfxplatform-2026
 
@@ -69,7 +69,7 @@ Contains:
 * libjxl-0.12.0
 * libultrahdr-1.4.0
 * openjph-0.32.0
-* openimageio-3.2.0.5-rc1
+* openimageio-3.2.1.1
 * numpy-2.4.6
 * vfxplatform-2027
 

@@ -22,7 +22,7 @@ Warning: this image does *not* contain OpenCue itself as it is used to *build* O
 
 Contains:
 * cpython-3.10.20
-* opencue-0.22.14
+* opencue-1.13.8
 * numpy-1.23.5
 * vfxplatform-2023
 
@@ -30,7 +30,7 @@ Contains:
 
 Contains:
 * cpython-3.11.15
-* opencue-1.4.11
+* opencue-1.13.8
 * numpy-1.24.3
 * vfxplatform-2024
 
@@ -38,7 +38,7 @@ Contains:
 
 Contains:
 * cpython-3.11.15
-* opencue-1.13.18
+* opencue-1.13.8
 * numpy-1.26.4
 * vfxplatform-2025
 

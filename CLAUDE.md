@@ -172,13 +172,23 @@ uv run aswfdocker dockergen --check
    - They are excluded from Black formatting and SonarCloud analysis.
    - They retain the overall MIT license from Conan Center Index (even the recipes
      which are unique to this project).
-   - Local modifications should be kept to a minimum. Every deviation from the upstream
-     CCI recipe **must** be marked with an `# ASWF:` comment (Python) or `# ASWF:`
-     comment (CMake/shell) that explains *why* the change is needed, not just *what* it
-     does. The comment goes on the same line as a one-liner, or on the line immediately
-     above a multi-line block. Removed upstream code should be commented out rather than
-     deleted, with an `# ASWF:` explanation, so the diff from upstream stays readable.
-     Examples of correct style:
+   - **The `# ASWF:` comment-marking convention below applies *only* to recipes
+     classified `"class": "cci"` in `packages/conan/recipes/conan-center-index-upstream.json`**
+     — i.e. recipes genuinely vendored from an upstream CCI recipe, where there's an
+     upstream baseline to diff against and deviations from it need explaining. Recipes
+     classified `"unique"` or `"system"` in that same file are ASWF's own code with no
+     upstream to diverge from, and this convention does not apply to them, or to
+     anything outside `packages/conan/recipes/` (Python under `python/aswfdocker/`,
+     Dockerfiles/`image.yaml`, `versions.yaml`, shell scripts, CI workflows, etc.) —
+     `# ASWF:` tags there are redundant, since all of that code is already ASWF's own
+     and has no upstream recipe to compare against.
+   - For `"cci"`-classed recipes: local modifications should be kept to a minimum.
+     Every deviation from the upstream CCI recipe **must** be marked with an `# ASWF:`
+     comment (Python) or `# ASWF:` comment (CMake/shell) that explains *why* the change
+     is needed, not just *what* it does. The comment goes on the same line as a
+     one-liner, or on the line immediately above a multi-line block. Removed upstream
+     code should be commented out rather than deleted, with an `# ASWF:` explanation,
+     so the diff from upstream stays readable. Examples of correct style:
      ```python
      self.requires("expat/[>=2.6.2 <3]")  # ASWF: use Conan expat instead of system one
      # ASWF: imath does not use CMakeDeps, so we set Python hints directly

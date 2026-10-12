@@ -182,7 +182,7 @@ class ClangConan(ConanFile):
         "shared": False,
         "fPIC": True,
         "components": "all",
-        "targets": "host;NVPTX;AMDGPU",  # ASWF: distro Mesa requires AMDGPU symbols from shared LLVM
+        "targets": "host;NVPTX",
         "exceptions": True,
         "rtti": True,
         "threads": True,

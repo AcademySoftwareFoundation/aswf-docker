@@ -37,6 +37,21 @@ index d99dd79ac..bfda2778a 100644
 
      set_target_properties (libtestshade
                             PROPERTIES
+diff --git src/testrender/CMakeLists.txt src/testrender/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- a/src/testrender/CMakeLists.txt
++++ b/src/testrender/CMakeLists.txt
+@@ -71,6 +71,10 @@
+         oslexec oslquery
+         pugixml::pugixml)
+
++if (OSL_USE_OPTIX)
++    add_dependencies(testrender testrender_ptx)
++endif ()
++
+ osl_optix_target (testrender)
+
+ install ( TARGETS testrender RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} )
 EOF
 
 fi
