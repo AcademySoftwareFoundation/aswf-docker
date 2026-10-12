@@ -18,7 +18,7 @@ pushd OpenCue-${ASWF_OPENCUE_VERSION:-1.19.1}
 # Bypass git-only version detection. Only applies to versions whose
 # ci/generate_version_number.py still matches this hunk's context.
 case "${ASWF_OPENCUE_VERSION:-1.19.1}" in
-    1.19.1|1.13.18)
+    1.19.1|1.13.8)
         cat << 'EOF' | patch -p1
 --- a/ci/generate_version_number.py
 +++ b/ci/generate_version_number.py

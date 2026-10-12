@@ -53,6 +53,19 @@ class Index:
                 )
                 if not vi.conan_profile:
                     vi.conan_profile = self._version_infos[parent].conan_profile
+            # OS-distro package_versions (bison/flex/..., and system
+            # clang/OSMesa versions) live in a side entry keyed by
+            # ASWF_BASEOS_DISTRO (e.g. "rockylinux8") rather than in the normal
+            # parent_versions chain, since they're inherited by distro rather
+            # than by package lineage. Fill in any that aren't already set
+            # (directly or via parent_versions), without overriding anything
+            # more specific.
+            baseos_distro = vi.all_package_versions.get("ASWF_BASEOS_DISTRO")
+            if baseos_distro and baseos_distro in self._version_infos:
+                for key, value in self._version_infos[
+                    baseos_distro
+                ].package_versions.items():
+                    vi.all_package_versions.setdefault(key, value)
 
     def _get_key(self, image_type: constants.ImageType):
         if image_type == constants.ImageType.PACKAGE:

@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/1ce15d41e0301e69706f20bf3d6d942221d8baae/recipes/opencolorio/all/conandata.yml
 
 sources:
+  "2.6.0":
+    url: "https://github.com/AcademySoftwareFoundation/OpenColorIO/releases/download/v2.6.0/OpenColorIO-2.6.0.tar.gz"
+    sha256: "9271f4cb7751b465daf0e178323aef3f3fdf7595908ee4bb6442cceb73a24296"
   "2.5.2":
     url: "https://github.com/AcademySoftwareFoundation/OpenColorIO/releases/download/v2.5.2/OpenColorIO-2.5.2.tar.gz"
     sha256: "cb8b0ae38fa523be8f899a0b2d6b8ca8cbcda7bc4322c91d1ac2b6b2a0082474"
@@ -33,6 +36,16 @@ sources:
     url: "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v2.1.0.tar.gz"
     sha256: "81fc7853a490031632a69c73716bc6ac271b395e2ba0e2587af9995c2b0efb5f"
 patches:
+  "2.6.0":
+    - patch_file: "patches/2.6.0-0001-fix-cmake-source-dir-and-targets.patch"
+      patch_description: "use cci package, use PROJECT_BINARY_DIR/PROJECT_SOURCE_DIR"
+      patch_type: "conan"
+    - patch_file: "patches/2.5.0-0002-cmake-deps-for-shared-libs.patch"
+      patch_description: "don't skip cmake dependencies for shared builds"
+      patch_type: "conan"
+    - patch_file: "patches/2.6.0-0004-find-python.patch"
+      patch_description: "We call FindPython3"
+      patch_type: "conan"
   "2.5.2":
     - patch_file: "patches/2.5.2-0001-fix-cmake-source-dir-and-targets.patch"
       patch_description: "use cci package, use PROJECT_BINARY_DIR/PROJECT_SOURCE_DIR"

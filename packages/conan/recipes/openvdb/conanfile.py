@@ -40,6 +40,8 @@ class OpenVDBConan(ConanFile):
         "fPIC": [True, False],
         "build_ax": [True, False],
         "build_binaries": [True, False], # ASWF: build binaries to exercise additional dependencies
+        "build_nanovdb": [True, False], # ASWF: build NanoVDB to exercise additional dependencies
+        "build_python_module": [True, False], # ASWF: build the Python module to exercise additional dependencies
         "build_tests": [True, False], # ASWF: build tests to exercise additional dependencies
         "simd": [None, "SSE42", "AVX"],
         "use_colored_output": [True, False],
@@ -55,12 +57,22 @@ class OpenVDBConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "build_ax": True, # ASWF: OpenVDB 
+        "build_ax": True, # ASWF: OpenVDB
         "build_binaries": True, # ASWF: build binaries to exercise additional dependencies
+        "build_nanovdb": True, # ASWF: nanovdb should be packaged separately in CCI - exercise it here
+        # ASWF: default False -- OpenVDB's top-level CMakeLists.txt (>=12.1.0) calls
+        # find_package(Python...) before add_subdirectory(openvdb/openvdb), which
+        # triggers Boost's own find_dependency(Python3) (for Boost::python) a second
+        # time with different COMPONENTS. The two resolutions land in different CMake
+        # directory scopes, and the deferred property-setting for cpython's internal
+        # "_hidden" interface target (registered by the first, premature pass) ends up
+        # unable to see the lowercase expat::expat target created by the second pass
+        # inside that subdirectory, failing CMake's Generate step.
+        "build_python_module": False,
         "build_tests": True, # ASWF: build tests to exercise additional dependencies
         "simd": None,
         "use_colored_output": False,
-        "use_delayed_loading": False,
+        "use_delayed_loading": True, # ASWF: compatibility with Cycles / Hydra
         "use_explicit_instantiation": False,
         "use_imath_half": True,
         "with_blosc": True,
@@ -71,6 +83,8 @@ class OpenVDBConan(ConanFile):
     options_description = {
         "build_ax": "Build the OpenVDB AX library.",
         "build_binaries": "Build the OpenVDB standalone utilities.", # ASWF
+        "build_nanovdb": "Build the NanoVDB library.", # ASWF
+        "build_python_module": "Build the OpenVDB Python module.", # ASWF
         "simd": (
             "Choose whether to enable SIMD compiler flags or not. "
             "Although not required, it is strongly recommended to enable SIMD. AVX implies SSE42."
@@ -155,7 +169,19 @@ class OpenVDBConan(ConanFile):
             self.requires("glfw/3.4") # ASWF: build binaries to exercise additional dependencies
         if self.options.build_tests:
             self.requires("gtest/1.17.0") # ASWF: build tests to exercise additional dependencies
-    
+        if self.options.build_python_module: # ASWF: build Python bindings to exercise additional dependencies
+            self.requires("cpython/[>=3.0.0]")
+            if Version(self.version) < "12.1.0":
+                self.requires("pybind11/[>=2.0.0]") # ASWF: Python bindings use pybind11 before 12.1.0
+            else:
+                # ASWF: 12.1.0+ uses nanobind. Unlike OIIO/rawtoaces, OpenVDB's own CMake does a
+                # plain find_package(nanobind CONFIG) rather than shelling out to
+                # `python -m nanobind --cmake_dir`, so we point CMake straight at nanobind's
+                # package via nanobind_DIR in generate() instead. Its Conan package has
+                # cmake_find_mode="none" (no generated target), so mark it invisible like
+                # OpenEXR does for its own pybind11/cpython Python-binding deps.
+                self.requires("nanobind/[>=2.8.0 <3.10]", visible=False)
+
     def _check_compiler_version(self):
         compiler = str(self.settings.compiler)
         minimum_version = self._compilers_min_version.get(compiler, False)
@@ -206,8 +232,8 @@ class OpenVDBConan(ConanFile):
         tc.variables["OPENVDB_BUILD_HOUDINI_ABITESTS"] = False
         tc.variables["OPENVDB_BUILD_HOUDINI_PLUGIN"] = False
         tc.variables["OPENVDB_BUILD_MAYA_PLUGIN"] = False
-        tc.variables["OPENVDB_BUILD_NANOVDB"] = False # nanovdb should be packaged separately in CCI
-        tc.variables["OPENVDB_BUILD_PYTHON_MODULE"] = False
+        tc.variables["OPENVDB_BUILD_NANOVDB"] = self.options.build_nanovdb # ASWF: nanovdb should be packaged separately in CCI - exercise it here
+        tc.variables["OPENVDB_BUILD_PYTHON_MODULE"] = self.options.build_python_module # ASWF
         tc.variables["OPENVDB_CORE_SHARED"] = self.options.shared
         tc.variables["OPENVDB_CORE_STATIC"] = not self.options.shared
         tc.variables["OPENVDB_CXX_STRICT"] = False
@@ -218,7 +244,11 @@ class OpenVDBConan(ConanFile):
         tc.variables["OPENVDB_INSTALL_CMAKE_MODULES"] = False
         tc.variables["OPENVDB_SIMD"] = self.options.simd
         tc.variables["OPENVDB_USE_DELAYED_LOADING"] = self.options.get_safe("use_delayed_loading", False)
-        tc.variables["USE_AX"] = False # used only by Python bindings and the Houdini plugin
+        # ASWF: mirrors OPENVDB_BUILD_AX. USE_AX only matters to other subsystems built in
+        # this same configure (it's also the default for OPENVDB_PYTHON_USE_AX, which exposes
+        # AX wrapping in the Python module) -- it does not gate add_subdirectory(openvdb_ax),
+        # so this cannot build anything AX doesn't already build via build_ax.
+        tc.variables["USE_AX"] = self.options.build_ax
         tc.variables["USE_BLOSC"] = self.options.with_blosc
         tc.variables["USE_COLORED_OUTPUT"] = self.options.get_safe("use_colored_output", False)
         tc.variables["USE_EXPLICIT_INSTANTIATION"] = self.options.get_safe("use_explicit_instantiation", False)
@@ -227,12 +257,17 @@ class OpenVDBConan(ConanFile):
         tc.variables["USE_IMATH_HALF"] = self.options.get_safe("use_imath_half", False)
         tc.variables["USE_LOG4CPLUS"] = self.options.with_log4cplus
         tc.variables["USE_MAYA"] = False
-        tc.variables["USE_NANOVDB"] = False
+        tc.variables["USE_NANOVDB"] = self.options.build_nanovdb # ASWF: mirrors OPENVDB_BUILD_NANOVDB, see USE_AX above
         tc.variables["USE_PKGCONFIG"] = False
         tc.variables["USE_PNG"] = False
         tc.variables["USE_STATIC_DEPENDENCIES"] = False
         tc.variables["USE_TBB"] = True # Only affects the nanovdb component
         tc.variables["USE_ZLIB"] = self.options.with_zlib
+        if self.options.build_python_module and Version(self.version) >= "12.1.0":
+            # ASWF: point CMake's find_package(nanobind CONFIG) straight at the nanobind
+            # Conan package's own vendored nanobind-config.cmake (no generated CMakeDeps
+            # target to rely on, see requirements() above).
+            tc.variables["nanobind_DIR"] = self.dependencies["nanobind"].cpp_info.builddirs[0]
         tc.generate()
 
         tc = CMakeDeps(self)
@@ -323,3 +358,43 @@ class OpenVDBConan(ConanFile):
             main_component.requires.append("gtest::gtest")
 
         main_component.set_property("cmake_target_name", "OpenVDB::openvdb")
+
+        # ASWF: expose the libraries/module produced by the optional build_ax,
+        # build_nanovdb and build_python_module options as their own components,
+        # matching the namespacing upstream's own cmake/FindOpenVDB.cmake documents
+        # (OpenVDB::openvdb_ax, OpenVDB::nanovdb) for non-Conan consumers.
+        if self.options.build_ax:
+            ax_component = self.cpp_info.components["openvdb-ax"]
+            ax_component.set_property("cmake_target_name", "OpenVDB::openvdb_ax")
+            ax_component.libs = ["openvdb_ax"]
+            ax_component.requires = ["openvdb-core"]
+            # ASWF: AX statically links LLVM via the clang/llvm tool_requires toolchain
+            # (user.aswf:openvdb_clang_ref), which isn't a Conan package dependency, so
+            # it has no corresponding entry here.
+
+        if self.options.build_nanovdb:
+            nanovdb_component = self.cpp_info.components["nanovdb"]
+            nanovdb_component.set_property("cmake_target_name", "OpenVDB::nanovdb")
+            # nanovdb is an INTERFACE (header-only) CMake target, so there are no libs to list.
+            nanovdb_component.requires = ["onetbb::libtbb"]
+            if self.options.with_blosc:
+                nanovdb_component.requires.append("c-blosc::c-blosc")
+            if self.options.with_zlib:
+                nanovdb_component.requires.append("zlib::zlib")
+
+        if self.options.build_python_module:
+            python_component = self.cpp_info.components["python"]
+            # ASWF: the Python module is a loadable extension, not something C++ code
+            # links against -- no .libs, just model its runtime deps and where it lands.
+            python_component.set_property("cmake_target_name", "OpenVDB::openvdb_python")
+            python_component.requires = ["openvdb-core", "cpython::cpython"]
+            if self.options.build_ax:
+                python_component.requires.append("openvdb-ax")
+            if Version(self.version) < "12.1.0":
+                python_component.requires.append("pybind11::pybind11")
+            py_version = str(self.dependencies["cpython"].ref.version)
+            major_minor = ".".join(py_version.split(".")[:2])
+            site_pkg_dir = os.path.join("lib", f"python{major_minor}", "site-packages")
+            python_component.bindirs = []
+            python_component.libdirs = [site_pkg_dir]
+            self.runenv_info.prepend_path("PYTHONPATH", os.path.join(self.package_folder, site_pkg_dir))

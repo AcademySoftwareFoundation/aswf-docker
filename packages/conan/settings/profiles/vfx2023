@@ -80,14 +80,14 @@ mpg123/*: mpg123/system@{{ org }}/vfx2023
 nanobind/*: nanobind/2.11.0@{{ org }}/vfx2023
 nlohmann_json/*: nlohmann_json/3.12.0@{{ org }}/vfx2023
 nspr/*: nspr/system@{{ org }}/vfx2023
-nss/*: nss/3.112.0@{{ org }}/vfx2023
+nss/*: nss/3.124.0@{{ org }}/vfx2023
 ogg/*: ogg/system@{{ org }}/vfx2023
 onetbb/*: onetbb/2020.3@{{ org }}/vfx2023
 openal-soft/*: openal-soft/system@{{ org }}/vfx2023
 opencl-headers/*: opencl-headers/system@{{ org }}/vfx2023
 opencl-icd-loader/*: opencl-icd-loader/system@{{ org }}/vfx2023
 opencolorio/*: opencolorio/2.2.1@{{ org }}/vfx2023
-opencue/*: opencue/0.22.14@{{ org }}/vfx2023
+opencue/*: opencue/1.13.8@{{ org }}/vfx2023
 openexr/*: openexr/3.1.13@{{ org }}/vfx2023
 openfx/*: openfx/1.5s@{{ org }}/vfx2023
 opengl/*: opengl/system@{{ org }}/vfx2023
@@ -163,4 +163,5 @@ wayland-protocols/1.25
 user.aswf:osl_clang_ref=clang/15.0.7@{{ org }}/ci_common3
 user.aswf:pyside_clang_ref=clang/14.0.6@{{ org }}/ci_common3
 user.aswf:ispc_clang_ref=clang/15.0.7@{{ org }}/ci_common3
-user.aswf:openvdb_clang_ref=clang/14.0.6@{{ org }}/ci_common3
+user.aswf:openimagedenoise_clang_ref=clang/15.0.7@{{ org }}/ci_common3
+user.aswf:openvdb_clang_ref=clang/15.0.7@{{ org }}/ci_common3

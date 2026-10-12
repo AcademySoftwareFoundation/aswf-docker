@@ -97,6 +97,13 @@ patches:
     - patch_file: "patches/1.15.1.0-cmake-oiio-imath-includes.patch"
       patch_description: "Allow imath and oiio to be found when building inside Conan"
       patch_type: "conan"
+  "1.14.12.0":
+    - patch_file: "patches/1.14.7.0-find-llvm-binaries.patch"
+      patch_description: "Allow CMake to find LLVM binaries when building inside Conan"
+      patch_type: "conan"
+    - patch_file: "patches/1.14.9.0-cmake-oiio-imath-includes.patch"
+      patch_description: "Allow imath and oiio to be found when building inside Conan"
+      patch_type: "conan"
   "1.14.11.0":
     - patch_file: "patches/1.14.7.0-find-llvm-binaries.patch"
       patch_description: "Allow CMake to find LLVM binaries when building inside Conan"

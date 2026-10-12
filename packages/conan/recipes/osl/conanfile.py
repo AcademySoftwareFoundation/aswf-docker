@@ -126,11 +126,9 @@ class OpenShadingLanguageConan(ConanFile):
             cmake.build()
 
     def package(self):
-        # ASWF: license files in package subdirectory
-        copy(self, "LICENSE*.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses", self.name))
+        copy(self, "LICENSE*.md", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
         cmake = CMake(self)
         cmake.install()
-        # ASWF: keep share/OSL/shaders for oslc's standard shader headers.
         if self.settings.os == "Windows":
             for vc_file in ("concrt", "msvcp", "vcruntime"):
                 rm(self, f"{vc_file}*.dll", os.path.join(self.package_folder, "bin"))

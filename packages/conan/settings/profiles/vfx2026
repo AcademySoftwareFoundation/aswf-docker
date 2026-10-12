@@ -82,7 +82,7 @@ mpg123/*: mpg123/system@{{ org }}/vfx2026
 nanobind/*: nanobind/2.11.0@{{ org }}/vfx2026
 nlohmann_json/*: nlohmann_json/3.12.0@{{ org }}/vfx2026
 nspr/*: nspr/system@{{ org }}/vfx2026
-nss/*: nss/3.112.0@{{ org }}/vfx2026
+nss/*: nss/3.124.0@{{ org }}/vfx2026
 ogg/*: ogg/system@{{ org }}/vfx2026
 onetbb/*: onetbb/2022.1.0@{{ org }}/vfx2026
 openal-soft/*: openal-soft/system@{{ org }}/vfx2026
@@ -90,11 +90,11 @@ opencl-headers/*: opencl-headers/system@{{ org }}/vfx2026
 opencl-icd-loader/*: opencl-icd-loader/system@{{ org }}/vfx2026
 opencolorio/*: opencolorio/2.5.2@{{ org }}/vfx2026
 opencue/*: opencue/1.19.1@{{ org }}/vfx2026
-openexr/*: openexr/3.4.15@{{ org }}/vfx2026
+openexr/*: openexr/3.4.16@{{ org }}/vfx2026
 openfx/*: openfx/1.5.1@{{ org }}/vfx2026
 opengl/*: opengl/system@{{ org }}/vfx2026
 openimagedenoise/*: openimagedenoise/2.5.0@{{ org }}/vfx2026
-openimageio/*: openimageio/3.1.17.0@{{ org }}/vfx2026
+openimageio/*: openimageio/3.1.18.1@{{ org }}/vfx2026
 openjpeg/*: openjpeg/2.4.0@{{ org }}/vfx2026
 openjph/*: openjph/0.32.0@{{ org }}/vfx2026
 opensubdiv/*: opensubdiv/3.7.0@{{ org }}/vfx2026
@@ -114,7 +114,7 @@ pystring/*: pystring/1.1.4@{{ org }}/vfx2026
 qt/*: qt/6.8.3@{{ org }}/vfx2026
 random123/*: random123/1.14.0@{{ org }}/vfx2026
 rapidjson/*: rapidjson/cci.20250205@{{ org }}/vfx2026
-rawtoaces/*: rawtoaces/2.2.0@{{ org }}/vfx2026
+rawtoaces/*: rawtoaces/2.2.2@{{ org }}/vfx2026
 rez/*: rez/3.4.0@{{ org }}/vfx2026
 snappy/*: snappy/1.2.2@{{ org }}/vfx2026
 spdlog/*: spdlog/1.15.3@{{ org }}/vfx2026
@@ -165,4 +165,5 @@ wayland-protocols/1.25
 user.aswf:osl_clang_ref=clang/20.1.7@{{ org }}/ci_common6
 user.aswf:pyside_clang_ref=clang/19.1.7@{{ org }}/ci_common6
 user.aswf:ispc_clang_ref=clang/20.1.7@{{ org }}/ci_common6
-user.aswf:openvdb_clang_ref=clang/19.1.7@{{ org }}/ci_common6
+user.aswf:openimagedenoise_clang_ref=clang/20.1.7@{{ org }}/ci_common6
+user.aswf:openvdb_clang_ref=clang/20.1.7@{{ org }}/ci_common6

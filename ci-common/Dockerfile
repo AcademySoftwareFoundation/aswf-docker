@@ -13,6 +13,9 @@ ARG ASWF_CONAN_CHANNEL
 ARG ASWF_CXX_STANDARD
 
 
+ARG ASWF_SYSTEM_CLANG_MAJOR_VERSION
+ARG ASWF_SYSTEM_LLVM_RPATH
+ARG ASWF_SYSTEM_OSMESA_DSO_VERSION
 ARG ASWF_CLANG_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_NINJA_VERSION
@@ -47,6 +50,9 @@ ARG ASWF_CXX_STANDARD
 ARG ASWF_DTS_PREFIX
 
 
+ARG ASWF_SYSTEM_CLANG_MAJOR_VERSION
+ARG ASWF_SYSTEM_LLVM_RPATH
+ARG ASWF_SYSTEM_OSMESA_DSO_VERSION
 ARG ASWF_CLANG_VERSION
 ARG ASWF_CMAKE_VERSION
 ARG ASWF_NINJA_VERSION
@@ -95,6 +101,9 @@ ENV ASWF_CXX_STANDARD=${ASWF_CXX_STANDARD}
 ENV ASWF_DTS_PREFIX=$ASWF_DTS_PREFIX
 
 
+ENV ASWF_SYSTEM_CLANG_MAJOR_VERSION=$ASWF_SYSTEM_CLANG_MAJOR_VERSION
+ENV ASWF_SYSTEM_LLVM_RPATH=$ASWF_SYSTEM_LLVM_RPATH
+ENV ASWF_SYSTEM_OSMESA_DSO_VERSION=$ASWF_SYSTEM_OSMESA_DSO_VERSION
 ENV ASWF_CLANG_VERSION=$ASWF_CLANG_VERSION
 ENV ASWF_CMAKE_VERSION=$ASWF_CMAKE_VERSION
 ENV ASWF_NINJA_VERSION=$ASWF_NINJA_VERSION
@@ -199,3 +208,24 @@ RUN --mount=type=cache,id=aswf-conan-cache,sharing=locked,target=/opt/conan_home
         --conf user.aswf:exclude_package="common" \
     && rm -rf /tmp/downloads/*
 
+# libOSMesa.so is dynamically linked against the system's own LLVM
+# (see ASWF_SYSTEM_CLANG_MAJOR_VERSION/ASWF_SYSTEM_LLVM_RPATH in
+# versions.yaml's rockylinuxN entries). LD_LIBRARY_PATH (set above to
+# include /usr/local/lib) is consulted before libOSMesa's own rpath, so if
+# our own Conan-built clang/llvm (just deployed to /usr/local by the
+# `conan install --deployer aswf_deploy` step above) happens to share the
+# system's LLVM major version -- and therefore the same libLLVM-<N>.so
+# soname -- libOSMesa.so can end up resolving its LLVM dependency against
+# our copy instead of the system one it was actually built against. That
+# causes libOSMesa's own LLVM target/CodeGen initialization to run
+# alongside anything else in the same process that also initializes LLVM
+# (e.g. a Conan package's own LLVM use), colliding over shared global LLVM
+# state (e.g. "LLVM ERROR: Option 'basic' already exists!"). Pin
+# libOSMesa's rpath to the system LLVM's actual location (an explicit
+# DT_RPATH, via --force-rpath, is consulted before LD_LIBRARY_PATH) so it
+# always resolves there regardless.
+RUN if [ "${ASWF_SYSTEM_CLANG_MAJOR_VERSION}" = "${ASWF_CLANG_MAJOR_VERSION}" ]; then \
+      osmesa_lib=/usr/lib64/libOSMesa.so.${ASWF_SYSTEM_OSMESA_DSO_VERSION} && \
+      test -f "${osmesa_lib}" && \
+      patchelf --set-rpath "${ASWF_SYSTEM_CLANG_RPATH}" --force-rpath "${osmesa_lib}"; \
+    fi

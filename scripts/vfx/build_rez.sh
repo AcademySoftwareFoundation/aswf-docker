@@ -24,7 +24,7 @@ REZ_INSTALL_DIR="${ASWF_INSTALL_PREFIX:-/usr/local}/rez"
 
 if [[ ! -f "$DOWNLOADS_DIR/rez-${REZ_VERSION}.tar.gz" ]]; then
     curl --location --fail \
-        "https://github.com/AcademySoftwareFoundation/rez/releases/download/${REZ_VERSION}/rez-${REZ_VERSION}.tar.gz" \
+        "https://github.com/AcademySoftwareFoundation/rez/releases/download/${REZ_VERSION}/${REZ_VERSION}.tar.gz" \
         -o "$DOWNLOADS_DIR/rez-${REZ_VERSION}.tar.gz"
 fi
 
