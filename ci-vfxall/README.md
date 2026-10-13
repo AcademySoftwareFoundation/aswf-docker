@@ -530,7 +530,7 @@ Contains:
 * alembic-1.8.11
 * imath-3.2.3
 * opencolorio-2.6.0
-* opencue-1.19.1
+* opencue-1.34.22
 * openexr-3.5.2
 * openfx-1.5.1
 * openimageio-3.2.1.1
@@ -560,7 +560,7 @@ Contains:
 * alembic-1.8.11
 * imath-3.2.3
 * opencolorio-2.6.0
-* opencue-1.19.1
+* opencue-1.34.22
 * openexr-3.5.2
 * openfx-1.5.1
 * openimageio-3.2.1.1
