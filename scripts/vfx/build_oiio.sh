@@ -20,7 +20,7 @@ BUILD_FMT_FORCE=ON
 
 fi
 
-if [[ $ASWF_OPENIMAGEIO_VERSION == 3.1.16.0 ]]; then
+if [[ $ASWF_OPENIMAGEIO_VERSION == 3.1.18.1 ]]; then
 
 cat << 'EOF' | patch -p1
 diff --git a/src/cmake/dependency_utils.cmake b/src/cmake/dependency_utils.cmake
@@ -39,6 +39,25 @@ index d99dd79ac..bfda2778a 100644
              reject_out_of_range_versions (${pkgname} "${${pkgname}_VERSION}"
                                            ${_pkg_VERSION_MIN} ${_pkg_VERSION_MAX}
                                            _pkg_version_in_range)
+diff --git a/src/jpeg2000.imageio/CMakeLists.txt b/src/jpeg2000.imageio/CMakeLists.txt
+index d99dd79ac..bfda2778a 100644
+--- a/src/jpeg2000.imageio/CMakeLists.txt
+--- b/src/jpeg2000.imageio/CMakeLists.txt
+@@ -10,6 +10,7 @@
+         set (OPENJPEG_TARGET openjp2_static)
+     elseif (TARGET openjp2)
+         set (OPENJPEG_TARGET openjp2)
++        set(_jpeg2000_includes ${OPENJPEG_INCLUDE_DIRS})
+     else ()
+         set(_jpeg2000_includes ${OPENJPEG_INCLUDES})
+         set(_jpeg2000_lib_dirs ${OPENJPEG_LIBRARY_DIRS})
+EOF
+
+fi
+
+if [[ $ASWF_OPENIMAGEIO_VERSION == 3.2.1.1 ]]; then
+
+cat << 'EOF' | patch -p1
 diff --git a/src/jpeg2000.imageio/CMakeLists.txt b/src/jpeg2000.imageio/CMakeLists.txt
 index d99dd79ac..bfda2778a 100644
 --- a/src/jpeg2000.imageio/CMakeLists.txt

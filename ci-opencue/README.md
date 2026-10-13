@@ -54,7 +54,7 @@ Contains:
 
 Contains:
 * cpython-3.13.14
-* opencue-1.19.1
+* opencue-1.34.22
 * numpy-2.4.6
 * vfxplatform-2027
 

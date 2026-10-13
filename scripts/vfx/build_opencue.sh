@@ -41,6 +41,21 @@ case "${ASWF_OPENCUE_VERSION:-1.19.1}" in
      version_in_path = toplevel_dir / "VERSION.in"
 EOF
         ;;
+    1.34.22)
+        cat << 'EOF' | patch -p1
+--- a/ci/generate_version_number.py
++++ b/ci/generate_version_number.py
+@@ -110,6 +111,8 @@
+     Returns:
+         The calculated version string.
+     """
++    if "ASWF_OPENCUE_VERSION" in os.environ:
++        return os.environ["ASWF_OPENCUE_VERSION"]
+     script_dir = pathlib.Path(__file__).parent.resolve()
+     toplevel_dir = script_dir.parent
+     version_in_path = toplevel_dir / "VERSION.in"
+EOF
+        ;;
 esac
 
 # 1. Build Cuebot (Java / Gradle)
