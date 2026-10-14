@@ -18,6 +18,7 @@ import hashlib
 import os
 import re
 import shutil
+from typing import Optional
 
 _CONAN_METADATA_FILES = {"conaninfo.txt", "conanmanifest.txt"}
 _LICENSES_DIR_NAME = "licenses"
@@ -436,6 +437,98 @@ def _fixup_pyside(dep, output_folder, cache_root) -> None:
         _rewrite_file_pattern(dest_path, install_dir_re, output_folder)
 
 
+# Targets that OpenUSD's installed pxrTargets.cmake can reference by a name
+# that no longer resolves once the image's Conan cache/build graph is gone:
+# either a Conan-private CONAN_LIB::<package>_<component>_RELEASE identifier,
+# or (for OpenSubdiv) a target spelled with the wrong case for the version
+# actually published in the image. MaterialX is deliberately NOT handled
+# here: pxrConfig.cmake's own find_package(MaterialX) + alias loop (see the
+# openusd cmake-packages patches) already creates a correctly cased
+# MaterialX::<target> alias for every native MaterialX target, so adding a
+# second, cruder substitution for "MaterialXCore"/"MaterialXFormat" here
+# would double up on that prefix (producing an invalid
+# "MaterialX::/path/to/libMaterialXCore.so" token).
+_OPENUSD_LIBRARY_TARGETS = {
+    "OpenColorIO::OpenColorIO": "libOpenColorIO.so",
+    "OpenVDB::openvdb": "libopenvdb.so",
+    "Ptex::Ptex_dynamic": "libPtex.so",
+    "OpenSubdiv::osdcpu": "libosdCPU.so",
+    "OpenSubdiv::osdgpu": "libosdGPU.so",
+    "OpenSubdiv::osdCPU": "libosdCPU.so",
+    "OpenSubdiv::osdGPU": "libosdGPU.so",
+}
+
+
+def _find_library(output_folder: str, stem: str) -> Optional[str]:
+    for library_dir in (
+        os.path.join(output_folder, "lib"),
+        os.path.join(output_folder, "lib64"),
+        os.path.join(output_folder, "x86_64", "lib"),
+    ):
+        if not os.path.isdir(library_dir):
+            continue
+        for name in os.listdir(library_dir):
+            if name.lower() == stem.lower() or name.lower().startswith(
+                stem.lower() + "."
+            ):
+                return os.path.join(library_dir, name)
+    return None
+
+
+def _conan_library_replacement(match: "re.Match[str]", output_folder: str) -> str:
+    # CONAN_LIB::<package>_<...>_<component>_RELEASE (or _DEBUG) identifiers
+    # name the Conan generator target, not the installed library, so work
+    # backwards from the longest to the shortest trailing token run looking
+    # for a matching lib<candidate>.(so|a) in the deployed prefix -- e.g.
+    # CONAN_LIB::boost_Boost_python_boost_python311_RELEASE needs
+    # libboost_python311.so, found only after trimming the redundant
+    # boost/Boost prefix tokens.
+    target = match.group(1)
+    stripped = re.sub(r"_(?:RELEASE|DEBUG)$", "", target)
+    parts = stripped.split("_")
+    for index in range(len(parts)):
+        candidate = "_".join(parts[index:])
+        library = _find_library(output_folder, f"lib{candidate}")
+        if library:
+            return library
+    return match.group(0)
+
+
+def _fixup_openusd_targets(
+    dep, output_folder, cache_root
+) -> None:  # pylint: disable=unused-argument
+    """Make OpenUSD's installed export usable without Conan's build graph.
+
+    OpenUSD's Conan build can embed Conan-generated CONAN_LIB:: target names,
+    and wrong-case OpenSubdiv target names, in its installed pxrTargets.cmake
+    when dependency libraries are passed through the upstream CMake helpers.
+    Those targets do not exist after the image's Conan cache is discarded,
+    so replace them with libraries actually published in the image prefix.
+    """
+    targets_path = os.path.join(output_folder, "cmake", "pxrTargets.cmake")
+    if not os.path.isfile(targets_path):
+        return
+    with open(targets_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    conan_target_re = re.compile(r"CONAN_LIB::([A-Za-z0-9_]+)")
+    content = conan_target_re.sub(
+        lambda match: _conan_library_replacement(match, output_folder),
+        content,
+    )
+    for target, library_name in _OPENUSD_LIBRARY_TARGETS.items():
+        library = _find_library(output_folder, library_name)
+        if library:
+            content = re.sub(
+                rf"(?<![A-Za-z0-9_]){re.escape(target)}(?![A-Za-z0-9_])",
+                lambda _, library=library: library,
+                content,
+            )
+
+    with open(targets_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+
 _PACKAGE_HOOKS.update(
     {
         "cpython": _fixup_cpython,
@@ -443,5 +536,6 @@ _PACKAGE_HOOKS.update(
         "qt": _fixup_qt,
         "lensfun": _fixup_pkgconfig,
         "pyside": _fixup_pyside,
+        "openusd": _fixup_openusd_targets,
     }
 )

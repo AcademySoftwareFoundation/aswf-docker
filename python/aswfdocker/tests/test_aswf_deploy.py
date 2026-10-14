@@ -1063,5 +1063,104 @@ class TestDeployEndToEnd(unittest.TestCase):
                 del os.environ["CONAN_HOME"]
 
 
+class TestOpenusdTargetsFixup(unittest.TestCase):
+    def test_conan_lib_boost_python_replaced(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = os.path.join(tmp, "output")
+            _write(os.path.join(output, "lib", "libboost_python311.so"), "")
+            _write(
+                os.path.join(output, "cmake", "pxrTargets.cmake"),
+                "set_target_properties(usd__pxr_usd_usd PROPERTIES\n"
+                "  INTERFACE_LINK_LIBRARIES "
+                '"CONAN_LIB::boost_Boost_python_boost_python311_RELEASE"\n'
+                ")\n",
+            )
+            dep = _FakeDep("openusd", output)
+
+            aswf_deploy._fixup_openusd_targets(dep, output, "/unused")
+
+            with open(
+                os.path.join(output, "cmake", "pxrTargets.cmake"), encoding="utf-8"
+            ) as f:
+                content = f.read()
+            self.assertIn(os.path.join(output, "lib", "libboost_python311.so"), content)
+            self.assertNotIn("CONAN_LIB::", content)
+
+    def test_conan_lib_ptex_replaced(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = os.path.join(tmp, "output")
+            _write(os.path.join(output, "lib", "libPtex.so"), "")
+            _write(
+                os.path.join(output, "cmake", "pxrTargets.cmake"),
+                'INTERFACE_LINK_LIBRARIES "CONAN_LIB::ptex_Ptex_Ptex_dynamic_Ptex_RELEASE"\n',
+            )
+            dep = _FakeDep("openusd", output)
+
+            aswf_deploy._fixup_openusd_targets(dep, output, "/unused")
+
+            with open(
+                os.path.join(output, "cmake", "pxrTargets.cmake"), encoding="utf-8"
+            ) as f:
+                content = f.read()
+            self.assertIn(os.path.join(output, "lib", "libPtex.so"), content)
+            self.assertNotIn("CONAN_LIB::", content)
+
+    def test_opensubdiv_wrong_case_replaced(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = os.path.join(tmp, "output")
+            _write(os.path.join(output, "lib", "libosdCPU.so"), "")
+            _write(os.path.join(output, "lib", "libosdGPU.so"), "")
+            _write(
+                os.path.join(output, "cmake", "pxrTargets.cmake"),
+                'INTERFACE_LINK_LIBRARIES "OpenSubdiv::osdcpu;OpenSubdiv::osdgpu"\n',
+            )
+            dep = _FakeDep("openusd", output)
+
+            aswf_deploy._fixup_openusd_targets(dep, output, "/unused")
+
+            with open(
+                os.path.join(output, "cmake", "pxrTargets.cmake"), encoding="utf-8"
+            ) as f:
+                content = f.read()
+            self.assertIn(os.path.join(output, "lib", "libosdCPU.so"), content)
+            self.assertIn(os.path.join(output, "lib", "libosdGPU.so"), content)
+            self.assertNotIn("OpenSubdiv::osdcpu", content)
+            self.assertNotIn("OpenSubdiv::osdgpu", content)
+
+    def test_materialx_targets_left_untouched(self):
+        # MaterialX is handled generically by pxrConfig.cmake's own alias
+        # loop, not by this fixup -- make sure we never touch it, since a
+        # second substitution here would double up the MaterialX:: prefix.
+        with tempfile.TemporaryDirectory() as tmp:
+            output = os.path.join(tmp, "output")
+            _write(os.path.join(output, "lib", "libMaterialXCore.so"), "")
+            original = (
+                "INTERFACE_LINK_LIBRARIES "
+                '"MaterialX::MaterialXCore;MaterialX::MaterialXFormat"\n'
+            )
+            _write(os.path.join(output, "cmake", "pxrTargets.cmake"), original)
+            dep = _FakeDep("openusd", output)
+
+            aswf_deploy._fixup_openusd_targets(dep, output, "/unused")
+
+            with open(
+                os.path.join(output, "cmake", "pxrTargets.cmake"), encoding="utf-8"
+            ) as f:
+                content = f.read()
+            self.assertEqual(original, content)
+
+    def test_missing_targets_file_is_a_noop(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = os.path.join(tmp, "output")
+            os.makedirs(output)
+            dep = _FakeDep("openusd", output)
+
+            aswf_deploy._fixup_openusd_targets(dep, output, "/unused")  # must not raise
+
+            self.assertFalse(
+                os.path.exists(os.path.join(output, "cmake", "pxrTargets.cmake"))
+            )
+
+
 if __name__ == "__main__":
     unittest.main()
