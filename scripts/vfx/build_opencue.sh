@@ -41,7 +41,7 @@ case "${ASWF_OPENCUE_VERSION:-1.19.1}" in
      version_in_path = toplevel_dir / "VERSION.in"
 EOF
         ;;
-    1.34.22)
+    1.34.22|1.37.0)
         cat << 'EOF' | patch -p1
 --- a/ci/generate_version_number.py
 +++ b/ci/generate_version_number.py
@@ -62,6 +62,8 @@ esac
 # Assuming OpenCue source code is bound or checked out in the workspace
 # https://docs.opencue.io/docs/getting-started/deploying-cuebot/#option-4-build-from-source
 if [ -d "cuebot" ]; then
+    export CI=true
+    export GRADLE_OPTS="-Dorg.gradle.daemon=false -Dorg.gradle.console=plain"
     ./cuebot/gradlew -p cuebot build -x :test
 
     # Create installation directories under ASWF_INSTALL_PREFIX and copy.
@@ -81,7 +83,8 @@ fi
 # 2. Build RQD & Rust components (Cargo)
 # https://github.com/AcademySoftwareFoundation/OpenCue/tree/master/rust#build-instructions
 if [ -d "rust" ]; then
-    cargo build --manifest-path rust/Cargo.toml --release -p rqd --target-dir="${ASWF_INSTALL_PREFIX}/bin"
+    cargo build --manifest-path rust/Cargo.toml --release -p rqd
+    sudo install -m 755 rust/target/release/openrqd /usr/local/bin/
 fi
 
 # 3. Build Python packages (pycue, cuesubmit, etc.) via pip/hatch

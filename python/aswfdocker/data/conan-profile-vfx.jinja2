@@ -77,6 +77,7 @@ lua/*: lua/[[ versions.ASWF_LUA_VERSION ]]@{{ org }}/[[ conan_profile ]]
 lz4/*: lz4/[[ versions.ASWF_LZ4_VERSION ]]@{{ org }}/[[ conan_profile ]]
 materialx/*: materialx/[[ versions.ASWF_MATERIALX_VERSION ]]@{{ org }}/[[ conan_profile ]]
 md4c/*: md4c/[[ versions.ASWF_MD4C_VERSION ]]@{{ org }}/[[ conan_profile ]]
+mesa/*: mesa/[[ versions.ASWF_MESA_VERSION ]]@{{ org }}/[[ conan_profile ]]
 minizip-ng/*: minizip-ng/[[ versions.ASWF_MINIZIP_NG_VERSION ]]@{{ org }}/[[ conan_profile ]]
 moonray/*: moonray/[[ versions.ASWF_MOONRAY_VERSION ]]@{{ org }}/[[ conan_profile ]]
 mpdecimal/*: mpdecimal/[[ versions.ASWF_MPDECIMAL_VERSION ]]@{{ org }}/[[ conan_profile ]]
@@ -143,7 +144,7 @@ flex/*: flex/[[ distro_versions.ASWF_FLEX_VERSION ]]@system
 gperf/*: gperf/[[ distro_versions.ASWF_GPERF_VERSION ]]@system
 ispc/*: ispc/[[ versions.ASWF_ISPC_VERSION ]]@{{ org }}/[[ conan_profile ]]
 libtool/*: libtool/[[ distro_versions.ASWF_LIBTOOL_VERSION ]]@system
-meson/*: meson/[[ distro_versions.ASWF_MESON_VERSION ]]@system
+meson/*: meson/[[ versions.ASWF_MESON_VERSION ]]@{{ org }}/[[ conan_profile ]]
 nasm/*: nasm/[[ versions.ASWF_NASM_VERSION ]]@{{ org }}/[[ conan_profile ]]
 nodejs/*: nodejs/[[ distro_versions.ASWF_NODEJS_VERSION ]]@system
 pkgconf/*: pkgconf/[[ distro_versions.ASWF_PKGCONF_VERSION ]]@system
@@ -157,7 +158,6 @@ bison/[[ distro_versions.ASWF_BISON_VERSION ]]
 flex/[[ distro_versions.ASWF_FLEX_VERSION ]]
 gperf/[[ distro_versions.ASWF_GPERF_VERSION ]]
 libtool/[[ distro_versions.ASWF_LIBTOOL_VERSION ]]
-meson/[[ distro_versions.ASWF_MESON_VERSION ]]
 nodejs/[[ distro_versions.ASWF_NODEJS_VERSION ]]
 pkgconf/[[ distro_versions.ASWF_PKGCONF_VERSION ]]
 wayland/[[ distro_versions.ASWF_WAYLAND_VERSION ]]
@@ -169,3 +169,9 @@ user.aswf:pyside_clang_ref=clang/[[ clang_versions[versions.ASWF_PYSIDE_CLANG_MA
 user.aswf:ispc_clang_ref=clang/[[ clang_versions[versions.ASWF_ISPC_CLANG_MAJOR_VERSION] ]]@{{ org }}/ci_common[[ ci_common_version ]]
 user.aswf:openimagedenoise_clang_ref=clang/[[ clang_versions[versions.ASWF_OPENIMAGEDENOISE_CLANG_MAJOR_VERSION] ]]@{{ org }}/ci_common[[ ci_common_version ]]
 user.aswf:openvdb_clang_ref=clang/[[ clang_versions[versions.ASWF_OPENVDB_CLANG_MAJOR_VERSION] ]]@{{ org }}/ci_common[[ ci_common_version ]]
+# mesa's swrast/llvmpipe driver must share one LLVM instance with
+# osl/openvdb/openimagedenoise in the same process (two different libLLVM
+# SONAMEs loaded together abort with "Option ... already exists!") -- alias
+# straight to osl's major version instead of adding a separate
+# ASWF_MESA_CLANG_MAJOR_VERSION key that could drift out of sync with it.
+user.aswf:mesa_clang_ref=clang/[[ clang_versions[versions.ASWF_OSL_CLANG_MAJOR_VERSION] ]]@{{ org }}/ci_common[[ ci_common_version ]]

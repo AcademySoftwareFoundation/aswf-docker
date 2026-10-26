@@ -19,7 +19,7 @@ classifiers = [
 ]
 dependencies = [
   "bottle==0.12.25",
-  "certifi==2024.7.4",
+  "certifi==2026.10.23",
   "charset-normalizer==3.3.2",
   "click==8.3.1",
   "colorama==0.4.6",
@@ -75,7 +75,7 @@ packages = { find = { where = ["python"] } }
 aswfdocker = ["data/*.yaml", "data/*.jinja2"]
 
 [tool.uv]
-required-version = "0.11.8"
+required-version = "0.13.5"
 
 [tool.pytest.ini_options]
 testpaths = [

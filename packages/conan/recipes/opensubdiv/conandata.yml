@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/8ac58f85fed5418f986bd1021b4952bcd56d16e5/recipes/opensubdiv/all/conandata.yml
 
 sources:
+  "3.8.0":
+    url: "https://github.com/PixarAnimationStudios/OpenSubdiv/archive/refs/tags/v3_8_0.tar.gz"
+    sha256: "e5eab30a97c7cce6b5a9905ae488981759c3d86cbce01d58a6c75e1fd9857a2b"
   "3.7.0":
     url: "https://github.com/PixarAnimationStudios/OpenSubdiv/archive/refs/tags/v3_7_0.tar.gz"
     sha256: "f843eb49daf20264007d807cbc64516a1fed9cdb1149aaf84ff47691d97491f9"
@@ -24,12 +27,16 @@ sources:
     url: "https://github.com/PixarAnimationStudios/OpenSubdiv/archive/refs/tags/v3_4_4.tar.gz"
     sha256: "20d49f80a2b778ad4d01f091ad88d8c2f91cf6c7363940c6213241ce6f1048fb"
 patches:
+  "3.8.0":
+    - patch_file: "patches/3.8.0-0001-cmake-no-rpath.patch"
+      patch_description: "CMake: do not populate rpath with absolute paths"
+      patch_type: "conan"
   "3.7.0":
     - patch_file: "patches/3.7.0-0001-cmake-no-rpath.patch"
       patch_description: "CMake: do not populate rpath with absolute paths"
       patch_type: "conan"
     - patch_file: "patches/3.7.0-0002-cudathreadsynchronize.patch"
-      patch_description: "cudaTHreadSynchronize() is deprecated"
+      patch_description: "cudaThreadSynchronize() is deprecated"
       patch_type: "conan"
   "3.6.1":
     - patch_file: "patches/3.6.0-0002-cmake-no-rpath.patch"

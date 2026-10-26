@@ -677,6 +677,7 @@ aswfdocker release -t PACKAGE -g base1-2 -v 2023 -v 2024 -v 2025 -v 2026 -v 2027
 aswfdocker release -t PACKAGE -g base1-3 -v 2023 -v 2024 -v 2025 -v 2026 -v 2027 --docker-org aswf -m "RELEASE_NOTES!"
 
 aswfdocker release -t PACKAGE -g base2-wrappers -v 2023 -v 2024 -v 2025 -v 2026 -v 2027 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g base2-1 -v 2023 -v 2024 -v 2025 -v 2026 -v 2027 --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g base2-2 -v 2023 -v 2024 -v 2025 -v 2026 -v 2027 --docker-org aswf -m "RELEASE_NOTES!"
 # Wait for Qt builds to finish (2-6 hours!)
 
@@ -700,6 +701,7 @@ aswfdocker release -t PACKAGE -g vfx1-3 -v 2023 -v 2024 -v 2025 -v 2026 -v 2027 
 aswfdocker release -t PACKAGE -g vfx1-4 -v 2023 -v 2024 -v 2025 -v 2026 -v 2027 --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g vfx1-5 -v 2023 -v 2024 -v 2025 -v 2026 -v 2027 --docker-org aswf -m "RELEASE_NOTES!"
 aswfdocker release -t PACKAGE -g vfx1-6 -v 2023 -v 2024 -v 2025 -v 2026 -v 2027 --docker-org aswf -m "RELEASE_NOTES!"
+aswfdocker release -t PACKAGE -g vfx1-7 -v 2023 -v 2024 -v 2025 -v 2026 -v 2027 --docker-org aswf -m "RELEASE_NOTES!"
 
 # Finally build the CI images
 aswfdocker release -t IMAGE -g base -v 2023 -v 2024 -v 2025 -v 2026 -v 2027 --docker-org aswf -m "RELEASE_NOTES!"

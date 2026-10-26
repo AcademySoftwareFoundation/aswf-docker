@@ -98,6 +98,18 @@ class OpenUSDConan(ConanFile):
         self.requires("onetbb/2021.12.0", transitive_headers=True, transitive_libs=True)
         self.requires("opensubdiv/3.7.0")
         self.requires("opengl/system")
+        # Pulls our own LLVM-pinned swrast_dri.so/libOSMesa.so into every
+        # image that reaches openusd (openusd, moonray, vfxall, ...) via
+        # aswf_deploy -- not linked against, see mesa's own conanfile.py.
+        # Deliberately not on opengl/system itself: mesa's own clang
+        # dependency is aliased to the same clang major version as osl's
+        # (user.aswf:mesa_clang_ref -> ASWF_OSL_CLANG_MAJOR_VERSION), which
+        # is already in this recipe's graph via with_osl, so it introduces
+        # no new clang version here. opengl/system is also required by
+        # pyside/qt/glew/glfw/etc., which pin their own, different clang
+        # version for unrelated reasons -- putting mesa there made every one
+        # of those builds fail with a clang version conflict instead.
+        self.requires("mesa/23.1.4")
         # ASWF: optional requirements
         if self.options.with_alembic:
             self.requires("alembic/1.8.10")
@@ -251,7 +263,13 @@ class OpenUSDConan(ConanFile):
         self.cpp_info.components["usd_cameraUtil"].requires = ["usd_tf", "usd_gf"]
 
         self.cpp_info.components["usd_garch"].libs = ["usd_garch"]
-        self.cpp_info.components["usd_garch"].requires = ["usd_arch", "usd_tf", "opengl::opengl"]
+        # mesa::mesa isn't actually linked against (see mesa's own
+        # conanfile.py -- its cpp_info is empty, it's only required here so
+        # aswf_deploy copies swrast_dri.so/libOSMesa.so alongside this
+        # image); referencing it from the component that already requires
+        # opengl::opengl satisfies Conan's "every direct dependency must be
+        # used by some component" package_info() check.
+        self.cpp_info.components["usd_garch"].requires = ["usd_arch", "usd_tf", "opengl::opengl", "mesa::mesa"]
     
         self.cpp_info.components["usd_geomUtil"].libs = ["usd_geomUtil"]
         self.cpp_info.components["usd_geomUtil"].requires = ["usd_arch", "usd_gf", "usd_tf", "usd_vt", "usd_pxOsd"]

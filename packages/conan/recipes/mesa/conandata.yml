@@ -1,0 +1,43 @@
+# Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Versions picked to track EL8/EL9's own system Mesa as closely as possible:
+# 23.1.4 matches both the mesa-dri-drivers and mesa-libOSMesa RPMs on EL8.
+# 25.0.7 matches EL9's mesa-compat-libOSMesa RPM, not mesa-dri-drivers
+# (25.2.7) -- a later point release where upstream removed the classic
+# OSMesa target (the 'osmesa' meson option no longer exists past ~25.0.x).
+# Staying on 25.0.7 keeps this one recipe producing both libOSMesa.so and
+# swrast_dri.so for EL9, at the cost of swrast_dri.so trailing EL9's actual
+# mesa-dri-drivers by a couple of point releases.
+sources:
+  "23.1.4":
+    url: "https://archive.mesa3d.org/mesa-23.1.4.tar.xz"
+    sha256: "7261a17fb94867e3dc5a90d8a1f100fa04b0cbbde51d25302c0872b5e9a10959"
+  "25.0.7":
+    url: "https://archive.mesa3d.org/mesa-25.0.7.tar.xz"
+    sha256: "592272df3cf01e85e7db300c449df5061092574d099da275d19e97ef0510f8a6"
+patches:
+  "23.1.4":
+    - patch_file: "patches/23.1.4-llvm18-codegenopt-level.patch"
+      patch_description: >-
+        LLVM 18 renamed llvm::CodeGenOpt::Level to llvm::CodeGenOptLevel;
+        23.1.4 predates that rename (LLVM commit 0a1aa6cda2, Sep 2023) and
+        fails to compile against LLVM >=18. Backport of the same
+        version-gated fix upstream later shipped (verified present
+        unchanged in Mesa 25.0.7's lp_bld_misc.cpp).
+      patch_type: "backport"
+    - patch_file: "patches/23.1.4-llvmpipe-transforms-includes.patch"
+      patch_description: >-
+        lp_bld_init.c unconditionally includes llvm-c/Transforms/Scalar.h
+        (and conditionally Utils.h), which upstream LLVM removed in
+        early 2023 (llvm/llvm-project@f7ca013332, "[llvm-c] Remove
+        bindings for creating legacy passes"). Upstream Mesa fixed this
+        on main shortly after 23.1.4 branched
+        (mesa/mesa@9ba416cdc67073cdda9a73fe9d37304b82bdd526,
+        "llvmpipe: only include old Transform includes when needed") but
+        it was never backported to the 23.1 stable branch. Note this
+        affects every LLVM version this recipe builds against, not just
+        the newer ones: GALLIVM_USE_NEW_PASS (lp_bld.h) is already 1 for
+        LLVM_VERSION_MAJOR >= 15, which is true starting at our oldest
+        pin (15, for vfx2023).
+      patch_type: "backport"

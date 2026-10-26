@@ -271,6 +271,14 @@
       "folder": "all",
       "sha": "9e662511770364e8f80627724131e973510453c6"
     },
+    "mesa": {
+      "class": "unique"
+    },
+    "meson": {
+      "class": "cci",
+      "folder": "all",
+      "sha": "b5307f9439dc46a8dcf6af91d2b0460b5cebd0c2"
+    },
     "minizip-ng": {
       "class": "cci",
       "folder": "all",

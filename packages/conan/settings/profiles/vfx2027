@@ -22,7 +22,7 @@ c-blosc/*: c-blosc/1.21.6@{{ org }}/vfx2027
 ceres-solver/*: ceres-solver/2.2.0@{{ org }}/vfx2027
 cimg/*: cimg/3.7.6@{{ org }}/vfx2027
 cppunit/*: cppunit/1.15.1@{{ org }}/vfx2027
-cpython/*: cpython/3.13.14@{{ org }}/vfx2027
+cpython/*: cpython/3.13.17@{{ org }}/vfx2027
 dbus/*: dbus/system@{{ org }}/vfx2027
 double-conversion/*: double-conversion/system@{{ org }}/vfx2027
 eigen/*: eigen/3.4.1@{{ org }}/vfx2027
@@ -52,7 +52,7 @@ libcgroup/*: libcgroup/0.42.2@{{ org }}/vfx2027
 libaom-av1/*: libaom-av1/system@{{ org }}/vfx2027
 libbacktrace/*: libbacktrace/cci.20240730@{{ org }}/vfx2027
 libdeflate/*: libdeflate/1.25@{{ org }}/vfx2027
-libdrm/*: libdrm/system@{{ org }}/vfx2027
+libdrm/*: libdrm/2.4.128@{{ org }}/vfx2027
 libffi/*: libffi/system@{{ org }}/vfx2027
 libiconv/*: libiconv/1.19@{{ org }}/vfx2027
 libjpeg-turbo/*: libjpeg-turbo/3.2.0@{{ org }}/vfx2027
@@ -75,6 +75,7 @@ lua/*: lua/5.4.4@{{ org }}/vfx2027
 lz4/*: lz4/1.10.0@{{ org }}/vfx2027
 materialx/*: materialx/1.39.5@{{ org }}/vfx2027
 md4c/*: md4c/0.5.3@{{ org }}/vfx2027
+mesa/*: mesa/25.0.7@{{ org }}/vfx2027
 minizip-ng/*: minizip-ng/4.2.1@{{ org }}/vfx2027
 moonray/*: moonray/3.6.0.1@{{ org }}/vfx2027
 mpdecimal/*: mpdecimal/system@{{ org }}/vfx2027
@@ -89,7 +90,7 @@ openal-soft/*: openal-soft/system@{{ org }}/vfx2027
 opencl-headers/*: opencl-headers/system@{{ org }}/vfx2027
 opencl-icd-loader/*: opencl-icd-loader/system@{{ org }}/vfx2027
 opencolorio/*: opencolorio/2.6.0@{{ org }}/vfx2027
-opencue/*: opencue/1.34.22@{{ org }}/vfx2027
+opencue/*: opencue/1.37.0@{{ org }}/vfx2027
 openexr/*: openexr/3.5.2@{{ org }}/vfx2027
 openfx/*: openfx/1.5.1@{{ org }}/vfx2027
 opengl/*: opengl/system@{{ org }}/vfx2027
@@ -97,10 +98,10 @@ openimagedenoise/*: openimagedenoise/2.5.0@{{ org }}/vfx2027
 openimageio/*: openimageio/3.2.1.1@{{ org }}/vfx2027
 openjpeg/*: openjpeg/2.4.0@{{ org }}/vfx2027
 openjph/*: openjph/0.32.0@{{ org }}/vfx2027
-opensubdiv/*: opensubdiv/3.7.0@{{ org }}/vfx2027
+opensubdiv/*: opensubdiv/3.8.0@{{ org }}/vfx2027
 opentimelineio/*: opentimelineio/0.18.1@{{ org }}/vfx2027
 openusd/*: openusd/26.08@{{ org }}/vfx2027
-openvdb/*: openvdb/13.0.0@{{ org }}/vfx2027
+openvdb/*: openvdb/13.1.0@{{ org }}/vfx2027
 opus/*: opus/system@{{ org }}/vfx2027
 osl/*: osl/1.15.7.0@{{ org }}/vfx2027
 partio/*: partio/1.20.0@{{ org }}/vfx2027
@@ -136,12 +137,12 @@ zstd/*: zstd/1.5.7@{{ org }}/vfx2027
 [replace_tool_requires]
 b2/*: b2/5.5.3@{{ org }}/vfx2027
 bison/*: bison/3.7.4@system
-cpython/*: cpython/3.13.14@{{ org }}/vfx2027
+cpython/*: cpython/3.13.17@{{ org }}/vfx2027
 flex/*: flex/2.6.4@system
 gperf/*: gperf/3.1.13@system
 ispc/*: ispc/1.31.0@{{ org }}/vfx2027
 libtool/*: libtool/2.4.6@system
-meson/*: meson/0.63.3@system
+meson/*: meson/1.10.2@{{ org }}/vfx2027
 nasm/*: nasm/system@{{ org }}/vfx2027
 nodejs/*: nodejs/18.20.8@system
 pkgconf/*: pkgconf/1.7.3@system
@@ -155,7 +156,6 @@ bison/3.7.4
 flex/2.6.4
 gperf/3.1.13
 libtool/2.4.6
-meson/0.63.3
 nodejs/18.20.8
 pkgconf/1.7.3
 wayland/1.21.0
@@ -167,3 +167,9 @@ user.aswf:pyside_clang_ref=clang/21.1.8@{{ org }}/ci_common7
 user.aswf:ispc_clang_ref=clang/22.1.7@{{ org }}/ci_common7
 user.aswf:openimagedenoise_clang_ref=clang/22.1.7@{{ org }}/ci_common7
 user.aswf:openvdb_clang_ref=clang/22.1.7@{{ org }}/ci_common7
+# mesa's swrast/llvmpipe driver must share one LLVM instance with
+# osl/openvdb/openimagedenoise in the same process (two different libLLVM
+# SONAMEs loaded together abort with "Option ... already exists!") -- alias
+# straight to osl's major version instead of adding a separate
+# ASWF_MESA_CLANG_MAJOR_VERSION key that could drift out of sync with it.
+user.aswf:mesa_clang_ref=clang/22.1.7@{{ org }}/ci_common7

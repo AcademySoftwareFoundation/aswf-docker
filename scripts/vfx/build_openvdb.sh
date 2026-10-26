@@ -35,7 +35,7 @@ if [[ $ASWF_IMATH_VERSION == 3* && $ASWF_OPENVDB_VERSION == 8* ]]; then
     patch -p1 < /tmp/openvdb-imath.patch
 fi
 
-if [[ $ASWF_OPENVDB_VERSION == 13* ]]; then
+if [[ $ASWF_OPENVDB_VERSION == 13.0.0 ]]; then
 
 cat <<EOF | patch -p0
 diff -ur openvdb/openvdb/thread/Threading.h openvdb/openvdb/thread/Threading.h

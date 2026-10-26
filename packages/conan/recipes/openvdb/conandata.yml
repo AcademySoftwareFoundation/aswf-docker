@@ -5,6 +5,9 @@
 # From: https://github.com/conan-io/conan-center-index/blob/47ec06eaf213b77bf96c28079434b4fe4446cc46/recipes/openvdb/all/conandata.yml
 
 sources:
+  "13.1.0":
+    url: "https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v13.1.0.tar.gz"
+    sha256: "21659ef2330a06805519dd8d4369375f181a0dfee205b0180da69b4edd3329ae"
   "13.0.0":
     url: "https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v13.0.0.tar.gz"
     sha256: "4d6a91df5f347017496fe8d22c3dbb7c4b5d7289499d4eb4d53dd2c75bb454e1"
@@ -34,6 +37,13 @@ sources:
     sha256: "914ee417b4607c75c95b53bc73a0599de4157c7d6a32e849e80f24e40fb64181"
 
 patches:
+  "13.1.0":
+    - patch_file: "patches/add-cmake-package-config.patch"
+      patch_description: "add a target-based CMake package config for non-Conan consumers"
+      patch_type: "conan"
+    - patch_file: "patches/cmake-package-config-13.1.0.patch"
+      patch_description: "export and install the added CMake package config, using generator expressions for interface include dirs"
+      patch_type: "conan"
   "13.0.0":
     - patch_file: "patches/add-cmake-package-config.patch"
       patch_description: "add a target-based CMake package config for non-Conan consumers"
