@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file.
 
+# 2026-10-26
+
+Updated 2023.7 2024.11 2025.10 2026.8 2027.3 images
+
+- All releases
+  - Don't generate invalid CMake ALIAS targets when adding MaterialX libraries to OpenUSD pxrConfig.cmake
+  - Avoid leaking Conan internal definitions in OpenUSD CMake config
+  - Build [our own libOSMesa.so](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/493)
+linked against the correct libLLVM.so to avoid cases where our own libLLVM.so and the system installed one
+both get loaded at the same time. For 2023-2026 images this also includes libglapi.so and dri/swrast_dri.so. This is used to support
+OpenUSD software rendering benchmarks.
+    - meson no longer a system wrapper, newer version is needed to build mesa
+    - libdrm wrapper exports system installed version
+  - ci-otio now include minizip-ng
+  - uv 0.11.8 to 0.13.5 and certifi 2024.7.4 to 2026.10.23 to address [CA certificate compromise](https://github.com/AcademySoftwareFoundation/aswf-docker/issues/491).
+pip always installs latest.
+
+- 2023.7
+  - Install working CMake config for OneTBB 2020.3
+  - Python 3.10.20 to 3.10.22 (last 3.10.x release, addresses multiple CVEs)
+  - Zlib 1.3.1 to 1.3.2 to get CMake config to support OpenVDB / c-blosc CMake configs (pre 1.3.2 Zlib did not provide CMake config)
+
+- 2024.11
+  - Install working CMake config for OneTBB 2020.3
+  - Python 3.11.15 to 3.11.17 (multiple CVEs)
+  - Zlib 1.3.1 to 1.3.2 to get CMake config to support OpenVDB / c-blosc CMake configs (pre 1.3.2 Zlib did not provide CMake config)
+
+- 2025.10
+  - Python 3.11.15 to 3.11.17 (multiple CVEs)
+  - Zlib 1.3.1 to 1.3.2 to get CMake config to support OpenVDB / c-blosc CMake configs (pre 1.3.2 Zlib did not provide CMake config)
+
+- 2026.8
+  - Python 3.13.14 to 3.13.17 (multiple CVEs)
+  - Zlib 1.3.1 to 1.3.2 to get CMake config to support OpenVDB / c-blosc CMake configs (pre 1.3.2 Zlib did not provide CMake config)
+
+- 2027.3
+  - Python 3.13.14 to 3.13.17 (multiple CVEs)
+  - OpenSubdiv 3.7.0 to 3.8.0 for VFX Platform 2027
+  - OpenVDB 13.0.0 to 13.1.0, closer to 14.0.0 for VFX Platform 2027
+
 # 2026-09-19
 
 - All releases

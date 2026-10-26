@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MIT
 
 sources:
-  # ASWF FIXME: replace with final release URL
   "3.2.1.1":
     url: "https://github.com/AcademySoftwareFoundation/OpenImageIO/releases/download/v3.2.1.1/OpenImageIO-3.2.1.1.tar.gz"
     sha256: "518dd997d457fa198cd4aa51a0ccf2b79a45176cf2522fe3d7392580dcb7ae11"

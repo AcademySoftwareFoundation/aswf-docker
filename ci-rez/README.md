@@ -19,38 +19,38 @@ Warning: this image does *not* contain Rez itself as it is used to *build* Rez!
 
 [Docker Image Source](https://github.com/AcademySoftwareFoundation/aswf-docker/blob/main/ci-rez/Dockerfile)
 
-## [aswf/ci-rez:2023.6](https://hub.docker.com/r/aswf/ci-rez/tags?page=1&name=2023.6)
+## [aswf/ci-rez:2023.7](https://hub.docker.com/r/aswf/ci-rez/tags?page=1&name=2023.7)
 
 Contains:
-* cpython-3.10.20
+* cpython-3.10.22
 * numpy-1.23.5
 * vfxplatform-2023
 
-## [aswf/ci-rez:2024.10](https://hub.docker.com/r/aswf/ci-rez/tags?page=1&name=2024.10)
+## [aswf/ci-rez:2024.11](https://hub.docker.com/r/aswf/ci-rez/tags?page=1&name=2024.11)
 
 Contains:
-* cpython-3.11.15
+* cpython-3.11.17
 * numpy-1.24.3
 * vfxplatform-2024
 
-## [aswf/ci-rez:2025.9](https://hub.docker.com/r/aswf/ci-rez/tags?page=1&name=2025.9)
+## [aswf/ci-rez:2025.10](https://hub.docker.com/r/aswf/ci-rez/tags?page=1&name=2025.10)
 
 Contains:
-* cpython-3.11.15
+* cpython-3.11.17
 * numpy-1.26.4
 * vfxplatform-2025
 
-## [aswf/ci-rez:2026.7](https://hub.docker.com/r/aswf/ci-rez/tags?page=1&name=2026.7)
+## [aswf/ci-rez:2026.8](https://hub.docker.com/r/aswf/ci-rez/tags?page=1&name=2026.8)
 
 Contains:
-* cpython-3.13.14
+* cpython-3.13.17
 * numpy-2.3.2
 * vfxplatform-2026
 
-## [aswf/ci-rez:2027.2](https://hub.docker.com/r/aswf/ci-rez/tags?page=1&name=2027.2)
+## [aswf/ci-rez:2027.3](https://hub.docker.com/r/aswf/ci-rez/tags?page=1&name=2027.3)
 
 Contains:
-* cpython-3.13.14
+* cpython-3.13.17
 * numpy-2.4.6
 * vfxplatform-2027
 

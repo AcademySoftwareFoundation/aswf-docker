@@ -2,24 +2,15 @@ diff --git cmake/defaults/Packages.cmake cmake/defaults/Packages.cmake
 index d99dd79ac..bfda2778a 100644
 --- cmake/defaults/Packages.cmake
 +++ cmake/defaults/Packages.cmake
-@@ -244,6 +244,16 @@
+@@ -244,6 +244,7 @@
      # --Ptex
      if (PXR_ENABLE_PTEX_SUPPORT)
          find_package(PTex REQUIRED)
-+        get_target_property(
-+            PTEX_INCLUDE_DIR
-+            Ptex::Ptex_dynamic
-+            INTERFACE_INCLUDE_DIRECTORIES
-+        )
-+        get_target_property(
-+            PTEX_LIBRARY
-+            Ptex::Ptex_dynamic
-+            INTERFACE_LINK_LIBRARIES
-+        )
++        set(PTEX_LIBRARY Ptex::Ptex_dynamic)
          add_definitions(-DPXR_PTEX_SUPPORT_ENABLED)
      endif()
      # --OpenVDB
-@@ -278,6 +288,9 @@
+@@ -278,6 +279,9 @@
 
  if (PXR_BUILD_ALEMBIC_PLUGIN)
      find_package(Alembic REQUIRED)
@@ -166,7 +157,7 @@ index d99dd79ac..bfda2778a 100644
 +    if(_pxr_mx_targets_after)
 +        list(REMOVE_ITEM _pxr_mx_targets_after ${_pxr_mx_targets_before})
 +        foreach(_mx_tgt IN LISTS _pxr_mx_targets_after)
-+            if(NOT TARGET MaterialX::${_mx_tgt})
++            if(_mx_tgt MATCHES "^MaterialX" AND NOT TARGET MaterialX::${_mx_tgt})
 +                add_library(MaterialX::${_mx_tgt} ALIAS ${_mx_tgt})
 +            endif()
 +        endforeach()

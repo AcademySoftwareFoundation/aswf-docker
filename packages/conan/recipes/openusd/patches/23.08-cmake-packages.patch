@@ -11,29 +11,20 @@ index d99dd79ac..bfda2778a 100644
          REQUIRED
      )
 -    set(Boost_PYTHON_LIBRARY "${Boost_PYTHON${python_version_nodot}_LIBRARY}")
-+    get_target_property(Boost_PYTHON_LIBRARY Boost::python INTERFACE_LINK_LIBRARIES)
-
++    set(Boost_PYTHON_LIBRARY Boost::python)
+ 
      # --Jinja2
      find_package(Jinja2)
-@@ -272,6 +272,16 @@
+@@ -272,6 +272,7 @@
      # --Ptex
      if (PXR_ENABLE_PTEX_SUPPORT)
          find_package(PTex REQUIRED)
-+        get_target_property(
-+            PTEX_INCLUDE_DIR
-+            Ptex::Ptex_dynamic
-+            INTERFACE_INCLUDE_DIRECTORIES
-+        )
-+        get_target_property(
-+            PTEX_LIBRARY
-+            Ptex::Ptex_dynamic
-+            INTERFACE_LINK_LIBRARIES
-+        )
++        set(PTEX_LIBRARY Ptex::Ptex_dynamic)
          add_definitions(-DPXR_PTEX_SUPPORT_ENABLED)
      endif()
      # --OpenVDB
-@@ -305,6 +305,9 @@
-
+@@ -305,6 +306,9 @@
+ 
  if (PXR_BUILD_ALEMBIC_PLUGIN)
      find_package(Alembic REQUIRED)
 +    set(ALEMBIC_FOUND TRUE)
@@ -177,7 +168,21 @@ index d99dd79ac..bfda2778a 100644
          ${Boost_INCLUDE_DIRS}
 --- pxr/pxrConfig.cmake.in
 +++ pxr/pxrConfig.cmake.in
-@@ -57,7 +57,21 @@
+@@ -45,6 +45,13 @@
+     else()
+         find_package(Python3 COMPONENTS Development REQUIRED)
+     endif()
++
++    # USD's own exported pxrTargets.cmake references the Boost::python
++    # target directly (see cmake/defaults/Packages.cmake), but never
++    # arranges for that target to exist outside of the Conan build that
++    # produced it. Find it here too so a plain, non-Conan find_package(pxr)
++    # also works.
++    find_package(Boost COMPONENTS python REQUIRED)
+ endif()
+ 
+ # If MaterialX support was enabled for this USD build, try to find the
+@@ -57,7 +64,21 @@
              set(MaterialX_DIR [[@MaterialX_DIR@]])
          endif()
      endif()
@@ -187,7 +192,7 @@ index d99dd79ac..bfda2778a 100644
 +    if(_pxr_mx_targets_after)
 +        list(REMOVE_ITEM _pxr_mx_targets_after ${_pxr_mx_targets_before})
 +        foreach(_mx_tgt IN LISTS _pxr_mx_targets_after)
-+            if(NOT TARGET MaterialX::${_mx_tgt})
++            if(_mx_tgt MATCHES "^MaterialX" AND NOT TARGET MaterialX::${_mx_tgt})
 +                add_library(MaterialX::${_mx_tgt} ALIAS ${_mx_tgt})
 +            endif()
 +        endforeach()
@@ -197,12 +202,12 @@ index d99dd79ac..bfda2778a 100644
 +    unset(_pxr_mx_targets_after)
 +    unset(_mx_tgt)
  endif()
-
+ 
  # Similar to MaterialX above, we are using Imath's cmake package config, so set
-@@ -74,6 +88,45 @@
+@@ -74,6 +95,45 @@
      find_package(Imath REQUIRED)
  endif()
-
+ 
 +# If OpenColorIO support was enabled for this USD build, find the associated
 +# import targets by invoking the same OpenColorIO cmake package config that
 +# was used for that build. This can be overridden by specifying a different

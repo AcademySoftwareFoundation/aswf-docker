@@ -166,10 +166,13 @@ class OpenSubdivConan(ConanFile):
         self._patch_sources()
         cmake = CMake(self)
         cmake.configure()
-        # ASWF: https://github.com/PixarAnimationStudios/OpenSubdiv/issues/1313
-        # CUDA build fails with high parallelism, limit to 16 threads
-        # seems to help
-        cmake.build(cli_args=["--parallel","1"])
+        if Version(self.version) < "3.8.0":
+            # ASWF: https://github.com/PixarAnimationStudios/OpenSubdiv/issues/1313
+            # CUDA build fails with high parallelism; limit to 1 thread.
+            # Fixed upstream as of 3.8.0, so only needed below that.
+            cmake.build(cli_args=["--parallel", "1"])
+        else:
+            cmake.build()
 
     def package(self):
         # ASWF: license files in package subdir

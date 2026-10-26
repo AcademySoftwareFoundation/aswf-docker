@@ -98,6 +98,9 @@ class OneTBBConan(ConanFile):
         if self._settings_build.os == "Windows":
             if not self.conf_info.get("tools.gnu:make_program", check_type=str):
                 self.tool_requires("make/4.3")
+        # ASWF: needed in package() to run cmake/tbb_config_installer.cmake,
+        # which generates a real TBBConfig.cmake (see package())
+        self.tool_requires("cmake/[>=3.15 <4]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -265,9 +268,23 @@ class OneTBBConan(ConanFile):
                     self.run(f'ln -s "{fname}" "{fname_without_version}"')
 
 
-        copy(self, pattern="*.cmake",
-             dst=os.path.join(self.package_folder, "lib", "cmake"),
-             src=os.path.join(self.source_folder, "cmake"))
+        # ASWF: the upstream cmake/ dir only ships *generator* scripts
+        # (TBBInstallConfig.cmake, templates/TBBConfig.cmake.in, ...), not a
+        # usable config -- copying it verbatim (as upstream's own recipe did)
+        # leaves no real TBBConfig.cmake for a non-Conan find_package(TBB).
+        # Run the generator against this package's own install layout instead,
+        # so lib/cmake/TBB/TBBConfig.cmake works standalone. INSTALL_DIR is
+        # 3 levels under package_folder, matching TBB_LIB_REL_PATH/
+        # TBB_INC_REL_PATH/TBB_BIN_REL_PATH's "../../../{lib,include,bin}"
+        # defaults, so they don't need to be passed explicitly.
+        system_name = {"Windows": "Windows", "Macos": "Darwin"}.get(str(self.settings.os), "Linux")
+        self.run(
+            "cmake"
+            f' -DINSTALL_DIR="{os.path.join(self.package_folder, "lib", "cmake", "TBB")}"'
+            f" -DSYSTEM_NAME={system_name}"
+            f' -DTBB_VERSION_FILE="{os.path.join(self.package_folder, "include", "tbb", "tbb_stddef.h")}"'
+            f' -P "{os.path.join(self.source_folder, "cmake", "tbb_config_installer.cmake")}"'
+        )
 
     def package_info(self):
         self.cpp_info.set_property("cmake_file_name", "TBB")

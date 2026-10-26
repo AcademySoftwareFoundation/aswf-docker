@@ -5,6 +5,7 @@ description: |
   Contains: Imath, RapidJSON and other OpenTimelineIO upstream dependencies
   Warning: this image does *not* contain OpenTimelineIO itself as it is used to *build* OpenTimelineIO!
 packages:
+  - minizip-ng     # upcoming OTIO versions will need this, 0.18.1 does not yet
   - opentimelineio # all dependencies will be installed except opentimelineio itself
 implicit_packages:
   - numpy

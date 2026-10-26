@@ -1,0 +1,13 @@
+diff --git a/chromium/components/autofill/core/browser/BUILD.gn b/chromium/components/autofill/core/browser/BUILD.gn
+index 76169f4..53d74de 100644
+--- a/chromium/components/autofill/core/browser/BUILD.gn
++++ b/chromium/components/autofill/core/browser/BUILD.gn
+@@ -667,6 +667,8 @@ jumbo_static_library("browser") {
+     public_deps = [
+       "//components/autofill/core/browser/proto",
+       "//components/autofill/core/common",
++      "//components/resources:components_scaled_resources",
++      "//components/strings:components_strings",
+       "//components/autofill/core/common/mojom:mojo_types",
+       "//third_party/abseil-cpp:absl",
+       "//ui/base",

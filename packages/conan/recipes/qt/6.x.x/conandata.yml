@@ -74,7 +74,6 @@ sources:
     sha256: "69d0348fef415da98aa890a34651e9cfb232f1bffcee289b7b4e21386bf36104"
   "6.5.6":
     url:
-      - "https://download.qt.io/official_releases/qt/6.5/6.5.6/src/single/qt-everywhere-opensource-src-6.5.6.tar.xz"
       - "https://download.qt.io/archive/qt/6.5/6.5.6/src/single/qt-everywhere-opensource-src-6.5.6.tar.xz"
       - "https://mirrors.20i.com/pub/qt.io/archive/qt/6.5/6.5.6/src/single/qt-everywhere-opensource-src-6.5.6.tar.xz"
       - "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.5/6.5.6/src/single/qt-everywhere-opensource-src-6.5.6.tar.xz"
@@ -279,6 +278,19 @@ patches:
       "patch_file": "patches/QTBUG-59769-6.5.6.diff"
       "patch_type": "bugfix"
       "patch_source": "https://codereview.qt-project.org/c/yocto/meta-qt5/+/192172"
+    - "base_path": "qtwebengine/src/3rdparty"
+      "patch_description": >-
+        Missing generated header dependencies (components_strings.h,
+        components_scaled_resources) in the is_qtwebengine-only autofill
+        BUILD.gn block cause a build race in components/autofill -- same
+        root cause and fix as QTBUG-139959 (patches/0a37015_6.8.3.diff), but
+        6.5.6's qtwebengine-chromium (108-based) has its own, differently
+        structured is_qtwebengine override block for this target that the
+        6.8.3 patch doesn't apply against, and no upstream fix exists for
+        this old a branch. Hand-ported the same two missing deps onto that
+        block's own public_deps list.
+      "patch_file": "patches/autofill-missing-grit-deps-6.5.6.diff"
+      "patch_type": "bugfix"
   "6.5.4":
     # Fixed in 6.5.4: CVE-2023-51714
     # - "base_path": "qtbase"

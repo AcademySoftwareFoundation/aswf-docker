@@ -1,16 +1,24 @@
-# Copyright (c) Contributors to the conan-center-index Project. All rights reserved.
 # Copyright (c) Contributors to the aswf-docker Project. All rights reserved.
 # SPDX-License-Identifier: MIT
-#
-# From: https://github.com/conan-io/conan-center-index/blob/9a66422e07df06d2c502501de6e00b8b1213b563/recipes/libdrm/all/conanfile.py
 
 from conan import ConanFile
+from conan.tools.files import load
+import re
 
 class SystemLibdrmConan(ConanFile):
     name = "libdrm"
-    version = "system"
-    
+
     settings = "os", "arch", "compiler", "build_type"
+
+    def set_version(self):
+        # Advertise the real, system-installed version instead of the
+        # literal string "system", so consumers that version-check this
+        # dependency via pkg-config (e.g. mesa's meson.build requiring
+        # libdrm >=2.4.109) see a real, comparable version instead of
+        # failing with "Invalid version ... found 'system'".
+        content = load(self, "/usr/lib64/pkgconfig/libdrm.pc")
+        match = re.search(r"^Version:\s*(.+)$", content, re.MULTILINE)
+        self.version = match.group(1).strip()
 
     def package_info(self):
         self.cpp_info.system_libs = ["drm", "drm_amdgpu", "drm_nouveau", "drm_intel", "drm_radeon"]

@@ -366,6 +366,41 @@ In an X11 workstation environment, you can run an OpenGL binary inside a contain
 docker run -it --rm --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix aswftesting/ci-common:6 /usr/bin/glxgears
 ```
 
+#### Software Rendering and LLVM-Based Renderers (e.g. Cycles/hdCycles)
+
+A process can reach Mesa's software rasterizer two different ways, and whether each one is dynamically linked against the OS distribution's LLVM (and so can conflict with this project's own LLVM) currently depends on the base image:
+
+- Indirectly, via `libGL`'s `LIBGL_ALWAYS_SOFTWARE=1` fallback (typically paired with Xvfb), which loads Mesa's `swrast_dri.so` DRI driver module. On EL8 this is a real llvmpipe build linked against `libLLVM-17.so` (confirmed via `readelf -d`), shipped by the `mesa-dri-drivers` RPM -- which is *not* installed by default in this project's EL8-based images (2023-2026), only if something installs it explicitly. On EL9 (2027), the current `mesa-dri-drivers` build (25.2.7) dropped LLVM from this driver entirely -- its `swrast_dri.so` has no `libLLVM` dependency at all, so this specific path isn't currently a risk there, though that's a property of this particular point release rather than a structural guarantee.
+- Directly, by linking or `dlopen`-ing classic `libOSMesa.so`, shipped by `mesa-libOSMesa` (EL8) / `mesa-compat-libOSMesa` (EL9). Unlike the DRI driver above, this one is dynamically linked against the system's LLVM on *both* EL8 and EL9 (`libLLVM-17.so` / `libLLVM.so.21.1` respectively).
+
+If the same process also loads one of this project's own LLVM-dependent packages (OSL, OpenVDB, OpenImageDenoise, or anything built on top of them, such as hdCycles/Cycles with OSL enabled), either path that *is* LLVM-linked ends up with two different `libLLVM` SONAMEs loaded into the same process, which aborts with:
+
+```
+LLVM ERROR: Option ... already exists!
+```
+
+This is a fundamental LLVM limitation (its command-line-option and pass registries are process-wide singletons), not something fixable by adjusting library search order or rpaths.
+
+To avoid it, the images also build standalone copies of both `swrast_dri.so` and `libOSMesa.so` linked against this project's own pinned LLVM (the `mesa` Conan package), installed alongside the system ones. `libOSMesa.so` is the one that matters for avoiding an actual crash; the `swrast_dri.so` copy is there for EL8 (where it's a real fix) and as a forward-compatible/performance improvement on EL9 (llvmpipe instead of the system build's non-LLVM software path) in case a future point release reintroduces LLVM there.
+
+This `mesa` package is only reached via `openusd`'s own dependency graph, it's only present in images that reach `openusd` -- `ci-openusd`, `ci-moonray`, `ci-vfxall` -- not generically in every image.
+
+For the `LIBGL_ALWAYS_SOFTWARE` path, point `LIBGL_DRIVERS_PATH` at this package's driver directory so `libGL`'s software fallback uses it instead of the system driver:
+
+```
+docker run -it --rm -e LIBGL_ALWAYS_SOFTWARE=1 -e LIBGL_DRIVERS_PATH=/usr/local/lib/dri aswftesting/ci-openusd:2026 /usr/bin/glxinfo
+```
+
+For a direct classic-OSMesa consumer, make sure this package's directory comes first in `LD_LIBRARY_PATH` so the dynamic linker resolves `libOSMesa.so.8` to this copy rather than the system's:
+
+```
+docker run -it --rm -e LD_LIBRARY_PATH=/usr/local/lib aswftesting/ci-openusd:2026 your-osmesa-app
+```
+
+This only affects the software-rendering paths -- hardware GL/EGL via the NVIDIA Container Toolkit is unaffected.
+
+**Not currently covered: Zink/lavapipe.** EL9's `mesa-dri-drivers` bundles a third software path alongside `swrast`/`kms_swrast` in the same `libdril_dri.so`: `zink`, which translates OpenGL calls into Vulkan instead of rasterizing directly. `LIBGL_ALWAYS_SOFTWARE=1` does not select it -- it asks for the `swrast` driver by name -- but it can still be reached via `MESA_LOADER_DRIVER_OVERRIDE=zink`, or automatically, whenever Mesa falls back to zink because no hardware DRI driver matches the GPU (or lack thereof). On a system with no hardware Vulkan ICD, zink's calls land on `mesa-vulkan-drivers`' software Vulkan ICD, "lavapipe" (`libvulkan_lvp.so`), which -- unlike `swrast`/`kms_swrast` -- genuinely is dynamically linked against the system's LLVM (confirmed via `readelf -d`: `NEEDED libLLVM.so.21.1` on EL9). So zink-via-lavapipe can still hit the same two-`libLLVM`-SONAMEs abort described above, through a Vulkan ICD rather than a DRI module, and this project does not currently build or redirect to a replacement for it the way it does for `swrast_dri.so`/`libOSMesa.so`. Anything that might end up on zink (explicitly, or by falling back to it) should avoid doing so in the same process as this project's own LLVM-dependent packages until this is addressed.
+
 ### Harvesting Pre-Built Binaries
 
 The container images can be used to harvest pre-built binaries:
