@@ -43,6 +43,12 @@ if [[ "$BASEOS_MAJORVERSION" -gt "7" ]]; then
     fi
     # Ignore any DNF metadata cached in base image
     dnf clean all
+    # Some nvidia/cuda base images spuriously ship an enabled RHEL UBI 8 AppStream
+    # repo (/etc/yum.repos.d/ubi-8-appstream.repo), which mixes incompatible RHEL UBI 8
+    # and Rocky Linux 8 package versions and breaks dnf upgrade. Disable it if present.
+    if dnf repolist --enabled ubi-8-appstream 2>/dev/null | grep -q ubi-8-appstream; then
+        dnf config-manager --set-disabled ubi-8-appstream
+    fi
     # Disable CUDA repo since that doesn't upgrade cleanly
     dnf config-manager --set-disabled cuda
     dnf -y upgrade
