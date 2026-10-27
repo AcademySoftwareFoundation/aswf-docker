@@ -219,7 +219,7 @@ class Builder:
         #   to rewrite it.
         # output=type=cacheonly : no container is produced, we only want the cache containing
         #   the output of conan builds
-        # target.target=ci-conan-package-builder : see packages/common/Dockerfile for the Conan
+        # target=ci-conan-package-builder : see packages/common/Dockerfile for the Conan
         #   build container which runs:
         #
         # - conan create
@@ -227,7 +227,7 @@ class Builder:
         #
         runcmd = (
             f"docker buildx bake -f {bake_jsonfile} --set=*.output=type=cacheonly "
-            f"--set=*.target.target=ci-conan-package-builder --progress {progress} "
+            f"--set=*.target=ci-conan-package-builder --progress {progress} "
             f"ci-package-{image}-{major_version}"
         )
 
