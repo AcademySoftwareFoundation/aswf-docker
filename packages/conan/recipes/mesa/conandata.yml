@@ -41,3 +41,11 @@ patches:
         LLVM_VERSION_MAJOR >= 15, which is true starting at our oldest
         pin (15, for vfx2023).
       patch_type: "backport"
+    - patch_file: "patches/23.1.4-llvm18-coro-end-token.patch"
+      patch_description: "Add the token argument required by llvm.coro.end with LLVM >=18."
+      patch_type: "backport"
+      patch_source: "https://gitlab.freedesktop.org/mesa/mesa/-/commit/550cc685a76b609a3c3f358d554de6e9911510ec"
+    - patch_file: "patches/23.1.4-llvm18-instcombine.patch"
+      patch_description: "Disable test-only fixpoint verification in the production InstCombine pipeline with LLVM >=18."
+      patch_type: "backport"
+      patch_source: "https://gitlab.freedesktop.org/mesa/mesa/-/commit/99f0449987bec1f82cd42a06f40bb4a863a37792"
