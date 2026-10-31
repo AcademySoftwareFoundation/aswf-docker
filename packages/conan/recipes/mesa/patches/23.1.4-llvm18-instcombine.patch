@@ -1,0 +1,47 @@
+From 99f0449987bec1f82cd42a06f40bb4a863a37792 Mon Sep 17 00:00:00 2001
+From: Nikita Popov <npopov@redhat.com>
+Date: Mon, 11 Mar 2024 14:45:41 +0100
+Subject: [PATCH] Pass no-verify-fixpoint option to instcombine in LLVM 18
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+When LLVM 18 is used, pass the no-verify-fixpoint option when
+running the instcombine pass. Otherwise LLVM may abort with an
+error.
+
+The background here is that this option is enabled by default for
+testing purposes, because instcombine is normally only explicitly
+invoked like this inside tests. If it is used in an actual
+production pipeline, the no-verify-fixpoint option needs to be
+enabled.
+
+This should fix the issue reported at
+https://bugzilla.redhat.com/show_bug.cgi?id=2268800.
+
+Reviewed-by: Konstantin Seurer <konstantin.seurer@gmail.com>
+Reviewed-by: Marek Olšák <marek.olsak@amd.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/28101>
+---
+ src/gallium/auxiliary/gallivm/lp_bld_init.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/gallium/auxiliary/gallivm/lp_bld_init.c b/src/gallium/auxiliary/gallivm/lp_bld_init.c
+index cd2108f3a088..1345d85b2243 100644
+--- a/src/gallium/auxiliary/gallivm/lp_bld_init.c
++++ b/src/gallium/auxiliary/gallivm/lp_bld_init.c
+@@ -609,7 +609,11 @@ gallivm_compile_module(struct gallivm_state *gallivm)
+    LLVMRunPasses(gallivm->module, passes, LLVMGetExecutionEngineTargetMachine(gallivm->engine), opts);
+ 
+    if (!(gallivm_perf & GALLIVM_PERF_NO_OPT))
++#if LLVM_VERSION_MAJOR >= 18
++      strcpy(passes, "sroa,early-cse,simplifycfg,reassociate,mem2reg,instsimplify,instcombine<no-verify-fixpoint>");
++#else
+       strcpy(passes, "sroa,early-cse,simplifycfg,reassociate,mem2reg,instsimplify,instcombine");
++#endif
+    else
+       strcpy(passes, "mem2reg");
+ 
+-- 
+GitLab
+
